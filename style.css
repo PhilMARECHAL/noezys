@@ -1,25 +1,31 @@
 /* ═══════════════════════════════════════════════════════════
    NOEZYS — style.css
-   V1 · Single-page experience · March 2026
+   V2 · Logo-driven design system · Cyan→Purple gradient
    ═══════════════════════════════════════════════════════════ */
 
 /* ── Tokens ─────────────────────────────────────────────── */
 :root {
-  --bg-deep:       #04080F;
-  --bg-mid:        #070D1A;
-  --accent-blue:   #3A7BFF;
-  --accent-blue-dim: rgba(58, 123, 255, 0.15);
-  --accent-gold:   #C9A84C;
-  --accent-gold-dim: rgba(201, 168, 76, 0.12);
-  --text-primary:  #F0F3FA;
-  --text-secondary:#8A96B4;
-  --text-tertiary: #4A5570;
-  --divider:       rgba(255, 255, 255, 0.06);
+  --bg-deep:        #0A0E1A;
+  --bg-mid:         #0D1225;
+  --bg-card:        rgba(13, 18, 37, 0.6);
+  --accent-cyan:    #00D4FF;
+  --accent-purple:  #8B5CF6;
+  --accent-cyan-dim:   rgba(0, 212, 255, 0.12);
+  --accent-purple-dim: rgba(139, 92, 246, 0.12);
+  --gradient-brand:  linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  --gradient-brand-h: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+  --glow-cyan:      0 0 30px rgba(0, 212, 255, 0.3);
+  --glow-purple:    0 0 30px rgba(139, 92, 246, 0.3);
+  --glow-brand:     0 0 40px rgba(0, 212, 255, 0.15), 0 0 80px rgba(139, 92, 246, 0.1);
+  --text-primary:   #F0F3FA;
+  --text-secondary: #8A96B4;
+  --text-tertiary:  #4A5570;
+  --divider:        rgba(255, 255, 255, 0.06);
 
-  --font-display:  'Calibri', 'Segoe UI', 'Helvetica Neue', sans-serif;
-  --font-body:     'Calibri', 'Segoe UI', 'Helvetica Neue', sans-serif;
+  --font-display:   'Inter', 'Segoe UI', 'Helvetica Neue', sans-serif;
+  --font-body:      'Inter', 'Segoe UI', 'Helvetica Neue', sans-serif;
 
-  --reading-width: 720px;
+  --reading-width:  720px;
 }
 
 /* ── Reset ──────────────────────────────────────────────── */
@@ -46,8 +52,16 @@ body {
 }
 
 ::selection {
-  background: var(--accent-blue-dim);
+  background: var(--accent-cyan-dim);
   color: var(--text-primary);
+}
+
+/* ── Gradient text utility ─────────────────────────────── */
+.gradient-text {
+  background: var(--gradient-brand-h);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* ── Canvas ─────────────────────────────────────────────── */
@@ -91,7 +105,7 @@ body {
   font-size: 10px;
   letter-spacing: 0.35em;
   text-transform: uppercase;
-  color: var(--accent-gold);
+  color: var(--accent-cyan);
   margin-bottom: 32px;
 }
 
@@ -100,9 +114,23 @@ body {
   font-weight: 300;
   font-size: clamp(68px, 10vw, 140px);
   line-height: 1;
-  color: var(--text-primary);
   letter-spacing: 0.06em;
   margin: 0;
+  background: var(--gradient-brand-h);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 40px rgba(0, 212, 255, 0.2)) drop-shadow(0 0 80px rgba(139, 92, 246, 0.15));
+}
+
+.hero__tagline {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: clamp(14px, 2vw, 20px);
+  letter-spacing: 0.15em;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  opacity: 0.7;
 }
 
 .hero__subtitle-born {
@@ -117,9 +145,11 @@ body {
 
 .hero__divider {
   width: 60px;
-  height: 1px;
-  background: var(--divider);
+  height: 2px;
+  background: var(--gradient-brand-h);
   margin: 36px 0;
+  border-radius: 1px;
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.3);
 }
 
 .hero__subtitle {
@@ -144,8 +174,9 @@ body {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: var(--text-tertiary);
+  background: var(--accent-cyan);
   animation: scrollPulse 2.4s ease-in-out infinite;
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.4);
 }
 
 @keyframes scrollPulse {
@@ -192,11 +223,14 @@ body {
 .section__label {
   display: inline-block;
   font-family: var(--font-body);
-  font-weight: 400;
+  font-weight: 500;
   font-size: 9px;
   letter-spacing: 0.4em;
   text-transform: uppercase;
-  color: var(--accent-gold);
+  background: var(--gradient-brand-h);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin-bottom: 40px;
 }
 
@@ -229,7 +263,7 @@ body {
   width: 100%;
   max-width: var(--reading-width);
   height: 1px;
-  background: var(--divider);
+  background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), rgba(139, 92, 246, 0.1), transparent);
   margin: 0 auto;
   position: absolute;
   top: 0;
@@ -243,12 +277,51 @@ body {
 .section--origin .section__accent-line {
   width: 60px;
   height: 2px;
-  background: linear-gradient(90deg, var(--accent-gold), transparent);
+  background: var(--gradient-brand-h);
   margin-bottom: 40px;
+  border-radius: 1px;
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.25);
 }
 
-.gold-italic {
-  color: var(--accent-gold);
+/* Etymology block */
+.section__etymology {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 36px;
+  padding: 28px 32px;
+  border-left: 2px solid;
+  border-image: var(--gradient-brand) 1;
+  background: rgba(0, 212, 255, 0.03);
+  border-radius: 0 8px 8px 0;
+}
+
+.etymology__word {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(28px, 3.5vw, 40px);
+  font-style: italic;
+  background: var(--gradient-brand-h);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+}
+
+.etymology__meta {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: clamp(12px, 1.2vw, 14px);
+  color: var(--text-tertiary);
+  letter-spacing: 0.02em;
+  line-height: 1.6;
+}
+
+.brand-italic {
+  background: var(--gradient-brand-h);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   font-style: italic;
   font-family: var(--font-display);
 }
@@ -282,7 +355,11 @@ body {
 }
 
 .shift__line--primary {
-  color: var(--text-primary);
+  background: var(--gradient-brand-h);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 400;
 }
 
 /* Shift lines reveal animation */
@@ -323,24 +400,30 @@ body {
 .value-card {
   position: relative;
   border: 1px solid var(--divider);
-  border-radius: 2px;
+  border-radius: 8px;
   padding: 36px 28px 40px;
-  transition: border-color 0.4s ease;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
   overflow: hidden;
+  background: var(--bg-card);
+  backdrop-filter: blur(8px);
 }
 
 .value-card:hover {
-  border-color: rgba(201, 168, 76, 0.3);
+  border-color: rgba(0, 212, 255, 0.25);
+  box-shadow: var(--glow-brand);
 }
 
 .value-card__number {
   display: block;
   font-family: var(--font-body);
-  font-weight: 400;
+  font-weight: 500;
   font-size: 11px;
-  color: var(--text-tertiary);
   letter-spacing: 0.1em;
   margin-bottom: 20px;
+  background: var(--gradient-brand-h);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .value-card__name {
@@ -360,17 +443,18 @@ body {
   line-height: 1.75;
 }
 
-/* Gold underline animation on hover */
+/* Gradient underline animation on hover */
 .value-card__line {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 2px;
-  background: var(--accent-gold);
+  background: var(--gradient-brand-h);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.4s ease;
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
 }
 
 .value-card:hover .value-card__line {
@@ -388,8 +472,11 @@ body {
 }
 
 .signature__brand {
-  color: var(--text-primary);
   font-weight: 600;
+  background: var(--gradient-brand-h);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -410,6 +497,13 @@ body {
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--text-tertiary);
+}
+
+.footer__brand {
+  background: var(--gradient-brand-h);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -462,6 +556,11 @@ body {
 
   .hero__divider {
     margin: 24px 0;
+  }
+
+  .hero__tagline {
+    font-size: 13px;
+    letter-spacing: 0.12em;
   }
 }
 
