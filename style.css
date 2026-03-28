@@ -187,8 +187,8 @@ body {
 
 /* Stroke draw-in animation */
 .hero__n-path {
-  stroke-dasharray: 300;
-  stroke-dashoffset: 300;
+  stroke-dasharray: 320;
+  stroke-dashoffset: 320;
 }
 
 .hero__icon.visible .hero__n-path {
