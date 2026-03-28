@@ -306,14 +306,36 @@
     }
   }
 
-  /* ── 2. VIDEO BACKGROUND — graceful degradation ──────────── */
+  /* ── 2. VIDEO BACKGROUND — robust autoplay ────────────────── */
 
   const bgVideo = document.getElementById('bg-video');
   if (bgVideo) {
-    bgVideo.play().catch(() => {
-      // Autoplay blocked or video not available — canvas handles it
-      bgVideo.parentElement.classList.add('video-hidden');
-    });
+    function tryPlay() {
+      bgVideo.muted = true; // Ensure muted for autoplay policy
+      const p = bgVideo.play();
+      if (p) p.catch(() => {});
+    }
+
+    // Try immediately
+    tryPlay();
+
+    // Retry when video data is ready
+    bgVideo.addEventListener('canplay', tryPlay, { once: true });
+    bgVideo.addEventListener('loadeddata', tryPlay, { once: true });
+
+    // Retry on first user interaction (some browsers need this)
+    function playOnInteraction() {
+      tryPlay();
+      document.removeEventListener('click', playOnInteraction);
+      document.removeEventListener('scroll', playOnInteraction);
+      document.removeEventListener('mousemove', playOnInteraction);
+    }
+    document.addEventListener('click', playOnInteraction, { once: true });
+    document.addEventListener('scroll', playOnInteraction, { once: true, passive: true });
+    document.addEventListener('mousemove', playOnInteraction, { once: true });
+
+    // Retry after page fully loads
+    window.addEventListener('load', tryPlay);
 
     bgVideo.addEventListener('error', () => {
       bgVideo.parentElement.classList.add('video-hidden');
@@ -324,7 +346,7 @@
       if (document.hidden) {
         bgVideo.pause();
       } else {
-        bgVideo.play().catch(() => {});
+        tryPlay();
       }
     });
   }
