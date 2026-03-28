@@ -20,7 +20,27 @@
 </head>
 <body>
 
-  <!-- Background Canvas — fixed behind everything -->
+  <!-- ═══════════════════════════════════════════════════════
+       VIDEO BACKGROUND — drop noezys-bg.mp4 into assets/
+       Canvas renders ON TOP as interactive overlay
+       ═══════════════════════════════════════════════════════ -->
+  <div class="video-background" aria-hidden="true">
+    <video
+      id="bg-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      poster="assets/poster.jpg"
+    >
+      <source src="assets/noezys-bg.webm" type="video/webm">
+      <source src="assets/noezys-bg.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+
+  <!-- Intelligence Canvas — interactive particle network -->
   <canvas id="cosmos" aria-hidden="true"></canvas>
 
   <!-- ════════════════════════════════════════════════════════
@@ -60,19 +80,19 @@
       <span class="section__label">CORE VALUES</span>
 
       <div class="values-grid">
-        <div class="value-card reveal">
+        <div class="value-card reveal" data-stagger>
           <span class="value-card__number">01</span>
           <h3 class="value-card__name">Authenticity</h3>
           <p class="value-card__desc">We say what we mean and build what we say. No theatre. No bloat. Every product we ship reflects a genuine commitment to real problems and honest solutions.</p>
           <div class="value-card__line"></div>
         </div>
-        <div class="value-card reveal">
+        <div class="value-card reveal" data-stagger>
           <span class="value-card__number">02</span>
           <h3 class="value-card__name">Creativity</h3>
           <p class="value-card__desc">Constraints are invitations. We find the unexpected route &mdash; the one that turns a limitation into a feature and a friction point into an experience worth remembering.</p>
           <div class="value-card__line"></div>
         </div>
-        <div class="value-card reveal">
+        <div class="value-card reveal" data-stagger>
           <span class="value-card__number">03</span>
           <h3 class="value-card__name">Impact</h3>
           <p class="value-card__desc">We measure success by the difference we make &mdash; in someone's daily routine, in the time they save, in the clarity we bring. Impact is not a metric. It's a discipline.</p>

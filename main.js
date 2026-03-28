@@ -1,6 +1,7 @@
 /* ═══════════════════════════════════════════════════════════
    NOEZYS — main.js
-   V2 · Cyan→Purple cosmos + scroll interactions
+   V3 · Intelligence Canvas — mouse-reactive particle network
+   Inspired by Anthropic/Vercel/Linear hero patterns
    ═══════════════════════════════════════════════════════════ */
 
 (function () {
@@ -8,194 +9,327 @@
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ── 1. CANVAS — Cosmos background ──────────────────────── */
+  /* ── 1. INTELLIGENCE CANVAS — Interactive particle network ── */
 
   const canvas = document.getElementById('cosmos');
   const ctx = canvas.getContext('2d');
-  let W, H;
-  let animationId;
+  let W, H, dpr;
+
+  // Mouse state with smooth lerp
+  const mouse = { x: -9999, y: -9999, targetX: -9999, targetY: -9999, active: false };
+  const MOUSE_RADIUS = 200;
+  const MOUSE_REPEL = 0.03;
+  const CONNECTION_DIST = 140;
+  const MOUSE_CONNECTION_DIST = 220;
 
   function resize() {
-    W = canvas.width = window.innerWidth;
-    H = canvas.height = window.innerHeight;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
   resize();
   window.addEventListener('resize', resize);
 
-  // Particles — cyan and purple palette
-  const PARTICLE_COUNT = 90;
-  const particles = [];
+  // Mouse tracking
+  document.addEventListener('mousemove', (e) => {
+    mouse.targetX = e.clientX;
+    mouse.targetY = e.clientY;
+    mouse.active = true;
+  });
+  document.addEventListener('mouseleave', () => {
+    mouse.active = false;
+  });
 
-  function createParticle() {
-    const isPurple = Math.random() < 0.4;
-    const cx = W * 0.5;
-    const cy = H * 0.48;
-    const angle = Math.random() * Math.PI * 2;
-    const radiusX = 80 + Math.random() * (W * 0.45);
-    const radiusY = 60 + Math.random() * (H * 0.38);
+  // ── Nodes (particles) ──
+  const NODE_COUNT = 80;
+  const nodes = [];
+
+  function createNode(i) {
+    const t = i / NODE_COUNT;
+    const isCyan = t < 0.55;
     return {
-      cx, cy,
-      angle,
-      radiusX, radiusY,
-      speed: (0.0001 + Math.random() * 0.0003) * (Math.random() < 0.5 ? 1 : -1),
-      size: 0.5 + Math.random() * 1.5,
-      opacity: 0.08 + Math.random() * 0.25,
-      color: isPurple
-        ? `rgba(139, 92, 246, VAR_OPACITY)`
-        : `rgba(0, 212, 255, VAR_OPACITY)`,
-    };
-  }
-
-  for (let i = 0; i < PARTICLE_COUNT; i++) {
-    particles.push(createParticle());
-  }
-
-  // Energy lines flowing toward center
-  const LINE_COUNT = 14;
-  const energyLines = [];
-
-  function createEnergyLine() {
-    const side = Math.floor(Math.random() * 4);
-    let startX, startY;
-    switch (side) {
-      case 0: startX = Math.random() * W; startY = 0; break;
-      case 1: startX = W; startY = Math.random() * H; break;
-      case 2: startX = Math.random() * W; startY = H; break;
-      case 3: startX = 0; startY = Math.random() * H; break;
-    }
-    const isCyan = Math.random() < 0.6;
-    return {
-      startX, startY,
-      endX: W * 0.5 + (Math.random() - 0.5) * 100,
-      endY: H * 0.48 + (Math.random() - 0.5) * 60,
-      progress: Math.random(),
-      speed: 0.0004 + Math.random() * 0.0006,
-      opacity: 0.02 + Math.random() * 0.04,
-      rotationOffset: Math.random() * Math.PI * 2,
-      rotationSpeed: (0.00005 + Math.random() * 0.0001) * (Math.random() < 0.5 ? 1 : -1),
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      baseVx: (Math.random() - 0.5) * 0.3,
+      baseVy: (Math.random() - 0.5) * 0.3,
+      size: 1 + Math.random() * 2,
+      baseSize: 1 + Math.random() * 2,
+      opacity: 0.15 + Math.random() * 0.4,
       r: isCyan ? 0 : 139,
       g: isCyan ? 212 : 92,
       b: isCyan ? 255 : 246,
+      pulseOffset: Math.random() * Math.PI * 2,
+      pulseSpeed: 0.005 + Math.random() * 0.01,
     };
   }
 
-  for (let i = 0; i < LINE_COUNT; i++) {
-    energyLines.push(createEnergyLine());
+  for (let i = 0; i < NODE_COUNT; i++) {
+    nodes.push(createNode(i));
   }
 
-  // Horizon line at 48%
-  let horizonPulse = 0;
-  const horizonSpeed = 0.003;
+  // ── Floating energy ribbons ──
+  const RIBBON_COUNT = 5;
+  const ribbons = [];
 
-  // Center shimmer
-  let shimmerPhase = 0;
-  const shimmerSpeed = 0.004;
+  for (let i = 0; i < RIBBON_COUNT; i++) {
+    const isCyan = i < 3;
+    ribbons.push({
+      points: Array.from({ length: 6 }, () => ({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.15,
+        vy: (Math.random() - 0.5) * 0.1,
+      })),
+      r: isCyan ? 0 : 139,
+      g: isCyan ? 212 : 92,
+      b: isCyan ? 255 : 246,
+      opacity: 0.015 + Math.random() * 0.02,
+      width: 1 + Math.random() * 1.5,
+    });
+  }
 
-  function drawCosmos(time) {
+  // ── Ambient glow orbs ──
+  const orbs = [
+    { x: 0.3, y: 0.4, r: 0, g: 212, b: 255, radius: 250, opacity: 0.03, phase: 0, speed: 0.002 },
+    { x: 0.7, y: 0.35, r: 139, g: 92, b: 246, radius: 300, opacity: 0.025, phase: Math.PI, speed: 0.0015 },
+    { x: 0.5, y: 0.6, r: 60, g: 150, b: 255, radius: 200, opacity: 0.02, phase: Math.PI * 0.5, speed: 0.0025 },
+  ];
+
+  // ── Main render loop ──
+  let time = 0;
+
+  function draw() {
+    time++;
     ctx.clearRect(0, 0, W, H);
 
-    // Radial gradient background — deep navy with subtle blue core
-    const grad = ctx.createRadialGradient(W * 0.5, H * 0.48, 0, W * 0.5, H * 0.48, Math.max(W, H) * 0.7);
-    grad.addColorStop(0, '#111B3A');
-    grad.addColorStop(0.4, '#0D1225');
-    grad.addColorStop(1, '#0A0E1A');
-    ctx.fillStyle = grad;
+    // Smooth mouse lerp
+    if (mouse.active) {
+      mouse.x += (mouse.targetX - mouse.x) * 0.08;
+      mouse.y += (mouse.targetY - mouse.y) * 0.08;
+    } else {
+      mouse.x += (-9999 - mouse.x) * 0.02;
+      mouse.y += (-9999 - mouse.y) * 0.02;
+    }
+
+    // ── Background gradient ──
+    const bgGrad = ctx.createRadialGradient(W * 0.5, H * 0.45, 0, W * 0.5, H * 0.45, Math.max(W, H) * 0.75);
+    bgGrad.addColorStop(0, '#111B3A');
+    bgGrad.addColorStop(0.35, '#0D1225');
+    bgGrad.addColorStop(1, '#0A0E1A');
+    ctx.fillStyle = bgGrad;
     ctx.fillRect(0, 0, W, H);
 
-    // Energy lines — cyan and purple
-    for (const line of energyLines) {
-      line.progress += line.speed;
-      line.rotationOffset += line.rotationSpeed;
-      if (line.progress > 1) line.progress = 0;
+    // ── Ambient glow orbs (pulsing) ──
+    for (const orb of orbs) {
+      orb.phase += orb.speed;
+      const pulse = 0.6 + Math.sin(orb.phase) * 0.4;
+      const ox = orb.x * W + Math.sin(orb.phase * 0.7) * 30;
+      const oy = orb.y * H + Math.cos(orb.phase * 0.5) * 20;
+      const g = ctx.createRadialGradient(ox, oy, 0, ox, oy, orb.radius);
+      g.addColorStop(0, `rgba(${orb.r}, ${orb.g}, ${orb.b}, ${orb.opacity * pulse})`);
+      g.addColorStop(1, `rgba(${orb.r}, ${orb.g}, ${orb.b}, 0)`);
+      ctx.fillStyle = g;
+      ctx.fillRect(ox - orb.radius, oy - orb.radius, orb.radius * 2, orb.radius * 2);
+    }
 
-      const cx = W * 0.5;
-      const cy = H * 0.48;
-      const cos = Math.cos(line.rotationOffset);
-      const sin = Math.sin(line.rotationOffset);
-
-      const dx = line.startX - cx;
-      const dy = line.startY - cy;
-      const rx = cx + dx * cos - dy * sin;
-      const ry = cy + dx * sin + dy * cos;
-
-      const lineGrad = ctx.createLinearGradient(rx, ry, line.endX, line.endY);
-      lineGrad.addColorStop(0, `rgba(${line.r}, ${line.g}, ${line.b}, 0)`);
-      lineGrad.addColorStop(Math.max(0, line.progress - 0.15), `rgba(${line.r}, ${line.g}, ${line.b}, 0)`);
-      lineGrad.addColorStop(line.progress, `rgba(${line.r}, ${line.g}, ${line.b}, ${line.opacity})`);
-      lineGrad.addColorStop(Math.min(1, line.progress + 0.05), `rgba(${line.r}, ${line.g}, ${line.b}, 0)`);
+    // ── Energy ribbons (flowing curves) ──
+    for (const ribbon of ribbons) {
+      for (const pt of ribbon.points) {
+        pt.x += pt.vx;
+        pt.y += pt.vy;
+        if (pt.x < -50 || pt.x > W + 50) pt.vx *= -1;
+        if (pt.y < -50 || pt.y > H + 50) pt.vy *= -1;
+      }
 
       ctx.beginPath();
-      ctx.moveTo(rx, ry);
-      ctx.lineTo(line.endX, line.endY);
-      ctx.strokeStyle = lineGrad;
-      ctx.lineWidth = 0.5;
+      ctx.moveTo(ribbon.points[0].x, ribbon.points[0].y);
+      for (let i = 1; i < ribbon.points.length - 1; i++) {
+        const cpx = (ribbon.points[i].x + ribbon.points[i + 1].x) / 2;
+        const cpy = (ribbon.points[i].y + ribbon.points[i + 1].y) / 2;
+        ctx.quadraticCurveTo(ribbon.points[i].x, ribbon.points[i].y, cpx, cpy);
+      }
+      ctx.strokeStyle = `rgba(${ribbon.r}, ${ribbon.g}, ${ribbon.b}, ${ribbon.opacity})`;
+      ctx.lineWidth = ribbon.width;
       ctx.stroke();
     }
 
-    // Horizon line — cyan→purple gradient
-    horizonPulse += horizonSpeed;
-    const horizonY = H * 0.48;
-    const horizonOpacity = 0.06 + Math.sin(horizonPulse) * 0.03;
-    const horizonGrad = ctx.createLinearGradient(W * 0.15, horizonY, W * 0.85, horizonY);
-    horizonGrad.addColorStop(0, 'rgba(0, 212, 255, 0)');
-    horizonGrad.addColorStop(0.25, `rgba(0, 212, 255, ${horizonOpacity * 0.6})`);
-    horizonGrad.addColorStop(0.5, `rgba(80, 150, 255, ${horizonOpacity})`);
-    horizonGrad.addColorStop(0.75, `rgba(139, 92, 246, ${horizonOpacity * 0.6})`);
-    horizonGrad.addColorStop(1, 'rgba(139, 92, 246, 0)');
+    // ── Update nodes ──
+    for (const node of nodes) {
+      // Pulse animation
+      node.pulseOffset += node.pulseSpeed;
+      const pulse = 0.7 + Math.sin(node.pulseOffset) * 0.3;
 
-    ctx.beginPath();
-    ctx.moveTo(W * 0.15, horizonY);
-    ctx.lineTo(W * 0.85, horizonY);
-    ctx.strokeStyle = horizonGrad;
-    ctx.lineWidth = 1;
-    ctx.stroke();
+      // Mouse interaction — soft repel + size boost
+      const dx = node.x - mouse.x;
+      const dy = node.y - mouse.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
 
-    // Center shimmer — dual glow (cyan + purple)
-    shimmerPhase += shimmerSpeed;
-    const shimmerOpacity = 0.04 + Math.sin(shimmerPhase) * 0.025;
+      if (dist < MOUSE_RADIUS && dist > 0) {
+        const force = (1 - dist / MOUSE_RADIUS) * MOUSE_REPEL;
+        node.vx += (dx / dist) * force;
+        node.vy += (dy / dist) * force;
+        node.size = node.baseSize * (1 + (1 - dist / MOUSE_RADIUS) * 1.5);
+      } else {
+        node.size += (node.baseSize - node.size) * 0.05;
+      }
 
-    const shimmerCyan = ctx.createRadialGradient(W * 0.48, H * 0.48, 0, W * 0.48, H * 0.48, 100);
-    shimmerCyan.addColorStop(0, `rgba(0, 212, 255, ${shimmerOpacity * 0.7})`);
-    shimmerCyan.addColorStop(1, 'rgba(0, 212, 255, 0)');
-    ctx.fillStyle = shimmerCyan;
-    ctx.fillRect(W * 0.48 - 100, H * 0.48 - 100, 200, 200);
+      // Drift back to base velocity
+      node.vx += (node.baseVx - node.vx) * 0.01;
+      node.vy += (node.baseVy - node.vy) * 0.01;
 
-    const shimmerPurple = ctx.createRadialGradient(W * 0.52, H * 0.47, 0, W * 0.52, H * 0.47, 120);
-    shimmerPurple.addColorStop(0, `rgba(139, 92, 246, ${shimmerOpacity * 0.5})`);
-    shimmerPurple.addColorStop(1, 'rgba(139, 92, 246, 0)');
-    ctx.fillStyle = shimmerPurple;
-    ctx.fillRect(W * 0.52 - 120, H * 0.47 - 120, 240, 240);
+      // Apply velocity with damping
+      node.x += node.vx;
+      node.y += node.vy;
+      node.vx *= 0.99;
+      node.vy *= 0.99;
 
-    // Particles
-    for (const p of particles) {
-      p.angle += p.speed;
-      const x = p.cx + Math.cos(p.angle) * p.radiusX;
-      const y = p.cy + Math.sin(p.angle) * p.radiusY;
+      // Wrap around edges
+      if (node.x < -20) node.x = W + 20;
+      if (node.x > W + 20) node.x = -20;
+      if (node.y < -20) node.y = H + 20;
+      if (node.y > H + 20) node.y = -20;
 
-      const col = p.color.replace('VAR_OPACITY', p.opacity.toString());
+      // Draw node with glow
+      const nodeOpacity = node.opacity * pulse;
       ctx.beginPath();
-      ctx.arc(x, y, p.size, 0, Math.PI * 2);
-      ctx.fillStyle = col;
+      ctx.arc(node.x, node.y, node.size, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${node.r}, ${node.g}, ${node.b}, ${nodeOpacity})`;
       ctx.fill();
+
+      // Glow halo for larger nodes
+      if (node.baseSize > 2) {
+        const glow = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, node.size * 4);
+        glow.addColorStop(0, `rgba(${node.r}, ${node.g}, ${node.b}, ${nodeOpacity * 0.3})`);
+        glow.addColorStop(1, `rgba(${node.r}, ${node.g}, ${node.b}, 0)`);
+        ctx.fillStyle = glow;
+        ctx.fillRect(node.x - node.size * 4, node.y - node.size * 4, node.size * 8, node.size * 8);
+      }
     }
 
-    animationId = requestAnimationFrame(drawCosmos);
+    // ── Connections between close nodes ──
+    ctx.lineWidth = 0.5;
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const a = nodes[i];
+        const b = nodes[j];
+        const dx = a.x - b.x;
+        const dy = a.y - b.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < CONNECTION_DIST) {
+          const alpha = (1 - dist / CONNECTION_DIST) * 0.12;
+          // Blend colors between the two nodes
+          const r = (a.r + b.r) / 2;
+          const g = (a.g + b.g) / 2;
+          const bl = (a.b + b.b) / 2;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.strokeStyle = `rgba(${r}, ${g}, ${bl}, ${alpha})`;
+          ctx.stroke();
+        }
+      }
+    }
+
+    // ── Mouse glow cursor ──
+    if (mouse.active && mouse.x > 0 && mouse.x < W) {
+      // Cursor attraction lines to nearby nodes
+      for (const node of nodes) {
+        const dx = node.x - mouse.x;
+        const dy = node.y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < MOUSE_CONNECTION_DIST) {
+          const alpha = (1 - dist / MOUSE_CONNECTION_DIST) * 0.08;
+          ctx.beginPath();
+          ctx.moveTo(mouse.x, mouse.y);
+          ctx.lineTo(node.x, node.y);
+          ctx.strokeStyle = `rgba(0, 212, 255, ${alpha})`;
+          ctx.lineWidth = 0.4;
+          ctx.stroke();
+        }
+      }
+
+      // Cursor glow
+      const cursorGlow = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 120);
+      cursorGlow.addColorStop(0, 'rgba(0, 212, 255, 0.06)');
+      cursorGlow.addColorStop(0.5, 'rgba(139, 92, 246, 0.02)');
+      cursorGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.fillStyle = cursorGlow;
+      ctx.fillRect(mouse.x - 120, mouse.y - 120, 240, 240);
+    }
+
+    // ── Horizon line (subtle) ──
+    const horizonY = H * 0.48;
+    const hOpacity = 0.04 + Math.sin(time * 0.003) * 0.02;
+    const horizonGrad = ctx.createLinearGradient(W * 0.1, horizonY, W * 0.9, horizonY);
+    horizonGrad.addColorStop(0, 'rgba(0, 212, 255, 0)');
+    horizonGrad.addColorStop(0.3, `rgba(0, 212, 255, ${hOpacity * 0.5})`);
+    horizonGrad.addColorStop(0.5, `rgba(80, 150, 255, ${hOpacity})`);
+    horizonGrad.addColorStop(0.7, `rgba(139, 92, 246, ${hOpacity * 0.5})`);
+    horizonGrad.addColorStop(1, 'rgba(139, 92, 246, 0)');
+    ctx.beginPath();
+    ctx.moveTo(W * 0.1, horizonY);
+    ctx.lineTo(W * 0.9, horizonY);
+    ctx.strokeStyle = horizonGrad;
+    ctx.lineWidth = 0.8;
+    ctx.stroke();
+
+    requestAnimationFrame(draw);
   }
 
   if (!prefersReducedMotion) {
-    drawCosmos(0);
+    draw();
   } else {
-    // Static fallback
+    // Static fallback — gradient + a few static nodes
     resize();
-    const grad = ctx.createRadialGradient(W * 0.5, H * 0.48, 0, W * 0.5, H * 0.48, Math.max(W, H) * 0.7);
+    const grad = ctx.createRadialGradient(W * 0.5, H * 0.45, 0, W * 0.5, H * 0.45, Math.max(W, H) * 0.75);
     grad.addColorStop(0, '#111B3A');
-    grad.addColorStop(0.4, '#0D1225');
+    grad.addColorStop(0.35, '#0D1225');
     grad.addColorStop(1, '#0A0E1A');
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, W, H);
+
+    // Draw static nodes
+    for (const node of nodes) {
+      ctx.beginPath();
+      ctx.arc(node.x, node.y, node.size, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${node.r}, ${node.g}, ${node.b}, ${node.opacity * 0.5})`;
+      ctx.fill();
+    }
   }
 
-  /* ── 2. HERO LOAD ANIMATION ─────────────────────────────── */
+  /* ── 2. VIDEO BACKGROUND — graceful degradation ──────────── */
+
+  const bgVideo = document.getElementById('bg-video');
+  if (bgVideo) {
+    bgVideo.play().catch(() => {
+      // Autoplay blocked or video not available — canvas handles it
+      bgVideo.parentElement.classList.add('video-hidden');
+    });
+
+    bgVideo.addEventListener('error', () => {
+      bgVideo.parentElement.classList.add('video-hidden');
+    });
+
+    // Pause video when tab not visible
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        bgVideo.pause();
+      } else {
+        bgVideo.play().catch(() => {});
+      }
+    });
+  }
+
+  /* ── 3. HERO LOAD ANIMATION ─────────────────────────────── */
 
   const heroElements = document.querySelectorAll('.anim-hero');
 
@@ -209,7 +343,7 @@
     });
   });
 
-  /* ── 3. HERO PARALLAX ON SCROLL ─────────────────────────── */
+  /* ── 4. HERO PARALLAX ON SCROLL ─────────────────────────── */
 
   const heroContent = document.querySelector('.hero__content');
   let ticking = false;
@@ -237,26 +371,34 @@
     window.addEventListener('scroll', onScroll, { passive: true });
   }
 
-  /* ── 4. SCROLL REVEAL — IntersectionObserver ────────────── */
+  /* ── 5. SCROLL REVEAL — staggered IntersectionObserver ───── */
 
   if (!prefersReducedMotion) {
     const revealObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
+            // Stagger children with data-stagger attribute
+            const staggerChildren = entry.target.querySelectorAll('[data-stagger]');
+            if (staggerChildren.length > 0) {
+              staggerChildren.forEach((child, i) => {
+                child.style.transitionDelay = `${i * 0.12}s`;
+                child.classList.add('visible');
+              });
+            }
             entry.target.classList.add('visible');
             revealObserver.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.12 }
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
     );
 
     document.querySelectorAll('.reveal').forEach((el) => {
       revealObserver.observe(el);
     });
   } else {
-    document.querySelectorAll('.reveal').forEach((el) => {
+    document.querySelectorAll('.reveal, [data-stagger]').forEach((el) => {
       el.classList.add('visible');
     });
   }

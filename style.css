@@ -1,6 +1,7 @@
 /* ═══════════════════════════════════════════════════════════
    NOEZYS — style.css
-   V2 · Logo-driven design system · Cyan→Purple gradient
+   V3 · Intelligence Canvas + Video BG + Stagger Animations
+   Inspired by Linear/Vercel/Anthropic
    ═══════════════════════════════════════════════════════════ */
 
 /* ── Tokens ─────────────────────────────────────────────── */
@@ -26,6 +27,10 @@
   --font-body:      'Inter', 'Segoe UI', 'Helvetica Neue', sans-serif;
 
   --reading-width:  720px;
+
+  /* Animation easing — inspired by Linear */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 /* ── Reset ──────────────────────────────────────────────── */
@@ -64,7 +69,56 @@ body {
   background-clip: text;
 }
 
-/* ── Canvas ─────────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════
+   VIDEO BACKGROUND — behind everything
+   ══════════════════════════════════════════════════════════ */
+.video-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  overflow: hidden;
+  background: var(--bg-deep);
+}
+
+.video-background video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
+
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(10, 14, 26, 0.3) 0%,
+    rgba(10, 14, 26, 0.6) 50%,
+    rgba(10, 14, 26, 0.92) 100%
+  );
+}
+
+/* Hide video gracefully if it fails */
+.video-background.video-hidden video {
+  display: none;
+}
+
+/* Mobile: static poster, no video */
+@media (max-width: 768px) {
+  .video-background video {
+    display: none;
+  }
+}
+
+/* ── Canvas — on top of video, interactive layer ────────── */
 #cosmos {
   position: fixed;
   top: 0;
@@ -73,6 +127,15 @@ body {
   height: 100%;
   z-index: 0;
   pointer-events: none;
+}
+
+/* Allow mouse events to reach canvas in hero area */
+.hero {
+  pointer-events: none;
+}
+
+.hero__content {
+  pointer-events: auto;
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -133,16 +196,6 @@ body {
   opacity: 0.7;
 }
 
-.hero__subtitle-born {
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-style: italic;
-  font-size: clamp(42px, 6.2vw, 87px);
-  color: var(--text-secondary);
-  line-height: 1.1;
-  margin-top: -4px;
-}
-
 .hero__divider {
   width: 60px;
   height: 2px;
@@ -187,18 +240,18 @@ body {
 /* Hero load animations */
 .anim-hero {
   opacity: 0;
-  transform: translateY(12px);
+  transform: translateY(16px);
 }
 
 .anim-hero.visible {
-  animation: heroFadeUp var(--anim-duration, 1.2s) cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: heroFadeUp var(--anim-duration, 1.2s) var(--ease-out-expo) forwards;
   animation-delay: var(--anim-delay, 0s);
 }
 
 @keyframes heroFadeUp {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -272,7 +325,7 @@ body {
 }
 
 /* ══════════════════════════════════════════════════════════
-   BLOCK 2 — ORIGIN
+   BLOCK 2 — ABOUT
    ══════════════════════════════════════════════════════════ */
 .section--origin .section__accent-line {
   width: 60px;
@@ -281,40 +334,6 @@ body {
   margin-bottom: 40px;
   border-radius: 1px;
   box-shadow: 0 0 10px rgba(0, 212, 255, 0.25);
-}
-
-/* Etymology block */
-.section__etymology {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-bottom: 36px;
-  padding: 28px 32px;
-  border-left: 2px solid;
-  border-image: var(--gradient-brand) 1;
-  background: rgba(0, 212, 255, 0.03);
-  border-radius: 0 8px 8px 0;
-}
-
-.etymology__word {
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: clamp(28px, 3.5vw, 40px);
-  font-style: italic;
-  background: var(--gradient-brand-h);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  line-height: 1.2;
-}
-
-.etymology__meta {
-  font-family: var(--font-body);
-  font-weight: 300;
-  font-size: clamp(12px, 1.2vw, 14px);
-  color: var(--text-tertiary);
-  letter-spacing: 0.02em;
-  line-height: 1.6;
 }
 
 .brand-italic {
@@ -326,68 +345,8 @@ body {
   font-family: var(--font-display);
 }
 
-.section__body-emphasis {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(18px, 2vw, 22px);
-  font-style: italic;
-  color: var(--text-primary);
-  margin-top: 8px;
-}
-
 /* ══════════════════════════════════════════════════════════
-   BLOCK 3 — THE SHIFT
-   ══════════════════════════════════════════════════════════ */
-.shift__lines {
-  margin-bottom: 40px;
-}
-
-.shift__line {
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: clamp(20px, 2.5vw, 28px);
-  line-height: 1.6;
-  margin-bottom: 8px;
-}
-
-.shift__line--muted {
-  color: var(--text-secondary);
-}
-
-.shift__line--primary {
-  background: var(--gradient-brand-h);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 400;
-}
-
-/* Shift lines reveal animation */
-.reveal-line {
-  opacity: 0;
-  transform: translateX(-10px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-
-.reveal-line.visible {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-/* ══════════════════════════════════════════════════════════
-   BLOCK 4 — MISSION & VISION
-   ══════════════════════════════════════════════════════════ */
-.section__mission-statement {
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: clamp(28px, 4vw, 44px);
-  color: var(--text-primary);
-  line-height: 1.3;
-  margin-bottom: 36px;
-}
-
-/* ══════════════════════════════════════════════════════════
-   BLOCK 5 — VALUES & SIGNATURE
+   BLOCK 3 — VALUES
    ══════════════════════════════════════════════════════════ */
 .values-grid {
   display: grid;
@@ -400,17 +359,24 @@ body {
 .value-card {
   position: relative;
   border: 1px solid var(--divider);
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 36px 28px 40px;
-  transition: border-color 0.4s ease, box-shadow 0.4s ease;
   overflow: hidden;
   background: var(--bg-card);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition:
+    border-color 0.5s var(--ease-out-quart),
+    box-shadow 0.5s var(--ease-out-quart),
+    transform 0.5s var(--ease-out-quart);
 }
 
 .value-card:hover {
-  border-color: rgba(0, 212, 255, 0.25);
-  box-shadow: var(--glow-brand);
+  border-color: rgba(0, 212, 255, 0.2);
+  box-shadow:
+    var(--glow-brand),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transform: translateY(-4px);
 }
 
 .value-card__number {
@@ -428,7 +394,7 @@ body {
 
 .value-card__name {
   font-family: var(--font-display);
-  font-weight: 300;
+  font-weight: 400;
   font-size: clamp(20px, 2.2vw, 26px);
   color: var(--text-primary);
   margin-bottom: 14px;
@@ -453,7 +419,7 @@ body {
   background: var(--gradient-brand-h);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.4s ease;
+  transition: transform 0.5s var(--ease-out-expo);
   box-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
 }
 
@@ -461,7 +427,28 @@ body {
   transform: scaleX(1);
 }
 
-/* Signature */
+/* ── Card ambient glow (top-left corner) ── */
+.value-card::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle at top left, rgba(0, 212, 255, 0.06), transparent 70%);
+  border-radius: 12px 0 0 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-out-quart);
+}
+
+.value-card:hover::before {
+  opacity: 1;
+}
+
+/* ══════════════════════════════════════════════════════════
+   BLOCK 4 — MISSION
+   ══════════════════════════════════════════════════════════ */
 .signature {
   text-align: center;
   font-family: var(--font-display);
@@ -507,15 +494,31 @@ body {
 }
 
 /* ══════════════════════════════════════════════════════════
-   SCROLL REVEAL
+   SCROLL REVEAL — enhanced with stagger support
    ══════════════════════════════════════════════════════════ */
 .reveal {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.9s ease, transform 0.9s ease;
+  transition:
+    opacity 0.8s var(--ease-out-expo),
+    transform 0.8s var(--ease-out-expo);
 }
 
 .reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger children — cards animate one by one */
+[data-stagger] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s var(--ease-out-expo),
+    transform 0.7s var(--ease-out-expo);
+}
+
+[data-stagger].visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -599,7 +602,7 @@ body {
     transition: none;
   }
 
-  .reveal-line {
+  [data-stagger] {
     opacity: 1;
     transform: none;
     transition: none;
@@ -610,7 +613,15 @@ body {
     opacity: 0.5;
   }
 
+  .value-card {
+    transition: none;
+  }
+
   .value-card__line {
     transition: none;
+  }
+
+  .video-background video {
+    display: none;
   }
 }
