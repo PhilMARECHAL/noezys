@@ -49,6 +49,31 @@
   <section id="hero" class="hero">
     <div class="hero__content">
       <p class="hero__eyebrow anim-hero" data-delay="0.4">noezys.com · 2026</p>
+
+      <!-- N mark icon from logo -->
+      <div class="hero__icon anim-hero" data-delay="0.5" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 100" class="hero__n-mark">
+          <defs>
+            <linearGradient id="heroNG" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#00D4FF"/>
+              <stop offset="100%" stop-color="#8B5CF6"/>
+            </linearGradient>
+            <filter id="heroGlow" x="-25%" y="-25%" width="150%" height="150%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="b"/>
+              <feComponentTransfer in="b"><feFuncA type="linear" slope="0.5"/></feComponentTransfer>
+            </filter>
+          </defs>
+          <!-- Glow layer -->
+          <path d="M 10,85 C 10,55 18,15 30,15 C 42,15 45,65 55,75 C 65,85 68,15 80,15 C 92,15 105,55 105,85"
+                fill="none" stroke="url(#heroNG)" stroke-width="16"
+                stroke-linecap="round" stroke-linejoin="round" filter="url(#heroGlow)"/>
+          <!-- Main stroke -->
+          <path d="M 10,85 C 10,55 18,15 30,15 C 42,15 45,65 55,75 C 65,85 68,15 80,15 C 92,15 105,55 105,85"
+                fill="none" stroke="url(#heroNG)" stroke-width="13"
+                stroke-linecap="round" stroke-linejoin="round" class="hero__n-path"/>
+        </svg>
+      </div>
+
       <h1 class="hero__title anim-hero" data-delay="0.7">NOEZYS</h1>
       <p class="hero__tagline anim-hero" data-delay="0.9">AI Innovation Lab</p>
       <div class="hero__divider anim-hero" data-delay="1.4"></div>
