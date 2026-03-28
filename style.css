@@ -23,8 +23,8 @@
   --text-tertiary:  #4A5570;
   --divider:        rgba(255, 255, 255, 0.06);
 
-  --font-display:   'Inter', 'Segoe UI', 'Helvetica Neue', sans-serif;
-  --font-body:      'Inter', 'Segoe UI', 'Helvetica Neue', sans-serif;
+  --font-display:   'Outfit', 'Inter', 'Segoe UI', sans-serif;
+  --font-body:      'Outfit', 'Inter', 'Segoe UI', sans-serif;
 
   --reading-width:  720px;
 
@@ -211,10 +211,10 @@ body {
 
 .hero__title {
   font-family: var(--font-display);
-  font-weight: 300;
+  font-weight: 400;
   font-size: clamp(68px, 10vw, 140px);
   line-height: 1;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   margin: 0;
   background: var(--gradient-brand-h);
   -webkit-background-clip: text;
