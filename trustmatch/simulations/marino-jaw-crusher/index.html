@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Le parcours Marino — TrustMatch × Zenith × Carmeuse Moha</title>
+  <meta name="description" content="Comment Marino, responsable de maintenance chez Carmeuse Moha, a sauvé 53 750 € et 6 semaines grâce à TrustMatch et Zenith Shanghai." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ==========================================================
+       TrustMatch · Charte visuelle
+       ========================================================== */
+    :root {
+      --navy-900: #050d1c;
+      --navy-800: #0a1628;
+      --navy-700: #0d1f3a;
+      --navy-600: #142a4a;
+      --navy-500: #1d3a64;
+      --gold-500: #d4a017;
+      --gold-400: #e2b338;
+      --gold-300: #f0c95e;
+      --white: #ffffff;
+      --off-white: #f4ecd9;
+      --text-muted: #9aa8c4;
+      --text-soft: #c4cfe0;
+      --red-alert: #c0392b;
+      --green-success: #1f9d55;
+      --shadow-lg: 0 30px 80px -20px rgba(0, 0, 0, 0.6);
+      --shadow-md: 0 12px 40px -10px rgba(0, 0, 0, 0.45);
+      --radius-lg: 24px;
+      --radius-md: 14px;
+      --radius-sm: 8px;
+      --max-w: 1280px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--navy-900);
+      color: var(--white);
+      line-height: 1.6;
+      font-weight: 400;
+      overflow-x: hidden;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: var(--gold-400);
+      text-decoration: none;
+    }
+
+    /* ==========================================================
+       Header (sticky)
+       ========================================================== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(5, 13, 28, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(212, 160, 23, 0.15);
+    }
+    .site-header__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 18px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      font-size: 18px;
+      text-transform: uppercase;
+    }
+    .brand__mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 2px solid var(--gold-500);
+      background: var(--navy-800);
+      display: grid;
+      place-items: center;
+      color: var(--gold-500);
+      font-weight: 800;
+      font-size: 15px;
+      letter-spacing: 0;
+    }
+    .brand__text {
+      color: var(--white);
+    }
+    .brand__text span {
+      color: var(--gold-500);
+    }
+    .tagline {
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 500;
+      display: none;
+    }
+    @media (min-width: 720px) {
+      .tagline {
+        display: block;
+      }
+    }
+
+    /* ==========================================================
+       Hero
+       ========================================================== */
+    .hero {
+      position: relative;
+      min-height: 88vh;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      isolation: isolate;
+      padding: 80px 24px 100px;
+    }
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background: url("./assets/00-hero.png") center/cover no-repeat;
+      filter: saturate(1.05) contrast(1.05);
+    }
+    .hero__bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at center, rgba(5, 13, 28, 0.15) 0%, rgba(5, 13, 28, 0.85) 75%),
+        linear-gradient(180deg, rgba(5, 13, 28, 0.5) 0%, rgba(5, 13, 28, 0.92) 100%);
+    }
+    .hero__inner {
+      max-width: 980px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+    }
+    .hero__eyebrow {
+      display: inline-block;
+      padding: 8px 18px;
+      border: 1px solid rgba(212, 160, 23, 0.4);
+      border-radius: 999px;
+      color: var(--gold-400);
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 32px;
+      background: rgba(212, 160, 23, 0.06);
+    }
+    .hero__title {
+      font-size: clamp(34px, 6vw, 68px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .hero__title strong {
+      color: var(--gold-400);
+      font-weight: 800;
+    }
+    .hero__subtitle {
+      font-size: clamp(18px, 2.4vw, 26px);
+      color: var(--text-soft);
+      font-weight: 300;
+      margin-bottom: 36px;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero__byline {
+      font-size: 13px;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      margin-bottom: 48px;
+    }
+    .hero__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--white);
+      font-size: 14px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 500;
+      padding: 14px 0;
+      animation: bob 2.4s ease-in-out infinite;
+    }
+    .hero__cta::after {
+      content: "↓";
+      color: var(--gold-400);
+      font-size: 18px;
+    }
+    @keyframes bob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(8px); }
+    }
+
+    /* ==========================================================
+       Intro narrative
+       ========================================================== */
+    .intro {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 100px 24px 60px;
+      text-align: center;
+    }
+    .intro__kicker {
+      color: var(--gold-400);
+      font-size: 13px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+    .intro__text {
+      font-size: clamp(20px, 2.4vw, 26px);
+      font-weight: 300;
+      line-height: 1.55;
+      color: var(--text-soft);
+    }
+    .intro__text strong {
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    /* ==========================================================
+       Scenes
+       ========================================================== */
+    .scenes {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+    .scene {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      align-items: center;
+      padding: 60px 0;
+      border-top: 1px solid rgba(212, 160, 23, 0.12);
+    }
+    .scene:first-child {
+      border-top: 0;
+    }
+    @media (min-width: 960px) {
+      .scene {
+        grid-template-columns: 1.1fr 1fr;
+        gap: 80px;
+        padding: 100px 0;
+      }
+      .scene--reverse .scene__media {
+        order: 2;
+      }
+    }
+    .scene__media {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      aspect-ratio: 16 / 9;
+    }
+    .scene__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s ease;
+    }
+    .scene__media:hover img {
+      transform: scale(1.03);
+    }
+    .scene__media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 70%, rgba(5, 13, 28, 0.45) 100%);
+      pointer-events: none;
+    }
+    .scene__num {
+      display: inline-block;
+      font-size: 13px;
+      letter-spacing: 0.3em;
+      font-weight: 700;
+      color: var(--gold-400);
+      margin-bottom: 18px;
+    }
+    .scene__title {
+      font-size: clamp(28px, 3.6vw, 44px);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      margin-bottom: 22px;
+      color: var(--white);
+    }
+    .scene__title em {
+      font-style: normal;
+      color: var(--gold-400);
+    }
+    .scene__body p {
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--text-soft);
+      margin-bottom: 16px;
+      font-weight: 300;
+    }
+    .scene__body p strong {
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    /* Price card */
+    .price-card {
+      margin-top: 28px;
+      padding: 22px 24px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(212, 160, 23, 0.2);
+      background: linear-gradient(180deg, rgba(212, 160, 23, 0.05), transparent);
+      display: flex;
+      gap: 22px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .price-card__label {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .price-card__value {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1;
+    }
+    .price-card__value--alert {
+      color: #ff6b5e;
+    }
+    .price-card__value--success {
+      color: var(--gold-400);
+    }
+    .price-card__divider {
+      width: 1px;
+      height: 38px;
+      background: rgba(212, 160, 23, 0.25);
+    }
+
+    /* Comparison block (Scene 02) */
+    .compare {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    @media (min-width: 540px) {
+      .compare {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .compare__item {
+      padding: 18px 18px 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .compare__item--win {
+      border-color: rgba(212, 160, 23, 0.35);
+      background: linear-gradient(180deg, rgba(212, 160, 23, 0.08), rgba(212, 160, 23, 0.02));
+    }
+    .compare__head {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .compare__supplier {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+    .compare__price {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    .compare__item--win .compare__price {
+      color: var(--gold-400);
+    }
+    .compare__delay {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================
+       Stats (Scene 05 finale)
+       ========================================================== */
+    .stats {
+      margin-top: 36px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    @media (min-width: 720px) {
+      .stats {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+    .stat {
+      padding: 22px 18px;
+      border-radius: var(--radius-md);
+      background: rgba(212, 160, 23, 0.06);
+      border: 1px solid rgba(212, 160, 23, 0.18);
+      text-align: center;
+    }
+    .stat__num {
+      font-size: clamp(26px, 3.4vw, 38px);
+      font-weight: 800;
+      color: var(--gold-400);
+      line-height: 1;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .stat__label {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      color: var(--text-soft);
+      text-transform: uppercase;
+      font-weight: 500;
+      line-height: 1.3;
+    }
+
+    /* ==========================================================
+       Trilingual workflow strip
+       ========================================================== */
+    .trilingue {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 60px 24px 40px;
+      text-align: center;
+    }
+    .trilingue__title {
+      font-size: 13px;
+      letter-spacing: 0.25em;
+      color: var(--gold-400);
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .trilingue__flow {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      font-size: 18px;
+      color: var(--text-soft);
+    }
+    .trilingue__node {
+      padding: 12px 20px;
+      border: 1px solid rgba(212, 160, 23, 0.3);
+      border-radius: 999px;
+      background: rgba(212, 160, 23, 0.05);
+      font-weight: 500;
+    }
+    .trilingue__arrow {
+      color: var(--gold-500);
+      font-size: 22px;
+    }
+
+    /* ==========================================================
+       CTA / Closing
+       ========================================================== */
+    .closing {
+      padding: 120px 24px;
+      text-align: center;
+      background:
+        radial-gradient(ellipse at center, rgba(212, 160, 23, 0.08) 0%, transparent 60%),
+        var(--navy-800);
+      border-top: 1px solid rgba(212, 160, 23, 0.15);
+      border-bottom: 1px solid rgba(212, 160, 23, 0.15);
+    }
+    .closing__tag {
+      font-size: clamp(34px, 5vw, 56px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      color: var(--white);
+    }
+    .closing__tag span {
+      color: var(--gold-400);
+    }
+    .closing__sub {
+      font-size: clamp(18px, 2.2vw, 22px);
+      color: var(--text-soft);
+      max-width: 680px;
+      margin: 0 auto 40px;
+      font-weight: 300;
+    }
+    .closing__btn {
+      display: inline-block;
+      padding: 18px 40px;
+      background: var(--gold-500);
+      color: var(--navy-900);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-size: 14px;
+      border-radius: 999px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 14px 40px -10px rgba(212, 160, 23, 0.5);
+    }
+    .closing__btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 50px -10px rgba(212, 160, 23, 0.6);
+    }
+
+    /* ==========================================================
+       Footer
+       ========================================================== */
+    footer {
+      padding: 50px 24px 40px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+    footer strong {
+      color: var(--text-soft);
+    }
+    .footer-team {
+      margin-top: 12px;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ==========================================================
+       Reveal animations
+       ========================================================== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================
+       HEADER
+       ========================================================== -->
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="#" class="brand" aria-label="TrustMatch">
+        <span class="brand__mark">TM</span>
+        <span class="brand__text">Trust<span>Match</span></span>
+      </a>
+      <span class="tagline">Right Match · Right Machine · Right Outcome</span>
+    </div>
+  </header>
+
+  <!-- ==========================================================
+       HERO
+       ========================================================== -->
+  <section class="hero">
+    <div class="hero__bg" role="presentation"></div>
+    <div class="hero__inner">
+      <span class="hero__eyebrow">Parcours client — Une histoire vraie</span>
+      <h1 class="hero__title">
+        Comment Marino a sauvé<br />
+        <strong>53 750 €</strong> et <strong>6 semaines</strong>
+      </h1>
+      <p class="hero__subtitle">
+        Sur le concasseur à mâchoires primaire de la ligne calcaire de Carmeuse Moha
+      </p>
+      <p class="hero__byline">
+        Marino R. · Responsable de maintenance · Carmeuse Moha (Belgique)
+      </p>
+      <a href="#intro" class="hero__cta">Découvrir le parcours</a>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       INTRO
+       ========================================================== -->
+  <section class="intro reveal" id="intro">
+    <div class="intro__kicker">Le contexte</div>
+    <p class="intro__text">
+      Carmeuse Moha. Un mardi matin pluvieux. Marino doit remplacer le
+      <strong>concasseur à mâchoires primaire</strong> de la ligne calcaire
+      principale. Capacité requise : <strong>300 à 500 t/h</strong>. Calcaire
+      Mohs 3, blocs jusqu'à 1 000 mm, marquage CE, 400 V / 50 Hz, livraison en
+      containers. Le seul devis qu'il a reçu, du leader allemand, dépasse
+      largement son budget.
+    </p>
+  </section>
+
+  <!-- ==========================================================
+       SCENES
+       ========================================================== -->
+  <main class="scenes">
+
+    <!-- Scene 01 -->
+    <article class="scene reveal">
+      <div class="scene__media">
+        <img src="./assets/01-marino-inquiet.png" alt="Marino lit le devis allemand de 142 500 € à son bureau, pluie sur la fenêtre, expression inquiète" />
+      </div>
+      <div class="scene__text">
+        <span class="scene__num">Scène 01</span>
+        <h2 class="scene__title">Le coup de massue <em>allemand</em></h2>
+        <div class="scene__body">
+          <p>
+            Le devis arrive au courrier interne. <strong>Backenbrecher TM1108.
+            142 500 €. Délai 16 à 18 semaines.</strong>
+          </p>
+          <p>
+            Marino fait les comptes : c'est <strong>30 % au-dessus de son
+            enveloppe</strong>. Et quatre mois sans concasseur primaire, c'est
+            impensable pour Carmeuse Moha. Il sait que la ligne ne tient pas si
+            longtemps en mode dégradé.
+          </p>
+        </div>
+        <div class="price-card">
+          <div>
+            <div class="price-card__label">Devis allemand</div>
+            <div class="price-card__value price-card__value--alert">142 500 €</div>
+          </div>
+          <div class="price-card__divider"></div>
+          <div>
+            <div class="price-card__label">Délai</div>
+            <div class="price-card__value">16-18 semaines</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Scene 02 -->
+    <article class="scene scene--reverse reveal">
+      <div class="scene__media">
+        <img src="./assets/02-marino-trustmatch.png" alt="Marino sourit devant son écran qui affiche l'offre Zenith Shanghai à 88 750 € sur la plateforme TrustMatch" />
+      </div>
+      <div class="scene__text">
+        <span class="scene__num">Scène 02</span>
+        <h2 class="scene__title">Le bon match en <em>48 heures</em></h2>
+        <div class="scene__body">
+          <p>
+            Marino se connecte à TrustMatch. Il décrit son besoin <strong>en
+            français</strong> : concasseur à mâchoires primaire, 300-500 t/h,
+            calcaire, marquage CE, 400 V / 50 Hz, livraison en containers.
+          </p>
+          <p>
+            Quarante-huit heures plus tard, <strong>Zenith Shanghai</strong>
+            apparaît dans son espace. Sarah, responsable export Asie, lui propose
+            le <strong>PE1000×1200</strong> via une fiche traduite automatiquement
+            FR ↔ EN ↔ ZH et validée par les experts de la plateforme.
+          </p>
+          <p>
+            Marino sourit pour la première fois depuis trois jours.
+          </p>
+        </div>
+        <div class="compare">
+          <div class="compare__item">
+            <div class="compare__head">Concurrent allemand</div>
+            <div class="compare__supplier">Backenbrecher TM1108</div>
+            <div class="compare__price">142 500 €</div>
+            <div class="compare__delay">Délai 16-18 sem.</div>
+          </div>
+          <div class="compare__item compare__item--win">
+            <div class="compare__head">Zenith Shanghai · via TrustMatch</div>
+            <div class="compare__supplier">Backenbrecher PE1000×1200</div>
+            <div class="compare__price">88 750 €</div>
+            <div class="compare__delay">Délai 10-12 sem. · Garantie 12 mois</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Scene 03 -->
+    <article class="scene reveal">
+      <div class="scene__media">
+        <img src="./assets/03-fabrication-shanghai.png" alt="Atelier Zenith Shanghai, deux techniciens soudent le bâti du concasseur, étincelles, banner chinois 颚式破碎机 en arrière-plan" />
+      </div>
+      <div class="scene__text">
+        <span class="scene__num">Scène 03</span>
+        <h2 class="scene__title">Direction Shanghai, <em>颚式破碎机</em></h2>
+        <div class="scene__body">
+          <p>
+            Le contrat est signé. Acompte de 30 % versé. Dans l'atelier Zenith
+            de Shanghai, l'<strong>arbre excentrique</strong>, le bâti acier moulé,
+            le <strong>volant doré de 8 tonnes</strong> et le moteur ABB 132 kW
+            prennent vie sous les chalumeaux.
+          </p>
+          <p>
+            Marino reçoit chaque semaine, via TrustMatch, un <strong>rapport
+            photo et vidéo</strong> de l'avancement. Sarah envoie les certificats
+            CE, le rapport d'essai usine et le plan de démontage en containers.
+            Tout est versé dans le dossier Marino, en français, en anglais, en
+            mandarin.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- Scene 04 -->
+    <article class="scene scene--reverse reveal">
+      <div class="scene__media">
+        <img src="./assets/04-installation-moha.png" alt="Grue jaune levant le concasseur Zenith Shanghai au-dessus de la fondation béton à la carrière Carmeuse Moha en Belgique, container 40' HC ouvert" />
+      </div>
+      <div class="scene__text">
+        <span class="scene__num">Scène 04</span>
+        <h2 class="scene__title">De Shanghai à <em>Moha</em> en 8 semaines</h2>
+        <div class="scene__body">
+          <p>
+            Deux containers <strong>40' High Cube</strong> traversent
+            Shanghai → Anvers en 32 jours. Le concasseur arrive démonté en
+            sous-ensembles : châssis principal, mâchoires Mn18, volant doré,
+            groupe hydraulique, armoire électrique 400 V câblée d'usine.
+          </p>
+          <p>
+            Le chantier d'installation est mené en <strong>5 jours</strong> par
+            l'équipe maintenance de Carmeuse Moha, assistée à distance par les
+            ingénieurs Zenith via vidéo et traduction en direct. La fondation
+            béton coulée, la grue de 80 tonnes en place, le concasseur descend
+            lentement à sa position finale.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- Scene 05 -->
+    <article class="scene reveal">
+      <div class="scene__media">
+        <img src="./assets/05-marino-fier.png" alt="Marino, casque blanc Carmeuse et gilet orange, sourit devant le concasseur en exploitation au coucher du soleil, convoyeur chargé de calcaire" />
+      </div>
+      <div class="scene__text">
+        <span class="scene__num">Scène 05 — Le résultat</span>
+        <h2 class="scene__title">350 t/h. <em>Première semaine.</em></h2>
+        <div class="scene__body">
+          <p>
+            Mise en service réussie au premier essai. Le PE1000×1200 produit
+            dès le premier jour <strong>350 t/h de calcaire</strong>, à puissance
+            modérée, sans surcharge. La ligne de Moha est sauvée.
+          </p>
+          <p>
+            Marino regarde la machine tourner. La conviction d'avoir fait le
+            bon choix se lit sur son visage.
+          </p>
+        </div>
+        <div class="stats">
+          <div class="stat">
+            <div class="stat__num">53 750 €</div>
+            <div class="stat__label">Économie<br />(−38 %)</div>
+          </div>
+          <div class="stat">
+            <div class="stat__num">6 sem.</div>
+            <div class="stat__label">Délai<br />gagnées</div>
+          </div>
+          <div class="stat">
+            <div class="stat__num">350 t/h</div>
+            <div class="stat__label">Dès le<br />démarrage</div>
+          </div>
+          <div class="stat">
+            <div class="stat__num">0</div>
+            <div class="stat__label">Réclamation<br />qualité</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- ==========================================================
+       TRILINGUAL WORKFLOW
+       ========================================================== -->
+  <section class="trilingue reveal">
+    <div class="trilingue__title">Workflow trilingue · Validé par experts</div>
+    <div class="trilingue__flow">
+      <span class="trilingue__node">🇫🇷 Marino · Français (source)</span>
+      <span class="trilingue__arrow">→</span>
+      <span class="trilingue__node">🇬🇧 Anglais (référentiel)</span>
+      <span class="trilingue__arrow">→</span>
+      <span class="trilingue__node">🇨🇳 Sarah · 中文 (mandarin)</span>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       CLOSING / CTA
+       ========================================================== -->
+  <section class="closing reveal">
+    <h2 class="closing__tag">
+      Right Match. Right Machine.<br />
+      <span>Right Outcome.</span>
+    </h2>
+    <p class="closing__sub">
+      Et si la prochaine machine de votre ligne, c'était la bonne, du premier
+      coup, au juste prix, sans risque ?
+    </p>
+    <a href="#" class="closing__btn">Commencer une demande</a>
+  </section>
+
+  <!-- ==========================================================
+       FOOTER
+       ========================================================== -->
+  <footer>
+    <p>
+      <strong>TrustMatch</strong> — Right Match · Right Machine · Right Outcome
+    </p>
+    <p class="footer-team">
+      Simulation · Cas Marino × Carmeuse Moha × Zenith Shanghai
+    </p>
+    <p class="footer-team">
+      Équipe : Philippe Maréchal (stratégie / réseau) · Laurent (technique / validation) · Krystal (ESG / conformité)
+    </p>
+  </footer>
+
+  <!-- ==========================================================
+       Reveal on scroll
+       ========================================================== -->
+  <script>
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-visible");
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+  </script>
+
+</body>
+</html>
