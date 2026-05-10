@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: noezys
+    name: liegacal
     runtime: static
     staticPublishPath: .
     headers:

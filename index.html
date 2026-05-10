@@ -1,121 +1,405 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NOEZYS — AI Innovation Lab</title>
-  <meta name="description" content="Noezys — Transforming everyday life with sustainable digital solutions. AI-powered SaaS company founded in Malta, 2026.">
-  <meta name="theme-color" content="#0A0E1A">
+  <title>LiegaCal — Le futur du calcaire liégeois</title>
+  <meta name="description" content="LiegaCal — Une nouvelle référence du granulat calcaire durable arrive en région liégeoise. Pierre bleue, qualité BENOR, circuit court.">
+  <meta name="keywords" content="granulats calcaires Liège, carrière Liège, pierre bleue, granulat BENOR, calcaire durable, agrégats Wallonie, gravier calcaire Liège">
+  <meta name="theme-color" content="#0F1A22">
 
-  <!-- Favicon -->
+  <meta property="og:title" content="LiegaCal — Le futur du calcaire liégeois">
+  <meta property="og:description" content="Une nouvelle référence du granulat durable arrive en région liégeoise.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_BE">
+
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
-  <!-- Fonts: Outfit (logo match) + Inter (body fallback) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 
-  <!-- Styles -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- ═══════════════════════════════════════════════════════
-       VIDEO BACKGROUND — drop noezys-bg.mp4 into assets/
-       Canvas renders ON TOP as interactive overlay
-       ═══════════════════════════════════════════════════════ -->
-  <div class="video-background" aria-hidden="true">
-    <video
-      id="bg-video"
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="auto"
-      poster="assets/poster.jpg"
-    >
-      <source src="assets/noezys-bg.webm" type="video/webm">
-      <source src="assets/noezys-bg.mp4" type="video/mp4">
-    </video>
-    <div class="video-overlay"></div>
-  </div>
-
-  <!-- Intelligence Canvas — interactive particle network -->
-  <canvas id="cosmos" aria-hidden="true"></canvas>
+  <!-- Mineral dust canvas — slow drifting light particles, behind everything -->
+  <canvas id="dust" aria-hidden="true"></canvas>
 
   <!-- ════════════════════════════════════════════════════════
-       BLOCK 1 — HERO
+       NAV — minimal, transparent
+       ════════════════════════════════════════════════════════ -->
+  <header class="nav" id="nav">
+    <a href="#hero" class="nav__brand" aria-label="LiegaCal">
+      <span class="nav__mark">
+        <svg viewBox="0 0 32 32" width="22" height="22" aria-hidden="true">
+          <path d="M9 6 L9 25 L24 25" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"/>
+          <circle cx="24" cy="6" r="1.6" fill="currentColor"/>
+        </svg>
+      </span>
+      <span class="nav__wordmark">LiegaCal</span>
+    </a>
+    <a href="#contact" class="nav__cta">Demander un devis</a>
+  </header>
+
+  <!-- ════════════════════════════════════════════════════════
+       SECTION 1 — HERO / ÉMERVEILLEMENT
+       Layered SVG cliff at sunrise — no humans, no machinery
        ════════════════════════════════════════════════════════ -->
   <section id="hero" class="hero">
+    <div class="hero__scene" aria-hidden="true">
+      <svg class="hero__svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#0A1218"/>
+            <stop offset="35%"  stop-color="#1B2A38"/>
+            <stop offset="60%"  stop-color="#3A4458"/>
+            <stop offset="80%"  stop-color="#A07A4E"/>
+            <stop offset="95%"  stop-color="#D9B27A"/>
+            <stop offset="100%" stop-color="#E8C896"/>
+          </linearGradient>
+          <radialGradient id="sun" cx="50%" cy="50%" r="50%">
+            <stop offset="0%"   stop-color="#FFE9C2" stop-opacity="1"/>
+            <stop offset="40%"  stop-color="#E8B97A" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#B87333" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="far" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#3D4F62"/>
+            <stop offset="100%" stop-color="#2A3744"/>
+          </linearGradient>
+          <linearGradient id="mid" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#2A3946"/>
+            <stop offset="100%" stop-color="#16222C"/>
+          </linearGradient>
+          <linearGradient id="near" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#16222C"/>
+            <stop offset="100%" stop-color="#080D12"/>
+          </linearGradient>
+          <linearGradient id="cliff-light" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%"  stop-color="#D9B27A" stop-opacity="0"/>
+            <stop offset="50%" stop-color="#D9B27A" stop-opacity="0.18"/>
+            <stop offset="100%" stop-color="#D9B27A" stop-opacity="0"/>
+          </linearGradient>
+          <filter id="grain" x="0" y="0" width="100%" height="100%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/>
+            <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.06 0"/>
+            <feComposite in2="SourceGraphic" operator="in"/>
+          </filter>
+        </defs>
+
+        <!-- Sky -->
+        <rect width="1600" height="900" fill="url(#sky)"/>
+
+        <!-- Sun glow -->
+        <g class="hero__sun">
+          <circle cx="1180" cy="640" r="320" fill="url(#sun)"/>
+          <circle cx="1180" cy="640" r="56"  fill="#FFEAC7" opacity="0.85"/>
+        </g>
+
+        <!-- Distant cliff layer -->
+        <path class="hero__layer hero__layer--far" d="M0,720 L0,560 L120,540 L210,520 L290,510 L380,495 L470,505 L560,470 L650,490 L760,460 L880,475 L990,455 L1100,470 L1220,440 L1340,460 L1460,430 L1600,455 L1600,720 Z" fill="url(#far)"/>
+
+        <!-- Mid cliff layer -->
+        <path class="hero__layer hero__layer--mid" d="M0,820 L0,640 L80,610 L150,625 L240,580 L320,610 L420,560 L500,605 L600,570 L720,615 L820,580 L940,620 L1040,575 L1160,605 L1280,560 L1400,600 L1520,580 L1600,615 L1600,820 Z" fill="url(#mid)"/>
+
+        <!-- Foreground cliff — main subject -->
+        <path class="hero__layer hero__layer--near" d="M0,900 L0,720 L100,700 L180,730 L260,680 L340,720 L440,650 L500,710 L580,660 L660,720 L740,680 L840,720 L920,665 L1020,710 L1100,665 L1200,705 L1300,665 L1420,700 L1520,670 L1600,690 L1600,900 Z" fill="url(#near)"/>
+
+        <!-- Warm rim-light hitting the cliff edge -->
+        <path d="M260,680 L340,720 L440,650 L500,710 L580,660 L660,720 L740,680 L840,720 L920,665 L1020,710 L1100,665 L1200,705 L1300,665 L1420,700 L1520,670 L1600,690 L1600,720 L260,720 Z" fill="url(#cliff-light)" opacity="0.9"/>
+
+        <!-- Subtle stratification lines on near cliff -->
+        <g class="hero__strata" opacity="0.18" stroke="#D9B27A" stroke-width="0.6" fill="none">
+          <path d="M0,760 Q400,758 800,762 T1600,760"/>
+          <path d="M0,800 Q400,798 800,803 T1600,800"/>
+          <path d="M0,840 Q400,838 800,841 T1600,840"/>
+        </g>
+
+        <!-- Fine grain overlay -->
+        <rect width="1600" height="900" fill="white" filter="url(#grain)" opacity="0.5"/>
+      </svg>
+
+      <!-- Atmospheric haze gradient -->
+      <div class="hero__haze"></div>
+    </div>
+
     <div class="hero__content">
-      <!-- N mark icon — original logo PNG (100% match) -->
-      <div class="hero__icon anim-hero" data-delay="0.5">
-        <img src="assets/noezys-n-mark.png" alt="Noezys" class="hero__n-mark" width="512" height="512">
-      </div>
+      <span class="hero__eyebrow anim-hero" data-delay="0.3">Région liégeoise · Bientôt</span>
+      <h1 class="hero__title anim-hero" data-delay="0.5">Le futur du calcaire<br><em>liégeois</em> commence ici.</h1>
+      <p class="hero__subtitle anim-hero" data-delay="1.1">Une nouvelle référence du granulat durable arrive en région liégeoise.</p>
+      <a href="#contact" class="cta cta--primary anim-hero" data-delay="1.4">
+        <span>Demander un devis</span>
+        <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
 
-      <h1 class="hero__title anim-hero" data-delay="0.7">Noezys</h1>
-      <p class="hero__tagline anim-hero" data-delay="0.9">AI Innovation Lab</p>
-      <div class="hero__divider anim-hero" data-delay="1.4"></div>
-      <p class="hero__subtitle anim-hero" data-delay="1.1">Transforming everyday life with sustainable digital solutions.</p>
-      <div class="hero__scroll-hint anim-hero" data-delay="2.4">
-        <span class="scroll-dot"></span>
+    <div class="hero__scroll-hint anim-hero" data-delay="2.0" aria-hidden="true">
+      <span class="scroll-line"></span>
+      <span class="scroll-label">Découvrir</span>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       SECTION 2 — FIERTÉ LIÉGEOISE
+       ════════════════════════════════════════════════════════ -->
+  <section class="section section--heritage reveal">
+    <div class="section__inner section__inner--split">
+      <div class="section__copy">
+        <span class="section__label">Héritage</span>
+        <h2 class="section__title">Une pierre née du berceau industriel <em>liégeois</em>.</h2>
+        <p class="section__lead">Sous nos pieds, des millions d'années de patience géologique. Au-dessus, deux siècles de savoir-faire industriel. LiegaCal s'inscrit dans cette continuité&nbsp;: extraire avec respect, transformer avec exigence, livrer au plus près.</p>
+        <ul class="section__bullets">
+          <li><span>Circuit court</span> régional, pour réduire l'empreinte logistique.</li>
+          <li><span>Savoir-faire</span> ancré dans le bassin industriel wallon.</li>
+          <li><span>Ressource locale</span> valorisée à sa juste mesure.</li>
+        </ul>
+      </div>
+      <figure class="section__visual heritage-map" aria-label="Région de Liège, Wallonie">
+        <svg viewBox="0 0 400 400" class="liege-svg">
+          <defs>
+            <radialGradient id="lg" cx="55%" cy="48%" r="40%">
+              <stop offset="0%" stop-color="rgba(217,178,122,0.18)"/>
+              <stop offset="100%" stop-color="rgba(217,178,122,0)"/>
+            </radialGradient>
+          </defs>
+          <!-- Ambient halo -->
+          <circle cx="220" cy="195" r="160" fill="url(#lg)"/>
+          <!-- Wallonie / Liège region — stylized minimal silhouette -->
+          <path d="M70,210 C90,170 110,150 150,148 C180,146 195,160 220,150 C250,138 275,132 300,150 C325,168 340,175 348,200 C354,222 340,245 320,255 C305,262 295,278 275,280 C250,283 235,275 210,278 C185,281 170,295 145,290 C120,285 95,270 80,250 C72,238 64,225 70,210 Z"
+                fill="none" stroke="rgba(217,178,122,0.45)" stroke-width="1"/>
+          <path d="M70,210 C90,170 110,150 150,148 C180,146 195,160 220,150 C250,138 275,132 300,150 C325,168 340,175 348,200 C354,222 340,245 320,255 C305,262 295,278 275,280 C250,283 235,275 210,278 C185,281 170,295 145,290 C120,285 95,270 80,250 C72,238 64,225 70,210 Z"
+                fill="rgba(45,74,92,0.18)"/>
+          <!-- Meuse river hint -->
+          <path d="M120,180 C160,200 200,210 235,200 C275,188 305,205 340,225"
+                fill="none" stroke="rgba(184,180,170,0.35)" stroke-width="0.8" stroke-dasharray="2 3"/>
+          <!-- Liège marker -->
+          <g class="liege-marker">
+            <circle cx="222" cy="198" r="14" fill="none" stroke="rgba(217,178,122,0.4)" stroke-width="1"/>
+            <circle cx="222" cy="198" r="6"  fill="none" stroke="rgba(217,178,122,0.7)" stroke-width="1"/>
+            <circle cx="222" cy="198" r="2.2" fill="#D9B27A"/>
+          </g>
+          <text x="240" y="200" fill="rgba(232,232,228,0.7)" font-family="Inter, sans-serif" font-size="11" letter-spacing="2">LIÈGE</text>
+          <!-- Compass rose mark -->
+          <g transform="translate(60,340)" stroke="rgba(232,232,228,0.4)" fill="none" stroke-width="0.6">
+            <line x1="0" y1="-10" x2="0" y2="10"/>
+            <line x1="-10" y1="0" x2="10" y2="0"/>
+            <text x="-3" y="-14" fill="rgba(232,232,228,0.5)" font-family="Inter, sans-serif" font-size="8" stroke="none">N</text>
+          </g>
+        </svg>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       SECTION 3 — DURABILITÉ
+       ════════════════════════════════════════════════════════ -->
+  <section class="section section--sustainable reveal">
+    <div class="section__inner">
+      <span class="section__label section__label--center">Durabilité</span>
+      <h2 class="section__title section__title--center">Construire durablement<br>commence à <em>la source</em>.</h2>
+      <p class="section__lead section__lead--center">Une carrière de nouvelle génération, pensée pour s'inscrire dans son paysage&nbsp;: optimisation CO₂, intégration écologique et restitution progressive du site.</p>
+
+      <div class="pillars">
+        <div class="pillar reveal" data-stagger>
+          <div class="pillar__icon">
+            <svg viewBox="0 0 32 32"><path d="M16 4 C 10 12 8 18 16 28 C 24 18 22 12 16 4 Z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M16 14 L16 24" stroke="currentColor" stroke-width="1"/></svg>
+          </div>
+          <h3>Empreinte CO₂ optimisée</h3>
+          <p>Extraction et logistique repensées pour réduire significativement les émissions à la tonne livrée.</p>
+        </div>
+        <div class="pillar reveal" data-stagger>
+          <div class="pillar__icon">
+            <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="12" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M16 4 L16 28 M4 16 L28 16" stroke="currentColor" stroke-width="0.8" opacity="0.5"/><circle cx="16" cy="16" r="3" fill="currentColor" opacity="0.8"/></svg>
+          </div>
+          <h3>Biodiversité intégrée</h3>
+          <p>Plan de gestion écologique du site&nbsp;: corridors, zones refuges, restitution végétale en parallèle de l'exploitation.</p>
+        </div>
+        <div class="pillar reveal" data-stagger>
+          <div class="pillar__icon">
+            <svg viewBox="0 0 32 32"><path d="M6 22 L12 16 L18 20 L26 10" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="22" r="1.4" fill="currentColor"/><circle cx="26" cy="10" r="1.4" fill="currentColor"/></svg>
+          </div>
+          <h3>Logistique de proximité</h3>
+          <p>La proximité de nos chantiers wallons divise les kilomètres parcourus &mdash; et avec eux, le coût environnemental.</p>
+        </div>
+        <div class="pillar reveal" data-stagger>
+          <div class="pillar__icon">
+            <svg viewBox="0 0 32 32"><rect x="6" y="14" width="20" height="14" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M6 14 L16 6 L26 14" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M14 28 L14 20 L18 20 L18 28" fill="none" stroke="currentColor" stroke-width="0.9"/></svg>
+          </div>
+          <h3>Intégration paysagère</h3>
+          <p>Bâti, talus et merlons conçus pour s'effacer dans le relief. Un site exploité, jamais imposé.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ════════════════════════════════════════════════════════
-       BLOCK 2 — ABOUT
+       SECTION 4 — QUALITÉ
        ════════════════════════════════════════════════════════ -->
-  <section class="section section--origin reveal">
+  <section class="section section--quality reveal">
     <div class="section__inner">
-      <span class="section__label">ABOUT</span>
-      <div class="section__accent-line"></div>
-      <div class="section__body">
-        <p>Noezys is an AI-powered SaaS company built on the conviction that technology should serve people &mdash; not the other way around. We design focused, intelligent digital products that remove friction from everyday life.</p>
+      <span class="section__label">Qualité</span>
+      <h2 class="section__title">La qualité totale<br>comme <em>standard</em>.</h2>
+      <p class="section__lead">Constance granulométrique, traçabilité complète, contrôle continu. Chaque tonne quitte le site auditée selon les exigences les plus strictes du métier.</p>
+
+      <div class="stats">
+        <div class="stat reveal" data-stagger>
+          <span class="stat__value">BENOR</span>
+          <span class="stat__label">Certification de référence</span>
+        </div>
+        <div class="stat reveal" data-stagger>
+          <span class="stat__value">ISO 9001</span>
+          <span class="stat__label">Système qualité audité</span>
+        </div>
+        <div class="stat reveal" data-stagger>
+          <span class="stat__value">24h<span class="stat__unit">/24</span></span>
+          <span class="stat__label">Contrôle continu en ligne</span>
+        </div>
+        <div class="stat reveal" data-stagger>
+          <span class="stat__value">100<span class="stat__unit">%</span></span>
+          <span class="stat__label">Traçabilité par lot</span>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ════════════════════════════════════════════════════════
-       BLOCK 3 — CORE VALUES
+       SECTION 5 — GAMME PRODUITS
        ════════════════════════════════════════════════════════ -->
-  <section class="section section--values reveal">
+  <section class="section section--products reveal">
     <div class="section__inner">
-      <span class="section__label">CORE VALUES</span>
+      <span class="section__label section__label--center">Gamme</span>
+      <h2 class="section__title section__title--center">Une gamme complète<br>pour <em>construire l'avenir</em>.</h2>
+      <p class="section__lead section__lead--center">Du sable au bloc d'enrochement, l'ensemble de la chaîne granulaire calibré pour le bâtiment, le génie civil et l'aménagement.</p>
 
-      <div class="values-grid">
-        <div class="value-card reveal" data-stagger>
-          <span class="value-card__number">01</span>
-          <h3 class="value-card__name">Authenticity</h3>
-          <p class="value-card__desc">We say what we mean and build what we say. No theatre. No bloat. Every product we ship reflects a genuine commitment to real problems and honest solutions.</p>
-          <div class="value-card__line"></div>
-        </div>
-        <div class="value-card reveal" data-stagger>
-          <span class="value-card__number">02</span>
-          <h3 class="value-card__name">Creativity</h3>
-          <p class="value-card__desc">Constraints are invitations. We find the unexpected route &mdash; the one that turns a limitation into a feature and a friction point into an experience worth remembering.</p>
-          <div class="value-card__line"></div>
-        </div>
-        <div class="value-card reveal" data-stagger>
-          <span class="value-card__number">03</span>
-          <h3 class="value-card__name">Impact</h3>
-          <p class="value-card__desc">We measure success by the difference we make &mdash; in someone's daily routine, in the time they save, in the clarity we bring. Impact is not a metric. It's a discipline.</p>
-          <div class="value-card__line"></div>
-        </div>
+      <div class="products">
+        <article class="product reveal" data-stagger>
+          <div class="product__visual" data-grain="fine"></div>
+          <h3 class="product__name">Sable calcaire</h3>
+          <p class="product__spec">0/4 mm</p>
+          <p class="product__use">Bétons, mortiers, enduits.</p>
+        </article>
+        <article class="product reveal" data-stagger>
+          <div class="product__visual" data-grain="4-10"></div>
+          <h3 class="product__name">Granulat 4/10</h3>
+          <p class="product__spec">4 — 10 mm</p>
+          <p class="product__use">Bétons fins, voiries.</p>
+        </article>
+        <article class="product reveal" data-stagger>
+          <div class="product__visual" data-grain="10-20"></div>
+          <h3 class="product__name">Granulat 10/20</h3>
+          <p class="product__spec">10 — 20 mm</p>
+          <p class="product__use">Bétons structurels, drainages.</p>
+        </article>
+        <article class="product reveal" data-stagger>
+          <div class="product__visual" data-grain="20-40"></div>
+          <h3 class="product__name">Granulat 20/40</h3>
+          <p class="product__spec">20 — 40 mm</p>
+          <p class="product__use">Sous-couches, fondations.</p>
+        </article>
+        <article class="product reveal" data-stagger>
+          <div class="product__visual" data-grain="80"></div>
+          <h3 class="product__name">Calibre 80</h3>
+          <p class="product__spec">≈ 80 mm</p>
+          <p class="product__use">Couches drainantes, plateformes.</p>
+        </article>
+        <article class="product reveal" data-stagger>
+          <div class="product__visual" data-grain="ballast"></div>
+          <h3 class="product__name">Ballast</h3>
+          <p class="product__spec">31,5 — 50 mm</p>
+          <p class="product__use">Voies ferrées, ouvrages d'art.</p>
+        </article>
+        <article class="product reveal" data-stagger>
+          <div class="product__visual" data-grain="filler"></div>
+          <h3 class="product__name">Fillers</h3>
+          <p class="product__spec">&lt; 0,063 mm</p>
+          <p class="product__use">Enrobés, liants hydrauliques.</p>
+        </article>
+        <article class="product reveal" data-stagger>
+          <div class="product__visual" data-grain="grave"></div>
+          <h3 class="product__name">Graves routières</h3>
+          <p class="product__spec">0/31,5 — 0/63</p>
+          <p class="product__use">Couches de forme, assises.</p>
+        </article>
+        <article class="product reveal" data-stagger>
+          <div class="product__visual" data-grain="gabion"></div>
+          <h3 class="product__name">Pierre à gabions</h3>
+          <p class="product__spec">90 — 250 mm</p>
+          <p class="product__use">Soutènements, aménagements.</p>
+        </article>
+        <article class="product reveal" data-stagger>
+          <div class="product__visual" data-grain="deco"></div>
+          <h3 class="product__name">Pierre décorative</h3>
+          <p class="product__spec">Calibres variables</p>
+          <p class="product__use">Paysagisme, jardins, terrasses.</p>
+        </article>
+        <article class="product reveal" data-stagger>
+          <div class="product__visual" data-grain="enroch"></div>
+          <h3 class="product__name">Enrochements</h3>
+          <p class="product__spec">300 — 1000 mm</p>
+          <p class="product__use">Berges, défenses, génie civil.</p>
+        </article>
+        <article class="product product--more reveal" data-stagger>
+          <div class="product__visual product__visual--more">
+            <svg viewBox="0 0 32 32" width="28" height="28"><path d="M16 6 L16 26 M6 16 L26 16" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          </div>
+          <h3 class="product__name">Sur mesure</h3>
+          <p class="product__spec">Spécifications projet</p>
+          <p class="product__use">Calibres et formulations dédiés.</p>
+        </article>
       </div>
-
     </div>
   </section>
 
   <!-- ════════════════════════════════════════════════════════
-       BLOCK 4 — MISSION
+       SECTION 6 — CTA FINAL + CONTACT
        ════════════════════════════════════════════════════════ -->
-  <section class="section section--mission reveal">
-    <div class="section__inner">
-      <span class="section__label">MISSION</span>
-      <p class="signature">
-        <em>&ldquo;Transforming everyday life with sustainable digital solutions.&rdquo;</em>
-      </p>
+  <section id="contact" class="section section--cta reveal">
+    <div class="section__inner section__inner--narrow">
+      <h2 class="cta-final__title">Rejoignez la nouvelle génération<br>du <em>calcaire liégeois</em>.</h2>
+      <p class="cta-final__lead">Décrivez votre projet en quelques mots. Nous revenons vers vous avec une proposition adaptée.</p>
+
+      <form class="quote-form" novalidate onsubmit="event.preventDefault(); this.classList.add('quote-form--sent');">
+        <div class="quote-form__row">
+          <label class="quote-form__field">
+            <span>Nom &amp; entreprise</span>
+            <input type="text" name="name" autocomplete="organization" required>
+          </label>
+          <label class="quote-form__field">
+            <span>Email professionnel</span>
+            <input type="email" name="email" autocomplete="email" required>
+          </label>
+        </div>
+        <div class="quote-form__row">
+          <label class="quote-form__field">
+            <span>Calibre principal</span>
+            <select name="caliber">
+              <option>Sable calcaire (0/4)</option>
+              <option>Granulat 4/10</option>
+              <option>Granulat 10/20</option>
+              <option>Granulat 20/40</option>
+              <option>Calibre 80</option>
+              <option>Ballast</option>
+              <option>Graves routières</option>
+              <option>Enrochements</option>
+              <option>Sur mesure</option>
+            </select>
+          </label>
+          <label class="quote-form__field">
+            <span>Tonnage estimé</span>
+            <input type="text" name="tonnage" placeholder="ex. 1 200 t" inputmode="numeric">
+          </label>
+        </div>
+        <label class="quote-form__field quote-form__field--full">
+          <span>Détails du projet</span>
+          <textarea name="message" rows="4" placeholder="Lieu, calendrier, contraintes&nbsp;…"></textarea>
+        </label>
+
+        <button type="submit" class="cta cta--primary cta--block">
+          <span>Demander un devis</span>
+          <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <p class="quote-form__sent" role="status">Demande reçue. Notre équipe vous contactera sous 24 h ouvrables.</p>
+      </form>
     </div>
   </section>
 
@@ -123,10 +407,21 @@
        FOOTER
        ════════════════════════════════════════════════════════ -->
   <footer class="footer">
-    <p>&copy; 2026 <span class="footer__brand">Noezys</span> &middot; AI Innovation Lab &middot; Malta</p>
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <span class="footer__mark">
+          <svg viewBox="0 0 32 32" width="20" height="20" aria-hidden="true">
+            <path d="M9 6 L9 25 L24 25" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"/>
+            <circle cx="24" cy="6" r="1.6" fill="currentColor"/>
+          </svg>
+        </span>
+        <span class="footer__wordmark">LiegaCal</span>
+      </div>
+      <p class="footer__tag">Granulats calcaires &middot; Région liégeoise &middot; Bientôt en production</p>
+      <p class="footer__legal">&copy; 2026 LiegaCal. Tous droits réservés.</p>
+    </div>
   </footer>
 
-  <!-- Scripts -->
   <script src="main.js"></script>
 </body>
 </html>
