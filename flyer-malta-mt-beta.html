@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="mt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noezys — Flyer Malta (MT, beta) — recto/verso</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-deep:#0A0E1A; --cyan:#00D4FF; --purple:#8B5CF6;
+    --brand:linear-gradient(135deg,#00D4FF,#8B5CF6);
+    --brand-h:linear-gradient(90deg,#00D4FF,#8B5CF6);
+    --txt:#F0F3FA; --txt-2:#A6B0C9; --txt-3:#6B7693;
+    --card:rgba(255,255,255,.035); --border:rgba(255,255,255,.09);
+    --font:'Outfit','Inter','Segoe UI',sans-serif;
+  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:#e9ecf2;font-family:var(--font)}
+  body{display:flex;flex-direction:column;align-items:center;gap:26px;padding:24px}
+
+  .page{
+    position:relative; width:210mm; height:297mm; overflow:hidden; color:var(--txt);
+    box-shadow:0 24px 80px rgba(10,14,26,.35);
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+  /* faint particle-network dot grid (brand motif) */
+  .page::before{content:"";position:absolute;inset:0;pointer-events:none;
+    background-image:radial-gradient(rgba(255,255,255,.05) 1px, transparent 1.4px);
+    background-size:26px 26px;opacity:.6}
+
+  .beta{position:absolute;top:16px;right:-46px;transform:rotate(45deg);z-index:5;
+    background:var(--brand);color:#06101f;font-weight:800;font-size:11px;letter-spacing:.2em;
+    padding:6px 56px;box-shadow:0 6px 20px rgba(0,212,255,.3)}
+
+  /* ════════ RECTO ════════ */
+  .recto{
+    background:
+      radial-gradient(80% 55% at 50% 32%, rgba(0,212,255,.16), transparent 60%),
+      radial-gradient(90% 60% at 50% 100%, rgba(139,92,246,.32), transparent 55%),
+      linear-gradient(180deg,#0A0E1A 0%, #0C1022 50%, #150F2E 100%);
+    display:flex;flex-direction:column;align-items:center;text-align:center;
+    padding:30mm 18mm 16mm;
+  }
+  .r-brand{display:flex;align-items:center;gap:13px}
+  .r-brand img{width:56px;height:56px}
+  .r-brand .name{font-size:30px;font-weight:800;letter-spacing:-.01em;line-height:1}
+  .r-brand .sub{font-size:11px;color:var(--txt-2);letter-spacing:.2em;text-transform:uppercase;margin-top:4px;text-align:left}
+
+  .r-eyebrow{margin-top:34px;font-size:13px;font-weight:600;letter-spacing:.26em;color:var(--cyan);text-transform:uppercase}
+  .r-h1{margin-top:18px;font-size:62px;font-weight:900;line-height:1.0;letter-spacing:-.02em}
+  .r-h1 .grad{background:var(--brand-h);-webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 0 26px rgba(0,212,255,.35))}
+  .r-slogan{margin-top:18px;font-size:17px;font-style:italic;color:var(--txt-2);max-width:30ch}
+
+  .qr-wrap{margin-top:auto;position:relative}
+  .qr-glow{position:absolute;inset:-34px;border-radius:40px;background:var(--brand);
+    filter:blur(46px);opacity:.55;z-index:0}
+  .qr-card{position:relative;z-index:1;background:#fff;border-radius:26px;padding:26px;
+    box-shadow:0 30px 70px rgba(0,0,0,.4)}
+  .qr-card img{width:300px;height:300px;display:block}
+  .r-scan{margin-top:26px;margin-bottom:auto;font-size:24px;font-weight:800;letter-spacing:.02em}
+  .r-scan .arr{background:var(--brand-h);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .r-url{margin-top:6px;font-size:15px;letter-spacing:.16em;color:var(--txt-2);text-transform:uppercase}
+  .r-foot{font-size:11px;color:var(--txt-3);letter-spacing:.04em}
+
+  /* ════════ VERSO (effet WOW) ════════ */
+  .verso{
+    background:
+      radial-gradient(120% 80% at 100% 0%, rgba(139,92,246,.22), transparent 55%),
+      radial-gradient(110% 70% at 0% 100%, rgba(0,212,255,.16), transparent 50%),
+      linear-gradient(180deg,#0A0E1A 0%, #0B0F20 45%, #140F2C 100%);
+    display:flex; flex-direction:column; padding:13mm 13mm 10mm;
+  }
+  .head{display:flex;justify-content:space-between;align-items:flex-start}
+  .brand{display:flex;align-items:center;gap:11px}
+  .brand img{width:46px;height:46px;display:block}
+  .brand .name{font-size:23px;font-weight:700;letter-spacing:-.01em;line-height:1}
+  .brand .sub{font-size:9.5px;color:var(--txt-2);letter-spacing:.18em;text-transform:uppercase;margin-top:3px}
+  .head .meta{text-align:right;line-height:1.5}
+  .head .meta .tag{font-size:12px;font-weight:700;letter-spacing:.18em;
+    background:var(--brand-h);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .head .meta .tag2{font-size:9.5px;letter-spacing:.16em;color:var(--txt-2)}
+  .rule{height:2px;border-radius:2px;margin:11px 0 16px;background:var(--brand-h)}
+
+  .hero{display:grid;grid-template-columns:1fr 248px;gap:24px;align-items:start}
+  .eyebrow{font-size:11px;font-weight:600;letter-spacing:.2em;color:var(--cyan);text-transform:uppercase}
+  h1{font-size:43px;font-weight:800;line-height:1.02;letter-spacing:-.02em;margin:11px 0 0}
+  h1 .grad{background:var(--brand-h);-webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 0 20px rgba(0,212,255,.3))}
+  .lead{font-size:13px;line-height:1.55;color:var(--txt-2);margin-top:14px;max-width:46ch}
+  .lead b{color:var(--txt);font-weight:600}
+  .pill{display:inline-block;margin-top:13px;padding:8px 16px;border:1px solid rgba(0,212,255,.45);
+    border-radius:30px;font-size:10.5px;font-weight:600;letter-spacing:.14em;color:var(--txt)}
+  .visual{height:320px;border-radius:16px;border:1px solid var(--border);overflow:hidden;position:relative;background:#0b1024}
+  .visual img{width:100%;height:100%;object-fit:cover;display:block;opacity:.92}
+  .visual::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(10,14,26,.05),rgba(10,14,26,.45)),
+               linear-gradient(120deg,rgba(0,212,255,.08),rgba(139,92,246,.2))}
+
+  .quote{margin:16px 0 0;padding-left:16px;border-left:3px solid;border-image:var(--brand) 1;max-width:62ch}
+  .quote p{font-size:12.5px;font-style:italic;color:var(--txt-2);line-height:1.5}
+  .quote .src{display:block;margin-top:7px;font-size:9.5px;letter-spacing:.2em;color:var(--txt-3);font-style:normal}
+
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+  .card{position:relative;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:26px 16px 16px}
+  .card .num{position:absolute;top:-15px;left:16px;width:30px;height:30px;border-radius:50%;background:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#06101f;box-shadow:0 4px 14px rgba(0,212,255,.3)}
+  .card .top-line{position:absolute;top:0;left:16px;right:16px;height:2px;background:var(--brand-h);border-radius:2px}
+  .card h3{font-size:15px;font-weight:700;line-height:1.2;margin-bottom:9px}
+  .card p{font-size:11.5px;line-height:1.5;color:var(--txt-2)}
+
+  .banner{margin-top:18px;border-radius:14px;padding:15px 22px;
+    background:linear-gradient(110deg,#1b56c4 0%, #6d3bd6 55%, #a23fd0 100%);
+    display:flex;justify-content:space-between;align-items:center;gap:20px;
+    box-shadow:0 16px 44px rgba(109,59,214,.3)}
+  .banner .lbl{font-size:10px;font-weight:600;letter-spacing:.22em;color:rgba(255,255,255,.8)}
+  .banner .big{font-size:18px;font-weight:700;margin-top:4px}
+  .banner .big mark{background:rgba(255,255,255,.22);color:#fff;padding:1px 8px;border-radius:6px}
+  .banner .right{text-align:right;flex:none}
+  .banner .right .r1{font-size:16px;font-weight:700}
+  .banner .right .r2{font-size:10.5px;color:rgba(255,255,255,.8);margin-top:3px}
+
+  .cta{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:20px}
+  .cta .next .lbl{font-size:10px;font-weight:600;letter-spacing:.2em;color:var(--txt-3)}
+  .cta .next .line{font-size:17px;font-weight:700;margin-top:5px}
+  .cta .next .line .arr{color:var(--cyan)}
+  .btn{background:var(--brand);border-radius:12px;padding:14px 26px;text-align:center;color:#06101f;box-shadow:0 8px 26px rgba(0,212,255,.25)}
+  .btn .b1{font-size:16px;font-weight:700}
+  .btn .b2{font-size:11px;font-weight:600;opacity:.85;margin-top:1px}
+  .qr{flex:none;background:#fff;border-radius:12px;padding:8px 8px 5px;text-align:center;width:108px}
+  .qr img{width:92px;height:92px;display:block}
+  .qr .qt{font-size:8px;font-weight:700;letter-spacing:.12em;color:#0A0E1A;margin-top:3px}
+  .qr .qu{font-size:7.5px;letter-spacing:.06em;color:#54607c}
+
+  .contact{text-align:center;font-size:12px;color:var(--txt-2);margin-top:auto;padding-top:18px}
+  .contact b{color:var(--txt)} .contact a{color:var(--cyan);text-decoration:none}
+  .foot{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:11px;
+    border-top:1px solid var(--border);font-size:10px;color:var(--txt-3)}
+  .foot b{color:var(--txt-2);font-weight:600}
+
+  @media print{
+    @page{size:A4;margin:0}
+    html,body{background:#fff;padding:0;gap:0}
+    .page{box-shadow:none;break-after:page}
+    .page:last-child{break-after:auto}
+  }
+</style>
+</head>
+<body>
+
+  <!-- ════════════════ RECTO — QR GĦAT-TKABBIR ════════════════ -->
+  <section class="page recto">
+    <span class="beta">BETA</span>
+    <div class="r-brand">
+      <img src="assets/noezys-n-mark.png" alt="Noezys">
+      <div>
+        <div class="name">Noezys</div>
+        <div class="sub">AI Innovation Lab</div>
+      </div>
+    </div>
+
+    <div class="r-eyebrow">GĦALL-INDIPENDENTI TA&rsquo; MALTA</div>
+    <div class="r-h1">In-negozju tieg&#295;ek.<br><span class="grad">Issa bl-IA.</span></div>
+    <div class="r-slogan">Nintegraw l-IA mfassla apposta fin-negozju tieg&#295;ek.</div>
+
+    <div class="qr-wrap">
+      <div class="qr-glow"></div>
+      <div class="qr-card"><img src="assets/qr-noezys.svg" alt="Skennja biex iżżur www.noezys.com"></div>
+    </div>
+    <div class="r-scan">SKENNJA U SKOPRI KIF <span class="arr">&rarr;</span></div>
+    <div class="r-url">www.noezys.com</div>
+
+    <div class="r-foot" style="margin-top:14px">Noezys Ltd. · AI Innovation Lab Ewropew · Reg. C 115556</div>
+  </section>
+
+  <!-- ════════════════ VERSO — EFFETT WOW ════════════════ -->
+  <section class="page verso">
+    <div class="head">
+      <div class="brand">
+        <img src="assets/noezys-n-mark.png" alt="Noezys">
+        <div>
+          <div class="name">Noezys</div>
+          <div class="sub">AI Innovation Lab</div>
+        </div>
+      </div>
+      <div class="meta">
+        <div class="tag">G&#272;AN-NEGOZJI TA&rsquo; MALTA</div>
+        <div class="tag2">NOEZYS · AI INNOVATION LAB</div>
+      </div>
+    </div>
+
+    <div class="rule"></div>
+
+    <div class="hero">
+      <div>
+        <div class="eyebrow">FREELANCERS · &#280;WIENET · SERVIZZI · SNAJJA&rsquo;</div>
+        <h1>Nintegraw<br><span class="grad">IA mfassla apposta</span><br>fin-negozju tieg&#295;ek.</h1>
+        <div class="pill">CHATBOT · BIL-VU&#266;I · AWTOMAZZJONI</div>
+        <p class="lead">Tkun xi tkun is-seng&#295;a tieg&#295;ek, <b>Noezys</b> jibni l-IA madwar il-mod kif di&#289;&#224;
+        ta&#295;dem int. I&#295;allik twie&#289;eb lill-klijenti, tie&#295;u l-bookings u tnaddaf l-amministrazzjoni
+        &mdash; awtomatikament. Assistent wie&#295;ed, mag&#295;mul apposta. <b>Bla &#295;iliet teknici.</b></p>
+      </div>
+      <div class="visual"><img src="assets/poster.jpg" alt=""></div>
+    </div>
+
+    <div class="quote">
+      <p>&ldquo;It-teknolo&#289;ija g&#295;andha taqdi lin-nies &mdash; mhux bil-maqlub.
+      A&#295;na nibnu IA li tag&#295;ti lura l-&#295;in lill-indipendenti, u esperjenza a&#295;jar lill-klijenti tag&#295;hom.&rdquo;</p>
+      <span class="src">MANIFEST NOEZYS</span>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="top-line"></div><div class="num">1</div>
+        <h3>Assistent li qatt ma jorqod.</h3>
+        <p>Chatbot jew vu&#266;i &mdash; fuq is-sit, WhatsApp jew telefon. Iwie&#289;eb mistoqsijiet,
+        jie&#295;u appuntamenti u jaqbad kull lead. 24/7, anki meta ma tkunx tista&rsquo; int.</p>
+      </div>
+      <div class="card">
+        <div class="top-line"></div><div class="num">2</div>
+        <h3>Dejjem online, b&rsquo;kull lingwa.</h3>
+        <p>Sit professjonali u prezenza so&#266;jali, im&#295;addma bl-IA u a&#289;&#289;ornata b&rsquo;messa&#289;&#289; sempli&#266;i.
+        Kull klijent jaqrak bil-lingwa tieg&#295;u &mdash; sew Maltin sew turisti.</p>
+      </div>
+      <div class="card">
+        <div class="top-line"></div><div class="num">3</div>
+        <h3>Inqas amministrazzjoni. Aktar negozju.</h3>
+        <p>Fatturar, skedar, tfakkiriet u follow-ups isiru awtomatikament &mdash; ix-xog&#295;lijiet
+        li jieklulek il-&#295;in li tippreferi tqatta&rsquo; fuq is-seng&#295;a tieg&#295;ek.</p>
+      </div>
+    </div>
+
+    <div class="banner">
+      <div>
+        <div class="lbl">GARANZIJA NOEZYS</div>
+        <div class="big">Mibni apposta g&#295;ax-xog&#295;ol tieg&#295;ek. <mark>Kollox tieg&#295;ek</mark>. Bla lock-in.</div>
+      </div>
+      <div class="right">
+        <div class="r1">Mag&#295;mul apposta</div>
+        <div class="r2">L-g&#295;odda u d-data tieg&#295;ek &mdash; bla &#295;las g&#295;al kull messa&#289;&#289;</div>
+      </div>
+    </div>
+
+    <div class="cta">
+      <div class="next">
+        <div class="lbl">IL-PASS LI JMISS</div>
+        <div class="line">Demo ta&rsquo; 30 minuta, bla impenn. <span class="arr">&rarr;</span></div>
+      </div>
+      <div class="btn">
+        <div class="b1">Ibbukkja d-demo tieg&#295;ek</div>
+        <div class="b2">www.noezys.com</div>
+      </div>
+      <div class="qr">
+        <img src="assets/qr-noezys.svg" alt="Skennja">
+        <div class="qt">SKENNJA</div>
+        <div class="qu">WWW.NOEZYS.COM</div>
+      </div>
+    </div>
+
+    <div class="contact">
+      Di&#289;&#224; g&#295;andek sit? M&rsquo;hemm xejn &mdash; na&#295;sbu g&#295;alih a&#295;na.
+      Ikteb lil <b><a href="mailto:contact@noezys.com">contact@noezys.com</a></b>.
+    </div>
+    <div class="foot">
+      <div><b>Noezys Ltd.</b> · AI Innovation Lab Ewropew</div>
+      <div>Reg. C 115556 · noezys.com</div>
+    </div>
+  </section>
+
+</body>
+</html>
