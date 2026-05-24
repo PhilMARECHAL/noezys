@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="mt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noezys — Flyer bilingwi MT/EN — recto/verso</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cyan:#00D4FF; --purple:#8B5CF6;
+    --brand-h:linear-gradient(90deg,#00D4FF,#8B5CF6);
+    --txt:#F0F3FA; --txt-2:#9AA6C2; --txt-3:#5B6680;
+    --font:'Outfit','Inter','Segoe UI',sans-serif;
+  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:#e9ecf2;font-family:var(--font)}
+  body{display:flex;flex-direction:column;align-items:center;gap:26px;padding:24px}
+
+  .page{
+    position:relative; width:210mm; height:297mm; overflow:hidden; color:var(--txt);
+    background:#070A14;
+    box-shadow:0 24px 80px rgba(10,14,26,.35);
+    display:flex; flex-direction:column; align-items:center; text-align:center;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+  .page::before{content:"";position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);
+    width:600px;height:600px;border-radius:50%;pointer-events:none;
+    background:radial-gradient(circle, rgba(0,212,255,.16), rgba(139,92,246,.12) 40%, transparent 68%);
+    filter:blur(20px)}
+
+  .top-label{position:relative;z-index:1;margin-top:32mm;font-size:11px;font-weight:500;
+    letter-spacing:.42em;text-transform:uppercase;color:var(--txt-3)}
+  .hairline{position:relative;z-index:1;width:54px;height:2px;border-radius:2px;background:var(--brand-h)}
+  .bottom{position:relative;z-index:1;margin-top:auto;margin-bottom:22mm}
+  .bottom .url{font-size:13px;letter-spacing:.28em;text-transform:uppercase;color:var(--txt-2)}
+  .micro{position:absolute;bottom:10mm;left:0;right:0;font-size:9px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--txt-3);z-index:1}
+  .micro .en{color:#3f485f}
+
+  /* bilingual pairing helper */
+  .en{font-weight:300;color:var(--txt-3)}
+
+  /* ════════ RECTO ════════ */
+  .mark{position:relative;z-index:1;margin-top:auto;width:98px;height:98px;
+    filter:drop-shadow(0 0 30px rgba(0,212,255,.4)) drop-shadow(0 0 60px rgba(139,92,246,.28))}
+  .r-hero{position:relative;z-index:1;margin-top:28px;font-size:50px;font-weight:700;
+    line-height:1.08;letter-spacing:-.02em}
+  .r-hero .grad{background:var(--brand-h);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .r-hero-en{position:relative;z-index:1;margin-top:12px;font-size:19px;font-weight:300;
+    letter-spacing:.02em;color:var(--txt-3)}
+  .r-sub{position:relative;z-index:1;margin-top:26px;font-size:15px;font-weight:400;
+    letter-spacing:.03em;color:var(--txt-2);max-width:32ch;line-height:1.55}
+  .r-sub-en{position:relative;z-index:1;margin-top:7px;font-size:11.5px;font-weight:300;font-style:italic;
+    letter-spacing:.03em;color:var(--txt-3);max-width:34ch;line-height:1.5}
+  .r-spacer{margin-top:auto}
+
+  /* ════════ VERSO ════════ */
+  .v-kicker{position:relative;z-index:1;margin-top:auto;font-size:13px;font-weight:500;
+    letter-spacing:.42em;text-transform:uppercase;color:var(--cyan)}
+  .v-kicker .en{font-size:10px;letter-spacing:.34em;color:var(--txt-3);margin-left:0}
+  .v-line{position:relative;z-index:1;margin-top:14px;font-size:34px;font-weight:700;letter-spacing:-.01em}
+  .v-line-en{position:relative;z-index:1;margin-top:8px;font-size:15px;font-weight:300;color:var(--txt-3)}
+  .qr-card{position:relative;z-index:1;margin-top:38px;background:#fff;border-radius:22px;padding:24px;
+    box-shadow:0 24px 60px rgba(0,0,0,.45)}
+  .qr-card img{width:228px;height:228px;display:block}
+  .v-contact{position:relative;z-index:1;margin-top:32px;margin-bottom:auto;line-height:1.9}
+  .v-contact .u{font-size:15px;letter-spacing:.2em;text-transform:uppercase;color:var(--txt)}
+  .v-contact .e{font-size:13px;letter-spacing:.08em;color:var(--txt-2)}
+
+  @media print{
+    @page{size:A4;margin:0}
+    html,body{background:#fff;padding:0;gap:0}
+    .page{box-shadow:none;break-after:page}
+    .page:last-child{break-after:auto}
+  }
+</style>
+</head>
+<body>
+
+  <!-- ════ RECTO ════ -->
+  <section class="page recto">
+    <div class="top-label">Noezys · AI Innovation Lab</div>
+    <img class="mark" src="assets/noezys-n-mark.png" alt="Noezys">
+    <div class="r-hero">In-negozju tieg&#295;ek.<br><span class="grad">Issa bl-IA.</span></div>
+    <div class="r-hero-en">Your business. Now with AI.</div>
+    <div class="r-sub">Nintegraw l-IA mfassla apposta fin-negozju tieg&#295;ek.</div>
+    <div class="r-sub-en">We integrate customized AI into your business.</div>
+    <div class="r-spacer"></div>
+    <div class="bottom"><div class="hairline" style="margin:0 auto 16px"></div><div class="url">www.noezys.com</div></div>
+    <div class="micro">G&#295;all-indipendenti ta&rsquo; Malta &nbsp;·&nbsp; <span class="en">For Malta&rsquo;s independents</span></div>
+  </section>
+
+  <!-- ════ VERSO ════ -->
+  <section class="page verso">
+    <div class="v-kicker">Skennja &nbsp;·&nbsp; <span class="en">Scan</span></div>
+    <div class="v-line">Skopri kif.</div>
+    <div class="v-line-en">Discover how.</div>
+    <div class="qr-card"><img src="assets/qr-noezys.svg" alt="Skennja / Scan — www.noezys.com"></div>
+    <div class="v-contact">
+      <div class="u">www.noezys.com</div>
+      <div class="e">contact@noezys.com</div>
+    </div>
+    <div class="micro">Noezys Ltd. · AI Innovation Lab Ewropew · <span class="en">European AI Innovation Lab</span> · Reg. C 115556</div>
+  </section>
+
+</body>
+</html>
