@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu Translator FR → NL · Noezys</title>
+  <meta name="description" content="Traduction professionnelle de menus du français vers le néerlandais — lexique gastronomique certifié, 100% privé, par Noezys.">
+  <meta name="theme-color" content="#0A0E1A">
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="menu-translator.css">
+</head>
+<body class="mt-body">
+
+  <!-- Interactive particle network background (shared with home) -->
+  <canvas id="cosmos" aria-hidden="true"></canvas>
+
+  <main class="mt-app">
+
+    <!-- ── Header ─────────────────────────────────────────── -->
+    <header class="mt-header">
+      <a class="mt-back" href="index.html">← Noezys</a>
+      <div class="mt-badge">
+        <span class="mt-badge__dot"></span>
+        Traduction professionnelle certifiée
+      </div>
+      <h1 class="mt-title">Menu Translator</h1>
+      <p class="mt-flags">
+        <span class="mt-flag">🇫🇷 Français</span>
+        <span class="mt-arrow">→</span>
+        <span class="mt-flag">🇳🇱 Nederlands</span>
+      </p>
+      <p class="mt-sub">
+        Traduisez la carte de votre restaurant avec un lexique gastronomique
+        dédié — plats, modes de cuisson, ingrédients et formules. Tout reste
+        sur votre appareil.
+      </p>
+    </header>
+
+    <!-- ── Translator ─────────────────────────────────────── -->
+    <section class="mt-workspace">
+      <div class="mt-panel mt-panel--input">
+        <div class="mt-panel__head">
+          <span class="mt-panel__label">Menu en français</span>
+          <span class="mt-panel__lang">FR</span>
+        </div>
+        <textarea
+          id="mt-input"
+          class="mt-textarea"
+          placeholder="Collez ici votre menu en français…&#10;&#10;Ex. :&#10;Magret de canard, sauce au miel&#10;Crème brûlée à la vanille"
+          spellcheck="false"
+          autofocus></textarea>
+        <div class="mt-actions">
+          <button id="mt-translate" class="mt-btn mt-btn--primary" type="button">
+            Traduire en néerlandais
+          </button>
+          <button id="mt-sample" class="mt-btn" type="button">Exemple</button>
+          <button id="mt-clear" class="mt-btn mt-btn--ghost" type="button">Effacer</button>
+        </div>
+        <p class="mt-hint">Astuce : <kbd>Ctrl</kbd> + <kbd>Entrée</kbd> pour traduire.</p>
+      </div>
+
+      <!-- ── Result / Certificate ─────────────────────────── -->
+      <div class="mt-panel mt-panel--output" id="mt-result" hidden>
+        <div class="mt-panel__head">
+          <span class="mt-panel__label">Vertaling in het Nederlands</span>
+          <span class="mt-panel__lang mt-panel__lang--nl">NL</span>
+        </div>
+
+        <div class="mt-conf">
+          <div class="mt-conf__bar"><span id="mt-conf-fill" class="mt-conf__fill"></span></div>
+          <span id="mt-conf-label" class="mt-conf__label"></span>
+        </div>
+
+        <article class="mt-cert" id="mt-cert">
+          <pre id="mt-output" class="mt-output"></pre>
+
+          <footer class="mt-cert__seal">
+            <div class="mt-cert__mark">
+              <img src="assets/noezys-n-mark.png" alt="Noezys" width="48" height="48"
+                   onerror="this.style.display='none'">
+            </div>
+            <div class="mt-cert__text">
+              <strong>Traduction certifiée · Noezys Menu Translator</strong>
+              <span>FR → NL · gegarandeerde gastronomische terminologie</span>
+              <span class="mt-cert__meta">
+                Réf. <b id="mt-cert-ref">—</b> · le <b id="mt-cert-date">—</b>
+              </span>
+            </div>
+          </footer>
+        </article>
+
+        <div class="mt-actions mt-actions--out">
+          <button id="mt-copy" class="mt-btn mt-btn--primary" type="button">Copier</button>
+          <button id="mt-print" class="mt-btn" type="button">Imprimer / PDF</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="mt-foot">
+      <p>&copy; 2026 <span class="footer__brand">Noezys</span> · AI Innovation Lab · Malta</p>
+    </footer>
+  </main>
+
+  <script src="main.js"></script>
+  <script src="menu-translator.js"></script>
+</body>
+</html>
