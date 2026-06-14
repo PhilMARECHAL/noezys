@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-Peloton Sync AI — App · Noezys</title>
+<meta name="theme-color" content="#05060F">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --void:#070411;--rail:rgba(12,8,30,.92);--stroke:rgba(150,120,255,.16);--stroke-hi:rgba(150,120,255,.36);
+  --cyan:#00E5FF;--mag:#FF2EC4;--grad:linear-gradient(120deg,var(--cyan),var(--mag));
+  --txt:#F2EEFF;--txt2:#A99FD6;--txt3:#6B6097;--font:'Outfit',system-ui,sans-serif;--ease:cubic-bezier(.16,1,.3,1);
+}
+body.day{--void:#DDE3F7;--rail:rgba(255,255,255,.94);--stroke:rgba(60,40,120,.16);--stroke-hi:rgba(60,40,120,.32);--txt:#16123A;--txt2:#564E7E;--txt3:#8C84B0}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font);background:var(--void);color:var(--txt);height:100vh;overflow:hidden}
+button{font-family:inherit;cursor:pointer}
+.app{display:grid;grid-template-columns:96px 1fr;height:100vh}
+.rail{background:var(--rail);border-right:1px solid var(--stroke);display:flex;flex-direction:column;align-items:center;
+  padding:18px 0;gap:6px;backdrop-filter:blur(14px);z-index:10}
+.logo{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;font-size:23px;font-weight:900;color:#070411;
+  background:var(--grad);box-shadow:0 0 26px rgba(255,46,196,.5);margin-bottom:6px;position:relative}
+.logo::after{content:"";position:absolute;inset:-3px;border-radius:17px;background:var(--grad);filter:blur(13px);opacity:.5;z-index:-1}
+.wordmark{font-size:8.5px;font-weight:800;letter-spacing:.06em;text-align:center;color:var(--txt3);line-height:1.2;margin-bottom:12px;text-transform:uppercase}
+.nav{width:72px;border:1px solid transparent;border-radius:16px;background:transparent;color:var(--txt3);
+  display:flex;flex-direction:column;align-items:center;gap:5px;padding:11px 0;transition:.3s var(--ease);position:relative}
+.nav svg{width:23px;height:23px;stroke-width:1.7}
+.nav span{font-size:9px;font-weight:700;letter-spacing:.02em;text-transform:uppercase}
+.nav:hover{color:var(--txt2);background:rgba(150,120,255,.07)}
+.nav.active{color:var(--cyan);background:rgba(0,229,255,.09);border-color:rgba(0,229,255,.28)}
+.nav.active::before{content:"";position:absolute;left:-18px;top:50%;transform:translateY(-50%);width:4px;height:30px;border-radius:4px;background:var(--grad);box-shadow:0 0 14px var(--cyan)}
+.spacer{flex:1}
+.theme{width:72px;border:1px solid var(--stroke);border-radius:14px;background:transparent;color:var(--txt2);
+  display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 0;transition:.3s}
+.theme:hover{border-color:var(--stroke-hi);color:var(--txt)}
+.theme svg{width:20px;height:20px}
+.theme span{font-size:8.5px;font-weight:700;text-transform:uppercase}
+.stage{position:relative;overflow:hidden}
+.frame{position:absolute;inset:0;width:100%;height:100%;border:0;opacity:0;transition:opacity .45s var(--ease);background:var(--void)}
+.frame.show{opacity:1;z-index:2}
+.loader{position:absolute;inset:0;display:grid;place-items:center;z-index:1;color:var(--txt3);font-size:13px;letter-spacing:.1em;text-transform:uppercase}
+.loader .ring{width:34px;height:34px;border-radius:50%;border:3px solid var(--stroke);border-top-color:var(--cyan);animation:sp 1s linear infinite;margin:0 auto 12px}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media(max-width:680px){
+  .app{grid-template-columns:1fr;grid-template-rows:1fr 78px}
+  .rail{flex-direction:row;border-right:none;border-top:1px solid var(--stroke);order:2;padding:8px;justify-content:space-around;overflow-x:auto}
+  .logo,.wordmark,.spacer{display:none}.nav{width:auto;padding:6px 10px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="rail">
+    <div class="logo">⚡</div>
+    <div class="wordmark">E-Peloton<br>Sync AI</div>
+    <button class="nav active" data-src="e-peloton-live3d.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="6" cy="17" r="3.5"/><circle cx="18" cy="17" r="3.5"/><path d="M6 17l4-7h5l3 7M10 10l-1-3H7"/></svg><span>Live</span></button>
+    <button class="nav" data-src="e-peloton-3d.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3l9 6-9 6-9-6 9-6z"/><path d="M3 9v6l9 6 9-6V9"/></svg><span>Vue 3D</span></button>
+    <button class="nav" data-src="e-peloton-climb.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 20l6-12 4 6 3-4 5 10z"/></svg><span>Montée</span></button>
+    <button class="nav" data-src="e-peloton-sync.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="5" rx="1.5"/><rect x="13" y="10" width="8" height="11" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/></svg><span>Dashboard</span></button>
+    <div class="spacer"></div>
+    <button class="theme" id="theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg><span id="theme-l">Jour</span></button>
+  </aside>
+
+  <main class="stage" id="stage">
+    <div class="loader" id="loader"><div><div class="ring"></div>Chargement…</div></div>
+  </main>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  const $=(s,r=document)=>r.querySelector(s);
+  const stage=$('#stage');
+  let theme='night';
+  const frames={}; // cache iframes par source
+
+  function withTheme(src){return src+(theme==='day'?'?theme=day':'');}
+
+  function show(src){
+    // masque tous
+    Object.values(frames).forEach(f=>f.classList.remove('show'));
+    let f=frames[src];
+    if(!f){
+      f=document.createElement('iframe');
+      f.className='frame';f.setAttribute('loading','lazy');
+      frames[src]=f;stage.appendChild(f);
+      f.addEventListener('load',()=>f.classList.add('show'));
+      f.src=withTheme(src);
+    }else{
+      f.classList.add('show');
+    }
+  }
+
+  $('#stage'); // ensure
+  document.querySelectorAll('.nav').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    show(b.dataset.src);
+  }));
+
+  // theme toggle — recharge les iframes avec le bon thème
+  $('#theme').addEventListener('click',()=>{
+    theme=theme==='day'?'night':'day';
+    document.body.classList.toggle('day',theme==='day');
+    $('#theme-l').textContent=theme==='day'?'Nuit':'Jour';
+    // recharge chaque iframe déjà créée
+    Object.keys(frames).forEach(src=>{frames[src].src=withTheme(src);});
+  });
+
+  // écran initial
+  show('e-peloton-live3d.html');
+})();
+</script>
+</body>
+</html>

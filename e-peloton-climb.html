@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-Peloton Sync AI — Montée · Noezys</title>
+<meta name="theme-color" content="#0A0420">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --void:#0A0420;--deep:#140A38;--panel:rgba(20,12,54,.6);--panel2:rgba(28,16,70,.7);
+  --stroke:rgba(150,120,255,.2);--stroke-hi:rgba(150,120,255,.4);
+  --cyan:#00E5FF;--mag:#FF2EC4;--violet:#8B5CFF;--lime:#B6FF3C;--amber:#FFC24B;--danger:#FF5470;
+  --grad:linear-gradient(110deg,var(--cyan),var(--mag));--grad-soft:linear-gradient(110deg,rgba(0,229,255,.16),rgba(255,46,196,.16));
+  --txt:#F2EEFF;--txt2:#A99FD6;--txt3:#6B6097;--mono:'JetBrains Mono',monospace;--font:'Outfit',system-ui,sans-serif;--ease:cubic-bezier(.16,1,.3,1);
+}
+body.day{--void:#E9EDFC;--deep:#fff;--panel:rgba(255,255,255,.72);--panel2:rgba(255,255,255,.85);
+  --stroke:rgba(60,40,120,.16);--stroke-hi:rgba(60,40,120,.32);--txt:#16123A;--txt2:#564E7E;--txt3:#8C84B0;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font);background:var(--void);color:var(--txt);min-height:100vh;overflow-x:hidden;
+  background-image:radial-gradient(800px 500px at 10% -5%,rgba(0,229,255,.14),transparent 60%),radial-gradient(900px 600px at 100% 0,rgba(255,46,196,.13),transparent 55%)}
+button{font-family:inherit;cursor:pointer}a{color:inherit;text-decoration:none}
+.top{display:flex;align-items:center;gap:16px;padding:13px 22px;border-bottom:1px solid var(--stroke);
+  background:linear-gradient(180deg,rgba(14,7,48,.85),rgba(14,7,48,.4));backdrop-filter:blur(12px);position:sticky;top:0;z-index:30}
+body.day .top{background:linear-gradient(180deg,rgba(255,255,255,.85),rgba(255,255,255,.5))}
+.logo{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-size:19px;font-weight:900;color:#0A0420;background:var(--grad);box-shadow:0 0 20px rgba(255,46,196,.5)}
+.brand b{font-size:16px;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;display:block;line-height:1}
+.brand small{font-size:9.5px;color:var(--txt3);letter-spacing:.15em;text-transform:uppercase;font-weight:700}
+.back{font-size:12px;color:var(--txt2);padding:6px 11px;border:1px solid var(--stroke);border-radius:8px}.sp{flex:1}
+.tg{display:flex;align-items:center;gap:7px;padding:6px 11px;border-radius:999px;border:1px solid var(--stroke);background:var(--panel);font-size:12px;font-weight:600;color:var(--txt2)}
+.tg svg{width:16px;height:16px}
+
+.wrap{padding:20px 24px 40px}
+.head{display:flex;align-items:flex-end;gap:14px;margin-bottom:18px;flex-wrap:wrap}
+.head h1{font-size:30px;font-weight:800;letter-spacing:-.02em}
+.head .sub{color:var(--txt2);font-size:14px;margin-bottom:4px}
+.head .badge{margin-left:auto;display:flex;gap:10px}
+.kbig{padding:10px 18px;border-radius:14px;background:var(--grad-soft);border:1px solid var(--stroke-hi);text-align:center;line-height:1}
+.kbig .v{font-family:var(--mono);font-size:26px;font-weight:800}.kbig .v.mag{color:var(--mag)}.kbig .v.cyan{color:var(--cyan)}.kbig .v.lime{color:var(--lime)}
+.kbig .l{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--txt3);font-weight:700;margin-top:4px}
+
+.grid{display:grid;grid-template-columns:1fr 360px;gap:18px;align-items:start}
+.panel{background:var(--panel);border:1px solid var(--stroke);border-radius:20px;backdrop-filter:blur(12px);overflow:hidden;position:relative}
+.pt{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--txt2);padding:16px 18px 0}
+.pt svg{width:18px;height:18px;color:var(--cyan)}
+
+/* climb profile */
+.climb{min-height:340px}
+#climb-svg{display:block;width:100%;height:340px}
+
+/* gradient ladder */
+.grad-now{display:flex;gap:14px;align-items:stretch;margin-top:14px}
+.ramp{flex:1;padding:16px;border-radius:16px;background:var(--panel);border:1px solid var(--stroke);display:flex;align-items:center;gap:16px}
+.ramp .pctbig{font-family:var(--mono);font-size:44px;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
+.ramp .info b{font-size:14px}.ramp .info p{font-size:12px;color:var(--txt2);margin-top:3px;line-height:1.5}
+.segbar{margin-top:14px}
+.segbar .track{display:flex;height:34px;border-radius:10px;overflow:hidden;border:1px solid var(--stroke)}
+.segbar .seg{display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:800;color:#0A0420;position:relative}
+.segbar .labels{display:flex;justify-content:space-between;font-size:10px;color:var(--txt3);margin-top:6px;font-weight:600}
+
+/* riders climbing list */
+.rlist{padding:8px 16px 16px;display:flex;flex-direction:column;gap:9px}
+.rrow{display:grid;grid-template-columns:34px 1fr;gap:11px;align-items:center;padding:11px;border-radius:14px;
+  border:1px solid var(--stroke);background:rgba(10,4,32,.4)}
+body.day .rrow{background:rgba(255,255,255,.5)}
+.ava{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-weight:900;font-size:13px;color:#0A0420;position:relative}
+.ava .led{position:absolute;bottom:-3px;right:-3px;width:11px;height:11px;border-radius:50%;border:2px solid var(--deep)}
+.nm{font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px}
+.tg2{font-size:8px;font-weight:800;padding:2px 6px;border-radius:5px;text-transform:uppercase}
+.eff{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:7px}
+.effbar{height:18px;border-radius:6px;background:rgba(150,120,255,.12);position:relative;overflow:hidden;border:1px solid var(--stroke)}
+.effbar i{display:block;height:100%;border-radius:5px;transition:width 1s var(--ease)}
+.effbar .t{position:absolute;left:7px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:9.5px;font-weight:800;color:var(--txt);z-index:2}
+.effbar.hr i{background:linear-gradient(90deg,var(--amber),var(--danger))}
+.effbar.mot i{background:var(--grad)}
+
+/* AI panel */
+.aibox{display:flex;gap:13px;padding:16px;border-radius:16px;background:var(--grad-soft);border:1px solid rgba(255,46,196,.3);margin:0 0 14px}
+.aibox .ic{width:40px;height:40px;border-radius:12px;flex-shrink:0;display:grid;place-items:center;background:var(--grad);box-shadow:0 0 20px rgba(255,46,196,.5)}
+.aibox .ic svg{width:21px;height:21px;color:#0A0420}
+.aibox p{font-size:13px;line-height:1.6}.aibox b{color:var(--cyan)}
+.feed{display:flex;flex-direction:column;gap:8px;padding:0 16px 16px}
+.fi{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:11px;background:rgba(10,4,32,.4);border:1px solid var(--stroke);animation:sl .5s var(--ease)}
+body.day .fi{background:rgba(255,255,255,.5)}
+@keyframes sl{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:none}}
+.fi .d{width:7px;height:7px;border-radius:50%;background:var(--cyan);margin-top:5px;flex-shrink:0;box-shadow:0 0 8px var(--cyan)}
+.fi b{font-size:12.5px}.fi p{font-size:11px;color:var(--txt2);margin-top:2px;line-height:1.5}
+.together{margin-top:14px;padding:16px;border-radius:16px;text-align:center;background:rgba(182,255,60,.08);border:1px solid rgba(182,255,60,.3)}
+.together .v{font-family:var(--mono);font-size:30px;font-weight:800;color:var(--lime)}
+.together .l{font-size:12px;color:var(--txt2);margin-top:4px}
+
+@media(max-width:1000px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+  <header class="top">
+    <div class="logo">⚡</div>
+    <div class="brand"><b>E-Peloton Sync AI</b><small>Montée · Col de la Madone</small></div>
+    <a class="back" href="e-peloton-app.html">← Hub</a>
+    <div class="sp"></div>
+    <button class="tg" id="theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg><span id="theme-l">Mode jour</span></button>
+  </header>
+
+  <div class="wrap">
+    <div class="head">
+      <h1>Montée en cours</h1>
+      <span class="sub">3,0 km à 8 % moyen · l'IA vise une arrivée groupée au sommet</span>
+      <div class="badge">
+        <div class="kbig"><div class="v mag" id="k-grade">8.1%</div><div class="l">Pente</div></div>
+        <div class="kbig"><div class="v cyan" id="k-rest">1,8 km</div><div class="l">Restant</div></div>
+        <div class="kbig"><div class="v lime" id="k-coh">97%</div><div class="l">Cohésion</div></div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div>
+        <div class="panel climb">
+          <div class="pt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 18l5-9 4 5 3-4 6 8"/></svg>Profil de la côte — position des cyclistes</div>
+          <svg viewBox="0 0 760 340" id="climb-svg"></svg>
+        </div>
+
+        <div class="grad-now">
+          <div class="ramp">
+            <div class="pctbig" id="ramp-pct">11%</div>
+            <div class="info"><b>Rampe la plus dure dans 220 m</b><p>L'IA pré-charge l'assistance des cyclistes les plus exposés avant l'attaque de la rampe.</p></div>
+          </div>
+        </div>
+
+        <div class="panel" style="margin-top:14px">
+          <div class="pt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4v16M4 8h12l-2 4 2 4H4"/></svg>Segments de pente à venir</div>
+          <div style="padding:14px 18px 18px">
+            <div class="segbar">
+              <div class="track">
+                <div class="seg" style="width:22%;background:#B6FF3C">6%</div>
+                <div class="seg" style="width:24%;background:#FFC24B">9%</div>
+                <div class="seg" style="width:18%;background:#FF5470">11%</div>
+                <div class="seg" style="width:20%;background:#FFC24B">8%</div>
+                <div class="seg" style="width:16%;background:#B6FF3C">4%</div>
+              </div>
+              <div class="labels"><span>km 34.2</span><span>km 35.0</span><span>Sommet · km 37.2</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="panel">
+          <div class="pt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="7" r="3"/><path d="M5 21c0-4 3-6 7-6s7 2 7 6"/></svg>Effort vs assistance — temps réel</div>
+          <div class="rlist" id="rlist"></div>
+        </div>
+
+        <div class="panel" style="margin-top:14px">
+          <div class="pt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a7 7 0 00-4 12.7V17a2 2 0 002 2h4a2 2 0 002-2v-2.3A7 7 0 0012 2z"/></svg>IA · nivellement en montée</div>
+          <div style="padding:14px 16px 0">
+            <div class="aibox">
+              <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg></div>
+              <p><b>Léa</b> approche de son seuil (FC 178). L'IA monte son assistance à <b>+72%</b> et bride <b>Théo</b> pour resserrer l'écart — arrivée groupée sécurisée.</p>
+            </div>
+          </div>
+          <div class="feed" id="feed"></div>
+        </div>
+
+        <div class="together">
+          <div class="v" id="eta">+00:00</div>
+          <div class="l">Écart estimé au sommet entre 1ᵉʳ et dernier</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+(function(){
+  "use strict";
+  const $=(s,r=document)=>r.querySelector(s);
+  const params=new URLSearchParams(location.search);
+  if(params.get('theme')==='day')document.body.classList.add('day');
+
+  const riders=[
+    {id:'theo',name:'Théo',init:'TM',jc:'#B6FF3C',status:'lead',hr:148,hrmax:188,motor:18,prog:.70,pw:286},
+    {id:'marc',name:'Marc',init:'MR',jc:'#00E5FF',status:'ok',  hr:156,hrmax:185,motor:34,prog:.66,pw:262},
+    {id:'paul',name:'Paul',init:'PD',jc:'#FFC24B',status:'ok',  hr:162,hrmax:182,motor:52,prog:.62,pw:212},
+    {id:'sara',name:'Sara',init:'SK',jc:'#FF2EC4',status:'ok',  hr:165,hrmax:190,motor:58,prog:.60,pw:226},
+    {id:'lea', name:'Léa', init:'LB',jc:'#8B5CFF',status:'drop', hr:178,hrmax:192,motor:72,prog:.55,pw:198},
+  ];
+
+  /* profil de côte montant + cyclistes positionnés dessus */
+  function climb(){
+    const svg=$('#climb-svg');const W=760,H=340;
+    // courbe montante (gauche bas -> droite haut) avec rampes
+    const pts=[[0,300],[120,278],[220,250],[300,232],[380,196],[460,150],[540,120],[620,86],[700,58],[760,40]];
+    let line='M'+pts.map(p=>p.join(' ')).join(' L ');
+    const area=line+` L760 ${H} L0 ${H} Z`;
+    function yAt(x){ // interpolation linéaire
+      for(let i=0;i<pts.length-1;i++){if(x>=pts[i][0]&&x<=pts[i+1][0]){const t=(x-pts[i][0])/(pts[i+1][0]-pts[i][0]);return pts[i][1]+t*(pts[i+1][1]-pts[i][1]);}}
+      return pts[pts.length-1][1];
+    }
+    let g=`<defs>
+      <linearGradient id="ar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(255,46,196,.32)"/><stop offset="1" stop-color="rgba(0,229,255,.02)"/></linearGradient>
+      <linearGradient id="ln" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#00E5FF"/><stop offset="1" stop-color="#FF2EC4"/></linearGradient>
+      <radialGradient id="gl"><stop offset="0" stop-color="#fff" stop-opacity=".0"/></radialGradient>
+    </defs>
+    <path d="${area}" fill="url(#ar)"/>
+    <path d="${line}" fill="none" stroke="url(#ln)" stroke-width="3.5" stroke-linecap="round"/>`;
+    // sommet flag
+    g+=`<circle cx="760" cy="40" r="6" fill="#FF2EC4"/><text x="724" y="32" fill="#A99FD6" font-size="11" font-family="JetBrains Mono">SOMMET</text>`;
+    // grille pente labels
+    [['6%',160],['9%',330],['11%',500],['8%',640]].forEach(([t,x])=>{g+=`<text x="${x}" y="${yAt(x)-14}" fill="#6B6097" font-size="10" font-family="JetBrains Mono" text-anchor="middle">${t}</text>`;});
+    // cyclistes
+    riders.forEach(r=>{
+      const x=20+r.prog*700;const y=yAt(x)-12;
+      g+=`<g transform="translate(${x.toFixed(1)},${y.toFixed(1)})">
+        <ellipse cx="0" cy="20" rx="20" ry="6" fill="${r.jc}" opacity=".18"/>
+        <circle r="13" fill="${r.jc}"/>
+        <text y="4.5" text-anchor="middle" font-family="Outfit" font-weight="800" font-size="11" fill="#0A0420">${r.init}</text>
+        <text y="-20" text-anchor="middle" font-family="Outfit" font-weight="700" font-size="11" fill="#F2EEFF">${r.name}</text>
+        <text y="34" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#A99FD6">+${r.motor}% ⚡</text>
+      </g>`;
+    });
+    svg.innerHTML=g;
+  }
+  climb();
+
+  /* liste effort vs assistance */
+  function rlist(){
+    $('#rlist').innerHTML=riders.map(r=>{
+      const hrp=Math.round(r.hr/r.hrmax*100);
+      const tag=r.status==='lead'?['tête','#B6FF3C']:r.status==='drop'?['soutenu','#FF5470']:['groupe','#00E5FF'];
+      return `<div class="rrow" data-id="${r.id}">
+        <div class="ava" style="background:${r.jc}">${r.init}<span class="led" style="background:${tag[1]}"></span></div>
+        <div>
+          <div class="nm">${r.name}<span class="tg2" style="background:${tag[1]}22;color:${tag[1]}">${tag[0]}</span></div>
+          <div class="eff">
+            <div class="effbar hr"><span class="t" data-f="hr">FC ${r.hr} · ${hrp}%</span><i style="width:${hrp}%"></i></div>
+            <div class="effbar mot"><span class="t" data-f="mot">⚡ ${r.motor}%</span><i style="width:${r.motor}%"></i></div>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+  rlist();
+
+  /* feed */
+  const feed=$('#feed');
+  const seed=[
+    {b:'↑ Léa +14% assist.',p:'FC 178 (seuil) — soutien renforcé avant la rampe à 11%.'},
+    {b:'↓ Théo bridé −8%',p:'Marge cardiaque : énergie réallouée au groupe.'},
+    {b:'Pré-charge rampe',p:'Sara & Paul reçoivent +10% anticipés (220 m avant la pente).'},
+    {b:'Écart resserré',p:'1ᵉʳ↔dernier ramené de 9 s à 5 s.'},
+  ];
+  let fi=0;
+  function push(it){const n=document.createElement('div');n.className='fi';n.innerHTML=`<span class="d"></span><div><b>${it.b}</b><p>${it.p}</p></div>`;feed.prepend(n);while(feed.children.length>4)feed.removeChild(feed.lastChild);}
+  seed.slice(0,3).forEach(push);
+  setInterval(()=>{push(seed[fi%seed.length]);fi++;},4200);
+
+  /* live */
+  const jit=(v,a)=>v+(Math.random()*2-1)*a;
+  setInterval(()=>{
+    riders.forEach(r=>{
+      r.hr=Math.round(jit(r.hr,2));r.motor=Math.max(5,Math.min(85,Math.round(jit(r.motor,3))));
+      const row=$(`.rrow[data-id="${r.id}"]`);
+      if(row){const hrp=Math.round(r.hr/r.hrmax*100);
+        $('[data-f="hr"]',row).textContent=`FC ${r.hr} · ${hrp}%`;
+        row.querySelector('.effbar.hr i').style.width=hrp+'%';
+        $('[data-f="mot"]',row).textContent=`⚡ ${r.motor}%`;
+        row.querySelector('.effbar.mot i').style.width=r.motor+'%';
+      }
+    });
+    $('#k-grade').textContent=jit(8.1,.3).toFixed(1)+'%';
+    $('#k-coh').textContent=Math.min(99,Math.round(jit(97,1)))+'%';
+    $('#ramp-pct').textContent=Math.round(jit(11,.5))+'%';
+    $('#eta').textContent='+00:0'+Math.max(3,Math.round(jit(5,1)));
+    climb();
+  },2200);
+
+  $('#theme').addEventListener('click',()=>{document.body.classList.toggle('day');$('#theme-l').textContent=document.body.classList.contains('day')?'Mode nuit':'Mode jour';});
+})();
+</script>
+</body>
+</html>
