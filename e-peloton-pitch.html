@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>E-Peloton Sync AI — Noezys · Dossier d'investissement</title>
-<meta name="description" content="E-Peloton Sync AI — l'intelligence collective qui synchronise les vélos électriques. Personne ne décroche. Personne n'attend. Tour d'amorçage 1 M$.">
+<title>Unisson — l'intelligence collective du peloton · Noezys</title>
+<meta name="description" content="Unisson (E-Peloton Sync AI) — l'intelligence collective qui fait rouler un groupe de vélos électriques comme un seul corps. À l'unisson, quel que soit le niveau. Tour d'amorçage 1 M$.">
 <meta name="theme-color" content="#04040A">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -154,7 +154,20 @@ a{color:inherit;text-decoration:none}
 
 /* cards */
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-@media(max-width:880px){.grid3{grid-template-columns:1fr}}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media(max-width:880px){.grid3{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}}
+.applist{display:flex;flex-wrap:wrap;gap:11px;justify-content:center;margin-top:8px}
+.applist span{padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);font-size:14px;font-weight:600;color:var(--txt-2)}
+.sec--paper .applist span{border-color:var(--line-d);background:#fff;color:var(--txt-d)}
+.hybrid{margin:26px 0 40px;padding:28px 32px;border-radius:24px;border:1px solid var(--line-d);
+  background:radial-gradient(120% 160% at 0% 0%,rgba(31,224,255,.1),transparent 55%),radial-gradient(120% 160% at 100% 100%,rgba(255,54,198,.1),transparent 55%),#fff;
+  display:flex;gap:22px;align-items:center}
+.hybrid .em{font-size:40px;line-height:1;flex-shrink:0}
+.hybrid p{font-size:clamp(16px,1.9vw,20px);font-weight:500;color:var(--txt-d);line-height:1.5}
+.hybrid b{font-weight:700}
+.pullq{font-family:var(--serif);font-style:italic;font-size:clamp(24px,3.6vw,40px);line-height:1.25;letter-spacing:-.015em;margin-top:44px}
+.story p{font-family:var(--serif);font-weight:400;font-size:clamp(19px,2.3vw,26px);line-height:1.5;color:#E4E4EE;margin-bottom:22px}
+.story p .soft{color:var(--txt-3)}
 .card{padding:36px;border-radius:26px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.01));transition:.45s var(--ease);position:relative;overflow:hidden}
 .card::before{content:"";position:absolute;inset:0;border-radius:26px;padding:1px;background:var(--grad);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .4s}
 .card:hover{transform:translateY(-6px)}.card:hover::before{opacity:.55}
@@ -313,14 +326,15 @@ a{color:inherit;text-decoration:none}
   <canvas id="peloton"></canvas>
   <div class="hero__veil"></div>
   <div class="wrap">
-    <span class="badge reveal fade"><span class="d"></span>Noezys · Dossier d'investissement confidentiel</span>
+    <span class="badge reveal fade"><span class="d"></span>Unisson · un produit Noezys · Dossier confidentiel</span>
     <h1 class="h1 reveal" data-d="1">Personne ne <span class="grad-txt">décroche.</span><br>Personne n'attend.</h1>
-    <p class="lead reveal" data-d="2">E-Peloton Sync AI orchestre l'assistance électrique de tout un groupe pour le faire rouler comme <b>un seul organisme.</b> Un brevet fondateur. Des marchés multiples.</p>
+    <p class="lead reveal" data-d="2"><b style="color:#fff;font-weight:700">Unisson</b> orchestre l'assistance électrique de tout un groupe pour le faire rouler comme <b>un seul corps.</b> Un brevet fondateur. Des marchés multiples.</p>
     <div class="hero__cta reveal" data-d="3">
       <a href="#ask" class="btn btn--primary">Rejoindre le tour d'amorçage →</a>
       <a href="#solution" class="btn btn--ghost">Voir la technologie</a>
     </div>
     <div class="hero__ask reveal" data-d="4"><b class="grad-txt">1 000 000 $</b><span>Amorçage · 18 mois de piste</span></div>
+    <p class="reveal" data-d="5" style="margin-top:22px;font-size:15px;color:var(--txt-2);font-family:var(--serif);font-style:italic">« À l'unisson, quel que soit le niveau. »</p>
   </div>
   <div class="scrollcue"><span>Faites défiler</span><span class="m"></span></div>
 </header>
@@ -419,6 +433,33 @@ a{color:inherit;text-decoration:none}
   </div>
 </section>
 
+<!-- PLATEFORME / ZWIFT -->
+<section class="sec sec--paper" id="plateforme">
+  <div class="wrap">
+    <div class="shead reveal" style="max-width:880px">
+      <span class="eyebrow">La bascule</span>
+      <h2 class="h2">Le vélo électrique n'est que <span class="grad-txt">la première application.</span></h2>
+    </div>
+    <p class="serif reveal" data-d="1" style="font-size:clamp(32px,5.4vw,68px);font-weight:500;letter-spacing:-.025em;line-height:1.05;margin-bottom:22px;color:var(--txt-d)">Un home-trainer <span class="grad-txt">Zwift</span>. Mais <span style="font-style:italic">dehors.</span></p>
+    <p class="lead reveal" data-d="2" style="max-width:780px;margin-bottom:52px">En cinq secondes : le home-trainer a amené la sortie extérieure à l'intérieur. <b style="color:var(--txt-d);font-weight:600">Unisson fait l'inverse</b> — il amène l'intelligence du virtuel sur la vraie route. Et la boucle peut se refermer.</p>
+
+    <div class="grid2">
+      <div class="card reveal" data-d="1"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 17l6-10 4 6 2-3 4 7"/><circle cx="12" cy="4" r="1.5"/></svg></div><h3>Le virtuel → le réel</h3><p>Sur Zwift, chacun roule à sa puissance et le groupe reste soudé. Dehors, la réalité revient : le plus fort attend, le moins fort souffre. <b>Unisson apporte l'intelligence du virtuel dans le monde réel.</b></p></div>
+      <div class="card reveal" data-d="2"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 20h8M12 17v3"/></svg></div><h3>Le réel → le virtuel · « Smart Group Mode »</h3><p>Dans Zwift, un cycliste à 4 W/kg et un à 2 W/kg roulent enfin ensemble. L'IA ajuste poids virtuel, aéro et résistance du home-trainer : <b>même route, même paysage, chacun dans sa zone.</b></p></div>
+    </div>
+
+    <div class="hybrid reveal">
+      <span class="em">🌍</span>
+      <p><b>Le peloton hybride.</b> Toi dehors sur ta route ; ton ami chez lui sur Zwift. L'IA traduit ta météo, ton vent et ton dénivelé sur son home-trainer. Vous faites <b>la même sortie</b> — un dehors, un dedans, connectés.</p>
+    </div>
+
+    <div class="applist reveal" data-d="1">
+      <span>🚴 VAE réels</span><span>🏠 Home-trainers</span><span>🌍 Groupes hybrides</span><span>👨‍👩‍👧 Familles</span><span>🏆 Clubs</span><span>🏥 Reprise sportive</span>
+    </div>
+    <p class="reveal" data-d="2" style="text-align:center;max-width:840px;margin:34px auto 0;font-size:17px;line-height:1.6;color:var(--txt-d2)">D'un régulateur de moteur VAE à <b style="color:var(--txt-d)">une IA qui synchronise la performance humaine</b> — une couche logicielle sociale entre Garmin · Zwift · Strava · Bosch · Shimano.</p>
+  </div>
+</section>
+
 <!-- BREVET -->
 <section class="sec sec--void3" id="brevet">
   <div class="orb" style="width:520px;height:520px;background:var(--mag);top:-100px;left:-150px;opacity:.14"></div>
@@ -480,7 +521,7 @@ a{color:inherit;text-decoration:none}
       <div class="card reveal" data-d="3"><div class="big grad-txt">IP</div><h3>Portefeuille de brevets</h3><p>Licences croisées et valorisation de la PI comme actif défendable et cessible.</p></div>
     </div>
     <div class="reveal" data-d="2" style="margin-top:40px;text-align:center">
-      <span style="display:inline-flex;align-items:center;gap:9px;padding:11px 20px;border-radius:999px;border:1px solid var(--line-2);background:rgba(255,255,255,.04);font-weight:700;font-size:15px"><span class="grad-txt">⚡ Powered by E-Peloton Sync AI</span></span>
+      <span style="display:inline-flex;align-items:center;gap:9px;padding:11px 20px;border-radius:999px;border:1px solid var(--line-2);background:rgba(255,255,255,.04);font-weight:700;font-size:15px"><span class="grad-txt">⚡ Powered by Unisson</span></span>
       <p class="muted" style="margin-top:18px;font-size:15px">Une couche logicielle, pas un vélo. Cibles d'intégration : <b style="color:var(--txt)">Bosch eBike Systems</b> · <b style="color:var(--txt)">Shimano</b> · <b style="color:var(--txt)">Garmin</b>.</p>
       <p style="margin-top:8px;font-size:15px;color:var(--txt-2)">Freemium : <b style="color:#fff">gratuit</b> pour les groupes de 2-3 cyclistes · <b style="color:#fff">premium</b> pour grands groupes, voyages &amp; coaching.</p>
     </div>
@@ -529,14 +570,31 @@ a{color:inherit;text-decoration:none}
   </div>
 </section>
 
+<!-- NOTRE HISTOIRE -->
+<section class="sec sec--void3" id="histoire">
+  <div class="orb" style="width:560px;height:560px;background:var(--cyan);top:50%;left:50%;transform:translate(-50%,-50%);opacity:.1"></div>
+  <div class="wrap wrap--narrow" style="text-align:center">
+    <span class="eyebrow reveal">Notre histoire</span>
+    <h2 class="h2 reveal" data-d="1" style="margin-bottom:46px">Tout a commencé dans <span class="grad-txt">un groupe de cyclistes.</span></h2>
+    <div class="story">
+      <p class="reveal" data-d="1">Philippe Maréchal et Laurent «&nbsp;Blaise&nbsp;» Noël roulent ensemble depuis des années. Le même groupe, les mêmes cols, <span class="soft">sortie après sortie.</span></p>
+      <p class="reveal" data-d="2">Et comme tous les groupes, le leur se brise dans chaque montée : les plus forts attendent au sommet, les autres grimpent seuls — <span class="soft">et un jour, certains cessent de venir.</span></p>
+      <p class="reveal" data-d="2">«&nbsp;Partez sans moi, je vous ralentis.&nbsp;» Ils l'avaient entendue cent fois. <span style="color:#fff">Un matin, elle n'est plus passée.</span></p>
+      <p class="reveal" data-d="3">Laurent — triathlète, architecte, esprit système — retourne le problème&nbsp;: et si l'on ne cherchait pas à rendre un vélo plus rapide, mais à rendre <span class="grad-txt" style="font-style:normal">un groupe égal&nbsp;?</span> Philippe en fait un produit.</p>
+      <p class="reveal" data-d="3">Leur sortie du dimanche est devenue le premier laboratoire d'<b style="color:#fff;font-weight:500">Unisson.</b> L'idée n'est pas née dans un bureau. <span class="soft">Elle est née sur la route.</span></p>
+    </div>
+    <p class="pullq grad-txt reveal" data-d="2">«&nbsp;On n'a pas pensé au vélo. On a pensé au groupe.&nbsp;»</p>
+  </div>
+</section>
+
 <!-- ÉQUIPE -->
 <section class="sec sec--void2">
   <div class="wrap">
-    <div class="shead reveal"><span class="eyebrow">L'équipe</span><h2 class="h2">À l'intersection de l'IA, du cycle <span class="grad-txt">et de la propriété intellectuelle.</span></h2><p class="lead">Noezys (Malte) réunit ingénierie embarquée, science de la donnée et stratégie de brevet pour transformer une invention en standard de marché.</p></div>
+    <div class="shead reveal"><span class="eyebrow">L'équipe</span><h2 class="h2">Deux passionnés de vélo, <span class="grad-txt">une obsession commune.</span></h2><p class="lead">À l'intersection de l'IA, du cycle et de la propriété intellectuelle. Noezys (Malte) transforme une invention née sur la route en standard de marché.</p></div>
     <div class="team">
-      <div class="member reveal" data-d="1"><div class="ava">CL</div><h4>Camille Laurent</h4><div class="role">Co-fondatrice & CEO</div><p>10 ans en produit mobilité & IoT. Vision, financement, partenariats.</p></div>
-      <div class="member reveal" data-d="2"><div class="ava">MR</div><h4>Mathéo Renaud</h4><div class="role">Co-fondateur & CTO</div><p>IA embarquée et motorisation. Architecte de l'algorithme IDCP.</p></div>
-      <div class="member reveal" data-d="3"><div class="ava">SM</div><h4>Sofia Marchetti</h4><div class="role">Head of Partnerships</div><p>15 ans dans l'industrie du cycle. Accords fabricants, loueurs, clubs.</p></div>
+      <div class="member reveal" data-d="1"><div class="ava">PM</div><h4>Philippe Maréchal</h4><div class="role">Co-fondateur & CEO</div><p>Cycliste de longue date. Initiateur du concept Unisson : vision, financement et partenariats.</p></div>
+      <div class="member reveal" data-d="2"><div class="ava">LN</div><h4>Laurent «&nbsp;Blaise&nbsp;» Noël</h4><div class="role">Co-fondateur & architecte systèmes</div><p>Triathlète et architecte. Pensée systémique : il a transformé une frustration de groupe en algorithme.</p></div>
+      <div class="member reveal" data-d="3"><div class="ava" style="background:transparent;border:2px dashed var(--line-2);color:var(--txt-2)">AI</div><h4>CTO IA & Embarqué</h4><div class="role" style="color:var(--txt-2)">Recrutement prioritaire</div><p>Premier poste financé par ce tour : industrialisation de l'algorithme IDCP et intégration moteurs.</p></div>
       <div class="member reveal" data-d="4"><div class="ava">HV</div><h4>Dr. Henri Vasseur</h4><div class="role">Conseil en PI</div><p>Mandataire brevets européen. Stratégie PCT et défense du portefeuille.</p></div>
     </div>
     <p class="muted reveal" style="text-align:center;font-size:14px;margin-top:36px"><b style="color:var(--txt);font-weight:600">Conseil consultatif</b> &nbsp;·&nbsp; Élise Fontaine — innovation, équipementier cycle &nbsp;·&nbsp; Karl Brenner — mobilité électrique, ex-fonds deeptech</p>
@@ -590,8 +648,8 @@ a{color:inherit;text-decoration:none}
 </section>
 
 <footer class="foot">
-  <div>© 2026 <b>Noezys</b> — E-Peloton Sync AI · Document d'investissement confidentiel</div>
-  <p class="disc">Document illustratif. Les noms de l'équipe et des conseillers, le statut du brevet, la valorisation et les chiffres de marché sont fournis à titre de <b style="color:#6A6A78">simulation</b> et devront être remplacés par les données réelles, puis validés en due diligence avant toute diffusion. Ce document ne constitue ni une offre de vente, ni une sollicitation d'investissement.</p>
+  <div>© 2026 <b>Noezys</b> — Unisson (E-Peloton Sync AI) · Document d'investissement confidentiel</div>
+  <p class="disc">Les co-fondateurs Philippe Maréchal et Laurent «&nbsp;Blaise&nbsp;» Noël sont réels ; le récit fondateur est présenté de façon illustrative. Le poste à recruter, les conseillers, le statut du brevet, la valorisation et les chiffres de marché restent une <b style="color:#6A6A78">simulation</b> à valider en due diligence avant toute diffusion. Les noms de marques tiers (Zwift, Garmin, Strava, Bosch, Shimano) sont cités comme cibles d'intégration et ne constituent pas des partenariats existants. Ce document ne constitue ni une offre de vente, ni une sollicitation d'investissement.</p>
 </footer>
 
 <script>
