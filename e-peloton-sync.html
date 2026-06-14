@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-Peloton Sync AI — Noezys</title>
+<meta name="description" content="E-Peloton Sync AI — Synchronisation dynamique d'un groupe de vélos électriques par intelligence collective. Un produit Noezys.">
+<meta name="theme-color" content="#05060F">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   E-PELOTON SYNC AI — Mock-up produit · Noezys
+   Palette : Néon électrique cyan ⇄ magenta sur noir profond
+   Auteurs : Équipe Design Noezys (DA · Data-viz · UX VAE)
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  --bg-void:      #05060F;
+  --bg-deep:      #080A18;
+  --bg-panel:     rgba(16,20,42,.55);
+  --bg-panel-2:   rgba(22,27,55,.65);
+  --stroke:       rgba(120,140,220,.14);
+  --stroke-hi:    rgba(120,140,220,.30);
+
+  --cyan:    #00E5FF;
+  --cyan-2:  #19F0D8;
+  --magenta: #FF2EC4;
+  --magenta-2:#C04BFF;
+  --violet:  #7A5CFF;
+  --lime:    #B6FF3C;
+  --amber:   #FFC24B;
+  --danger:  #FF5470;
+
+  --grad-brand: linear-gradient(110deg,var(--cyan),var(--magenta));
+  --grad-brand-soft: linear-gradient(110deg,rgba(0,229,255,.18),rgba(255,46,196,.18));
+  --grad-cool:  linear-gradient(120deg,var(--cyan),var(--violet));
+  --grad-hot:   linear-gradient(120deg,var(--magenta),var(--amber));
+
+  --glow-cyan:   0 0 24px rgba(0,229,255,.45);
+  --glow-mag:    0 0 24px rgba(255,46,196,.45);
+
+  --txt:    #EAF0FF;
+  --txt-2:  #9AA6CC;
+  --txt-3:  #5C678C;
+
+  --r-lg: 22px;
+  --r-md: 16px;
+  --r-sm: 11px;
+
+  --font: 'Outfit','Inter',system-ui,sans-serif;
+  --mono: 'JetBrains Mono',ui-monospace,monospace;
+  --ease: cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{
+  font-family:var(--font);
+  background:var(--bg-void);
+  color:var(--txt);
+  min-height:100vh;
+  overflow-x:hidden;
+  position:relative;
+}
+::selection{background:rgba(255,46,196,.30);color:#fff}
+/* Ambient background */
+body::before{
+  content:"";position:fixed;inset:0;z-index:-2;
+  background:
+    radial-gradient(900px 600px at 8% -5%, rgba(0,229,255,.16), transparent 60%),
+    radial-gradient(1000px 700px at 100% 0%, rgba(255,46,196,.14), transparent 55%),
+    radial-gradient(800px 800px at 60% 120%, rgba(122,92,255,.12), transparent 60%),
+    var(--bg-void);
+}
+body::after{
+  content:"";position:fixed;inset:0;z-index:-1;opacity:.5;pointer-events:none;
+  background-image:linear-gradient(rgba(120,140,220,.05) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(120,140,220,.05) 1px,transparent 1px);
+  background-size:46px 46px;
+  mask-image:radial-gradient(circle at 50% 30%,#000,transparent 80%);
+}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+
+/* ── Shell layout ─────────────────────────────────────── */
+.app{display:grid;grid-template-columns:84px 1fr;min-height:100vh}
+
+/* Rail */
+.rail{
+  position:sticky;top:0;height:100vh;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  padding:22px 0;
+  background:linear-gradient(180deg,rgba(10,12,28,.9),rgba(8,10,22,.6));
+  border-right:1px solid var(--stroke);backdrop-filter:blur(14px);z-index:30;
+}
+.rail__logo{
+  width:46px;height:46px;border-radius:14px;display:grid;place-items:center;
+  background:var(--grad-brand);box-shadow:var(--glow-mag);margin-bottom:14px;
+  font-weight:800;font-size:22px;color:#06070f;position:relative;
+}
+.rail__logo::after{content:"";position:absolute;inset:-3px;border-radius:16px;
+  background:var(--grad-brand);filter:blur(12px);opacity:.5;z-index:-1}
+.nav-btn{
+  width:54px;height:54px;border:1px solid transparent;border-radius:15px;
+  background:transparent;color:var(--txt-3);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  transition:.3s var(--ease);position:relative;
+}
+.nav-btn svg{width:22px;height:22px;stroke-width:1.7}
+.nav-btn span{font-size:8.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.nav-btn:hover{color:var(--txt-2);background:rgba(120,140,220,.06)}
+.nav-btn.active{color:var(--cyan);background:rgba(0,229,255,.08);border-color:rgba(0,229,255,.25);box-shadow:inset 0 0 18px rgba(0,229,255,.10)}
+.nav-btn.active::before{content:"";position:absolute;left:-22px;top:50%;transform:translateY(-50%);
+  width:3px;height:26px;border-radius:3px;background:var(--grad-brand);box-shadow:var(--glow-cyan)}
+.rail__spacer{flex:1}
+.rail__avatar{width:40px;height:40px;border-radius:50%;background:var(--grad-cool);
+  display:grid;place-items:center;font-weight:700;font-size:14px;color:#06070f;border:2px solid rgba(255,255,255,.15)}
+
+/* Main */
+.main{min-width:0;display:flex;flex-direction:column}
+
+/* Topbar */
+.topbar{
+  display:flex;align-items:center;gap:18px;padding:18px 30px;
+  border-bottom:1px solid var(--stroke);position:sticky;top:0;z-index:20;
+  background:linear-gradient(180deg,rgba(8,10,22,.85),rgba(8,10,22,.4));backdrop-filter:blur(16px);
+}
+.brand{display:flex;flex-direction:column;line-height:1.05}
+.brand b{font-size:18px;font-weight:700;letter-spacing:-.01em;
+  background:var(--grad-brand);-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand small{font-size:10.5px;color:var(--txt-3);letter-spacing:.18em;text-transform:uppercase;font-weight:600}
+.live-pill{
+  display:flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;
+  background:rgba(255,46,196,.10);border:1px solid rgba(255,46,196,.30);
+  font-size:12px;font-weight:600;color:#ffd9f2;letter-spacing:.05em;
+}
+.dot-live{width:8px;height:8px;border-radius:50%;background:var(--magenta);box-shadow:var(--glow-mag);animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
+.topbar__spacer{flex:1}
+
+/* Mode segmented */
+.modes{display:flex;gap:4px;padding:4px;border-radius:14px;background:rgba(120,140,220,.06);border:1px solid var(--stroke)}
+.mode{padding:8px 15px;border:none;border-radius:10px;background:transparent;color:var(--txt-2);
+  font-size:12.5px;font-weight:600;transition:.25s var(--ease);white-space:nowrap}
+.mode:hover{color:var(--txt)}
+.mode.active{color:#06070f;background:var(--grad-brand);box-shadow:var(--glow-mag)}
+
+.clock{font-family:var(--mono);font-size:13px;color:var(--txt-2);font-weight:500;min-width:74px;text-align:right}
+
+/* View container */
+.views{padding:26px 30px 50px}
+.view{display:none;animation:fade .5s var(--ease)}
+.view.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+.view-head{display:flex;align-items:flex-end;gap:14px;margin-bottom:22px;flex-wrap:wrap}
+.view-head h1{font-size:clamp(24px,3vw,34px);font-weight:700;letter-spacing:-.02em}
+.view-head .sub{color:var(--txt-2);font-size:14px;font-weight:300;margin-bottom:4px}
+.view-head .tag{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--cyan);
+  padding:6px 12px;border-radius:8px;border:1px solid rgba(0,229,255,.25);background:rgba(0,229,255,.06)}
+
+/* Generic panel / card */
+.panel{
+  background:var(--bg-panel);border:1px solid var(--stroke);border-radius:var(--r-lg);
+  backdrop-filter:blur(12px);position:relative;overflow:hidden;
+}
+.panel--pad{padding:22px}
+.panel__title{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--txt-2);margin-bottom:16px}
+.panel__title .ico{width:18px;height:18px;color:var(--cyan)}
+
+/* ── LIVE VIEW grid ──────────────────────────────────── */
+.live-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:18px;align-items:start}
+.live-left{display:flex;flex-direction:column;gap:18px}
+.live-right{display:flex;flex-direction:column;gap:18px}
+
+/* Map panel */
+.map{min-height:320px;padding:0}
+.map svg{display:block;width:100%;height:100%}
+.map__hud{position:absolute;left:16px;top:16px;display:flex;gap:8px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border-radius:10px;
+  background:rgba(8,10,22,.7);border:1px solid var(--stroke);font-size:12px;font-weight:600;color:var(--txt)}
+.chip b{font-family:var(--mono);color:var(--cyan)}
+.chip--hot b{color:var(--magenta)}
+.map__legend{position:absolute;right:16px;bottom:16px;display:flex;gap:14px;font-size:11px;color:var(--txt-2)}
+.map__legend i{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:5px;vertical-align:middle}
+
+/* KPI strip */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.kpi{background:var(--bg-panel);border:1px solid var(--stroke);border-radius:var(--r-md);padding:15px 16px;position:relative;overflow:hidden}
+.kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--grad-brand)}
+.kpi .lab{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--txt-3);font-weight:600}
+.kpi .val{font-family:var(--mono);font-size:27px;font-weight:700;margin-top:6px;letter-spacing:-.02em}
+.kpi .val small{font-size:13px;color:var(--txt-2);font-weight:500;margin-left:3px}
+.kpi .delta{font-size:11px;font-weight:600;margin-top:3px}
+.up{color:var(--lime)}.down{color:var(--danger)}
+
+/* IDCP gauge */
+.idcp{display:flex;align-items:center;gap:22px}
+.gauge{position:relative;width:160px;height:160px;flex-shrink:0}
+.gauge svg{transform:rotate(-90deg)}
+.gauge__num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.gauge__num b{font-family:var(--mono);font-size:38px;font-weight:700;line-height:1}
+.gauge__num span{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--txt-3);margin-top:4px}
+.idcp__txt p{font-size:13px;color:var(--txt-2);line-height:1.6}
+.idcp__txt .verdict{font-size:16px;font-weight:700;color:var(--lime);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+
+/* Rider list */
+.riders{display:flex;flex-direction:column;gap:10px}
+.rider{display:grid;grid-template-columns:42px 1fr auto;gap:13px;align-items:center;
+  padding:12px;border-radius:var(--r-md);border:1px solid var(--stroke);
+  background:rgba(12,15,32,.5);transition:.3s var(--ease)}
+.rider:hover{border-color:var(--stroke-hi);transform:translateX(3px)}
+.rider__ava{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;
+  font-weight:700;font-size:15px;color:#06070f;position:relative}
+.rider__ava .ring{position:absolute;inset:-3px;border-radius:15px;border:2px solid currentColor;opacity:.35}
+.rider__main b{font-size:14.5px;font-weight:600;display:flex;align-items:center;gap:7px}
+.rider__badge{font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:6px;letter-spacing:.04em;text-transform:uppercase}
+.b-lead{background:rgba(182,255,60,.15);color:var(--lime);border:1px solid rgba(182,255,60,.3)}
+.b-drop{background:rgba(255,84,112,.15);color:var(--danger);border:1px solid rgba(255,84,112,.3)}
+.b-ok{background:rgba(0,229,255,.12);color:var(--cyan);border:1px solid rgba(0,229,255,.25)}
+.rider__metrics{display:flex;gap:14px;margin-top:6px}
+.rmetric{font-size:11px;color:var(--txt-3);font-weight:500}
+.rmetric b{font-family:var(--mono);color:var(--txt);font-size:12px;margin-left:3px}
+.rider__assist{text-align:right;min-width:96px}
+.rider__assist .pct{font-family:var(--mono);font-size:22px;font-weight:700}
+.rider__assist .albl{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--txt-3);font-weight:600}
+.abar{height:5px;border-radius:3px;background:rgba(120,140,220,.14);margin-top:6px;overflow:hidden}
+.abar i{display:block;height:100%;border-radius:3px;background:var(--grad-brand);transition:width .9s var(--ease)}
+.batt{display:inline-flex;align-items:center;gap:5px;margin-top:6px;font-size:11px;font-family:var(--mono);color:var(--txt-2)}
+.batt .cell{width:26px;height:11px;border:1px solid var(--stroke-hi);border-radius:3px;padding:1px;position:relative}
+.batt .cell::after{content:"";position:absolute;right:-3px;top:3px;width:2px;height:3px;background:var(--stroke-hi);border-radius:0 2px 2px 0}
+.batt .cell i{display:block;height:100%;border-radius:1px}
+
+/* AI decision feed */
+.feed{display:flex;flex-direction:column;gap:9px;max-height:260px;overflow:hidden}
+.fitem{display:flex;gap:11px;align-items:flex-start;padding:11px 13px;border-radius:12px;
+  background:rgba(12,15,32,.45);border:1px solid var(--stroke);animation:slidein .5s var(--ease)}
+@keyframes slidein{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:none}}
+.fitem__ico{width:30px;height:30px;border-radius:9px;flex-shrink:0;display:grid;place-items:center;
+  background:var(--grad-brand-soft);border:1px solid var(--stroke-hi)}
+.fitem__ico svg{width:16px;height:16px;color:var(--cyan)}
+.fitem b{font-size:13px;font-weight:600}
+.fitem p{font-size:11.5px;color:var(--txt-2);margin-top:2px;line-height:1.5}
+.fitem time{font-family:var(--mono);font-size:10px;color:var(--txt-3);margin-left:auto;flex-shrink:0}
+
+/* ── PLAN VIEW ───────────────────────────────────────── */
+.plan-grid{display:grid;grid-template-columns:1fr 360px;gap:18px;align-items:start}
+.route-cards{display:flex;flex-direction:column;gap:14px}
+.route{padding:18px;border-radius:var(--r-md);border:1px solid var(--stroke);background:rgba(12,15,32,.5);
+  transition:.3s var(--ease);cursor:pointer;position:relative;overflow:hidden}
+.route:hover{border-color:var(--stroke-hi);transform:translateY(-2px)}
+.route.sel{border-color:rgba(0,229,255,.5);background:rgba(0,229,255,.05);box-shadow:0 0 30px rgba(0,229,255,.10)}
+.route.sel::after{content:"OPTIMAL IA";position:absolute;top:14px;right:14px;font-family:var(--mono);
+  font-size:9.5px;font-weight:700;letter-spacing:.1em;padding:4px 9px;border-radius:7px;
+  background:var(--grad-brand);color:#06070f}
+.route h3{font-size:17px;font-weight:600;margin-bottom:4px}
+.route .desc{font-size:12.5px;color:var(--txt-2);margin-bottom:14px}
+.route__stats{display:flex;gap:22px;flex-wrap:wrap}
+.rstat .v{font-family:var(--mono);font-size:18px;font-weight:700}
+.rstat .l{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--txt-3);font-weight:600}
+.elev{margin-top:16px}
+.elev svg{width:100%;height:90px;display:block}
+.battforecast{display:flex;align-items:center;gap:12px;margin-top:14px;padding-top:14px;border-top:1px solid var(--stroke)}
+.battforecast .label{font-size:12px;color:var(--txt-2)}
+.battforecast .big{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--lime)}
+
+.cond{display:flex;flex-direction:column;gap:12px}
+.cond-row{display:flex;align-items:center;justify-content:space-between;padding:13px 15px;border-radius:12px;
+  background:rgba(12,15,32,.5);border:1px solid var(--stroke)}
+.cond-row .l{display:flex;align-items:center;gap:11px;font-size:13px;color:var(--txt-2)}
+.cond-row .l svg{width:20px;height:20px;color:var(--cyan)}
+.cond-row .v{font-family:var(--mono);font-weight:700;font-size:15px}
+.ai-banner{display:flex;gap:14px;padding:18px;border-radius:var(--r-md);
+  background:var(--grad-brand-soft);border:1px solid rgba(255,46,196,.30);margin-top:6px}
+.ai-banner__ico{width:42px;height:42px;border-radius:12px;flex-shrink:0;display:grid;place-items:center;
+  background:var(--grad-brand);box-shadow:var(--glow-mag)}
+.ai-banner__ico svg{width:22px;height:22px;color:#06070f}
+.ai-banner p{font-size:13px;line-height:1.6;color:var(--txt)}
+.ai-banner b{color:var(--cyan)}
+
+/* ── ORGANISME VIEW ──────────────────────────────────── */
+.organism{display:grid;grid-template-columns:1fr 320px;gap:18px;align-items:start}
+.organism-stage{min-height:520px;padding:0;display:grid;place-items:center}
+.organism-stage svg{width:100%;height:100%}
+.org-side{display:flex;flex-direction:column;gap:18px}
+.flowstat{display:flex;align-items:center;gap:14px;padding:14px;border-radius:12px;background:rgba(12,15,32,.5);border:1px solid var(--stroke)}
+.flowstat__bubble{width:46px;height:46px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:15px;color:#06070f}
+.flowstat b{display:block;font-size:13px}
+.flowstat span{font-size:11.5px;color:var(--txt-2)}
+.org-quote{font-size:14px;line-height:1.7;color:var(--txt-2);font-style:italic}
+.org-quote b{color:var(--cyan);font-style:normal}
+
+/* ── PROFIL VIEW ─────────────────────────────────────── */
+.profile-grid{display:grid;grid-template-columns:300px 1fr;gap:18px;align-items:start}
+.pcard-id{display:flex;flex-direction:column;align-items:center;text-align:center;padding:26px 22px}
+.pcard-id .big-ava{width:96px;height:96px;border-radius:28px;background:var(--grad-cool);display:grid;place-items:center;
+  font-size:36px;font-weight:800;color:#06070f;box-shadow:var(--glow-cyan);margin-bottom:16px}
+.pcard-id h2{font-size:22px;font-weight:700}
+.pcard-id .role{font-size:12.5px;color:var(--txt-2);margin-top:3px}
+.lvlbar{width:100%;margin-top:18px}
+.lvlbar .top{display:flex;justify-content:space-between;font-size:11px;color:var(--txt-3);font-weight:600;margin-bottom:6px;text-transform:uppercase;letter-spacing:.08em}
+.lvlbar .track{height:8px;border-radius:5px;background:rgba(120,140,220,.14);overflow:hidden}
+.lvlbar .track i{display:block;height:100%;background:var(--grad-brand);border-radius:5px}
+.rings{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.ring-card{padding:20px;text-align:center}
+.ring-wrap{position:relative;width:118px;height:118px;margin:0 auto 12px}
+.ring-wrap svg{transform:rotate(-90deg)}
+.ring-wrap .mid{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring-wrap .mid b{font-family:var(--mono);font-size:24px;font-weight:700}
+.ring-wrap .mid span{font-size:9.5px;color:var(--txt-3);letter-spacing:.1em;text-transform:uppercase}
+.ring-card h4{font-size:13px;font-weight:600}
+.ring-card p{font-size:11px;color:var(--txt-2);margin-top:3px}
+.hist{margin-top:18px}
+.hist svg{width:100%;height:120px;display:block}
+.statgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
+.ministat{padding:13px;border-radius:12px;background:rgba(12,15,32,.5);border:1px solid var(--stroke);text-align:center}
+.ministat .v{font-family:var(--mono);font-size:20px;font-weight:700}
+.ministat .l{font-size:10px;color:var(--txt-3);text-transform:uppercase;letter-spacing:.06em;margin-top:3px;font-weight:600}
+
+/* Footer */
+.foot{padding:26px 30px;border-top:1px solid var(--stroke);display:flex;align-items:center;gap:10px;
+  font-size:12px;color:var(--txt-3)}
+.foot b{background:var(--grad-brand);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:700}
+.foot .sep{opacity:.4}
+
+/* Responsive */
+@media(max-width:1080px){
+  .live-grid,.plan-grid,.organism,.profile-grid{grid-template-columns:1fr}
+  .kpis{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:680px){
+  .app{grid-template-columns:1fr}
+  .rail{position:fixed;bottom:0;top:auto;left:0;right:0;height:auto;width:100%;flex-direction:row;
+    justify-content:space-around;padding:8px;border-right:none;border-top:1px solid var(--stroke);z-index:50}
+  .rail__logo,.rail__spacer,.rail__avatar{display:none}
+  .nav-btn.active::before{display:none}
+  .views{padding:18px 14px 90px}
+  .topbar{flex-wrap:wrap;gap:10px;padding:14px}
+  .modes{order:3;width:100%;overflow-x:auto}
+  .rings{grid-template-columns:1fr}
+  .statgrid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ░░ RAIL NAV ░░ -->
+  <aside class="rail">
+    <div class="rail__logo" title="Noezys">⚡</div>
+    <button class="nav-btn active" data-view="live">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+      <span>Live</span>
+    </button>
+    <button class="nav-btn" data-view="plan">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 18l-6 3V6l6-3 6 3 6-3v15l-6 3-6-3z"/><path d="M9 3v15M15 6v15"/></svg>
+      <span>Plan</span>
+    </button>
+    <button class="nav-btn" data-view="organism">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="2.5"/><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/><path d="M6.7 7.2l3.5 3.5M17.3 7.2l-3.5 3.5M6.7 16.8l3.5-3.5M17.3 16.8l-3.5-3.5"/></svg>
+      <span>Organe</span>
+    </button>
+    <button class="nav-btn" data-view="profile">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/></svg>
+      <span>Profil</span>
+    </button>
+    <div class="rail__spacer"></div>
+    <div class="rail__avatar" title="Philippe">PM</div>
+  </aside>
+
+  <!-- ░░ MAIN ░░ -->
+  <div class="main">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="rail__logo" style="width:38px;height:38px;font-size:18px;border-radius:11px;margin:0" title="Noezys">⚡</div>
+      <div class="brand"><b>E-Peloton Sync AI</b><small>Noezys · Intelligence collective</small></div>
+      <div class="live-pill"><span class="dot-live"></span>EN ROUTE · 5 cyclistes</div>
+      <div class="topbar__spacer"></div>
+      <div class="modes" id="modes">
+        <button class="mode active" data-mode="social">Social</button>
+        <button class="mode" data-mode="perf">Performance</button>
+        <button class="mode" data-mode="train">Entraînement</button>
+        <button class="mode" data-mode="batt">Batterie</button>
+      </div>
+      <div class="clock" id="clock">00:00:00</div>
+    </header>
+
+    <div class="views">
+
+      <!-- ═══════════════ LIVE ═══════════════ -->
+      <section class="view active" id="view-live">
+        <div class="view-head">
+          <h1>Live Peloton</h1>
+          <span class="sub">Col de la Madone · km 34,2 / 72</span>
+          <span class="tag" id="mode-tag">MODE · SOCIAL</span>
+        </div>
+
+        <div class="kpis" style="margin-bottom:18px">
+          <div class="kpi"><div class="lab">Allure collective</div><div class="val" id="kpi-speed">31.4<small>km/h</small></div><div class="delta up" id="kpi-speed-d">▲ cible 31.0</div></div>
+          <div class="kpi"><div class="lab">Cohésion groupe</div><div class="val" id="kpi-coh">97<small>%</small></div><div class="delta up">▲ compact · 0 décroché</div></div>
+          <div class="kpi"><div class="lab">Pente actuelle</div><div class="val" id="kpi-grade">8.1<small>%</small></div><div class="delta down">▲ montée 3 km</div></div>
+          <div class="kpi"><div class="lab">Énergie groupe</div><div class="val" id="kpi-batt">71<small>%</small></div><div class="delta up">réserve OK · 18% mini</div></div>
+        </div>
+
+        <div class="live-grid">
+          <div class="live-left">
+            <!-- MAP -->
+            <div class="panel map" id="map-panel">
+              <div class="map__hud">
+                <span class="chip">VENT <b id="hud-wind">12 km/h ↗</b></span>
+                <span class="chip chip--hot">D+ RESTANT <b>616 m</b></span>
+                <span class="chip">ETA <b>2 h 04</b></span>
+              </div>
+              <svg viewBox="0 0 640 340" preserveAspectRatio="xMidYMid slice" id="map-svg"></svg>
+              <div class="map__legend">
+                <span><i style="background:var(--lime)"></i>En tête</span>
+                <span><i style="background:var(--cyan)"></i>Stable</span>
+                <span><i style="background:var(--danger)"></i>Soutenu IA</span>
+              </div>
+            </div>
+
+            <!-- IDCP -->
+            <div class="panel panel--pad">
+              <div class="panel__title"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>Indice Dynamique de Cohésion du Peloton (IDCP)</div>
+              <div class="idcp">
+                <div class="gauge">
+                  <svg width="160" height="160" viewBox="0 0 160 160">
+                    <circle cx="80" cy="80" r="68" fill="none" stroke="rgba(120,140,220,.12)" stroke-width="14"/>
+                    <circle id="idcp-arc" cx="80" cy="80" r="68" fill="none" stroke="url(#gg)" stroke-width="14" stroke-linecap="round" stroke-dasharray="427" stroke-dashoffset="427"/>
+                    <defs><linearGradient id="gg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00E5FF"/><stop offset="1" stop-color="#FF2EC4"/></linearGradient></defs>
+                  </svg>
+                  <div class="gauge__num"><b id="idcp-val">0</b><span>/ 100</span></div>
+                </div>
+                <div class="idcp__txt">
+                  <div class="verdict">● Groupe homogène</div>
+                  <p>L'IA équilibre l'effort de chaque cycliste pour une arrivée simultanée au sommet. Écart de performance neutralisé en continu : le plus fort est bridé, le plus faible soutenu.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="live-right">
+            <!-- RIDERS -->
+            <div class="panel panel--pad">
+              <div class="panel__title"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="7" r="3"/><path d="M5 21c0-4 3-6 7-6s7 2 7 6"/></svg>Cyclistes · assistance temps réel</div>
+              <div class="riders" id="riders"></div>
+            </div>
+
+            <!-- AI FEED -->
+            <div class="panel panel--pad">
+              <div class="panel__title"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2a7 7 0 00-4 12.7V17a2 2 0 002 2h4a2 2 0 002-2v-2.3A7 7 0 0012 2z"/><path d="M9 22h6"/></svg>Décisions de l'IA collective</div>
+              <div class="feed" id="feed"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════ PLAN ═══════════════ -->
+      <section class="view" id="view-plan">
+        <div class="view-head">
+          <h1>Planification de sortie</h1>
+          <span class="sub">5 cyclistes · 3 h disponibles · départ 09:30</span>
+          <span class="tag">SIMULATION IA</span>
+        </div>
+
+        <div class="ai-banner">
+          <div class="ai-banner__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3v4M3 5h4M6 17v4M4 19h4M13 3l2.5 6.5L22 12l-6.5 2.5L13 21l-2.5-6.5L4 12l6.5-2.5z"/></svg></div>
+          <p><b>Recommandation E-Peloton :</b> avec ce groupe et ces batteries, parcours optimal <b>72 km / 950 m D+</b>, retour assuré avec <b>18 % de batterie minimale</b> pour le vélo le plus faible (Léa). Fenêtre météo favorable jusqu'à 13 h.</p>
+        </div>
+
+        <div class="plan-grid" style="margin-top:18px">
+          <div class="route-cards">
+            <div class="route sel" id="route-a">
+              <h3>La Madone · boucle équilibrée</h3>
+              <div class="desc">Montée régulière, redescente technique, vent de dos au retour. Adapté au niveau mixte du groupe.</div>
+              <div class="route__stats">
+                <div class="rstat"><div class="v">72 km</div><div class="l">Distance</div></div>
+                <div class="rstat"><div class="v">950 m</div><div class="l">D+</div></div>
+                <div class="rstat"><div class="v">2 h 50</div><div class="l">Durée est.</div></div>
+                <div class="rstat"><div class="v">★★★☆</div><div class="l">Intensité</div></div>
+              </div>
+              <div class="elev"><svg viewBox="0 0 600 90" id="elev-a"></svg></div>
+              <div class="battforecast">
+                <span class="label">Batterie mini à l'arrivée (vélo le plus faible)</span>
+                <span class="big">18 %</span>
+              </div>
+            </div>
+
+            <div class="route" id="route-b">
+              <h3>Tour des collines · court</h3>
+              <div class="desc">Plus court et roulant, idéal si le temps se réduit. Faible exigence batterie.</div>
+              <div class="route__stats">
+                <div class="rstat"><div class="v">48 km</div><div class="l">Distance</div></div>
+                <div class="rstat"><div class="v">520 m</div><div class="l">D+</div></div>
+                <div class="rstat"><div class="v">1 h 55</div><div class="l">Durée est.</div></div>
+                <div class="rstat"><div class="v">★★☆☆</div><div class="l">Intensité</div></div>
+              </div>
+              <div class="battforecast"><span class="label">Batterie mini à l'arrivée</span><span class="big">41 %</span></div>
+            </div>
+
+            <div class="route" id="route-c">
+              <h3>Grand col · ambitieux</h3>
+              <div class="desc">Pour un objectif sportif. Risque batterie sur le vélo le plus faible — l'IA déconseille en mode Social.</div>
+              <div class="route__stats">
+                <div class="rstat"><div class="v">98 km</div><div class="l">Distance</div></div>
+                <div class="rstat"><div class="v">1 680 m</div><div class="l">D+</div></div>
+                <div class="rstat"><div class="v">4 h 10</div><div class="l">Durée est.</div></div>
+                <div class="rstat"><div class="v">★★★★</div><div class="l">Intensité</div></div>
+              </div>
+              <div class="battforecast"><span class="label">Batterie mini à l'arrivée</span><span class="big" style="color:var(--danger)">4 %</span></div>
+            </div>
+          </div>
+
+          <div class="cond">
+            <div class="panel panel--pad">
+              <div class="panel__title">Conditions du jour</div>
+              <div class="cond" style="gap:10px">
+                <div class="cond-row"><span class="l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg>Météo</span><span class="v">22°C ☀</span></div>
+                <div class="cond-row"><span class="l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 8h12a3 3 0 100-6M3 16h16a3 3 0 110 6M3 12h9a3 3 0 100-6"/></svg>Vent</span><span class="v">12 km/h NE</span></div>
+                <div class="cond-row"><span class="l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 18l5-9 4 5 3-4 6 8"/></svg>D+ total</span><span class="v">950 m</span></div>
+                <div class="cond-row"><span class="l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="8" width="16" height="9" rx="2"/><path d="M19 11h2v3h-2"/></svg>Batterie moy.</span><span class="v">88 %</span></div>
+                <div class="cond-row"><span class="l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Niveau moyen</span><span class="v">Inter.</span></div>
+              </div>
+            </div>
+            <div class="panel panel--pad">
+              <div class="panel__title">Profil du groupe</div>
+              <div class="riders" id="plan-riders"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════ ORGANISME ═══════════════ -->
+      <section class="view" id="view-organism">
+        <div class="view-head">
+          <h1>Vue Organisme</h1>
+          <span class="sub">Le peloton comme un seul corps roulant</span>
+          <span class="tag">FLUX D'ÉNERGIE</span>
+        </div>
+        <div class="organism">
+          <div class="panel organism-stage">
+            <svg viewBox="0 0 600 540" id="org-svg"></svg>
+          </div>
+          <div class="org-side">
+            <div class="panel panel--pad">
+              <div class="panel__title">Redistribution énergétique</div>
+              <div class="cond" style="gap:12px">
+                <div class="flowstat"><div class="flowstat__bubble" style="background:var(--lime)">+34</div><div><b>Énergie cédée</b><span>Théo & Marc (les plus forts) bridés</span></div></div>
+                <div class="flowstat"><div class="flowstat__bubble" style="background:var(--magenta)">−51</div><div><b>Énergie reçue</b><span>Léa soutenue dans la montée</span></div></div>
+                <div class="flowstat"><div class="flowstat__bubble" style="background:var(--cyan)">98<small style="font-size:9px">%</small></div><div><b>Synchronie</b><span>Écart inter-cycliste &lt; 4 m</span></div></div>
+              </div>
+            </div>
+            <div class="panel panel--pad">
+              <div class="panel__title">Lecture de l'organisme</div>
+              <p class="org-quote">Chaque nœud est un cycliste ; chaque <b>filament lumineux</b> est un transfert d'assistance calculé par l'IA. Le cœur central pulse au rythme de l'<b>allure cible collective</b> — quand un membre faiblit, l'énergie converge vers lui.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════ PROFIL ═══════════════ -->
+      <section class="view" id="view-profile">
+        <div class="view-head">
+          <h1>Profil &amp; analyse</h1>
+          <span class="sub">Léa Bonnet · sortie en cours</span>
+          <span class="tag">FATIGUE J · 62%</span>
+        </div>
+        <div class="profile-grid">
+          <div class="panel pcard-id">
+            <div class="big-ava">LB</div>
+            <h2>Léa Bonnet</h2>
+            <div class="role">Cycliste · soutenue par l'IA</div>
+            <div class="lvlbar">
+              <div class="top"><span>Niveau d'entraînement</span><span>Intermédiaire</span></div>
+              <div class="track"><i style="width:58%"></i></div>
+            </div>
+            <div class="statgrid">
+              <div class="ministat"><div class="v">61</div><div class="l">kg</div></div>
+              <div class="ministat"><div class="v">34</div><div class="l">ans</div></div>
+              <div class="ministat"><div class="v">192</div><div class="l">FC max</div></div>
+              <div class="ministat"><div class="v">214</div><div class="l">FTP W</div></div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:18px">
+            <div class="panel panel--pad">
+              <div class="panel__title">Indicateurs physiologiques</div>
+              <div class="rings">
+                <div class="ring-card">
+                  <div class="ring-wrap">
+                    <svg width="118" height="118" viewBox="0 0 118 118"><circle cx="59" cy="59" r="50" fill="none" stroke="rgba(120,140,220,.12)" stroke-width="11"/><circle cx="59" cy="59" r="50" fill="none" stroke="#00E5FF" stroke-width="11" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="110" style="filter:drop-shadow(0 0 6px rgba(0,229,255,.6))"/></svg>
+                    <div class="mid"><b>3.5</b><span>W/kg</span></div>
+                  </div>
+                  <h4>Puissance relative</h4><p>FTP 214 W · bon</p>
+                </div>
+                <div class="ring-card">
+                  <div class="ring-wrap">
+                    <svg width="118" height="118" viewBox="0 0 118 118"><circle cx="59" cy="59" r="50" fill="none" stroke="rgba(120,140,220,.12)" stroke-width="11"/><circle cx="59" cy="59" r="50" fill="none" stroke="#FF2EC4" stroke-width="11" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="78" style="filter:drop-shadow(0 0 6px rgba(255,46,196,.6))"/></svg>
+                    <div class="mid"><b>48</b><span>VO₂max</span></div>
+                  </div>
+                  <h4>Capacité aérobie</h4><p>estimée · ml/kg/min</p>
+                </div>
+                <div class="ring-card">
+                  <div class="ring-wrap">
+                    <svg width="118" height="118" viewBox="0 0 118 118"><circle cx="59" cy="59" r="50" fill="none" stroke="rgba(120,140,220,.12)" stroke-width="11"/><circle cx="59" cy="59" r="50" fill="none" stroke="#B6FF3C" stroke-width="11" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="119" style="filter:drop-shadow(0 0 6px rgba(182,255,60,.6))"/></svg>
+                    <div class="mid"><b>62</b><span>fraîcheur</span></div>
+                  </div>
+                  <h4>Fatigue du jour</h4><p>récup partielle</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel panel--pad">
+              <div class="panel__title">Contribution au groupe · 30 derniers jours</div>
+              <div class="hist"><svg viewBox="0 0 600 120" id="hist-svg"></svg></div>
+              <div class="statgrid">
+                <div class="ministat"><div class="v" style="color:var(--cyan)">+22%</div><div class="l">Assist. moy.</div></div>
+                <div class="ministat"><div class="v" style="color:var(--lime)">0</div><div class="l">Décrochages</div></div>
+                <div class="ministat"><div class="v">14</div><div class="l">Sorties</div></div>
+                <div class="ministat"><div class="v">+9%</div><div class="l">Progression</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <footer class="foot">
+      <span>© 2026 <b>Noezys</b> · E-Peloton Sync AI</span><span class="sep">·</span>
+      <span>Mock-up concept — IDCP, nivellement collectif &amp; gestion prédictive de l'énergie</span><span class="sep">·</span>
+      <span>Malta</span>
+    </footer>
+  </div>
+</div>
+
+<script>
+/* ═══ E-PELOTON SYNC AI — moteur de simulation ═══ */
+(function(){
+  "use strict";
+  const $=(s,r=document)=>r.querySelector(s);
+  const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+
+  /* ── Cyclistes (modèle de données) ── */
+  const riders=[
+    {id:'theo', name:'Théo',  init:'TM', color:'#B6FF3C', ftp:312, assist:14, hr:148, pw:288, batt:90, status:'lead', x:.62,y:.40},
+    {id:'marc', name:'Marc',  init:'MR', color:'#00E5FF', ftp:286, assist:22, hr:152, pw:262, batt:84, status:'ok',   x:.55,y:.52},
+    {id:'sara', name:'Sara',  init:'SK', color:'#00E5FF', ftp:248, assist:34, hr:159, pw:226, batt:79, status:'ok',   x:.48,y:.46},
+    {id:'lea',  name:'Léa',   init:'LB', color:'#FF2EC4', ftp:214, assist:65, hr:171, pw:198, batt:71, status:'drop', x:.40,y:.58},
+    {id:'paul', name:'Paul',  init:'PD', color:'#FFC24B', ftp:230, assist:48, hr:164, pw:212, batt:76, status:'ok',   x:.45,y:.36},
+  ];
+  const badge={lead:['EN TÊTE','b-lead'],ok:['STABLE','b-ok'],drop:['SOUTENU IA','b-drop']};
+
+  /* ── Render rider list ── */
+  function battColor(b){return b>50?'var(--lime)':b>25?'var(--amber)':'var(--danger)';}
+  function riderHTML(r,compact){
+    const[bt,bc]=badge[r.status];
+    return `<div class="rider" data-id="${r.id}">
+      <div class="rider__ava" style="background:${r.color};color:#06070f"><span>${r.init}</span><div class="ring" style="color:${r.color}"></div></div>
+      <div class="rider__main">
+        <b>${r.name} <span class="rider__badge ${bc}">${bt}</span></b>
+        <div class="rider__metrics">
+          <span class="rmetric">FC<b data-f="hr">${r.hr}</b></span>
+          <span class="rmetric">P<b data-f="pw">${r.pw}</b>W</span>
+          <span class="rmetric">FTP<b>${r.ftp}</b></span>
+        </div>
+        <div class="batt"><span class="cell"><i data-f="battfill" style="width:${r.batt}%;background:${battColor(r.batt)}"></i></span><span data-f="batt">${r.batt}%</span></div>
+      </div>
+      <div class="rider__assist">
+        <div class="albl">Assistance</div>
+        <div class="pct" data-f="assist" style="color:${r.color}">${r.assist}%</div>
+        <div class="abar"><i data-f="abar" style="width:${r.assist}%"></i></div>
+      </div>
+    </div>`;
+  }
+  $('#riders').innerHTML=riders.map(r=>riderHTML(r)).join('');
+  $('#plan-riders').innerHTML=riders.map(r=>riderHTML(r,true)).join('');
+
+  /* ── Live map (SVG route + moving riders) ── */
+  const mapSvg=$('#map-svg');
+  const routePath="M-20 250 C 90 230, 130 180, 200 175 S 320 120, 400 95 S 540 70, 660 40";
+  function buildMap(){
+    let g=`<defs>
+      <linearGradient id="rg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#00E5FF"/><stop offset="1" stop-color="#FF2EC4"/></linearGradient>
+      <filter id="glw"><feGaussianBlur stdDeviation="3.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    </defs>`;
+    // terrain hills
+    g+=`<path d="M0 300 Q 160 250 320 285 T 640 240 V340 H0Z" fill="rgba(122,92,255,.06)"/>`;
+    g+=`<path d="M0 320 Q 200 300 380 312 T 640 300 V340 H0Z" fill="rgba(255,46,196,.05)"/>`;
+    // route casing + line
+    g+=`<path d="${routePath}" fill="none" stroke="rgba(0,229,255,.12)" stroke-width="14" stroke-linecap="round"/>`;
+    g+=`<path id="route-line" d="${routePath}" fill="none" stroke="url(#rg)" stroke-width="4" stroke-linecap="round" stroke-dasharray="6 9" opacity=".85"/>`;
+    // start/finish flags
+    g+=`<circle cx="200" cy="175" r="5" fill="#00E5FF" filter="url(#glw)"/><text x="200" y="160" fill="#9AA6CC" font-size="10" font-family="monospace" text-anchor="middle">km34</text>`;
+    g+=`<circle cx="660" cy="40" r="6" fill="#FF2EC4" filter="url(#glw)"/>`;
+    // rider dots placeholder group
+    g+=`<g id="rider-dots"></g>`;
+    mapSvg.innerHTML=g;
+  }
+  buildMap();
+  const routeEl=$('#route-line');
+  const routeLen=routeEl.getTotalLength();
+  // base progress for each rider along path (clustered)
+  const prog={theo:.74,marc:.70,sara:.67,paul:.69,lea:.63};
+  function placeRiders(){
+    const dots=$('#rider-dots');
+    dots.innerHTML=riders.map(r=>{
+      const p=routeEl.getPointAtLength(routeLen*prog[r.id]);
+      return `<g data-dot="${r.id}" transform="translate(${p.x.toFixed(1)},${p.y.toFixed(1)})">
+        <circle r="10" fill="${r.color}" opacity=".18"/>
+        <circle r="5.5" fill="${r.color}" filter="url(#glw)"/>
+        <text y="-13" fill="#EAF0FF" font-size="9.5" font-family="Outfit" font-weight="600" text-anchor="middle">${r.name}</text>
+      </g>`;
+    }).join('');
+  }
+  placeRiders();
+
+  /* ── Elevation profiles ── */
+  function elevPath(svg,pts,w=600,h=90){
+    const max=Math.max(...pts),min=Math.min(...pts);
+    const sx=w/(pts.length-1);
+    const y=v=>h-6-((v-min)/(max-min||1))*(h-16);
+    let d=`M0 ${y(pts[0]).toFixed(1)}`;
+    pts.forEach((v,i)=>{d+=` L${(i*sx).toFixed(1)} ${y(v).toFixed(1)}`;});
+    const area=d+` L${w} ${h} L0 ${h} Z`;
+    svg.innerHTML=`<defs><linearGradient id="ea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(0,229,255,.35)"/><stop offset="1" stop-color="rgba(255,46,196,.02)"/></linearGradient></defs>
+      <path d="${area}" fill="url(#ea)"/><path d="${d}" fill="none" stroke="url(#rg2)" stroke-width="2.4"/>
+      <defs><linearGradient id="rg2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#00E5FF"/><stop offset="1" stop-color="#FF2EC4"/></linearGradient></defs>`;
+  }
+  const ea=$('#elev-a');
+  if(ea) elevPath(ea,[120,140,135,180,260,340,420,470,430,360,300,250,210,260,330,300,240,180,150,130]);
+
+  /* ── History sparkline (profile) ── */
+  const hist=$('#hist-svg');
+  if(hist){
+    const data=[40,55,48,62,58,70,66,75,72,80,78,85,82,90];
+    const w=600,h=120,sx=w/(data.length-1),max=100;
+    let bars='';
+    data.forEach((v,i)=>{const bh=(v/max)*(h-18);bars+=`<rect x="${(i*sx+4).toFixed(1)}" y="${(h-bh-4).toFixed(1)}" width="${(sx-8).toFixed(1)}" height="${bh.toFixed(1)}" rx="4" fill="url(#hb)" opacity="${.55+i/data.length*.45}"/>`;});
+    hist.innerHTML=`<defs><linearGradient id="hb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#00E5FF"/><stop offset="1" stop-color="#FF2EC4"/></linearGradient></defs>${bars}`;
+  }
+
+  /* ── Organism visualization ── */
+  const org=$('#org-svg');
+  function buildOrg(){
+    const cx=300,cy=270;
+    const nodes=riders.map((r,i)=>{
+      const ang=(-90+i*(360/riders.length))*Math.PI/180;
+      const rad=r.status==='drop'?120:r.status==='lead'?180:150;
+      return {...r,px:cx+Math.cos(ang)*rad,py:cy+Math.sin(ang)*rad};
+    });
+    let g=`<defs>
+      <radialGradient id="core"><stop offset="0" stop-color="#FF2EC4"/><stop offset=".6" stop-color="#7A5CFF"/><stop offset="1" stop-color="rgba(0,229,255,0)"/></radialGradient>
+      <linearGradient id="flow" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#00E5FF"/><stop offset="1" stop-color="#FF2EC4"/></linearGradient>
+      <filter id="og"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    </defs>`;
+    // filaments core->node
+    nodes.forEach(n=>{
+      g+=`<path class="org-fil" d="M${cx} ${cy} Q ${(cx+n.px)/2+(n.py-cy)*.18} ${(cy+n.py)/2-(n.px-cx)*.18} ${n.px} ${n.py}" fill="none" stroke="url(#flow)" stroke-width="2" opacity=".5" stroke-dasharray="5 8"/>`;
+    });
+    // node-to-node faint web
+    for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){
+      g+=`<line x1="${nodes[i].px}" y1="${nodes[i].py}" x2="${nodes[j].px}" y2="${nodes[j].py}" stroke="rgba(120,140,220,.10)" stroke-width="1"/>`;
+    }
+    // pulsing core
+    g+=`<circle id="org-core-glow" cx="${cx}" cy="${cy}" r="70" fill="url(#core)" opacity=".5"/>`;
+    g+=`<circle cx="${cx}" cy="${cy}" r="30" fill="none" stroke="#FF2EC4" stroke-width="2" opacity=".8" filter="url(#og)"/>`;
+    g+=`<text x="${cx}" y="${cy-2}" fill="#fff" font-size="13" font-family="Outfit" font-weight="700" text-anchor="middle">IDCP</text>`;
+    g+=`<text id="org-core-val" x="${cx}" y="${cy+18}" fill="#FF2EC4" font-size="20" font-family="monospace" font-weight="700" text-anchor="middle">96</text>`;
+    // nodes
+    nodes.forEach(n=>{
+      g+=`<g transform="translate(${n.px},${n.py})">
+        <circle r="26" fill="${n.color}" opacity=".14"/>
+        <circle class="org-node" r="17" fill="${n.color}" filter="url(#og)" data-id="${n.id}"/>
+        <text y="5" fill="#06070f" font-size="12" font-weight="800" font-family="Outfit" text-anchor="middle">${n.init}</text>
+        <text y="40" fill="#EAF0FF" font-size="11" font-weight="600" font-family="Outfit" text-anchor="middle">${n.name}</text>
+        <text y="55" fill="#9AA6CC" font-size="10" font-family="monospace" text-anchor="middle">${n.assist}% assist.</text>
+      </g>`;
+    });
+    org.innerHTML=g;
+  }
+  if(org) buildOrg();
+
+  /* ── IDCP gauge animate ── */
+  const idcpArc=$('#idcp-arc'),idcpVal=$('#idcp-val');
+  const CIRC=427;
+  function setIDCP(v){
+    idcpArc.style.transition='stroke-dashoffset 1.2s var(--ease)';
+    idcpArc.style.strokeDashoffset=CIRC-(CIRC*v/100);
+    idcpVal.textContent=v;
+  }
+  setTimeout(()=>setIDCP(96),350);
+
+  /* ── Clock (sortie elapsed) ── */
+  let t=4944; // 1h22m24s
+  const clock=$('#clock');
+  function tick(){t++;const h=String(Math.floor(t/3600)).padStart(2,'0'),m=String(Math.floor(t%3600/60)).padStart(2,'0'),s=String(t%60).padStart(2,'0');clock.textContent=`${h}:${m}:${s}`;}
+  tick();setInterval(tick,1000);
+
+  /* ── Navigation ── */
+  $$('.nav-btn').forEach(b=>b.addEventListener('click',()=>{
+    $$('.nav-btn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    $$('.view').forEach(v=>v.classList.remove('active'));
+    $('#view-'+b.dataset.view).classList.add('active');
+  }));
+
+  /* ── Mode switch (affects assistance balancing narrative) ── */
+  const modeTag=$('#mode-tag');
+  const modePresets={
+    social:{lea:65,sara:34,paul:48,marc:22,theo:14,label:'SOCIAL'},
+    perf:  {lea:48,sara:28,paul:36,marc:30,theo:24,label:'PERFORMANCE'},
+    train: {lea:55,sara:30,paul:40,marc:12,theo:5, label:'ENTRAÎNEMENT'},
+    batt:  {lea:40,sara:22,paul:28,marc:14,theo:9, label:'BATTERIE'},
+  };
+  $$('.mode').forEach(m=>m.addEventListener('click',()=>{
+    $$('.mode').forEach(x=>x.classList.remove('active'));
+    m.classList.add('active');
+    const p=modePresets[m.dataset.mode];
+    modeTag.textContent='MODE · '+p.label;
+    riders.forEach(r=>{if(p[r.id]!=null){r.assist=p[r.id];}});
+    refreshAssist();
+    pushFeed({title:'Mode '+p.label+' activé',txt:'Répartition de l\'assistance recalculée pour l\'ensemble du peloton.'});
+  }));
+
+  /* ── Route selection ── */
+  $$('.route').forEach(r=>r.addEventListener('click',()=>{
+    $$('.route').forEach(x=>x.classList.remove('sel'));r.classList.add('sel');
+  }));
+
+  /* ── Live data simulation ── */
+  function jitter(v,a){return v+(Math.random()*2-1)*a;}
+  function refreshAssist(){
+    $$('.rider').forEach(el=>{
+      const r=riders.find(x=>x.id===el.dataset.id);if(!r)return;
+      $('[data-f="assist"]',el).textContent=r.assist+'%';
+      $('[data-f="abar"]',el).style.width=r.assist+'%';
+    });
+    // update organism labels
+    if(org) buildOrg();
+  }
+  function liveStep(){
+    // KPIs
+    const sp=jitter(31.2,.6);$('#kpi-speed').innerHTML=sp.toFixed(1)+'<small>km/h</small>';
+    const gr=jitter(8.0,.4);$('#kpi-grade').innerHTML=gr.toFixed(1)+'<small>%</small>';
+    const coh=Math.round(jitter(96,2));$('#kpi-coh').innerHTML=Math.min(99,coh)+'<small>%</small>';
+    // rider live metrics
+    riders.forEach(r=>{
+      r.hr=Math.round(jitter(r.hr,3));r.pw=Math.round(jitter(r.pw,8));
+      const el=$(`.rider[data-id="${r.id}"]`);
+      if(el){$('[data-f="hr"]',el).textContent=r.hr;$('[data-f="pw"]',el).textContent=r.pw;}
+    });
+    // IDCP small wobble
+    setIDCP(Math.round(jitter(96,1.4)));
+    // move riders along route slightly
+    Object.keys(prog).forEach(k=>{prog[k]=Math.min(.92,prog[k]+0.0016+Math.random()*0.001);});
+    placeRiders();
+  }
+  setInterval(liveStep,2200);
+
+  /* ── AI decision feed ── */
+  const feed=$('#feed');
+  const feedSeed=[
+    {title:'↑ Assistance Léa +18%',txt:'Anticipation rampe à 9% dans 240 m — maintien du contact arrière.'},
+    {title:'↓ Bridage Théo −6%',txt:'FC trop basse vs cible : énergie réallouée vers le groupe.'},
+    {title:'Réserve batterie sécurisée',txt:'Léa : trajectoire batterie ajustée pour 18% mini au retour.'},
+    {title:'Compactage du peloton',txt:'Écart Sara→Léa ramené de 11 m à 4 m en 35 s.'},
+    {title:'Vent de face détecté',txt:'+8% d\'assistance répartie sur les 2 cyclistes de tête.'},
+  ];
+  let fi=0;
+  function pushFeed(item){
+    const now=new Date();
+    const time=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
+    const node=document.createElement('div');
+    node.className='fitem';
+    node.innerHTML=`<div class="fitem__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg></div>
+      <div style="flex:1"><b>${item.title}</b><p>${item.txt}</p></div><time>${time}</time>`;
+    feed.prepend(node);
+    while(feed.children.length>5)feed.removeChild(feed.lastChild);
+  }
+  // seed
+  feedSeed.slice(0,4).forEach(pushFeed);
+  setInterval(()=>{pushFeed(feedSeed[fi%feedSeed.length]);fi++;},5200);
+
+  /* ── Organism core pulse ── */
+  let op=0;
+  setInterval(()=>{
+    const glow=$('#org-core-glow');if(!glow)return;
+    op+=.12;const r=70+Math.sin(op)*10;glow.setAttribute('r',r.toFixed(1));
+    glow.setAttribute('opacity',(.4+Math.sin(op)*.12).toFixed(2));
+  },60);
+
+  /* ── Animate flow dashes (organism + map) ── */
+  let dash=0;
+  setInterval(()=>{
+    dash-=1;
+    if(routeEl)routeEl.setAttribute('stroke-dashoffset',dash);
+    $$('.org-fil').forEach(f=>f.setAttribute('stroke-dashoffset',dash*1.5));
+  },45);
+
+})();
+</script>
+</body>
+</html>
