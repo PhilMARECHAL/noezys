@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Noezys — pub 30s</title>
+<style>
+  @font-face { font-family:'Outfit'; font-weight:300; src:url('fonts/outfit-300.woff2') format('woff2'); }
+  @font-face { font-family:'Outfit'; font-weight:400; src:url('fonts/outfit-400.woff2') format('woff2'); }
+  @font-face { font-family:'Outfit'; font-weight:500; src:url('fonts/outfit-500.woff2') format('woff2'); }
+  @font-face { font-family:'Outfit'; font-weight:600; src:url('fonts/outfit-600.woff2') format('woff2'); }
+  @font-face { font-family:'Outfit'; font-weight:700; src:url('fonts/outfit-700.woff2') format('woff2'); }
+
+  :root {
+    --bg-deep:#0A0E1A; --bg-mid:#0D1225;
+    --cyan:#00D4FF; --purple:#8B5CF6;
+    --text:#F0F3FA; --text2:#8A96B4;
+    --light:#E9EDF4; --ink:#0B0F1E;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1920px; height:1080px; overflow:hidden; background:#000; }
+  body { font-family:'Outfit',sans-serif; }
+  #stage { position:relative; width:1920px; height:1080px; overflow:hidden; background:#000; }
+  .scene { position:absolute; inset:0; display:none; overflow:hidden; }
+  .scene.active { display:block; }
+  .grad-text {
+    background:linear-gradient(90deg,var(--cyan),var(--purple));
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent; color:transparent;
+  }
+  .center-wrap { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .w { display:inline-block; opacity:0; white-space:pre; }
+
+  /* S1 hook — dark kinetic */
+  #s1 { background:var(--bg-deep); }
+  #s1 .line { text-align:center; color:var(--text); font-weight:700; font-size:140px; line-height:1.14; letter-spacing:-2px; }
+
+  /* S2 light + mark */
+  #s2 { background:linear-gradient(160deg,#F2F4F8,#DDE2EC); }
+  #s2 .row { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; gap:90px; padding:0 120px; }
+  #s2 .mark { width:280px; height:280px; opacity:0; flex:0 0 auto; filter:drop-shadow(0 40px 60px rgba(10,14,26,.25)); }
+  #s2 .txt { font-size:96px; font-weight:600; color:var(--ink); letter-spacing:-1px; max-width:1100px; line-height:1.2; }
+  #s2 .w { margin-right:0.24em; }
+
+  /* S3 glow whisper */
+  #s3 { background:#050609; }
+  #s3 .l1 { font-size:86px; font-weight:300; color:#EDEFF4; opacity:0; text-align:center; max-width:1600px;
+            text-shadow:0 0 40px rgba(240,243,250,.55),0 0 120px rgba(139,92,246,.35); }
+  #s3 .l2 { margin-top:30px; font-size:86px; font-weight:300; color:#EDEFF4; opacity:0; text-align:center;
+            text-shadow:0 0 40px rgba(240,243,250,.55),0 0 120px rgba(0,212,255,.3); }
+  #s3 em { font-style:italic; }
+
+  /* S4 logo reveal */
+  #s4 { background:radial-gradient(ellipse at 50% 38%,var(--bg-mid) 0%,var(--bg-deep) 70%); }
+  #s4 .mark { width:250px; height:250px; opacity:0;
+              filter:drop-shadow(0 0 50px rgba(0,212,255,.35)) drop-shadow(0 0 110px rgba(139,92,246,.3)); }
+  #s4 .name { margin-top:46px; font-size:140px; font-weight:600; color:var(--text); opacity:0; }
+  #s4 .divider { margin-top:32px; height:3px; width:0; background:linear-gradient(90deg,var(--cyan),var(--purple)); border-radius:2px; }
+  #s4 .sub { margin-top:28px; font-size:38px; font-weight:400; color:var(--text2); letter-spacing:14px; opacity:0; }
+
+  /* S5 use cases */
+  .case { position:absolute; inset:0; display:none; }
+  .case.on { display:block; }
+  #s5 { background:var(--bg-deep); }
+  #s5 .glowbg { position:absolute; inset:0; }
+  .case .inner { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; gap:80px; padding:0 160px; }
+  .case .num { font-size:230px; font-weight:700; opacity:0; flex:0 0 auto; line-height:1; }
+  .case .sep { width:3px; height:340px; background:linear-gradient(180deg,var(--cyan),var(--purple)); border-radius:2px; opacity:0; }
+  .case .txt { max-width:1050px; }
+  .case .head { font-size:88px; font-weight:600; color:var(--text); line-height:1.18; letter-spacing:-1px; opacity:0; }
+  .case .sub { margin-top:26px; font-size:48px; font-weight:300; color:var(--text2); opacity:0; }
+
+  /* S6 positioning */
+  #s6 { background:linear-gradient(160deg,#F2F4F8,#DDE2EC); }
+  #s6 .l1 { font-size:96px; font-weight:600; color:var(--ink); letter-spacing:-1px; text-align:center; }
+  #s6 .l1 .w { margin-right:0.24em; }
+  #s6 .l2 { margin-top:20px; font-size:96px; font-weight:600; text-align:center; opacity:0; }
+
+  /* S7 end card */
+  #s7 { background:
+        radial-gradient(ellipse 900px 600px at 12% 88%,rgba(139,92,246,.16),transparent 60%),
+        radial-gradient(ellipse 900px 600px at 88% 12%,rgba(0,212,255,.14),transparent 60%),
+        var(--bg-deep); }
+  #s7 .dot { position:absolute; border-radius:50%; background:#9FB6FF; }
+  #s7 .mark { width:170px; height:170px; opacity:0;
+              filter:drop-shadow(0 0 40px rgba(0,212,255,.3)) drop-shadow(0 0 90px rgba(139,92,246,.25)); }
+  #s7 .name { margin-top:32px; font-size:96px; font-weight:600; color:var(--text); opacity:0; }
+  #s7 .divider { margin-top:24px; height:3px; width:0; background:linear-gradient(90deg,var(--cyan),var(--purple)); border-radius:2px; }
+  #s7 .cta { margin-top:34px; font-size:64px; font-weight:500; color:var(--text); opacity:0; }
+  #s7 .url { margin-top:30px; font-size:54px; font-weight:600; opacity:0; }
+  #s7 .loc { margin-top:22px; font-size:26px; font-weight:400; color:#4A5570; letter-spacing:6px; opacity:0; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="scene" id="s1"><div class="center-wrap" id="s1group"></div></div>
+
+  <div class="scene" id="s2">
+    <div class="row">
+      <img class="mark" id="s2mark" src="../assets/noezys-n-mark.png" alt="">
+      <div class="txt" id="s2txt"></div>
+    </div>
+  </div>
+
+  <div class="scene" id="s3">
+    <div class="center-wrap">
+      <div class="l1" id="s3l1"></div>
+      <div class="l2" id="s3l2"></div>
+    </div>
+  </div>
+
+  <div class="scene" id="s4">
+    <div class="center-wrap">
+      <img class="mark" id="s4mark" src="../assets/noezys-n-mark.png" alt="">
+      <div class="name">NOEZYS</div>
+      <div class="divider" id="s4div"></div>
+      <div class="sub" id="s4sub">AI INNOVATION LAB</div>
+    </div>
+  </div>
+
+  <div class="scene" id="s5">
+    <div class="glowbg" id="s5glow"></div>
+    <div class="case" id="case0"><div class="inner">
+      <div class="num grad-text">01</div><div class="sep"></div>
+      <div class="txt"><div class="head"></div><div class="sub"></div></div>
+    </div></div>
+    <div class="case" id="case1"><div class="inner">
+      <div class="num grad-text">02</div><div class="sep"></div>
+      <div class="txt"><div class="head"></div><div class="sub"></div></div>
+    </div></div>
+    <div class="case" id="case2"><div class="inner">
+      <div class="num grad-text">03</div><div class="sep"></div>
+      <div class="txt"><div class="head"></div><div class="sub"></div></div>
+    </div></div>
+  </div>
+
+  <div class="scene" id="s6">
+    <div class="center-wrap">
+      <div class="l1" id="s6l1"></div>
+      <div class="l2 grad-text" id="s6l2"></div>
+    </div>
+  </div>
+
+  <div class="scene" id="s7">
+    <div id="s7dots"></div>
+    <div class="center-wrap" id="s7group">
+      <img class="mark" id="s7mark" src="../assets/noezys-n-mark.png" alt="">
+      <div class="name">NOEZYS</div>
+      <div class="divider" id="s7div"></div>
+      <div class="cta" id="s7cta"></div>
+      <div class="url grad-text">www.noezys.com</div>
+      <div class="loc">AI INNOVATION LAB · MALTA</div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ═══ copy — FR / EN ═══ */
+const LANG=(new URLSearchParams(location.search).get('lang'))||'fr';
+const COPY={
+ fr:{
+  s1:[["Chaque ","semaine,"],["vos ","équipes ","perdent"],[["des heures.",true]]],
+  s2:["Sur ","des ","tâches ","qu'une ","IA ","ferait ","en ","quelques ","secondes."],
+  s3l1:"Et si elle travaillait pour vous —",
+  s3l2:["même <em>pendant</em> que vous dormez ?"],
+  cases:[
+   {head:"Devis générés en 2 minutes.",sub:"Pas en 2 heures."},
+   {head:"Support client 24/7.",sub:"Sans embaucher."},
+   {head:"Relances clients automatiques.",sub:"Plus aucune opportunité oubliée."},
+  ],
+  s6l1:["Des ","solutions ","IA ","sur ","mesure,"],
+  s6l2:"conçues pour votre métier.",
+  cta:"Parlons de votre projet.",
+ },
+ en:{
+  s1:[["Every ","week,"],["your ","team ","loses"],[["hours.",true]]],
+  s2:["On ","tasks ","AI ","could ","handle ","in ","seconds."],
+  s3l1:"What if it worked for you —",
+  s3l2:["even <em>while</em> you sleep?"],
+  cases:[
+   {head:"Quotes generated in 2 minutes.",sub:"Not 2 hours."},
+   {head:"24/7 customer support.",sub:"Without hiring."},
+   {head:"Automatic client follow-ups.",sub:"No opportunity left behind."},
+  ],
+  s6l1:["Custom ","AI ","solutions,"],
+  s6l2:"built for your business.",
+  cta:"Let's talk about your project.",
+ },
+}[LANG];
+
+/* build S1 lines of word spans */
+const s1group=document.getElementById('s1group');
+COPY.s1.forEach(line=>{
+  const d=document.createElement('div'); d.className='line';
+  line.forEach(w=>{
+    const grad=Array.isArray(w); const txt=grad?w[0]:w;
+    const s=document.createElement('span'); s.className='w'+(grad?' grad-text':'');
+    s.textContent=txt; d.appendChild(s);
+  });
+  s1group.appendChild(d);
+});
+const s1words=[...document.querySelectorAll('#s1 .w')];
+
+const s2txt=document.getElementById('s2txt');
+COPY.s2.forEach(w=>{const s=document.createElement('span');s.className='w';s.textContent=w;s2txt.appendChild(s);});
+const s2words=[...document.querySelectorAll('#s2 .w')];
+
+document.getElementById('s3l1').textContent=COPY.s3l1;
+document.getElementById('s3l2').innerHTML=COPY.s3l2[0];
+
+COPY.cases.forEach((c,i)=>{
+  const el=document.getElementById('case'+i);
+  el.querySelector('.head').textContent=c.head;
+  el.querySelector('.sub').textContent=c.sub;
+});
+
+const s6l1=document.getElementById('s6l1');
+COPY.s6l1.forEach(w=>{const s=document.createElement('span');s.className='w';s.textContent=w;s6l1.appendChild(s);});
+const s6words=[...document.querySelectorAll('#s6 .w')];
+document.getElementById('s6l2').textContent=COPY.s6l2;
+document.getElementById('s7cta').textContent=COPY.cta;
+
+/* particles */
+const dotsWrap=document.getElementById('s7dots');
+const DOTS=[];
+for(let i=0;i<42;i++){
+  const r1=Math.abs(Math.sin(i*127.1))%1, r2=Math.abs(Math.sin(i*311.7))%1, r3=Math.abs(Math.sin(i*74.3))%1;
+  const d=document.createElement('div'); d.className='dot';
+  const size=1.5+r3*3; d.style.width=size+'px'; d.style.height=size+'px';
+  dotsWrap.appendChild(d);
+  DOTS.push({el:d,x:r1*1920,y:r2*1080,ph:i*0.7,sp:0.3+r3*0.5,amp:14+r1*22});
+}
+
+/* ═══ engine ═══ */
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const nrm=(t,a,b)=>clamp((t-a)/(b-a),0,1);
+const outExpo=p=>p>=1?1:1-Math.pow(2,-10*p);
+const outBack=p=>{const c=1.70158,c3=c+1;return 1+c3*Math.pow(p-1,3)+c*Math.pow(p-1,2);};
+const outCubic=p=>1-Math.pow(1-p,3);
+function pop(el,t,t0,dur=0.32){
+  const p=nrm(t,t0,t0+dur), e=outExpo(p);
+  el.style.opacity=p<=0?0:e;
+  el.style.transform=`scale(${1.9-0.9*e})`;
+  el.style.filter=`blur(${(1-e)*10}px)`;
+}
+const S=id=>document.getElementById(id);
+const CASE_HUES=['rgba(0,212,255,.10)','rgba(139,92,246,.12)','rgba(0,212,255,.08)'];
+
+const scenes=[
+ /* S1 hook 0–3.5 */
+ {id:'s1',a:0,b:3.5,update(t){
+   s1words.forEach((w,i)=>pop(w,t,0.15+i*0.32));
+   S('s1group').style.transform=`scale(${1+0.05*nrm(t,0,3.5)})`;
+ }},
+ /* S2 3.5–7.0 */
+ {id:'s2',a:3.5,b:7.0,update(t){
+   const lt=t-3.5;
+   const m=S('s2mark');
+   const p=nrm(lt,0.05,0.8), e=outBack(outCubic(p));
+   m.style.opacity=p<=0?0:1;
+   m.style.transform=`translateY(${-750+750*e}px) rotate(${-70+82*e}deg)`;
+   s2words.forEach((w,i)=>pop(w,lt,0.4+i*0.18,0.3));
+ }},
+ /* S3 7.0–10.5 */
+ {id:'s3',a:7.0,b:10.5,update(t){
+   const lt=t-7.0;
+   const l1=S('s3l1'), l2=S('s3l2');
+   const p1=outCubic(nrm(lt,0.15,1.0));
+   l1.style.opacity=p1; l1.style.transform=`translateY(${(1-p1)*30}px)`;
+   const p2=outCubic(nrm(lt,1.2,2.1));
+   l2.style.opacity=p2; l2.style.transform=`translateY(${(1-p2)*30}px)`;
+   l1.parentElement.style.transform=`scale(${1+0.04*nrm(lt,0,3.5)})`;
+ }},
+ /* S4 logo 10.5–14.0 */
+ {id:'s4',a:10.5,b:14.0,update(t){
+   const lt=t-10.5;
+   const m=S('s4mark');
+   const p=nrm(lt,0.05,0.65), e=outBack(outCubic(p));
+   m.style.opacity=p<=0?0:1; m.style.transform=`scale(${0.3+0.7*e})`;
+   const nm=document.querySelector('#s4 .name');
+   const p2=outExpo(nrm(lt,0.5,1.4));
+   nm.style.opacity=p2; nm.style.letterSpacing=(70-56*p2)+'px'; nm.style.paddingLeft=(70-56*p2)+'px';
+   S('s4div').style.width=(outCubic(nrm(lt,0.9,1.7))*420)+'px';
+   S('s4sub').style.opacity=outCubic(nrm(lt,1.2,2.0));
+ }},
+ /* S5 cases 14.0–23.0 (3×3s) */
+ {id:'s5',a:14.0,b:23.0,update(t){
+   const lt=t-14.0;
+   const idx=clamp(Math.floor(lt/3),0,2);
+   [0,1,2].forEach(i=>S('case'+i).classList.toggle('on',i===idx));
+   S('s5glow').style.background=`radial-gradient(ellipse 1200px 800px at ${30+idx*20}% 50%,${CASE_HUES[idx]},transparent 65%)`;
+   const ct=lt-idx*3;
+   const c=S('case'+idx);
+   const num=c.querySelector('.num'), sep=c.querySelector('.sep'),
+         head=c.querySelector('.head'), sub=c.querySelector('.sub');
+   const pn=nrm(ct,0.05,0.5), en=outBack(outCubic(pn));
+   num.style.opacity=pn<=0?0:1; num.style.transform=`scale(${0.5+0.5*en})`;
+   const ps=outCubic(nrm(ct,0.25,0.8));
+   sep.style.opacity=ps; sep.style.transform=`scaleY(${ps})`;
+   const ph=outExpo(nrm(ct,0.35,1.0));
+   head.style.opacity=ph; head.style.transform=`translateX(${(1-ph)*60}px)`;
+   const pu=outCubic(nrm(ct,0.8,1.5));
+   sub.style.opacity=pu; sub.style.transform=`translateX(${(1-pu)*40}px)`;
+ }},
+ /* S6 positioning 23.0–26.5 */
+ {id:'s6',a:23.0,b:26.5,update(t){
+   const lt=t-23.0;
+   s6words.forEach((w,i)=>pop(w,lt,0.15+i*0.22));
+   const l2=S('s6l2');
+   const p=outExpo(nrm(lt,1.1,1.8));
+   l2.style.opacity=p; l2.style.transform=`translateY(${(1-p)*30}px)`;
+ }},
+ /* S7 end card 26.5–30.0 */
+ {id:'s7',a:26.5,b:30.01,update(t){
+   const lt=t-26.5;
+   DOTS.forEach(d=>{
+     d.el.style.left=(d.x+Math.sin(lt*d.sp+d.ph)*d.amp)+'px';
+     d.el.style.top=(d.y+Math.cos(lt*d.sp*0.8+d.ph)*d.amp)+'px';
+     d.el.style.opacity=0.15+0.25*Math.abs(Math.sin(lt*0.8+d.ph));
+   });
+   const m=S('s7mark');
+   const p=nrm(lt,0.05,0.6), e=outBack(outCubic(p));
+   m.style.opacity=p<=0?0:1; m.style.transform=`scale(${0.4+0.6*e})`;
+   const nm=document.querySelector('#s7 .name');
+   const p2=outExpo(nrm(lt,0.35,1.0));
+   nm.style.opacity=p2; nm.style.transform=`translateY(${(1-p2)*25}px)`;
+   S('s7div').style.width=(outCubic(nrm(lt,0.6,1.2))*380)+'px';
+   const p3=outExpo(nrm(lt,0.9,1.6));
+   S('s7cta').style.opacity=p3; S('s7cta').style.transform=`translateY(${(1-p3)*20}px)`;
+   const p4=outExpo(nrm(lt,1.3,2.0));
+   const url=document.querySelector('#s7 .url');
+   url.style.opacity=p4; url.style.transform=`scale(${0.85+0.15*p4})`;
+   document.querySelector('#s7 .loc').style.opacity=outCubic(nrm(lt,1.7,2.4));
+   S('s7group').style.transform=`translateY(${Math.sin(lt*0.9)*6}px)`;
+ }},
+];
+
+window.seek=function(t){
+  scenes.forEach(sc=>{
+    const on=t>=sc.a&&t<sc.b;
+    S(sc.id).classList.toggle('active',on);
+    if(on)sc.update(t);
+  });
+};
+window.seek(0);
+</script>
+</body>
+</html>
