@@ -1,4 +1,8 @@
-# Noezys — vidéo brand 30 s
+# Noezys — vidéos 30 s
+
+> **📘 Voir `MODE-OPERATOIRE.md`** pour le mode opératoire complet :
+> régénération à l'identique, charte verrouillée, points d'ajustement du
+> contenu, bande-son et contrôle qualité.
 
 Vidéo « kinetic typography » (1920×1080, 30 fps, 30 s) pour www.noezys.com,
 générée à partir d'une animation HTML rendue image par image.
