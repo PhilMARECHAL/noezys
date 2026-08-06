@@ -1,0 +1,44 @@
+/* Renders scene.html frame-by-frame with Chromium, then encodes to MP4 via ffmpeg.
+   Usage: node render.mjs [fps] */
+import { chromium } from 'playwright-core';
+import { execSync } from 'node:child_process';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const DIR = path.dirname(fileURLToPath(import.meta.url));
+const FPS = Number(process.argv[2]) || 30;
+const DURATION = 30;
+const FRAMES = FPS * DURATION;
+const framesDir = path.join(DIR, 'frames');
+
+fs.rmSync(framesDir, { recursive: true, force: true });
+fs.mkdirSync(framesDir, { recursive: true });
+
+const exe = [
+  '/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell',
+  '/opt/pw-browsers/chromium-1194/chrome-linux/chrome',
+].find(p => fs.existsSync(p));
+
+const browser = await chromium.launch({ executablePath: exe, args: ['--force-color-profile=srgb', '--disable-lcd-text', '--hide-scrollbars'] });
+const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
+await page.goto('file://' + path.join(DIR, 'scene.html'));
+await page.evaluate(() => document.fonts.ready);
+await page.waitForTimeout(500); // let images decode
+
+const t0 = Date.now();
+for (let i = 0; i < FRAMES; i++) {
+  await page.evaluate(t => window.seek(t), i / FPS);
+  await page.screenshot({ path: path.join(framesDir, `f${String(i).padStart(4, '0')}.png`) });
+  if (i % 60 === 0) console.log(`frame ${i}/${FRAMES} (${((Date.now() - t0) / 1000).toFixed(0)}s)`);
+}
+await browser.close();
+console.log(`captured ${FRAMES} frames in ${((Date.now() - t0) / 1000).toFixed(0)}s`);
+
+execSync(
+  `ffmpeg -y -framerate ${FPS} -i ${framesDir}/f%04d.png ` +
+  `-c:v libx264 -preset slow -crf 18 -pix_fmt yuv420p -movflags +faststart ` +
+  `${path.join(DIR, 'noezys-30s.mp4')}`,
+  { stdio: 'inherit' }
+);
+console.log('done → video/noezys-30s.mp4');
