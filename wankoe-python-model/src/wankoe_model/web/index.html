@@ -6,374 +6,437 @@
 <title>WANKOE — Modèle de la ligne calcaire</title>
 <style>
   :root {
-    --bg: #f4f6f8; --panel: #ffffff; --ink: #1c2733; --muted: #64748b;
-    --accent: #0f6db5; --accent2: #0a8f5b; --warn: #b45309; --bad: #b91c1c;
-    --line: #e2e8f0; --radius: 10px;
+    --ink: #16181d; --muted: #6b7280; --line: #dfe3e8; --bg: #f7f8fa;
+    --panel: #ffffff; --accent: #145c8c; --ok: #0e7a4a; --bad: #c1341b;
+    --warn: #b45309; --pile: #eef1f4;
   }
   * { box-sizing: border-box; }
-  body { margin: 0; font: 14px/1.45 system-ui, "Segoe UI", Arial, sans-serif;
+  body { margin: 0; font: 13.5px/1.5 "Segoe UI", system-ui, Arial, sans-serif;
          background: var(--bg); color: var(--ink); }
-  header { background: #12314a; color: #fff; padding: 14px 22px;
-           display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
-  header h1 { margin: 0; font-size: 19px; letter-spacing: .4px; }
-  header span { color: #9fc3de; font-size: 12.5px; }
-  main { display: grid; grid-template-columns: 400px 1fr; gap: 16px;
-         padding: 16px 22px; max-width: 1500px; margin: 0 auto; }
-  @media (max-width: 980px) { main { grid-template-columns: 1fr; } }
-  .panel { background: var(--panel); border: 1px solid var(--line);
-           border-radius: var(--radius); padding: 14px 16px; }
-  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .8px;
-       color: var(--muted); margin: 0 0 10px; }
-  details { border-top: 1px solid var(--line); }
-  details summary { cursor: pointer; padding: 8px 0; font-weight: 600; }
-  .row { display: flex; align-items: center; gap: 8px; margin: 5px 0; }
-  .row label { flex: 1; color: #334155; }
-  .row .u { color: var(--muted); font-size: 12px; width: 42px; }
-  input[type=number], select { width: 96px; padding: 4px 6px; border: 1px solid #cbd5e1;
-    border-radius: 6px; font: inherit; background: #fbfdff; }
-  input.mod { border-color: var(--accent); background: #eaf4fc; }
-  .btns { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0 4px; }
-  button { border: 0; border-radius: 8px; padding: 9px 14px; font: inherit;
-           font-weight: 600; cursor: pointer; color: #fff; background: var(--accent); }
-  button.alt { background: var(--accent2); }
-  button.ghost { background: #eef2f6; color: var(--ink); }
-  button:disabled { opacity: .5; cursor: wait; }
+  header { background: #fff; border-bottom: 2px solid var(--ink); padding: 12px 26px;
+           display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+  header h1 { margin: 0; font-size: 18px; font-weight: 700; letter-spacing: 2px; }
+  header .sub { color: var(--muted); font-size: 12px; letter-spacing: .4px; }
+  main { max-width: 1420px; margin: 0 auto; padding: 14px 26px 30px; }
+
+  /* toolbar */
+  .toolbar { display: flex; gap: 10px; align-items: end; flex-wrap: wrap;
+             background: var(--panel); border: 1px solid var(--line);
+             padding: 10px 14px; margin-bottom: 14px; }
+  .field { display: flex; flex-direction: column; gap: 2px; }
+  .field label { font-size: 10.5px; text-transform: uppercase; letter-spacing: .8px;
+                 color: var(--muted); }
+  .field input, .field select { padding: 5px 7px; border: 1px solid #c3c9d0;
+    font: inherit; width: 86px; background: #fff; }
+  .field input.mod { border-color: var(--accent); background: #eef5fa; }
+  button { border: 1px solid var(--ink); background: var(--ink); color: #fff;
+           padding: 8px 16px; font: inherit; font-weight: 600; cursor: pointer;
+           letter-spacing: .3px; }
+  button.ghost { background: #fff; color: var(--ink); }
+  button:disabled { opacity: .45; cursor: wait; }
+
+  /* flowsheet */
+  .sheet { background: var(--panel); border: 1px solid var(--line); padding: 8px 10px 2px; }
+  .sheet h2, .panel h2 { font-size: 11.5px; text-transform: uppercase;
+    letter-spacing: 1.2px; color: var(--muted); margin: 4px 6px 6px; font-weight: 600; }
+  #fs { width: 100%; display: block; }
+  .zone-label { font-size: 11px; letter-spacing: 1.5px; fill: var(--muted); font-weight: 600; }
+  .machine { fill: #fff; stroke: var(--ink); stroke-width: 1.4; cursor: pointer; }
+  .machine.alert { stroke: var(--bad); stroke-width: 2; }
+  .machine:hover { fill: #f0f4f8; }
+  .mcode { font-size: 12px; font-weight: 700; fill: var(--ink); pointer-events: none; }
+  .mkpi { font-size: 10.5px; fill: var(--muted); pointer-events: none; }
+  .stream { stroke: #8a94a0; stroke-width: 1.3; fill: none; marker-end: url(#arr); }
+  .stream.loop { stroke-dasharray: 4 3; }
+  .slabel { font-size: 10.5px; fill: #49505a; }
+  .pile { fill: var(--pile); stroke: var(--ink); stroke-width: 1.2; cursor: pointer; }
+  .pile.sale { fill: #e7efe9; }
+  .ppct { font-size: 12px; font-weight: 700; fill: var(--ink); text-anchor: middle; pointer-events: none; }
+  .pname { font-size: 11px; font-weight: 600; fill: var(--ink); text-anchor: middle; }
+  .ptph { font-size: 10.5px; fill: var(--muted); text-anchor: middle; }
+
+  /* tabs + panels */
+  .tabs { display: flex; gap: 0; margin: 16px 0 0; }
+  .tabs button { border: 1px solid var(--line); border-bottom: 0; background: #eef0f3;
+    color: var(--ink); font-weight: 600; padding: 8px 18px; }
+  .tabs button.on { background: var(--panel); border-color: var(--ink); }
+  .panel { background: var(--panel); border: 1px solid var(--line); padding: 12px 16px; }
   table { border-collapse: collapse; width: 100%; margin: 6px 0; }
   th, td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--line);
            font-variant-numeric: tabular-nums; }
-  th { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .5px; }
-  .ok { color: var(--accent2); font-weight: 700; }
-  .ko { color: var(--bad); font-weight: 700; }
+  th { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .6px; }
+  .ok { color: var(--ok); font-weight: 700; } .ko { color: var(--bad); font-weight: 700; }
   .na { color: var(--muted); }
-  .alert { background: #fff7ed; border: 1px solid #fdba74; color: var(--warn);
-           border-radius: 8px; padding: 7px 10px; margin: 5px 0; font-size: 13px; }
-  .error { background: #fef2f2; border: 1px solid #fca5a5; color: var(--bad);
-           border-radius: 8px; padding: 8px 10px; margin: 8px 0; white-space: pre-wrap; }
-  .kpis { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
-  .kpi { background: #f0f6fb; border: 1px solid #d3e5f2; border-radius: 8px;
-         padding: 7px 12px; min-width: 120px; }
-  .kpi b { display: block; font-size: 17px; }
-  .kpi span { color: var(--muted); font-size: 12px; }
-  #chart { width: 100%; height: 300px; }
-  .legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12.5px; margin: 4px 0; }
-  .legend i { display: inline-block; width: 14px; height: 3px; margin-right: 4px;
-              vertical-align: middle; }
-  footer { color: var(--muted); font-size: 12px; padding: 8px 22px 20px;
-           max-width: 1500px; margin: 0 auto; }
-  .util { height: 8px; background: #e5edf3; border-radius: 4px; overflow: hidden; }
-  .util i { display: block; height: 100%; background: var(--accent2); }
-  .util i.hot { background: var(--warn); }
-  .util i.over { background: var(--bad); }
+  .alert-line { border-left: 3px solid var(--warn); background: #fdf6ec;
+    padding: 6px 10px; margin: 4px 0; font-size: 12.5px; }
+  .error { border-left: 3px solid var(--bad); background: #fbeeeb; padding: 8px 10px;
+           margin: 8px 0; white-space: pre-wrap; }
+  .kpis { display: flex; gap: 0; flex-wrap: wrap; border: 1px solid var(--line); margin: 6px 0 10px; }
+  .kpi { padding: 8px 18px 7px; border-right: 1px solid var(--line); min-width: 120px; }
+  .kpi b { display: block; font-size: 18px; font-weight: 700; }
+  .kpi span { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .5px; }
+  .util { height: 7px; background: #e7eaee; overflow: hidden; }
+  .util i { display: block; height: 100%; background: var(--ok); }
+  .util i.hot { background: var(--warn); } .util i.over { background: var(--bad); }
+
+  /* machine drawer */
+  #drawer { position: fixed; top: 0; right: -420px; width: 400px; height: 100%;
+    background: #fff; border-left: 2px solid var(--ink); padding: 18px;
+    overflow-y: auto; transition: right .18s; z-index: 50; }
+  #drawer.open { right: 0; }
+  #drawer h3 { margin: 0 0 2px; font-size: 16px; }
+  #drawer .close { float: right; cursor: pointer; border: 0; background: none;
+    color: var(--ink); font-size: 18px; padding: 0 4px; }
+  .drawer-row { display: flex; align-items: center; gap: 8px; margin: 5px 0; }
+  .drawer-row label { flex: 1; color: #3a4048; }
+  .drawer-row .u { color: var(--muted); font-size: 11px; width: 40px; }
+  footer { color: var(--muted); font-size: 11.5px; padding: 10px 26px 22px;
+           max-width: 1420px; margin: 0 auto; }
+  @media (max-width: 900px) { .kpi { min-width: 90px; padding: 6px 10px; } }
 </style>
 </head>
 <body>
 <header>
-  <h1>WANKOE — Modèle de la ligne calcaire</h1>
-  <span>zones 1.1 / 1.2 / 1.3 · flowsheet statique déterministe · chaque exécution = un scénario</span>
+  <h1>WANKOE</h1>
+  <span class="sub">Modèle de la ligne calcaire · zones 1.1 / 1.2 / 1.3 · chaque exécution = un scénario</span>
 </header>
 <main>
-  <!-- ======================= colonne paramètres ======================= -->
-  <section class="panel" id="left">
-    <h2>Scénario</h2>
-    <div class="row"><label>Mode zone 1.1</label>
-      <select id="mode11"><option>1A</option><option>1B</option></select><span class="u"></span></div>
-    <div class="row"><label>Mode zone 1.2</label>
-      <select id="mode12"><option>2A</option><option>2B</option><option>2C</option></select><span class="u"></span></div>
-    <div class="row"><label>Météo</label>
-      <select id="weather"><option value="dry">sec</option><option value="rain">pluie</option></select><span class="u"></span></div>
-    <div class="row"><label>Base de temps</label>
-      <select id="basis"><option value="annual">annuelle</option><option value="monthly">mensuelle</option>
-      <option value="weekly">hebdomadaire</option><option value="daily">journalière</option></select><span class="u"></span></div>
-    <div class="row"><label>Alimentation zone 1.1</label>
-      <input type="number" id="feed" step="5"><span class="u">t/h</span></div>
-    <div class="row"><label>Reprise zone 1.2</label>
-      <input type="number" id="reclaim" step="5"><span class="u">t/h</span></div>
-    <div class="row"><label>Séchage zone 1.3</label>
-      <input type="number" id="feedlime" step="1"><span class="u">t/h</span></div>
-    <div class="row"><label>Heures zone 1.1 (plafond)</label>
-      <input type="number" id="h11" step="100"><span class="u">h/an</span></div>
-    <div class="row"><label>Heures zone 1.2 (plafond)</label>
-      <input type="number" id="h12" step="100"><span class="u">h/an</span></div>
-    <div class="row"><label>Heures zone 1.3 (plafond)</label>
-      <input type="number" id="h13" step="100"><span class="u">h/an</span></div>
+  <div class="toolbar">
+    <div class="field"><label>Mode 1.1</label><select id="mode11"><option>1A</option><option>1B</option></select></div>
+    <div class="field"><label>Mode 1.2</label><select id="mode12"><option>2A</option><option>2B</option><option>2C</option></select></div>
+    <div class="field"><label>Météo</label><select id="weather"><option value="dry">sec</option><option value="rain">pluie</option></select></div>
+    <div class="field"><label>Alim. 1.1 t/h</label><input type="number" id="feed" step="5"></div>
+    <div class="field"><label>Reprise 1.2 t/h</label><input type="number" id="reclaim" step="5"></div>
+    <div class="field"><label>Séchage 1.3 t/h</label><input type="number" id="feedlime" step="1"></div>
+    <div class="field"><label>Heures 1.1</label><input type="number" id="h11" step="100"></div>
+    <div class="field"><label>Heures 1.2</label><input type="number" id="h12" step="100"></div>
+    <div class="field"><label>Heures 1.3</label><input type="number" id="h13" step="100"></div>
+    <button id="run">Calculer</button>
+    <button id="reset" class="ghost">Défauts</button>
+  </div>
 
-    <div id="machines"></div>
+  <div class="sheet">
+    <h2>Flowsheet — cliquer une machine ou un produit pour sa fiche</h2>
+    <svg id="fs" viewBox="0 0 1400 470"></svg>
+  </div>
 
-    <div class="btns">
-      <button id="run">▶ Calculer la photo</button>
-      <button id="plan" class="alt">🕐 Caler les heures</button>
-      <button id="design" class="alt" style="background:#12314a">🏭 Vérifier le design</button>
-      <button id="season" class="ghost">☀🌧 Bilan saisonnier</button>
-      <button id="reset" class="ghost">↺ Défauts</button>
-    </div>
-    <div style="color:var(--muted);font-size:12px">Les champs modifiés apparaissent en bleu.
-      Les heures se calculent depuis les objectifs (« Caler les heures ») — jamais l'inverse.</div>
-  </section>
-
-  <!-- ======================= colonne résultats ======================= -->
-  <section id="right">
-    <div class="panel" id="out">
-      <h2>Résultats</h2>
-      <div style="color:var(--muted)">Modifiez les paramètres puis lancez un calcul.</div>
-    </div>
-    <div class="panel" style="margin-top:16px">
-      <h2>Courbes granulométriques des produits (% passant cumulé)</h2>
-      <div class="legend" id="legend"></div>
-      <svg id="chart" viewBox="0 0 900 300" preserveAspectRatio="none"></svg>
-    </div>
-  </section>
+  <div class="tabs">
+    <button data-tab="design" class="on">Design</button>
+    <button data-tab="detail">Produits &amp; machines</button>
+    <button data-tab="plan">Heures (objectifs)</button>
+    <button data-tab="season">Saisonnier</button>
+    <button data-tab="alerts">Alertes</button>
+  </div>
+  <div class="panel" id="out"></div>
 </main>
-<footer>Wankoe Python Model · les paramètres vivent dans data/default_parameters.json ·
-  moteur pur : mêmes résultats ici, en script ou en balayage massif.</footer>
+<div id="drawer"></div>
+<footer>Wankoe Python Model · paramètres dans data/default_parameters.json · les heures se calculent
+depuis les objectifs, jamais l'inverse · moteur pur : mêmes résultats ici, en script ou en balayage.</footer>
 
 <script>
 "use strict";
 const $ = id => document.getElementById(id);
-const COLORS = {"KFS":"#0f6db5","AgLime":"#0a8f5b","FeedLime grits":"#b45309",
-                "FeedLime fines":"#7c3aed","UltraFin":"#be185d"};
-let DEFAULTS = null;
+const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const fmt = (x, d=1) => x === null || x === undefined ? "—" :
+  (+x).toLocaleString("fr-FR", { maximumFractionDigits: d });
+let DEFAULTS = null, PHOTO = null, PLAN = null, DESIGN = null, SEASON = null, TAB = "design";
 
-// ---------- chargement des paramètres par défaut ----------
+/* ---------------- parameters ---------------- */
 async function loadDefaults() {
   DEFAULTS = await (await fetch("/api/parameters")).json();
   const sc = DEFAULTS.default_scenario;
   $("mode11").value = sc.zone_1_1_mode; $("mode12").value = sc.zone_1_2_mode;
-  $("weather").value = sc.weather; $("basis").value = sc.time_basis;
+  $("weather").value = sc.weather;
   $("feed").value = sc.flow_rates_tph.zone_1_1_feed;
   $("reclaim").value = sc.flow_rates_tph.zone_1_2_reclaim;
   $("feedlime").value = sc.flow_rates_tph.zone_1_3_feedlime;
   $("h11").value = sc.zones["1.1"].available_hours ?? "";
   $("h12").value = sc.zones["1.2"].available_hours ?? "";
   $("h13").value = sc.zones["1.3"].available_hours ?? "";
-  buildMachinePanel();
-  document.querySelectorAll("#left input").forEach(el =>
-    el.addEventListener("input", () => el.classList.toggle("mod", changed(el))));
+  MACHINE_EDITS = {};
 }
-function changed(el) { return el.dataset.def !== undefined && String(el.value) !== el.dataset.def; }
-
-function buildMachinePanel() {
-  const host = $("machines"); host.innerHTML = "";
-  const wrap = document.createElement("details");
-  wrap.innerHTML = "<summary>Réglages machines (codification du CdC)</summary>";
-  for (const [code, m] of Object.entries(DEFAULTS.machines)) {
-    if (!Object.keys(m.parameters).length) continue;
-    const d = document.createElement("details");
-    d.innerHTML = `<summary>${esc(code)} — ${esc(m.type)}</summary>`;
-    for (const [sym, p] of Object.entries(m.parameters)) {
-      if (p.default === null) continue;
-      const row = document.createElement("div"); row.className = "row";
-      row.innerHTML = `<label title="${esc(p.name)}">${esc(sym)}</label>
-        <input type="number" data-code="${code}" data-sym="${sym}" data-def="${p.default}"
-               value="${p.default}" step="${p.step ?? "any"}"
-               ${p.min !== undefined && p.min !== null ? `min="${p.min}"` : ""}
-               ${p.max !== undefined && p.max !== null ? `max="${p.max}"` : ""}>
-        <span class="u">${p.unit}</span>`;
-      d.appendChild(row);
-    }
-    wrap.appendChild(d);
-  }
-  host.appendChild(wrap);
-  document.querySelectorAll("#machines input").forEach(el =>
-    el.addEventListener("input", () => el.classList.toggle("mod", changed(el))));
-}
-
-// ---------- construction des overrides ----------
+let MACHINE_EDITS = {};
 function overrides() {
   const sc = DEFAULTS.default_scenario;
   const o = { default_scenario: {
     zone_1_1_mode: $("mode11").value, zone_1_2_mode: $("mode12").value,
-    weather: $("weather").value, time_basis: $("basis").value,
+    weather: $("weather").value,
     flow_rates_tph: { zone_1_1_feed: +$("feed").value,
       zone_1_2_reclaim: +$("reclaim").value, zone_1_3_feedlime: +$("feedlime").value },
-    zones: { "1.1": { available_hours: $("h11").value === "" ? null : +$("h11").value,
-                      availability_pct: sc.zones["1.1"].availability_pct },
-             "1.2": { available_hours: $("h12").value === "" ? null : +$("h12").value,
-                      availability_pct: sc.zones["1.2"].availability_pct },
-             "1.3": { available_hours: $("h13").value === "" ? null : +$("h13").value,
-                      availability_pct: sc.zones["1.3"].availability_pct } } } };
+    zones: Object.fromEntries(["1.1","1.2","1.3"].map((z,i) => [z, {
+      available_hours: $(["h11","h12","h13"][i]).value === "" ? null : +$(["h11","h12","h13"][i]).value,
+      availability_pct: sc.zones[z].availability_pct }])) } };
   const machines = {};
-  document.querySelectorAll("#machines input").forEach(el => {
-    if (!changed(el)) return;
-    const code = el.dataset.code, sym = el.dataset.sym;
-    machines[code] = machines[code] || { parameters: {} };
-    machines[code].parameters[sym] = { default: +el.value };
-  });
+  for (const [code, params] of Object.entries(MACHINE_EDITS))
+    for (const [sym, val] of Object.entries(params)) {
+      machines[code] = machines[code] || { parameters: {} };
+      machines[code].parameters[sym] = { default: val };
+    }
   if (Object.keys(machines).length) o.machines = machines;
   return o;
 }
-
-async function call(endpoint, extra) {
-  const buttons = document.querySelectorAll("button"); buttons.forEach(b => b.disabled = true);
+async function api(endpoint, extra) {
+  const res = await fetch("/api/" + endpoint, { method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(Object.assign({ overrides: overrides() }, extra || {})) });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || res.statusText);
+  return data;
+}
+async function recompute() {
+  document.querySelectorAll("button").forEach(b => b.disabled = true);
   try {
-    const res = await fetch("/api/" + endpoint, { method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(Object.assign({ overrides: overrides() }, extra || {})) });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || res.statusText);
-    return data;
-  } finally { buttons.forEach(b => b.disabled = false); }
+    [PHOTO, DESIGN] = await Promise.all([api("scenario"), api("design")]);
+    PLAN = DESIGN.planning && DESIGN.planning.zones ? null : null;
+    try { PLAN = await api("planning"); } catch (e) { PLAN = { error: e.message }; }
+    try { SEASON = await api("seasonal"); } catch (e) { SEASON = { error: e.message }; }
+    drawFlowsheet(); renderTab();
+  } catch (e) {
+    $("out").innerHTML = `<div class="error">⚠ ${esc(e.message)}</div>`;
+  } finally { document.querySelectorAll("button").forEach(b => b.disabled = false); }
 }
-function showError(e) { $("out").innerHTML = `<h2>Résultats</h2><div class="error">⚠ ${e.message}</div>`; }
-const fmt = (x, d=1) => x === null || x === undefined ? "—" : (+x).toLocaleString("fr-FR",
-  { maximumFractionDigits: d });
-// engine texts (alerts, names) may contain < or & : always escape before innerHTML
-const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-// ---------- rendu de la photo ----------
-function renderScenario(r) {
-  let h = "<h2>Photo de la ligne</h2>";
-  h += `<div class="kpis">
-    <div class="kpi"><b>${fmt(r.products.KFS.tph)}</b><span>KFS t/h (${r.products.KFS.state === "wet" ? "humide" : "sec"})</span></div>
-    <div class="kpi"><b>${fmt(r.products.AgLime.tph)}</b><span>AgLime t/h</span></div>
-    <div class="kpi"><b>${fmt(r.products["FeedLime grits"].tph)}</b><span>Grits t/h</span></div>
-    <div class="kpi"><b>${fmt(r.products.UltraFin.tph, 2)}</b><span>UltraFin t/h</span></div>
-    <div class="kpi"><b>${fmt(r.machines["DY.03"].active ? r.machines["DY.03"].burner_power_kW/1000 : null, 2)}</b><span>Brûleur MW</span></div>
-  </div>`;
-  h += "<table><tr><th>Produit</th><th>t/h</th><th>État</th><th>P80 mm</th><th>Conformité</th></tr>";
-  for (const [name, p] of Object.entries(r.products)) {
-    let conf = "<span class='na'>—</span>";
-    if (p.present && p.compliance) {
-      const c = p.compliance;
-      if (c.envelope) conf = `${c.below_cut_pct}/${c.in_cut_pct}/${c.above_cut_pct} % ` +
-        (c.compliant ? "<span class='ok'>✔ conforme</span>" : "<span class='ko'>✘ hors enveloppe</span>");
-      else if (c.compliant !== null) conf = c.compliant ? "<span class='ok'>✔</span>" : "<span class='ko'>✘</span>";
-      else conf = `<span class='na'>${c.out_of_cut_pct} % hors coupure</span>`;
+/* ---------------- flowsheet (Bruno-style) ---------------- */
+const S = (x) => esc(fmt(x, 1));
+function machineBox(x, y, code, kpi, alert) {
+  return `<g onclick="openMachine('${code}')">
+    <rect class="machine ${alert ? "alert" : ""}" x="${x}" y="${y}" width="104" height="44" rx="2"/>
+    <text class="mcode" x="${x + 52}" y="${y + 18}" text-anchor="middle">${code}</text>
+    <text class="mkpi" x="${x + 52}" y="${y + 34}" text-anchor="middle">${kpi}</text></g>`;
+}
+function pile(x, y, name, tph, pct, sale) {
+  return `<g onclick="openProduct('${esc(name)}')">
+    <polygon class="pile ${sale ? "sale" : ""}" points="${x},${y+46} ${x+72},${y+46} ${x+36},${y}"/>
+    <text class="ppct" x="${x+36}" y="${y+38}">${pct === null ? "" : fmt(pct, 1) + " %"}</text>
+    <text class="pname" x="${x+36}" y="${y+62}">${esc(name)}</text>
+    <text class="ptph" x="${x+36}" y="${y+76}">${S(tph)} t/h</text></g>`;
+}
+function arrow(d, label, lx, ly, loop) {
+  return `<path class="stream ${loop ? "loop" : ""}" d="${d}"/>` +
+    (label ? `<text class="slabel" x="${lx}" y="${ly}">${label}</text>` : "");
+}
+function drawFlowsheet() {
+  if (!PHOTO) return;
+  const p = PHOTO.products, m = PHOTO.machines, f = PHOTO.intermediate_flows;
+  const sc = PHOTO.scenario, moist = 1 - DEFAULTS.feed_product.properties.moisture_pct.default / 100;
+  const feedT = sc.flow_rates_tph.zone_1_1_feed;
+  const q020 = f.stream_0_20_dry_tph / moist;
+  const reclaim = sc.flow_rates_tph.zone_1_2_reclaim;
+  const feedl = sc.flow_rates_tph.zone_1_3_feedlime;
+  const flFromZ2 = sc.zone_1_2_mode === "2C" ? 0 : (sc.zone_1_2_mode === "2B" ? reclaim : reclaim - p.AgLime.tph);
+  const share = t => feedT > 0 ? 100 * t / feedT : null;
+  const ex = new Set((DESIGN && DESIGN.exceeded || []).map(r => r.machine));
+  const g = [];
+  g.push(`<defs><marker id="arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#8a94a0"/></marker></defs>`);
+  // zone separators + labels
+  g.push(`<line x1="468" y1="14" x2="468" y2="440" stroke="#e7eaee"/><line x1="912" y1="14" x2="912" y2="440" stroke="#e7eaee"/>`);
+  g.push(`<text class="zone-label" x="20" y="24">ZONE 1.1 — CONCASSAGE / CRIBLAGE</text>`);
+  g.push(`<text class="zone-label" x="484" y="24">ZONE 1.2 — REPRISE / AGLIME</text>`);
+  g.push(`<text class="zone-label" x="928" y="24">ZONE 1.3 — SÉCHAGE / GRITS / ULTRAFIN</text>`);
+  // ---- zone 1.1
+  g.push(arrow("M14,182 H80", `${S(feedT)} t/h`, 16, 172));
+  g.push(machineBox(82, 160, "CR.5009", `${fmt(m["CR.5009"].P_installed_kW, 0)} kW`, ex.has("CR.5009")));
+  g.push(arrow("M186,182 H232", "", 0, 0));
+  g.push(machineBox(234, 160, "SR.5007", `${fmt(Math.max(...Object.values(m["SR.5007"].areas_m2).map(a => a.required_area_m2)), 1)} m²`, ex.has("SR.5007")));
+  g.push(machineBox(234, 52, "CR.5011", `${fmt(f.zone_1_1_recirculation_tph, 0)} t/h · ${fmt(m["CR.5011"].P_installed_kW, 0)} kW`, ex.has("CR.5011")));
+  g.push(arrow("M310,160 V98", "+35", 314, 132, true));
+  g.push(arrow("M262,98 V160", "", 0, 0, true));
+  g.push(pile(376, 60, "KFS", p.KFS.tph, share(p.KFS.tph), true));
+  g.push(arrow("M338,172 C368,150 376,130 400,108", "20-35", 346, 140));
+  g.push(pile(300, 330, "0/20", q020, share(q020), false));
+  g.push(arrow("M286,204 C286,260 320,290 332,328", `${S(q020)} t/h`, 236, 272));
+  // ---- zone 1.2
+  g.push(arrow("M374,376 H500 V204", "reprise " + S(reclaim) + " t/h", 388, 366));
+  g.push(machineBox(484, 160, "SR.5105", `${fmt(Math.max(...Object.values(m["SR.5105"].areas_m2).map(a => a.required_area_m2)), 1)} m²`, ex.has("SR.5105")));
+  g.push(machineBox(658, 160, "SR.5115", m["SR.5115"].active ? `${fmt(m["SR.5115"].areas_m2.deck.required_area_m2, 1)} m²` : "inactif", ex.has("SR.5115")));
+  g.push(machineBox(658, 52, "CR.5107", m["CR.5107"].active ? `${fmt(f.zone_1_2_recirculation_tph, 0)} t/h · ${fmt(m["CR.5107"].P_installed_kW, 0)} kW` : "inactif", ex.has("CR.5107")));
+  g.push(arrow("M588,182 H656", "+15 & 0-5", 592, 172));
+  g.push(arrow("M734,160 V98", "+1,7", 738, 132, true));
+  g.push(arrow("M686,98 V160", "", 0, 0, true));
+  g.push(pile(806, 60, "AgLime", p.AgLime.tph, share(p.AgLime.tph), true));
+  g.push(arrow("M762,172 C790,150 800,130 828,108", "0-1,7", 766, 140));
+  g.push(pile(700, 330, "FeedLime", flFromZ2, share(flFromZ2), false));
+  g.push(arrow("M536,204 C560,280 680,300 726,328", "5-15", 560, 292));
+  // ---- zone 1.3
+  g.push(arrow("M774,376 H946 V204", "séchage " + S(feedl) + " t/h", 788, 366));
+  g.push(machineBox(928, 160, "DY.03", `${fmt(m["DY.03"].burner_power_kW / 1000, 2)} MW`, ex.has("DY.03")));
+  g.push(arrow("M980,160 V120", "vapeur " + S(m["DY.03"].evaporated_water_tph) + " t/h", 986, 140));
+  g.push(arrow("M1032,182 H1078", "", 0, 0));
+  g.push(machineBox(1080, 160, "SN.21", `${fmt(Math.max(...Object.values(m["SN.21"].areas_m2).map(a => a.required_area_m2)), 1)} m²`, ex.has("SN.21")));
+  g.push(machineBox(1080, 52, "ML.26", m["ML.26"].active ? `${fmt(m["ML.26"].throughput_tph, 0)} t/h · ${fmt(m["ML.26"].P_installed_kW, 0)} kW` : "inactif", ex.has("ML.26")));
+  g.push(arrow("M1156,160 V98", "+4 & 1,5-2", 1160, 132, true));
+  g.push(arrow("M1108,98 V160", "", 0, 0, true));
+  g.push(pile(1256, 60, "FeedLime grits", p["FeedLime grits"].tph, share(p["FeedLime grits"].tph), true));
+  g.push(arrow("M1184,172 C1220,150 1230,130 1280,108", "2-4", 1194, 140));
+  g.push(machineBox(1080, 268, "SP.36", m["SP.36"].active && m["SP.36"].Q_air_m3h ? `${fmt(m["SP.36"].Q_air_m3h, 0)} m³/h` : "inactif", ex.has("SP.36")));
+  g.push(arrow("M1132,204 V266", "0-1,5", 1138, 240));
+  g.push(pile(1256, 250, "UltraFin", p.UltraFin.tph, share(p.UltraFin.tph), true));
+  g.push(arrow("M1184,290 H1250", "< " + (DEFAULTS.machines["SP.36"].parameters.coupe.default) + " µm", 1188, 282));
+  g.push(pile(1100, 350, "FeedLime fines", p["FeedLime fines"].tph, share(p["FeedLime fines"].tph), true));
+  g.push(arrow("M1120,312 V348", "", 0, 0));
+  $("fs").innerHTML = g.join("");
+}
+
+/* ---------------- drawer (machine / product datasheet) ---------------- */
+window.openMachine = function (code) {
+  const md = DEFAULTS.machines[code], res = PHOTO && PHOTO.machines[code];
+  const rows = (DESIGN && DESIGN.checks || []).filter(r => r.machine === code);
+  let h = `<button class="close" onclick="document.getElementById('drawer').classList.remove('open')">✕</button>
+    <h3>${esc(code)}</h3><div class="na">${esc(md.type)}</div><hr>`;
+  if (rows.length) {
+    h += "<table><tr><th>Contrôle</th><th>Calculé</th><th>Installé</th><th></th></tr>";
+    for (const r of rows) h += `<tr><td>${esc(r.check)}</td><td>${fmt(r.computed, 1)} ${esc(r.unit)}</td>
+      <td>${r.installed_limit === null ? "—" : fmt(r.installed_limit, 1)}</td>
+      <td>${r.verdict === "OK" ? "<span class='ok'>✔</span>" : r.verdict === "EXCEEDED" ? "<span class='ko'>✘</span>" : "<span class='na'>?</span>"}</td></tr>`;
+    h += "</table>";
+  }
+  const params = Object.entries(md.parameters || {}).filter(([, s]) => s.default !== null);
+  if (params.length) {
+    h += "<h4>Réglages (bornes de la fiche)</h4>";
+    for (const [sym, spec] of params) {
+      const current = (MACHINE_EDITS[code] || {})[sym] ?? spec.default;
+      h += `<div class="drawer-row"><label title="${esc(spec.name)}">${esc(sym)}</label>
+        <input type="number" value="${current}" step="${spec.step ?? "any"}"
+          ${spec.min != null ? `min="${spec.min}"` : ""} ${spec.max != null ? `max="${spec.max}"` : ""}
+          onchange="editMachine('${code}','${sym}', this.value)"><span class="u">${esc(spec.unit)}</span></div>`;
     }
-    h += `<tr><td>${name}</td><td>${p.present ? fmt(p.tph, 2) : "<span class='na'>absent</span>"}</td>
-      <td>${p.state === "wet" ? "humide" : "sec"}</td><td>${p.present ? fmt(p.P80_mm, 2) : "—"}</td><td>${conf}</td></tr>`;
+    h += `<button onclick="recompute()">Recalculer</button>`;
   }
-  h += "</table>";
-  h += "<table><tr><th>Machine</th><th>P installée kW</th><th>Débit t/h</th></tr>";
-  for (const [code, m] of Object.entries(r.machines)) {
-    if (!m.active || m.P_installed_kW === undefined) continue;
-    h += `<tr><td>${code}</td><td>${fmt(m.P_installed_kW, 0)}</td><td>${fmt(m.throughput_tph, 1)}</td></tr>`;
-  }
-  h += "</table>";
-  const bal = Object.entries(r.balances).map(([k, b]) =>
-    `${k} ${b.closed ? "<span class='ok'>✔</span>" : "<span class='ko'>✘</span>"}`).join(" · ");
-  h += `<div style="margin:6px 0">Bilans masse/eau : ${bal}</div>`;
-  if (r.period_balance) {
-    h += "<table><tr><th>Produit</th><th>t/période</th><th>Cible</th><th>Écart</th><th>Excédent hors marché</th></tr>";
-    for (const [prod, row] of Object.entries(r.period_balance.per_product))
-      h += `<tr><td>${prod}</td><td>${fmt(row.tonnage_t, 0)}</td><td>${fmt(row.target_t, 0)}</td>
-        <td class="${row.gap_t < 0 && row.nature === "FIRM" ? "ko" : ""}">${fmt(row.gap_t, 0)}</td>
-        <td>${row.surplus_beyond_market_t ? `<span class='ko'>${fmt(row.surplus_beyond_market_t, 0)}</span>` : "—"}</td></tr>`;
-    h += "</table>";
-    const s = r.period_balance.stockpiles_t;
-    h += `<div style="color:var(--muted);font-size:12.5px">Stocks : 0/20 ${fmt(s["0/20 net_to_stock_t"],0)} t · FeedLime ${fmt(s["FeedLime net_to_stock_t"],0)} t</div>`;
-  }
-  for (const a of r.alerts) h += `<div class="alert">⚠ ${esc(a)}</div>`;
-  $("out").innerHTML = h;
-  drawChart(r.products);
-}
-
-// ---------- rendu du planning ----------
-function renderPlanning(p) {
-  let h = "<h2>Heures calées sur les objectifs</h2>";
-  h += "<table><tr><th>Zone</th><th>Heures requises</th><th>Plafond</th><th>Utilisation</th><th></th></tr>";
-  for (const [z, v] of Object.entries(p.zones)) {
-    const u = v.utilization_pct, cls = u > 100 ? "over" : u > 90 ? "hot" : "";
-    h += `<tr><td>${z}${v.driven_by ? ` <span class="na">(${v.driven_by === "KFS target" ? "piloté par le KFS" : "piloté par la demande 0/20"})</span>` : ""}</td>
-      <td>${fmt(v.required_hours_clock, 0)} h</td><td>${fmt(v.ceiling_hours_clock, 0)} h</td>
-      <td>${fmt(u, 1)} %</td>
-      <td style="min-width:110px"><div class="util"><i class="${cls}" style="width:${Math.min(100, u)}%"></i></div></td></tr>`;
-  }
-  h += "</table><table><tr><th>Produit</th><th>t/an</th></tr>";
-  for (const [k, v] of Object.entries(p.production_t)) h += `<tr><td>${k}</td><td>${fmt(v, 0)}</td></tr>`;
-  h += "</table><table><tr><th>Stock</th><th>t/an</th></tr>";
-  for (const [k, v] of Object.entries(p.stockpiles_t)) h += `<tr><td>${k}</td><td>${fmt(v, 0)}</td></tr>`;
-  h += "</table>";
-  for (const a of p.alerts) h += `<div class="alert">⚠ ${esc(a)}</div>`;
-  $("out").innerHTML = h;
-}
-
-// ---------- rendu saisonnier ----------
-function renderSeasonal(s) {
-  let h = "<h2>Bilan saisonnier (sec × " + s.season_fractions.dry + " + pluie × " + s.season_fractions.rain + ")</h2>";
-  if (!s.combined) { h += "<div class='alert'>Renseignez les heures par zone pour le bilan combiné.</div>"; }
+  $("drawer").innerHTML = h; $("drawer").classList.add("open");
+};
+window.editMachine = function (code, sym, value) {
+  MACHINE_EDITS[code] = MACHINE_EDITS[code] || {};
+  MACHINE_EDITS[code][sym] = +value;
+};
+window.openProduct = function (name) {
+  const p = PHOTO && PHOTO.products[name];
+  let h = `<button class="close" onclick="document.getElementById('drawer').classList.remove('open')">✕</button>
+    <h3>${esc(name)}</h3>`;
+  if (!p || !p.present) { h += "<div class='na'>Absent dans ce scénario.</div>"; }
   else {
-    h += "<table><tr><th>Produit</th><th>t/an combiné</th><th>Cible</th><th>Écart</th></tr>";
-    for (const [prod, row] of Object.entries(s.combined))
-      h += `<tr><td>${prod}</td><td>${fmt(row.tonnage_t, 0)}</td><td>${fmt(row.target_t, 0)}</td>
-        <td class="${row.gap_t < 0 && row.nature === "FIRM" ? "ko" : ""}">${fmt(row.gap_t, 0)}</td></tr>`;
-    h += "</table>";
+    h += `<div class="na">${p.state === "wet" ? "humide" : "sec"} · P80 ${fmt(p.P80_mm, 2)} mm</div><hr>
+      <table><tr><th></th><th>t/h</th></tr><tr><td>Débit</td><td>${fmt(p.tph, 2)}</td></tr></table>`;
+    const c = p.compliance;
+    if (c) {
+      h += `<h4>Conformité</h4><table>
+        <tr><td>Sous coupure</td><td>${fmt(c.below_cut_pct, 1)} %</td></tr>
+        <tr><td>Dans la coupe</td><td>${fmt(c.in_cut_pct, 1)} %</td></tr>
+        <tr><td>Au-dessus</td><td>${fmt(c.above_cut_pct, 1)} %</td></tr></table>`;
+      if (c.envelope) h += `<div>${c.compliant ? "<span class='ok'>✔ enveloppe respectée</span>" : "<span class='ko'>✘ hors enveloppe</span>"}</div>`;
+    }
+    if (p.passing_curve_pct) {
+      const pts = Object.entries(p.passing_curve_pct).map(([mm, v]) => [parseFloat(mm), v]).sort((a, b) => a[0] - b[0]);
+      const X = mm => 16 + (Math.log10(mm) - Math.log10(0.05)) / (Math.log10(250) - Math.log10(0.05)) * 330;
+      const Y = v => 8 + (100 - v) / 100 * 130;
+      h += `<h4>Courbe (% passant, maille log)</h4>
+        <svg viewBox="0 0 360 160" style="width:100%">${[0.1, 1, 10, 100].map(d =>
+          `<line x1="${X(d)}" y1="8" x2="${X(d)}" y2="138" stroke="#eee"/><text x="${X(d)}" y="152" font-size="9" fill="#999" text-anchor="middle">${d}</text>`).join("")}
+        <polyline fill="none" stroke="#145c8c" stroke-width="2" points="${pts.map(([mm, v]) => X(mm).toFixed(1) + "," + Y(v).toFixed(1)).join(" ")}"/></svg>`;
+    }
   }
-  const alerts = new Set([...(s.photos.dry.alerts || []), ...(s.photos.rain.alerts || [])]);
-  for (const a of alerts) h += `<div class="alert">⚠ ${esc(a)}</div>`;
-  $("out").innerHTML = h;
-  drawChart(s.photos.dry.products);
-}
+  $("drawer").innerHTML = h; $("drawer").classList.add("open");
+};
 
-// ---------- graphique semi-log ----------
-function drawChart(products) {
-  const svg = $("chart"), W = 900, H = 300, L = 46, R = 12, T = 10, B = 30;
-  const xmin = Math.log10(0.05), xmax = Math.log10(250);
-  const X = mm => L + (Math.log10(mm) - xmin) / (xmax - xmin) * (W - L - R);
-  const Y = pct => T + (100 - pct) / 100 * (H - T - B);
-  let g = "";
-  for (const d of [0.1, 1, 10, 100]) {
-    g += `<line x1="${X(d)}" y1="${T}" x2="${X(d)}" y2="${H - B}" stroke="#e2e8f0"/>`
-       + `<text x="${X(d)}" y="${H - 12}" font-size="11" fill="#64748b" text-anchor="middle">${d}</text>`;
-  }
-  for (const p of [0, 25, 50, 75, 100])
-    g += `<line x1="${L}" y1="${Y(p)}" x2="${W - R}" y2="${Y(p)}" stroke="#eef2f6"/>`
-       + `<text x="${L - 6}" y="${Y(p) + 4}" font-size="11" fill="#64748b" text-anchor="end">${p}</text>`;
-  g += `<text x="${W / 2}" y="${H - 1}" font-size="11" fill="#64748b" text-anchor="middle">maille (mm, échelle log)</text>`;
-  let legend = "";
-  for (const [name, p] of Object.entries(products)) {
-    if (!p.present || !p.passing_curve_pct) continue;
-    const pts = Object.entries(p.passing_curve_pct)
-      .map(([m, v]) => [parseFloat(m), v]).sort((a, b) => a[0] - b[0])
-      .map(([m, v]) => `${X(m).toFixed(1)},${Y(v).toFixed(1)}`).join(" ");
-    g += `<polyline points="${pts}" fill="none" stroke="${COLORS[name]}" stroke-width="2.2"/>`;
-    legend += `<span><i style="background:${COLORS[name]}"></i>${name}</span>`;
-  }
-  svg.innerHTML = g;
-  $("legend").innerHTML = legend;
+/* ---------------- tabs ---------------- */
+document.querySelectorAll(".tabs button").forEach(b => b.onclick = () => {
+  TAB = b.dataset.tab;
+  document.querySelectorAll(".tabs button").forEach(x => x.classList.toggle("on", x === b));
+  renderTab();
+});
+function renderTab() {
+  if (!PHOTO) return;
+  if (TAB === "design") return renderDesign();
+  if (TAB === "detail") return renderDetail();
+  if (TAB === "plan") return renderPlan();
+  if (TAB === "season") return renderSeason();
+  if (TAB === "alerts") return renderAlerts();
 }
-
-// ---------- rendu de la vérification du design ----------
-function renderDesign(d) {
-  const v = d.verdicts || {};
-  const badge = (val, yes, no) => val === null || val === undefined
-    ? "<b class='na'>?</b>" : (val ? `<b class='ok'>${yes}</b>` : `<b class='ko'>${no}</b>`);
-  let h = "<h2>Vérification du design — trois verdicts distincts</h2>";
-  h += `<div class="kpis">
-    <div class="kpi">${badge(v.machines_hold, "✔ tiennent", "✘ dépassées")}<span>machines (calculé vs installé)</span></div>
-    <div class="kpi">${badge(v.quality_holds, "✔ conformes", "✘ hors spec")}<span>qualité produits</span></div>
-    <div class="kpi">${badge(v.targets_reachable, "✔ atteignables", "✘ hors plafonds")}<span>objectifs (heures)</span></div>
+function badge(val, yes, no) { return val === null || val === undefined
+  ? "<b class='na'>?</b>" : (val ? `<b class='ok'>${yes}</b>` : `<b class='ko'>${no}</b>`); }
+function renderDesign() {
+  const d = DESIGN, v = d.verdicts || {};
+  let h = `<div class="kpis">
+    <div class="kpi">${badge(v.machines_hold, "✔", "✘")}<span>machines</span></div>
+    <div class="kpi">${badge(v.quality_holds, "✔", "✘")}<span>qualité produits</span></div>
+    <div class="kpi">${badge(v.targets_reachable, "✔", "✘")}<span>objectifs / heures</span></div>
     <div class="kpi"><b>${d.exceeded.length}</b><span>dépassements</span></div>
     <div class="kpi"><b>${d.limits_to_provide.length}</b><span>limites à renseigner</span></div></div>`;
   h += "<table><tr><th>Machine</th><th>Contrôle</th><th>Calculé</th><th>Installé</th><th>Marge</th><th>Verdict</th></tr>";
-  for (const r of d.checks) {
-    const v = r.verdict === "OK" ? "<span class='ok'>✔ OK</span>"
-      : r.verdict === "EXCEEDED" ? "<span class='ko'>✘ DÉPASSÉ</span>"
-      : "<span class='na'>à renseigner</span>";
-    h += `<tr><td>${esc(r.machine)}</td><td>${esc(r.check)}</td><td>${fmt(r.computed, 1)} ${esc(r.unit)}</td>
-      <td>${r.installed_limit === null ? "—" : fmt(r.installed_limit, 1) + " " + esc(r.unit)}</td>
-      <td>${r.margin_pct === null ? "—" : fmt(r.margin_pct, 1) + " %"}</td><td>${v}</td></tr>`;
-  }
+  for (const r of d.checks) h += `<tr><td>${esc(r.machine)}</td><td>${esc(r.check)}</td>
+    <td>${fmt(r.computed, 1)} ${esc(r.unit)}</td>
+    <td>${r.installed_limit === null ? "—" : fmt(r.installed_limit, 1) + " " + esc(r.unit)}</td>
+    <td>${r.margin_pct === null ? "—" : fmt(r.margin_pct, 1) + " %"}</td>
+    <td>${r.verdict === "OK" ? "<span class='ok'>✔ OK</span>" : r.verdict === "EXCEEDED" ? "<span class='ko'>✘ DÉPASSÉ</span>" : "<span class='na'>à renseigner</span>"}</td></tr>`;
   h += "</table>";
-  if (d.planning && d.planning.zones) {
-    h += "<table><tr><th>Zone</th><th>Heures requises</th><th>Plafond</th><th>Utilisation</th></tr>";
-    for (const [z, v] of Object.entries(d.planning.zones))
-      h += `<tr><td>${z}</td><td>${fmt(v.required_hours_clock, 0)} h</td><td>${fmt(v.ceiling_hours_clock, 0)} h</td><td>${fmt(v.utilization_pct, 1)} %</td></tr>`;
-    h += "</table>";
-    h += `<div>Objectifs atteignables dans les plafonds : ${d.planning.targets_feasible_within_ceilings ? "<span class='ok'>✔ oui</span>" : "<span class='ko'>✘ non</span>"}</div>`;
-  }
-  if (d.limits_to_provide.length)
-    h += `<div class="alert">📋 Limites constructeur à renseigner dans les données : ${esc(d.limits_to_provide.join(", "))}</div>`;
-  for (const a of d.alerts) h += `<div class="alert">⚠ ${esc(a)}</div>`;
+  for (const n of d.not_checkable || [])
+    h += `<div class="alert-line">ℹ ${esc(n.machine)} : ${esc(n.reason)}</div>`;
   $("out").innerHTML = h;
 }
+function renderDetail() {
+  const p = PHOTO.products, m = PHOTO.machines;
+  let h = "<table><tr><th>Produit</th><th>t/h</th><th>État</th><th>P80 mm</th><th>Sous / dans / sur coupe</th><th>Conformité</th></tr>";
+  for (const [name, pr] of Object.entries(p)) {
+    const c = pr.compliance;
+    h += `<tr><td>${esc(name)}</td><td>${pr.present ? fmt(pr.tph, 2) : "<span class='na'>absent</span>"}</td>
+      <td>${pr.state === "wet" ? "humide" : "sec"}</td><td>${pr.present ? fmt(pr.P80_mm, 2) : "—"}</td>
+      <td>${c ? `${fmt(c.below_cut_pct, 1)} / ${fmt(c.in_cut_pct, 1)} / ${fmt(c.above_cut_pct, 1)} %` : "—"}</td>
+      <td>${c && c.compliant !== null ? (c.compliant ? "<span class='ok'>✔</span>" : "<span class='ko'>✘</span>") : "<span class='na'>—</span>"}</td></tr>`;
+  }
+  h += "</table><table><tr><th>Machine</th><th>P installée kW</th><th>Débit t/h</th></tr>";
+  for (const [code, info] of Object.entries(m))
+    if (info.active && info.P_installed_kW !== undefined)
+      h += `<tr><td>${esc(code)}</td><td>${fmt(info.P_installed_kW, 0)}</td><td>${fmt(info.throughput_tph, 1)}</td></tr>`;
+  h += "</table>";
+  const bal = Object.entries(PHOTO.balances).map(([k, b]) =>
+    `${esc(k)} ${b.closed ? "<span class='ok'>✔</span>" : "<span class='ko'>✘</span>"}`).join(" · ");
+  h += `<div>Bilans masse / eau : ${bal}</div>`;
+  $("out").innerHTML = h;
+}
+function renderPlan() {
+  if (!PLAN || PLAN.error) { $("out").innerHTML = `<div class="alert-line">${esc(PLAN ? PLAN.error : "—")}</div>`; return; }
+  let h = "<table><tr><th>Zone</th><th>Heures requises</th><th>Plafond</th><th>Utilisation</th><th></th></tr>";
+  for (const [z, v] of Object.entries(PLAN.zones)) {
+    const u = v.utilization_pct, cls = u > 100 ? "over" : u > 90 ? "hot" : "";
+    h += `<tr><td>${z}${v.driven_by ? ` <span class="na">(${v.driven_by === "KFS target" ? "piloté par le KFS" : "piloté par la demande 0/20"})</span>` : ""}</td>
+      <td>${fmt(v.required_hours_clock, 0)} h</td><td>${fmt(v.ceiling_hours_clock, 0)} h</td><td>${fmt(u, 1)} %</td>
+      <td style="min-width:110px"><div class="util"><i class="${cls}" style="width:${Math.min(100, u)}%"></i></div></td></tr>`;
+  }
+  h += "</table><table><tr><th>Production</th><th>t/an</th></tr>";
+  for (const [k, v] of Object.entries(PLAN.production_t)) h += `<tr><td>${esc(k)}</td><td>${fmt(v, 0)}</td></tr>`;
+  h += "</table><table><tr><th>Stock</th><th>t/an</th></tr>";
+  for (const [k, v] of Object.entries(PLAN.stockpiles_t)) h += `<tr><td>${esc(k)}</td><td>${fmt(v, 0)}</td></tr>`;
+  h += "</table>";
+  for (const a of PLAN.alerts) h += `<div class="alert-line">⚠ ${esc(a)}</div>`;
+  $("out").innerHTML = h;
+}
+function renderSeason() {
+  const s = SEASON;
+  if (!s || s.error) { $("out").innerHTML = `<div class="alert-line">${esc(s ? s.error : "—")}</div>`; return; }
+  let h = `<div class="na">Mix saisonnier : sec × ${s.season_fractions.dry} + pluie × ${s.season_fractions.rain}</div>`;
+  if (!s.combined) h += "<div class='alert-line'>Renseignez les heures par zone pour le bilan combiné.</div>";
+  else {
+    h += "<table><tr><th>Produit</th><th>t/an combiné</th><th>Cible</th><th>Écart</th></tr>";
+    for (const [prod, row] of Object.entries(s.combined))
+      h += `<tr><td>${esc(prod)}</td><td>${fmt(row.tonnage_t, 0)}</td><td>${fmt(row.target_t, 0)}</td>
+        <td class="${row.gap_t < 0 && row.nature === "FIRM" ? "ko" : ""}">${fmt(row.gap_t, 0)}</td></tr>`;
+    h += "</table>";
+  }
+  $("out").innerHTML = h;
+}
+function renderAlerts() {
+  const all = PHOTO.alerts;
+  $("out").innerHTML = all.length
+    ? all.map(a => `<div class="alert-line">⚠ ${esc(a)}</div>`).join("")
+    : "<div class='ok'>Aucune alerte.</div>";
+}
 
-// ---------- boutons ----------
-$("run").onclick = () => call("scenario").then(renderScenario).catch(showError);
-$("design").onclick = () => call("design").then(renderDesign).catch(showError);
-$("plan").onclick = () => call("planning").then(renderPlanning).catch(showError);
-$("season").onclick = () => call("seasonal").then(renderSeasonal).catch(showError);
-$("reset").onclick = () => loadDefaults();
-loadDefaults().then(() => call("scenario").then(renderScenario).catch(showError));
+/* ---------------- boot ---------------- */
+$("run").onclick = recompute;
+$("reset").onclick = async () => { await loadDefaults(); recompute(); };
+document.addEventListener("input", e => {
+  if (e.target.matches(".toolbar input")) e.target.classList.add("mod");
+});
+loadDefaults().then(recompute);
 </script>
 </body>
 </html>
