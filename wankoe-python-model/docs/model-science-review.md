@@ -1,5 +1,28 @@
 # Scientific review of the machine calculation models
 
+> **Update (night of 2026-08-08) — internet literature challenge.** Seven
+> web-research experts verified every model against published sources
+> (63 sourced checks: 28 agree, 22 partial, 5 contradict). Headlines:
+> **M7 upgraded** — the ML.26 two-component structure (gap-driven
+> compression PSD + fines sub-collective, sub-gap bypass, reduction ratio
+> ~4) is experimentally VALIDATED by Thiere (TU Freiberg PhD, 2020) on
+> pilot toothed double-roll crushers: grade raised from C to B−.
+> **M3 attribution corrected** — the implemented partition is a logistic
+> (Reid/Plitt-family) curve, not Karra's published 1979 form (fixed
+> sharpness ≈ classic imperfection 0.13); the spec's label is kept, the
+> docstring says the truth. Industrial dry screens are far sharper
+> (I ≈ 0.10–0.15) than the current spec-derived default (question pending).
+> **M4 clarified** — Qb·f0 = 4.86·a^0.6 reproduces the published VSMA
+> Factor-A table within 5 % at the project cuts; f0 absorbs the factor
+> string. **Bond flags** — Wi = 12.54 is mid-range for limestone, but if
+> it originates from a short-ton table the metric value is 13.8 kWh/t,
+> which would land CR.5009 almost exactly on the spec's 116 kW (question
+> pending); Bond under-predicts fine impact crushing (Morrell Mic is the
+> modern refinement). **Vendor check** — current HAZEMAG pages rate a
+> 1010-size secondary impactor at ~81–120 t/h, below the spec's "~125 t/h
+> real capacity": the machine-specific datasheet is needed. Full sourced
+> detail: the literature-challenge report in the project records.
+
 Answering the client's question (2026-08-08): *"Did we capture the right
 calculation formulas for the machines?"* — model by model: where the
 formula comes from, whether the implemented form is the established one,

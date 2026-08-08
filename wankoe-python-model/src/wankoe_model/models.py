@@ -72,10 +72,18 @@ def m2_bond_power(q_tph: float, f80_mm: float, p80_mm: float, calib: dict) -> di
 def m3_karra_partition(
     q_tph: float, psd: PSD, aperture_mm: float, imperfection: float, calib: dict
 ) -> dict:
-    """M3 — screen partition (Karra).
+    """M3 — screen partition curve (spec labels it "Karra").
 
     d50c = a·k_d ; s = ln arg / ln(1/(1−I)) ; ro(x) = 1/(1+(d50c/x)^s).
     Returns oversize and undersize: flow rates + PSD.
+
+    Attribution note (literature review 2026-08-08): the implemented form is
+    a LOGISTIC reduced-efficiency curve (Reid/Plitt family, King "Modeling
+    and Simulation of Mineral Processing Systems" Table 7.1 type 3-4), kept
+    because the spec prescribes it. Karra's published 1979 model is
+    ro = 1−exp(−0.693·(x/d50)^5.846) with a FIXED sharpness equivalent to a
+    classic imperfection of ~0.13 — much sharper than the current I_dry
+    default (a pending client arbitration).
 
     I is a CLASSIC imperfection: higher = worse separation (flatter
     partition). The spec's written form s = ln9/ln(1/I) contradicted its
@@ -121,7 +129,15 @@ def m4_screen_area(
 
     ``capacity_factor`` derates the basic capacity for wet screening (spec
     M3/SR.5115 notes: "la capacité chute" under rain) — pass
-    calib["wet_capacity_factor"] when the weather is rain."""
+    calib["wet_capacity_factor"] when the weather is rain.
+
+    Attribution note (literature review 2026-08-08): Qb = 14·a^0.6 alone is
+    NOT the published VSMA basic capacity; the EFFECTIVE capacity
+    Qb·f0 = 4.86·a^0.6 t/h/m2 reproduces the VSMA Factor-A table within 5%
+    at the project cuts (29.3 vs 30.8 at 20 mm; 41.0 vs 39.5 at 35 mm) —
+    the f0=0.347 correction absorbs the VSMA factor string. The standard
+    moisture/condition factor (moist dirty stone ~0.8) is representable
+    through wet_capacity_factor / f0."""
     qb = float(calib["qb_coef"]) * (aperture_mm ** float(calib["qb_exp"])) * capacity_factor
     area = (undersize_tph * float(calib["f_p"])) / (qb * float(calib["f0"]))
     return {"Qb_tph_m2": qb, "required_area_m2": area}

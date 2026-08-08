@@ -150,7 +150,8 @@
           "step": 1
         }
       },
-      "installed_power_kW": null
+      "installed_power_kW": null,
+      "_capacity_note": "Spec says 'real capacity ~125 t/h (mode A)'. LITERATURE FLAG (2026-08-08): current HAZEMAG pages rate a 1010-size secondary impactor at ~81-90 t/h (APS table) to 90-120 t/h (HSI 1010); obtain the machine-specific datasheet. QUESTION PENDING"
     },
     "DV-5099": {
       "zone": "1.1",
@@ -308,7 +309,8 @@
       },
       "installed_power_kW": null,
       "product_curve_table": null,
-      "_product_curve_note": "Vendor abaque slot (golden rule 2): set to {\"curve_pct\": {mesh_mm: cumulative %}, \"interpolation\": \"linear\"|\"log\"} to replace hypotheses H-M7-1/2 with the vendor product curve"
+      "_product_curve_note": "Vendor abaque slot (golden rule 2): set to {\"curve_pct\": {mesh_mm: cumulative %}, \"interpolation\": \"linear\"|\"log\"} to replace hypotheses H-M7-1/2 with the vendor product curve",
+      "_model_note": "Model M7 structure VALIDATED by literature (Thiere, TU Freiberg PhD 2020, pilot toothed double-roll tests): two-component product (gap-driven compression PSD + fines sub-collective), sub-gap bypass, reduction ratio ~4. The S_att constant could be refined to the published gap/feed-dependent form S_att = s0*(F80/g); a vendor product_curve_table remains the best upgrade"
     },
     "SP.36": {
       "zone": "1.3",
@@ -323,7 +325,7 @@
           "step": 5
         },
         "eta_cl": {
-          "name": "Extraction efficiency [H]",
+          "name": "Extraction efficiency [H] (literature: real quarry air classifiers recover 50-65% at finer cuts; 0.75 is a defensible design midpoint for an easy ~100 um cut, flagged optimistic)",
           "unit": "-",
           "min": 0.6,
           "max": 0.85,
@@ -353,7 +355,7 @@
       "name": "Bond work index",
       "unit": "kWh/t",
       "default": 12.54,
-      "status": "project",
+      "status": "project value 12.54. LITERATURE FLAG (2026-08-08): if 12.54 comes from a kWh/short-ton table, the metric value is 13.8 kWh/t (x1.1023) - which would land CR.5009 almost exactly on the spec's 116 kW. Pure-limestone measurements: 12.6-13.9 kWh/t (Todorovic 2017). QUESTION PENDING",
       "used_by": "M2"
     },
     "eta_m": {
@@ -374,7 +376,7 @@
       "name": "JKMRC parameter b",
       "unit": "-",
       "default": 0.8,
-      "status": "[H]",
+      "status": "[H] literature default. FLAG (2026-08-08): A*b=48 is mid-hard; JKTech database trends put SOFT limestone at A*b~60-80 (b~1.0-1.4 at A=60) - current 0.8 is a conservative hard-side choice",
       "used_by": "M5"
     },
     "k_d": {
@@ -388,7 +390,7 @@
       "name": "Screen imperfection (dry)",
       "unit": "-",
       "default": 0.4,
-      "status": "[H] remapped I_new = 1 - I_old after the M3 arbitration (preserves the spec sharpness s=4.30 in dry weather); to confirm by sieve test",
+      "status": "[H] remapped I_new = 1 - I_old after the M3 arbitration (spec sharpness s=4.30 dry). LITERATURE FLAG (2026-08-08): real dry vibrating screens are much sharper - Karra 1979's fixed exponent is equivalent to classic imperfection ~0.13 (s~8.5); industrial dry screens I~0.10-0.15. Adopting the literature value would materially improve KFS envelope compliance. QUESTION PENDING",
       "used_by": "M3"
     },
     "f0": {
