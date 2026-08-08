@@ -1,12 +1,12 @@
-"""Grille de mailles et courbes granulométriques (PSD).
+"""Mesh grid and particle size distribution (PSD) curves.
 
-Convention (cahier des charges §1.3) : courbe granulométrique = % passant
-cumulé à chaque maille, mailles en échelle log. En interne les proportions
-sont des fractions massiques 0–1 ; l'affichage en % se fait en sortie.
+Convention (specification §1.3): a size distribution curve is the cumulative
+% passing at each mesh, meshes on a log scale. Internally proportions are
+mass fractions 0-1; percentages are only used for reporting.
 
-La grille moteur = série de mailles de référence + mailles d'extension
-(paramètre ``mailles_extension``) pour porter les produits de concassage
-plus grossiers que la dernière maille de référence.
+The engine grid = reference mesh series + extension meshes (parameter
+``engine.extension_meshes_mm``) so it can carry crusher products coarser
+than the last reference mesh.
 """
 
 from __future__ import annotations
@@ -15,46 +15,45 @@ import math
 from collections.abc import Sequence
 
 
-def grille_moteur(serie_reference: Sequence[float], extension: Sequence[float]) -> list[float]:
-    """Grille interne : série de référence + mailles d'extension, triées."""
-    mailles = sorted(set(float(x) for x in serie_reference) | set(float(x) for x in extension))
-    if any(m <= 0 for m in mailles):
-        raise ValueError("toutes les mailles doivent être > 0 mm")
-    return mailles
+def engine_grid(reference_series: Sequence[float], extension: Sequence[float]) -> list[float]:
+    """Internal grid: reference series + extension meshes, sorted."""
+    meshes = sorted(set(float(x) for x in reference_series) | set(float(x) for x in extension))
+    if any(m <= 0 for m in meshes):
+        raise ValueError("all meshes must be > 0 mm")
+    return meshes
 
 
 class PSD:
-    """Courbe granulométrique : passant cumulé (fractions 0–1) sur une grille.
+    """Particle size distribution: cumulative passing (fractions 0-1) on a grid.
 
-    ``passant[i]`` = fraction massique plus fine que ``mailles[i]``.
-    La dernière valeur doit valoir 1 (tout le flux est plus fin que la
-    dernière maille de la grille moteur).
+    ``passing[i]`` = mass fraction finer than ``meshes[i]``. The last value
+    must be 1 (the whole stream is finer than the last engine-grid mesh).
     """
 
-    def __init__(self, mailles: Sequence[float], passant: Sequence[float]):
-        if len(mailles) != len(passant):
-            raise ValueError("mailles et passant doivent avoir la même longueur")
-        self.mailles = [float(x) for x in mailles]
-        p = [min(1.0, max(0.0, float(v))) for v in passant]
-        # monotonie croissante imposée (les mesures bruitées sont écrêtées)
+    def __init__(self, meshes: Sequence[float], passing: Sequence[float]):
+        if len(meshes) != len(passing):
+            raise ValueError("meshes and passing must have the same length")
+        self.meshes = [float(x) for x in meshes]
+        p = [min(1.0, max(0.0, float(v))) for v in passing]
+        # enforce monotonicity (noisy measurements are clipped)
         for i in range(1, len(p)):
             p[i] = max(p[i], p[i - 1])
         if p[-1] < 1.0 - 1e-9:
             raise ValueError(
-                f"passant à la dernière maille ({self.mailles[-1]} mm) = {p[-1]:.4f} < 1 : "
-                "étendre la grille (paramètre mailles_extension)"
+                f"passing at the last mesh ({self.meshes[-1]} mm) = {p[-1]:.4f} < 1: "
+                "extend the grid (parameter engine.extension_meshes_mm)"
             )
         p[-1] = 1.0
-        self.passant = p
+        self.passing = p
 
-    # ------------------------------------------------------------------ accès
-    def passant_a(self, x: float) -> float:
-        """Passant cumulé à la taille x (mm), interpolé linéairement en log(x)."""
-        m, p = self.mailles, self.passant
+    # ---------------------------------------------------------------- access
+    def passing_at(self, x: float) -> float:
+        """Cumulative passing at size x (mm), interpolated linearly in log(x)."""
+        m, p = self.meshes, self.passing
         if x <= 0:
             return 0.0
         if x <= m[0]:
-            # sous la première maille : interpolation linéaire vers (0, 0)
+            # below the first mesh: linear interpolation toward (0, 0)
             return p[0] * x / m[0]
         if x >= m[-1]:
             return 1.0
@@ -64,75 +63,80 @@ class PSD:
                 return p[i - 1] + t * (p[i] - p[i - 1])
         return 1.0
 
-    def taille_a_passant(self, cible: float) -> float:
-        """Taille (mm) où le passant cumulé vaut ``cible`` (ex. 0,80 → P80)."""
-        if not 0.0 < cible < 1.0:
-            raise ValueError("cible doit être dans ]0;1[")
-        m, p = self.mailles, self.passant
-        if p[0] >= cible:
-            return m[0] * cible / max(p[0], 1e-12)
+    def size_at_passing(self, target: float) -> float:
+        """Size (mm) at which the cumulative passing equals ``target`` (e.g. 0.80 -> P80)."""
+        if not 0.0 < target < 1.0:
+            raise ValueError("target must be within ]0;1[")
+        m, p = self.meshes, self.passing
+        if p[0] >= target:
+            return m[0] * target / max(p[0], 1e-12)
         for i in range(1, len(m)):
-            if p[i] >= cible:
+            if p[i] >= target:
                 if p[i] == p[i - 1]:
                     return m[i]
-                t = (cible - p[i - 1]) / (p[i] - p[i - 1])
+                t = (target - p[i - 1]) / (p[i] - p[i - 1])
                 return math.exp(math.log(m[i - 1]) + t * (math.log(m[i]) - math.log(m[i - 1])))
         return m[-1]
 
     def p80(self) -> float:
-        return self.taille_a_passant(0.80)
+        # 0.80 is the definition of P80/F80 (Bond law), a mathematical identity
+        return self.size_at_passing(0.80)
 
-    def fraction_entre(self, a: float, b: float) -> float:
-        """Fraction massique dans la coupure ]a ; b] (mm)."""
+    def fraction_between(self, a: float, b: float) -> float:
+        """Mass fraction within the ]a ; b] cut (mm)."""
         if b < a:
             a, b = b, a
-        return max(0.0, self.passant_a(b) - self.passant_a(a))
+        return max(0.0, self.passing_at(b) - self.passing_at(a))
 
-    # ------------------------------------------------------------- par tranche
-    def fractions_tranches(self) -> list[float]:
-        """Fraction massique par tranche ; tranche i = ]maille[i-1] ; maille[i]],
-        tranche 0 = ]0 ; maille[0]]."""
-        f = [self.passant[0]]
-        for i in range(1, len(self.mailles)):
-            f.append(self.passant[i] - self.passant[i - 1])
+    # ---------------------------------------------------------- per interval
+    def interval_fractions(self) -> list[float]:
+        """Mass fraction per interval; interval i = ]mesh[i-1] ; mesh[i]],
+        interval 0 = ]0 ; mesh[0]]."""
+        f = [self.passing[0]]
+        for i in range(1, len(self.meshes)):
+            f.append(self.passing[i] - self.passing[i - 1])
         return f
 
-    def tailles_representatives(self) -> list[float]:
-        """Taille représentative de chaque tranche (moyenne géométrique des bornes ;
-        pour la tranche du bas, borne basse conventionnelle = maille/2)."""
-        reps = [self.mailles[0] / math.sqrt(2.0)]
-        for i in range(1, len(self.mailles)):
-            reps.append(math.sqrt(self.mailles[i - 1] * self.mailles[i]))
+    def representative_sizes(self, bottom_interval_ratio: float = 2.0) -> list[float]:
+        """Representative size of each interval (geometric mean of the bounds).
+
+        For the bottom interval the conventional lower bound is
+        mesh / bottom_interval_ratio (parameter ``calibration.bottom_interval_ratio``),
+        giving rep. size = mesh / sqrt(ratio).
+        """
+        reps = [self.meshes[0] / math.sqrt(bottom_interval_ratio)]
+        for i in range(1, len(self.meshes)):
+            reps.append(math.sqrt(self.meshes[i - 1] * self.meshes[i]))
         return reps
 
     @classmethod
-    def depuis_tranches(cls, mailles: Sequence[float], fractions: Sequence[float]) -> "PSD":
-        """Construit une PSD depuis des fractions par tranche (renormalisées)."""
+    def from_intervals(cls, meshes: Sequence[float], fractions: Sequence[float]) -> "PSD":
+        """Builds a PSD from per-interval fractions (renormalized)."""
         total = sum(fractions)
         if total <= 0:
-            raise ValueError("flux vide : fractions nulles")
-        cumul, acc = [], 0.0
+            raise ValueError("empty stream: all fractions are zero")
+        cumulative, acc = [], 0.0
         for f in fractions:
             acc += f / total
-            cumul.append(min(1.0, acc))
-        cumul[-1] = 1.0
-        return cls(mailles, cumul)
+            cumulative.append(min(1.0, acc))
+        cumulative[-1] = 1.0
+        return cls(meshes, cumulative)
 
-    # ---------------------------------------------------------------- mélange
+    # ----------------------------------------------------------------- blend
     @staticmethod
-    def melange(flux: Sequence[tuple[float, "PSD"]]) -> tuple[float, "PSD"]:
-        """Mélange massique de flux (q en t/h, PSD). Retourne (q_total, PSD)."""
-        flux = [(q, psd) for q, psd in flux if q > 0]
-        if not flux:
-            raise ValueError("mélange de flux tous nuls")
-        mailles = flux[0][1].mailles
-        q_total = sum(q for q, _ in flux)
-        passant = [
-            sum(q * psd.passant[i] for q, psd in flux) / q_total
-            for i in range(len(mailles))
+    def blend(streams: Sequence[tuple[float, "PSD"]]) -> tuple[float, "PSD"]:
+        """Mass blend of streams (q in t/h, PSD). Returns (total_q, PSD)."""
+        streams = [(q, psd) for q, psd in streams if q > 0]
+        if not streams:
+            raise ValueError("blending streams that are all empty")
+        meshes = streams[0][1].meshes
+        total_q = sum(q for q, _ in streams)
+        passing = [
+            sum(q * psd.passing[i] for q, psd in streams) / total_q
+            for i in range(len(meshes))
         ]
-        return q_total, PSD(mailles, passant)
+        return total_q, PSD(meshes, passing)
 
-    def sur_serie(self, serie: Sequence[float]) -> list[float]:
-        """Passant cumulé (%) ré-échantillonné sur une série de mailles (rapport)."""
-        return [round(100.0 * self.passant_a(x), 3) for x in serie]
+    def on_series(self, series: Sequence[float]) -> list[float]:
+        """Cumulative passing (%) resampled on a mesh series (for reporting)."""
+        return [round(100.0 * self.passing_at(x), 3) for x in series]

@@ -1,25 +1,25 @@
 {
-  "_statut": "COURBE CALIBRÉE — hypothèse de travail, à remplacer par la première mesure réelle",
-  "date_calibration": "2026-08-08",
-  "modele": "pivot = w·RR(150; 1,15) + (1−w)·RR_tronquée_80(x80_g; n_g)",
-  "parametres_calibres": {
+  "_status": "CALIBRATED CURVE — working hypothesis, to be replaced by the first real measurement",
+  "calibration_date": "2026-08-08",
+  "model": "pivot = w*RR(150; 1.15) + (1-w)*RR_truncated_80(x80_g; n_g)",
+  "fitted_parameters": {
     "w": 0.6875,
     "x80_g_mm": 9.844,
     "n_g": 1.3969
   },
-  "cibles_chapitre_9": {
+  "chapter_9_targets": {
     "kfs_pct": 23.7,
     "p_cr5009_kw": 116.0,
     "feedlime_pct": 45.0,
     "p_cr5011_kw": 37.0
   },
-  "valeurs_obtenues": {
+  "achieved_values": {
     "kfs_pct": 23.85,
     "p_cr5009_kw": 105.85,
     "feedlime_pct": 45.02,
     "p_cr5011_kw": 18.37
   },
-  "courbe_passant_cumule": {
+  "cumulative_passing_curve": {
     "0.063": 0.0586,
     "0.1": 0.1085,
     "0.125": 0.1463,

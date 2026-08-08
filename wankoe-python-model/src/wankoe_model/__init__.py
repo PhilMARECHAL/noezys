@@ -1,19 +1,27 @@
-"""Wankoe Python Model — modèle de calcul de la ligne de traitement calcaire.
+"""Wankoe Python Model — limestone processing line calculation model.
 
-Flowsheet statique déterministe des zones 1.1 / 1.2 / 1.3 : chaque exécution
-de ``run_scenario`` calcule la « photo » synchronisée de la ligne pour un jeu
-de paramètres. Les données vivent dans data/parametres_defaut.json, séparées
-du code.
+Static deterministic flowsheet of zones 1.1 / 1.2 / 1.3: each call to
+``run_scenario`` computes the synchronized "photo" of the line for one
+parameter set. Data lives in data/default_parameters.json, separated from
+the code.
 """
 
-from wankoe_model.grid import PSD, grille_moteur
-from wankoe_model.scenario import charger_parametres, run_scenario, CHEMIN_PARAMETRES_DEFAUT
+from wankoe_model.grid import PSD, engine_grid
+from wankoe_model.scenario import (
+    DEFAULT_PARAMETERS_PATH,
+    REFERENCE_FEED_CURVE_PATH,
+    load_parameters,
+    run_scenario,
+    run_seasonal_balance,
+)
 
 __all__ = [
     "PSD",
-    "grille_moteur",
-    "charger_parametres",
+    "engine_grid",
+    "load_parameters",
     "run_scenario",
-    "CHEMIN_PARAMETRES_DEFAUT",
+    "run_seasonal_balance",
+    "DEFAULT_PARAMETERS_PATH",
+    "REFERENCE_FEED_CURVE_PATH",
 ]
-__version__ = "0.2.0"
+__version__ = "0.3.0"

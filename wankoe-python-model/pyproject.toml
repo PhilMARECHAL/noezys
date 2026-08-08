@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "wankoe-model"
 version = "0.1.0"
-description = "Wankoe Python Model — modèle Python pour les projets Noezys"
+description = "Wankoe Python Model - limestone processing line calculation model (Noezys)"
 readme = "README.md"
 requires-python = ">=3.10"
 authors = [
