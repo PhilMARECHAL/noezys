@@ -101,6 +101,27 @@ study (data/sweep_flow_rates_results.json) brings the surplus down to
 the INTER-ZONE stockpiles too: reclaiming more than upstream produces
 raises an alert and is penalized in sweep scoring.
 
+## Web interface
+
+The last deliverable of the specification preamble. Zero dependency — the
+server is pure standard library, the page is a single self-contained HTML
+file (no CDN):
+
+```bash
+PYTHONPATH=src python -m wankoe_model.webapp        # http://localhost:8977/
+```
+
+The UI (in French, for the operators) exposes the whole model: scenario
+controls (modes, weather, time basis, flow rates, hour ceilings), every
+machine setting bounded by its spec-sheet range, one-click line photo /
+hours planning / seasonal balance, product tables with envelope-compliance
+badges, machine powers, mass-and-water balance checks, stockpile closure,
+all engine alerts, and the semi-log PSD chart of the five products.
+Modified fields are highlighted; typos in hand-written overrides surface
+as actionable errors (HTTP 400). The JSON API (`/api/scenario`,
+`/api/planning`, `/api/seasonal`, `/api/sweep`, `/api/fit`) calls the same
+pure functions as the Python API — identical results everywhere.
+
 ## Auto-calibration on measurements
 
 `wankoe_model.fit` (spec preamble) fits any free parameters — typically the

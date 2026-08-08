@@ -194,5 +194,12 @@ def run_required_hours(params: dict) -> dict:
         },
         "production_t": production_t,
         "stockpiles_t": stockpiles_t,
-        "alerts": alerts + photo_dry["alerts"],
+        # the photo's own period/stockpile alerts are computed AT CEILING
+        # hours — planning solves the hours, so only process alerts carry over
+        "alerts": alerts
+        + [
+            a
+            for a in photo_dry["alerts"]
+            if not a.startswith("Stockpile") and not a.startswith("Period balance")
+        ],
     }

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WANKOE — Modèle de la ligne calcaire</title>
+<style>
+  :root {
+    --bg: #f4f6f8; --panel: #ffffff; --ink: #1c2733; --muted: #64748b;
+    --accent: #0f6db5; --accent2: #0a8f5b; --warn: #b45309; --bad: #b91c1c;
+    --line: #e2e8f0; --radius: 10px;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 14px/1.45 system-ui, "Segoe UI", Arial, sans-serif;
+         background: var(--bg); color: var(--ink); }
+  header { background: #12314a; color: #fff; padding: 14px 22px;
+           display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+  header h1 { margin: 0; font-size: 19px; letter-spacing: .4px; }
+  header span { color: #9fc3de; font-size: 12.5px; }
+  main { display: grid; grid-template-columns: 400px 1fr; gap: 16px;
+         padding: 16px 22px; max-width: 1500px; margin: 0 auto; }
+  @media (max-width: 980px) { main { grid-template-columns: 1fr; } }
+  .panel { background: var(--panel); border: 1px solid var(--line);
+           border-radius: var(--radius); padding: 14px 16px; }
+  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .8px;
+       color: var(--muted); margin: 0 0 10px; }
+  details { border-top: 1px solid var(--line); }
+  details summary { cursor: pointer; padding: 8px 0; font-weight: 600; }
+  .row { display: flex; align-items: center; gap: 8px; margin: 5px 0; }
+  .row label { flex: 1; color: #334155; }
+  .row .u { color: var(--muted); font-size: 12px; width: 42px; }
+  input[type=number], select { width: 96px; padding: 4px 6px; border: 1px solid #cbd5e1;
+    border-radius: 6px; font: inherit; background: #fbfdff; }
+  input.mod { border-color: var(--accent); background: #eaf4fc; }
+  .btns { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0 4px; }
+  button { border: 0; border-radius: 8px; padding: 9px 14px; font: inherit;
+           font-weight: 600; cursor: pointer; color: #fff; background: var(--accent); }
+  button.alt { background: var(--accent2); }
+  button.ghost { background: #eef2f6; color: var(--ink); }
+  button:disabled { opacity: .5; cursor: wait; }
+  table { border-collapse: collapse; width: 100%; margin: 6px 0; }
+  th, td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--line);
+           font-variant-numeric: tabular-nums; }
+  th { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .5px; }
+  .ok { color: var(--accent2); font-weight: 700; }
+  .ko { color: var(--bad); font-weight: 700; }
+  .na { color: var(--muted); }
+  .alert { background: #fff7ed; border: 1px solid #fdba74; color: var(--warn);
+           border-radius: 8px; padding: 7px 10px; margin: 5px 0; font-size: 13px; }
+  .error { background: #fef2f2; border: 1px solid #fca5a5; color: var(--bad);
+           border-radius: 8px; padding: 8px 10px; margin: 8px 0; white-space: pre-wrap; }
+  .kpis { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+  .kpi { background: #f0f6fb; border: 1px solid #d3e5f2; border-radius: 8px;
+         padding: 7px 12px; min-width: 120px; }
+  .kpi b { display: block; font-size: 17px; }
+  .kpi span { color: var(--muted); font-size: 12px; }
+  #chart { width: 100%; height: 300px; }
+  .legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12.5px; margin: 4px 0; }
+  .legend i { display: inline-block; width: 14px; height: 3px; margin-right: 4px;
+              vertical-align: middle; }
+  footer { color: var(--muted); font-size: 12px; padding: 8px 22px 20px;
+           max-width: 1500px; margin: 0 auto; }
+  .util { height: 8px; background: #e5edf3; border-radius: 4px; overflow: hidden; }
+  .util i { display: block; height: 100%; background: var(--accent2); }
+  .util i.hot { background: var(--warn); }
+  .util i.over { background: var(--bad); }
+</style>
+</head>
+<body>
+<header>
+  <h1>WANKOE — Modèle de la ligne calcaire</h1>
+  <span>zones 1.1 / 1.2 / 1.3 · flowsheet statique déterministe · chaque exécution = un scénario</span>
+</header>
+<main>
+  <!-- ======================= colonne paramètres ======================= -->
+  <section class="panel" id="left">
+    <h2>Scénario</h2>
+    <div class="row"><label>Mode zone 1.1</label>
+      <select id="mode11"><option>1A</option><option>1B</option></select><span class="u"></span></div>
+    <div class="row"><label>Mode zone 1.2</label>
+      <select id="mode12"><option>2A</option><option>2B</option><option>2C</option></select><span class="u"></span></div>
+    <div class="row"><label>Météo</label>
+      <select id="weather"><option value="dry">sec</option><option value="rain">pluie</option></select><span class="u"></span></div>
+    <div class="row"><label>Base de temps</label>
+      <select id="basis"><option value="annual">annuelle</option><option value="monthly">mensuelle</option>
+      <option value="weekly">hebdomadaire</option><option value="daily">journalière</option></select><span class="u"></span></div>
+    <div class="row"><label>Alimentation zone 1.1</label>
+      <input type="number" id="feed" step="5"><span class="u">t/h</span></div>
+    <div class="row"><label>Reprise zone 1.2</label>
+      <input type="number" id="reclaim" step="5"><span class="u">t/h</span></div>
+    <div class="row"><label>Séchage zone 1.3</label>
+      <input type="number" id="feedlime" step="1"><span class="u">t/h</span></div>
+    <div class="row"><label>Heures zone 1.1 (plafond)</label>
+      <input type="number" id="h11" step="100"><span class="u">h/an</span></div>
+    <div class="row"><label>Heures zone 1.2 (plafond)</label>
+      <input type="number" id="h12" step="100"><span class="u">h/an</span></div>
+    <div class="row"><label>Heures zone 1.3 (plafond)</label>
+      <input type="number" id="h13" step="100"><span class="u">h/an</span></div>
+
+    <div id="machines"></div>
+
+    <div class="btns">
+      <button id="run">▶ Calculer la photo</button>
+      <button id="plan" class="alt">🕐 Caler les heures</button>
+      <button id="season" class="ghost">☀🌧 Bilan saisonnier</button>
+      <button id="reset" class="ghost">↺ Défauts</button>
+    </div>
+    <div style="color:var(--muted);font-size:12px">Les champs modifiés apparaissent en bleu.
+      Les heures se calculent depuis les objectifs (« Caler les heures ») — jamais l'inverse.</div>
+  </section>
+
+  <!-- ======================= colonne résultats ======================= -->
+  <section id="right">
+    <div class="panel" id="out">
+      <h2>Résultats</h2>
+      <div style="color:var(--muted)">Modifiez les paramètres puis lancez un calcul.</div>
+    </div>
+    <div class="panel" style="margin-top:16px">
+      <h2>Courbes granulométriques des produits (% passant cumulé)</h2>
+      <div class="legend" id="legend"></div>
+      <svg id="chart" viewBox="0 0 900 300" preserveAspectRatio="none"></svg>
+    </div>
+  </section>
+</main>
+<footer>Wankoe Python Model · les paramètres vivent dans data/default_parameters.json ·
+  moteur pur : mêmes résultats ici, en script ou en balayage massif.</footer>
+
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+const COLORS = {"KFS":"#0f6db5","AgLime":"#0a8f5b","FeedLime grits":"#b45309",
+                "FeedLime fines":"#7c3aed","UltraFin":"#be185d"};
+let DEFAULTS = null;
+
+// ---------- chargement des paramètres par défaut ----------
+async function loadDefaults() {
+  DEFAULTS = await (await fetch("/api/parameters")).json();
+  const sc = DEFAULTS.default_scenario;
+  $("mode11").value = sc.zone_1_1_mode; $("mode12").value = sc.zone_1_2_mode;
+  $("weather").value = sc.weather; $("basis").value = sc.time_basis;
+  $("feed").value = sc.flow_rates_tph.zone_1_1_feed;
+  $("reclaim").value = sc.flow_rates_tph.zone_1_2_reclaim;
+  $("feedlime").value = sc.flow_rates_tph.zone_1_3_feedlime;
+  $("h11").value = sc.zones["1.1"].available_hours ?? "";
+  $("h12").value = sc.zones["1.2"].available_hours ?? "";
+  $("h13").value = sc.zones["1.3"].available_hours ?? "";
+  buildMachinePanel();
+  document.querySelectorAll("#left input").forEach(el =>
+    el.addEventListener("input", () => el.classList.toggle("mod", changed(el))));
+}
+function changed(el) { return el.dataset.def !== undefined && String(el.value) !== el.dataset.def; }
+
+function buildMachinePanel() {
+  const host = $("machines"); host.innerHTML = "";
+  const wrap = document.createElement("details");
+  wrap.innerHTML = "<summary>Réglages machines (codification du CdC)</summary>";
+  for (const [code, m] of Object.entries(DEFAULTS.machines)) {
+    if (!Object.keys(m.parameters).length) continue;
+    const d = document.createElement("details");
+    d.innerHTML = `<summary>${esc(code)} — ${esc(m.type)}</summary>`;
+    for (const [sym, p] of Object.entries(m.parameters)) {
+      if (p.default === null) continue;
+      const row = document.createElement("div"); row.className = "row";
+      row.innerHTML = `<label title="${esc(p.name)}">${esc(sym)}</label>
+        <input type="number" data-code="${code}" data-sym="${sym}" data-def="${p.default}"
+               value="${p.default}" step="${p.step ?? "any"}"
+               ${p.min !== undefined && p.min !== null ? `min="${p.min}"` : ""}
+               ${p.max !== undefined && p.max !== null ? `max="${p.max}"` : ""}>
+        <span class="u">${p.unit}</span>`;
+      d.appendChild(row);
+    }
+    wrap.appendChild(d);
+  }
+  host.appendChild(wrap);
+  document.querySelectorAll("#machines input").forEach(el =>
+    el.addEventListener("input", () => el.classList.toggle("mod", changed(el))));
+}
+
+// ---------- construction des overrides ----------
+function overrides() {
+  const sc = DEFAULTS.default_scenario;
+  const o = { default_scenario: {
+    zone_1_1_mode: $("mode11").value, zone_1_2_mode: $("mode12").value,
+    weather: $("weather").value, time_basis: $("basis").value,
+    flow_rates_tph: { zone_1_1_feed: +$("feed").value,
+      zone_1_2_reclaim: +$("reclaim").value, zone_1_3_feedlime: +$("feedlime").value },
+    zones: { "1.1": { available_hours: $("h11").value === "" ? null : +$("h11").value,
+                      availability_pct: sc.zones["1.1"].availability_pct },
+             "1.2": { available_hours: $("h12").value === "" ? null : +$("h12").value,
+                      availability_pct: sc.zones["1.2"].availability_pct },
+             "1.3": { available_hours: $("h13").value === "" ? null : +$("h13").value,
+                      availability_pct: sc.zones["1.3"].availability_pct } } } };
+  const machines = {};
+  document.querySelectorAll("#machines input").forEach(el => {
+    if (!changed(el)) return;
+    const code = el.dataset.code, sym = el.dataset.sym;
+    machines[code] = machines[code] || { parameters: {} };
+    machines[code].parameters[sym] = { default: +el.value };
+  });
+  if (Object.keys(machines).length) o.machines = machines;
+  return o;
+}
+
+async function call(endpoint, extra) {
+  const buttons = document.querySelectorAll("button"); buttons.forEach(b => b.disabled = true);
+  try {
+    const res = await fetch("/api/" + endpoint, { method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(Object.assign({ overrides: overrides() }, extra || {})) });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || res.statusText);
+    return data;
+  } finally { buttons.forEach(b => b.disabled = false); }
+}
+function showError(e) { $("out").innerHTML = `<h2>Résultats</h2><div class="error">⚠ ${e.message}</div>`; }
+const fmt = (x, d=1) => x === null || x === undefined ? "—" : (+x).toLocaleString("fr-FR",
+  { maximumFractionDigits: d });
+// engine texts (alerts, names) may contain < or & : always escape before innerHTML
+const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+// ---------- rendu de la photo ----------
+function renderScenario(r) {
+  let h = "<h2>Photo de la ligne</h2>";
+  h += `<div class="kpis">
+    <div class="kpi"><b>${fmt(r.products.KFS.tph)}</b><span>KFS t/h (${r.products.KFS.state === "wet" ? "humide" : "sec"})</span></div>
+    <div class="kpi"><b>${fmt(r.products.AgLime.tph)}</b><span>AgLime t/h</span></div>
+    <div class="kpi"><b>${fmt(r.products["FeedLime grits"].tph)}</b><span>Grits t/h</span></div>
+    <div class="kpi"><b>${fmt(r.products.UltraFin.tph, 2)}</b><span>UltraFin t/h</span></div>
+    <div class="kpi"><b>${fmt(r.machines["DY.03"].active ? r.machines["DY.03"].burner_power_kW/1000 : null, 2)}</b><span>Brûleur MW</span></div>
+  </div>`;
+  h += "<table><tr><th>Produit</th><th>t/h</th><th>État</th><th>P80 mm</th><th>Conformité</th></tr>";
+  for (const [name, p] of Object.entries(r.products)) {
+    let conf = "<span class='na'>—</span>";
+    if (p.present && p.compliance) {
+      const c = p.compliance;
+      if (c.envelope) conf = `${c.below_cut_pct}/${c.in_cut_pct}/${c.above_cut_pct} % ` +
+        (c.compliant ? "<span class='ok'>✔ conforme</span>" : "<span class='ko'>✘ hors enveloppe</span>");
+      else if (c.compliant !== null) conf = c.compliant ? "<span class='ok'>✔</span>" : "<span class='ko'>✘</span>";
+      else conf = `<span class='na'>${c.out_of_cut_pct} % hors coupure</span>`;
+    }
+    h += `<tr><td>${name}</td><td>${p.present ? fmt(p.tph, 2) : "<span class='na'>absent</span>"}</td>
+      <td>${p.state === "wet" ? "humide" : "sec"}</td><td>${p.present ? fmt(p.P80_mm, 2) : "—"}</td><td>${conf}</td></tr>`;
+  }
+  h += "</table>";
+  h += "<table><tr><th>Machine</th><th>P installée kW</th><th>Débit t/h</th></tr>";
+  for (const [code, m] of Object.entries(r.machines)) {
+    if (!m.active || m.P_installed_kW === undefined) continue;
+    h += `<tr><td>${code}</td><td>${fmt(m.P_installed_kW, 0)}</td><td>${fmt(m.throughput_tph, 1)}</td></tr>`;
+  }
+  h += "</table>";
+  const bal = Object.entries(r.balances).map(([k, b]) =>
+    `${k} ${b.closed ? "<span class='ok'>✔</span>" : "<span class='ko'>✘</span>"}`).join(" · ");
+  h += `<div style="margin:6px 0">Bilans masse/eau : ${bal}</div>`;
+  if (r.period_balance) {
+    h += "<table><tr><th>Produit</th><th>t/période</th><th>Cible</th><th>Écart</th><th>Excédent hors marché</th></tr>";
+    for (const [prod, row] of Object.entries(r.period_balance.per_product))
+      h += `<tr><td>${prod}</td><td>${fmt(row.tonnage_t, 0)}</td><td>${fmt(row.target_t, 0)}</td>
+        <td class="${row.gap_t < 0 && row.nature === "FIRM" ? "ko" : ""}">${fmt(row.gap_t, 0)}</td>
+        <td>${row.surplus_beyond_market_t ? `<span class='ko'>${fmt(row.surplus_beyond_market_t, 0)}</span>` : "—"}</td></tr>`;
+    h += "</table>";
+    const s = r.period_balance.stockpiles_t;
+    h += `<div style="color:var(--muted);font-size:12.5px">Stocks : 0/20 ${fmt(s["0/20 net_to_stock_t"],0)} t · FeedLime ${fmt(s["FeedLime net_to_stock_t"],0)} t</div>`;
+  }
+  for (const a of r.alerts) h += `<div class="alert">⚠ ${esc(a)}</div>`;
+  $("out").innerHTML = h;
+  drawChart(r.products);
+}
+
+// ---------- rendu du planning ----------
+function renderPlanning(p) {
+  let h = "<h2>Heures calées sur les objectifs</h2>";
+  h += "<table><tr><th>Zone</th><th>Heures requises</th><th>Plafond</th><th>Utilisation</th><th></th></tr>";
+  for (const [z, v] of Object.entries(p.zones)) {
+    const u = v.utilization_pct, cls = u > 100 ? "over" : u > 90 ? "hot" : "";
+    h += `<tr><td>${z}${v.driven_by ? ` <span class="na">(${v.driven_by === "KFS target" ? "piloté par le KFS" : "piloté par la demande 0/20"})</span>` : ""}</td>
+      <td>${fmt(v.required_hours_clock, 0)} h</td><td>${fmt(v.ceiling_hours_clock, 0)} h</td>
+      <td>${fmt(u, 1)} %</td>
+      <td style="min-width:110px"><div class="util"><i class="${cls}" style="width:${Math.min(100, u)}%"></i></div></td></tr>`;
+  }
+  h += "</table><table><tr><th>Produit</th><th>t/an</th></tr>";
+  for (const [k, v] of Object.entries(p.production_t)) h += `<tr><td>${k}</td><td>${fmt(v, 0)}</td></tr>`;
+  h += "</table><table><tr><th>Stock</th><th>t/an</th></tr>";
+  for (const [k, v] of Object.entries(p.stockpiles_t)) h += `<tr><td>${k}</td><td>${fmt(v, 0)}</td></tr>`;
+  h += "</table>";
+  for (const a of p.alerts) h += `<div class="alert">⚠ ${esc(a)}</div>`;
+  $("out").innerHTML = h;
+}
+
+// ---------- rendu saisonnier ----------
+function renderSeasonal(s) {
+  let h = "<h2>Bilan saisonnier (sec × " + s.season_fractions.dry + " + pluie × " + s.season_fractions.rain + ")</h2>";
+  if (!s.combined) { h += "<div class='alert'>Renseignez les heures par zone pour le bilan combiné.</div>"; }
+  else {
+    h += "<table><tr><th>Produit</th><th>t/an combiné</th><th>Cible</th><th>Écart</th></tr>";
+    for (const [prod, row] of Object.entries(s.combined))
+      h += `<tr><td>${prod}</td><td>${fmt(row.tonnage_t, 0)}</td><td>${fmt(row.target_t, 0)}</td>
+        <td class="${row.gap_t < 0 && row.nature === "FIRM" ? "ko" : ""}">${fmt(row.gap_t, 0)}</td></tr>`;
+    h += "</table>";
+  }
+  const alerts = new Set([...(s.photos.dry.alerts || []), ...(s.photos.rain.alerts || [])]);
+  for (const a of alerts) h += `<div class="alert">⚠ ${esc(a)}</div>`;
+  $("out").innerHTML = h;
+  drawChart(s.photos.dry.products);
+}
+
+// ---------- graphique semi-log ----------
+function drawChart(products) {
+  const svg = $("chart"), W = 900, H = 300, L = 46, R = 12, T = 10, B = 30;
+  const xmin = Math.log10(0.05), xmax = Math.log10(250);
+  const X = mm => L + (Math.log10(mm) - xmin) / (xmax - xmin) * (W - L - R);
+  const Y = pct => T + (100 - pct) / 100 * (H - T - B);
+  let g = "";
+  for (const d of [0.1, 1, 10, 100]) {
+    g += `<line x1="${X(d)}" y1="${T}" x2="${X(d)}" y2="${H - B}" stroke="#e2e8f0"/>`
+       + `<text x="${X(d)}" y="${H - 12}" font-size="11" fill="#64748b" text-anchor="middle">${d}</text>`;
+  }
+  for (const p of [0, 25, 50, 75, 100])
+    g += `<line x1="${L}" y1="${Y(p)}" x2="${W - R}" y2="${Y(p)}" stroke="#eef2f6"/>`
+       + `<text x="${L - 6}" y="${Y(p) + 4}" font-size="11" fill="#64748b" text-anchor="end">${p}</text>`;
+  g += `<text x="${W / 2}" y="${H - 1}" font-size="11" fill="#64748b" text-anchor="middle">maille (mm, échelle log)</text>`;
+  let legend = "";
+  for (const [name, p] of Object.entries(products)) {
+    if (!p.present || !p.passing_curve_pct) continue;
+    const pts = Object.entries(p.passing_curve_pct)
+      .map(([m, v]) => [parseFloat(m), v]).sort((a, b) => a[0] - b[0])
+      .map(([m, v]) => `${X(m).toFixed(1)},${Y(v).toFixed(1)}`).join(" ");
+    g += `<polyline points="${pts}" fill="none" stroke="${COLORS[name]}" stroke-width="2.2"/>`;
+    legend += `<span><i style="background:${COLORS[name]}"></i>${name}</span>`;
+  }
+  svg.innerHTML = g;
+  $("legend").innerHTML = legend;
+}
+
+// ---------- boutons ----------
+$("run").onclick = () => call("scenario").then(renderScenario).catch(showError);
+$("plan").onclick = () => call("planning").then(renderPlanning).catch(showError);
+$("season").onclick = () => call("seasonal").then(renderSeasonal).catch(showError);
+$("reset").onclick = () => loadDefaults();
+loadDefaults().then(() => call("scenario").then(renderScenario).catch(showError));
+</script>
+</body>
+</html>
