@@ -6,7 +6,7 @@ rule or arbitration.
 
 ## The client and the mission
 
-- Client: Philippe (Noezys). Conversation language: FRENCH. All
+- Client: NOEZYS (never name any individual in produced results — brand rule 2026-08-08: this software is created by NOEZYS). Conversation language: FRENCH. All
   deliverables (code, data, docs): ENGLISH. Exception, deliberate: the web
   UI labels are French for the operators — flagged for ratification.
 - THE RESULT IS THE MATHEMATICAL MODEL, never a document. Documents are
@@ -19,10 +19,10 @@ rule or arbitration.
 - The project is EVOLVING, never frozen. Every change lands through
   data/default_parameters.json first, code second; each arbitration gets a
   dated row in docs/spec-conformity-matrix.md (decision log) stating WHO
-  decided (Philippe / delegated hypothesis / expert proposal pending
+  decided (the client / delegated hypothesis / expert proposal pending
   ratification).
 
-## Philippe's standing rules (verbatim intent)
+## The client's standing rules (verbatim intent)
 
 1. Nothing hardcoded — every parameter adjustable without reprogramming.
 2. Operating hours are SET BY the production targets, never the reverse
@@ -56,5 +56,4 @@ rule or arbitration.
 The model lives on branch wankoe-python-model of the PhilMARECHAL/noezys
 repository, whose root render.yaml publishes the tree statically: NEVER
 merge this branch into the deployed branch — the client spec and data
-would become world-readable. Repo relocation is an open question for
-Philippe.
+would become world-readable. Repo relocation is an open question for the client.

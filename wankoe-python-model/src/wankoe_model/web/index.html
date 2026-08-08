@@ -99,6 +99,7 @@
 <header>
   <h1>WANKOE</h1>
   <span class="sub">Modèle de la ligne calcaire · zones 1.1 / 1.2 / 1.3 · chaque exécution = un scénario</span>
+  <span class="sub" style="margin-left:auto;font-weight:700;letter-spacing:2px;color:#16181d">NOEZYS</span>
 </header>
 <main>
   <div class="toolbar">
@@ -124,13 +125,14 @@
     <button data-tab="design" class="on">Design</button>
     <button data-tab="detail">Produits &amp; machines</button>
     <button data-tab="plan">Heures (objectifs)</button>
+    <button data-tab="curves">Courbes</button>
     <button data-tab="season">Saisonnier</button>
     <button data-tab="alerts">Alertes</button>
   </div>
   <div class="panel" id="out"></div>
 </main>
 <div id="drawer"></div>
-<footer>Wankoe Python Model · paramètres dans data/default_parameters.json · les heures se calculent
+<footer>WANKOE model — created by NOEZYS · paramètres dans data/default_parameters.json · les heures se calculent
 depuis les objectifs, jamais l'inverse · moteur pur : mêmes résultats ici, en script ou en balayage.</footer>
 
 <script>
@@ -348,6 +350,7 @@ function renderTab() {
   if (TAB === "design") return renderDesign();
   if (TAB === "detail") return renderDetail();
   if (TAB === "plan") return renderPlan();
+  if (TAB === "curves") return renderCurves();
   if (TAB === "season") return renderSeason();
   if (TAB === "alerts") return renderAlerts();
 }
@@ -408,6 +411,30 @@ function renderPlan() {
   h += "</table>";
   for (const a of PLAN.alerts) h += `<div class="alert-line">⚠ ${esc(a)}</div>`;
   $("out").innerHTML = h;
+}
+function renderCurves() {
+  const COLORS = {"KFS":"#145c8c","AgLime":"#0e7a4a","FeedLime grits":"#b45309",
+                  "FeedLime fines":"#7c3aed","UltraFin":"#be185d","Alimentation":"#16181d"};
+  const X = mm => 50 + (Math.log10(mm) - Math.log10(0.05)) / (Math.log10(320) - Math.log10(0.05)) * 1080;
+  const Y = v => 12 + (100 - v) / 100 * 330;
+  let g = "", legend = [];
+  for (const d of [0.1, 1, 10, 100])
+    g += `<line x1="${X(d)}" y1="12" x2="${X(d)}" y2="342" stroke="#eef0f3"/><text x="${X(d)}" y="358" font-size="11" fill="#6b7280" text-anchor="middle">${d}</text>`;
+  for (const v of [0, 25, 50, 75, 100])
+    g += `<line x1="50" y1="${Y(v)}" x2="1130" y2="${Y(v)}" stroke="#f2f4f6"/><text x="42" y="${Y(v)+4}" font-size="11" fill="#6b7280" text-anchor="end">${v}</text>`;
+  const series = { "Alimentation": DEFAULTS.feed_product.cumulative_passing_curve };
+  for (const [name, p] of Object.entries(PHOTO.products))
+    if (p.present && p.passing_curve_pct) series[name] = p.passing_curve_pct;
+  for (const [name, curve] of Object.entries(series)) {
+    const pts = Object.entries(curve).map(([mm, v]) => [parseFloat(mm), +v]).sort((a, b) => a[0] - b[0])
+      .map(([mm, v]) => X(mm).toFixed(1) + "," + Y(Math.min(100, v)).toFixed(1)).join(" ");
+    g += `<polyline fill="none" stroke="${COLORS[name] || "#888"}" stroke-width="${name === "Alimentation" ? 2.6 : 1.9}" ${name === "Alimentation" ? "" : ""} points="${pts}"/>`;
+    legend.push(`<span style="margin-right:16px"><i style="display:inline-block;width:16px;height:3px;background:${COLORS[name] || "#888"};vertical-align:middle;margin-right:5px"></i>${esc(name)}</span>`);
+  }
+  $("out").innerHTML = `<div class="na" style="margin-bottom:4px">Gradation — % passant cumulé, maille en échelle log (alimentation + produits)</div>
+    <div>${legend.join("")}</div>
+    <svg viewBox="0 0 1150 365" style="width:100%">${g}</svg>
+    <text></text><div class="na" style="font-size:11px">maille (mm)</div>`;
 }
 function renderSeason() {
   const s = SEASON;

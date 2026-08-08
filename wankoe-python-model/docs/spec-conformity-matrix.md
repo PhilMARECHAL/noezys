@@ -138,21 +138,21 @@ stored measurements), installed-limit data keys per machine. Tests:
 
 ## Decision log (dated — the project's memory)
 
-The "decided by" column separates what PHILIPPE arbitrated from what was
+The "decided by" column separates what THE CLIENT arbitrated from what was
 delegated or expert-proposed; expert proposals await his ratification.
 
 | Date | Decision | Decided by |
 |---|---|---|
-| 2026-08-08 | CR.5009: x80 = gap (explicit x80 overrides when set) | Philippe |
+| 2026-08-08 | CR.5009: x80 = gap (explicit x80 overrides when set) | the client |
 | 2026-08-08 | comp_lam unspecified → hypotheses H-M7-1/H-M7-2, parameterized, fitted | delegated (his "je ne sais pas" authorized hypotheses) |
-| 2026-08-08 | Reference feed curve calibrated on ch. 9 pending measurement | Philippe |
-| 2026-08-08 | KFS 30/55/15 = three %-passing thresholds | Philippe (thresholds inferred from an example — values to confirm in use) |
+| 2026-08-08 | Reference feed curve calibrated on ch. 9 pending measurement | the client |
+| 2026-08-08 | KFS 30/55/15 = three %-passing thresholds | the client (thresholds inferred from an example — values to confirm in use) |
 | 2026-08-08 | KFS 15 % out-of-cut tolerance nulled, superseded by the envelope | assistant — QUESTION PENDING |
-| 2026-08-08 | Measured belt-cut adopted as default feed (H-FEED-1/2) | Philippe (H-FEED completions delegated) |
-| 2026-08-08 | Operating hours follow production targets, never the reverse | Philippe |
-| 2026-08-08 | M3 option A: narrative wins, s = ln9/ln(1/(1−I)) | Philippe |
+| 2026-08-08 | Measured belt-cut adopted as default feed (H-FEED-1/2) | the client (H-FEED completions delegated) |
+| 2026-08-08 | Operating hours follow production targets, never the reverse | the client |
+| 2026-08-08 | M3 option A: narrative wins, s = ln9/ln(1/(1−I)) | the client |
 | 2026-08-08 | Imperfection defaults remapped I_new = 1−I_old | expert review — RATIFICATION PENDING |
-| 2026-08-08 | Purpose = design confirmation; only feed belt-cut measurements will ever exist | Philippe |
+| 2026-08-08 | Purpose = design confirmation; only feed belt-cut measurements will ever exist | the client |
 | 2026-08-08 | Web UI labels in French (operator usability) despite the English-deliverables rule | assistant — QUESTION PENDING |
 | 2026-08-08 | SP.36 cut default 100 µm kept although §3.0-M8 suggests ≈0.65·d97 ≈ 65 µm | spec-internal tension — QUESTION PENDING |
 | 2026-08-08 | CR.5011 ~37 kW read as a nameplate-capacity evaluation; both powers reported | assistant hypothesis — QUESTION PENDING |
