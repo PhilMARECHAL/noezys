@@ -154,7 +154,34 @@
     "S_att":    {"nom": "Attrition par passe", "unite": "-", "defaut": 0.206, "statut": "[H]", "utilise_par": "M7"},
     "lambda":   {"nom": "Chargement air classif.", "unite": "kg/m3", "defaut": 0.5, "statut": "[H]", "utilise_par": "M8"},
     "N_e":      {"nom": "Tours effectifs cyclone", "unite": "-", "defaut": 5, "statut": "[H]", "utilise_par": "M8"},
-    "Phi_100":  {"nom": "Contenu naturel <100 µm du 0-1,5", "unite": "%", "defaut": null, "statut": "À MESURER (tamis/laser)", "utilise_par": "M8"}
+    "Phi_100":  {"nom": "Contenu naturel <100 µm du 0-1,5", "unite": "%", "defaut": null, "statut": "À MESURER (tamis/laser)", "utilise_par": "M8"},
+    "trunc_factor": {"nom": "Facteur de troncature produit concassé", "unite": "-", "defaut": 1.7, "statut": "CdC M1", "utilise_par": "M1"},
+    "m1_ln_arg":  {"nom": "Argument du ln de Rosin-Rammler (P(x80)=1-1/arg)", "unite": "-", "defaut": 5.0, "statut": "identité mathématique", "utilise_par": "M1"},
+    "bond_coef":  {"nom": "Coefficient de la loi de Bond", "unite": "-", "defaut": 10.0, "statut": "identité mathématique", "utilise_par": "M2"},
+    "m3_ln_arg":  {"nom": "Argument du ln de Karra (netteté)", "unite": "-", "defaut": 9.0, "statut": "identité mathématique", "utilise_par": "M3"},
+    "qb_coef":    {"nom": "Coefficient capacité de base crible", "unite": "-", "defaut": 14.0, "statut": "CdC M4 (fixe)", "utilise_par": "M4"},
+    "qb_exp":     {"nom": "Exposant capacité de base crible", "unite": "-", "defaut": 0.6, "statut": "CdC M4 (fixe)", "utilise_par": "M4"},
+    "ecs_div":    {"nom": "Diviseur énergie d'impact (v²/x)", "unite": "-", "defaut": 7200.0, "statut": "CdC M5", "utilise_par": "M5"},
+    "m5_t10_ref": {"nom": "t10 de référence pour n", "unite": "%", "defaut": 30.0, "statut": "CdC M5", "utilise_par": "M5"},
+    "m5_n_exp":   {"nom": "Exposant n(t10)", "unite": "-", "defaut": 0.30, "statut": "CdC M5", "utilise_par": "M5"},
+    "m5_n_min":   {"nom": "Borne basse de n", "unite": "-", "defaut": 0.65, "statut": "CdC M5", "utilise_par": "M5"},
+    "m7_n_comp":  {"nom": "Uniformité RR de la compression ML.26", "unite": "-", "defaut": 1.0, "statut": "[H] hypothèse H-M7-1, calée sur cas de référence 9.3, à confirmer par essai", "utilise_par": "M7"},
+    "m7_x80_att": {"nom": "x80 des fines d'attrition ML.26", "unite": "mm", "defaut": 0.8, "statut": "[H] hypothèse H-M7-2, calée sur cas de référence 9.3, à confirmer par essai", "utilise_par": "M7"},
+    "m7_n_att":   {"nom": "Uniformité RR des fines d'attrition", "unite": "-", "defaut": 1.3, "statut": "[H] hypothèse H-M7-2, calée sur cas de référence 9.3, à confirmer par essai", "utilise_par": "M7"},
+    "I_pluie":    {"nom": "Imperfection crible fin sous la pluie", "unite": "-", "defaut": 0.9, "statut": "[H] CdC M3 (jusqu'à ~0,9)", "utilise_par": "M3"},
+    "mu_air":     {"nom": "Viscosité dynamique de l'air", "unite": "Pa.s", "defaut": 1.81e-5, "statut": "physique", "utilise_par": "M8"},
+    "rho_p":      {"nom": "Densité particule calcaire", "unite": "kg/m3", "defaut": 2700, "statut": "[H] à confirmer", "utilise_par": "M8"},
+    "rho_a":      {"nom": "Densité de l'air", "unite": "kg/m3", "defaut": 1.2, "statut": "physique", "utilise_par": "M8"},
+    "b_cyclone":  {"nom": "Largeur d'entrée cyclone CL.38", "unite": "m", "defaut": null, "statut": "À RENSEIGNER (plan constructeur)", "utilise_par": "M8"}
+  },
+
+  "moteur": {
+    "_commentaire": "Réglages numériques du moteur — ajustables sans reprogrammation.",
+    "mailles_extension_mm": [250, 320],
+    "boucle_max_iterations": 200,
+    "boucle_tolerance_relative": 1e-6,
+    "ratio_circulant_max": 10,
+    "tolerance_bilan_relative": 1e-3
   },
 
   "produit_entree": {
@@ -188,8 +215,14 @@
 
   "scenario_defaut": {
     "base_de_temps": "annuel",
+    "meteo": "sec",
     "fraction_saison_seche": 0.75,
     "fraction_saison_pluie": 0.25,
+    "debits_th": {
+      "alimentation_zone_1_1": 250,
+      "reprise_zone_1_2": 100,
+      "feedlime_zone_1_3": 30
+    },
     "zones": {
       "1.1": {"heures_dispo": null, "disponibilite_pct": 80},
       "1.2": {"heures_dispo": null, "disponibilite_pct": 80},
