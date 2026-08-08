@@ -96,6 +96,22 @@ lands exactly on 85/135/40 kt; inherent co-products: ~63 kt of fines
 (~7 kt over the market estimate) and a 0/20 stockpile growing by
 ~59 kt/year (the specification's "mechanical surplus", chapter 7.3).
 
+## Auto-calibration on measurements
+
+`wankoe_model.fit` (spec preamble) fits any free parameters — typically the
+[H] coefficients — so the model reproduces measured quantities. Both sides
+are declared by paths in a JSON config, no code change:
+
+```bash
+python scripts/fit_calibration.py data/fit_example.json
+```
+
+Observations target values in the `run_scenario` result dict (e.g. a
+measured machine power or product rate); free parameters point into the
+parameter dict with bounds. The script prints the fitted values with their
+paths — adopting a fit is an explicit copy into `default_parameters.json`,
+never automatic.
+
 ## Automatic sweeps / optimum search
 
 The engine never imposes an operating choice; `wankoe_model.optimize`
@@ -149,6 +165,19 @@ Key impacts vs the hypothetical curve (250 t/h, mode 1A): KFS drops to
 (181 mm) exceeds the roll crusher's 150 mm nip limit — saturation alert.
 The chapter 9 test suite keeps validating the model against the PINNED
 calibrated curve, since chapter 9 was authored with it.
+
+## Open question: M3 imperfection semantics (spec inconsistency)
+
+The M3 formula `s = ln 9 / ln(1/I)` makes the partition SHARPER as I rises
+(I=0.9 -> s=20.9), while the spec's narrative says I *degrades* up to ~0.9
+under rain ("coupe impossible"). Formula and narrative contradict each
+other. The code implements the formula as written (golden rule: formulas
+coded verbatim, ambiguities returned as questions). Consequences while
+unresolved: the I_rain=0.9 path makes rain screening better, and the KFS
+envelope study found compliance requires I around 0.65-0.8 — which reads
+as "worse imperfection" in the narrative sense but "sharper screen" in the
+formula's sense. Pending client arbitration; the mirrored reading would
+swap I for (1-I) in the formula.
 
 ## Open hypotheses (flagged [H] in the data)
 

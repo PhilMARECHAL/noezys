@@ -1,0 +1,14 @@
+{
+  "_comment": "Example auto-calibration config for scripts/fit_calibration.py. Fits the ML.26 [H] hypothesis coefficients to measured zone 1.3 product rates (replace 'measured' with real plant figures when available - these are the reference-case values).",
+  "observations": [
+    {"result_path": ["products", "FeedLime grits", "tph"], "measured": 10.4, "weight": 2.0},
+    {"result_path": ["products", "FeedLime fines", "tph"], "measured": 16.3, "weight": 1.0},
+    {"result_path": ["products", "UltraFin", "tph"], "measured": 1.24, "weight": 1.0}
+  ],
+  "free_parameters": [
+    {"path": ["calibration", "m7_n_comp", "default"], "min": 0.7, "max": 1.6},
+    {"path": ["machines", "ML.26", "parameters", "S_att", "default"], "min": 0.15, "max": 0.25},
+    {"path": ["calibration", "m7_x80_att", "default"], "min": 0.3, "max": 1.2}
+  ],
+  "max_rounds": 60
+}

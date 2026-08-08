@@ -6,6 +6,7 @@ parameter set. Data lives in data/default_parameters.json, separated from
 the code.
 """
 
+from wankoe_model.fit import fit_parameters
 from wankoe_model.grid import PSD, engine_grid
 from wankoe_model.planning import run_required_hours
 from wankoe_model.scenario import (
@@ -23,6 +24,7 @@ __all__ = [
     "run_scenario",
     "run_seasonal_balance",
     "run_required_hours",
+    "fit_parameters",
     "DEFAULT_PARAMETERS_PATH",
     "REFERENCE_FEED_CURVE_PATH",
 ]
