@@ -1,0 +1,201 @@
+{
+  "_meta": {
+    "source": "docs/WANKOE-donnees-entree-modele-v2026-08-08.xlsx + cahier des charges v. 2026-08-08",
+    "principe": "Données SÉPARÉES du code : tout paramètre est modifiable ici sans reprogrammation.",
+    "unites": {
+      "debits": "t/h",
+      "tailles": "mm",
+      "puissances": "kW",
+      "proportions": "% massiques sauf mention vol.",
+      "densites": "t/m3",
+      "energie_specifique": "kWh/t",
+      "temperatures": "degC",
+      "temps": "h",
+      "humidite": "% base humide"
+    }
+  },
+
+  "serie_mailles_mm": [
+    0.063, 0.1, 0.125, 0.25, 0.5, 1.0, 1.5, 1.7, 2.0, 2.8,
+    4.0, 5.0, 6.3, 8.0, 10.0, 12.5, 15.0, 20.0, 25.0, 31.5,
+    35.0, 40.0, 50.0, 63.0, 80.0, 100.0, 125.0, 160.0, 200.0
+  ],
+
+  "machines": {
+    "CR.5003": {
+      "zone": "1.1",
+      "type": "Concasseur à mâchoires",
+      "parametres": {
+        "s_CSS": {"nom": "Ouverture (CSS)", "unite": "mm", "min": 100, "max": 200, "defaut": 175, "pas": 5},
+        "x80":   {"nom": "x80 produit", "unite": "mm", "defaut": 150},
+        "n":     {"nom": "Uniformité Rosin-Rammler", "unite": "-", "defaut": 1.15}
+      }
+    },
+    "SR.5007": {
+      "zone": "1.1",
+      "type": "Crible double étage 35/20 mm",
+      "parametres": {
+        "a1": {"nom": "Maille étage haut", "unite": "mm", "min": 20, "max": 50, "defaut": 35, "pas": 1},
+        "a2": {"nom": "Maille étage bas", "unite": "mm", "min": 10, "max": 30, "defaut": 20, "pas": 1},
+        "I":  {"nom": "Imperfection", "unite": "-", "min": 0.4, "max": 0.9, "defaut": 0.6}
+      }
+    },
+    "CR.5009": {
+      "zone": "1.1",
+      "type": "Concasseur à rouleaux dentés",
+      "parametres": {
+        "g":   {"nom": "Gap", "unite": "mm", "min": 20, "max": 60, "defaut": 40, "pas": 5},
+        "x80": {"nom": "x80 produit", "unite": "mm", "defaut": 40},
+        "n":   {"nom": "Uniformité Rosin-Rammler", "unite": "-", "defaut": 1.35}
+      }
+    },
+    "CR.5011": {
+      "zone": "1.1",
+      "type": "Concasseur à percussion (HAZEMAG AP-S 1010)",
+      "capacite_max_th": 125,
+      "parametres": {
+        "v":   {"nom": "Vitesse rotor", "unite": "m/s", "min": 30, "max": 60, "defaut": 45, "pas": 1},
+        "x80": {"nom": "CSS (x80)", "unite": "mm", "min": 10, "max": 30, "defaut": 20, "pas": 1}
+      }
+    },
+    "DV-5099": {
+      "zone": "1.1",
+      "type": "Clapet sélecteur de mode (KFS / broyage)",
+      "parametres": {}
+    },
+    "BF.5101": {
+      "zone": "1.2",
+      "type": "Extracteur de reprise",
+      "parametres": {}
+    },
+    "SR.5105": {
+      "zone": "1.2",
+      "type": "Crible de reprise 15/5 mm",
+      "parametres": {
+        "a1": {"nom": "Maille haute", "unite": "mm", "min": 10, "max": 20, "defaut": 15, "pas": 1},
+        "a2": {"nom": "Maille basse", "unite": "mm", "min": 3, "max": 8, "defaut": 5, "pas": 1}
+      }
+    },
+    "CR.5107": {
+      "zone": "1.2",
+      "type": "Concasseur à percussion (boucle AgLime)",
+      "parametres": {
+        "v":   {"nom": "Vitesse rotor", "unite": "m/s", "min": 30, "max": 60, "defaut": 40, "pas": 1},
+        "x80": {"nom": "CSS (x80)", "unite": "mm", "min": 1.0, "max": 3.0, "defaut": 1.0, "pas": 0.1}
+      }
+    },
+    "SR.5115": {
+      "zone": "1.2",
+      "type": "Crible fermeur 1,7 mm",
+      "parametres": {
+        "a": {"nom": "Maille", "unite": "mm", "min": 1.5, "max": 2.0, "defaut": 1.7, "pas": 0.1},
+        "I": {"nom": "Imperfection", "unite": "-", "min": 0.4, "max": 0.9, "defaut": 0.6}
+      }
+    },
+    "DY.03": {
+      "zone": "1.3",
+      "type": "Séchoir rotatif (+ brûleur BU.04)",
+      "parametres": {
+        "m_out": {"nom": "Humidité sortie", "unite": "%", "min": 0.3, "max": 1.0, "defaut": 0.5, "pas": 0.1}
+      }
+    },
+    "SN.21": {
+      "zone": "1.3",
+      "type": "Crible de classification 4/2/1,5 mm",
+      "parametres": {
+        "a1": {"nom": "Maille 1", "unite": "mm", "min": 3, "max": 5, "defaut": 4, "pas": 0.5},
+        "a2": {"nom": "Maille 2", "unite": "mm", "min": 1.5, "max": 2.5, "defaut": 2, "pas": 0.1},
+        "a3": {"nom": "Maille 3", "unite": "mm", "min": 1.0, "max": 1.7, "defaut": 1.5, "pas": 0.1}
+      }
+    },
+    "ML.26": {
+      "zone": "1.3",
+      "type": "Broyeur à cylindres dentés (grits, boucle fermée)",
+      "parametres": {
+        "g":        {"nom": "Gap", "unite": "mm", "min": 3, "max": 5, "defaut": 4, "pas": 0.5},
+        "comp_lam": {"nom": "Compression [H]", "unite": "-", "min": 3.1, "max": 5.6, "defaut": 4.11},
+        "S_att":    {"nom": "Attrition/passe [H]", "unite": "-", "min": 0.15, "max": 0.25, "defaut": 0.206}
+      }
+    },
+    "SP.36": {
+      "zone": "1.3",
+      "type": "Séparateur à air (classification UltraFin)",
+      "parametres": {
+        "coupe":  {"nom": "Coupe", "unite": "um", "min": 45, "max": 150, "defaut": 100, "pas": 5},
+        "eta_cl": {"nom": "Rendement [H]", "unite": "-", "min": 0.6, "max": 0.85, "defaut": 0.75}
+      }
+    },
+    "CL.38": {
+      "zone": "1.3",
+      "type": "Cyclones (produit fin UltraFin)",
+      "parametres": {
+        "v_in": {"nom": "Vitesse entrée", "unite": "m/s", "min": 10, "max": 20, "defaut": 15, "pas": 1}
+      }
+    }
+  },
+
+  "calibration": {
+    "Wi":       {"nom": "Indice de Bond", "unite": "kWh/t", "defaut": 12.54, "statut": "projet", "utilise_par": "M2"},
+    "eta_m":    {"nom": "Rendement mécanique", "unite": "-", "defaut": 0.75, "statut": "projet", "utilise_par": "M2"},
+    "A_j":      {"nom": "Paramètre JKMRC A", "unite": "-", "defaut": 60, "statut": "[H]", "utilise_par": "M5"},
+    "b_j":      {"nom": "Paramètre JKMRC b", "unite": "-", "defaut": 0.8, "statut": "[H]", "utilise_par": "M5"},
+    "k_d":      {"nom": "Facteur d50c crible", "unite": "-", "defaut": 1.0, "statut": "[H]", "utilise_par": "M3"},
+    "I_sec":    {"nom": "Imperfection crible (sec)", "unite": "-", "defaut": 0.6, "statut": "[H]", "utilise_par": "M3"},
+    "f0":       {"nom": "Correction surface crible", "unite": "-", "defaut": 0.347, "statut": "[H] calé SR.5007", "utilise_par": "M4"},
+    "f_p":      {"nom": "Facteur de pointe", "unite": "-", "defaut": 1.2, "statut": "[H]", "utilise_par": "M4"},
+    "L_v":      {"nom": "Chaleur latente eau", "unite": "kJ/kg", "defaut": 2257, "statut": "physique", "utilise_par": "M6"},
+    "c_e":      {"nom": "Capacité therm. eau", "unite": "kJ/kg.K", "defaut": 4.18, "statut": "physique", "utilise_par": "M6"},
+    "c_s":      {"nom": "Capacité therm. solide", "unite": "kJ/kg.K", "defaut": 0.9, "statut": "[H]", "utilise_par": "M6"},
+    "dT_e":     {"nom": "Échauffement eau", "unite": "K", "defaut": 85, "statut": "[H]", "utilise_par": "M6"},
+    "dT_s":     {"nom": "Échauffement solide", "unite": "K", "defaut": 95, "statut": "[H]", "utilise_par": "M6"},
+    "eta_th":   {"nom": "Rendement thermique séchoir", "unite": "-", "defaut": 0.6, "statut": "[H]", "utilise_par": "M6"},
+    "I_ev":     {"nom": "Intensité d'évaporation", "unite": "kg/m3.h", "defaut": 45, "statut": "[H]", "utilise_par": "M6"},
+    "comp_lam": {"nom": "Compression cylindres", "unite": "-", "defaut": 4.11, "statut": "[H]", "utilise_par": "M7"},
+    "S_att":    {"nom": "Attrition par passe", "unite": "-", "defaut": 0.206, "statut": "[H]", "utilise_par": "M7"},
+    "lambda":   {"nom": "Chargement air classif.", "unite": "kg/m3", "defaut": 0.5, "statut": "[H]", "utilise_par": "M8"},
+    "N_e":      {"nom": "Tours effectifs cyclone", "unite": "-", "defaut": 5, "statut": "[H]", "utilise_par": "M8"},
+    "Phi_100":  {"nom": "Contenu naturel <100 µm du 0-1,5", "unite": "%", "defaut": null, "statut": "À MESURER (tamis/laser)", "utilise_par": "M8"}
+  },
+
+  "produit_entree": {
+    "commentaire": "Entrée-pivot : granulo mesurée en sortie de station primaire. AUCUNE MESURE À CE JOUR — courbe à renseigner (% passant cumulé sur la série de référence).",
+    "courbe_passant_cumule": null,
+    "proprietes": {
+      "humidite_pct": {"defaut": 8, "statut": "à mesurer"},
+      "densite_seche_tm3": {"defaut": 1.5, "statut": "à confirmer"},
+      "densite_humide_tm3": {"defaut": 1.62, "statut": "à confirmer"},
+      "Wi_kWht": {"defaut": 12.54, "statut": "projet"},
+      "UCS_MPa": {"defaut": null, "statut": "géologie DP9442 (3 types de roche)"},
+      "friabilite": {"defaut": null, "statut": "géologie"}
+    }
+  },
+
+  "produits_sortie": {
+    "KFS":            {"coupure_min_mm": 20, "coupure_max_mm": 35, "etat": "humide", "tol_max_hors_coupure_pct": 15},
+    "AgLime":         {"coupure_min_mm": 0, "coupure_max_mm": 1.7, "etat": "humide", "tol_max_hors_coupure_pct": null},
+    "FeedLime grits": {"coupure_min_mm": 2, "coupure_max_mm": 4, "etat": "sec", "tol_max_hors_coupure_pct": null},
+    "FeedLime fines": {"coupure_min_mm": 0, "coupure_max_mm": 1.5, "etat": "sec", "tol_max_hors_coupure_pct": null},
+    "UltraFin":       {"coupure_min_mm": 0, "coupure_max_mm": 0.1, "etat": "sec", "tol_max_hors_coupure_pct": null}
+  },
+
+  "objectifs": {
+    "KFS 20/35":           {"cible_t_an": 85000, "nature": "FERME"},
+    "FeedLime grits 2-4":  {"cible_t_an": 40000, "nature": "FERME"},
+    "AgLime 0/1,7":        {"cible_t_an": 135000, "nature": "plafond", "plafond_marche_t_an": 135000},
+    "FeedLime fines 0/1,5":{"cible_t_an": 56000, "nature": "flexible"},
+    "UltraFin <100um":     {"cible_t_an": 4000, "nature": "plafonné (contenu naturel)"}
+  },
+
+  "scenario_defaut": {
+    "base_de_temps": "annuel",
+    "fraction_saison_seche": 0.75,
+    "fraction_saison_pluie": 0.25,
+    "zones": {
+      "1.1": {"heures_dispo": null, "disponibilite_pct": 80},
+      "1.2": {"heures_dispo": null, "disponibilite_pct": 80},
+      "1.3": {"heures_dispo": null, "disponibilite_pct": 80}
+    },
+    "mode_zone_1_1": "1A",
+    "mode_zone_1_2": "2A"
+  }
+}
