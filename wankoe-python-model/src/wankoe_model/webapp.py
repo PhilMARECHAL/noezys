@@ -27,6 +27,8 @@ import sys
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
+from .design import run_design_check, run_design_check_all_measurements
+from .feed import apply_measurement, list_measurements
 from .fit import fit_parameters
 from .optimize import run_sweep
 from .planning import run_required_hours
@@ -46,7 +48,16 @@ def handle_api(endpoint: str, payload: dict | None) -> dict:
     if endpoint == "parameters":
         with open(DEFAULT_PARAMETERS_PATH, encoding="utf-8") as f:
             return json.load(f)
+    if endpoint == "measurements":
+        return {"measurements": list(list_measurements())}
     params = load_parameters(overrides=payload.get("overrides") or {})
+    # optional: run against a stored belt-cut measurement instead of the default curve
+    if payload.get("measurement"):
+        params = apply_measurement(params, payload["measurement"])
+    if endpoint == "design":
+        if payload.get("all_measurements"):
+            return run_design_check_all_measurements(params)
+        return run_design_check(params)
     if endpoint == "scenario":
         return run_scenario(params)
     if endpoint == "planning":
@@ -71,7 +82,7 @@ def handle_api(endpoint: str, payload: dict | None) -> dict:
         )
     raise ValueError(
         f"unknown endpoint '{endpoint}' "
-        "(known: parameters, scenario, planning, seasonal, sweep, fit)"
+        "(known: parameters, measurements, scenario, planning, seasonal, sweep, fit, design)"
     )
 
 

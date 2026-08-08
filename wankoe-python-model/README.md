@@ -5,6 +5,28 @@ line (zones 1.1 / 1.2 / 1.3). For one parameter set (a "scenario") it
 computes the synchronized "photo" of the whole line: flows, size
 distributions, mass and water balances, powers, gaps to production targets.
 
+**Ultimate goal (client, 2026-08-08): the line is a NEW process under
+construction — the model exists to CONFIRM the line design and the machine
+selection.** The only plant data this project will ever receive are
+belt-cut PSD analyses at the primary (jaw) crusher outlet; no downstream
+measurement will exist. Accordingly: measurements are ingested through
+`wankoe_model.feed` (`data/feed_measurements/`, one JSON per campaign, same
+format as the first belt cut), and the design verdict comes from
+`wankoe_model.design`:
+
+```python
+from wankoe_model import load_parameters, run_design_check_all_measurements
+report = run_design_check_all_measurements(load_parameters())
+print(report["design_holds"])      # machine-by-machine computed vs installed
+print(report["worst_case"])        # governing measurement per check
+```
+
+Machine installed limits (motor powers, screen areas, dryer burner/drum,
+capacities) are data keys — fill them from the vendor/design documentation
+and every check flips from "NO LIMIT" to a margin verdict. The web UI has
+a dedicated "Vérifier le design" button. First real finding: the measured
+feed F80 (181 mm) exceeds CR.5009's 150 mm nip limit.
+
 Specification: `docs/WANKOE-cahier-des-charges-modele-v2026-08-08.docx`
 (9 chapters, models M1-M8, machine sheets, flowsheet, reference case —
 in French, the project's working language for specifications).

@@ -118,6 +118,19 @@ reference curve is back-fitted to these figures (documented in
 mathematics, while real validation now rests on the measured belt-cut and
 future plant measurements.
 
+## Project purpose & measurement policy (client framing 2026-08-08)
+
+The line is a **new process under construction**: the model's ultimate goal
+is to **confirm the line design and the machine selection**. The only
+recurring plant data will be belt-cut PSD analyses at the primary crusher
+outlet (format of `data/feed_measurements/2026-08-08-belt-cut.json`); no
+downstream measurement will ever exist — downstream behavior rests on the
+validated engineering models (M1–M8) and their documented hypotheses.
+Implementation: `feed.py` (measurement ingestion, H-FEED-1/2 completion),
+`design.py` (computed duties vs installed limits, worst case across all
+stored measurements), installed-limit data keys per machine. Tests:
+`test_design.py`. Status: ✅ (limits to fill from vendor data 📏)
+
 ## Decision log (dated arbitrations — the project's memory)
 
 | Date | Decision |
@@ -130,6 +143,7 @@ future plant measurements.
 | 2026-08-08 | Operating hours follow production targets, never the reverse |
 | 2026-08-08 | M3 option A: narrative wins, s = ln9/ln(1/(1−I)) |
 | 2026-08-08 | Imperfection defaults remapped I_new = 1−I_old (expert review) |
+| 2026-08-08 | Purpose = design confirmation; only feed belt-cut measurements will ever exist |
 
 ## How this project absorbs future changes
 

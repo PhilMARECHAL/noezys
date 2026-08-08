@@ -102,6 +102,7 @@
     <div class="btns">
       <button id="run">▶ Calculer la photo</button>
       <button id="plan" class="alt">🕐 Caler les heures</button>
+      <button id="design" class="alt" style="background:#12314a">🏭 Vérifier le design</button>
       <button id="season" class="ghost">☀🌧 Bilan saisonnier</button>
       <button id="reset" class="ghost">↺ Défauts</button>
     </div>
@@ -331,8 +332,38 @@ function drawChart(products) {
   $("legend").innerHTML = legend;
 }
 
+// ---------- rendu de la vérification du design ----------
+function renderDesign(d) {
+  let h = "<h2>Vérification du design — calculé vs installé</h2>";
+  h += `<div class="kpis"><div class="kpi"><b class="${d.design_holds ? "ok" : "ko"}">${d.design_holds ? "✔ tient" : "✘ dépassé"}</b><span>verdict design</span></div>
+    <div class="kpi"><b>${d.exceeded.length}</b><span>dépassements</span></div>
+    <div class="kpi"><b>${d.limits_to_provide.length}</b><span>limites à renseigner</span></div></div>`;
+  h += "<table><tr><th>Machine</th><th>Contrôle</th><th>Calculé</th><th>Installé</th><th>Marge</th><th>Verdict</th></tr>";
+  for (const r of d.checks) {
+    const v = r.verdict === "OK" ? "<span class='ok'>✔ OK</span>"
+      : r.verdict === "EXCEEDED" ? "<span class='ko'>✘ DÉPASSÉ</span>"
+      : "<span class='na'>à renseigner</span>";
+    h += `<tr><td>${esc(r.machine)}</td><td>${esc(r.check)}</td><td>${fmt(r.computed, 1)} ${esc(r.unit)}</td>
+      <td>${r.installed_limit === null ? "—" : fmt(r.installed_limit, 1) + " " + esc(r.unit)}</td>
+      <td>${r.margin_pct === null ? "—" : fmt(r.margin_pct, 1) + " %"}</td><td>${v}</td></tr>`;
+  }
+  h += "</table>";
+  if (d.planning && d.planning.zones) {
+    h += "<table><tr><th>Zone</th><th>Heures requises</th><th>Plafond</th><th>Utilisation</th></tr>";
+    for (const [z, v] of Object.entries(d.planning.zones))
+      h += `<tr><td>${z}</td><td>${fmt(v.required_hours_clock, 0)} h</td><td>${fmt(v.ceiling_hours_clock, 0)} h</td><td>${fmt(v.utilization_pct, 1)} %</td></tr>`;
+    h += "</table>";
+    h += `<div>Objectifs atteignables dans les plafonds : ${d.planning.targets_feasible_within_ceilings ? "<span class='ok'>✔ oui</span>" : "<span class='ko'>✘ non</span>"}</div>`;
+  }
+  if (d.limits_to_provide.length)
+    h += `<div class="alert">📋 Limites constructeur à renseigner dans les données : ${esc(d.limits_to_provide.join(", "))}</div>`;
+  for (const a of d.alerts) h += `<div class="alert">⚠ ${esc(a)}</div>`;
+  $("out").innerHTML = h;
+}
+
 // ---------- boutons ----------
 $("run").onclick = () => call("scenario").then(renderScenario).catch(showError);
+$("design").onclick = () => call("design").then(renderDesign).catch(showError);
 $("plan").onclick = () => call("planning").then(renderPlanning).catch(showError);
 $("season").onclick = () => call("seasonal").then(renderSeasonal).catch(showError);
 $("reset").onclick = () => loadDefaults();

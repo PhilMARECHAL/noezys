@@ -6,6 +6,8 @@ parameter set. Data lives in data/default_parameters.json, separated from
 the code.
 """
 
+from wankoe_model.design import run_design_check, run_design_check_all_measurements
+from wankoe_model.feed import apply_measurement, list_measurements
 from wankoe_model.fit import fit_parameters
 from wankoe_model.grid import PSD, engine_grid
 from wankoe_model.optimize import run_sweep
@@ -27,6 +29,10 @@ __all__ = [
     "run_required_hours",
     "run_sweep",
     "fit_parameters",
+    "run_design_check",
+    "run_design_check_all_measurements",
+    "apply_measurement",
+    "list_measurements",
     "DEFAULT_PARAMETERS_PATH",
     "REFERENCE_FEED_CURVE_PATH",
 ]
