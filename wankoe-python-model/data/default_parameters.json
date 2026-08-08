@@ -205,7 +205,9 @@
   },
 
   "output_products": {
-    "KFS":            {"cut_min_mm": 20, "cut_max_mm": 35, "state": "wet", "max_out_of_cut_tol_pct": 15},
+    "KFS":            {"cut_min_mm": 20, "cut_max_mm": 35, "state": "wet", "max_out_of_cut_tol_pct": null,
+                       "envelope": {"max_below_cut_pct": 30, "min_in_cut_pct": 55, "max_above_cut_pct": 15,
+                                    "_note": "KFS 30/55/15 envelope - three %-passing control thresholds (interpretation validated 2026-08-08). The spec's '15%' is the above-cut limit: a strict 15% total out-of-cut tolerance would always fail (Karra screening leaves ~43% out of 20/35), so max_out_of_cut_tol_pct is null (superseded by the envelope)."}},
     "AgLime":         {"cut_min_mm": 0, "cut_max_mm": 1.7, "state": "wet", "max_out_of_cut_tol_pct": null},
     "FeedLime grits": {"cut_min_mm": 2, "cut_max_mm": 4, "state": "dry", "max_out_of_cut_tol_pct": null},
     "FeedLime fines": {"cut_min_mm": 0, "cut_max_mm": 1.5, "state": "dry", "max_out_of_cut_tol_pct": null},

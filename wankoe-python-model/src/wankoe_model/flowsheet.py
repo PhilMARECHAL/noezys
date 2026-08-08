@@ -151,6 +151,13 @@ def zone_1_1(feed: dict, params: dict, mode: str, alerts: list) -> dict:
         alerts.append(
             f"CR.5011: bottleneck — load {recycle['q']:.1f} t/h > capacity {cap11} t/h"
         )
+    if cr5011_info and cap11:
+        # the spec's reference power (~37 kW) evaluates the impactor AT its
+        # nameplate capacity, not at the loop equilibrium — report both
+        cr5011_info["P_net_at_capacity_kW"] = cr5011_info["W_kWh_t"] * cap11
+        cr5011_info["P_installed_at_capacity_kW"] = (
+            cr5011_info["P_net_at_capacity_kW"] / calib["eta_m"]
+        )
     if recycle and recycle["q"] > engine["max_circulating_ratio"] * feed["q"]:
         alerts.append("Zone 1.1: excessive circulating load (max_circulating_ratio exceeded)")
 

@@ -30,13 +30,15 @@ wankoe-python-model/
 │   └── reference_feed_curve.json    # CALIBRATED feed curve (hypothesis -> replace by measurement)
 ├── docs/                            # specification + input-data workbook (originals)
 ├── scripts/
-│   └── calibrate_reference_feed_curve.py  # pivot-curve fit on the chapter 9 case
+│   ├── calibrate_reference_feed_curve.py  # pivot-curve fit on the chapter 9 case
+│   └── run_sweep.py                 # automatic scenario sweep / optimum search (CLI)
 ├── src/wankoe_model/
 │   ├── grid.py                      # mesh grid, PSD curves (cumulative % passing)
 │   ├── models.py                    # common models M1-M8 (pure functions)
 │   ├── flowsheet.py                 # zones 1.1/1.2/1.3, closed circuits, machine codes
-│   └── scenario.py                  # parameter loading + run_scenario (pure function)
-└── tests/                           # 42 tests: M1-M8 units, reference case, parameterization
+│   ├── scenario.py                  # parameter loading + run_scenario (pure function)
+│   └── optimize.py                  # parameter sweeps, scoring, ranking (spec §7.3/§8)
+└── tests/                           # 48 tests: M1-M8 units, reference case, parameterization, sweeps
 ```
 
 ## Usage
@@ -67,9 +69,23 @@ seasonal = run_seasonal_balance(load_parameters(overrides={
 }))
 ```
 
-`run_scenario` is a **pure function** (parameters -> results, no state): it
-is directly usable for massive parameter sweeps and optimum searches (next
-project phase).
+`run_scenario` is a **pure function** (parameters -> results, no state).
+
+## Automatic sweeps / optimum search
+
+The engine never imposes an operating choice; `wankoe_model.optimize`
+automates what a user does by hand — define many scenarios, run the photos,
+score and rank them against the specification's arbitration rule (meet FIRM
+targets, minimize unsellable surplus):
+
+```bash
+python scripts/run_sweep.py data/sweep_example.json -o data/sweep_results.json
+```
+
+The sweep config (JSON, no code) declares the variables (any parameter
+path), the method (`grid` or seeded `random`), and the objective weights.
+Results are ranked best-first with per-product tonnages, firm shortfall,
+surplus and total installed power.
 
 ## Tests
 
@@ -85,7 +101,7 @@ pytest
 | 9.1 KFS | 59.3 t/h (23.7 %) | 59.1 t/h (23.6 %) | OK |
 | 9.1 0/20 undersize | 190.7 t/h | 190.9 t/h | OK |
 | 9.1 CR.5009 power | ~116 kW | 106 kW | -9 % (documented) |
-| 9.1 CR.5011 power | ~37 kW | 18 kW | structural gap, reported |
+| 9.1 CR.5011 power | ~37 kW | 18 kW at loop equilibrium; 45 kW net at the 125 t/h nameplate | see note below |
 | 9.2 AgLime | 55.0 t/h | 55.0 t/h | OK |
 | 9.3 Vapor | ~2.3 t/h | 2.26 t/h | OK |
 | 9.3 Grits | 10.1 t/h | 10.1 t/h | OK (H-M7 fitted) |
@@ -102,10 +118,19 @@ pytest
   distribution -> hypothesis H-M7-2. Fitted on case 9.3, to be confirmed
   by plant trials.
 - **Phi(<100 um)**: not measured -> UltraFin flagged "NOT CERTIFIED".
-- **CR.5011**: the reference power (37 kW) is not reproduced (18 kW) — the
-  computed circulating load (~36 t/h) is lower than the one the
-  specification implies (~94-125 t/h). Reported for arbitration.
-- **KFS "30/55/15 envelope"** (spec §6): meaning not defined — only the
-  global 15 % out-of-cut tolerance is wired. Question pending.
+- **CR.5011**: the spec's ~37 kW matches the impactor evaluated AT its
+  125 t/h nameplate capacity (Bond W x 125 = 37 kW with the spec's assumed
+  F80 = 45 mm), not at the loop equilibrium the model computes (~38 t/h ->
+  18 kW installed). A parameter study (screen imperfection, CR.5009
+  uniformity) confirmed no plausible setting raises the equilibrium load to
+  ~125 t/h. The model now reports BOTH figures (`P_installed_kW` at
+  equilibrium and `P_net_at_capacity_kW`/`P_installed_at_capacity_kW` at
+  nameplate); the residual gap (45 vs 37 kW net) comes from the loop's
+  coarser F80 (~56 mm vs the spec's assumed 45 mm).
+- **KFS "30/55/15" envelope** (spec §6): interpreted (validated 2026-08-08)
+  as three %-passing control thresholds — max 30 % below 20 mm, min 55 %
+  within 20-35, max 15 % above 35 mm. Wired as `output_products.KFS.envelope`
+  (adjustable). The default scenario yields 27.6 / 56.9 / 15.5 %: the first
+  two thresholds pass, the above-cut limit is marginally exceeded.
 
 © Noezys — All rights reserved.

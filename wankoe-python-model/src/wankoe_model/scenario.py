@@ -125,13 +125,39 @@ def _wet_tonnage(stream) -> float:
 def _product_compliance(stream, spec: dict) -> dict | None:
     if stream is None:
         return None
-    out_of_cut = 1.0 - stream["psd"].fraction_between(spec["cut_min_mm"], spec["cut_max_mm"])
+    below = stream["psd"].passing_at(spec["cut_min_mm"]) if spec["cut_min_mm"] > 0 else 0.0
+    in_cut = stream["psd"].fraction_between(spec["cut_min_mm"], spec["cut_max_mm"])
+    above = 1.0 - stream["psd"].passing_at(spec["cut_max_mm"])
+    out_of_cut = 1.0 - in_cut
     tol = spec.get("max_out_of_cut_tol_pct")
-    return {
+    checks = [] if tol is None else [100.0 * out_of_cut <= tol]
+    result = {
+        "below_cut_pct": round(100.0 * below, 2),
+        "in_cut_pct": round(100.0 * in_cut, 2),
+        "above_cut_pct": round(100.0 * above, 2),
         "out_of_cut_pct": round(100.0 * out_of_cut, 2),
         "tolerance_pct": tol,
-        "compliant": None if tol is None else bool(100.0 * out_of_cut <= tol),
     }
+    # optional 3-threshold envelope (e.g. KFS "30/55/15", interpretation
+    # validated 2026-08-08: max below cut / min in cut / max above cut)
+    envelope = spec.get("envelope")
+    if envelope:
+        env_result = {}
+        max_below = envelope.get("max_below_cut_pct")
+        if max_below is not None:
+            env_result["below_ok"] = bool(100.0 * below <= max_below)
+            checks.append(env_result["below_ok"])
+        min_in = envelope.get("min_in_cut_pct")
+        if min_in is not None:
+            env_result["in_cut_ok"] = bool(100.0 * in_cut >= min_in)
+            checks.append(env_result["in_cut_ok"])
+        max_above = envelope.get("max_above_cut_pct")
+        if max_above is not None:
+            env_result["above_ok"] = bool(100.0 * above <= max_above)
+            checks.append(env_result["above_ok"])
+        result["envelope"] = env_result
+    result["compliant"] = None if not checks else all(checks)
+    return result
 
 
 def run_scenario(params: dict) -> dict:

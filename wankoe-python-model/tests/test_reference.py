@@ -53,4 +53,9 @@ def test_ultrafin_not_certified_without_measurement(results):
 
 def test_product_compliance_reported(results):
     kfs = results["products"]["KFS"]["compliance"]
-    assert kfs is not None and kfs["tolerance_pct"] == 15
+    assert kfs is not None
+    # KFS 30/55/15 envelope (three %-passing thresholds) is wired and evaluated
+    assert set(kfs["envelope"]) == {"below_ok", "in_cut_ok", "above_ok"}
+    assert kfs["below_cut_pct"] + kfs["in_cut_pct"] + kfs["above_cut_pct"] == pytest.approx(
+        100.0, abs=0.1
+    )
