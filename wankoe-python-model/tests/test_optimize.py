@@ -82,6 +82,12 @@ def test_grid_overflow_rejected():
 
 
 def test_hourly_proxy_flagged_without_hours():
+    no_hours = {"available_hours": None, "availability_pct": 80}
+    params = load_parameters(
+        overrides={
+            "default_scenario": {"zones": {"1.1": no_hours, "1.2": no_hours, "1.3": no_hours}}
+        }
+    )
     config = {
         "method": "grid",
         "seasonal": False,
@@ -89,7 +95,7 @@ def test_hourly_proxy_flagged_without_hours():
             {"path": ["default_scenario", "flow_rates_tph", "zone_1_1_feed"], "values": [250]},
         ],
     }
-    report = run_sweep(load_parameters(), config)
+    report = run_sweep(params, config)
     assert "PER HOUR PROXY" in report["tonnage_basis"]
 
 

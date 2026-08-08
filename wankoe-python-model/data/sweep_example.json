@@ -1,23 +1,62 @@
 {
-  "_comment": "Example sweep configuration for scripts/run_sweep.py. Explores screen apertures and feed rates against the yearly targets. Adjust freely - no code change needed.",
+  "_comment": "Example sweep configuration for scripts/run_sweep.py. The default parameters already carry the real operating hours (2026-08-08). Adjust freely - no code change needed.",
   "method": "grid",
   "max_scenarios": 2000,
   "seasonal": true,
   "top_n": 10,
-  "base_overrides": {
-    "default_scenario": {
-      "zones": {
-        "1.1": {"available_hours": 4000, "availability_pct": 80},
-        "1.2": {"available_hours": 4000, "availability_pct": 80},
-        "1.3": {"available_hours": 5000, "availability_pct": 80}
-      }
-    }
-  },
   "variables": [
-    {"path": ["machines", "SR.5007", "parameters", "a1", "default"], "min": 32, "max": 38, "step": 2, "label": "SR.5007 top aperture (mm)"},
-    {"path": ["machines", "SR.5007", "parameters", "a2", "default"], "min": 18, "max": 22, "step": 2, "label": "SR.5007 bottom aperture (mm)"},
-    {"path": ["default_scenario", "flow_rates_tph", "zone_1_1_feed"], "values": [225, 250, 275], "label": "Zone 1.1 feed (t/h)"},
-    {"path": ["default_scenario", "flow_rates_tph", "zone_1_2_reclaim"], "values": [90, 100, 110], "label": "Zone 1.2 reclaim (t/h)"}
+    {
+      "path": [
+        "machines",
+        "SR.5007",
+        "parameters",
+        "a1",
+        "default"
+      ],
+      "min": 32,
+      "max": 38,
+      "step": 2,
+      "label": "SR.5007 top aperture (mm)"
+    },
+    {
+      "path": [
+        "machines",
+        "SR.5007",
+        "parameters",
+        "a2",
+        "default"
+      ],
+      "min": 18,
+      "max": 22,
+      "step": 2,
+      "label": "SR.5007 bottom aperture (mm)"
+    },
+    {
+      "path": [
+        "default_scenario",
+        "flow_rates_tph",
+        "zone_1_1_feed"
+      ],
+      "values": [
+        225,
+        250,
+        275
+      ],
+      "label": "Zone 1.1 feed (t/h)"
+    },
+    {
+      "path": [
+        "default_scenario",
+        "flow_rates_tph",
+        "zone_1_2_reclaim"
+      ],
+      "values": [
+        90,
+        100,
+        110
+      ],
+      "label": "Zone 1.2 reclaim (t/h)"
+    }
   ],
   "objective": {
     "firm_shortfall_weight": 100.0,
