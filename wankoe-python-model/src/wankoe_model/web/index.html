@@ -334,8 +334,14 @@ function drawChart(products) {
 
 // ---------- rendu de la vérification du design ----------
 function renderDesign(d) {
-  let h = "<h2>Vérification du design — calculé vs installé</h2>";
-  h += `<div class="kpis"><div class="kpi"><b class="${d.design_holds ? "ok" : "ko"}">${d.design_holds ? "✔ tient" : "✘ dépassé"}</b><span>verdict design</span></div>
+  const v = d.verdicts || {};
+  const badge = (val, yes, no) => val === null || val === undefined
+    ? "<b class='na'>?</b>" : (val ? `<b class='ok'>${yes}</b>` : `<b class='ko'>${no}</b>`);
+  let h = "<h2>Vérification du design — trois verdicts distincts</h2>";
+  h += `<div class="kpis">
+    <div class="kpi">${badge(v.machines_hold, "✔ tiennent", "✘ dépassées")}<span>machines (calculé vs installé)</span></div>
+    <div class="kpi">${badge(v.quality_holds, "✔ conformes", "✘ hors spec")}<span>qualité produits</span></div>
+    <div class="kpi">${badge(v.targets_reachable, "✔ atteignables", "✘ hors plafonds")}<span>objectifs (heures)</span></div>
     <div class="kpi"><b>${d.exceeded.length}</b><span>dépassements</span></div>
     <div class="kpi"><b>${d.limits_to_provide.length}</b><span>limites à renseigner</span></div></div>`;
   h += "<table><tr><th>Machine</th><th>Contrôle</th><th>Calculé</th><th>Installé</th><th>Marge</th><th>Verdict</th></tr>";

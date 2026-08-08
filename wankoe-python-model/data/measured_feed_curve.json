@@ -1,11 +1,7 @@
 {
-  "_status": "MEASURED feed curve (belt cut 2026-08-08) completed with hypotheses H-FEED-1 (fine tail < 19 mm) and H-FEED-2 (top size)",
-  "source_measurement": "data/feed_measurement_2026-08-08.json",
+  "_status": "MEASURED feed curve (2026-08-08-belt-cut) completed with hypotheses H-FEED-1 (fine tail) and H-FEED-2 (top size)",
+  "source_measurement": "data/feed_measurements/2026-08-08-belt-cut.json",
   "moisture_pct": 7,
-  "checks": {
-    "d50_mm_measured": 32,
-    "d80_mm_measured": 180
-  },
   "cumulative_passing_curve": {
     "0.063": 0.067,
     "0.1": 0.123,

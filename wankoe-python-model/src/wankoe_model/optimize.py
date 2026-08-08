@@ -61,6 +61,7 @@ def _kpis(params: dict, results: dict, per_product: dict | None) -> dict:
     targets = params["production_targets"]
     firm_shortfall = 0.0
     surplus = 0.0
+    fines_surplus = 0.0
     tonnages = {}
     for target in targets.values():
         product = target["product"]
@@ -75,7 +76,11 @@ def _kpis(params: dict, results: dict, per_product: dict | None) -> dict:
         if cap is None and target["nature"] == "flexible":
             cap = target["target_t_per_year"]  # flexible: the target IS the market estimate
         if cap is not None:
-            surplus += max(0.0, tonnage - cap)
+            over = max(0.0, tonnage - cap)
+            surplus += over
+            # spec §7.3/§8: limestone fines are the PRIORITY surplus to avoid
+            if product == "FeedLime fines":
+                fines_surplus += over
     total_power = sum(
         m.get("P_installed_kW", 0.0)
         for m in results["machines"].values()
@@ -89,6 +94,7 @@ def _kpis(params: dict, results: dict, per_product: dict | None) -> dict:
         "tonnages": tonnages,
         "firm_shortfall_t": round(firm_shortfall, 1),
         "unsellable_surplus_t": round(surplus, 1),
+        "fines_surplus_t": round(fines_surplus, 1),
         "stockpile_deficit_t": round(stockpile_deficit, 1),
         "total_installed_power_kW": round(total_power, 1),
         "n_alerts": len(results["alerts"]),
@@ -96,9 +102,13 @@ def _kpis(params: dict, results: dict, per_product: dict | None) -> dict:
 
 
 def _score(kpis: dict, objective: dict) -> float:
+    # fines_surplus_weight > 1 encodes the spec's arbitration rule (§7.3/§8):
+    # the limestone-fines surplus is the priority one to minimize
+    fines_extra = max(0.0, objective.get("fines_surplus_weight", 2.0) - 1.0)
     return (
         objective.get("firm_shortfall_weight", 100.0) * kpis["firm_shortfall_t"]
         + objective.get("surplus_weight", 1.0) * kpis["unsellable_surplus_t"]
+        + objective.get("surplus_weight", 1.0) * fines_extra * kpis["fines_surplus_t"]
         + objective.get("stockpile_deficit_weight", 100.0) * kpis["stockpile_deficit_t"]
         + objective.get("power_weight", 0.0) * kpis["total_installed_power_kW"]
         + objective.get("alert_weight", 0.0) * kpis["n_alerts"]

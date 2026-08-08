@@ -22,7 +22,7 @@ Statuses: ✅ conforming · 🧪 conforming with fitted [H] hypothesis ·
 | Golden rule 3: data separated from code | `data/default_parameters.json`; 2 dedicated audits (2026-08-08) | `test_parameters` (17) | ✅ |
 | Acceptance: automatic mass + water closure, strict tolerance | per-zone dry-solids + water balances every run; inter-zone stockpile closure in the period balance | `test_reference`, `test_review_fixes` | ✅ |
 | Acceptance: reproduce reference cases (ch. 9) | see chapter 9 below | `test_reference` (6) | ✅ |
-| Acceptance: automated tests shipped with the code | 85 tests, all green | — | ✅ |
+| Acceptance: automated tests shipped with the code | 108 tests, all green | — | ✅ |
 
 ## Chapter 1 — conventions
 
@@ -111,12 +111,17 @@ Status: ✅ (`optimize.py`, `test_optimize`)
 | 9.2 AgLime | 55.0 t/h | 55.1 t/h | ✅ |
 | 9.3 vapor / burner | ~2.3 t/h / ~3.8 MW | 2.26 / 3.83 | ✅ |
 | 9.3 grits / UltraFin | 10.1 / ~1.3 t/h | 10.1 / 1.31 | ✅ exact after M3 remap |
+| 9.3 FeedLime fines | 19.9 t/h | 16.2 t/h | ⚠ the spec's own 9.3 table cannot close mass (10.1+19.9+1.3 = 31.3 t/h out of 27.6 t/h dry feed); the model enforces closure — QUESTION PENDING to the client on the 19.9 figure |
+| 9.4 annual balance | ~328.7 kt in, 273 kt 0/20, 8.7 kt vapor | not reproduced | ⚠ 9.4 was authored with the hypothetical rock and pre-arbitration settings; the planning module gives the live equivalent (58 kt 0/20 surplus at current settings) — flagged, not silently claimed |
 
-Honest caveat: the feed curve behind ch. 9 was never measured, so the
-reference curve is back-fitted to these figures (documented in
-`reference_feed_curve.json`) — the chapter validates the model's
-mathematics, while real validation now rests on the measured belt-cut and
-future plant measurements.
+Honest caveats: (1) the feed curve behind ch. 9 was never measured, so the
+reference curve is back-fitted to these figures and the ML.26 coefficients
+were then fitted on that curve — the validation is doubly circular by
+construction and validates the model's MATHEMATICS, not the plant; (2) the
+ML.26 fit is under-determined (4 free coefficients for 2 observations):
+the fitted values are one plausible solution, to be replaced by vendor
+data (the `product_curve_table` slot). Real grounding rests on the
+measured belt cuts.
 
 ## Project purpose & measurement policy (client framing 2026-08-08)
 
@@ -131,19 +136,27 @@ Implementation: `feed.py` (measurement ingestion, H-FEED-1/2 completion),
 stored measurements), installed-limit data keys per machine. Tests:
 `test_design.py`. Status: ✅ (limits to fill from vendor data 📏)
 
-## Decision log (dated arbitrations — the project's memory)
+## Decision log (dated — the project's memory)
 
-| Date | Decision |
-|---|---|
-| 2026-08-08 | CR.5009: x80 = gap (explicit x80 overrides when set) |
-| 2026-08-08 | comp_lam unspecified → hypotheses H-M7-1/H-M7-2, parameterized, fitted |
-| 2026-08-08 | Reference feed curve calibrated on ch. 9 pending measurement |
-| 2026-08-08 | KFS 30/55/15 = three %-passing thresholds; the "15 %" is the above-cut limit |
-| 2026-08-08 | Measured belt-cut adopted as default feed (H-FEED-1/2) |
-| 2026-08-08 | Operating hours follow production targets, never the reverse |
-| 2026-08-08 | M3 option A: narrative wins, s = ln9/ln(1/(1−I)) |
-| 2026-08-08 | Imperfection defaults remapped I_new = 1−I_old (expert review) |
-| 2026-08-08 | Purpose = design confirmation; only feed belt-cut measurements will ever exist |
+The "decided by" column separates what PHILIPPE arbitrated from what was
+delegated or expert-proposed; expert proposals await his ratification.
+
+| Date | Decision | Decided by |
+|---|---|---|
+| 2026-08-08 | CR.5009: x80 = gap (explicit x80 overrides when set) | Philippe |
+| 2026-08-08 | comp_lam unspecified → hypotheses H-M7-1/H-M7-2, parameterized, fitted | delegated (his "je ne sais pas" authorized hypotheses) |
+| 2026-08-08 | Reference feed curve calibrated on ch. 9 pending measurement | Philippe |
+| 2026-08-08 | KFS 30/55/15 = three %-passing thresholds | Philippe (thresholds inferred from an example — values to confirm in use) |
+| 2026-08-08 | KFS 15 % out-of-cut tolerance nulled, superseded by the envelope | assistant — QUESTION PENDING |
+| 2026-08-08 | Measured belt-cut adopted as default feed (H-FEED-1/2) | Philippe (H-FEED completions delegated) |
+| 2026-08-08 | Operating hours follow production targets, never the reverse | Philippe |
+| 2026-08-08 | M3 option A: narrative wins, s = ln9/ln(1/(1−I)) | Philippe |
+| 2026-08-08 | Imperfection defaults remapped I_new = 1−I_old | expert review — RATIFICATION PENDING |
+| 2026-08-08 | Purpose = design confirmation; only feed belt-cut measurements will ever exist | Philippe |
+| 2026-08-08 | Web UI labels in French (operator usability) despite the English-deliverables rule | assistant — QUESTION PENDING |
+| 2026-08-08 | SP.36 cut default 100 µm kept although §3.0-M8 suggests ≈0.65·d97 ≈ 65 µm | spec-internal tension — QUESTION PENDING |
+| 2026-08-08 | CR.5011 ~37 kW read as a nameplate-capacity evaluation; both powers reported | assistant hypothesis — QUESTION PENDING |
+| 2026-08-08 | Spec 9.3 fines 19.9 t/h cannot close mass; model enforces closure | spec-internal inconsistency — QUESTION PENDING |
 
 ## How this project absorbs future changes
 

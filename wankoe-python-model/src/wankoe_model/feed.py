@@ -51,14 +51,33 @@ def load_measurement(name_or_path) -> dict:
 
 
 def _points(measurement: dict) -> list:
-    """Sorted (mesh_mm, % passing) points; accepts record or plain values."""
+    """Sorted (mesh_mm, % passing) points; accepts record or plain values.
+
+    A record without an "average" key averages its test columns; a
+    non-monotone curve is rejected with an actionable error (a cumulative
+    passing curve must increase with mesh size)."""
     points = []
     for mesh, value in measurement["cumulative_passing_pct"].items():
-        pct = value["average"] if isinstance(value, dict) else float(value)
+        if isinstance(value, dict):
+            if "average" in value:
+                pct = value["average"]
+            else:
+                tests = [v for k, v in value.items() if isinstance(v, (int, float))]
+                if not tests:
+                    raise ValueError(f"sieve {mesh}: no numeric test value in record {value}")
+                pct = sum(tests) / len(tests)
+        else:
+            pct = float(value)
         points.append((float(mesh), float(pct)))
     points.sort()
     if len(points) < 2:
         raise ValueError("a feed measurement needs at least 2 sieve points")
+    for (x0, p0), (x1, p1) in zip(points, points[1:]):
+        if p1 < p0 - 1e-9:
+            raise ValueError(
+                f"measurement not monotone: passing {p1}% at {x1} mm is below "
+                f"{p0}% at {x0} mm — check the sieve table"
+            )
     return points
 
 

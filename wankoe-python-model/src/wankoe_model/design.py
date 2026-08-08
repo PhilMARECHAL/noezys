@@ -98,6 +98,28 @@ def run_design_check(params: dict) -> dict:
     exceeded = [r for r in rows if r["verdict"] == "EXCEEDED"]
     missing = sorted({f"{r['machine']}.{r['check']}" for r in rows if r["verdict"] == "NO LIMIT"})
 
+    # CR.5003 is upstream of the pivot feed point: its sheet's power/capacity
+    # checks need run-of-mine data this project will never have — said
+    # explicitly instead of silently (dossier review 2026-08-08)
+    not_checkable = [
+        {
+            "machine": "CR.5003",
+            "reason": "upstream of the pivot measurement point — its power and "
+            "capacity checks require run-of-mine data; the belt-cut measurements "
+            "characterize its OUTPUT, which the whole model consumes",
+        }
+    ]
+
+    # product-quality dimension of the design verdict (spec §6)
+    quality_rows = []
+    for name, product in photo["products"].items():
+        compliance = product.get("compliance")
+        if product.get("present") and compliance and compliance.get("compliant") is not None:
+            quality_rows.append(
+                {"product": name, "compliant": compliance["compliant"], "detail": compliance}
+            )
+    quality_holds = all(r["compliant"] for r in quality_rows) if quality_rows else None
+
     # target attainability completes the design view (hours follow targets)
     try:
         planning = run_required_hours(params)
@@ -121,9 +143,18 @@ def run_design_check(params: dict) -> dict:
     return {
         "purpose": "design confirmation: computed duties vs installed equipment",
         "checks": rows,
+        # three distinct verdict dimensions — machines, product quality,
+        # target attainability — reported separately, never blended
         "design_holds": len(exceeded) == 0,
+        "verdicts": {
+            "machines_hold": len(exceeded) == 0,
+            "quality_holds": quality_holds,
+            "targets_reachable": planning_summary.get("targets_feasible_within_ceilings"),
+        },
+        "quality": quality_rows,
         "exceeded": exceeded,
         "limits_to_provide": missing,
+        "not_checkable": not_checkable,
         "planning": planning_summary,
         "alerts": photo["alerts"],
     }

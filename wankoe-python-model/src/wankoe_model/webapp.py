@@ -7,10 +7,12 @@ used programmatically:
 
     GET  /                   the user interface
     GET  /api/parameters     the default parameter set (data file, verbatim)
-    POST /api/scenario       {"overrides": {...}} -> run_scenario photo
-    POST /api/planning       {"overrides": {...}} -> run_required_hours
-    POST /api/seasonal       {"overrides": {...}} -> run_seasonal_balance
-    POST /api/sweep          {"overrides": {...}, "config": {...}} -> run_sweep
+    GET  /api/measurements   stored belt-cut measurement names
+    POST /api/scenario       {"overrides", "measurement"?} -> run_scenario photo
+    POST /api/planning       {"overrides", "measurement"?} -> run_required_hours
+    POST /api/seasonal       {"overrides", "measurement"?} -> run_seasonal_balance
+    POST /api/design         {"overrides", "measurement"?, "all_measurements"?}
+    POST /api/sweep          {"overrides", "config"} -> run_sweep
     POST /api/fit            {"overrides", "observations", "free_parameters"}
 
 Errors are returned as HTTP 400 with {"error": message} — the engine's

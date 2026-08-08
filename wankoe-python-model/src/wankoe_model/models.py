@@ -113,10 +113,16 @@ def m3_karra_partition(
 
 
 # --------------------------------------------------------------------- M4
-def m4_screen_area(undersize_tph: float, aperture_mm: float, calib: dict) -> dict:
+def m4_screen_area(
+    undersize_tph: float, aperture_mm: float, calib: dict, capacity_factor: float = 1.0
+) -> dict:
     """M4 — screen area (VSMA / Fontaine). Qb = qb_coef·a^qb_exp ;
-    A = U·f_p / (Qb·f0)."""
-    qb = float(calib["qb_coef"]) * (aperture_mm ** float(calib["qb_exp"]))
+    A = U·f_p / (Qb·f0).
+
+    ``capacity_factor`` derates the basic capacity for wet screening (spec
+    M3/SR.5115 notes: "la capacité chute" under rain) — pass
+    calib["wet_capacity_factor"] when the weather is rain."""
+    qb = float(calib["qb_coef"]) * (aperture_mm ** float(calib["qb_exp"])) * capacity_factor
     area = (undersize_tph * float(calib["f_p"])) / (qb * float(calib["f0"]))
     return {"Qb_tph_m2": qb, "required_area_m2": area}
 
@@ -282,7 +288,9 @@ def m8_air_classification(
                 "(no below-cut content on the grid) — PSDs unreliable"
             )
     else:
-        phi = fines_psd.passing_at(cut_mm)
+        # phi from the same interval masses used for the PSD split, so the
+        # tonnage and the curves stay consistent for off-grid cuts too
+        phi = sum_below
         certified = False
         f_adj = fr
 

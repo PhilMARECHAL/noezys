@@ -60,7 +60,7 @@ wankoe-python-model/
 │   ├── flowsheet.py                 # zones 1.1/1.2/1.3, closed circuits, machine codes
 │   ├── scenario.py                  # parameter loading + run_scenario (pure function)
 │   └── optimize.py                  # parameter sweeps, scoring, ranking (spec §7.3/§8)
-└── tests/                           # 48 tests: M1-M8 units, reference case, parameterization, sweeps
+└── tests/                           # 108 tests: M1-M8 units, reference case, parameterization, sweeps
 ```
 
 ## Usage

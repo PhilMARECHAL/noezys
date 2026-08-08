@@ -65,6 +65,34 @@ def _check_installed_area(code: str, areas: dict, installed_m2, alerts: list) ->
         )
 
 
+def _psd_from_table(table: dict, meshes: list) -> PSD:
+    """PSD from a vendor curve table {curve_pct: {mesh: %}, interpolation:
+    'log'|'linear'} — the declared interpolation mode is honored (golden
+    rule 2)."""
+    import math
+
+    mode = table.get("interpolation", "log")
+    points = sorted((float(k), float(v) / 100.0) for k, v in table["curve_pct"].items())
+
+    def interp(x):
+        if x <= points[0][0]:
+            return points[0][1] * x / points[0][0]
+        if x >= points[-1][0]:
+            return 1.0
+        for (x0, p0), (x1, p1) in zip(points, points[1:]):
+            if x <= x1:
+                if mode == "linear":
+                    t = (x - x0) / (x1 - x0)
+                else:
+                    t = (math.log(x) - math.log(x0)) / (math.log(x1) - math.log(x0))
+                return p0 + t * (p1 - p0)
+        return 1.0
+
+    passing = [interp(x) for x in meshes]
+    passing[-1] = 1.0
+    return PSD(meshes, passing)
+
+
 def _fixed_point_loop(iterate, engine: dict, alerts: list, loop_name: str):
     """Iterates ``iterate(recycle) -> (recycle', outputs)`` until convergence.
 
@@ -163,9 +191,15 @@ def zone_1_1(feed: dict, params: dict, mode: str, alerts: list) -> dict:
     if recycle and recycle["q"] > engine["max_circulating_ratio"] * feed["q"]:
         alerts.append("Zone 1.1: excessive circulating load (max_circulating_ratio exceeded)")
 
+    # spec: wet screening loses capacity — derate outdoor screens under rain
+    wet_factor = (
+        calib["wet_capacity_factor"]
+        if params["default_scenario"]["weather"] == "rain"
+        else 1.0
+    )
     areas = {
-        "top_deck": models.m4_screen_area(outputs["u_top_deck"], a1, calib),
-        "bottom_deck": models.m4_screen_area(outputs["u_bottom_deck"], a2, calib),
+        "top_deck": models.m4_screen_area(outputs["u_top_deck"], a1, calib, wet_factor),
+        "bottom_deck": models.m4_screen_area(outputs["u_bottom_deck"], a2, calib, wet_factor),
     }
     _check_installed_area("SR.5007", areas, mp["SR.5007"].get("installed_area_m2"), alerts)
     return {
@@ -221,9 +255,10 @@ def zone_1_2(reclaim: dict, params: dict, mode: str, weather: str, alerts: list)
         if under15
         else (None, None)
     )
+    wet_factor = calib["wet_capacity_factor"] if weather == "rain" else 1.0
     sr5105_areas = {
-        "top_deck": models.m4_screen_area(under15["q"] if under15 else 0.0, p05["a1"]["default"], calib),
-        "bottom_deck": models.m4_screen_area(under5["q"] if under5 else 0.0, p05["a2"]["default"], calib),
+        "top_deck": models.m4_screen_area(under15["q"] if under15 else 0.0, p05["a1"]["default"], calib, wet_factor),
+        "bottom_deck": models.m4_screen_area(under5["q"] if under5 else 0.0, p05["a2"]["default"], calib, wet_factor),
     }
     _check_installed_area("SR.5105", sr5105_areas, mp["SR.5105"].get("installed_area_m2"), alerts)
 
@@ -272,7 +307,10 @@ def zone_1_2(reclaim: dict, params: dict, mode: str, weather: str, alerts: list)
 
     sr5115_areas = {
         "deck": models.m4_screen_area(
-            outputs["aglime"]["q"] if outputs["aglime"] else 0.0, p15["a"]["default"], calib
+            outputs["aglime"]["q"] if outputs["aglime"] else 0.0,
+            p15["a"]["default"],
+            calib,
+            wet_factor,
         )
     }
     _check_installed_area("SR.5115", sr5115_areas, mp["SR.5115"].get("installed_area_m2"), alerts)
@@ -320,6 +358,10 @@ def zone_1_3(feedlime: dict, params: dict, phi_100_pct, alerts: list) -> dict:
     a1, a2, a3 = (p21[k]["default"] for k in ("a1", "a2", "a3"))
     p26 = mp["ML.26"]["parameters"]
     gap26 = p26["g"]["default"]
+    vendor_table = mp["ML.26"].get("product_curve_table")
+    vendor_psd = _psd_from_table(vendor_table, dried["psd"].meshes) if vendor_table else None
+    if vendor_psd is not None:
+        alerts.append("ML.26: vendor product curve table in use (replaces hypotheses H-M7-1/2)")
     # the ML.26 machine sheet is the single source for its own coefficients
     # (removed from the calibration section — audit finding on shadowing)
     calib_ml26 = {**calib, "comp_lam": p26["comp_lam"]["default"], "S_att": p26["S_att"]["default"]}
@@ -334,7 +376,11 @@ def zone_1_3(feedlime: dict, params: dict, phi_100_pct, alerts: list) -> dict:
         to_mill = [s for s in [over4, sliver] if s]
         if to_mill:
             mill_feed = _blend(to_mill)
-            mill_psd = models.m7_bed_mill_pass(mill_feed["psd"], gap26, calib_ml26)
+            mill_psd = (
+                vendor_psd
+                if vendor_psd is not None
+                else models.m7_bed_mill_pass(mill_feed["psd"], gap26, calib_ml26)
+            )
             bond26 = models.m2_bond_power(mill_feed["q"], mill_feed["psd"].p80(), mill_psd.p80(), calib)
             ml26_info.update({**bond26, "throughput_tph": mill_feed["q"]})
             new = _stream(mill_feed["q"], mill_psd, mill_feed["moisture"])
@@ -358,6 +404,9 @@ def zone_1_3(feedlime: dict, params: dict, phi_100_pct, alerts: list) -> dict:
 
     # SP.36 + CL.38 — UltraFin by air classification
     fines = outputs["fines"]
+    sp36_enabled = mp["SP.36"].get("enabled", True)
+    if not sp36_enabled:
+        alerts.append("SP.36/CL.38 block disabled by parameter — no UltraFin extraction, fines kept whole")
     p36 = mp["SP.36"]["parameters"]
     # the SP.36 / CL.38 machine sheets take precedence for their own settings
     calib_cl = {
@@ -365,7 +414,7 @@ def zone_1_3(feedlime: dict, params: dict, phi_100_pct, alerts: list) -> dict:
         "eta_cl": p36["eta_cl"]["default"],
         "v_in_cyclone": mp["CL.38"]["parameters"]["v_in"]["default"],
     }
-    if fines:
+    if fines and sp36_enabled:
         m8 = models.m8_air_classification(
             fines["q"], fines["psd"], p36["coupe"]["default"], phi_100_pct, calib_cl
         )
@@ -381,7 +430,8 @@ def zone_1_3(feedlime: dict, params: dict, phi_100_pct, alerts: list) -> dict:
     else:
         m8 = None
         ultrafin = None
-        remaining_fines = None
+        # block disabled (or no fines): the 0-1.5 stream stays whole
+        remaining_fines = fines
 
     d50_cyclone = models.m8_cyclone_d50(calib_cl)
 

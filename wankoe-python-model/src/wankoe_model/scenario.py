@@ -423,8 +423,10 @@ def _period_balance(params: dict, results: dict, alerts: list) -> dict | None:
             deficit += taken - produced
             alerts.append(
                 f"Stockpile {name}: {taken - produced:.0f} t reclaimed beyond what is "
-                f"produced over the period — tonnages downstream are NOT achievable "
-                "(adjust hours or flow rates)"
+                "produced when every zone runs its FULL ceiling hours — downstream "
+                "tonnages of this table are not simultaneously achievable at these "
+                "rates; the hours planning (hours follow the targets) gives the "
+                "consistent operating point"
             )
     return {
         "time_basis": basis,

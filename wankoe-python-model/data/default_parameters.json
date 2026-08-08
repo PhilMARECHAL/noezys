@@ -94,7 +94,7 @@
           "step": 1
         },
         "I": {
-          "name": "Imperfection (remapped I_new = 1 - I_old after the M3 arbitration: the spec-sheet 0.6 was written under the old inverted semantics; to confirm by a screen-product sieve test)",
+          "name": "Imperfection (remapped I_new = 1 - I_old after the M3 arbitration: the spec-sheet 0.6 was written under the old inverted semantics; to confirm by a screen-product sieve test; range kept [0.1;0.9] deliberately (strict remap of the sheet range is [0.1;0.6], the wide max keeps rain-grade values reachable))",
           "unit": "-",
           "min": 0.1,
           "max": 0.9,
@@ -222,7 +222,7 @@
           "step": 0.1
         },
         "I": {
-          "name": "Imperfection (remapped I_new = 1 - I_old after the M3 arbitration: the spec-sheet 0.6 was written under the old inverted semantics; to confirm by a screen-product sieve test)",
+          "name": "Imperfection (remapped I_new = 1 - I_old after the M3 arbitration: the spec-sheet 0.6 was written under the old inverted semantics; to confirm by a screen-product sieve test; range kept [0.1;0.9] deliberately (strict remap of the sheet range is [0.1;0.6], the wide max keeps rain-grade values reachable))",
           "unit": "-",
           "min": 0.1,
           "max": 0.9,
@@ -306,7 +306,9 @@
           "default": 0.171
         }
       },
-      "installed_power_kW": null
+      "installed_power_kW": null,
+      "product_curve_table": null,
+      "_product_curve_note": "Vendor abaque slot (golden rule 2): set to {\"curve_pct\": {mesh_mm: cumulative %}, \"interpolation\": \"linear\"|\"log\"} to replace hypotheses H-M7-1/2 with the vendor product curve"
     },
     "SP.36": {
       "zone": "1.3",
@@ -328,7 +330,8 @@
           "default": 0.75
         }
       },
-      "max_airflow_m3h": null
+      "max_airflow_m3h": null,
+      "enabled": true
     },
     "CL.38": {
       "zone": "1.3",
@@ -604,6 +607,13 @@
       "default": 2.0,
       "status": "model convention",
       "used_by": "M3/M7/M8"
+    },
+    "wet_capacity_factor": {
+      "name": "Screen basic-capacity derating factor under rain (outdoor screens)",
+      "unit": "-",
+      "default": 0.75,
+      "status": "[H] spec M3/SR.5115 narrative ('capacity drops when wet') quantified as a hypothesis, to confirm",
+      "used_by": "M4"
     }
   },
   "engine": {
@@ -624,7 +634,7 @@
     }
   },
   "feed_product": {
-    "comment": "Pivot feed: belt-cut PSD MEASURED at the primary crusher outlet on 2026-08-08 (raw data: data/feed_measurement_2026-08-08.json). Measured range 19-200 mm; fine tail < 19 mm and top size completed by hypotheses H-FEED-1/H-FEED-2 (see data/measured_feed_curve.json, rebuild with scripts/build_feed_curve_from_measurement.py). Model checks: d50 32.3 mm (measured 32), d80 180.6 mm (measured 180).",
+    "comment": "Pivot feed: belt-cut PSD MEASURED at the primary crusher outlet on 2026-08-08 (raw data: data/feed_measurements/2026-08-08-belt-cut.json). Measured range 19-200 mm; fine tail < 19 mm and top size completed by hypotheses H-FEED-1/H-FEED-2 (see data/measured_feed_curve.json, rebuild with scripts/build_feed_curve_from_measurement.py). Model checks: d50 32.3 mm (measured 32), d80 180.6 mm (measured 180).",
     "cumulative_passing_curve": {
       "0.063": 0.067,
       "0.1": 0.123,
