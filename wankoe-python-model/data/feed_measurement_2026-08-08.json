@@ -1,0 +1,22 @@
+{
+  "_meta": {
+    "description": "Belt-cut PSD measurement at the primary crusher outlet (pivot feed of the model)",
+    "date_received": "2026-08-08",
+    "source": "client measurement, two tests on the outlet belt conveyor",
+    "moisture_pct_wet_basis": 7,
+    "d50_mm": 32,
+    "d80_mm": 180
+  },
+  "cumulative_passing_pct": {
+    "200": {"test_2": 77.0, "test_3": 84.9, "average": 81},
+    "120": {"test_2": 77.0, "test_3": 75.2, "average": 76},
+    "80":  {"test_2": 67.3, "test_3": 62.2, "average": 65},
+    "40":  {"test_2": 54.5, "test_3": 48.6, "average": 52},
+    "19":  {"test_2": 47.6, "test_3": 42.0, "average": 45}
+  },
+  "notes": [
+    "The curve does NOT reach 100% at 200 mm: ~19% of the stream is coarser than 200 mm.",
+    "No data below 19 mm: the fine tail must be extrapolated (hypothesis H-FEED-1).",
+    "Test 2 is flat between 120 and 200 mm (77/77): nothing measured in that band on that test."
+  ]
+}

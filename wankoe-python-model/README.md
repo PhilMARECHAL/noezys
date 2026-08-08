@@ -109,10 +109,27 @@ pytest
 | 9.3 ML.26 power | ~45 kW | 51 kW | +13 % |
 | 9.3 DY.03 burner | ~3.8 MW | 3.83 MW | OK |
 
+## Measured feed curve (2026-08-08)
+
+The default feed is now the REAL belt-cut measurement at the primary
+crusher outlet (raw data: `data/feed_measurement_2026-08-08.json`; d50
+32 mm, d80 180 mm, moisture 7 %). The model reproduces d50 = 32.3 mm and
+d80 = 180.6 mm. Two completion hypotheses, both replaceable by data:
+H-FEED-1 (fine tail < 19 mm: reference-curve shape renormalized to the
+measured 45 % at 19 mm) and H-FEED-2 (top size: log-linear to 100 % at
+320 mm). Rebuild with `scripts/build_feed_curve_from_measurement.py`.
+
+Key impacts vs the hypothetical curve (250 t/h, mode 1A): KFS drops to
+53.8 t/h (21.5 %), CR.5009 power rises to 141 kW, and the feed F80
+(181 mm) exceeds the roll crusher's 150 mm nip limit — saturation alert.
+The chapter 9 test suite keeps validating the model against the PINNED
+calibrated curve, since chapter 9 was authored with it.
+
 ## Open hypotheses (flagged [H] in the data)
 
-- **Feed curve**: calibrated on chapter 9 (no real measurement) — to be
-  replaced by the first belt-cut measurement.
+- **Feed fine tail** (< 19 mm) and **top size** (> 200 mm): hypotheses
+  H-FEED-1 / H-FEED-2 above — a sieve analysis of the fine fraction would
+  remove the main one.
 - **M7 / ML.26**: the exact role of `comp_lam` is not specified ->
   hypothesis H-M7-1 (maximum reduction ratio per pass); attrition fines
   distribution -> hypothesis H-M7-2. Fitted on case 9.3, to be confirmed

@@ -101,9 +101,13 @@ def test_seasonal_sweep_uses_combined_tonnages():
             {"path": ["default_scenario", "flow_rates_tph", "zone_1_2_reclaim"], "values": [100]},
         ],
     }
-    report = run_sweep(params_with_hours(), config)
+    base = params_with_hours()
+    report = run_sweep(base, config)
     # AgLime only runs 75 % of the time (dry season) in the seasonal mix
     aglime = report["best"]["kpis"]["tonnages"]["AgLime"]
     assert aglime > 0
-    hourly = 55.0 * 4000 * 0.8  # full-year AgLime if it rained never
-    assert aglime == pytest.approx(hourly * 0.75, rel=0.05)
+    from wankoe_model import run_scenario
+
+    hourly_tph = run_scenario(base)["products"]["AgLime"]["tph"]
+    full_year = hourly_tph * 4000 * 0.8
+    assert aglime == pytest.approx(full_year * 0.75, rel=0.05)

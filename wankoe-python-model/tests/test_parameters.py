@@ -100,8 +100,9 @@ def test_scenario_flow_rate_is_adjustable():
         )
     )
     base = run_scenario(load_parameters())
+    # reported tonnages are rounded to 3 decimals, hence the loose tolerance
     assert changed["products"]["KFS"]["tph"] == pytest.approx(
-        base["products"]["KFS"]["tph"] / 2, rel=1e-6
+        base["products"]["KFS"]["tph"] / 2, rel=1e-4
     )
 
 

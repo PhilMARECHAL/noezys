@@ -192,10 +192,18 @@
   },
 
   "feed_product": {
-    "comment": "Pivot feed: PSD MEASURED at the primary station outlet. NO MEASUREMENT TO DATE - curve to be provided (cumulative % passing on the reference series).",
-    "cumulative_passing_curve": null,
+    "comment": "Pivot feed: belt-cut PSD MEASURED at the primary crusher outlet on 2026-08-08 (raw data: data/feed_measurement_2026-08-08.json). Measured range 19-200 mm; fine tail < 19 mm and top size completed by hypotheses H-FEED-1/H-FEED-2 (see data/measured_feed_curve.json, rebuild with scripts/build_feed_curve_from_measurement.py). Model checks: d50 32.3 mm (measured 32), d80 180.6 mm (measured 180).",
+    "cumulative_passing_curve": {
+      "0.063": 0.065, "0.1": 0.12, "0.125": 0.162, "0.25": 0.409, "0.5": 1.037,
+      "1.0": 2.608, "1.5": 4.432, "1.7": 5.206, "2.0": 6.399, "2.8": 9.691,
+      "4.0": 14.644, "5.0": 18.578, "6.3": 23.25, "8.0": 28.48, "10.0": 33.385,
+      "12.5": 37.939, "15.0": 41.244, "20.0": 45.482, "25.0": 47.581, "31.5": 49.754,
+      "35.0": 50.744, "40.0": 52.0, "50.0": 56.185, "63.0": 60.52, "80.0": 65.0,
+      "100.0": 71.054, "125.0": 76.4, "160.0": 78.816, "200.0": 81.0,
+      "250": 90.021, "320": 100.0
+    },
     "properties": {
-      "moisture_pct": {"default": 8, "status": "to be measured"},
+      "moisture_pct": {"default": 7, "status": "measured with the 2026-08-08 belt cut"},
       "dry_density_tm3": {"default": 1.5, "status": "to be confirmed - reserved, not used by the engine yet"},
       "wet_density_tm3": {"default": 1.62, "status": "to be confirmed - reserved, not used by the engine yet"},
       "Wi_kWht": {"default": null, "status": "measured Bond index of the feed; null = use calibration.Wi; a value here OVERRIDES calibration.Wi"},

@@ -7,14 +7,31 @@ and the README): CR.5009 / CR.5011 powers carry a known gap, reported to
 the specification author.
 """
 
+import json
+
 import pytest
 
-from wankoe_model import load_parameters, run_scenario
+from wankoe_model import REFERENCE_FEED_CURVE_PATH, load_parameters, run_scenario
 
 
 @pytest.fixture(scope="module")
 def results():
-    return run_scenario(load_parameters())
+    # Chapter 9 was authored with the hypothetical reference rock (8 %
+    # moisture, calibrated curve). The default parameters now carry the real
+    # 2026-08-08 belt-cut measurement, so this suite PINS the reference curve
+    # to keep validating the model mathematics against chapter 9.
+    with open(REFERENCE_FEED_CURVE_PATH, encoding="utf-8") as f:
+        curve = json.load(f)["cumulative_passing_curve"]
+    return run_scenario(
+        load_parameters(
+            overrides={
+                "feed_product": {
+                    "cumulative_passing_curve": curve,
+                    "properties": {"moisture_pct": {"default": 8}},
+                }
+            }
+        )
+    )
 
 
 def test_balances_closed(results):
