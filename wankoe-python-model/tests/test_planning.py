@@ -22,10 +22,12 @@ def test_all_zones_feasible_within_ceilings(plan):
         assert zone["required_hours_clock"] <= zone["ceiling_hours_clock"]
 
 
-def test_zone_1_1_driven_by_kfs_and_tight(plan):
+def test_zone_1_1_driven_by_kfs(plan):
     z11 = plan["zones"]["1.1"]
     assert z11["driven_by"] == "KFS target"
-    assert z11["utilization_pct"] > 95  # documented: almost no margin
+    # post-M3-arbitration: ~83 % utilization (margin restored vs the 98.8 %
+    # observed under the pre-arbitration semantics)
+    assert 70 < z11["utilization_pct"] < 100
 
 
 def test_feedlime_stock_balanced(plan):

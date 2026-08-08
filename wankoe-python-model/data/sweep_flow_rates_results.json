@@ -12,20 +12,20 @@
   "best": {
     "values": {
       "reclaim": 50,
-      "feedlime": 19
+      "feedlime": 18
     },
-    "score": 4948.0,
+    "score": 0.0,
     "kpis": {
       "tonnages": {
-        "KFS": 86047.0,
-        "FeedLime grits": 40567.0,
-        "AgLime": 123178.0,
-        "FeedLime fines": 60948.0,
-        "UltraFin": 4500.0
+        "KFS": 102256.0,
+        "FeedLime grits": 40470.0,
+        "AgLime": 126126.0,
+        "FeedLime fines": 55188.0,
+        "UltraFin": 4781.0
       },
       "firm_shortfall_t": 0.0,
-      "unsellable_surplus_t": 4948.0,
-      "total_installed_power_kW": 280.2,
+      "unsellable_surplus_t": 0.0,
+      "total_installed_power_kW": 297.1,
       "n_alerts": 2
     }
   },
@@ -33,129 +33,129 @@
     {
       "values": {
         "reclaim": 50,
-        "feedlime": 19
+        "feedlime": 18
       },
-      "score": 4948.0,
+      "score": 0.0,
       "kpis": {
         "tonnages": {
-          "KFS": 86047.0,
-          "FeedLime grits": 40567.0,
-          "AgLime": 123178.0,
-          "FeedLime fines": 60948.0,
-          "UltraFin": 4500.0
+          "KFS": 102256.0,
+          "FeedLime grits": 40470.0,
+          "AgLime": 126126.0,
+          "FeedLime fines": 55188.0,
+          "UltraFin": 4781.0
         },
         "firm_shortfall_t": 0.0,
-        "unsellable_surplus_t": 4948.0,
-        "total_installed_power_kW": 280.2,
+        "unsellable_surplus_t": 0.0,
+        "total_installed_power_kW": 297.1,
         "n_alerts": 2
       }
     },
     {
       "values": {
         "reclaim": 53,
-        "feedlime": 19
+        "feedlime": 18
       },
-      "score": 4948.0,
+      "score": 0.0,
       "kpis": {
         "tonnages": {
-          "KFS": 86047.0,
-          "FeedLime grits": 40567.0,
-          "AgLime": 130572.0,
-          "FeedLime fines": 60948.0,
-          "UltraFin": 4500.0
+          "KFS": 102256.0,
+          "FeedLime grits": 40470.0,
+          "AgLime": 133695.0,
+          "FeedLime fines": 55188.0,
+          "UltraFin": 4781.0
         },
         "firm_shortfall_t": 0.0,
-        "unsellable_surplus_t": 4948.0,
-        "total_installed_power_kW": 285.6,
-        "n_alerts": 2
-      }
-    },
-    {
-      "values": {
-        "reclaim": 55,
-        "feedlime": 19
-      },
-      "score": 5448.0,
-      "kpis": {
-        "tonnages": {
-          "KFS": 86047.0,
-          "FeedLime grits": 40567.0,
-          "AgLime": 135500.0,
-          "FeedLime fines": 60948.0,
-          "UltraFin": 4500.0
-        },
-        "firm_shortfall_t": 0.0,
-        "unsellable_surplus_t": 5448.0,
-        "total_installed_power_kW": 289.2,
+        "unsellable_surplus_t": 0.0,
+        "total_installed_power_kW": 303.3,
         "n_alerts": 2
       }
     },
     {
       "values": {
         "reclaim": 50,
-        "feedlime": 19.5
+        "feedlime": 18.5
       },
-      "score": 6552.0,
+      "score": 724.0,
       "kpis": {
         "tonnages": {
-          "KFS": 86047.0,
-          "FeedLime grits": 41637.0,
-          "AgLime": 123178.0,
-          "FeedLime fines": 62552.0,
-          "UltraFin": 4620.0
+          "KFS": 102256.0,
+          "FeedLime grits": 41595.0,
+          "AgLime": 126126.0,
+          "FeedLime fines": 56724.0,
+          "UltraFin": 4910.0
         },
         "firm_shortfall_t": 0.0,
-        "unsellable_surplus_t": 6552.0,
-        "total_installed_power_kW": 281.1,
+        "unsellable_surplus_t": 724.0,
+        "total_installed_power_kW": 297.9,
         "n_alerts": 2
       }
     },
     {
       "values": {
         "reclaim": 53,
-        "feedlime": 19.5
+        "feedlime": 18.5
       },
-      "score": 6552.0,
+      "score": 724.0,
       "kpis": {
         "tonnages": {
-          "KFS": 86047.0,
-          "FeedLime grits": 41637.0,
-          "AgLime": 130572.0,
-          "FeedLime fines": 62552.0,
-          "UltraFin": 4620.0
+          "KFS": 102256.0,
+          "FeedLime grits": 41595.0,
+          "AgLime": 133695.0,
+          "FeedLime fines": 56724.0,
+          "UltraFin": 4910.0
         },
         "firm_shortfall_t": 0.0,
-        "unsellable_surplus_t": 6552.0,
-        "total_installed_power_kW": 286.5,
+        "unsellable_surplus_t": 724.0,
+        "total_installed_power_kW": 304.1,
+        "n_alerts": 2
+      }
+    },
+    {
+      "values": {
+        "reclaim": 50,
+        "feedlime": 19
+      },
+      "score": 2254.0,
+      "kpis": {
+        "tonnages": {
+          "KFS": 102256.0,
+          "FeedLime grits": 42720.0,
+          "AgLime": 126126.0,
+          "FeedLime fines": 58254.0,
+          "UltraFin": 5046.0
+        },
+        "firm_shortfall_t": 0.0,
+        "unsellable_surplus_t": 2254.0,
+        "total_installed_power_kW": 298.8,
         "n_alerts": 2
       }
     }
   ],
   "all_scores": [
-    4948.0,
-    4948.0,
-    5448.0,
-    6552.0,
-    6552.0,
-    7052.0,
-    8156.0,
-    8156.0,
-    8656.0,
-    10375.0,
-    11979.0,
-    13583.0,
-    17764.0,
-    19368.0,
-    20972.0,
-    53147.0,
-    53147.0,
-    53647.0,
-    58574.0,
-    65963.0,
-    158443.0,
-    158443.0,
-    158943.0,
-    163870.0,
-    171259.0
+    0.0,
+    0.0,
+    724.0,
+    724.0,
+    2254.0,
+    2254.0,
+    3740.0,
+    3789.0,
+    3789.0,
+    4464.0,
+    5319.0,
+    5319.0,
+    5994.0,
+    7529.0,
+    8784.0,
+    9059.0,
+    9508.0,
+    11038.0,
+    12573.0,
+    14103.0,
+    16353.0,
+    17077.0,
+    18607.0,
+    20142.0,
+    21672.0
   ]
 }

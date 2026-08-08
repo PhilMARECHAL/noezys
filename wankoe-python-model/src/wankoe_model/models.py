@@ -71,15 +71,20 @@ def m3_karra_partition(
 ) -> dict:
     """M3 — screen partition (Karra).
 
-    d50c = a·k_d ; s = ln arg / ln(1/I) ; ro(x) = 1/(1+(d50c/x)^s).
+    d50c = a·k_d ; s = ln arg / ln(1/(1−I)) ; ro(x) = 1/(1+(d50c/x)^s).
     Returns oversize and undersize: flow rates + PSD.
+
+    I is a CLASSIC imperfection: higher = worse separation (flatter
+    partition). The spec's written form s = ln9/ln(1/I) contradicted its
+    own narrative (I degrades up to ~0.9 under rain); client arbitration
+    2026-08-08 (option A): the narrative wins, hence the (1−I) substitution.
     """
     k_d = float(calib["k_d"])
     ln_arg = float(calib["m3_ln_arg"])
     d50c = aperture_mm * k_d
     if not 0.0 < imperfection < 1.0:
         raise ValueError("M3: imperfection I must be within ]0;1[")
-    s = math.log(ln_arg) / math.log(1.0 / imperfection)
+    s = math.log(ln_arg) / math.log(1.0 / (1.0 - imperfection))
 
     fractions = psd.interval_fractions()
     reps = psd.representative_sizes(float(calib["bottom_interval_ratio"]))

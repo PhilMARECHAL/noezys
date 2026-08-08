@@ -89,12 +89,14 @@ print(plan["production_t"])   # lands exactly on the targets
 print(plan["stockpiles_t"])   # 0/20 and FeedLime stock balance
 ```
 
-With the measured curve and default flow rates (250/100/30 t/h): zone 1.1
-needs 1 976 h of its 2 000 h ceiling (98.8 % — almost no margin on KFS),
-zone 1.2 runs 3 136 h of 7 500, zone 1.3 runs 4 829 h of 7 500. Production
-lands exactly on 85/135/40 kt; inherent co-products: ~63 kt of fines
-(~7 kt over the market estimate) and a 0/20 stockpile growing by
-~59 kt/year (the specification's "mechanical surplus", chapter 7.3).
+With the measured curve, default flow rates (250/100/30 t/h) and the
+post-arbitration M3 semantics: zone 1.1 needs 1 663 h of its 2 000 h
+ceiling (83.1 %), zone 1.2 runs 3 033 h of 7 500, zone 1.3 runs 4 486 h
+of 7 500. Production lands exactly on 85/135/40 kt; fines end at ~55 kt
+(under the 56 kt market estimate) and the 0/20 stockpile grows by only
+~4.8 kt/year. Caveat: the comfortable KFS margin comes with ~50 % sub-cut
+material in the KFS stream at I=0.6 (see the M3 section) — quality vs
+margin is the trade-off to arbitrate with a measured screen imperfection.
 
 ## Auto-calibration on measurements
 
@@ -139,15 +141,14 @@ pytest
 
 | Quantity | Expected | Achieved | Deviation |
 |---|---|---|---|
-| 9.1 KFS | 59.3 t/h (23.7 %) | 59.1 t/h (23.6 %) | OK |
-| 9.1 0/20 undersize | 190.7 t/h | 190.9 t/h | OK |
-| 9.1 CR.5009 power | ~116 kW | 106 kW | -9 % (documented) |
-| 9.1 CR.5011 power | ~37 kW | 18 kW at loop equilibrium; 45 kW net at the 125 t/h nameplate | see note below |
-| 9.2 AgLime | 55.0 t/h | 55.0 t/h | OK |
+| 9.1 KFS | 59.3 t/h (23.7 %) | 59.7 t/h (23.9 %) | OK |
+| 9.1 0/20 undersize | 190.7 t/h | 190.3 t/h | OK |
+| 9.1 CR.5009 power | ~116 kW | 112.9 kW | -2.7 % |
+| 9.1 CR.5011 power | ~37 kW | 18 kW at loop equilibrium; ~45 kW net at the 125 t/h nameplate | see note below |
+| 9.2 AgLime | 55.0 t/h | 55.5 t/h | OK |
 | 9.3 Vapor | ~2.3 t/h | 2.26 t/h | OK |
-| 9.3 Grits | 10.1 t/h | 10.1 t/h | OK (H-M7 fitted) |
-| 9.3 UltraFin | ~1.3 t/h | 1.23 t/h | OK |
-| 9.3 ML.26 power | ~45 kW | 51 kW | +13 % |
+| 9.3 Grits | 10.1 t/h | 11.1 t/h | +10 % (post-arbitration residual, documented) |
+| 9.3 UltraFin | ~1.3 t/h | 1.35 t/h | OK |
 | 9.3 DY.03 burner | ~3.8 MW | 3.83 MW | OK |
 
 ## Measured feed curve (2026-08-08)
@@ -160,24 +161,30 @@ H-FEED-1 (fine tail < 19 mm: reference-curve shape renormalized to the
 measured 45 % at 19 mm) and H-FEED-2 (top size: log-linear to 100 % at
 320 mm). Rebuild with `scripts/build_feed_curve_from_measurement.py`.
 
-Key impacts vs the hypothetical curve (250 t/h, mode 1A): KFS drops to
-53.8 t/h (21.5 %), CR.5009 power rises to 141 kW, and the feed F80
-(181 mm) exceeds the roll crusher's 150 mm nip limit — saturation alert.
-The chapter 9 test suite keeps validating the model against the PINNED
-calibrated curve, since chapter 9 was authored with it.
+Key impacts vs the hypothetical curve (250 t/h, mode 1A, post-arbitration
+M3): KFS at 63.9 t/h (25.6 %), CR.5009 power rises to 141 kW, and the
+feed F80 (181 mm) exceeds the roll crusher's 150 mm nip limit —
+saturation alert. The chapter 9 test suite keeps validating the model
+against the PINNED calibrated curve, since chapter 9 was authored with it.
 
-## Open question: M3 imperfection semantics (spec inconsistency)
+## M3 imperfection semantics — RESOLVED (client arbitration 2026-08-08)
 
-The M3 formula `s = ln 9 / ln(1/I)` makes the partition SHARPER as I rises
-(I=0.9 -> s=20.9), while the spec's narrative says I *degrades* up to ~0.9
-under rain ("coupe impossible"). Formula and narrative contradict each
-other. The code implements the formula as written (golden rule: formulas
-coded verbatim, ambiguities returned as questions). Consequences while
-unresolved: the I_rain=0.9 path makes rain screening better, and the KFS
-envelope study found compliance requires I around 0.65-0.8 — which reads
-as "worse imperfection" in the narrative sense but "sharper screen" in the
-formula's sense. Pending client arbitration; the mirrored reading would
-swap I for (1-I) in the formula.
+The spec's written formula `s = ln 9 / ln(1/I)` made the partition SHARPER
+as I rose, contradicting its own narrative (I degrades up to ~0.9 under
+rain). Client arbitration: **the narrative wins (option A)** — I is a
+classic imperfection (higher = worse) and the formula uses (1−I):
+`s = ln 9 / ln(1/(1−I))`. Defaults: I=0.6 -> s=2.40 (a fairly flat
+partition); rain I=0.9 -> s=0.95 (heavily degraded, consistent with
+"AgLime impossible under rain"). The whole chain was recalibrated after
+the change: reference feed curve (CR.5009 power now 112.9 kW vs the
+~116 kW target, −2.7 %), ML.26 [H] coefficients refitted (grits lands at
+11.1 t/h vs the 10.1 authored pre-arbitration — +10 % residual documented,
+S_att at its machine-sheet bound), and the measured feed curve rebuilt.
+
+Engineering consequence: at the spec's default I=0.6 the KFS stream
+carries ~50 % sub-20 mm material — the 30/55/15 envelope needs genuinely
+sharper screening (I around 0.3) or a data-confirmed measurement of the
+real screen's imperfection.
 
 ## Open hypotheses (flagged [H] in the data)
 

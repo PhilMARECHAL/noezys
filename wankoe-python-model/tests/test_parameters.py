@@ -75,7 +75,7 @@ def test_ml26_machine_sheet_coefficients_are_live():
     base = run_scenario(load_parameters())
     changed = run_scenario(
         load_parameters(
-            overrides={"machines": {"ML.26": {"parameters": {"S_att": {"default": 0.25}}}}}
+            overrides={"machines": {"ML.26": {"parameters": {"S_att": {"default": 0.18}}}}}
         )
     )
     assert (
