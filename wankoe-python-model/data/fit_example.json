@@ -1,14 +1,106 @@
 {
-  "_comment": "Example auto-calibration config for scripts/fit_calibration.py. Fits the ML.26 [H] hypothesis coefficients to measured zone 1.3 product rates (replace 'measured' with real plant figures when available - these are the reference-case values).",
+  "_comment": "Example auto-calibration config for scripts/fit_calibration.py. Fits the ML.26 [H] coefficients to the chapter-9 reference case (base_overrides pin the reference curve and 8% moisture). Replace 'measured' with real plant figures when available.",
+  "base_overrides": {
+    "feed_product": {
+      "cumulative_passing_curve": {
+        "0.063": 0.0601,
+        "0.1": 0.1112,
+        "0.125": 0.1499,
+        "0.25": 0.3791,
+        "0.5": 0.9592,
+        "1.0": 2.4092,
+        "1.5": 4.0876,
+        "1.7": 4.799,
+        "2.0": 5.8951,
+        "2.8": 8.9104,
+        "4.0": 13.4308,
+        "5.0": 17.005,
+        "6.3": 21.2317,
+        "8.0": 25.938,
+        "10.0": 30.3241,
+        "12.5": 34.3759,
+        "15.0": 37.3076,
+        "20.0": 41.3775,
+        "25.0": 44.4884,
+        "31.5": 48.1372,
+        "35.0": 50.0258,
+        "40.0": 52.6533,
+        "50.0": 57.6539,
+        "63.0": 63.6171,
+        "80.0": 70.4842,
+        "100.0": 77.281,
+        "125.0": 84.0516,
+        "160.0": 90.9175,
+        "200.0": 96.0238,
+        "250": 99.741,
+        "320": 100.0
+      },
+      "properties": {
+        "moisture_pct": {
+          "default": 8
+        }
+      }
+    }
+  },
   "observations": [
-    {"result_path": ["products", "FeedLime grits", "tph"], "measured": 10.4, "weight": 2.0},
-    {"result_path": ["products", "FeedLime fines", "tph"], "measured": 16.3, "weight": 1.0},
-    {"result_path": ["products", "UltraFin", "tph"], "measured": 1.24, "weight": 1.0}
+    {
+      "result_path": [
+        "products",
+        "FeedLime grits",
+        "tph"
+      ],
+      "measured": 10.1,
+      "weight": 2.0
+    },
+    {
+      "result_path": [
+        "products",
+        "UltraFin",
+        "tph"
+      ],
+      "measured": 1.3,
+      "weight": 1.0
+    }
   ],
   "free_parameters": [
-    {"path": ["calibration", "m7_n_comp", "default"], "min": 0.7, "max": 1.6},
-    {"path": ["machines", "ML.26", "parameters", "S_att", "default"], "min": 0.15, "max": 0.25},
-    {"path": ["calibration", "m7_x80_att", "default"], "min": 0.3, "max": 1.2}
+    {
+      "path": [
+        "calibration",
+        "m7_n_comp",
+        "default"
+      ],
+      "min": 0.7,
+      "max": 1.6
+    },
+    {
+      "path": [
+        "calibration",
+        "m7_x80_att",
+        "default"
+      ],
+      "min": 0.3,
+      "max": 1.2
+    },
+    {
+      "path": [
+        "calibration",
+        "m7_n_att",
+        "default"
+      ],
+      "min": 0.8,
+      "max": 1.6
+    },
+    {
+      "path": [
+        "machines",
+        "ML.26",
+        "parameters",
+        "S_att",
+        "default"
+      ],
+      "min": 0.15,
+      "max": 0.25
+    }
   ],
   "max_rounds": 60
 }

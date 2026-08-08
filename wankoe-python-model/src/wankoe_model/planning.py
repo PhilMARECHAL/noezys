@@ -23,27 +23,36 @@ infeasibilities are reported. All figures derive from the pure
 
 from __future__ import annotations
 
-from .scenario import _deep_merge, run_scenario
+from .paths import deep_merge
+from .scenario import run_scenario
 
 
 def run_required_hours(params: dict) -> dict:
-    """Computes the operating hours each zone needs to meet the targets."""
+    """Computes the operating hours each zone needs to meet the targets.
+
+    All rates derive from the DRY-weather photo; rain-season hours of zone
+    1.2 run in mode 2B where FeedLime = the whole reclaim (a mass identity,
+    not a model assumption). Zone 1.1 and 1.3 rates are weather-independent
+    in the model, so a single photo suffices.
+    """
     alerts: list[str] = []
     sc = params["default_scenario"]
     flow = sc["flow_rates_tph"]
     targets = {t["product"]: t for t in params["production_targets"].values()}
 
-    photo_dry = run_scenario(_deep_merge(params, {"default_scenario": {"weather": "dry"}}))
-    photo_rain = run_scenario(_deep_merge(params, {"default_scenario": {"weather": "rain"}}))
+    photo_dry = run_scenario(deep_merge(params, {"default_scenario": {"weather": "dry"}}))
 
-    # hourly product rates (t/h, as sold) from the photos
-    kfs_tph = photo_dry["products"]["KFS"]["tph"]
-    aglime_tph = photo_dry["products"]["AgLime"]["tph"]
-    grits_tph = photo_dry["products"]["FeedLime grits"]["tph"]
-    fines_tph = photo_dry["products"]["FeedLime fines"]["tph"]
-    ultrafin_tph = photo_dry["products"]["UltraFin"]["tph"]
+    # hourly product rates (t/h, as sold) from the photo
+    products = photo_dry["products"]
+    kfs_tph = products["KFS"]["tph"]
+    aglime_tph = products["AgLime"]["tph"]
+    grits_tph = products.get("FeedLime grits", {}).get("tph", 0.0)
+    fines_tph = products.get("FeedLime fines", {}).get("tph", 0.0)
+    ultrafin_tph = products.get("UltraFin", {}).get("tph", 0.0)
     moisture = params["feed_product"]["properties"]["moisture_pct"]["default"]
-    q020_tph_wet = photo_dry["intermediate_flows"]["0/20_dry_tph"] / (1.0 - moisture / 100.0)
+    q020_tph_wet = photo_dry["intermediate_flows"]["stream_0_20_dry_tph"] / (
+        1.0 - moisture / 100.0
+    )
     # FeedLime co-product of zone 1.2 (wet): reclaim - AgLime (2A) / all (2B)
     feedlime_dry_season_tph = flow["zone_1_2_reclaim"] - aglime_tph
     feedlime_rain_season_tph = flow["zone_1_2_reclaim"]
@@ -86,7 +95,10 @@ def run_required_hours(params: dict) -> dict:
 
     # ---- 1. Zone 1.3: hours set by the FIRM grits target
     if grits_tph <= 0:
-        raise ValueError("Zone 1.3 produces no grits: cannot plan hours from the grits target")
+        raise ValueError(
+            "Zone 1.3 produces no grits (zone 1.2 mode 2C, or no FeedLime): "
+            "cannot plan hours from the grits target"
+        )
     h13_eff = targets["FeedLime grits"]["target_t_per_year"] / grits_tph
     zone13 = _zone_result("1.3", h13_eff)
     feedlime_demand_t = h13_eff * flow["zone_1_3_feedlime"]  # wet, consumed by the dryer
@@ -123,6 +135,12 @@ def run_required_hours(params: dict) -> dict:
             f"the FeedLime demand > rain-season capacity {rain_capacity_eff:.0f} h — "
             "grits target NOT reachable (raise reclaim rate or hours)"
         )
+        # cap so the reported production/stockpiles reflect what is achievable
+        h2_rain_eff = rain_capacity_eff
+        achieved_feedlime = feedlime_from_dry_t + h2_rain_eff * feedlime_rain_season_tph
+        h13_eff = achieved_feedlime / flow["zone_1_3_feedlime"]
+        feedlime_demand_t = achieved_feedlime
+        zone13 = _zone_result("1.3", h13_eff)
     zone12 = _zone_result("1.2", h2_dry_eff + h2_rain_eff)
     reclaimed_020_t = (h2_dry_eff + h2_rain_eff) * flow["zone_1_2_reclaim"]
 

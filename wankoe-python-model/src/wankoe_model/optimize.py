@@ -29,14 +29,8 @@ import copy
 import itertools
 import random
 
+from .paths import set_path
 from .scenario import run_scenario, run_seasonal_balance
-
-
-def _set_path(params: dict, path: list, value) -> None:
-    node = params
-    for key in path[:-1]:
-        node = node[key]
-    node[path[-1]] = value
 
 
 def _variable_values(var: dict) -> list:
@@ -87,10 +81,15 @@ def _kpis(params: dict, results: dict, per_product: dict | None) -> dict:
         for m in results["machines"].values()
         if isinstance(m, dict)
     )
+    # phantom-stockpile guard (expert review 2026-08-08): tonnages reclaimed
+    # beyond what upstream produces over the period are not achievable
+    pb = results.get("period_balance")
+    stockpile_deficit = pb.get("stockpile_deficit_t", 0.0) if pb else 0.0
     return {
         "tonnages": tonnages,
         "firm_shortfall_t": round(firm_shortfall, 1),
         "unsellable_surplus_t": round(surplus, 1),
+        "stockpile_deficit_t": round(stockpile_deficit, 1),
         "total_installed_power_kW": round(total_power, 1),
         "n_alerts": len(results["alerts"]),
     }
@@ -100,6 +99,7 @@ def _score(kpis: dict, objective: dict) -> float:
     return (
         objective.get("firm_shortfall_weight", 100.0) * kpis["firm_shortfall_t"]
         + objective.get("surplus_weight", 1.0) * kpis["unsellable_surplus_t"]
+        + objective.get("stockpile_deficit_weight", 100.0) * kpis["stockpile_deficit_t"]
         + objective.get("power_weight", 0.0) * kpis["total_installed_power_kW"]
         + objective.get("alert_weight", 0.0) * kpis["n_alerts"]
     )
@@ -145,7 +145,7 @@ def run_sweep(base_params: dict, config: dict) -> dict:
     for combo in combos:
         params = copy.deepcopy(base_params)
         for var, value in zip(variables, combo):
-            _set_path(params, var["path"], value)
+            set_path(params, var["path"], value)
         try:
             if hours_provided and use_seasonal:
                 seasonal = run_seasonal_balance(params)
@@ -184,6 +184,7 @@ def run_sweep(base_params: dict, config: dict) -> dict:
         "objective": {
             "firm_shortfall_weight": objective.get("firm_shortfall_weight", 100.0),
             "surplus_weight": objective.get("surplus_weight", 1.0),
+            "stockpile_deficit_weight": objective.get("stockpile_deficit_weight", 100.0),
             "power_weight": objective.get("power_weight", 0.0),
             "alert_weight": objective.get("alert_weight", 0.0),
         },

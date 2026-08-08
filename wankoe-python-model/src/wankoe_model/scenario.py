@@ -21,6 +21,7 @@ import math
 from pathlib import Path
 
 from .grid import PSD, engine_grid
+from .paths import deep_merge
 from . import flowsheet
 
 _ROOT = Path(__file__).resolve().parent.parent.parent
@@ -28,22 +29,18 @@ DEFAULT_PARAMETERS_PATH = _ROOT / "data" / "default_parameters.json"
 REFERENCE_FEED_CURVE_PATH = _ROOT / "data" / "reference_feed_curve.json"
 
 
-def _deep_merge(base: dict, override: dict) -> dict:
-    result = copy.deepcopy(base)
-    for key, value in override.items():
-        if isinstance(value, dict) and isinstance(result.get(key), dict):
-            result[key] = _deep_merge(result[key], value)
-        else:
-            result[key] = copy.deepcopy(value)
-    return result
-
-
 def load_parameters(path=None, overrides: dict | None = None) -> dict:
-    """Loads the parameter set (JSON) and applies optional overrides."""
+    """Loads the parameter set (JSON) and applies optional overrides.
+
+    Overrides are VALIDATED against the base structure: a typo'd key raises
+    an actionable ValueError instead of silently running the default study
+    (expert review 2026-08-08). The feed curve is replaced wholesale, never
+    key-merged with the default curve.
+    """
     with open(path or DEFAULT_PARAMETERS_PATH, encoding="utf-8") as f:
         params = json.load(f)
     if overrides:
-        params = _deep_merge(params, overrides)
+        params = deep_merge(params, overrides, validate=True)
     return params
 
 
@@ -95,15 +92,21 @@ def _build_feed(params: dict, alerts: list) -> tuple:
                 "Feed size curve missing (feed_product.cumulative_passing_curve) "
                 "and no calibrated reference curve available."
             )
+    top = max(float(v) for v in curve.values())
+    if top < 99.9:
+        raise ValueError(
+            f"feed curve reaches only {top:.1f}% at its largest mesh: measure or "
+            "hypothesize the top size so the curve reaches 100% (see H-FEED-2 in "
+            "scripts/build_feed_curve_from_measurement.py)"
+        )
     grid = engine_grid(params["mesh_series_mm"], params["engine"]["extension_meshes_mm"])
-    psd = PSD(grid, [interp_curve(curve, x) for x in grid])
+    points = sorted((float(k), float(v) / 100.0) for k, v in curve.items())  # sorted ONCE
+    psd = PSD(grid, [_interp_points(points, x) for x in grid])
     moisture = fp["properties"]["moisture_pct"]["default"]
     return psd, moisture
 
 
-def interp_curve(curve: dict, x_mm: float) -> float:
-    """Interpolates a {mesh: % passing} curve in log(x); returns a 0-1 fraction."""
-    points = sorted((float(k), float(v) / 100.0) for k, v in curve.items())
+def _interp_points(points: list, x_mm: float) -> float:
     if x_mm <= points[0][0]:
         return points[0][1] * x_mm / points[0][0]
     if x_mm >= points[-1][0]:
@@ -113,6 +116,12 @@ def interp_curve(curve: dict, x_mm: float) -> float:
             t = (math.log(x_mm) - math.log(x0)) / (math.log(x1) - math.log(x0))
             return p0 + t * (p1 - p0)
     return 1.0
+
+
+def interp_curve(curve: dict, x_mm: float) -> float:
+    """Interpolates a {mesh: % passing} curve in log(x); returns a 0-1 fraction."""
+    points = sorted((float(k), float(v) / 100.0) for k, v in curve.items())
+    return _interp_points(points, x_mm)
 
 
 def _wet_tonnage(stream) -> float:
@@ -231,7 +240,7 @@ def run_scenario(params: dict) -> dict:
         _balance("zone_1_3", feedlime["q"], list(z13["products"].values()))
         # WATER balance zone 1.3: water in = water in products + vapor
         water_in = feedlime["q"] / (1.0 - moisture / 100.0) * moisture / 100.0
-        m_out = params["machines"]["DY.03"]["parameters"]["m_out"]["default"]
+        m_out = z13["machines"]["DY.03"]["m_out_effective_pct"]
         water_products = sum(
             s["q"] / (1.0 - m_out / 100.0) * m_out / 100.0
             for s in z13["products"].values()
@@ -249,17 +258,28 @@ def run_scenario(params: dict) -> dict:
             alerts.append(f"WATER balance zone 1.3 NOT closed: relative gap {water_gap:.2e}")
 
     # ---------------- Products: "as sold" tonnages + compliance
+    # STABLE SHAPE (expert review 2026-08-08): every product always carries
+    # the same keys, with present=False when the mode/scenario removes it —
+    # a web client never has to special-case a missing entry.
     specs = params["output_products"]
     products = {}
 
     def _product(name, stream):
         if stream is None:
-            products[name] = {"tph": 0.0, "state": "absent (mode/scenario)"}
+            products[name] = {
+                "present": False,
+                "tph": 0.0,
+                "state": specs[name]["state"],
+                "P80_mm": None,
+                "passing_curve_pct": None,
+                "compliance": None,
+            }
             return
         # wet/dry state comes from the data (audit finding 1.2)
         wet = specs[name]["state"] == "wet"
         tph = _wet_tonnage(stream) if wet else stream["q"]
         products[name] = {
+            "present": True,
             "tph": round(tph, 3),
             "state": specs[name]["state"],
             "P80_mm": round(stream["psd"].p80(), 4),
@@ -274,12 +294,16 @@ def run_scenario(params: dict) -> dict:
 
     _product("KFS", z11["products"]["KFS"])
     _product("AgLime", z12["products"]["AgLime"])
-    if z13:
-        _product("FeedLime grits", z13["products"]["FeedLime grits"])
-        _product("FeedLime fines", z13["products"]["FeedLime fines"])
-        _product("UltraFin", z13["products"]["UltraFin"])
+    _product("FeedLime grits", z13["products"]["FeedLime grits"] if z13 else None)
+    _product("FeedLime fines", z13["products"]["FeedLime fines"] if z13 else None)
+    _product("UltraFin", z13["products"]["UltraFin"] if z13 else None)
 
     machines = {**z11["machines"], **z12["machines"], **(z13["machines"] if z13 else {})}
+    # stable shape: an inactive machine is {"active": False}, never {}
+    machines = {
+        code: ({**info, "active": True} if info else {"active": False})
+        for code, info in machines.items()
+    }
 
     results = {
         "scenario": {
@@ -295,7 +319,7 @@ def run_scenario(params: dict) -> dict:
         },
         "products": products,
         "intermediate_flows": {
-            "0/20_dry_tph": round(z11["products"]["0/20"]["q"], 3),
+            "stream_0_20_dry_tph": round(z11["products"]["0/20"]["q"], 3),
             "zone_1_1_recirculation_tph": round(z11["recirculation_tph"], 3),
             "zone_1_2_recirculation_tph": round(z12["recirculation_tph"], 3),
             "zone_1_3_recirculation_tph": round(z13["recirculation_tph"], 3) if z13 else None,
@@ -309,7 +333,13 @@ def run_scenario(params: dict) -> dict:
 
 
 def _period_balance(params: dict, results: dict, alerts: list) -> dict | None:
-    """Tonnages over the chosen time basis when hours are provided."""
+    """Tonnages over the chosen time basis when hours are provided.
+
+    Also closes the INTER-ZONE stockpile balance (expert review 2026-08-08):
+    each zone's tonnage is only achievable if the upstream stockpile
+    physically receives what the downstream zone reclaims. A deficit is
+    reported and alerted so sweeps cannot rank scenarios on phantom stock.
+    """
     sc = params["default_scenario"]
     zones = sc["zones"]
     if any(z["available_hours"] is None for z in zones.values()):
@@ -320,6 +350,15 @@ def _period_balance(params: dict, results: dict, alerts: list) -> dict | None:
     effective_hours = {
         name: z["available_hours"] * z["availability_pct"] / 100.0 for name, z in zones.items()
     }
+    # targets are expressed per YEAR; scale them to the chosen time basis
+    basis = sc["time_basis"]
+    basis_fractions = params["engine"]["time_basis_fractions"]
+    if basis not in basis_fractions:
+        raise ValueError(
+            f"unknown time_basis {basis!r} (known: {', '.join(sorted(basis_fractions))})"
+        )
+    fraction_of_year = basis_fractions[basis]
+
     product_zone = {
         "KFS": "1.1",
         "AgLime": "1.2",
@@ -337,19 +376,63 @@ def _period_balance(params: dict, results: dict, alerts: list) -> dict | None:
     for target_key, target in params["production_targets"].items():
         product = target["product"]
         tonnage = tonnages.get(product, 0.0)
+        target_t = target["target_t_per_year"] * fraction_of_year
         cap = target.get("market_cap_t_per_year")
+        cap_t = cap * fraction_of_year if cap else None
         per_product[product] = {
             "target_key": target_key,
             "tonnage_t": round(tonnage, 0),
-            "target_t": target["target_t_per_year"],
-            "gap_t": round(tonnage - target["target_t_per_year"], 0),
+            "target_t": round(target_t, 0),
+            "gap_t": round(tonnage - target_t, 0),
             "nature": target["nature"],
-            "surplus_beyond_market_t": round(max(0.0, tonnage - cap), 0) if cap else None,
+            "surplus_beyond_market_t": round(max(0.0, tonnage - cap_t), 0) if cap_t else None,
         }
+
+    # ---- inter-zone stockpile closure (0/20 and FeedLime)
+    moisture = params["feed_product"]["properties"]["moisture_pct"]["default"]
+    flow = sc["flow_rates_tph"]
+    q020_wet_tph = results["intermediate_flows"]["stream_0_20_dry_tph"] / (
+        1.0 - moisture / 100.0
+    )
+    produced_020 = q020_wet_tph * effective_hours["1.1"]
+    reclaimed_020 = flow["zone_1_2_reclaim"] * effective_hours["1.2"]
+    mode_1_2 = results["scenario"]["zone_1_2_mode"]
+    if mode_1_2 == "2B":
+        feedlime_tph = flow["zone_1_2_reclaim"]
+    elif mode_1_2 == "2C":
+        feedlime_tph = 0.0
+    else:  # 2A: FeedLime = reclaim − AgLime (closed loop)
+        feedlime_tph = flow["zone_1_2_reclaim"] - p["AgLime"]["tph"]
+    produced_feedlime = feedlime_tph * effective_hours["1.2"]
+    consumed_feedlime = flow["zone_1_3_feedlime"] * effective_hours["1.3"]
+    stockpiles = {
+        "0/20 produced_t": round(produced_020, 0),
+        "0/20 reclaimed_t": round(reclaimed_020, 0),
+        "0/20 net_to_stock_t": round(produced_020 - reclaimed_020, 0),
+        "FeedLime produced_t": round(produced_feedlime, 0),
+        "FeedLime consumed_t": round(consumed_feedlime, 0),
+        "FeedLime net_to_stock_t": round(produced_feedlime - consumed_feedlime, 0),
+    }
+    tol = params["engine"]["balance_relative_tolerance"]
+    deficit = 0.0
+    for name, produced, taken in (
+        ("0/20", produced_020, reclaimed_020),
+        ("FeedLime", produced_feedlime, consumed_feedlime),
+    ):
+        if taken - produced > tol * max(taken, 1.0):
+            deficit += taken - produced
+            alerts.append(
+                f"Stockpile {name}: {taken - produced:.0f} t reclaimed beyond what is "
+                f"produced over the period — tonnages downstream are NOT achievable "
+                "(adjust hours or flow rates)"
+            )
     return {
-        "time_basis": sc["time_basis"],
+        "time_basis": basis,
+        "fraction_of_year": fraction_of_year,
         "effective_hours": effective_hours,
         "per_product": per_product,
+        "stockpiles_t": stockpiles,
+        "stockpile_deficit_t": round(deficit, 0),
     }
 
 
@@ -368,7 +451,7 @@ def run_seasonal_balance(params: dict) -> dict:
 
     photos = {}
     for weather, fraction in (("dry", f_dry), ("rain", f_rain)):
-        season_params = _deep_merge(params, {"default_scenario": {"weather": weather}})
+        season_params = deep_merge(params, {"default_scenario": {"weather": weather}})
         season_zones = {
             name: {
                 "available_hours": (
@@ -378,14 +461,15 @@ def run_seasonal_balance(params: dict) -> dict:
             }
             for name, z in sc["zones"].items()
         }
-        season_params = _deep_merge(season_params, {"default_scenario": {"zones": season_zones}})
+        season_params = deep_merge(season_params, {"default_scenario": {"zones": season_zones}})
         photos[weather] = run_scenario(season_params)
 
+    season_fractions = {"dry": f_dry, "rain": f_rain}
     combined = None
     for weather in ("dry", "rain"):
         pb = photos[weather]["period_balance"]
         if pb is None:
-            return {"photos": photos, "combined": None}
+            return {"photos": photos, "combined": None, "season_fractions": season_fractions}
         if combined is None:
             combined = copy.deepcopy(pb["per_product"])
         else:
@@ -400,4 +484,4 @@ def run_seasonal_balance(params: dict) -> dict:
         row["surplus_beyond_market_t"] = (
             round(max(0.0, row["tonnage_t"] - cap), 0) if cap else None
         )
-    return {"photos": photos, "combined": combined, "season_fractions": {"dry": f_dry, "rain": f_rain}}
+    return {"photos": photos, "combined": combined, "season_fractions": season_fractions}

@@ -1,12 +1,44 @@
 {
-  "_comment": "Flow-rate study 2026-08-08: find the reclaim/feedlime rates that meet the FIRM targets and minimize unsellable surplus, with the real operating hours (zone 1.1: 2000 h, zones 1.2/1.3: 7500 h, availability 80%) and the measured feed curve. Result: reclaim ~53 t/h, feedlime ~19 t/h -> KFS 86 kt, AgLime 131 kt (under the 135 kt cap), grits 40.6 kt, fines surplus ~4.9 kt.",
+  "_comment": "Flow-rate study: find the reclaim/feedlime rates that meet the FIRM targets and minimize unsellable surplus, with the real operating hours and the measured feed curve. The single source of truth for the outcome is sweep_flow_rates_results.json (regenerate with scripts/run_sweep.py after any parameter change).",
   "method": "grid",
   "max_scenarios": 500,
   "seasonal": true,
   "top_n": 5,
   "variables": [
-    {"path": ["default_scenario", "flow_rates_tph", "zone_1_2_reclaim"], "values": [50, 53, 55, 57, 60], "label": "reclaim"},
-    {"path": ["default_scenario", "flow_rates_tph", "zone_1_3_feedlime"], "values": [18, 18.5, 19, 19.5, 20], "label": "feedlime"}
+    {
+      "path": [
+        "default_scenario",
+        "flow_rates_tph",
+        "zone_1_2_reclaim"
+      ],
+      "values": [
+        40,
+        45,
+        50,
+        55,
+        60
+      ],
+      "label": "reclaim"
+    },
+    {
+      "path": [
+        "default_scenario",
+        "flow_rates_tph",
+        "zone_1_3_feedlime"
+      ],
+      "values": [
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "label": "feedlime"
+    }
   ],
-  "objective": {"firm_shortfall_weight": 100.0, "surplus_weight": 1.0}
+  "objective": {
+    "firm_shortfall_weight": 100.0,
+    "surplus_weight": 1.0
+  }
 }

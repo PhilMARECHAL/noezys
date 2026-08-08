@@ -38,12 +38,15 @@ def m1_crusher_product(feed_psd: PSD, x80: float, n: float, calib: dict) -> PSD:
 
     phi_fine = feed_psd.passing_at(x80)  # feed fraction finer than x80: unchanged
     meshes = feed_psd.meshes
+    feed_passing = feed_psd.passing  # meshes ARE the psd grid: direct indexing is exact
+    coarse_share = 1.0 - phi_fine
     passing = []
-    for x in meshes:
-        fine_part = min(feed_psd.passing_at(x), phi_fine)
-        crushed_part = (1.0 - phi_fine) * min(1.0, rr(x) / p_xt)
-        passing.append(fine_part + crushed_part)
-    return PSD(meshes, passing)
+    for i, x in enumerate(meshes):
+        fine_part = feed_passing[i] if feed_passing[i] < phi_fine else phi_fine
+        crushed = rr(x) / p_xt
+        passing.append(fine_part + coarse_share * (crushed if crushed < 1.0 else 1.0))
+    passing[-1] = 1.0
+    return PSD._trusted(meshes, passing)
 
 
 # --------------------------------------------------------------------- M2
@@ -90,7 +93,15 @@ def m3_karra_partition(
     reps = psd.representative_sizes(float(calib["bottom_interval_ratio"]))
     f_over, f_under = [], []
     for f, x in zip(fractions, reps):
-        ro = 1.0 / (1.0 + (d50c / x) ** s)
+        # computed in log space so an ideal screen (I -> 0, s -> inf)
+        # degrades to a clean step partition instead of overflowing
+        t = s * math.log(d50c / x)
+        if t > 700.0:
+            ro = 0.0
+        elif t < -700.0:
+            ro = 1.0
+        else:
+            ro = 1.0 / (1.0 + math.exp(t))
         f_over.append(f * ro)
         f_under.append(f * (1.0 - ro))
     q_over = q_tph * sum(f_over)
@@ -127,7 +138,15 @@ def m5_impact_uniformity(v_ms: float, calib: dict) -> dict:
 
 # --------------------------------------------------------------------- M6
 def m6_drying(wet_feed_tph: float, m_in_pct: float, m_out_pct: float, calib: dict) -> dict:
-    """M6 — drying: water + heat balance (moistures on a wet basis)."""
+    """M6 — drying: water + heat balance (moistures on a wet basis).
+
+    When the feed is already drier than the target (m_in <= m_out) the
+    dryer cannot ADD water: evaporation clamps to zero and the outlet
+    keeps the feed moisture (flag ``no_drying`` for the caller's alert).
+    """
+    no_drying = m_in_pct <= m_out_pct
+    if no_drying:
+        m_out_pct = m_in_pct
     dry = wet_feed_tph * (1.0 - m_in_pct / 100.0)
     wet_out = dry / (1.0 - m_out_pct / 100.0)
     evaporated = wet_feed_tph - wet_out  # t/h of evaporated water
@@ -144,10 +163,40 @@ def m6_drying(wet_feed_tph: float, m_in_pct: float, m_out_pct: float, calib: dic
         "thermal_duty_kW": duty_kw,
         "burner_power_kW": burner_kw,
         "drum_volume_m3": drum_m3,
+        "no_drying": no_drying,
+        "m_out_effective_pct": m_out_pct,
     }
 
 
 # --------------------------------------------------------------------- M7
+_M7_FINES_CACHE: dict = {}
+
+
+def _m7_attrition_fines(meshes: list, calib: dict) -> PSD:
+    """Attrition fines distribution: pure RR(m7_x80_att, m7_n_att).
+
+    Identical at every fixed-point iteration of the ML.26 loop, so it is
+    memoized (13 % of scenario runtime — expert review 2026-08-08). PSDs
+    are immutable in practice; sharing the cached instance is safe.
+    """
+    key = (
+        tuple(meshes),
+        float(calib["m7_x80_att"]),
+        float(calib["m7_n_att"]),
+        float(calib["trunc_factor"]),
+        float(calib["m1_ln_arg"]),
+    )
+    cached = _M7_FINES_CACHE.get(key)
+    if cached is None:
+        if len(_M7_FINES_CACHE) > 64:
+            _M7_FINES_CACHE.clear()
+        # fictitious all-coarse feed -> product is a pure RR fines distribution
+        all_coarse = PSD.from_intervals(meshes, [0.0] * (len(meshes) - 1) + [1.0])
+        cached = m1_crusher_product(all_coarse, key[1], key[2], calib)
+        _M7_FINES_CACHE[key] = cached
+    return cached
+
+
 def m7_bed_mill_pass(feed_psd: PSD, gap_mm: float, calib: dict) -> PSD:
     """M7 — one pass of the bed roller mill (ML.26).
 
@@ -180,15 +229,7 @@ def m7_bed_mill_pass(feed_psd: PSD, gap_mm: float, calib: dict) -> PSD:
     effective_x80 = max(gap_mm, coarse_f80 / comp_lam)
 
     compressed = m1_crusher_product(feed_psd, effective_x80, n_comp, calib)
-
-    # attrition: S_att of the mass converted to fines RR(m7_x80_att, m7_n_att)
-    fines = m1_crusher_product(
-        # fictitious all-coarse feed -> product is a pure RR fines distribution
-        PSD.from_intervals(feed_psd.meshes, [0.0] * (len(feed_psd.meshes) - 1) + [1.0]),
-        float(calib["m7_x80_att"]),
-        float(calib["m7_n_att"]),
-        calib,
-    )
+    fines = _m7_attrition_fines(feed_psd.meshes, calib)
     meshes = feed_psd.meshes
     passing = [
         (1.0 - s_att) * compressed.passing[i] + s_att * fines.passing[i]
@@ -209,26 +250,56 @@ def m8_air_classification(
     eta_cl = float(calib["eta_cl"])
     lam = float(calib["lambda"])
     cut_mm = cut_um / 1000.0
+
+    fr = fines_psd.interval_fractions()
+    reps = fines_psd.representative_sizes(float(calib["bottom_interval_ratio"]))
+    below = [x <= cut_mm for x in reps]
+    sum_below = sum(f for f, b in zip(fr, below) if b)
+    warning = None
+
     if phi_measured_pct is not None:
         phi = phi_measured_pct / 100.0
         certified = True
+        # reconcile the modelled curve with the MEASURED below-cut content:
+        # rescale below- and above-cut interval masses so the split stays
+        # mass-exact per interval (expert review 2026-08-08 — the previous
+        # remainder construction lost mass when phi differed from the curve)
+        if 0.0 < sum_below < 1.0 and 0.0 <= phi <= 1.0:
+            scale_below = phi / sum_below
+            scale_above = (1.0 - phi) / (1.0 - sum_below)
+            f_adj = [
+                f * (scale_below if b else scale_above) for f, b in zip(fr, below)
+            ]
+            if max(scale_below, 1.0 / max(scale_below, 1e-12)) > 3.0:
+                warning = (
+                    "measured Phi differs from the modelled fines curve by more "
+                    "than 3x — re-measure the 0-1.5 mm curve"
+                )
+        else:
+            f_adj = fr
+            warning = (
+                "measured Phi inconsistent with the modelled fines curve "
+                "(no below-cut content on the grid) — PSDs unreliable"
+            )
     else:
         phi = fines_psd.passing_at(cut_mm)
         certified = False
+        f_adj = fr
+
     q_fine = q_fines_tph * phi * eta_cl
+    q_rest = q_fines_tph - q_fine
     q_air_m3h = (q_fine * 1000.0) / lam if lam > 0 else float("inf")
 
-    # fine product PSD = below-cut portion of the feed; remainder = complement
-    fr = fines_psd.interval_fractions()
-    reps = fines_psd.representative_sizes(float(calib["bottom_interval_ratio"]))
-    f_fine = [f if x <= cut_mm else 0.0 for f, x in zip(fr, reps)]
-    fine_psd = PSD.from_intervals(fines_psd.meshes, f_fine) if sum(f_fine) > 0 else fines_psd
-    q_rest = q_fines_tph - q_fine
-    f_rest = [
-        max(0.0, ft - (q_fine / q_fines_tph) * ff / max(sum(f_fine), 1e-12))
-        for ft, ff in zip(fr, f_fine)
-    ] if q_fines_tph > 0 else fr
-    rest_psd = PSD.from_intervals(fines_psd.meshes, f_rest) if sum(f_rest) > 0 else fines_psd
+    # per-interval split: the classifier extracts eta_cl of the below-cut
+    # mass; everything else stays in the remainder (mass-exact by interval)
+    f_fine = [f * eta_cl if b else 0.0 for f, b in zip(f_adj, below)]
+    f_rest = [f - ff for f, ff in zip(f_adj, f_fine)]
+    fine_psd = (
+        PSD.from_intervals(fines_psd.meshes, f_fine) if sum(f_fine) > 0 else fines_psd
+    )
+    rest_psd = (
+        PSD.from_intervals(fines_psd.meshes, f_rest) if sum(f_rest) > 0 else fines_psd
+    )
     return {
         "fine_product_tph": q_fine,
         "remainder_tph": q_rest,
@@ -237,6 +308,7 @@ def m8_air_classification(
         "Phi_cut": phi,
         "certified": certified,
         "Q_air_m3h": q_air_m3h,
+        "warning": warning,
     }
 
 

@@ -90,13 +90,16 @@ print(plan["stockpiles_t"])   # 0/20 and FeedLime stock balance
 ```
 
 With the measured curve, default flow rates (250/100/30 t/h) and the
-post-arbitration M3 semantics: zone 1.1 needs 1 663 h of its 2 000 h
-ceiling (83.1 %), zone 1.2 runs 3 033 h of 7 500, zone 1.3 runs 4 486 h
-of 7 500. Production lands exactly on 85/135/40 kt; fines end at ~55 kt
-(under the 56 kt market estimate) and the 0/20 stockpile grows by only
-~4.8 kt/year. Caveat: the comfortable KFS margin comes with ~50 % sub-cut
-material in the KFS stream at I=0.6 (see the M3 section) — quality vs
-margin is the trade-off to arbitrate with a measured screen imperfection.
+remapped imperfections: zone 1.1 needs 1 979 h of its 2 000 h ceiling
+(98.9 % — almost no margin on the firm KFS target), zone 1.2 runs
+3 156 h of 7 500, zone 1.3 runs 4 894 h of 7 500. Production lands
+exactly on 85/135/40 kt; inherent co-products: ~64 kt of fines (~8 kt
+over the market estimate) and a 0/20 stockpile growing by ~58 kt/year
+(the specification's "mechanical surplus", chapter 7.3). The flow-rate
+study (data/sweep_flow_rates_results.json) brings the surplus down to
+~5 kt at reclaim 45 t/h / feedlime 19 t/h. The period balance now closes
+the INTER-ZONE stockpiles too: reclaiming more than upstream produces
+raises an alert and is penalized in sweep scoring.
 
 ## Auto-calibration on measurements
 
@@ -137,6 +140,28 @@ pip install -e ".[dev]"
 pytest
 ```
 
+## Quality & robustness (expert review 2026-08-08)
+
+A six-expert review (process physics, numerics, API/DX, data integrity,
+tests, performance) with adversarial verification produced 27 confirmed
+findings, all fixed:
+
+- **Typo-proof overrides**: an unknown key in `load_parameters(overrides=...)`
+  raises an actionable error with the closest valid key; feed curves are
+  replaced wholesale, never key-merged.
+- **Stable result shapes**: every product always carries the same keys
+  (`present` flag when absent), every machine entry carries `active` —
+  ready for a web client.
+- **Fail-fast modes**: unknown zone modes raise instead of silently
+  vanishing a product stream.
+- **Guarded models**: dryer clamps when the feed is already dry, M3 is
+  overflow-safe for ideal screens, M8 stays mass-exact per interval when a
+  measured Phi disagrees with the modelled curve (with a warning).
+- **Performance**: ~4.3 ms per scenario (~2.5x faster) — comfortable for
+  thousand-scenario sweeps and an interactive web UI.
+- Shared path utilities (`wankoe_model.paths`) across scenario, planning,
+  optimize and fit.
+
 ## Validation status (reference case, chapter 9)
 
 | Quantity | Expected | Achieved | Deviation |
@@ -147,8 +172,8 @@ pytest
 | 9.1 CR.5011 power | ~37 kW | 18 kW at loop equilibrium; ~45 kW net at the 125 t/h nameplate | see note below |
 | 9.2 AgLime | 55.0 t/h | 55.5 t/h | OK |
 | 9.3 Vapor | ~2.3 t/h | 2.26 t/h | OK |
-| 9.3 Grits | 10.1 t/h | 11.1 t/h | +10 % (post-arbitration residual, documented) |
-| 9.3 UltraFin | ~1.3 t/h | 1.35 t/h | OK |
+| 9.3 Grits | 10.1 t/h | 10.1 t/h | exact (refit after imperfection remap) |
+| 9.3 UltraFin | ~1.3 t/h | 1.31 t/h | OK |
 | 9.3 DY.03 burner | ~3.8 MW | 3.83 MW | OK |
 
 ## Measured feed curve (2026-08-08)
@@ -181,10 +206,15 @@ the change: reference feed curve (CR.5009 power now 112.9 kW vs the
 11.1 t/h vs the 10.1 authored pre-arbitration — +10 % residual documented,
 S_att at its machine-sheet bound), and the measured feed curve rebuilt.
 
-Engineering consequence: at the spec's default I=0.6 the KFS stream
-carries ~50 % sub-20 mm material — the 30/55/15 envelope needs genuinely
-sharper screening (I around 0.3) or a data-confirmed measurement of the
-real screen's imperfection.
+**Completion (expert review 2026-08-08):** the numeric defaults had to be
+remapped through I_new = 1 − I_old (the spec-sheet 0.6 was written under
+the old inverted semantics): screen defaults are now I = 0.4 (dry), which
+reproduces the spec's original dry sharpness s = 4.30 exactly, while rain
+I = 0.9 keeps its degraded meaning. After this remap the ML.26 refit hits
+chapter 9 EXACTLY (grits 10.1, UltraFin 1.30) with all coefficients
+comfortably inside their bounds (S_att = 0.171). The real screens'
+imperfection remains the top measurement to make (sieve a KFS sample);
+envelope compliance needs roughly I ≈ 0.3.
 
 ## Open hypotheses (flagged [H] in the data)
 

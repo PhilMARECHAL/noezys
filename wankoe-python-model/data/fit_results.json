@@ -1,8 +1,9 @@
 {
   "fitted": {
-    "calibration.m7_n_comp.default": 0.862637,
-    "machines.ML.26.parameters.S_att.default": 0.25,
-    "calibration.m7_x80_att.default": 0.801406
+    "calibration.m7_n_comp.default": 0.863516,
+    "calibration.m7_x80_att.default": 1.196484,
+    "calibration.m7_n_att.default": 1.59375,
+    "machines.ML.26.parameters.S_att.default": 0.170609
   },
   "fitted_paths": [
     {
@@ -11,7 +12,23 @@
         "m7_n_comp",
         "default"
       ],
-      "value": 0.862637
+      "value": 0.863516
+    },
+    {
+      "path": [
+        "calibration",
+        "m7_x80_att",
+        "default"
+      ],
+      "value": 1.196484
+    },
+    {
+      "path": [
+        "calibration",
+        "m7_n_att",
+        "default"
+      ],
+      "value": 1.59375
     },
     {
       "path": [
@@ -21,34 +38,21 @@
         "S_att",
         "default"
       ],
-      "value": 0.25
-    },
-    {
-      "path": [
-        "calibration",
-        "m7_x80_att",
-        "default"
-      ],
-      "value": 0.801406
+      "value": 0.170609
     }
   ],
-  "initial_cost": 0.02245652,
-  "final_cost": 0.01859817,
+  "initial_cost": 0.00014539,
+  "final_cost": 0.0,
   "observations": [
     {
       "target": "products.FeedLime grits.tph",
-      "measured": 10.4,
-      "achieved": 11.274
-    },
-    {
-      "target": "products.FeedLime fines.tph",
-      "measured": 16.3,
-      "achieved": 15.345
+      "measured": 10.1,
+      "achieved": 10.1
     },
     {
       "target": "products.UltraFin.tph",
-      "measured": 1.24,
-      "achieved": 1.28
+      "measured": 1.3,
+      "achieved": 1.3
     }
   ]
 }

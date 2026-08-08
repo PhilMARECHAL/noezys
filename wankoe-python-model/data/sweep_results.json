@@ -6,361 +6,373 @@
   "objective": {
     "firm_shortfall_weight": 100.0,
     "surplus_weight": 1.0,
+    "stockpile_deficit_weight": 100.0,
     "power_weight": 0.0,
     "alert_weight": 0.0
   },
   "best": {
     "values": {
-      "SR.5007 top aperture (mm)": 32,
-      "SR.5007 bottom aperture (mm)": 18,
-      "Zone 1.1 feed (t/h)": 225,
+      "SR.5007 top aperture (mm)": 36,
+      "SR.5007 bottom aperture (mm)": 22,
+      "Zone 1.1 feed (t/h)": 275,
       "Zone 1.2 reclaim (t/h)": 90
     },
-    "score": 126869.0,
+    "score": 14064590.0,
     "kpis": {
       "tonnages": {
-        "KFS": 100992.0,
-        "FeedLime grits": 68098.0,
-        "AgLime": 226467.0,
-        "FeedLime fines": 91402.0,
-        "UltraFin": 7896.0
+        "KFS": 82645.0,
+        "FeedLime grits": 63018.0,
+        "AgLime": 224811.0,
+        "FeedLime fines": 96779.0,
+        "UltraFin": 7604.0
       },
-      "firm_shortfall_t": 0.0,
-      "unsellable_surplus_t": 126869.0,
-      "total_installed_power_kW": 381.8,
-      "n_alerts": 2
+      "firm_shortfall_t": 2355.0,
+      "unsellable_surplus_t": 130590.0,
+      "stockpile_deficit_t": 136985.0,
+      "total_installed_power_kW": 393.7,
+      "n_alerts": 3
     }
   },
   "top": [
     {
       "values": {
-        "SR.5007 top aperture (mm)": 32,
-        "SR.5007 bottom aperture (mm)": 18,
-        "Zone 1.1 feed (t/h)": 225,
-        "Zone 1.2 reclaim (t/h)": 90
-      },
-      "score": 126869.0,
-      "kpis": {
-        "tonnages": {
-          "KFS": 100992.0,
-          "FeedLime grits": 68098.0,
-          "AgLime": 226467.0,
-          "FeedLime fines": 91402.0,
-          "UltraFin": 7896.0
-        },
-        "firm_shortfall_t": 0.0,
-        "unsellable_surplus_t": 126869.0,
-        "total_installed_power_kW": 381.8,
-        "n_alerts": 2
-      }
-    },
-    {
-      "values": {
-        "SR.5007 top aperture (mm)": 32,
-        "SR.5007 bottom aperture (mm)": 18,
-        "Zone 1.1 feed (t/h)": 250,
-        "Zone 1.2 reclaim (t/h)": 90
-      },
-      "score": 126869.0,
-      "kpis": {
-        "tonnages": {
-          "KFS": 112213.0,
-          "FeedLime grits": 68098.0,
-          "AgLime": 226467.0,
-          "FeedLime fines": 91402.0,
-          "UltraFin": 7896.0
-        },
-        "firm_shortfall_t": 0.0,
-        "unsellable_surplus_t": 126869.0,
-        "total_installed_power_kW": 398.3,
-        "n_alerts": 2
-      }
-    },
-    {
-      "values": {
-        "SR.5007 top aperture (mm)": 32,
-        "SR.5007 bottom aperture (mm)": 18,
+        "SR.5007 top aperture (mm)": 36,
+        "SR.5007 bottom aperture (mm)": 22,
         "Zone 1.1 feed (t/h)": 275,
         "Zone 1.2 reclaim (t/h)": 90
       },
-      "score": 126869.0,
+      "score": 14064590.0,
       "kpis": {
         "tonnages": {
-          "KFS": 123435.0,
-          "FeedLime grits": 68098.0,
-          "AgLime": 226467.0,
-          "FeedLime fines": 91402.0,
-          "UltraFin": 7896.0
+          "KFS": 82645.0,
+          "FeedLime grits": 63018.0,
+          "AgLime": 224811.0,
+          "FeedLime fines": 96779.0,
+          "UltraFin": 7604.0
+        },
+        "firm_shortfall_t": 2355.0,
+        "unsellable_surplus_t": 130590.0,
+        "stockpile_deficit_t": 136985.0,
+        "total_installed_power_kW": 393.7,
+        "n_alerts": 3
+      }
+    },
+    {
+      "values": {
+        "SR.5007 top aperture (mm)": 38,
+        "SR.5007 bottom aperture (mm)": 22,
+        "Zone 1.1 feed (t/h)": 275,
+        "Zone 1.2 reclaim (t/h)": 90
+      },
+      "score": 14117795.0,
+      "kpis": {
+        "tonnages": {
+          "KFS": 86488.0,
+          "FeedLime grits": 63018.0,
+          "AgLime": 225414.0,
+          "FeedLime fines": 96781.0,
+          "UltraFin": 7606.0
         },
         "firm_shortfall_t": 0.0,
-        "unsellable_surplus_t": 126869.0,
-        "total_installed_power_kW": 414.9,
-        "n_alerts": 2
+        "unsellable_surplus_t": 131195.0,
+        "stockpile_deficit_t": 139866.0,
+        "total_installed_power_kW": 392.8,
+        "n_alerts": 3
       }
     },
     {
       "values": {
         "SR.5007 top aperture (mm)": 34,
-        "SR.5007 bottom aperture (mm)": 18,
-        "Zone 1.1 feed (t/h)": 225,
-        "Zone 1.2 reclaim (t/h)": 90
-      },
-      "score": 127136.0,
-      "kpis": {
-        "tonnages": {
-          "KFS": 103080.0,
-          "FeedLime grits": 68052.0,
-          "AgLime": 226692.0,
-          "FeedLime fines": 91444.0,
-          "UltraFin": 7903.0
-        },
-        "firm_shortfall_t": 0.0,
-        "unsellable_surplus_t": 127136.0,
-        "total_installed_power_kW": 381.0,
-        "n_alerts": 2
-      }
-    },
-    {
-      "values": {
-        "SR.5007 top aperture (mm)": 34,
-        "SR.5007 bottom aperture (mm)": 18,
-        "Zone 1.1 feed (t/h)": 250,
-        "Zone 1.2 reclaim (t/h)": 90
-      },
-      "score": 127136.0,
-      "kpis": {
-        "tonnages": {
-          "KFS": 114535.0,
-          "FeedLime grits": 68052.0,
-          "AgLime": 226692.0,
-          "FeedLime fines": 91444.0,
-          "UltraFin": 7903.0
-        },
-        "firm_shortfall_t": 0.0,
-        "unsellable_surplus_t": 127136.0,
-        "total_installed_power_kW": 397.4,
-        "n_alerts": 2
-      }
-    },
-    {
-      "values": {
-        "SR.5007 top aperture (mm)": 34,
-        "SR.5007 bottom aperture (mm)": 18,
+        "SR.5007 bottom aperture (mm)": 22,
         "Zone 1.1 feed (t/h)": 275,
         "Zone 1.2 reclaim (t/h)": 90
       },
-      "score": 127136.0,
+      "score": 14167899.0,
       "kpis": {
         "tonnages": {
-          "KFS": 125987.0,
-          "FeedLime grits": 68052.0,
-          "AgLime": 226692.0,
-          "FeedLime fines": 91444.0,
-          "UltraFin": 7903.0
+          "KFS": 78485.0,
+          "FeedLime grits": 63019.0,
+          "AgLime": 224122.0,
+          "FeedLime fines": 96777.0,
+          "UltraFin": 7604.0
         },
-        "firm_shortfall_t": 0.0,
-        "unsellable_surplus_t": 127136.0,
-        "total_installed_power_kW": 413.7,
-        "n_alerts": 2
-      }
-    },
-    {
-      "values": {
-        "SR.5007 top aperture (mm)": 36,
-        "SR.5007 bottom aperture (mm)": 18,
-        "Zone 1.1 feed (t/h)": 225,
-        "Zone 1.2 reclaim (t/h)": 90
-      },
-      "score": 127382.0,
-      "kpis": {
-        "tonnages": {
-          "KFS": 105029.0,
-          "FeedLime grits": 68007.0,
-          "AgLime": 226899.0,
-          "FeedLime fines": 91483.0,
-          "UltraFin": 7911.0
-        },
-        "firm_shortfall_t": 0.0,
-        "unsellable_surplus_t": 127382.0,
-        "total_installed_power_kW": 380.3,
-        "n_alerts": 2
-      }
-    },
-    {
-      "values": {
-        "SR.5007 top aperture (mm)": 36,
-        "SR.5007 bottom aperture (mm)": 18,
-        "Zone 1.1 feed (t/h)": 250,
-        "Zone 1.2 reclaim (t/h)": 90
-      },
-      "score": 127382.0,
-      "kpis": {
-        "tonnages": {
-          "KFS": 116699.0,
-          "FeedLime grits": 68007.0,
-          "AgLime": 226899.0,
-          "FeedLime fines": 91483.0,
-          "UltraFin": 7911.0
-        },
-        "firm_shortfall_t": 0.0,
-        "unsellable_surplus_t": 127382.0,
-        "total_installed_power_kW": 396.5,
-        "n_alerts": 2
-      }
-    },
-    {
-      "values": {
-        "SR.5007 top aperture (mm)": 36,
-        "SR.5007 bottom aperture (mm)": 18,
-        "Zone 1.1 feed (t/h)": 275,
-        "Zone 1.2 reclaim (t/h)": 90
-      },
-      "score": 127382.0,
-      "kpis": {
-        "tonnages": {
-          "KFS": 128369.0,
-          "FeedLime grits": 68007.0,
-          "AgLime": 226899.0,
-          "FeedLime fines": 91483.0,
-          "UltraFin": 7911.0
-        },
-        "firm_shortfall_t": 0.0,
-        "unsellable_surplus_t": 127382.0,
-        "total_installed_power_kW": 412.7,
-        "n_alerts": 2
+        "firm_shortfall_t": 6515.0,
+        "unsellable_surplus_t": 129899.0,
+        "stockpile_deficit_t": 133865.0,
+        "total_installed_power_kW": 394.6,
+        "n_alerts": 3
       }
     },
     {
       "values": {
         "SR.5007 top aperture (mm)": 32,
         "SR.5007 bottom aperture (mm)": 20,
-        "Zone 1.1 feed (t/h)": 225,
+        "Zone 1.1 feed (t/h)": 275,
         "Zone 1.2 reclaim (t/h)": 90
       },
-      "score": 127524.0,
+      "score": 14201898.0,
       "kpis": {
         "tonnages": {
-          "KFS": 89013.0,
-          "FeedLime grits": 67528.0,
-          "AgLime": 226611.0,
-          "FeedLime fines": 91913.0,
-          "UltraFin": 7959.0
+          "KFS": 87665.0,
+          "FeedLime grits": 63434.0,
+          "AgLime": 221494.0,
+          "FeedLime fines": 96404.0,
+          "UltraFin": 7560.0
         },
         "firm_shortfall_t": 0.0,
-        "unsellable_surplus_t": 127524.0,
-        "total_installed_power_kW": 385.3,
-        "n_alerts": 2
+        "unsellable_surplus_t": 126898.0,
+        "stockpile_deficit_t": 140750.0,
+        "total_installed_power_kW": 390.3,
+        "n_alerts": 3
+      }
+    },
+    {
+      "values": {
+        "SR.5007 top aperture (mm)": 32,
+        "SR.5007 bottom aperture (mm)": 22,
+        "Zone 1.1 feed (t/h)": 275,
+        "Zone 1.2 reclaim (t/h)": 90
+      },
+      "score": 14278909.0,
+      "kpis": {
+        "tonnages": {
+          "KFS": 74007.0,
+          "FeedLime grits": 63024.0,
+          "AgLime": 223335.0,
+          "FeedLime fines": 96774.0,
+          "UltraFin": 7602.0
+        },
+        "firm_shortfall_t": 10993.0,
+        "unsellable_surplus_t": 129109.0,
+        "stockpile_deficit_t": 130505.0,
+        "total_installed_power_kW": 395.5,
+        "n_alerts": 3
+      }
+    },
+    {
+      "values": {
+        "SR.5007 top aperture (mm)": 34,
+        "SR.5007 bottom aperture (mm)": 20,
+        "Zone 1.1 feed (t/h)": 275,
+        "Zone 1.2 reclaim (t/h)": 90
+      },
+      "score": 14550650.0,
+      "kpis": {
+        "tonnages": {
+          "KFS": 92307.0,
+          "FeedLime grits": 63436.0,
+          "AgLime": 222147.0,
+          "FeedLime fines": 96403.0,
+          "UltraFin": 7562.0
+        },
+        "firm_shortfall_t": 0.0,
+        "unsellable_surplus_t": 127550.0,
+        "stockpile_deficit_t": 144231.0,
+        "total_installed_power_kW": 389.2,
+        "n_alerts": 3
+      }
+    },
+    {
+      "values": {
+        "SR.5007 top aperture (mm)": 36,
+        "SR.5007 bottom aperture (mm)": 20,
+        "Zone 1.1 feed (t/h)": 275,
+        "Zone 1.2 reclaim (t/h)": 90
+      },
+      "score": 14872418.0,
+      "kpis": {
+        "tonnages": {
+          "KFS": 96591.0,
+          "FeedLime grits": 63438.0,
+          "AgLime": 222718.0,
+          "FeedLime fines": 96400.0,
+          "UltraFin": 7562.0
+        },
+        "firm_shortfall_t": 0.0,
+        "unsellable_surplus_t": 128118.0,
+        "stockpile_deficit_t": 147443.0,
+        "total_installed_power_kW": 388.1,
+        "n_alerts": 3
+      }
+    },
+    {
+      "values": {
+        "SR.5007 top aperture (mm)": 38,
+        "SR.5007 bottom aperture (mm)": 20,
+        "Zone 1.1 feed (t/h)": 275,
+        "Zone 1.2 reclaim (t/h)": 90
+      },
+      "score": 15167814.0,
+      "kpis": {
+        "tonnages": {
+          "KFS": 100523.0,
+          "FeedLime grits": 63442.0,
+          "AgLime": 223218.0,
+          "FeedLime fines": 96396.0,
+          "UltraFin": 7562.0
+        },
+        "firm_shortfall_t": 0.0,
+        "unsellable_surplus_t": 128614.0,
+        "stockpile_deficit_t": 150392.0,
+        "total_installed_power_kW": 387.1,
+        "n_alerts": 3
+      }
+    },
+    {
+      "values": {
+        "SR.5007 top aperture (mm)": 32,
+        "SR.5007 bottom aperture (mm)": 18,
+        "Zone 1.1 feed (t/h)": 275,
+        "Zone 1.2 reclaim (t/h)": 90
+      },
+      "score": 15419757.0,
+      "kpis": {
+        "tonnages": {
+          "KFS": 103931.0,
+          "FeedLime grits": 63994.0,
+          "AgLime": 220059.0,
+          "FeedLime fines": 95898.0,
+          "UltraFin": 7507.0
+        },
+        "firm_shortfall_t": 0.0,
+        "unsellable_surplus_t": 124957.0,
+        "stockpile_deficit_t": 152948.0,
+        "total_installed_power_kW": 384.4,
+        "n_alerts": 3
+      }
+    },
+    {
+      "values": {
+        "SR.5007 top aperture (mm)": 34,
+        "SR.5007 bottom aperture (mm)": 18,
+        "Zone 1.1 feed (t/h)": 275,
+        "Zone 1.2 reclaim (t/h)": 90
+      },
+      "score": 15773084.0,
+      "kpis": {
+        "tonnages": {
+          "KFS": 108635.0,
+          "FeedLime grits": 64004.0,
+          "AgLime": 220590.0,
+          "FeedLime fines": 95894.0,
+          "UltraFin": 7502.0
+        },
+        "firm_shortfall_t": 0.0,
+        "unsellable_surplus_t": 125484.0,
+        "stockpile_deficit_t": 156476.0,
+        "total_installed_power_kW": 383.1,
+        "n_alerts": 3
       }
     }
   ],
   "all_scores": [
-    126869.0,
-    126869.0,
-    126869.0,
-    127136.0,
-    127136.0,
-    127136.0,
-    127382.0,
-    127382.0,
-    127382.0,
-    127524.0,
-    127524.0,
-    127524.0,
-    127603.0,
-    127603.0,
-    127603.0,
-    127853.0,
-    127853.0,
-    127853.0,
-    128159.0,
-    128159.0,
-    128159.0,
-    128276.0,
-    128276.0,
-    128440.0,
-    128440.0,
-    128440.0,
-    128673.0,
-    128673.0,
-    129030.0,
-    129030.0,
-    129345.0,
-    129345.0,
-    152033.0,
-    152033.0,
-    152033.0,
-    152322.0,
-    152322.0,
-    152322.0,
-    152591.0,
-    152591.0,
-    152591.0,
-    152706.0,
-    152706.0,
-    152706.0,
-    152835.0,
-    152835.0,
-    152835.0,
-    153063.0,
-    153063.0,
-    153063.0,
-    153399.0,
-    153399.0,
-    153399.0,
-    153494.0,
-    153494.0,
-    153704.0,
-    153704.0,
-    153704.0,
-    153927.0,
-    153927.0,
-    154320.0,
-    154320.0,
-    154667.0,
-    154667.0,
-    177192.0,
-    177192.0,
-    177192.0,
-    177509.0,
-    177509.0,
-    177509.0,
-    177800.0,
-    177800.0,
-    177800.0,
-    177883.0,
-    177883.0,
-    177883.0,
-    178066.0,
-    178066.0,
-    178066.0,
-    178276.0,
-    178276.0,
-    178276.0,
-    178639.0,
-    178639.0,
-    178639.0,
-    178712.0,
-    178712.0,
-    178971.0,
-    178971.0,
-    178971.0,
-    179181.0,
-    179181.0,
-    179610.0,
-    179610.0,
-    179988.0,
-    179988.0,
-    186645.0,
-    211967.0,
-    237288.0,
-    359730.0,
-    385020.0,
-    410310.0,
-    544973.0,
-    570227.0,
-    595481.0,
-    742676.0,
-    767894.0,
-    793112.0
+    14064590.0,
+    14117795.0,
+    14167899.0,
+    14201898.0,
+    14278909.0,
+    14550650.0,
+    14872418.0,
+    15167814.0,
+    15419757.0,
+    15773084.0,
+    16097336.0,
+    16393439.0,
+    17029550.0,
+    17134598.0,
+    17165595.0,
+    17213818.0,
+    17252290.0,
+    17345999.0,
+    17447009.0,
+    17482414.0,
+    17711157.0,
+    18032484.0,
+    18327236.0,
+    18589569.0,
+    18596439.0,
+    18642837.0,
+    18692803.0,
+    18726509.0,
+    18803722.0,
+    19075333.0,
+    19397164.0,
+    19692618.0,
+    19944210.0,
+    20002457.0,
+    20072314.0,
+    20152318.0,
+    20239450.0,
+    20291784.0,
+    20297591.0,
+    20333698.0,
+    20362095.0,
+    20440190.0,
+    20524399.0,
+    20557036.0,
+    20615309.0,
+    20621896.0,
+    20799339.0,
+    20918045.0,
+    21554233.0,
+    21659209.0,
+    21690637.0,
+    21738564.0,
+    21777269.0,
+    21870903.0,
+    21971822.0,
+    22007218.0,
+    22235610.0,
+    22556991.0,
+    22851796.0,
+    23114549.0,
+    23121045.0,
+    23167885.0,
+    23217701.0,
+    23251120.0,
+    23328540.0,
+    23600015.0,
+    23921914.0,
+    24217422.0,
+    24468658.0,
+    24526910.0,
+    24597118.0,
+    24677064.0,
+    24764133.0,
+    24816291.0,
+    24822102.0,
+    24858309.0,
+    24887137.0,
+    24965169.0,
+    25049303.0,
+    25081596.0,
+    25140122.0,
+    25146458.0,
+    25323945.0,
+    25442651.0,
+    26078915.0,
+    26183820.0,
+    26215685.0,
+    26263314.0,
+    26302249.0,
+    26395801.0,
+    26496640.0,
+    26532022.0,
+    26760058.0,
+    27081502.0,
+    27376358.0,
+    27645651.0,
+    29051358.0,
+    29121922.0,
+    29201814.0,
+    29288815.0,
+    29340802.0,
+    29382920.0,
+    29412185.0,
+    29490149.0,
+    29574201.0,
+    29606158.0,
+    29664940.0,
+    29848551.0
   ]
 }

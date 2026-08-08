@@ -98,6 +98,8 @@ def zone_1_1(feed: dict, params: dict, mode: str, alerts: list) -> dict:
     oversize. Mode 1A: 20-35 cut -> KFS; mode 1B: 20-35 cut -> CR.5011
     (no KFS).
     """
+    if mode not in ("1A", "1B"):
+        raise ValueError(f"zone 1.1: unknown mode {mode!r} (expected '1A' or '1B')")
     mp = params["machines"]
     calib = params["calibration"]
     engine = params["engine"]
@@ -194,6 +196,8 @@ def zone_1_2(reclaim: dict, params: dict, mode: str, weather: str, alerts: list)
     the AgLime loop is computed with the degraded imperfection ``I_rain``
     and flagged as directional (audit finding on I_rain reachability).
     """
+    if mode not in ("2A", "2B", "2C"):
+        raise ValueError(f"zone 1.2: unknown mode {mode!r} (expected '2A', '2B' or '2C')")
     mp = params["machines"]
     calib = params["calibration"]
     engine = params["engine"]
@@ -305,7 +309,12 @@ def zone_1_3(feedlime: dict, params: dict, phi_100_pct, alerts: list) -> dict:
             f"DY.03: bottleneck — wet feed {wet_feed:.1f} t/h > dryer capacity {cap_dryer} t/h"
         )
     m6 = models.m6_drying(wet_feed, feedlime["moisture"], m_out, calib)
-    dried = _stream(m6["dry_solids_tph"], feedlime["psd"], m_out)
+    if m6["no_drying"]:
+        alerts.append(
+            f"DY.03: feed already drier ({feedlime['moisture']}%) than the target "
+            f"m_out ({m_out}%) — no drying, outlet keeps the feed moisture"
+        )
+    dried = _stream(m6["dry_solids_tph"], feedlime["psd"], m6["m_out_effective_pct"])
 
     p21 = mp["SN.21"]["parameters"]
     a1, a2, a3 = (p21[k]["default"] for k in ("a1", "a2", "a3"))
@@ -365,6 +374,8 @@ def zone_1_3(feedlime: dict, params: dict, phi_100_pct, alerts: list) -> dict:
                 "SP.36: Phi(<cut) not measured — UltraFin computed from the modelled "
                 "curve, flagged NOT CERTIFIED (to be measured by sieve/laser)"
             )
+        if m8["warning"]:
+            alerts.append(f"SP.36: {m8['warning']}")
         ultrafin = _stream(m8["fine_product_tph"], m8["fine_product_psd"], fines["moisture"])
         remaining_fines = _stream(m8["remainder_tph"], m8["remainder_psd"], fines["moisture"])
     else:

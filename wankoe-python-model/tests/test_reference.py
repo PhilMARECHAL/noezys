@@ -43,7 +43,7 @@ def test_9_1_zone_1_1(results):
     # KFS 59.3 t/h (23.7 %) at 250 t/h — calibrated
     assert results["products"]["KFS"]["tph"] == pytest.approx(59.3, abs=1.0)
     # 0/20: 190.7 t/h wet
-    q020 = results["intermediate_flows"]["0/20_dry_tph"] / (1 - 0.08)
+    q020 = results["intermediate_flows"]["stream_0_20_dry_tph"] / (1 - 0.08)
     assert q020 == pytest.approx(190.7, abs=1.5)
     # CR.5009 expected ~116 kW; achieved ~106 kW (-9 % documented deviation)
     assert results["machines"]["CR.5009"]["P_installed_kW"] == pytest.approx(116.0, rel=0.15)

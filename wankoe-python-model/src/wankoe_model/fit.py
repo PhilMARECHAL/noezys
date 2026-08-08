@@ -20,19 +20,8 @@ from __future__ import annotations
 
 import copy
 
+from .paths import get_path as _get_path, set_path as _set_path
 from .scenario import run_scenario
-
-
-def _get_path(node, path: list):
-    for key in path:
-        node = node[key]
-    return node
-
-
-def _set_path(node, path: list, value) -> None:
-    for key in path[:-1]:
-        node = node[key]
-    node[path[-1]] = value
 
 
 def _label(entry: dict) -> str:

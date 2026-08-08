@@ -1,112 +1,55 @@
 {
   "method": "grid",
-  "evaluated": 25,
+  "evaluated": 30,
   "failed": [],
   "tonnage_basis": "per period (seasonal dry/rain mix)",
   "objective": {
     "firm_shortfall_weight": 100.0,
     "surplus_weight": 1.0,
+    "stockpile_deficit_weight": 100.0,
     "power_weight": 0.0,
     "alert_weight": 0.0
   },
   "best": {
     "values": {
-      "reclaim": 50,
-      "feedlime": 18
+      "reclaim": 45,
+      "feedlime": 19
     },
-    "score": 0.0,
+    "score": 5054.0,
     "kpis": {
       "tonnages": {
-        "KFS": 102256.0,
-        "FeedLime grits": 40470.0,
-        "AgLime": 126126.0,
-        "FeedLime fines": 55188.0,
-        "UltraFin": 4781.0
+        "KFS": 85904.0,
+        "FeedLime grits": 40176.0,
+        "AgLime": 111222.0,
+        "FeedLime fines": 61054.0,
+        "UltraFin": 4787.0
       },
       "firm_shortfall_t": 0.0,
-      "unsellable_surplus_t": 0.0,
-      "total_installed_power_kW": 297.1,
+      "unsellable_surplus_t": 5054.0,
+      "stockpile_deficit_t": 0.0,
+      "total_installed_power_kW": 272.6,
       "n_alerts": 2
     }
   },
   "top": [
     {
       "values": {
-        "reclaim": 50,
-        "feedlime": 18
+        "reclaim": 45,
+        "feedlime": 19
       },
-      "score": 0.0,
+      "score": 5054.0,
       "kpis": {
         "tonnages": {
-          "KFS": 102256.0,
-          "FeedLime grits": 40470.0,
-          "AgLime": 126126.0,
-          "FeedLime fines": 55188.0,
-          "UltraFin": 4781.0
+          "KFS": 85904.0,
+          "FeedLime grits": 40176.0,
+          "AgLime": 111222.0,
+          "FeedLime fines": 61054.0,
+          "UltraFin": 4787.0
         },
         "firm_shortfall_t": 0.0,
-        "unsellable_surplus_t": 0.0,
-        "total_installed_power_kW": 297.1,
-        "n_alerts": 2
-      }
-    },
-    {
-      "values": {
-        "reclaim": 53,
-        "feedlime": 18
-      },
-      "score": 0.0,
-      "kpis": {
-        "tonnages": {
-          "KFS": 102256.0,
-          "FeedLime grits": 40470.0,
-          "AgLime": 133695.0,
-          "FeedLime fines": 55188.0,
-          "UltraFin": 4781.0
-        },
-        "firm_shortfall_t": 0.0,
-        "unsellable_surplus_t": 0.0,
-        "total_installed_power_kW": 303.3,
-        "n_alerts": 2
-      }
-    },
-    {
-      "values": {
-        "reclaim": 50,
-        "feedlime": 18.5
-      },
-      "score": 724.0,
-      "kpis": {
-        "tonnages": {
-          "KFS": 102256.0,
-          "FeedLime grits": 41595.0,
-          "AgLime": 126126.0,
-          "FeedLime fines": 56724.0,
-          "UltraFin": 4910.0
-        },
-        "firm_shortfall_t": 0.0,
-        "unsellable_surplus_t": 724.0,
-        "total_installed_power_kW": 297.9,
-        "n_alerts": 2
-      }
-    },
-    {
-      "values": {
-        "reclaim": 53,
-        "feedlime": 18.5
-      },
-      "score": 724.0,
-      "kpis": {
-        "tonnages": {
-          "KFS": 102256.0,
-          "FeedLime grits": 41595.0,
-          "AgLime": 133695.0,
-          "FeedLime fines": 56724.0,
-          "UltraFin": 4910.0
-        },
-        "firm_shortfall_t": 0.0,
-        "unsellable_surplus_t": 724.0,
-        "total_installed_power_kW": 304.1,
+        "unsellable_surplus_t": 5054.0,
+        "stockpile_deficit_t": 0.0,
+        "total_installed_power_kW": 272.6,
         "n_alerts": 2
       }
     },
@@ -115,47 +58,116 @@
         "reclaim": 50,
         "feedlime": 19
       },
-      "score": 2254.0,
+      "score": 5054.0,
       "kpis": {
         "tonnages": {
-          "KFS": 102256.0,
-          "FeedLime grits": 42720.0,
-          "AgLime": 126126.0,
-          "FeedLime fines": 58254.0,
-          "UltraFin": 5046.0
+          "KFS": 85904.0,
+          "FeedLime grits": 40176.0,
+          "AgLime": 123579.0,
+          "FeedLime fines": 61054.0,
+          "UltraFin": 4787.0
         },
         "firm_shortfall_t": 0.0,
-        "unsellable_surplus_t": 2254.0,
-        "total_installed_power_kW": 298.8,
+        "unsellable_surplus_t": 5054.0,
+        "stockpile_deficit_t": 0.0,
+        "total_installed_power_kW": 281.6,
+        "n_alerts": 2
+      }
+    },
+    {
+      "values": {
+        "reclaim": 45,
+        "feedlime": 20
+      },
+      "score": 8268.0,
+      "kpis": {
+        "tonnages": {
+          "KFS": 85904.0,
+          "FeedLime grits": 42293.0,
+          "AgLime": 111222.0,
+          "FeedLime fines": 64268.0,
+          "UltraFin": 5042.0
+        },
+        "firm_shortfall_t": 0.0,
+        "unsellable_surplus_t": 8268.0,
+        "stockpile_deficit_t": 0.0,
+        "total_installed_power_kW": 274.4,
+        "n_alerts": 2
+      }
+    },
+    {
+      "values": {
+        "reclaim": 50,
+        "feedlime": 20
+      },
+      "score": 8268.0,
+      "kpis": {
+        "tonnages": {
+          "KFS": 85904.0,
+          "FeedLime grits": 42293.0,
+          "AgLime": 123579.0,
+          "FeedLime fines": 64268.0,
+          "UltraFin": 5042.0
+        },
+        "firm_shortfall_t": 0.0,
+        "unsellable_surplus_t": 8268.0,
+        "stockpile_deficit_t": 0.0,
+        "total_installed_power_kW": 283.3,
+        "n_alerts": 2
+      }
+    },
+    {
+      "values": {
+        "reclaim": 40,
+        "feedlime": 18
+      },
+      "score": 195440.0,
+      "kpis": {
+        "tonnages": {
+          "KFS": 85904.0,
+          "FeedLime grits": 38064.0,
+          "AgLime": 98865.0,
+          "FeedLime fines": 57840.0,
+          "UltraFin": 4536.0
+        },
+        "firm_shortfall_t": 1936.0,
+        "unsellable_surplus_t": 1840.0,
+        "stockpile_deficit_t": 0.0,
+        "total_installed_power_kW": 261.9,
         "n_alerts": 2
       }
     }
   ],
   "all_scores": [
-    0.0,
-    0.0,
-    724.0,
-    724.0,
-    2254.0,
-    2254.0,
-    3740.0,
-    3789.0,
-    3789.0,
-    4464.0,
-    5319.0,
-    5319.0,
-    5994.0,
-    7529.0,
-    8784.0,
-    9059.0,
-    9508.0,
-    11038.0,
-    12573.0,
-    14103.0,
-    16353.0,
-    17077.0,
-    18607.0,
-    20142.0,
-    21672.0
+    5054.0,
+    5054.0,
+    8268.0,
+    8268.0,
+    195440.0,
+    195440.0,
+    195440.0,
+    405300.0,
+    405300.0,
+    405300.0,
+    441554.0,
+    616500.0,
+    616500.0,
+    616500.0,
+    828200.0,
+    828200.0,
+    828200.0,
+    894768.0,
+    1198690.0,
+    1201904.0,
+    1389076.0,
+    1598936.0,
+    1810136.0,
+    2021836.0,
+    3461052.0,
+    3464266.0,
+    3651438.0,
+    3861298.0,
+    4072498.0,
+    4284198.0
   ]
 }

@@ -52,7 +52,7 @@
       "_note": "Upstream of the pivot feed point (spec ch.5: the feed curve is MEASURED downstream of the primary station), so this machine is not wired into the flowsheet. Its parameters are used by the reference-curve calibration script only.",
       "parameters": {
         "s_CSS": {
-          "name": "Closed-side setting (CSS)",
+          "name": "Closed-side setting (CSS) - informative only, not used by any computation",
           "unit": "mm",
           "min": 100,
           "max": 200,
@@ -93,11 +93,11 @@
           "step": 1
         },
         "I": {
-          "name": "Imperfection",
+          "name": "Imperfection (remapped I_new = 1 - I_old after the M3 arbitration: the spec-sheet 0.6 was written under the old inverted semantics; to confirm by a screen-product sieve test)",
           "unit": "-",
-          "min": 0.4,
+          "min": 0.1,
           "max": 0.9,
-          "default": 0.6
+          "default": 0.4
         }
       }
     },
@@ -218,11 +218,11 @@
           "step": 0.1
         },
         "I": {
-          "name": "Imperfection",
+          "name": "Imperfection (remapped I_new = 1 - I_old after the M3 arbitration: the spec-sheet 0.6 was written under the old inverted semantics; to confirm by a screen-product sieve test)",
           "unit": "-",
-          "min": 0.4,
+          "min": 0.1,
           "max": 0.9,
-          "default": 0.6
+          "default": 0.4
         }
       }
     },
@@ -293,11 +293,11 @@
           "default": 4.11
         },
         "S_att": {
-          "name": "Attrition per pass [H] (refitted on case 9.3 after the M3 arbitration, was 0.206)",
+          "name": "Attrition per pass [H] (refitted after the M3 arbitration + imperfection remap; spec sheet default was 0.206)",
           "unit": "-",
           "min": 0.15,
           "max": 0.25,
-          "default": 0.25
+          "default": 0.171
         }
       }
     },
@@ -376,8 +376,8 @@
     "I_dry": {
       "name": "Screen imperfection (dry)",
       "unit": "-",
-      "default": 0.6,
-      "status": "[H]",
+      "default": 0.4,
+      "status": "[H] remapped I_new = 1 - I_old after the M3 arbitration (preserves the spec sharpness s=4.30 in dry weather); to confirm by sieve test",
       "used_by": "M3"
     },
     "f0": {
@@ -538,21 +538,21 @@
       "name": "RR uniformity of ML.26 compression",
       "unit": "-",
       "default": 0.86,
-      "status": "[H] hypothesis H-M7-1, refitted on reference case 9.3 after the M3 arbitration (2026-08-08), to confirm by trial",
+      "status": "hypothesis H-M7-1 - [H] refitted on reference case 9.3 after the M3 arbitration + imperfection remap (2026-08-08), exact match, to confirm by trial",
       "used_by": "M7"
     },
     "m7_x80_att": {
       "name": "x80 of ML.26 attrition fines",
       "unit": "mm",
-      "default": 0.71,
-      "status": "[H] hypothesis H-M7-2, refitted on reference case 9.3 after the M3 arbitration (2026-08-08), to confirm by trial",
+      "default": 1.2,
+      "status": "hypothesis H-M7-2 - [H] refitted on reference case 9.3 after the M3 arbitration + imperfection remap (2026-08-08), exact match, to confirm by trial",
       "used_by": "M7"
     },
     "m7_n_att": {
       "name": "RR uniformity of attrition fines",
       "unit": "-",
-      "default": 1.6,
-      "status": "[H] hypothesis H-M7-2, refitted on reference case 9.3 after the M3 arbitration (2026-08-08), to confirm by trial",
+      "default": 1.59,
+      "status": "hypothesis H-M7-2 - [H] refitted on reference case 9.3 after the M3 arbitration + imperfection remap (2026-08-08), exact match, to confirm by trial",
       "used_by": "M7"
     },
     "I_rain": {
@@ -607,28 +607,34 @@
     "loop_max_iterations": 200,
     "loop_relative_tolerance": 1e-06,
     "max_circulating_ratio": 10,
-    "balance_relative_tolerance": 0.001
+    "balance_relative_tolerance": 0.001,
+    "time_basis_fractions": {
+      "annual": 1.0,
+      "monthly": 0.08333333,
+      "weekly": 0.01923077,
+      "daily": 0.00273973
+    }
   },
   "feed_product": {
     "comment": "Pivot feed: belt-cut PSD MEASURED at the primary crusher outlet on 2026-08-08 (raw data: data/feed_measurement_2026-08-08.json). Measured range 19-200 mm; fine tail < 19 mm and top size completed by hypotheses H-FEED-1/H-FEED-2 (see data/measured_feed_curve.json, rebuild with scripts/build_feed_curve_from_measurement.py). Model checks: d50 32.3 mm (measured 32), d80 180.6 mm (measured 180).",
     "cumulative_passing_curve": {
-      "0.063": 0.011,
-      "0.1": 0.021,
-      "0.125": 0.028,
-      "0.25": 0.074,
-      "0.5": 0.216,
-      "1.0": 0.682,
-      "1.5": 1.379,
-      "1.7": 1.719,
-      "2.0": 2.294,
-      "2.8": 4.175,
-      "4.0": 7.808,
-      "5.0": 11.385,
-      "6.3": 16.451,
-      "8.0": 23.157,
-      "10.0": 30.269,
-      "12.5": 37.077,
-      "15.0": 41.496,
+      "0.063": 0.067,
+      "0.1": 0.123,
+      "0.125": 0.166,
+      "0.25": 0.42,
+      "0.5": 1.062,
+      "1.0": 2.667,
+      "1.5": 4.525,
+      "1.7": 5.312,
+      "2.0": 6.526,
+      "2.8": 9.863,
+      "4.0": 14.867,
+      "5.0": 18.824,
+      "6.3": 23.503,
+      "8.0": 28.712,
+      "10.0": 33.568,
+      "12.5": 38.053,
+      "15.0": 41.298,
       "20.0": 45.482,
       "25.0": 47.581,
       "31.5": 49.754,
