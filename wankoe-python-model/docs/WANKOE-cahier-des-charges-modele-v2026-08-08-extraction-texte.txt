@@ -1,0 +1,838 @@
+PROJET WANKOE
+Cahier des charges du modèle de calcul
+Ligne de traitement calcaire — zones 1.1 / 1.2 / 1.3
+Spécification complète pour l'équipe de développement Python
+Version de travail — 8 août 2026
+© Philippe Maréchal — confidentiel
+Préambule
+Ce document spécifie le modèle de calcul déterministe de la ligne WANKOE (zones 1.1, 1.2, 1.3), destiné aux développeurs Python. Il suit exactement la structure de cahier des charges d'entrée définie avec l'équipe de programmation, en neuf chapitres.
+Nature du modèle
+Flowsheet STATIQUE DÉTERMINISTE des trois zones : pour un jeu de paramètres (un « scénario ») et une base de temps au choix, il calcule la « photo » synchronisée de toute la ligne — flux, granulométries, bilan matière et eau, dimensionnement des machines, écarts aux objectifs et aux plafonds de marché.
+Aucune dynamique, aucun aléa. Chaque exécution = un scénario. L'utilisateur définit chaque scénario et compare les photos ; le moteur n'optimise pas seul et n'IMPOSE aucun choix d'exploitation (météo, mode, réglage, objectif).
+Structure fixe (fidèle aux schémas de principe en blocs), avec blocs et modes activables par paramètre on/off. Interface web ; module d'auto-calibration sur mesures.
+Trois règles d'or
+Chaque symbole d'une formule est défini (nom, unité). Un symbole non défini est renvoyé sous forme de question, jamais deviné.
+Un abaque ou une courbe constructeur est fourni en tableau de valeurs, avec le mode d'interpolation (linéaire ou log).
+Les données d'entrée sont SÉPARÉES du code : tout paramètre est modifiable sans reprogrammation.
+Frontière paramètres / codé en dur
+Codé en dur (moteur) : lois physiques et identités mathématiques — conservation masse et eau, concassage (Rosin-Rammler), loi de Bond, partition de crible (Karra), logique de circuit fermé, séchage ; grille de mailles unique ; STRUCTURE des blocs.
+Paramètres (libres) : granulo mesurée, humidités, saisons/météo, modes, réglages machines, plafonds de marché, objectifs, coefficients de calibration, capacités installées, heures/disponibilité.
+Critères d'acceptation
+Bouclage masse + eau automatique à chaque scénario (tolérance stricte).
+Reproduction des cas de référence documentés (chapitre 9).
+Tests automatisés + cas de référence livrés avec le code.
+1.  Conventions générales
+1.1  Unités
+Grandeur
+	| Unité
+	| Remarque
+	| Débits massiques
+	| t/h
+	|
+	| Tailles / mailles
+	| mm
+	|
+	| Puissances
+	| kW
+	|
+	| Proportions
+	| %
+	| MASSIQUES sauf mention « vol. »
+	| Densités apparentes
+	| t/m³
+	|
+	| Énergie spécifique
+	| kWh/t
+	|
+	| Températures
+	| °C
+	|
+	| Temps
+	| h
+	|
+	| Tonnages par période
+	| t
+	| sur la base de temps choisie
+	| 1.2  Série de mailles de référence (validée)
+Toutes les courbes du modèle sont exprimées sur cette série unique, qui porte chaque point de coupe de l'usine (0,1 · 1,5 · 1,7 · 2 · 4 · 5 · 15 · 20 · 35 · 40 · 80 mm) et couvre le tout-venant jusqu'à ~200 mm :
+0,063 – 0,100 – 0,125 – 0,25 – 0,5 – 1,0 – 1,5 – 1,7 – 2,0 – 2,8 – 4,0 – 5,0 – 6,3 – 8,0 – 10 – 12,5 – 15 – 20 – 25 – 31,5 – 35 – 40 – 50 – 63 – 80 – 100 – 125 – 160 – 200  mm
+1.3  Convention de courbe
+Courbe granulométrique = % PASSANT CUMULÉ à chaque maille.
+Représentation : mailles en log, passant linéaire 0–100 %.
+1.4  Humidité et matière
+Humidité en BASE HUMIDE : 8 % = 8 kg d'eau / 100 kg de matière humide.
+Grandeur conservée = SOLIDE SEC ; l'eau est un flux séparé, retirée uniquement au séchoir.
+Bilan bouclé : solides secs entrée = sortie ; eau entrée = eau des produits humides + vapeur.
+2.  Codification des machines
+Un code = une machine physique. Zone 1.3 : tags du bureau d'études (PFD « DBR »). Zones 1.1 / 1.2 : tags des PFD existants.
+Code
+	| Zone
+	| Type
+	| CR.5003
+	| 1.1
+	| Concasseur à mâchoires
+	| SR.5007
+	| 1.1
+	| Crible double étage (35 / 20 mm)
+	| CR.5009
+	| 1.1
+	| Concasseur à rouleaux dentés
+	| CR.5011
+	| 1.1
+	| Concasseur à percussion (HAZEMAG AP-S 1010)
+	| DV-5099
+	| 1.1
+	| Clapet sélecteur de mode (KFS / broyage)
+	| BF.5101
+	| 1.2
+	| Extracteur de reprise
+	| SR.5105
+	| 1.2
+	| Crible de reprise (15 / 5 mm)
+	| CR.5107
+	| 1.2
+	| Concasseur à percussion (boucle AgLime)
+	| SR.5115
+	| 1.2
+	| Crible fermeur 1,7 mm
+	| DY.03
+	| 1.3
+	| Séchoir rotatif (+ brûleur BU.04)
+	| SN.21
+	| 1.3
+	| Crible de classification (4 / 2 / 1,5 mm)
+	| ML.26
+	| 1.3
+	| Broyeur à cylindres dentés (grits, boucle fermée)
+	| SP.36
+	| 1.3
+	| Séparateur à air (classification UltraFin)
+	| CL.38
+	| 1.3
+	| Cyclones (produit fin UltraFin)
+	| ML.30 (Unirotor) et DV.10 du PFD initial sont SUPPRIMÉS. L'UltraFin est obtenu par classification du 0-1,5 mm dans SP.36 + CL.38, sans broyage.
+3.  Fiche par machine
+Les modèles de calcul communs (§ 3.0) portent le détail des formules et la définition de chaque symbole. Chaque fiche machine (§ 3.1 et suivants) renvoie au modèle utilisé et fournit ses paramètres. Les coefficients marqués [H] sont des valeurs par défaut issues de la littérature, à confirmer par essai (paramètres tunables, non codés en dur).
+3.0  Modèles de calcul communs
+M1 — Concassage (produit Rosin-Rammler tronqué)
+xc = x80 / (ln 5)^(1/n)
+P(x) = 1 − exp( −(x / xc)^n )      (passant cumulé du produit)
+Le produit est tronqué au-dessus de 1,7·x80 (masse réétalée) ; la fraction du flux plus fine que x80 passe inchangée.
+Symbole
+	| Unité
+	| Définition
+	| x
+	| mm
+	| taille de particule
+	| x80
+	| mm
+	| maille passant 80 % du produit (fixée par la machine)
+	| n
+	| –
+	| uniformité Rosin-Rammler
+	| xc
+	| mm
+	| taille caractéristique
+	| P
+	| –
+	| passant cumulé
+	| M2 — Puissance (loi de Bond)
+W = 10 · Wi · ( 1/√P80 − 1/√F80 )      [P80, F80 en µm]
+P_net = W · Q     ;     P_inst = P_net / η_m
+Symbole
+	| Unité
+	| Définition
+	| W
+	| kWh/t
+	| énergie spécifique
+	| Wi
+	| kWh/t
+	| indice de Bond (défaut 12,54)
+	| F80 / P80
+	| µm
+	| maille passant 80 % alimentation / produit
+	| Q
+	| t/h
+	| débit traité
+	| η_m
+	| –
+	| rendement mécanique (net→installé, défaut 0,75)
+	| M3 — Partition de crible (Karra)
+d50c = a · k_d     ;     s = ln 9 / ln(1/I)
+ro(x) = 1 / ( 1 + (d50c / x)^s )      refus = f·ro   ;   passant = f·(1−ro)
+Symbole
+	| Unité
+	| Définition
+	| a
+	| mm
+	| maille du crible (réglage)
+	| k_d
+	| –
+	| facteur d50c (défaut 1,0)
+	| I
+	| –
+	| imperfection (défaut 0,60 sec ; augmente si humide)
+	| s
+	| –
+	| netteté de coupure
+	| ro
+	| –
+	| probabilité de refus
+	| f
+	| t/h
+	| débit de la tranche
+	| Effet pluie : sur les coupures fines (1,7 mm humide), I se dégrade fortement (jusqu'à ~0,9) et la capacité chute — d'où l'impossibilité de faire l'AgLime sous la pluie.
+M4 — Surface de crible (VSMA / Fontaine)
+Qb = 14 · a^0,6      ;      A = (U · f_p) / (Qb · f0)
+Symbole
+	| Unité
+	| Définition
+	| A
+	| m²
+	| surface requise
+	| Qb
+	| t/h/m²
+	| capacité de base
+	| a
+	| mm
+	| maille
+	| U
+	| t/h
+	| débit de passant à travers l'étage
+	| f_p
+	| –
+	| facteur de pointe (défaut 1,20)
+	| f0
+	| –
+	| facteur de correction global (défaut 0,347 [H], calé sur SR.5007)
+	| M5 — Fragmentation par impact (t10 → n)
+Ecs = v² / 7200     ;     t10 = A_j · ( 1 − exp(−b_j · Ecs) )     ;     n = max( 0,65 ; (30 / t10)^0,30 )
+Symbole
+	| Unité
+	| Définition
+	| v
+	| m/s
+	| vitesse périphérique de rotor (réglage, variateur)
+	| Ecs
+	| kWh/t
+	| énergie spécifique d'impact
+	| t10
+	| %
+	| finesse JKMRC
+	| A_j , b_j
+	| –
+	| paramètres JKMRC (défauts 60 ; 0,80 [H])
+	| n
+	| –
+	| uniformité du produit (→ M1) ; x80 = CSS de la machine
+	| M6 — Séchage (bilan hydrique + thermique)
+sec = W_h·(1 − m_in/100)   ;   W_out = sec/(1 − m_out/100)   ;   E = W_h − W_out
+Q = E·(L_v + c_e·ΔT_e) + sec·c_s·ΔT_s      ;      P_br = Q / η_th      ;      V_tambour = E / I_év
+Symbole
+	| Unité
+	| Définition
+	| W_h
+	| t/h
+	| débit humide entrée
+	| m_in / m_out
+	| %
+	| humidité base humide entrée / sortie (m_out défaut 0,5)
+	| sec
+	| t/h
+	| solides secs
+	| E
+	| t/h
+	| eau évaporée (vapeur)
+	| L_v
+	| kJ/kg
+	| chaleur latente eau (2257)
+	| c_e / c_s
+	| kJ/kg·K
+	| capacités eau (4,18) / solide (0,90)
+	| ΔT_e / ΔT_s
+	| K
+	| échauffements eau / solide [H]
+	| η_th
+	| –
+	| rendement thermique (défaut 0,60 [H])
+	| I_év
+	| kg/m³·h
+	| intensité d'évaporation (défaut 45 [H])
+	| P_br
+	| kW
+	| puissance brûleur
+	| M7 — Broyeur à cylindres en lit (ML.26)
+En circuit fermé avec SN.21. Deux mécanismes par passe : (1) COMPRESSION du + gap → produit Rosin-Rammler (M1, x80 = gap) ; (2) ATTRITION inter-particulaire du lit → fines. Paramètres [H] : comp_lam (taux de compression, défaut 4,11), S_att (attrition par passe, défaut 0,206). À caler par essai ; fournir en abaque (interpolation linéaire) si disponible.
+M8 — Classification à air + cyclone (SP.36 + CL.38)
+produit_fin = feed · Φ(<coupe) · η_cl      ;      Q_air = produit_fin / λ
+cyclone : d50 = √( 9·µ·b / (2π·N_e·v_in·(ρ_p − ρ_a)) )
+Symbole
+	| Unité
+	| Définition
+	| coupe
+	| µm
+	| coupe du classificateur (≈ 0,65·d97 cible)
+	| Φ(<coupe)
+	| –
+	| fraction naturelle du feed sous la coupe [À MESURER]
+	| η_cl
+	| –
+	| rendement d'extraction (défaut 0,75 [H])
+	| λ
+	| kg/m³
+	| chargement solide de l'air (défaut 0,5 [H])
+	| Q_air
+	| m³/h
+	| débit d'air
+	| b
+	| m
+	| largeur d'entrée cyclone
+	| N_e
+	| –
+	| nombre de tours effectifs (défaut 5)
+	| v_in
+	| m/s
+	| vitesse d'entrée (défaut 15)
+	| ρ_p / ρ_a
+	| kg/m³
+	| densité particule / air
+	| 3.1 à 3.12  Fiches machines
+CR.5003   — zone 1.1 — concasseur à mâchoires
+Entrées acceptées : débit (t/h), courbe granulo (+80 mm)
+Paramètres réglables :
+Nom
+	| Symb.
+	| Unité
+	| Min
+	| Max
+	| Défaut
+	| Pas
+	| Ouverture (CSS)
+	| s_CSS
+	| mm
+	| 100
+	| 200
+	| 175
+	| 5
+	| x80 produit
+	| x80
+	| mm
+	| —
+	| —
+	| 150
+	| —
+	| Formules :
+Produit : M1 avec x80 (défaut 150 mm) et n (défaut 1,15). Puissance : M2.
+Domaine de validité : alimentation + 80 mm (refus grizzly).
+Hors domaine : alarme si F80 > capacité mâchoires ; débit plafonné.
+SR.5007   — zone 1.1 — crible double étage 35 / 20 mm
+Entrées acceptées : débit (t/h), courbe granulo
+Paramètres réglables :
+Nom
+	| Symb.
+	| Unité
+	| Min
+	| Max
+	| Défaut
+	| Pas
+	| Maille étage haut
+	| a₁
+	| mm
+	| 20
+	| 50
+	| 35
+	| 1
+	| Maille étage bas
+	| a₂
+	| mm
+	| 10
+	| 30
+	| 20
+	| 1
+	| Imperfection
+	| I
+	| –
+	| 0,4
+	| 0,9
+	| 0,60
+	| —
+	| Formules :
+Partition : M3 sur chaque étage (a₁ puis a₂). Surface : M4 (étage limitant).
+Sorties : +35 (refus), 20-35 (mid = KFS ou broyage), 0-20 (passant).
+Domaine de validité : coupes 20–35 mm.
+Hors domaine : alerte si A requise > surface installée.
+CR.5009   — zone 1.1 — concasseur à rouleaux dentés
+Entrées acceptées : débit (t/h), courbe granulo
+Paramètres réglables :
+Nom
+	| Symb.
+	| Unité
+	| Min
+	| Max
+	| Défaut
+	| Pas
+	| Gap
+	| g
+	| mm
+	| 20
+	| 60
+	| 40
+	| 5
+	| x80 produit
+	| x80
+	| mm
+	| —
+	| —
+	| 40
+	| —
+	| Formules :
+Produit : M1 avec x80 = f(gap) (défaut 40 mm), n (défaut 1,35). Puissance : M2.
+Domaine de validité : alimentation ≤ ~150 mm.
+Hors domaine : saturation si gap < alimentation nippable.
+CR.5011   — zone 1.1 — concasseur à percussion (HAZEMAG AP-S 1010)
+Entrées acceptées : débit (t/h), courbe granulo (refus +35)
+Paramètres réglables :
+Nom
+	| Symb.
+	| Unité
+	| Min
+	| Max
+	| Défaut
+	| Pas
+	| Vitesse rotor
+	| v
+	| m/s
+	| 30
+	| 60
+	| 45
+	| 1
+	| CSS (x80)
+	| x80
+	| mm
+	| 10
+	| 30
+	| 20
+	| 1
+	| Formules :
+Uniformité n : M5 (v → t10 → n). Produit : M1 (x80 = CSS, n). Puissance : M2.
+En boucle fermée sur SR.5007.
+Domaine de validité : capacité réelle ~125 t/h (mode A) ; alimentation +35 mm.
+Hors domaine : au-delà de 125 t/h : goulot, alarme capacité.
+SR.5105   — zone 1.2 — crible de reprise 15 / 5 mm
+Entrées acceptées : débit (t/h), courbe granulo (0/20)
+Paramètres réglables :
+Nom
+	| Symb.
+	| Unité
+	| Min
+	| Max
+	| Défaut
+	| Pas
+	| Maille haute
+	| a₁
+	| mm
+	| 10
+	| 20
+	| 15
+	| 1
+	| Maille basse
+	| a₂
+	| mm
+	| 3
+	| 8
+	| 5
+	| 1
+	| Formules :
+Partition : M3 (a₁, a₂). Sorties : +15, 5-15 (mid), 0-5. Routage selon MODE 2A/2B/2C.
+Domaine de validité : coupes 5–15 mm.
+Hors domaine : alerte surface (M4).
+CR.5107   — zone 1.2 — concasseur à percussion (boucle AgLime)
+Entrées acceptées : débit (t/h), courbe granulo (refus +1,7)
+Paramètres réglables :
+Nom
+	| Symb.
+	| Unité
+	| Min
+	| Max
+	| Défaut
+	| Pas
+	| Vitesse rotor
+	| v
+	| m/s
+	| 30
+	| 60
+	| 40
+	| 1
+	| CSS (x80)
+	| x80
+	| mm
+	| 1,0
+	| 3,0
+	| 1,0
+	| 0,1
+	| Formules :
+Uniformité n : M5. Produit : M1 (x80 = CSS). Puissance : M2. En boucle fermée sur SR.5115.
+Réglage recommandé (charge circulante mini) : CSS ≈ 1,0–1,2 mm, v ≈ 40 m/s.
+Domaine de validité : fermeture à 1,7 mm ; alimentation +1,7 mm.
+Hors domaine : CSS trop grand (>gap utile) → charge circulante explose : alarme.
+SR.5115   — zone 1.2 — crible fermeur 1,7 mm
+Entrées acceptées : débit (t/h), courbe granulo
+Paramètres réglables :
+Nom
+	| Symb.
+	| Unité
+	| Min
+	| Max
+	| Défaut
+	| Pas
+	| Maille
+	| a
+	| mm
+	| 1,5
+	| 2,0
+	| 1,7
+	| 0,1
+	| Imperfection
+	| I
+	| –
+	| 0,4
+	| 0,9
+	| 0,60
+	| —
+	| Formules :
+Partition : M3. Passant 0-1,7 = AgLime ; refus → CR.5107. Surface : M4 (coupe fine → capacité réduite si humide).
+Domaine de validité : temps sec ; sous la pluie I se dégrade → coupe impossible (mode 2B forcé).
+Hors domaine : si humide : refus de calcul AgLime, bascule mode 2B.
+DY.03   — zone 1.3 — séchoir rotatif
+Entrées acceptées : débit humide (t/h), humidité (%), courbe granulo
+Paramètres réglables :
+Nom
+	| Symb.
+	| Unité
+	| Min
+	| Max
+	| Défaut
+	| Pas
+	| Humidité sortie
+	| m_out
+	| %
+	| 0,3
+	| 1,0
+	| 0,5
+	| 0,1
+	| Formules :
+Bilan : M6. Sorties : débit sec, eau évaporée (vapeur), puissance brûleur, volume tambour.
+Domaine de validité : humidité entrée = paramètre (défaut 8 %).
+Hors domaine : si débit > capacité séchoir : goulot, alarme.
+SN.21   — zone 1.3 — crible de classification 4 / 2 / 1,5 mm
+Entrées acceptées : débit (t/h), courbe granulo (produit sec)
+Paramètres réglables :
+Nom
+	| Symb.
+	| Unité
+	| Min
+	| Max
+	| Défaut
+	| Pas
+	| Maille 1
+	| a₁
+	| mm
+	| 3
+	| 5
+	| 4
+	| 0,5
+	| Maille 2
+	| a₂
+	| mm
+	| 1,5
+	| 2,5
+	| 2
+	| 0,1
+	| Maille 3
+	| a₃
+	| mm
+	| 1,0
+	| 1,7
+	| 1,5
+	| 0,1
+	| Formules :
+Partition : M3 (a₁, a₂, a₃). Grits = tranche 2-4 (produit direct). Passant 0-1,5 = FeedLime fines.
+Refus +4 et sliver 1,5-2 → ML.26 (boucle fermée).
+Domaine de validité : produit séché (0,5 %).
+Hors domaine : alerte surface (M4).
+ML.26   — zone 1.3 — broyeur à cylindres dentés (grits)
+Entrées acceptées : débit (t/h), courbe granulo (+4 et 1,5-2)
+Paramètres réglables :
+Nom
+	| Symb.
+	| Unité
+	| Min
+	| Max
+	| Défaut
+	| Pas
+	| Gap
+	| g
+	| mm
+	| 3
+	| 5
+	| 4
+	| 0,5
+	| Compression
+	| comp_lam
+	| –
+	| 3,1
+	| 5,6
+	| 4,11
+	| —
+	| Attrition/passe
+	| S_att
+	| –
+	| 0,15
+	| 0,25
+	| 0,206
+	| —
+	| Formules :
+Modèle M7 (compression + attrition en lit), boucle fermée sur SN.21. Puissance : M2.
+comp_lam et S_att = [H], à caler par essai.
+Domaine de validité : circuit fermé grits ; alimentation +4 mm + sliver.
+Hors domaine : au-delà de la capacité rouleaux : alarme.
+SP.36   — zone 1.3 — séparateur à air (UltraFin)
+Entrées acceptées : débit (t/h), courbe granulo (0-1,5 sec)
+Paramètres réglables :
+Nom
+	| Symb.
+	| Unité
+	| Min
+	| Max
+	| Défaut
+	| Pas
+	| Coupe
+	| coupe
+	| µm
+	| 45
+	| 150
+	| 100
+	| 5
+	| Rendement
+	| η_cl
+	| –
+	| 0,60
+	| 0,85
+	| 0,75
+	| —
+	| Formules :
+Modèle M8 : UltraFin = feed·Φ(<coupe)·η_cl ; refus grossier reste en FeedLime fines. Débit d'air Q_air.
+Domaine de validité : Φ(<coupe) = contenu naturel du 0-1,5 [À MESURER au tamis/laser].
+Hors domaine : si Φ non mesuré : calcul directionnel, drapeau « non certifié ».
+CL.38   — zone 1.3 — cyclones (produit fin)
+Entrées acceptées : débit d'air (m³/h), charge solide
+Paramètres réglables :
+Nom
+	| Symb.
+	| Unité
+	| Min
+	| Max
+	| Défaut
+	| Pas
+	| Vitesse entrée
+	| v_in
+	| m/s
+	| 10
+	| 20
+	| 15
+	| 1
+	| Formules :
+Modèle M8 (cyclone Lapple d50). Récupère l'UltraFin de l'air ; les < ~4 µm passent → filtre à manches aval.
+Domaine de validité : gaz issu de SP.36.
+Hors domaine : perte de la queue < ~4 µm si pas de filtre de polissage.
+4.  Schéma de procédé (flowsheet)
+Enchaînement des machines par zone, flux étiquetés. Les transferts (convoyeurs, élévateurs, vis) ne sont pas repris (sans influence procédé).
+4.1  Zone 1.1 — concassage / criblage primaire
+Tout-venant → grille (grizzly 80 mm) : passant <80 mm contourne ; refus +80 mm → CR.5003.
+CR.5003 + passant grizzly → CR.5009 → crible SR.5007 (avec retour percuteur).
+SR.5007 (35/20) : refus +35 → CR.5011 → retour crible (boucle fermée).
+Coupe 20-35 : MODE 1A → KFS ; MODE 1B → retour CR.5011 (pas de KFS).
+Passant 0-20 → stockpile → zone 1.2.
+4.2  Zone 1.2 — reprise / AgLime
+Stockpile 0-20 → BF.5101 → SR.5105 (15/5) : tranches +15, 5-15, 0-5.
+MODE 2A : 5-15 → FeedLime ; +15 et 0-5 → circuit fermé.  MODE 2B (pluie) : tout → FeedLime.  MODE 2C : tout → circuit fermé.
+Circuit fermé : SR.5115 (1,7 mm) ; refus +1,7 → CR.5107 → retour. Passant 0-1,7 = AgLime.
+AgLime (humide) = produit ; FeedLime → stockpile → zone 1.3.
+4.3  Zone 1.3 — séchage / grits / UltraFin
+Stockpile FeedLime → DY.03 (séchoir) : humidité → 0,5 %. Eau retirée = vapeur (seule sortie d'eau).
+Produit séché → SN.21 (4/2/1,5) : tranche 2-4 = grits (produit direct).
+Refus +4 et sliver 1,5-2 → ML.26 → retour SN.21 (boucle fermée).
+Passant 0-1,5 = FeedLime fines → SP.36 (coupe ~100 µm) → CL.38 → UltraFin ; refus grossier reste FeedLime fines.
+5.  Produit d'entrée
+Entrée-pivot : granulométrie MESURÉE en sortie de station primaire (coupe de bande) = flux combiné alimentant l'aval.
+5.1  Courbe granulométrique (gabarit à renseigner)
+Sur la série de référence, en % passant cumulé. Aucune mesure réelle à ce jour.
+Maille (mm)
+	| % passant cumulé
+	| 80
+	| …
+	| 35
+	| …
+	| 20
+	| …
+	| 5
+	| …
+	| 1,7
+	| …
+	| 0,5
+	| …
+	| 0,063
+	| …
+	| Grille primaire 80 mm ; mâchoires CSS 175 mm. La courbe mesurée = mélange « passant grizzly <80 (non concassé) + produit mâchoires (+80 concassé) ».
+5.2  Propriétés physiques (paramètres)
+Propriété
+	| Défaut
+	| Statut
+	| Humidité (base humide)
+	| 8 %
+	| à mesurer
+	| Densité sèche
+	| 1,50 t/m³
+	| à confirmer
+	| Densité humide
+	| 1,62 t/m³
+	| à confirmer
+	| Indice de Bond Wi
+	| 12,54 kWh/t
+	| valeur projet
+	| UCS
+	| selon type de roche
+	| 3 types (géologie DP9442)
+	| Friabilité (shatter)
+	| selon type
+	| géologie
+	| Cas types : plusieurs roches distinguées par UCS ; chaque cas = une courbe + un jeu de propriétés = scénarios d'entrée distincts.
+6.  Produits de sortie
+Produit
+	| Coupure
+	| État
+	| Tolérances (paramètres — défaut)
+	| KFS
+	| 20 / 35 mm
+	| humide
+	| max hors coupure (défaut 15 % ; enveloppe KFS 30/55/15)
+	| AgLime
+	| 0 / 1,7 mm
+	| humide
+	| amendement agricole ; tolérances = paramètres
+	| FeedLime grits
+	| 2 / 4 mm
+	| sec
+	| max fines hors coupure = paramètre
+	| FeedLime fines
+	| 0 / 1,5 mm
+	| sec
+	| reliquat après extraction UltraFin ; tolérances = paramètres
+	| UltraFin
+	| < 100 µm
+	| sec
+	| coupure haute d97 = 100 µm (d50 libre) ; tolérances = paramètres
+	| 6.1  Tolérances qualité = paramètres
+Les tolérances de chaque produit (max % hors coupure, max % de fines sous un seuil, etc.) sont des PARAMÈTRES par produit, définis par l'utilisateur (valeurs par défaut ci-dessus).
+Le modèle vérifie la conformité de chaque produit calculé contre ses tolérances paramétrées, et signale toute non-conformité — il ne les code jamais en dur.
+KFS et AgLime sortent HUMIDES (non séchés) ; grits, fines et UltraFin sortent SECS (FeedLime séché à 0,5 %).
+7.  Objectifs de production
+7.1  Tonnages cibles (paramètres — ordres de grandeur annuels)
+Produit
+	| Cible annuelle
+	| Nature
+	| KFS 20/35
+	| 85 000 t/an
+	| ENGAGEMENT FERME
+	| FeedLime grits 2-4
+	| 40 000 t/an
+	| ENGAGEMENT FERME
+	| AgLime 0/1,7
+	| 135 000 t/an
+	| plafond de marché (paramètre)
+	| FeedLime fines 0/1,5
+	| ≈ 56 000 t/an
+	| flexible (absorbe les excédents)
+	| UltraFin < 100 µm
+	| ≈ 4 000 t/an
+	| plafonné par le contenu naturel des fines
+	| 7.2  Horizon et heures
+Base de temps = PARAMÈTRE : journalier / hebdo / mensuel / annuel.
+Météo (sec/pluie) = PARAMÈTRE à chaque base ; jamais imposée par le moteur.
+Heures + disponibilité = PARAMÈTRE par zone (chaque zone son régime).
+7.3  Priorités
+1) KFS et 2) grits = fermes, garantis en priorité.
+3) ZÉRO EXCÉDENT INVENDABLE : plafond de marché paramétrable par produit.
+Tension à exposer : 85 kt de KFS forcent ~273 kt de 0/20 contre ~239 kt de marchés aval → ~34 kt d'excédent mécanique, à rendre visible par scénario.
+8.  Critère d'optimisation
+Le moteur n'optimise pas automatiquement : l'utilisateur définit chaque scénario et compare les photos. Règle d'arbitrage : atteindre les objectifs fermes (KFS, grits) en minimisant l'excédent invendable — en priorité les fines calcaires, principal risque de la ligne.
+9.  Exemple chiffré complet (cas de référence)
+Cas de référence validé, servant à contrôler que le code calcule juste. Roche de référence (UCS élevé, ~325 MPa), humidité 8 %.
+9.1  Zone 1.1 — mode 1A, alimentation 250 t/h
+Grandeur
+	| Valeur
+	| Part
+	| Alimentation
+	| 250 t/h
+	| 100 %
+	| KFS 20/35 (humide)
+	| 59,3 t/h
+	| 23,7 %
+	| Passant 0/20
+	| 190,7 t/h
+	| 76,3 %
+	| Puissance CR.5009
+	| ≈ 116 kW
+	|
+	| Puissance CR.5011
+	| ≈ 37 kW
+	|
+	| 9.2  Zone 1.2 — mode 2A, reprise 100 t/h
+Grandeur
+	| Valeur
+	| Part
+	| Reprise 0/20
+	| 100 t/h
+	| 100 %
+	| AgLime 0/1,7 (humide)
+	| 55,0 t/h
+	| 55 %
+	| FeedLime 5-15
+	| 45,0 t/h
+	| 45 %
+	| Conservation de masse : en circuit fermé à 1,7 mm, tout ce qui entre dans la boucle ressort en AgLime ; le split 55/45 est exact.
+9.3  Zone 1.3 — FeedLime 30 t/h, 8 % → 0,5 %
+Grandeur
+	| Valeur
+	| Eau évaporée (vapeur)
+	| ≈ 2,3 t/h
+	| Grits 2-4 (sec)
+	| 10,1 t/h
+	| FeedLime fines 0-1,5 (sec)
+	| 19,9 t/h
+	| UltraFin < 100 µm
+	| ≈ 1,3 t/h
+	| Puissance ML.26
+	| ≈ 45 kW installé
+	| Puissance brûleur DY.03
+	| ≈ 3,8 MW
+	| 9.4  Bilan annuel de référence
+Flux
+	| Valeur (t/an)
+	| ENTRÉE — alimentation humide
+	| ≈ 328 700
+	| KFS 20/35 (humide)
+	| 85 000
+	| AgLime 0/1,7 (humide)
+	| 135 000
+	| FeedLime grits 2-4 (sec)
+	| 40 000
+	| FeedLime fines 0/1,5 (sec)
+	| 56 000
+	| UltraFin < 100 µm (sec)
+	| ≈ 4 000
+	| Vapeur d'eau (séchage)
+	| ≈ 8 700
+	| Co-produit 0/20 (intermédiaire)
+	| 273 000
+	| Bilan bouclé (écart nul). Le 0/20 co-produit (273 kt) dépasse les marchés aval (~239 kt) → excédent mécanique à arbitrer (chapitre 7.3).
