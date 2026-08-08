@@ -71,6 +71,31 @@ seasonal = run_seasonal_balance(load_parameters(overrides={
 
 `run_scenario` is a **pure function** (parameters -> results, no state).
 
+## Hours follow the targets (planning)
+
+Client rule (2026-08-08): **operating hours are set by the production
+targets, never the other way around**. `run_required_hours` treats the
+shift regimes as capacity ceilings and computes the hours each zone must
+run: zone 1.3 from the firm grits target, zone 1.2 from the AgLime market
+volume plus the FeedLime demand of zone 1.3, zone 1.1 from the firm KFS
+target and the 0/20 demand of zone 1.2. Utilization and infeasibilities
+are reported against the ceilings.
+
+```python
+from wankoe_model import load_parameters, run_required_hours
+plan = run_required_hours(load_parameters())
+print(plan["zones"])          # required vs ceiling hours, utilization
+print(plan["production_t"])   # lands exactly on the targets
+print(plan["stockpiles_t"])   # 0/20 and FeedLime stock balance
+```
+
+With the measured curve and default flow rates (250/100/30 t/h): zone 1.1
+needs 1 976 h of its 2 000 h ceiling (98.8 % — almost no margin on KFS),
+zone 1.2 runs 3 136 h of 7 500, zone 1.3 runs 4 829 h of 7 500. Production
+lands exactly on 85/135/40 kt; inherent co-products: ~63 kt of fines
+(~7 kt over the market estimate) and a 0/20 stockpile growing by
+~59 kt/year (the specification's "mechanical surplus", chapter 7.3).
+
 ## Automatic sweeps / optimum search
 
 The engine never imposes an operating choice; `wankoe_model.optimize`

@@ -7,6 +7,7 @@ the code.
 """
 
 from wankoe_model.grid import PSD, engine_grid
+from wankoe_model.planning import run_required_hours
 from wankoe_model.scenario import (
     DEFAULT_PARAMETERS_PATH,
     REFERENCE_FEED_CURVE_PATH,
@@ -21,6 +22,7 @@ __all__ = [
     "load_parameters",
     "run_scenario",
     "run_seasonal_balance",
+    "run_required_hours",
     "DEFAULT_PARAMETERS_PATH",
     "REFERENCE_FEED_CURVE_PATH",
 ]
