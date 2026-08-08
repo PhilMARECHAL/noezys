@@ -158,6 +158,17 @@ def run_sweep(base_params: dict, config: dict) -> dict:
         except (ValueError, ZeroDivisionError, OverflowError) as exc:
             failed.append({"values": dict(zip(labels, combo)), "error": str(exc)})
             continue
+        # no steady state (a closed circuit did not converge) -> the photo's
+        # tonnages are not physical: reject the scenario explicitly instead
+        # of letting the sweep rank it (stress-test policy 2026-08-08)
+        open_balances = [k for k, b in results["balances"].items() if not b["closed"]]
+        if open_balances:
+            failed.append({
+                "values": dict(zip(labels, combo)),
+                "error": f"no steady state: balance(s) {', '.join(open_balances)} not closed "
+                         "(closed-circuit loop did not converge)",
+            })
+            continue
         kpis = _kpis(params, results, per_product)
         rows.append(
             {
