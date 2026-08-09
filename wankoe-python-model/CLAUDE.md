@@ -7,8 +7,18 @@ rule or arbitration.
 ## The client and the mission
 
 - Client: NOEZYS (never name any individual in produced results — brand rule 2026-08-08: this software is created by NOEZYS). Conversation language: FRENCH. All
-  deliverables (code, data, docs): ENGLISH. Exception, deliberate: the web
-  UI labels are French for the operators — flagged for ratification.
+  deliverables (code, data, docs, WEB UI): ENGLISH — the French-UI
+  exception was rejected by the client on 2026-08-09; no exception.
+- Web UI (client rules 2026-08-09): NOEZYS visual identity from
+  www.noezys.com (deep navy #070a22/#0a0f2e/#101a4a, cyan #22d3ee,
+  violet #a855f7, indigo #6366f1, Inter); operating modes 1A/1B/2A/2B/2C
+  explained in the UI and the selected mode's route COLORED on the
+  flowsheet; annual production targets are the toolbar inputs and the
+  operating hours are computed from them (hours are never inputs).
+- Deployed on Render (2026-08-09): https://wankoe-model.onrender.com —
+  blueprint render.yaml on this branch, HTTP Basic Auth via
+  WANKOE_ACCESS_KEY (value set by the client in the Render dashboard),
+  auto-deploys on every push to wankoe-python-model.
 - THE RESULT IS THE MATHEMATICAL MODEL, never a document. Documents are
   printouts of model output. This confusion happened once; never again.
 - The line is a NEW process under construction. Ultimate purpose: CONFIRM

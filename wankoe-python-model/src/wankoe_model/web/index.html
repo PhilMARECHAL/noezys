@@ -1,94 +1,140 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>WANKOE — Modèle de la ligne calcaire</title>
+<title>WANKOE — Limestone line model</title>
 <style>
+  /* NOEZYS visual identity (www.noezys.com): deep-navy ground, cyan/violet accents */
   :root {
-    --ink: #16181d; --muted: #6b7280; --line: #dfe3e8; --bg: #f7f8fa;
-    --panel: #ffffff; --accent: #145c8c; --ok: #0e7a4a; --bad: #c1341b;
-    --warn: #b45309; --pile: #eef1f4;
+    --bg: #070a22; --panel: #0b1136; --panel2: #101a4a; --line: rgba(242,244,255,.12);
+    --ink: #f2f4ff; --muted: rgba(242,244,255,.62);
+    --accent: #22d3ee; --violet: #a855f7; --indigo: #6366f1;
+    --ok: #34d399; --bad: #fb7185; --warn: #fbbf24;
   }
   * { box-sizing: border-box; }
-  body { margin: 0; font: 13.5px/1.5 "Segoe UI", system-ui, Arial, sans-serif;
-         background: var(--bg); color: var(--ink); }
-  header { background: #fff; border-bottom: 2px solid var(--ink); padding: 12px 26px;
-           display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
-  header h1 { margin: 0; font-size: 18px; font-weight: 700; letter-spacing: 2px; }
+  body { margin: 0; font: 13.5px/1.5 Inter, "Segoe UI", system-ui, Arial, sans-serif;
+         background: linear-gradient(165deg, #070a22 0%, #0a0f2e 45%, #101a4a 100%) fixed;
+         color: var(--ink); min-height: 100vh; }
+  header { background: rgba(7,10,34,.75); border-bottom: 1px solid var(--line);
+           padding: 13px 26px; display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+  header h1 { margin: 0; font-size: 19px; font-weight: 800; letter-spacing: 3px; }
   header .sub { color: var(--muted); font-size: 12px; letter-spacing: .4px; }
+  .brand { margin-left: auto; font-weight: 800; letter-spacing: 3px; font-size: 14px;
+           background: linear-gradient(90deg, var(--accent), var(--violet));
+           -webkit-background-clip: text; background-clip: text; color: transparent; }
   main { max-width: 1420px; margin: 0 auto; padding: 14px 26px 30px; }
 
   /* toolbar */
   .toolbar { display: flex; gap: 10px; align-items: end; flex-wrap: wrap;
-             background: var(--panel); border: 1px solid var(--line);
-             padding: 10px 14px; margin-bottom: 14px; }
+             background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+             padding: 12px 14px; margin-bottom: 8px; }
   .field { display: flex; flex-direction: column; gap: 2px; }
   .field label { font-size: 10.5px; text-transform: uppercase; letter-spacing: .8px;
                  color: var(--muted); }
-  .field input, .field select { padding: 5px 7px; border: 1px solid #c3c9d0;
-    font: inherit; width: 86px; background: #fff; }
-  .field input.mod { border-color: var(--accent); background: #eef5fa; }
-  button { border: 1px solid var(--ink); background: var(--ink); color: #fff;
-           padding: 8px 16px; font: inherit; font-weight: 600; cursor: pointer;
+  .field input, .field select { padding: 6px 7px; border: 1px solid #2a3566; border-radius: 6px;
+    font: inherit; width: 86px; background: #070a22; color: var(--ink); }
+  .field select { width: auto; min-width: 86px; }
+  .field input.mod { border-color: var(--accent); background: rgba(34,211,238,.08); }
+  button { border: 0; border-radius: 7px; background: linear-gradient(90deg, var(--accent), var(--indigo));
+           color: #061024; padding: 9px 18px; font: inherit; font-weight: 700; cursor: pointer;
            letter-spacing: .3px; }
-  button.ghost { background: #fff; color: var(--ink); }
+  button.ghost { background: transparent; color: var(--ink); border: 1px solid #2a3566; font-weight: 600; }
   button:disabled { opacity: .45; cursor: wait; }
 
+  /* how-to strip */
+  .howto { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap;
+    color: var(--muted); font-size: 12.5px; padding: 2px 4px 10px; }
+  .howto b { color: var(--ink); }
+  .howto .step { color: #061024; background: linear-gradient(90deg, var(--accent), var(--indigo));
+    border-radius: 50%; width: 17px; height: 17px; display: inline-flex; align-items: center;
+    justify-content: center; font-weight: 800; font-size: 11px; flex: none; }
+
+  /* toolbar groups */
+  .tb-group { display: flex; flex-direction: column; gap: 6px; padding-right: 14px;
+    border-right: 1px solid var(--line); }
+  .tb-group:last-child { border-right: 0; padding-right: 0; }
+  .tb-title { font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+    font-weight: 700; color: var(--accent); }
+  .tb-fields { display: flex; gap: 10px; align-items: end; flex-wrap: wrap; }
+
+  /* computed-hours strip (hours FOLLOW the targets, never the reverse) */
+  .hoursbar { display: flex; gap: 10px; flex-wrap: wrap; margin: 0 0 8px; }
+  .hourchip { display: flex; align-items: center; gap: 8px; background: var(--panel);
+    border: 1px solid var(--line); border-left: 4px solid var(--c, var(--ok));
+    border-radius: 8px; padding: 6px 12px; font-size: 12px; color: var(--muted); }
+  .hourchip b { color: var(--ink); white-space: nowrap; }
+  .hourchip .pct { color: var(--c, var(--ok)); font-weight: 700; }
+
+  /* selected-mode explanation strip */
+  .modebar { display: flex; gap: 10px; flex-wrap: wrap; margin: 0 0 14px; }
+  .modechip { display: flex; align-items: center; gap: 8px; background: var(--panel);
+    border: 1px solid var(--line); border-left: 4px solid var(--c, var(--accent));
+    border-radius: 8px; padding: 6px 12px; font-size: 12px; color: var(--muted); }
+  .modechip b { color: var(--c, var(--accent)); letter-spacing: .5px; white-space: nowrap; }
+
   /* flowsheet */
-  .sheet { background: var(--panel); border: 1px solid var(--line); padding: 8px 10px 2px; }
+  .sheet { background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+           padding: 8px 10px 2px; }
   .sheet h2, .panel h2 { font-size: 11.5px; text-transform: uppercase;
     letter-spacing: 1.2px; color: var(--muted); margin: 4px 6px 6px; font-weight: 600; }
   #fs { width: 100%; display: block; }
   .zone-label { font-size: 11px; letter-spacing: 1.5px; fill: var(--muted); font-weight: 600; }
-  .machine { fill: #fff; stroke: var(--ink); stroke-width: 1.4; cursor: pointer; }
-  .machine.alert { stroke: var(--bad); stroke-width: 2; }
-  .machine:hover { fill: #f0f4f8; }
-  .mcode { font-size: 12px; font-weight: 700; fill: var(--ink); pointer-events: none; }
-  .mkpi { font-size: 10.5px; fill: var(--muted); pointer-events: none; }
-  .stream { stroke: #8a94a0; stroke-width: 1.3; fill: none; marker-end: url(#arr); }
+  .machine { fill: #101a4a; stroke: rgba(34,211,238,.55); stroke-width: 1.4; cursor: pointer; }
+  .machine.alert { stroke: var(--bad); stroke-width: 2.2; }
+  .machine:hover { fill: #16235f; }
+  .mcode { font-size: 12px; font-weight: 700; fill: #f2f4ff; pointer-events: none; }
+  .mkpi { font-size: 10.5px; fill: #9aa3c7; pointer-events: none; }
+  .stream { stroke: #55608a; stroke-width: 1.3; fill: none; }
   .stream.loop { stroke-dasharray: 4 3; }
-  .slabel { font-size: 10.5px; fill: #49505a; }
-  .pile { fill: var(--pile); stroke: var(--ink); stroke-width: 1.2; cursor: pointer; }
-  .pile.sale { fill: #e7efe9; }
-  .ppct { font-size: 12px; font-weight: 700; fill: var(--ink); text-anchor: middle; pointer-events: none; }
-  .pname { font-size: 11px; font-weight: 600; fill: var(--ink); text-anchor: middle; }
-  .ptph { font-size: 10.5px; fill: var(--muted); text-anchor: middle; }
+  .slabel { font-size: 10.5px; fill: #8b93b8; }
+  .pile { fill: #16235f; stroke: rgba(34,211,238,.45); stroke-width: 1.2; cursor: pointer; }
+  .pile.sale { fill: rgba(52,211,153,.16); stroke: var(--ok); }
+  .dim { opacity: .32; }
+  .ppct { font-size: 12px; font-weight: 700; fill: #fff; text-anchor: middle; pointer-events: none; }
+  .pname { font-size: 11px; font-weight: 600; fill: #f2f4ff; text-anchor: middle; }
+  .ptph { font-size: 10.5px; fill: #9aa3c7; text-anchor: middle; }
+  .mode-badge-text { font-size: 10px; font-weight: 800; fill: #070a22; letter-spacing: .6px; }
 
   /* tabs + panels */
-  .tabs { display: flex; gap: 0; margin: 16px 0 0; }
-  .tabs button { border: 1px solid var(--line); border-bottom: 0; background: #eef0f3;
-    color: var(--ink); font-weight: 600; padding: 8px 18px; }
-  .tabs button.on { background: var(--panel); border-color: var(--ink); }
-  .panel { background: var(--panel); border: 1px solid var(--line); padding: 12px 16px; }
+  .tabs { display: flex; gap: 6px; margin: 16px 0 0; }
+  .tabs button { border: 1px solid var(--line); border-radius: 8px 8px 0 0; background: transparent;
+    color: var(--muted); font-weight: 600; padding: 8px 18px; }
+  .tabs button.on { background: var(--panel); border-color: var(--accent); color: #fff; }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 0 10px 10px 10px;
+           padding: 12px 16px; }
   table { border-collapse: collapse; width: 100%; margin: 6px 0; }
   th, td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--line);
            font-variant-numeric: tabular-nums; }
   th { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .6px; }
   .ok { color: var(--ok); font-weight: 700; } .ko { color: var(--bad); font-weight: 700; }
   .na { color: var(--muted); }
-  .alert-line { border-left: 3px solid var(--warn); background: #fdf6ec;
-    padding: 6px 10px; margin: 4px 0; font-size: 12.5px; }
-  .error { border-left: 3px solid var(--bad); background: #fbeeeb; padding: 8px 10px;
-           margin: 8px 0; white-space: pre-wrap; }
-  .kpis { display: flex; gap: 0; flex-wrap: wrap; border: 1px solid var(--line); margin: 6px 0 10px; }
+  .alert-line { border-left: 3px solid var(--warn); background: rgba(251,191,36,.08);
+    border-radius: 0 6px 6px 0; padding: 6px 10px; margin: 4px 0; font-size: 12.5px; }
+  .error { border-left: 3px solid var(--bad); background: rgba(251,113,133,.10);
+           border-radius: 0 6px 6px 0; padding: 8px 10px; margin: 8px 0; white-space: pre-wrap; }
+  .kpis { display: flex; gap: 0; flex-wrap: wrap; border: 1px solid var(--line);
+          border-radius: 8px; overflow: hidden; margin: 6px 0 10px; }
   .kpi { padding: 8px 18px 7px; border-right: 1px solid var(--line); min-width: 120px; }
-  .kpi b { display: block; font-size: 18px; font-weight: 700; }
+  .kpi b { display: block; font-size: 18px; font-weight: 700; color: #fff; }
   .kpi span { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .5px; }
-  .util { height: 7px; background: #e7eaee; overflow: hidden; }
+  .util { height: 7px; background: #1e1b4b; border-radius: 4px; overflow: hidden; }
   .util i { display: block; height: 100%; background: var(--ok); }
   .util i.hot { background: var(--warn); } .util i.over { background: var(--bad); }
 
   /* machine drawer */
   #drawer { position: fixed; top: 0; right: -420px; width: 400px; height: 100%;
-    background: #fff; border-left: 2px solid var(--ink); padding: 18px;
+    background: var(--panel); border-left: 2px solid var(--accent); padding: 18px;
     overflow-y: auto; transition: right .18s; z-index: 50; }
   #drawer.open { right: 0; }
   #drawer h3 { margin: 0 0 2px; font-size: 16px; }
+  #drawer hr { border: 0; border-top: 1px solid var(--line); }
   #drawer .close { float: right; cursor: pointer; border: 0; background: none;
     color: var(--ink); font-size: 18px; padding: 0 4px; }
+  #drawer input { padding: 4px 6px; border: 1px solid #2a3566; border-radius: 5px;
+    background: #070a22; color: var(--ink); font: inherit; width: 90px; }
   .drawer-row { display: flex; align-items: center; gap: 8px; margin: 5px 0; }
-  .drawer-row label { flex: 1; color: #3a4048; }
+  .drawer-row label { flex: 1; color: var(--muted); }
   .drawer-row .u { color: var(--muted); font-size: 11px; width: 40px; }
   footer { color: var(--muted); font-size: 11.5px; padding: 10px 26px 22px;
            max-width: 1420px; margin: 0 auto; }
@@ -98,52 +144,112 @@
 <body>
 <header>
   <h1>WANKOE</h1>
-  <span class="sub">Modèle de la ligne calcaire · zones 1.1 / 1.2 / 1.3 · chaque exécution = un scénario</span>
-  <span class="sub" style="margin-left:auto;font-weight:700;letter-spacing:2px;color:#16181d">NOEZYS</span>
+  <span class="sub">Limestone processing line model · zones 1.1 / 1.2 / 1.3 · every run = one scenario</span>
+  <span class="brand">NOEZYS</span>
 </header>
 <main>
-  <div class="toolbar">
-    <div class="field"><label>Mode 1.1</label><select id="mode11"><option>1A</option><option>1B</option></select></div>
-    <div class="field"><label>Mode 1.2</label><select id="mode12"><option>2A</option><option>2B</option><option>2C</option></select></div>
-    <div class="field"><label>Météo</label><select id="weather"><option value="dry">sec</option><option value="rain">pluie</option></select></div>
-    <div class="field"><label>Alim. 1.1 t/h</label><input type="number" id="feed" step="5"></div>
-    <div class="field"><label>Reprise 1.2 t/h</label><input type="number" id="reclaim" step="5"></div>
-    <div class="field"><label>Séchage 1.3 t/h</label><input type="number" id="feedlime" step="1"></div>
-    <div class="field"><label>Heures 1.1</label><input type="number" id="h11" step="100"></div>
-    <div class="field"><label>Heures 1.2</label><input type="number" id="h12" step="100"></div>
-    <div class="field"><label>Heures 1.3</label><input type="number" id="h13" step="100"></div>
-    <button id="run">Calculer</button>
-    <button id="reset" class="ghost">Défauts</button>
+  <div class="howto">
+    <span class="step">1</span> Set the <b>annual production targets</b>
+    <span class="step">2</span> Choose the <b>line configuration</b> (modes, weather, flow rates)
+    <span class="step">3</span> <b>Run</b> — the model computes the <b>operating hours each zone must run</b>
+    to meet the targets (hours follow the targets, never the reverse) and verdicts the design
+    against the installed machine limits.
   </div>
+  <div class="toolbar">
+    <div class="tb-group">
+      <div class="tb-title">1 · Production targets (t/yr)</div>
+      <div class="tb-fields">
+        <div class="field"><label>KFS · firm</label><input type="number" id="tKFS" step="1000"></div>
+        <div class="field"><label>Grits · firm</label><input type="number" id="tGrits" step="1000"></div>
+        <div class="field"><label>AgLime · market</label><input type="number" id="tAgl" step="1000"></div>
+        <div class="field"><label>Fines · flexible</label><input type="number" id="tFines" step="1000"></div>
+        <div class="field"><label>UltraFin</label><input type="number" id="tUf" step="500"></div>
+      </div>
+    </div>
+    <div class="tb-group">
+      <div class="tb-title">2 · Line configuration</div>
+      <div class="tb-fields">
+        <div class="field"><label>Mode 1.1</label><select id="mode11">
+          <option value="1A">1A — 20-35 → KFS</option>
+          <option value="1B">1B — 20-35 → CR.5011 (no KFS)</option></select></div>
+        <div class="field"><label>Mode 1.2</label><select id="mode12">
+          <option value="2A">2A — 5-15 → FeedLime + AgLime loop</option>
+          <option value="2B">2B — all → FeedLime (rain)</option>
+          <option value="2C">2C — all → AgLime loop</option></select></div>
+        <div class="field"><label>Weather</label><select id="weather"><option value="dry">dry</option><option value="rain">rain</option></select></div>
+        <div class="field"><label>Feed 1.1 t/h</label><input type="number" id="feed" step="5"></div>
+        <div class="field"><label>Reclaim 1.2 t/h</label><input type="number" id="reclaim" step="5"></div>
+        <div class="field"><label>Drying 1.3 t/h</label><input type="number" id="feedlime" step="1"></div>
+      </div>
+    </div>
+    <div class="tb-group">
+      <div class="tb-title">3 · Compute</div>
+      <div class="tb-fields">
+        <button id="run">Run</button>
+        <button id="reset" class="ghost">Defaults</button>
+      </div>
+    </div>
+  </div>
+  <div class="hoursbar" id="hoursbar"></div>
+  <div class="modebar" id="modebar"></div>
 
   <div class="sheet">
-    <h2>Flowsheet — cliquer une machine ou un produit pour sa fiche</h2>
+    <h2>Flowsheet — click a machine or a product for its datasheet · colored streams = route of the selected mode</h2>
     <svg id="fs" viewBox="0 0 1400 470"></svg>
   </div>
 
   <div class="tabs">
     <button data-tab="design" class="on">Design</button>
-    <button data-tab="detail">Produits &amp; machines</button>
-    <button data-tab="plan">Heures (objectifs)</button>
-    <button data-tab="curves">Courbes</button>
-    <button data-tab="season">Saisonnier</button>
-    <button data-tab="alerts">Alertes</button>
+    <button data-tab="detail">Products &amp; machines</button>
+    <button data-tab="plan">Hours (targets)</button>
+    <button data-tab="curves">Curves</button>
+    <button data-tab="season">Seasonal</button>
+    <button data-tab="alerts">Alerts</button>
   </div>
   <div class="panel" id="out"></div>
 </main>
 <div id="drawer"></div>
-<footer>WANKOE model — created by NOEZYS · paramètres dans data/default_parameters.json · les heures se calculent
-depuis les objectifs, jamais l'inverse · moteur pur : mêmes résultats ici, en script ou en balayage.</footer>
+<footer>WANKOE model — created by NOEZYS · parameters live in data/default_parameters.json · operating hours are
+computed from the production targets, never the reverse · pure engine: identical results here, in scripts or in sweeps.</footer>
 
 <script>
 "use strict";
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const fmt = (x, d=1) => x === null || x === undefined ? "—" :
-  (+x).toLocaleString("fr-FR", { maximumFractionDigits: d });
+  (+x).toLocaleString("en-US", { maximumFractionDigits: d });
 let DEFAULTS = null, PHOTO = null, PLAN = null, DESIGN = null, SEASON = null, TAB = "design";
 
+/* what each operating mode does (mirrors flowsheet.py zone routing) */
+const MODE_INFO = {
+  "1A": { c: "#22d3ee", t: "the 20–35 mm cut becomes the KFS product; +35 mm loops on the CR.5011 impactor" },
+  "1B": { c: "#a855f7", t: "the 20–35 mm cut joins the +35 mm on CR.5011 — no KFS, the whole feed reports to 0/20" },
+  "2A": { c: "#22d3ee", t: "5–15 mm goes to FeedLime; +15 mm and 0–5 mm feed the AgLime loop (SR.5115 + CR.5107)" },
+  "2B": { c: "#fbbf24", t: "the whole reclaim goes to FeedLime — the 1.7 mm cut is impossible on wet material, no AgLime" },
+  "2C": { c: "#a855f7", t: "the whole reclaim feeds the AgLime loop — maximum AgLime, no FeedLime out of zone 1.2" },
+};
+function effectiveMode12(sc) {
+  return sc.weather === "rain" && sc.rain_forces_mode_2B !== false ? "2B" : sc.zone_1_2_mode;
+}
+function renderModebar(m11, m12, forced) {
+  const chip = (zone, m, note) => `<span class="modechip" style="--c:${MODE_INFO[m].c}">
+    <b>ZONE ${zone} · MODE ${m}</b> ${esc(MODE_INFO[m].t)}${note ? ` <b>${esc(note)}</b>` : ""}</span>`;
+  $("modebar").innerHTML = chip("1.1", m11) +
+    chip("1.2", m12, forced ? "(forced by rain)" : "");
+}
+function modebarFromInputs() {
+  const m12 = $("weather").value === "rain" &&
+    (!DEFAULTS || DEFAULTS.default_scenario.rain_forces_mode_2B !== false)
+    ? "2B" : $("mode12").value;
+  renderModebar($("mode11").value, m12, m12 !== $("mode12").value);
+}
+
 /* ---------------- parameters ---------------- */
+/* toolbar target input -> production_targets key in the data file */
+const TARGET_INPUTS = {
+  tKFS: "KFS 20/35", tGrits: "FeedLime grits 2-4", tAgl: "AgLime 0/1.7",
+  tFines: "FeedLime fines 0/1.5", tUf: "UltraFin <100um",
+};
 async function loadDefaults() {
   DEFAULTS = await (await fetch("/api/parameters")).json();
   const sc = DEFAULTS.default_scenario;
@@ -152,22 +258,26 @@ async function loadDefaults() {
   $("feed").value = sc.flow_rates_tph.zone_1_1_feed;
   $("reclaim").value = sc.flow_rates_tph.zone_1_2_reclaim;
   $("feedlime").value = sc.flow_rates_tph.zone_1_3_feedlime;
-  $("h11").value = sc.zones["1.1"].available_hours ?? "";
-  $("h12").value = sc.zones["1.2"].available_hours ?? "";
-  $("h13").value = sc.zones["1.3"].available_hours ?? "";
+  for (const [id, key] of Object.entries(TARGET_INPUTS))
+    $(id).value = DEFAULTS.production_targets[key].target_t_per_year;
   MACHINE_EDITS = {};
 }
 let MACHINE_EDITS = {};
 function overrides() {
-  const sc = DEFAULTS.default_scenario;
+  /* hours are NEVER inputs: the shift-regime ceilings stay in the data file
+     and planning computes the required hours from the targets below */
   const o = { default_scenario: {
     zone_1_1_mode: $("mode11").value, zone_1_2_mode: $("mode12").value,
     weather: $("weather").value,
     flow_rates_tph: { zone_1_1_feed: +$("feed").value,
-      zone_1_2_reclaim: +$("reclaim").value, zone_1_3_feedlime: +$("feedlime").value },
-    zones: Object.fromEntries(["1.1","1.2","1.3"].map((z,i) => [z, {
-      available_hours: $(["h11","h12","h13"][i]).value === "" ? null : +$(["h11","h12","h13"][i]).value,
-      availability_pct: sc.zones[z].availability_pct }])) } };
+      zone_1_2_reclaim: +$("reclaim").value, zone_1_3_feedlime: +$("feedlime").value } } };
+  o.production_targets = {};
+  for (const [id, key] of Object.entries(TARGET_INPUTS)) {
+    const t = { target_t_per_year: +$(id).value };
+    if (DEFAULTS.production_targets[key].market_cap_t_per_year !== undefined)
+      t.market_cap_t_per_year = +$(id).value;
+    o.production_targets[key] = t;
+  }
   const machines = {};
   for (const [code, params] of Object.entries(MACHINE_EDITS))
     for (const [sym, val] of Object.entries(params)) {
@@ -177,104 +287,153 @@ function overrides() {
   if (Object.keys(machines).length) o.machines = machines;
   return o;
 }
-async function api(endpoint, extra) {
+async function api(endpoint, extra, ov) {
   const res = await fetch("/api/" + endpoint, { method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(Object.assign({ overrides: overrides() }, extra || {})) });
+    body: JSON.stringify(Object.assign({ overrides: ov || overrides() }, extra || {})) });
   const data = await res.json();
   if (!res.ok) throw new Error(data.error || res.statusText);
   return data;
+}
+function renderHoursbar() {
+  if (!PLAN || PLAN.error) {
+    $("hoursbar").innerHTML = `<span class="hourchip" style="--c:#fb7185">
+      <b>Hours</b> ${esc(PLAN ? PLAN.error : "—")}</span>`;
+    return;
+  }
+  const chips = Object.entries(PLAN.zones).map(([z, v]) => {
+    const u = v.utilization_pct;
+    const c = u === null ? "#8b93b8" : u > 100 ? "#fb7185" : u > 90 ? "#fbbf24" : "#34d399";
+    const drv = v.driven_by ? ` · ${v.driven_by === "KFS target" ? "driven by KFS" : "driven by 0/20 demand"}` : "";
+    return `<span class="hourchip" style="--c:${c}"><b>ZONE ${z} → ${fmt(v.required_hours_clock, 0)} h</b>
+      of ${fmt(v.ceiling_hours_clock, 0)} h ceiling · <span class="pct">${u === null ? "—" : fmt(u, 1) + " %"}</span>${esc(drv)}</span>`;
+  });
+  chips.push(`<span class="hourchip" style="--c:#22d3ee"><b>computed from the targets</b> — never an input</span>`);
+  $("hoursbar").innerHTML = chips.join("");
 }
 async function recompute() {
   document.querySelectorAll("button").forEach(b => b.disabled = true);
   try {
     [PHOTO, DESIGN] = await Promise.all([api("scenario"), api("design")]);
-    PLAN = DESIGN.planning && DESIGN.planning.zones ? null : null;
     try { PLAN = await api("planning"); } catch (e) { PLAN = { error: e.message }; }
-    try { SEASON = await api("seasonal"); } catch (e) { SEASON = { error: e.message }; }
-    drawFlowsheet(); renderTab();
+    try {
+      /* seasonal balance evaluated AT the computed hours (targets -> hours) */
+      let ov = overrides();
+      if (PLAN && !PLAN.error)
+        ov.default_scenario.zones = Object.fromEntries(Object.entries(PLAN.zones)
+          .map(([z, v]) => [z, { available_hours: v.required_hours_clock }]));
+      SEASON = await api("seasonal", null, ov);
+    } catch (e) { SEASON = { error: e.message }; }
+    drawFlowsheet(); renderHoursbar(); renderTab();
+    const sc = PHOTO.scenario, m12 = effectiveMode12(sc);
+    renderModebar(sc.zone_1_1_mode, m12, m12 !== sc.zone_1_2_mode);
   } catch (e) {
     $("out").innerHTML = `<div class="error">⚠ ${esc(e.message)}</div>`;
   } finally { document.querySelectorAll("button").forEach(b => b.disabled = false); }
 }
 
-/* ---------------- flowsheet (Bruno-style) ---------------- */
+/* ---------------- flowsheet (Bruno-style, mode-aware routing) ---------------- */
 const S = (x) => esc(fmt(x, 1));
+const MARKERS = { "#55608a": "m-def", "#22d3ee": "m-cyan", "#a855f7": "m-violet", "#fbbf24": "m-amber" };
 function machineBox(x, y, code, kpi, alert) {
   return `<g onclick="openMachine('${code}')">
-    <rect class="machine ${alert ? "alert" : ""}" x="${x}" y="${y}" width="104" height="44" rx="2"/>
+    <rect class="machine ${alert ? "alert" : ""}" x="${x}" y="${y}" width="104" height="44" rx="6"/>
     <text class="mcode" x="${x + 52}" y="${y + 18}" text-anchor="middle">${code}</text>
     <text class="mkpi" x="${x + 52}" y="${y + 34}" text-anchor="middle">${kpi}</text></g>`;
 }
-function pile(x, y, name, tph, pct, sale) {
-  return `<g onclick="openProduct('${esc(name)}')">
+function pile(x, y, name, tph, pct, sale, dim) {
+  return `<g onclick="openProduct('${esc(name)}')" class="${dim ? "dim" : ""}">
     <polygon class="pile ${sale ? "sale" : ""}" points="${x},${y+46} ${x+72},${y+46} ${x+36},${y}"/>
     <text class="ppct" x="${x+36}" y="${y+38}">${pct === null ? "" : fmt(pct, 1) + " %"}</text>
     <text class="pname" x="${x+36}" y="${y+62}">${esc(name)}</text>
     <text class="ptph" x="${x+36}" y="${y+76}">${S(tph)} t/h</text></g>`;
 }
-function arrow(d, label, lx, ly, loop) {
-  return `<path class="stream ${loop ? "loop" : ""}" d="${d}"/>` +
-    (label ? `<text class="slabel" x="${lx}" y="${ly}">${label}</text>` : "");
+function arrow(d, label, lx, ly, loop, color) {
+  const c = color || "#55608a", w = color ? 2.1 : 1.3;
+  return `<path class="stream ${loop ? "loop" : ""}" d="${d}"
+      style="stroke:${c};stroke-width:${w}" marker-end="url(#${MARKERS[c] || "m-def"})"/>` +
+    (label ? `<text class="slabel" x="${lx}" y="${ly}" ${color ? `style="fill:${c};font-weight:600"` : ""}>${label}</text>` : "");
+}
+function modeBadge(x, y, mode) {
+  const c = MODE_INFO[mode].c;
+  return `<rect x="${x}" y="${y}" width="66" height="17" rx="8" fill="${c}"/>
+    <text class="mode-badge-text" x="${x + 33}" y="${y + 12}" text-anchor="middle">MODE ${mode}</text>`;
 }
 function drawFlowsheet() {
   if (!PHOTO) return;
   const p = PHOTO.products, m = PHOTO.machines, f = PHOTO.intermediate_flows;
+  /* a zone that does not run in this mode leaves its machines/products out
+     of the photo — render them as stopped instead of crashing */
+  const mm = code => m[code] || {};
+  const pp = name => p[name] || { tph: 0, present: false };
+  const areaKpi = info => info.areas_m2
+    ? `${fmt(Math.max(...Object.values(info.areas_m2).map(a => a.required_area_m2)), 1)} m²`
+    : "stopped";
   const sc = PHOTO.scenario, moist = 1 - DEFAULTS.feed_product.properties.moisture_pct.default / 100;
   const feedT = sc.flow_rates_tph.zone_1_1_feed;
   const q020 = f.stream_0_20_dry_tph / moist;
   const reclaim = sc.flow_rates_tph.zone_1_2_reclaim;
   const feedl = sc.flow_rates_tph.zone_1_3_feedlime;
-  const flFromZ2 = sc.zone_1_2_mode === "2C" ? 0 : (sc.zone_1_2_mode === "2B" ? reclaim : reclaim - p.AgLime.tph);
+  const m11 = sc.zone_1_1_mode, m12 = effectiveMode12(sc);
+  const c11 = MODE_INFO[m11].c, c12 = MODE_INFO[m12].c;
+  const flFromZ2 = m12 === "2C" ? 0 : (m12 === "2B" ? reclaim : reclaim - pp("AgLime").tph);
   const share = t => feedT > 0 ? 100 * t / feedT : null;
   const ex = new Set((DESIGN && DESIGN.exceeded || []).map(r => r.machine));
   const g = [];
-  g.push(`<defs><marker id="arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#8a94a0"/></marker></defs>`);
-  // zone separators + labels
-  g.push(`<line x1="468" y1="14" x2="468" y2="440" stroke="#e7eaee"/><line x1="912" y1="14" x2="912" y2="440" stroke="#e7eaee"/>`);
-  g.push(`<text class="zone-label" x="20" y="24">ZONE 1.1 — CONCASSAGE / CRIBLAGE</text>`);
-  g.push(`<text class="zone-label" x="484" y="24">ZONE 1.2 — REPRISE / AGLIME</text>`);
-  g.push(`<text class="zone-label" x="928" y="24">ZONE 1.3 — SÉCHAGE / GRITS / ULTRAFIN</text>`);
+  g.push(`<defs>${Object.entries(MARKERS).map(([c, id]) =>
+    `<marker id="${id}" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="${c}"/></marker>`).join("")}</defs>`);
+  // zone separators, labels, selected-mode badges
+  g.push(`<line x1="468" y1="14" x2="468" y2="440" stroke="rgba(242,244,255,.08)"/><line x1="912" y1="14" x2="912" y2="440" stroke="rgba(242,244,255,.08)"/>`);
+  g.push(`<text class="zone-label" x="20" y="24">ZONE 1.1 — CRUSHING / SCREENING</text>`);
+  g.push(modeBadge(20, 32, m11));
+  g.push(`<text class="zone-label" x="484" y="24">ZONE 1.2 — RECLAIM / AGLIME</text>`);
+  g.push(modeBadge(484, 32, m12));
+  g.push(`<text class="zone-label" x="928" y="24">ZONE 1.3 — DRYING / GRITS / ULTRAFIN</text>`);
   // ---- zone 1.1
   g.push(arrow("M14,182 H80", `${S(feedT)} t/h`, 16, 172));
-  g.push(machineBox(82, 160, "CR.5009", `${fmt(m["CR.5009"].P_installed_kW, 0)} kW`, ex.has("CR.5009")));
+  g.push(machineBox(82, 160, "CR.5009", `${fmt(mm("CR.5009").P_installed_kW, 0)} kW`, ex.has("CR.5009")));
   g.push(arrow("M186,182 H232", "", 0, 0));
-  g.push(machineBox(234, 160, "SR.5007", `${fmt(Math.max(...Object.values(m["SR.5007"].areas_m2).map(a => a.required_area_m2)), 1)} m²`, ex.has("SR.5007")));
-  g.push(machineBox(234, 52, "CR.5011", `${fmt(f.zone_1_1_recirculation_tph, 0)} t/h · ${fmt(m["CR.5011"].P_installed_kW, 0)} kW`, ex.has("CR.5011")));
-  g.push(arrow("M310,160 V98", "+35", 314, 132, true));
+  g.push(machineBox(234, 160, "SR.5007", areaKpi(mm("SR.5007")), ex.has("SR.5007")));
+  g.push(machineBox(234, 52, "CR.5011", `${fmt(f.zone_1_1_recirculation_tph, 0)} t/h · ${fmt(mm("CR.5011").P_installed_kW, 0)} kW`, ex.has("CR.5011")));
+  // mode 1A: 20-35 -> KFS · mode 1B: 20-35 joins +35 on the impactor
+  g.push(arrow("M310,160 V98", m11 === "1B" ? "+35 & 20-35" : "+35", 314, 132, true, m11 === "1B" ? c11 : null));
   g.push(arrow("M262,98 V160", "", 0, 0, true));
-  g.push(pile(376, 60, "KFS", p.KFS.tph, share(p.KFS.tph), true));
-  g.push(arrow("M338,172 C368,150 376,130 400,108", "20-35", 346, 140));
+  g.push(pile(376, 60, "KFS", pp("KFS").tph, share(pp("KFS").tph), true, m11 === "1B"));
+  if (m11 === "1A") g.push(arrow("M338,172 C368,150 376,130 400,108", "20-35", 346, 140, false, c11));
   g.push(pile(300, 330, "0/20", q020, share(q020), false));
-  g.push(arrow("M286,204 C286,260 320,290 332,328", `${S(q020)} t/h`, 236, 272));
+  g.push(arrow("M286,204 C286,260 320,290 332,328", `${S(q020)} t/h`, 236, 272, false, m11 === "1B" ? c11 : null));
   // ---- zone 1.2
-  g.push(arrow("M374,376 H500 V204", "reprise " + S(reclaim) + " t/h", 388, 366));
-  g.push(machineBox(484, 160, "SR.5105", `${fmt(Math.max(...Object.values(m["SR.5105"].areas_m2).map(a => a.required_area_m2)), 1)} m²`, ex.has("SR.5105")));
-  g.push(machineBox(658, 160, "SR.5115", m["SR.5115"].active ? `${fmt(m["SR.5115"].areas_m2.deck.required_area_m2, 1)} m²` : "inactif", ex.has("SR.5115")));
-  g.push(machineBox(658, 52, "CR.5107", m["CR.5107"].active ? `${fmt(f.zone_1_2_recirculation_tph, 0)} t/h · ${fmt(m["CR.5107"].P_installed_kW, 0)} kW` : "inactif", ex.has("CR.5107")));
-  g.push(arrow("M588,182 H656", "+15 & 0-5", 592, 172));
-  g.push(arrow("M734,160 V98", "+1,7", 738, 132, true));
-  g.push(arrow("M686,98 V160", "", 0, 0, true));
-  g.push(pile(806, 60, "AgLime", p.AgLime.tph, share(p.AgLime.tph), true));
-  g.push(arrow("M762,172 C790,150 800,130 828,108", "0-1,7", 766, 140));
-  g.push(pile(700, 330, "FeedLime", flFromZ2, share(flFromZ2), false));
-  g.push(arrow("M536,204 C560,280 680,300 726,328", "5-15", 560, 292));
+  g.push(arrow("M374,376 H500 V204", "reclaim " + S(reclaim) + " t/h", 388, 366));
+  g.push(machineBox(484, 160, "SR.5105", areaKpi(mm("SR.5105")), ex.has("SR.5105")));
+  g.push(machineBox(658, 160, "SR.5115", mm("SR.5115").active ? areaKpi(mm("SR.5115")) : "inactive", ex.has("SR.5115")));
+  g.push(machineBox(658, 52, "CR.5107", mm("CR.5107").active ? `${fmt(f.zone_1_2_recirculation_tph, 0)} t/h · ${fmt(mm("CR.5107").P_installed_kW, 0)} kW` : "inactive", ex.has("CR.5107")));
+  if (m12 !== "2B") {
+    g.push(arrow("M588,182 H656", m12 === "2C" ? "+15 & 5-15 & 0-5" : "+15 & 0-5", 592, 172, false, c12));
+    g.push(arrow("M734,160 V98", "+1.7", 738, 132, true));
+    g.push(arrow("M686,98 V160", "", 0, 0, true));
+    g.push(arrow("M762,172 C790,150 800,130 828,108", "0-1.7", 766, 140, false, c12));
+  }
+  g.push(pile(806, 60, "AgLime", pp("AgLime").tph, share(pp("AgLime").tph), true, m12 === "2B"));
+  g.push(pile(700, 330, "FeedLime", flFromZ2, share(flFromZ2), false, m12 === "2C"));
+  if (m12 !== "2C")
+    g.push(arrow("M536,204 C560,280 680,300 726,328", m12 === "2B" ? "all reclaim" : "5-15", 560, 292, false, c12));
   // ---- zone 1.3
-  g.push(arrow("M774,376 H946 V204", "séchage " + S(feedl) + " t/h", 788, 366));
-  g.push(machineBox(928, 160, "DY.03", `${fmt(m["DY.03"].burner_power_kW / 1000, 2)} MW`, ex.has("DY.03")));
-  g.push(arrow("M980,160 V120", "vapeur " + S(m["DY.03"].evaporated_water_tph) + " t/h", 986, 140));
+  g.push(arrow("M774,376 H946 V204", "drying " + S(feedl) + " t/h", 788, 366));
+  g.push(machineBox(928, 160, "DY.03", mm("DY.03").burner_power_kW != null ? `${fmt(mm("DY.03").burner_power_kW / 1000, 2)} MW` : "stopped", ex.has("DY.03")));
+  if (mm("DY.03").evaporated_water_tph != null)
+    g.push(arrow("M980,160 V120", "steam " + S(mm("DY.03").evaporated_water_tph) + " t/h", 986, 140));
   g.push(arrow("M1032,182 H1078", "", 0, 0));
-  g.push(machineBox(1080, 160, "SN.21", `${fmt(Math.max(...Object.values(m["SN.21"].areas_m2).map(a => a.required_area_m2)), 1)} m²`, ex.has("SN.21")));
-  g.push(machineBox(1080, 52, "ML.26", m["ML.26"].active ? `${fmt(m["ML.26"].throughput_tph, 0)} t/h · ${fmt(m["ML.26"].P_installed_kW, 0)} kW` : "inactif", ex.has("ML.26")));
-  g.push(arrow("M1156,160 V98", "+4 & 1,5-2", 1160, 132, true));
+  g.push(machineBox(1080, 160, "SN.21", areaKpi(mm("SN.21")), ex.has("SN.21")));
+  g.push(machineBox(1080, 52, "ML.26", mm("ML.26").active ? `${fmt(mm("ML.26").throughput_tph, 0)} t/h · ${fmt(mm("ML.26").P_installed_kW, 0)} kW` : "inactive", ex.has("ML.26")));
+  g.push(arrow("M1156,160 V98", "+4 & 1.5-2", 1160, 132, true));
   g.push(arrow("M1108,98 V160", "", 0, 0, true));
-  g.push(pile(1256, 60, "FeedLime grits", p["FeedLime grits"].tph, share(p["FeedLime grits"].tph), true));
+  g.push(pile(1256, 60, "FeedLime grits", pp("FeedLime grits").tph, share(pp("FeedLime grits").tph), true));
   g.push(arrow("M1184,172 C1220,150 1230,130 1280,108", "2-4", 1194, 140));
-  g.push(machineBox(1080, 268, "SP.36", m["SP.36"].active && m["SP.36"].Q_air_m3h ? `${fmt(m["SP.36"].Q_air_m3h, 0)} m³/h` : "inactif", ex.has("SP.36")));
-  g.push(arrow("M1132,204 V266", "0-1,5", 1138, 240));
-  g.push(pile(1256, 250, "UltraFin", p.UltraFin.tph, share(p.UltraFin.tph), true));
+  g.push(machineBox(1080, 268, "SP.36", mm("SP.36").active && mm("SP.36").Q_air_m3h ? `${fmt(mm("SP.36").Q_air_m3h, 0)} m³/h` : "inactive", ex.has("SP.36")));
+  g.push(arrow("M1132,204 V266", "0-1.5", 1138, 240));
+  g.push(pile(1256, 250, "UltraFin", pp("UltraFin").tph, share(pp("UltraFin").tph), true));
   g.push(arrow("M1184,290 H1250", "< " + (DEFAULTS.machines["SP.36"].parameters.coupe.default) + " µm", 1188, 282));
-  g.push(pile(1100, 350, "FeedLime fines", p["FeedLime fines"].tph, share(p["FeedLime fines"].tph), true));
+  g.push(pile(1100, 350, "FeedLime fines", pp("FeedLime fines").tph, share(pp("FeedLime fines").tph), true));
   g.push(arrow("M1120,312 V348", "", 0, 0));
   $("fs").innerHTML = g.join("");
 }
@@ -286,7 +445,7 @@ window.openMachine = function (code) {
   let h = `<button class="close" onclick="document.getElementById('drawer').classList.remove('open')">✕</button>
     <h3>${esc(code)}</h3><div class="na">${esc(md.type)}</div><hr>`;
   if (rows.length) {
-    h += "<table><tr><th>Contrôle</th><th>Calculé</th><th>Installé</th><th></th></tr>";
+    h += "<table><tr><th>Check</th><th>Computed</th><th>Installed</th><th></th></tr>";
     for (const r of rows) h += `<tr><td>${esc(r.check)}</td><td>${fmt(r.computed, 1)} ${esc(r.unit)}</td>
       <td>${r.installed_limit === null ? "—" : fmt(r.installed_limit, 1)}</td>
       <td>${r.verdict === "OK" ? "<span class='ok'>✔</span>" : r.verdict === "EXCEEDED" ? "<span class='ko'>✘</span>" : "<span class='na'>?</span>"}</td></tr>`;
@@ -294,7 +453,7 @@ window.openMachine = function (code) {
   }
   const params = Object.entries(md.parameters || {}).filter(([, s]) => s.default !== null);
   if (params.length) {
-    h += "<h4>Réglages (bornes de la fiche)</h4>";
+    h += "<h4>Settings (datasheet bounds)</h4>";
     for (const [sym, spec] of params) {
       const current = (MACHINE_EDITS[code] || {})[sym] ?? spec.default;
       h += `<div class="drawer-row"><label title="${esc(spec.name)}">${esc(sym)}</label>
@@ -302,7 +461,7 @@ window.openMachine = function (code) {
           ${spec.min != null ? `min="${spec.min}"` : ""} ${spec.max != null ? `max="${spec.max}"` : ""}
           onchange="editMachine('${code}','${sym}', this.value)"><span class="u">${esc(spec.unit)}</span></div>`;
     }
-    h += `<button onclick="recompute()">Recalculer</button>`;
+    h += `<button onclick="recompute()">Recompute</button>`;
   }
   $("drawer").innerHTML = h; $("drawer").classList.add("open");
 };
@@ -314,26 +473,26 @@ window.openProduct = function (name) {
   const p = PHOTO && PHOTO.products[name];
   let h = `<button class="close" onclick="document.getElementById('drawer').classList.remove('open')">✕</button>
     <h3>${esc(name)}</h3>`;
-  if (!p || !p.present) { h += "<div class='na'>Absent dans ce scénario.</div>"; }
+  if (!p || !p.present) { h += "<div class='na'>Not present in this scenario.</div>"; }
   else {
-    h += `<div class="na">${p.state === "wet" ? "humide" : "sec"} · P80 ${fmt(p.P80_mm, 2)} mm</div><hr>
-      <table><tr><th></th><th>t/h</th></tr><tr><td>Débit</td><td>${fmt(p.tph, 2)}</td></tr></table>`;
+    h += `<div class="na">${p.state === "wet" ? "wet" : "dry"} · P80 ${fmt(p.P80_mm, 2)} mm</div><hr>
+      <table><tr><th></th><th>t/h</th></tr><tr><td>Flow rate</td><td>${fmt(p.tph, 2)}</td></tr></table>`;
     const c = p.compliance;
     if (c) {
-      h += `<h4>Conformité</h4><table>
-        <tr><td>Sous coupure</td><td>${fmt(c.below_cut_pct, 1)} %</td></tr>
-        <tr><td>Dans la coupe</td><td>${fmt(c.in_cut_pct, 1)} %</td></tr>
-        <tr><td>Au-dessus</td><td>${fmt(c.above_cut_pct, 1)} %</td></tr></table>`;
-      if (c.envelope) h += `<div>${c.compliant ? "<span class='ok'>✔ enveloppe respectée</span>" : "<span class='ko'>✘ hors enveloppe</span>"}</div>`;
+      h += `<h4>Compliance</h4><table>
+        <tr><td>Below cut</td><td>${fmt(c.below_cut_pct, 1)} %</td></tr>
+        <tr><td>In cut</td><td>${fmt(c.in_cut_pct, 1)} %</td></tr>
+        <tr><td>Above cut</td><td>${fmt(c.above_cut_pct, 1)} %</td></tr></table>`;
+      if (c.envelope) h += `<div>${c.compliant ? "<span class='ok'>✔ within envelope</span>" : "<span class='ko'>✘ outside envelope</span>"}</div>`;
     }
     if (p.passing_curve_pct) {
       const pts = Object.entries(p.passing_curve_pct).map(([mm, v]) => [parseFloat(mm), v]).sort((a, b) => a[0] - b[0]);
       const X = mm => 16 + (Math.log10(mm) - Math.log10(0.05)) / (Math.log10(250) - Math.log10(0.05)) * 330;
       const Y = v => 8 + (100 - v) / 100 * 130;
-      h += `<h4>Courbe (% passant, maille log)</h4>
+      h += `<h4>Curve (cumulative % passing, log mesh)</h4>
         <svg viewBox="0 0 360 160" style="width:100%">${[0.1, 1, 10, 100].map(d =>
-          `<line x1="${X(d)}" y1="8" x2="${X(d)}" y2="138" stroke="#eee"/><text x="${X(d)}" y="152" font-size="9" fill="#999" text-anchor="middle">${d}</text>`).join("")}
-        <polyline fill="none" stroke="#145c8c" stroke-width="2" points="${pts.map(([mm, v]) => X(mm).toFixed(1) + "," + Y(v).toFixed(1)).join(" ")}"/></svg>`;
+          `<line x1="${X(d)}" y1="8" x2="${X(d)}" y2="138" stroke="rgba(242,244,255,.10)"/><text x="${X(d)}" y="152" font-size="9" fill="#8b93b8" text-anchor="middle">${d}</text>`).join("")}
+        <polyline fill="none" stroke="#22d3ee" stroke-width="2" points="${pts.map(([mm, v]) => X(mm).toFixed(1) + "," + Y(v).toFixed(1)).join(" ")}"/></svg>`;
     }
   }
   $("drawer").innerHTML = h; $("drawer").classList.add("open");
@@ -360,89 +519,96 @@ function renderDesign() {
   const d = DESIGN, v = d.verdicts || {};
   let h = `<div class="kpis">
     <div class="kpi">${badge(v.machines_hold, "✔", "✘")}<span>machines</span></div>
-    <div class="kpi">${badge(v.quality_holds, "✔", "✘")}<span>qualité produits</span></div>
-    <div class="kpi">${badge(v.targets_reachable, "✔", "✘")}<span>objectifs / heures</span></div>
-    <div class="kpi"><b>${d.exceeded.length}</b><span>dépassements</span></div>
-    <div class="kpi"><b>${d.limits_to_provide.length}</b><span>limites à renseigner</span></div></div>`;
-  h += "<table><tr><th>Machine</th><th>Contrôle</th><th>Calculé</th><th>Installé</th><th>Marge</th><th>Verdict</th></tr>";
+    <div class="kpi">${badge(v.quality_holds, "✔", "✘")}<span>product quality</span></div>
+    <div class="kpi">${badge(v.targets_reachable, "✔", "✘")}<span>targets / hours</span></div>
+    <div class="kpi"><b>${d.exceeded.length}</b><span>exceedances</span></div>
+    <div class="kpi"><b>${d.limits_to_provide.length}</b><span>limits to provide</span></div></div>`;
+  h += "<table><tr><th>Machine</th><th>Check</th><th>Computed</th><th>Installed</th><th>Margin</th><th>Verdict</th></tr>";
   for (const r of d.checks) h += `<tr><td>${esc(r.machine)}</td><td>${esc(r.check)}</td>
     <td>${fmt(r.computed, 1)} ${esc(r.unit)}</td>
     <td>${r.installed_limit === null ? "—" : fmt(r.installed_limit, 1) + " " + esc(r.unit)}</td>
     <td>${r.margin_pct === null ? "—" : fmt(r.margin_pct, 1) + " %"}</td>
-    <td>${r.verdict === "OK" ? "<span class='ok'>✔ OK</span>" : r.verdict === "EXCEEDED" ? "<span class='ko'>✘ DÉPASSÉ</span>" : "<span class='na'>à renseigner</span>"}</td></tr>`;
+    <td>${r.verdict === "OK" ? "<span class='ok'>✔ OK</span>" : r.verdict === "EXCEEDED" ? "<span class='ko'>✘ EXCEEDED</span>" : "<span class='na'>to provide</span>"}</td></tr>`;
   h += "</table>";
   for (const n of d.not_checkable || [])
-    h += `<div class="alert-line">ℹ ${esc(n.machine)} : ${esc(n.reason)}</div>`;
+    h += `<div class="alert-line">ℹ ${esc(n.machine)}: ${esc(n.reason)}</div>`;
   $("out").innerHTML = h;
 }
 function renderDetail() {
   const p = PHOTO.products, m = PHOTO.machines;
-  let h = "<table><tr><th>Produit</th><th>t/h</th><th>État</th><th>P80 mm</th><th>Sous / dans / sur coupe</th><th>Conformité</th></tr>";
+  let h = "<table><tr><th>Product</th><th>t/h</th><th>State</th><th>P80 mm</th><th>Below / in / above cut</th><th>Compliance</th></tr>";
   for (const [name, pr] of Object.entries(p)) {
     const c = pr.compliance;
     h += `<tr><td>${esc(name)}</td><td>${pr.present ? fmt(pr.tph, 2) : "<span class='na'>absent</span>"}</td>
-      <td>${pr.state === "wet" ? "humide" : "sec"}</td><td>${pr.present ? fmt(pr.P80_mm, 2) : "—"}</td>
+      <td>${pr.state === "wet" ? "wet" : "dry"}</td><td>${pr.present ? fmt(pr.P80_mm, 2) : "—"}</td>
       <td>${c ? `${fmt(c.below_cut_pct, 1)} / ${fmt(c.in_cut_pct, 1)} / ${fmt(c.above_cut_pct, 1)} %` : "—"}</td>
       <td>${c && c.compliant !== null ? (c.compliant ? "<span class='ok'>✔</span>" : "<span class='ko'>✘</span>") : "<span class='na'>—</span>"}</td></tr>`;
   }
-  h += "</table><table><tr><th>Machine</th><th>P installée kW</th><th>Débit t/h</th></tr>";
+  h += "</table><table><tr><th>Machine</th><th>Installed P kW</th><th>Throughput t/h</th></tr>";
   for (const [code, info] of Object.entries(m))
     if (info.active && info.P_installed_kW !== undefined)
       h += `<tr><td>${esc(code)}</td><td>${fmt(info.P_installed_kW, 0)}</td><td>${fmt(info.throughput_tph, 1)}</td></tr>`;
   h += "</table>";
   const bal = Object.entries(PHOTO.balances).map(([k, b]) =>
     `${esc(k)} ${b.closed ? "<span class='ok'>✔</span>" : "<span class='ko'>✘</span>"}`).join(" · ");
-  h += `<div>Bilans masse / eau : ${bal}</div>`;
+  h += `<div>Mass / water balances: ${bal}</div>`;
   $("out").innerHTML = h;
 }
 function renderPlan() {
   if (!PLAN || PLAN.error) { $("out").innerHTML = `<div class="alert-line">${esc(PLAN ? PLAN.error : "—")}</div>`; return; }
-  let h = "<table><tr><th>Zone</th><th>Heures requises</th><th>Plafond</th><th>Utilisation</th><th></th></tr>";
+  let h = `<div class="na" style="margin-bottom:4px">Principle: the operating hours below are
+    <b style="color:var(--accent)">computed from the annual production targets</b> — the shift
+    regimes in the data file are capacity ceilings, never inputs.</div>`;
+  h += "<table><tr><th>Zone</th><th>Required hours</th><th>Ceiling</th><th>Utilization</th><th></th></tr>";
   for (const [z, v] of Object.entries(PLAN.zones)) {
     const u = v.utilization_pct, cls = u > 100 ? "over" : u > 90 ? "hot" : "";
-    h += `<tr><td>${z}${v.driven_by ? ` <span class="na">(${v.driven_by === "KFS target" ? "piloté par le KFS" : "piloté par la demande 0/20"})</span>` : ""}</td>
+    h += `<tr><td>${z}${v.driven_by ? ` <span class="na">(${v.driven_by === "KFS target" ? "driven by the KFS target" : "driven by the 0/20 demand"})</span>` : ""}</td>
       <td>${fmt(v.required_hours_clock, 0)} h</td><td>${fmt(v.ceiling_hours_clock, 0)} h</td><td>${fmt(u, 1)} %</td>
       <td style="min-width:110px"><div class="util"><i class="${cls}" style="width:${Math.min(100, u)}%"></i></div></td></tr>`;
   }
-  h += "</table><table><tr><th>Production</th><th>t/an</th></tr>";
+  h += "</table>";
+  if (PLAN.zone_1_2_split) h += `<div class="na">Zone 1.2 split: ${fmt(PLAN.zone_1_2_split.dry_season_hours_effective, 0)} h
+    effective in dry season (mode 2A, AgLime) + ${fmt(PLAN.zone_1_2_split.rain_season_hours_effective, 0)} h
+    in rain season (mode 2B, FeedLime top-up).</div>`;
+  h += "<table><tr><th>Production</th><th>t/yr</th></tr>";
   for (const [k, v] of Object.entries(PLAN.production_t)) h += `<tr><td>${esc(k)}</td><td>${fmt(v, 0)}</td></tr>`;
-  h += "</table><table><tr><th>Stock</th><th>t/an</th></tr>";
+  h += "</table><table><tr><th>Stockpile</th><th>t/yr</th></tr>";
   for (const [k, v] of Object.entries(PLAN.stockpiles_t)) h += `<tr><td>${esc(k)}</td><td>${fmt(v, 0)}</td></tr>`;
   h += "</table>";
   for (const a of PLAN.alerts) h += `<div class="alert-line">⚠ ${esc(a)}</div>`;
   $("out").innerHTML = h;
 }
 function renderCurves() {
-  const COLORS = {"KFS":"#145c8c","AgLime":"#0e7a4a","FeedLime grits":"#b45309",
-                  "FeedLime fines":"#7c3aed","UltraFin":"#be185d","Alimentation":"#16181d"};
+  const COLORS = {"KFS":"#22d3ee","AgLime":"#34d399","FeedLime grits":"#fbbf24",
+                  "FeedLime fines":"#c084fc","UltraFin":"#fb7185","Feed":"#f2f4ff"};
   const X = mm => 50 + (Math.log10(mm) - Math.log10(0.05)) / (Math.log10(320) - Math.log10(0.05)) * 1080;
   const Y = v => 12 + (100 - v) / 100 * 330;
   let g = "", legend = [];
   for (const d of [0.1, 1, 10, 100])
-    g += `<line x1="${X(d)}" y1="12" x2="${X(d)}" y2="342" stroke="#eef0f3"/><text x="${X(d)}" y="358" font-size="11" fill="#6b7280" text-anchor="middle">${d}</text>`;
+    g += `<line x1="${X(d)}" y1="12" x2="${X(d)}" y2="342" stroke="rgba(242,244,255,.07)"/><text x="${X(d)}" y="358" font-size="11" fill="#8b93b8" text-anchor="middle">${d}</text>`;
   for (const v of [0, 25, 50, 75, 100])
-    g += `<line x1="50" y1="${Y(v)}" x2="1130" y2="${Y(v)}" stroke="#f2f4f6"/><text x="42" y="${Y(v)+4}" font-size="11" fill="#6b7280" text-anchor="end">${v}</text>`;
-  const series = { "Alimentation": DEFAULTS.feed_product.cumulative_passing_curve };
+    g += `<line x1="50" y1="${Y(v)}" x2="1130" y2="${Y(v)}" stroke="rgba(242,244,255,.05)"/><text x="42" y="${Y(v)+4}" font-size="11" fill="#8b93b8" text-anchor="end">${v}</text>`;
+  const series = { "Feed": DEFAULTS.feed_product.cumulative_passing_curve };
   for (const [name, p] of Object.entries(PHOTO.products))
     if (p.present && p.passing_curve_pct) series[name] = p.passing_curve_pct;
   for (const [name, curve] of Object.entries(series)) {
     const pts = Object.entries(curve).map(([mm, v]) => [parseFloat(mm), +v]).sort((a, b) => a[0] - b[0])
       .map(([mm, v]) => X(mm).toFixed(1) + "," + Y(Math.min(100, v)).toFixed(1)).join(" ");
-    g += `<polyline fill="none" stroke="${COLORS[name] || "#888"}" stroke-width="${name === "Alimentation" ? 2.6 : 1.9}" ${name === "Alimentation" ? "" : ""} points="${pts}"/>`;
+    g += `<polyline fill="none" stroke="${COLORS[name] || "#888"}" stroke-width="${name === "Feed" ? 2.6 : 1.9}" points="${pts}"/>`;
     legend.push(`<span style="margin-right:16px"><i style="display:inline-block;width:16px;height:3px;background:${COLORS[name] || "#888"};vertical-align:middle;margin-right:5px"></i>${esc(name)}</span>`);
   }
-  $("out").innerHTML = `<div class="na" style="margin-bottom:4px">Gradation — % passant cumulé, maille en échelle log (alimentation + produits)</div>
+  $("out").innerHTML = `<div class="na" style="margin-bottom:4px">Gradation — cumulative % passing, log-scale mesh (feed + products)</div>
     <div>${legend.join("")}</div>
     <svg viewBox="0 0 1150 365" style="width:100%">${g}</svg>
-    <text></text><div class="na" style="font-size:11px">maille (mm)</div>`;
+    <div class="na" style="font-size:11px">mesh (mm)</div>`;
 }
 function renderSeason() {
   const s = SEASON;
   if (!s || s.error) { $("out").innerHTML = `<div class="alert-line">${esc(s ? s.error : "—")}</div>`; return; }
-  let h = `<div class="na">Mix saisonnier : sec × ${s.season_fractions.dry} + pluie × ${s.season_fractions.rain}</div>`;
-  if (!s.combined) h += "<div class='alert-line'>Renseignez les heures par zone pour le bilan combiné.</div>";
+  let h = `<div class="na">Seasonal mix: dry × ${s.season_fractions.dry} + rain × ${s.season_fractions.rain}</div>`;
+  if (!s.combined) h += "<div class='alert-line'>Provide hours per zone to compute the combined balance.</div>";
   else {
-    h += "<table><tr><th>Produit</th><th>t/an combiné</th><th>Cible</th><th>Écart</th></tr>";
+    h += "<table><tr><th>Product</th><th>Combined t/yr</th><th>Target</th><th>Gap</th></tr>";
     for (const [prod, row] of Object.entries(s.combined))
       h += `<tr><td>${esc(prod)}</td><td>${fmt(row.tonnage_t, 0)}</td><td>${fmt(row.target_t, 0)}</td>
         <td class="${row.gap_t < 0 && row.nature === "FIRM" ? "ko" : ""}">${fmt(row.gap_t, 0)}</td></tr>`;
@@ -454,16 +620,17 @@ function renderAlerts() {
   const all = PHOTO.alerts;
   $("out").innerHTML = all.length
     ? all.map(a => `<div class="alert-line">⚠ ${esc(a)}</div>`).join("")
-    : "<div class='ok'>Aucune alerte.</div>";
+    : "<div class='ok'>No alerts.</div>";
 }
 
 /* ---------------- boot ---------------- */
 $("run").onclick = recompute;
-$("reset").onclick = async () => { await loadDefaults(); recompute(); };
+$("reset").onclick = async () => { await loadDefaults(); modebarFromInputs(); recompute(); };
+["mode11", "mode12", "weather"].forEach(id => $(id).addEventListener("change", modebarFromInputs));
 document.addEventListener("input", e => {
   if (e.target.matches(".toolbar input")) e.target.classList.add("mod");
 });
-loadDefaults().then(recompute);
+loadDefaults().then(() => { modebarFromInputs(); recompute(); });
 </script>
 </body>
 </html>

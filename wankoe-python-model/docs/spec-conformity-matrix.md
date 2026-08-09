@@ -157,6 +157,10 @@ delegated or expert-proposed; expert proposals await his ratification.
 | 2026-08-08 | SP.36 cut default 100 µm kept although §3.0-M8 suggests ≈0.65·d97 ≈ 65 µm | spec-internal tension — QUESTION PENDING |
 | 2026-08-08 | CR.5011 ~37 kW read as a nameplate-capacity evaluation; both powers reported | assistant hypothesis — QUESTION PENDING |
 | 2026-08-08 | Spec 9.3 fines 19.9 t/h cannot close mass; model enforces closure | spec-internal inconsistency — QUESTION PENDING |
+| 2026-08-09 | Web UI language: ENGLISH everywhere — the French-labels exception is REJECTED; all deliverables English, no exception | the client |
+| 2026-08-09 | Web UI carries the NOEZYS visual identity (www.noezys.com deep-navy/cyan/violet); operating modes explained in the UI and the selected mode's route colored on the flowsheet | the client |
+| 2026-08-09 | UI primary flow = annual production targets as inputs; operating hours COMPUTED from them and displayed (hours removed as inputs), seasonal balance evaluated at the computed hours | the client (reaffirming the 2026-08-08 hours-follow-targets rule) |
+| 2026-08-09 | design.py fixed to tolerate machines absent from the photo (zone stopped by mode, e.g. 2C) — regression test added | assistant (bug fix, UI review) |
 
 ## How this project absorbs future changes
 

@@ -86,3 +86,20 @@ def test_all_measurements_check_aggregates_worst_case():
     assert key in result["worst_case"]
     assert result["worst_case"][key]["governing_measurement"] == "2026-08-08-belt-cut"
     assert result["design_holds"] is False
+
+
+def test_design_check_runs_in_every_mode_combination():
+    """Regression (2026-08-09 UI review): mode 2C leaves zone 1.3 machines out
+    of the photo — the design check must tolerate absent machines."""
+    from wankoe_model.design import run_design_check
+    from wankoe_model.scenario import load_parameters
+
+    for m11 in ("1A", "1B"):
+        for m12 in ("2A", "2B", "2C"):
+            params = load_parameters(
+                overrides={
+                    "default_scenario": {"zone_1_1_mode": m11, "zone_1_2_mode": m12}
+                }
+            )
+            result = run_design_check(params)
+            assert "verdicts" in result, (m11, m12)

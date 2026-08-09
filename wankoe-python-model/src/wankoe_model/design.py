@@ -67,32 +67,32 @@ def run_design_check(params: dict) -> dict:
             rows.append(row)
 
     # CR.5009 — toothed roll crusher
-    if m["CR.5009"].get("active"):
+    if m.get("CR.5009", {}).get("active"):
         add("CR.5009", "feed F80 vs nip", m["CR.5009"]["F80_mm"], "mm", "max_feed_size_mm")
         add("CR.5009", "installed power", m["CR.5009"]["P_installed_kW"], "kW", "installed_power_kW")
     # CR.5011 — impact crusher (loop)
-    if m["CR.5011"].get("active"):
+    if m.get("CR.5011", {}).get("active"):
         add("CR.5011", "circulating load", m["CR.5011"].get("throughput_tph"), "t/h", "max_capacity_tph")
         add("CR.5011", "installed power", m["CR.5011"].get("P_installed_kW"), "kW", "installed_power_kW")
     # CR.5107 — impact crusher (AgLime loop)
-    if m["CR.5107"].get("active"):
+    if m.get("CR.5107", {}).get("active"):
         add("CR.5107", "installed power", m["CR.5107"].get("P_installed_kW"), "kW", "installed_power_kW")
     # screens — required vs installed area
     for code in ("SR.5007", "SR.5105", "SR.5115", "SN.21"):
         if m.get(code, {}).get("active"):
             add(code, "screen area", _max_area(m[code]), "m2", "installed_area_m2")
     # DY.03 — dryer
-    if m["DY.03"].get("active"):
+    if m.get("DY.03", {}).get("active"):
         wet_feed = photo["scenario"]["flow_rates_tph"]["zone_1_3_feedlime"]
         add("DY.03", "wet feed vs capacity", wet_feed, "t/h", "max_capacity_tph")
         add("DY.03", "burner power", m["DY.03"]["burner_power_kW"], "kW", "installed_burner_kW")
         add("DY.03", "drum volume", m["DY.03"]["drum_volume_m3"], "m3", "installed_drum_volume_m3")
     # ML.26 — roller mill
-    if m["ML.26"].get("active"):
+    if m.get("ML.26", {}).get("active"):
         add("ML.26", "circulating load", m["ML.26"].get("throughput_tph"), "t/h", "max_capacity_tph")
         add("ML.26", "installed power", m["ML.26"].get("P_installed_kW"), "kW", "installed_power_kW")
     # SP.36 — air classifier
-    if m["SP.36"].get("active") and m["SP.36"].get("Q_air_m3h") is not None:
+    if m.get("SP.36", {}).get("active") and m["SP.36"].get("Q_air_m3h") is not None:
         add("SP.36", "airflow", m["SP.36"]["Q_air_m3h"], "m3/h", "max_airflow_m3h")
 
     exceeded = [r for r in rows if r["verdict"] == "EXCEEDED"]
