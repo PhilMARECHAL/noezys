@@ -1,9 +1,18 @@
+# Render blueprint for THIS BRANCH (wankoe-python-model): the WANKOE model
+# web service. The main branch keeps its own render.yaml (the static
+# Noezys site) - the two never mix. The service exposes ONLY the app
+# ("/" and "/api/*"): the repository's docs/ and data/ files are never
+# served. Set WANKOE_ACCESS_KEY in the Render dashboard to protect access.
 services:
   - type: web
-    name: noezys
-    runtime: static
-    staticPublishPath: .
-    headers:
-      - path: /*
-        name: Cache-Control
-        value: public, max-age=3600
+    name: wankoe-model
+    runtime: python
+    plan: free
+    branch: wankoe-python-model
+    rootDir: wankoe-python-model
+    buildCommand: echo "no build needed - Python stdlib only"
+    startCommand: PYTHONPATH=src python -m wankoe_model.webapp
+    healthCheckPath: /healthz
+    envVars:
+      - key: WANKOE_ACCESS_KEY
+        sync: false

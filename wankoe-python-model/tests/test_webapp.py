@@ -53,6 +53,42 @@ def test_page_is_self_contained():
     assert "https://" not in page
 
 
+# ------------------------------------------------------------- auth
+def test_access_key_protects_all_routes(monkeypatch):
+    import base64
+
+    monkeypatch.setenv("WANKOE_ACCESS_KEY", "secret-key")
+    server = ThreadingHTTPServer(("127.0.0.1", 0), _Handler)
+    port = server.server_address[1]
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    try:
+        # no credentials -> 401 with the Basic challenge
+        try:
+            urllib.request.urlopen(f"http://127.0.0.1:{port}/")
+            assert False, "expected 401"
+        except urllib.error.HTTPError as exc:
+            assert exc.code == 401
+            assert "Basic" in exc.headers.get("WWW-Authenticate", "")
+        # wrong key -> 401
+        bad = urllib.request.Request(f"http://127.0.0.1:{port}/")
+        bad.add_header("Authorization", "Basic " + base64.b64encode(b"x:wrong").decode())
+        try:
+            urllib.request.urlopen(bad)
+            assert False, "expected 401"
+        except urllib.error.HTTPError as exc:
+            assert exc.code == 401
+        # right key -> 200
+        ok = urllib.request.Request(f"http://127.0.0.1:{port}/")
+        ok.add_header("Authorization", "Basic " + base64.b64encode(b"x:secret-key").decode())
+        with urllib.request.urlopen(ok) as res:
+            assert res.status == 200
+        # health check stays open for the hosting platform
+        with urllib.request.urlopen(f"http://127.0.0.1:{port}/healthz") as res:
+            assert res.status == 200
+    finally:
+        server.shutdown()
+
+
 # ------------------------------------------------------------- HTTP smoke
 def test_http_server_serves_page_and_api():
     server = ThreadingHTTPServer(("127.0.0.1", 0), _Handler)

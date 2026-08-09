@@ -20,11 +20,21 @@ actionable messages (typo suggestions, mode lists, capacity ceilings)
 surface directly in the UI.
 
 Run:  python -m wankoe_model.webapp [port]      (default port 8977)
+
+Hosted deployment (e.g. Render): the PORT environment variable overrides
+the port, and setting WANKOE_ACCESS_KEY protects every route with HTTP
+Basic Auth (any username, the key as password). Without the variable the
+server is open — fine locally, never expose an unprotected instance.
+Only "/" and "/api/*" are served: the repository's docs/ and data/ files
+are never exposed by the web server.
 """
 
 from __future__ import annotations
 
+import base64
+import hmac
 import json
+import os
 import sys
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -89,6 +99,30 @@ def handle_api(endpoint: str, payload: dict | None) -> dict:
 
 
 class _Handler(BaseHTTPRequestHandler):
+    def _authorized(self) -> bool:
+        """HTTP Basic Auth against WANKOE_ACCESS_KEY (open when unset)."""
+        key = os.environ.get("WANKOE_ACCESS_KEY")
+        if not key:
+            return True
+        header = self.headers.get("Authorization", "")
+        if header.startswith("Basic "):
+            try:
+                decoded = base64.b64decode(header[6:]).decode("utf-8")
+                _, _, password = decoded.partition(":")
+                return hmac.compare_digest(password, key)
+            except Exception:
+                return False
+        return False
+
+    def _deny(self) -> None:
+        body = b'{"error": "authentication required"}'
+        self.send_response(401)
+        self.send_header("WWW-Authenticate", 'Basic realm="WANKOE model"')
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
     def _send(self, status: int, body: bytes, content_type: str) -> None:
         self.send_response(status)
         self.send_header("Content-Type", content_type)
@@ -105,6 +139,10 @@ class _Handler(BaseHTTPRequestHandler):
         )
 
     def do_GET(self):  # noqa: N802 (http.server naming)
+        if self.path == "/healthz":  # unauthenticated hosting health check
+            return self._send(200, b"ok", "text/plain")
+        if not self._authorized():
+            return self._deny()
         if self.path in ("/", "/index.html"):
             page = (WEB_DIR / "index.html").read_bytes()
             self._send(200, page, "text/html; charset=utf-8")
@@ -117,6 +155,8 @@ class _Handler(BaseHTTPRequestHandler):
             self._send_json(404, {"error": f"not found: {self.path}"})
 
     def do_POST(self):  # noqa: N802
+        if not self._authorized():
+            return self._deny()
         if not self.path.startswith("/api/"):
             self._send_json(404, {"error": f"not found: {self.path}"})
             return
@@ -132,9 +172,13 @@ class _Handler(BaseHTTPRequestHandler):
         pass
 
 
-def serve(port: int = 8977) -> None:
+def serve(port: int | None = None) -> None:
+    # hosted platforms (Render, ...) inject the port via the PORT env var
+    if port is None:
+        port = int(os.environ.get("PORT", 8977))
     server = ThreadingHTTPServer(("0.0.0.0", port), _Handler)
-    print(f"Wankoe model web interface: http://localhost:{port}/  (Ctrl+C to stop)")
+    protected = "protected (WANKOE_ACCESS_KEY)" if os.environ.get("WANKOE_ACCESS_KEY") else "OPEN"
+    print(f"WANKOE model web interface on port {port} — access: {protected}")
     try:
         server.serve_forever()
     except KeyboardInterrupt:
@@ -142,4 +186,4 @@ def serve(port: int = 8977) -> None:
 
 
 if __name__ == "__main__":
-    serve(int(sys.argv[1]) if len(sys.argv) > 1 else 8977)
+    serve(int(sys.argv[1]) if len(sys.argv) > 1 else None)
