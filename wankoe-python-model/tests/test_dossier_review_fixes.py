@@ -60,8 +60,10 @@ def test_design_check_has_three_verdicts_and_not_checkable():
     v = report["verdicts"]
     assert set(v) == {"machines_hold", "quality_holds", "targets_reachable"}
     assert v["machines_hold"] is False  # CR.5009 nip exceedance
-    assert v["quality_holds"] is False  # KFS envelope fails at defaults
-    assert v["targets_reachable"] is True
+    # client arbitration 2026-08-10 (Q1/12): dry imperfection I = 0.15 (literature): KFS envelope now HOLDS, but zone 1.1
+    # exceeds its hours ceiling (85 kt firm KFS vs the sharper-cut yield)
+    assert v["quality_holds"] is True
+    assert v["targets_reachable"] is False
     assert report["not_checkable"][0]["machine"] == "CR.5003"
 
 

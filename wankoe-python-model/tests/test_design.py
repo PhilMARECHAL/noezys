@@ -75,7 +75,8 @@ def test_provided_limit_flips_the_verdict():
 
 
 def test_planning_summary_included(report):
-    assert report["planning"]["targets_feasible_within_ceilings"] is True
+    # client arbitration 2026-08-10 (Q1/12): dry imperfection I = 0.15 (literature): zone 1.1 exceeds its ceiling at defaults
+    assert report["planning"]["targets_feasible_within_ceilings"] is False
     assert set(report["planning"]["zones"]) == {"1.1", "1.2", "1.3"}
 
 

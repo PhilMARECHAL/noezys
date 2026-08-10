@@ -11,7 +11,8 @@
 > (Reid/Plitt-family) curve, not Karra's published 1979 form (fixed
 > sharpness ≈ classic imperfection 0.13); the spec's label is kept, the
 > docstring says the truth. Industrial dry screens are far sharper
-> (I ≈ 0.10–0.15) than the current spec-derived default (question pending).
+> (I ≈ 0.10–0.15) than the spec-derived default — ARBITRATED 2026-08-10:
+> the client adopted I = 0.15; the ch.9 test suite pins the spec-era 0.4.
 > **M4 clarified** — Qb·f0 = 4.86·a^0.6 reproduces the published VSMA
 > Factor-A table within 5 % at the project cuts; f0 absorbs the factor
 > string. **Bond flags** — Wi = 12.54 is mid-range for limestone, but if

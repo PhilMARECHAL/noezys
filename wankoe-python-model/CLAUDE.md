@@ -51,10 +51,15 @@ rule or arbitration.
 - docs/spec-conformity-matrix.md: requirement-by-requirement traceability
   + dated decision log. docs/model-science-review.md: formula provenance,
   grades A/B/C (ML.26 = the C, spec under-defined it).
-- Known open arbitrations (morning questionnaire pending): imperfection
-  remap ratification, KFS 15% tolerance vs envelope, SP.36 cut 65 vs 100
-  um, spec 9.3 fines figure inconsistency, CR.5011 37 kW meaning,
-  hosting/deployment, repo location, French UI exception.
+- 12-question client arbitration round IN PROGRESS (2026-08-10). Decided:
+  Q1 dry imperfection I = 0.15 (literature) — KFS envelope holds, but
+  zone 1.1 needs 2069 h > 2000 h ceiling: the 85 kt firm KFS commitment
+  is AT RISK at defaults until the securing lever (Q7) is chosen.
+  Still open: Wi metric 13.8 vs 12.54 (Q2), I-remap ratification (Q3),
+  KFS tolerance vs envelope (Q4), spec 9.3 fines figure (Q5), SP.36 cut
+  65 vs 100 um (Q6), KFS securing lever (Q7), CR.5011 datasheet (Q8),
+  repo location (Q10), b_j soft limestone (Q12). Q9 hosting: DONE
+  (Render). Q11 French UI: rejected — English everywhere.
 - Validation is circular by construction (chapter 9 was estimated, the
   reference curve back-fitted): the model validates against the spec's
   mathematics; real grounding comes only from feed measurements.

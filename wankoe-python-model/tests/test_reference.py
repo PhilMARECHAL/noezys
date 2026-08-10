@@ -22,13 +22,22 @@ def results():
     # to keep validating the model mathematics against chapter 9.
     with open(REFERENCE_FEED_CURVE_PATH, encoding="utf-8") as f:
         curve = json.load(f)["cumulative_passing_curve"]
+    # Chapter 9 also embeds the spec-era fuzzy imperfection (I = 0.4). The
+    # client arbitration 2026-08-10 (Q1/12): dry imperfection I = 0.15 (literature)
+    # supersedes it as the shipped default, so this suite pins the SPEC-ERA
+    # value: the model must keep reproducing ch.9 under ch.9's calibration.
     return run_scenario(
         load_parameters(
             overrides={
                 "feed_product": {
                     "cumulative_passing_curve": curve,
                     "properties": {"moisture_pct": {"default": 8}},
-                }
+                },
+                "calibration": {"I_dry": {"default": 0.4}},
+                "machines": {
+                    "SR.5007": {"parameters": {"I": {"default": 0.4}}},
+                    "SR.5115": {"parameters": {"I": {"default": 0.4}}},
+                },
             }
         )
     )

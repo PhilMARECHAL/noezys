@@ -16,18 +16,24 @@ def test_production_lands_exactly_on_targets(plan):
     assert plan["production_t"]["FeedLime grits"] == pytest.approx(40000, abs=1)
 
 
-def test_all_zones_feasible_within_ceilings(plan):
-    for name, zone in plan["zones"].items():
+def test_zone_feasibility_at_defaults(plan):
+    # client arbitration 2026-08-10 (Q1/12): dry imperfection I = 0.15 (literature): the sharper cut yields less KFS per hour, so zone 1.1
+    # needs ~2069 h > its 2000 h ceiling — a DOCUMENTED design risk (the
+    # securing levers are the client's question 7/12). Zones 1.2/1.3 hold.
+    assert plan["zones"]["1.1"]["feasible"] is False
+    for name in ("1.2", "1.3"):
+        zone = plan["zones"][name]
         assert zone["feasible"] is True, f"zone {name} infeasible: {zone}"
         assert zone["required_hours_clock"] <= zone["ceiling_hours_clock"]
+    assert any("Zone 1.1" in a and "NOT reachable" in a for a in plan["alerts"])
 
 
 def test_zone_1_1_driven_by_kfs(plan):
     z11 = plan["zones"]["1.1"]
     assert z11["driven_by"] == "KFS target"
-    # post-M3-arbitration: ~83 % utilization (margin restored vs the 98.8 %
-    # observed under the pre-arbitration semantics)
-    assert 70 < z11["utilization_pct"] < 100
+    # client arbitration 2026-08-10 (Q1/12): dry imperfection I = 0.15 (literature): ~103.5 % utilization — the 85 kt firm KFS commitment
+    # exceeds the 2000 h regime at 250 t/h (securing lever pending, Q7/12)
+    assert 100 < z11["utilization_pct"] < 110
 
 
 def test_feedlime_stock_balanced(plan):

@@ -161,6 +161,7 @@ delegated or expert-proposed; expert proposals await his ratification.
 | 2026-08-09 | Web UI carries the NOEZYS visual identity (www.noezys.com deep-navy/cyan/violet); operating modes explained in the UI and the selected mode's route colored on the flowsheet | the client |
 | 2026-08-09 | UI primary flow = annual production targets as inputs; operating hours COMPUTED from them and displayed (hours removed as inputs), seasonal balance evaluated at the computed hours | the client (reaffirming the 2026-08-08 hours-follow-targets rule) |
 | 2026-08-09 | design.py fixed to tolerate machines absent from the photo (zone stopped by mode, e.g. 2C) — regression test added | assistant (bug fix, UI review) |
+| 2026-08-10 | Q1/12 — dry screen imperfection I = 0.15 adopted from literature (was 0.4 spec-derived). KFS envelope 30/55/15 now COMPLIANT; KFS yield drops to 51.4 t/h so zone 1.1 needs 2069 h > 2000 h ceiling (85 kt firm commitment at risk — securing lever = Q7/12). Ch.9 reference tests pin the spec-era I = 0.4 to keep validating the model against ch.9 under ch.9's own calibration | the client |
 
 ## How this project absorbs future changes
 

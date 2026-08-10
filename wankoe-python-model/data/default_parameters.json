@@ -98,7 +98,8 @@
           "unit": "-",
           "min": 0.1,
           "max": 0.9,
-          "default": 0.4
+          "default": 0.15,
+          "status": "[H] Client arbitration 2026-08-10 (question 1/12): I = 0.15 adopted from literature (industrial dry vibrating screens I~0.10-0.15; Karra 1979 fixed exponent ~ classic imperfection 0.13). Supersedes the 0.4 inherited from the spec remap; to be re-fitted when a KFS product sieve test exists."
         }
       }
     },
@@ -227,7 +228,8 @@
           "unit": "-",
           "min": 0.1,
           "max": 0.9,
-          "default": 0.4
+          "default": 0.15,
+          "status": "[H] Client arbitration 2026-08-10 (question 1/12): I = 0.15 adopted from literature (industrial dry vibrating screens I~0.10-0.15; Karra 1979 fixed exponent ~ classic imperfection 0.13). Supersedes the 0.4 inherited from the spec remap; to be re-fitted when a KFS product sieve test exists."
         }
       }
     },
@@ -389,8 +391,8 @@
     "I_dry": {
       "name": "Screen imperfection (dry)",
       "unit": "-",
-      "default": 0.4,
-      "status": "[H] remapped I_new = 1 - I_old after the M3 arbitration (spec sharpness s=4.30 dry). LITERATURE FLAG (2026-08-08): real dry vibrating screens are much sharper - Karra 1979's fixed exponent is equivalent to classic imperfection ~0.13 (s~8.5); industrial dry screens I~0.10-0.15. Adopting the literature value would materially improve KFS envelope compliance. QUESTION PENDING",
+      "default": 0.15,
+      "status": "[H] Client arbitration 2026-08-10 (question 1/12): I = 0.15 adopted from literature (industrial dry vibrating screens I~0.10-0.15; Karra 1979 fixed exponent ~ classic imperfection 0.13). Supersedes the 0.4 inherited from the spec remap; to be re-fitted when a KFS product sieve test exists.",
       "used_by": "M3"
     },
     "f0": {
