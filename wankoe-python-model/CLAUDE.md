@@ -70,6 +70,17 @@ rule or arbitration.
   produces numbered technical dossier DT-nnn + maintains a dossier
   register (references hypotheses, zone, validated inputs). Chat replies
   French, ALL presented results/tables/dossiers English.
+- TRACEABILITY RULE (client, 2026-08-11): every datasheet/dossier carries
+  an engine-run footer (commit, functions, date); assistant-computed
+  figures (not from an engine execution) must be flagged as such; dossier
+  extraction scripts are archived in the repo for replay without the
+  assistant. Rationale: the client must be able to VERIFY, not trust.
+- INCOMING (announced 2026-08-11): a substantial expert
+  technological/scientific document with mathematical models for
+  hardness-dependent machine calculations. On receipt: full read,
+  machine-by-machine gap table vs current M1-M8, quantified impact on
+  issued datasheets, data-first integration, dated decision-log rows,
+  re-issue affected datasheets for client validation.
 - Rock hardness: client rock is UCS 20-80 MPa (vs spec ch.9 reference
   ~325 MPa — inconsistency). UCS = case discriminator only, never a
   formula input; hardness lives in Wi (M2) and A_j·b_j (M5). An expert
