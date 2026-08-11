@@ -105,7 +105,7 @@ node render-pub.mjs en        # → noezys-pub-en.mp4 (muet)
 node render.mjs               # → noezys-30s.mp4 (muet)
 
 # Bandes-son (déterministes — mêmes fichiers à l'octet près, seed 42)
-python3 make-music.py music-pub.wav   "0,3.5,7,10.5,14,17,20,23,26.5" 14 23
+python3 make-music.py music-pub.wav   "0,4,7.5,11,15,19,25" 11 19
 python3 make-music.py music-brand.wav "0,3.3,6.5,10,14,17.3,21.8,25.8" 17.3 21.8
 
 # Mux audio (remplace les mp4 en place)
@@ -124,23 +124,27 @@ valeur dans la liste des frontières.**
 
 ---
 
-## 5. Timeline et contenu actuels (pub validée)
+## 5. Timeline et contenu actuels (script v3 « flyers », validé scène par scène)
 
-Brief validé par le client : pub de **génération de clients** pour les
-**services IA sur mesure**, accroche **temps perdu**, ton **premium sans gag
-méta**, diffusion **LinkedIn 16:9**, CTA **« Parlons de votre projet »**.
+Script construit avec le client à partir de ses **deux flyers** (recto « L'IA,
+intégrée à votre métier » + verso « Bonjour, ») : ouverture par la promesse,
+puis le verso déroulé dans l'ordre, révisé par un panel d'experts pour sonner
+humain (zéro tiret à l'écran, anglais natif, pas de tournures « IA »).
 
 | Scène | Temps | FR | EN |
 |---|---|---|---|
-| S1 hook | 0–3,5 s | Chaque semaine, vos équipes perdent **des heures**. | Every week, your team loses **hours**. |
-| S2 light | 3,5–7 s | Sur des tâches qu'une IA ferait en quelques secondes. | On tasks AI could handle in seconds. |
-| S3 glow | 7–10,5 s | Et si elle travaillait pour vous — même *pendant* que vous dormez ? | What if it worked for you — even *while* you sleep? |
-| S4 logo | 10,5–14 s | NOEZYS · AI INNOVATION LAB | idem |
-| S5 cas 01 | 14–17 s | Devis générés en 2 minutes. / Pas en 2 heures. | Quotes generated in 2 minutes. / Not 2 hours. |
-| S5 cas 02 | 17–20 s | Support client 24/7. / Vos clients ont toujours une réponse. | 24/7 customer support. / Your clients always get an answer. |
-| S5 cas 03 | 20–23 s | Relances clients automatiques. / Plus aucune opportunité oubliée. | Automatic client follow-ups. / No opportunity left behind. |
-| S6 posit. | 23–26,5 s | Des solutions IA sur mesure, **conçues pour votre métier.** | Custom AI solutions, **built for your business.** |
-| S7 CTA | 26,5–30 s | Parlons de votre projet. + www.noezys.com | Let's talk about your project. + www.noezys.com |
+| S1 ouverture | 0–4 s | **L'intelligence artificielle,** intégrée à votre métier. | **Artificial intelligence,** built into your business. |
+| S2 mission | 4–7,5 s | Gagner du temps. Faire grandir votre **chiffre d'affaires**. | Save time. Grow your **revenue**. |
+| S3 logo | 7,5–11 s | NOEZYS · AI INNOVATION LAB | idem |
+| S4 carte 01 | 11–15 s | Des solutions **sur mesure** pour vous. / Site web, logiciel, applications mobiles, avec le meilleur de l'IA. | Solutions built around **you**. / Websites, software and mobile apps that put AI to work for you. |
+| S4 carte 02 | 15–19 s | Pas seulement une IA. / Une **vraie équipe** qui vous écoute et vous accompagne. | Not just AI. / A **real team** that listens and stays by your side. |
+| S5 équipe | 19–25 s | L'ÉQUIPE NOEZYS · Authenticité. Impact. Créativité. · **Le contact humain avant tout.** | THE NOEZYS TEAM · Authenticity. Impact. Creativity. · **Human connection comes first.** |
+| S6 finale | 25–30 s | 30 minutes. Un plan d'action concret. Sans engagement. + www.noezys.com + ligne verte SOLUTIONS DIGITALES DURABLES · IA RESPONSABLE | 30 minutes. A clear action plan. No strings attached. + SUSTAINABLE DIGITAL SOLUTIONS · RESPONSIBLE AI |
+
+Nouveauté charte : la ligne signature finale est **verte** (`#55B97E`, var
+`--green`), reprise de la ligne écologique du flyer — seule entorse autorisée
+au duo cyan/violet. Les frontières musicales suivent ces timings
+(`0,4,7.5,11,15,19,25`).
 
 ---
 
@@ -151,12 +155,12 @@ en tête du `<script>` de `video/pub.html` (clés `fr:` et `en:` côte à côte)
 
 | Pour changer… | Modifier |
 |---|---|
-| L'accroche (S1) | `COPY.<lang>.s1` — tableau de lignes ; chaque ligne = tableau de mots (garder l'espace final dans chaque mot) ; `["mot",true]` = mot en dégradé |
-| Texte scène claire (S2) | `COPY.<lang>.s2` — tableau de mots |
-| Texte lumineux (S3) | `COPY.<lang>.s3l1` et `s3l2` (HTML autorisé, `<em>` pour l'italique) |
-| Les 3 cas d'usage | `COPY.<lang>.cases` — `{head, sub}` ×3 |
-| Le positionnement (S6) | `COPY.<lang>.s6l1` (mots) + `s6l2` (ligne en dégradé) |
+| L'ouverture (S1) | `COPY.<lang>.s1` — tableau de lignes ; chaque ligne = tableau de `["mot "]` (garder l'espace final) ; `["mot ",true]` = mot en dégradé |
+| La mission (S2) | `COPY.<lang>.s2` — même format que s1 |
+| Les 2 cartes | `COPY.<lang>.cases` — `{head, sub}` ×2, HTML autorisé (`<span class="grad-text">` pour un mot en dégradé) |
+| La scène équipe | `COPY.<lang>.label` (petit titre espacé), `values` (3 mots qui claquent), `sig` (ligne en dégradé) |
 | Le CTA final | `COPY.<lang>.cta` |
+| La ligne verte finale | `COPY.<lang>.eco` |
 | Un timing de scène | Tableau `scenes` (champs `a`/`b`) — **reporter les nouvelles frontières dans l'appel `make-music.py`** |
 | Des photos/visuels | Ajouter un bloc dans la scène concernée sur le modèle `.photocard` de `scene.html` (cadre blanc 16 px, radius 14, rotation ±5°, pop `outBack`) |
 
