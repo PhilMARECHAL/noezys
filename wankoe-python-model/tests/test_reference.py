@@ -37,6 +37,10 @@ def results():
                 "machines": {
                     "SR.5007": {"parameters": {"I": {"default": 0.4}}},
                     "SR.5115": {"parameters": {"I": {"default": 0.4}}},
+                    # ch.9 fines were authored with the spec-era 100 um cut;
+                    # Q6 (2026-08-11, expert book ch.11) moved the shipped
+                    # default to 65 um — pin the spec-era value here
+                    "SP.36": {"parameters": {"coupe": {"default": 100}}},
                 },
             }
         )

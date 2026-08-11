@@ -55,11 +55,15 @@ rule or arbitration.
   Q1 dry imperfection I = 0.15 (literature) — KFS envelope holds, but
   zone 1.1 needs 2069 h > 2000 h ceiling: the 85 kt firm KFS commitment
   is AT RISK at defaults until the securing lever (Q7) is chosen.
-  Still open: Wi metric 13.8 vs 12.54 (Q2), I-remap ratification (Q3),
-  KFS tolerance vs envelope (Q4), spec 9.3 fines figure (Q5), SP.36 cut
-  65 vs 100 um (Q6), KFS securing lever (Q7), CR.5011 datasheet (Q8),
-  repo location (Q10), b_j soft limestone (Q12). Q9 hosting: DONE
-  (Render). Q11 French UI: rejected — English everywhere.
+  CLOSED 2026-08-11 via the expert book: Q2 (Wi stays 12.54 [ref.],
+  13.8 rejected), Q6 (SP.36 cut = 65 um; UltraFin 0.99 t/h at defaults),
+  Q8 (AP-S 1010 machine docs: 75-90 t/h real, 132 kW, mode-1B line feed
+  ~130 t/h). Q9 hosting: DONE (Render). Q11 French UI: rejected.
+  Still open: I-remap ratification (Q3 — now tied to the expert
+  clarification note), KFS tolerance vs envelope (Q4), spec 9.3 fines
+  figure (Q5), KFS securing lever (Q7), repo location (Q10), b_j soft
+  limestone (Q12 — book documents calcite A 62-69 / b 1.3-3.0 but keeps
+  A=60/b=0.80 [H] pending drop-weight tests).
 - NEW WORKING MODE (client, 2026-08-11): the client found the web app too
   complicated — simulations now run IN CHAT (same engine, identical
   numbers), app optional. Protocol: step-by-step zone 1 review — inputs
@@ -75,12 +79,18 @@ rule or arbitration.
   figures (not from an engine execution) must be flagged as such; dossier
   extraction scripts are archived in the repo for replay without the
   assistant. Rationale: the client must be able to VERIFY, not trust.
-- INCOMING (announced 2026-08-11): a substantial expert
-  technological/scientific document with mathematical models for
-  hardness-dependent machine calculations. On receipt: full read,
-  machine-by-machine gap table vs current M1-M8, quantified impact on
-  issued datasheets, data-first integration, dated decision-log rows,
-  re-issue affected datasheets for client validation.
+- EXPERT BOOK (received & integrated 2026-08-11):
+  docs/WANKOE-ouvrage-modeles-machines-v2026-08-08.pdf — first-principles
+  derivations of every machine model, provenance table ([ref.]/[H]/[F]),
+  Fontaine→Metso→literature hierarchy. It VALIDATES the implemented
+  M1-M8 and closed Q2/Q6/Q8 (see decision log). Four issues await an
+  expert clarification note (imperfection convention mix & value 0.10 vs
+  0.15 — drives grits yield 33.5 vs 26.5 %; book's CR.5009 example F80
+  120 vs measured 180.6; S_att 0.206 vs 0.171; CR.5011 capacity). A
+  polishing bag filter for the sub-4 um cyclone tail is MISSING from the
+  flowsheet (design review item). Remaining calibration triggers: site
+  Bond test, A/b drop-weight, λ piston press, belt sample (S_att + fine
+  tail).
 - Rock hardness: client rock is UCS 20-80 MPa (vs spec ch.9 reference
   ~325 MPa — inconsistency). UCS = case discriminator only, never a
   formula input; hardness lives in Wi (M2) and A_j·b_j (M5). An expert

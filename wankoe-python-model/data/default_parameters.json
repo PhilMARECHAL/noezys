@@ -132,7 +132,9 @@
     "CR.5011": {
       "zone": "1.1",
       "type": "Impact crusher (HAZEMAG AP-S 1010)",
-      "max_capacity_tph": 125,
+      "max_capacity_tph": 90,
+      "nominal_capacity_tph": 100,
+      "max_feed_size_mm": 400,
       "parameters": {
         "v": {
           "name": "Rotor speed",
@@ -151,8 +153,8 @@
           "step": 1
         }
       },
-      "installed_power_kW": null,
-      "_capacity_note": "Spec says 'real capacity ~125 t/h (mode A)'. LITERATURE FLAG (2026-08-08): current HAZEMAG pages rate a 1010-size secondary impactor at ~81-90 t/h (APS table) to 90-120 t/h (HSI 1010); obtain the machine-specific datasheet. QUESTION PENDING"
+      "installed_power_kW": 132,
+      "_capacity_note": "Q8 CLOSED 2026-08-11 (expert book ch.4, machine documents Ochse 2026-07-17): HAZEMAG AP-S 1010 — 100 t/h nominal, 75-90 t/h real on limestone (max_capacity_tph = 90, conservative bound 75), rotor 1000x1000, max feed 400 mm, motor 132 kW; capacity bound by the rotor, not the motor. Supersedes the spec's '~125 t/h (mode A)'. Operational constraint: in mode 1B the LINE feed must drop to ~130 t/h to keep the impactor in range (the engine does not enforce line feed; check mode-1B scenarios against this)"
     },
     "DV-5099": {
       "zone": "1.1",
@@ -319,11 +321,11 @@
       "type": "Air classifier (UltraFin classification)",
       "parameters": {
         "coupe": {
-          "name": "Cut size",
+          "name": "Cut size (Q6 CLOSED 2026-08-11: d50c = 0.65 x d97 = 65 um per expert book ch.11, Stokes equilibrium; was 100)",
           "unit": "um",
           "min": 45,
           "max": 150,
-          "default": 100,
+          "default": 65,
           "step": 5
         },
         "eta_cl": {
@@ -357,7 +359,7 @@
       "name": "Bond work index",
       "unit": "kWh/t",
       "default": 12.54,
-      "status": "project value 12.54. LITERATURE FLAG (2026-08-08): if 12.54 comes from a kWh/short-ton table, the metric value is 13.8 kWh/t (x1.1023) - which would land CR.5009 almost exactly on the spec's 116 kW. Pure-limestone measurements: 12.6-13.9 kWh/t (Todorovic 2017). QUESTION PENDING",
+      "status": "Q2 CLOSED 2026-08-11 [ref.]: 12.54 kWh/t confirmed by expert book ch.13 — Fontaine value (Belgian limestone), consistent with measured limestone range 12.6-13.9 kWh/t (Todorovic 2017). The kWh/short-ton hypothesis (13.8) is REJECTED; the spec ch.9 ~116 kW remains a spec-side artefact. Site Bond test still listed as a calibration trigger (book ch.13)",
       "used_by": "M2"
     },
     "eta_m": {
@@ -601,8 +603,8 @@
     "b_cyclone": {
       "name": "CL.38 cyclone inlet width",
       "unit": "m",
-      "default": null,
-      "status": "TO BE PROVIDED (vendor drawing)",
+      "default": 0.14,
+      "status": "design assumption adopted 2026-08-11 from expert book ch.12: D = 0.7 m, b = 0.2D = 0.14 m (Stairmand high-efficiency), Ne = 5, v_in = 15 m/s -> d50 = 4.2 um; sub-4 um tail leaves with the cleaned air and needs a polishing bag filter (equipment NOT in the flowsheet). Vendor drawing still to confirm",
       "used_by": "M8"
     },
     "bottom_interval_ratio": {
