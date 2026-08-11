@@ -137,7 +137,7 @@ méta**, diffusion **LinkedIn 16:9**, CTA **« Parlons de votre projet »**.
 | S3 glow | 7–10,5 s | Et si elle travaillait pour vous — même *pendant* que vous dormez ? | What if it worked for you — even *while* you sleep? |
 | S4 logo | 10,5–14 s | NOEZYS · AI INNOVATION LAB | idem |
 | S5 cas 01 | 14–17 s | Devis générés en 2 minutes. / Pas en 2 heures. | Quotes generated in 2 minutes. / Not 2 hours. |
-| S5 cas 02 | 17–20 s | Support client 24/7. / Sans embaucher. | 24/7 customer support. / Without hiring. |
+| S5 cas 02 | 17–20 s | Support client 24/7. / Vos clients ont toujours une réponse. | 24/7 customer support. / Your clients always get an answer. |
 | S5 cas 03 | 20–23 s | Relances clients automatiques. / Plus aucune opportunité oubliée. | Automatic client follow-ups. / No opportunity left behind. |
 | S6 posit. | 23–26,5 s | Des solutions IA sur mesure, **conçues pour votre métier.** | Custom AI solutions, **built for your business.** |
 | S7 CTA | 26,5–30 s | Parlons de votre projet. + www.noezys.com | Let's talk about your project. + www.noezys.com |
