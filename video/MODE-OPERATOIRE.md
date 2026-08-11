@@ -249,3 +249,21 @@ courbe `ramp`. Pour un morceau du commerce : remplacer le WAV et relancer le mux
 - **1:1 (1080×1080)** pour feed : même approche.
 - Le viewport de `render-pub.mjs` doit suivre les nouvelles dimensions.
 - La bande-son est réutilisable telle quelle si les timings ne changent pas.
+
+## 11. Lien cliquable en fin de vidéo
+
+Un MP4 ne peut pas contenir de lien cliquable : le clic dépend de la
+plateforme de diffusion. Trois mécanismes sont en place ou documentés :
+
+1. **`player.html`** (dans ce dossier) — player HTML5 interactif à héberger
+   sur noezys.com avec les deux MP4 : une zone cliquable invisible couvre le
+   CTA et l'URL de la carte finale à partir de 25 s et renvoie vers
+   https://noezys.com/fr/lab (`?lang=fr`, défaut) ou https://noezys.com/en/lab
+   (`?lang=en`). Un liseré cyan apparaît au survol. Intégrable tel quel ou en
+   iframe.
+2. **LinkedIn** — pas de lien cliquable sur une vidéo native ; en campagne
+   sponsorisée, configurer le bouton CTA (« En savoir plus ») avec l'URL lab
+   correspondante dans Campaign Manager ; en organique, mettre le lien dans le
+   texte du post.
+3. **YouTube** — fiches et écran de fin avec lien vers le site (chaîne
+   vérifiée requise).

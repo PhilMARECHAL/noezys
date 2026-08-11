@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noezys — vidéo interactive</title>
+<style>
+  :root { --bg:#0A0E1A; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); min-height:100vh; display:flex; align-items:center; justify-content:center; }
+  .wrap { position:relative; width:min(100%,1280px); aspect-ratio:16/9; }
+  video { width:100%; height:100%; display:block; border-radius:8px; }
+  /* Zone cliquable sur la carte finale — couvre le CTA + l'URL */
+  .cta-link {
+    position:absolute; left:15%; right:15%; top:52%; bottom:12%;
+    display:none; cursor:pointer; border-radius:12px;
+  }
+  .cta-link.visible { display:block; }
+  .cta-link:hover { outline:2px solid rgba(0,212,255,.45); outline-offset:4px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <video id="v" controls playsinline preload="metadata"></video>
+    <a id="cta" class="cta-link" target="_blank" rel="noopener" aria-label="Découvrir le lab Noezys"></a>
+  </div>
+<script>
+  /* ?lang=fr (défaut) ou ?lang=en — choisit la vidéo et le lien de destination */
+  const LANG = (new URLSearchParams(location.search).get('lang')) === 'en' ? 'en' : 'fr';
+  const SRC  = { fr: 'noezys-pub-fr.mp4', en: 'noezys-pub-en.mp4' };
+  const LINK = { fr: 'https://noezys.com/fr/lab', en: 'https://noezys.com/en/lab' };
+  const CTA_START = 25;   /* la carte finale commence à 25 s */
+
+  const v = document.getElementById('v');
+  const cta = document.getElementById('cta');
+  v.src = SRC[LANG];
+  cta.href = LINK[LANG];
+  v.addEventListener('timeupdate', () => {
+    cta.classList.toggle('visible', v.currentTime >= CTA_START);
+  });
+  /* à la fin, la zone reste active sur l'image finale */
+  v.addEventListener('ended', () => cta.classList.add('visible'));
+</script>
+</body>
+</html>
