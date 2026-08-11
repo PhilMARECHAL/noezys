@@ -1,0 +1,20 @@
+# Technical Dossier Register — WANKOE limestone processing line
+
+Every technical dossier (DT-nnn) issued for this project is recorded here.
+A dossier is a frozen, numbered, client-facing snapshot of validated model
+output. The register row states what it covers, at which inputs, under
+which parameter state (git commit), and its lifecycle status.
+
+Rules (client, 2026-08-11):
+- Dossiers are created only on the client's explicit order ("verser au
+  dossier technique") and are numbered sequentially.
+- Each dossier references: the zone(s) concerned, the validated input
+  data, every calculation hypothesis with its status, and the engine-run
+  provenance (commit, functions, date).
+- Each dossier folder archives its own extraction script; re-running it
+  at the recorded commit must reproduce every figure to the decimal.
+- All dossier content is in ENGLISH (project language rule).
+
+| Dossier | Date | Title | Zone(s) | Operating point | Engine commit | Status |
+|---|---|---|---|---|---|---|
+| DT-001 | 2026-08-11 | Zone 1 complete machine datasheets at validated inputs | 1.1 + 1.2 + 1.3 | 250 t/h wet feed (measured 2026-08-08 belt-cut curve, 7 % moisture), dry weather, modes 1A/2A, reclaim 100 t/h, FeedLime 30 t/h, KFS target 85 000 t/y | `679330f` | ISSUED |

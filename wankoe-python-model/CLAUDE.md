@@ -74,6 +74,13 @@ rule or arbitration.
   produces numbered technical dossier DT-nnn + maintains a dossier
   register (references hypotheses, zone, validated inputs). Chat replies
   French, ALL presented results/tables/dossiers English.
+- TECHNICAL DOSSIERS (client protocol, 2026-08-11): dossiers/ holds
+  numbered client-facing dossiers (DT-nnn) + REGISTER.md; each dossier
+  folder archives its extraction script + raw JSON + canonical .md +
+  branded .docx (noezys-report skill, English, no individual named).
+  DT-001 = zone 1 complete (11 datasheets) at the validated inputs.
+  New dossiers ONLY on the client's explicit "verser au dossier
+  technique" order.
 - TRACEABILITY RULE (client, 2026-08-11): every datasheet/dossier carries
   an engine-run footer (commit, functions, date); assistant-computed
   figures (not from an engine execution) must be flagged as such; dossier
