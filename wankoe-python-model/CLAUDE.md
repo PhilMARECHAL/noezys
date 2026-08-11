@@ -60,6 +60,23 @@ rule or arbitration.
   65 vs 100 um (Q6), KFS securing lever (Q7), CR.5011 datasheet (Q8),
   repo location (Q10), b_j soft limestone (Q12). Q9 hosting: DONE
   (Render). Q11 French UI: rejected — English everywhere.
+- NEW WORKING MODE (client, 2026-08-11): the client found the web app too
+  complicated — simulations now run IN CHAT (same engine, identical
+  numbers), app optional. Protocol: step-by-step zone 1 review — inputs
+  validated first (DONE 2026-08-11: 250 t/h wet + measured belt-cut
+  curve), then one machine datasheet at a time in chat (feed PSD, product
+  PSD, calculation, settings, power; CR.5009 sheet presented, awaiting
+  validation). On "verser au dossier technique": a dedicated agent
+  produces numbered technical dossier DT-nnn + maintains a dossier
+  register (references hypotheses, zone, validated inputs). Chat replies
+  French, ALL presented results/tables/dossiers English.
+- Rock hardness: client rock is UCS 20-80 MPa (vs spec ch.9 reference
+  ~325 MPa — inconsistency). UCS = case discriminator only, never a
+  formula input; hardness lives in Wi (M2) and A_j·b_j (M5). An expert
+  technological note on hardness-dependent machine calculations was
+  commissioned by the client (2026-08-11); Q2 and Q12 ON HOLD until it
+  arrives — when submitted, confront it with models M1-M8 and land any
+  change data-first.
 - Validation is circular by construction (chapter 9 was estimated, the
   reference curve back-fitted): the model validates against the spec's
   mathematics; real grounding comes only from feed measurements.
