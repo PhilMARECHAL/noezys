@@ -32,6 +32,14 @@ rule or arbitration.
   decided (the client / delegated hypothesis / expert proposal pending
   ratification).
 
+## Client vocabulary (2026-08-11, load-bearing)
+
+When the client says "zone 1" he means the CRUSHING/SCREENING BLOCK ONLY
+— model sub-zone 1.1 (pivot -> CR.5009 -> SR.5007 -> CR.5011 loop; KFS +
+0/20). Zones 1.2 and 1.3 are separate scopes he names explicitly. A past
+misunderstanding came from reading "zone 1" as the whole line; never
+assume the wider scope again — when in doubt, ask.
+
 ## The client's standing rules (verbatim intent)
 
 1. Nothing hardcoded — every parameter adjustable without reprogramming.
