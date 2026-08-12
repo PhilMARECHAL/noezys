@@ -111,10 +111,10 @@ python3 make-music.py music-brand.wav "0,3.3,6.5,10,14,17.3,21.8,25.8" 17.3 21.8
 # Mux audio (remplace les mp4 en place)
 for v in noezys-pub-fr noezys-pub-en; do
   ffmpeg -y -loglevel error -i $v.mp4 -i music-pub.wav -map 0:v -map 1:a \
-    -c:v copy -c:a aac -b:a 192k -shortest $v-new.mp4 && mv $v-new.mp4 $v.mp4
+    -c:v copy -c:a aac -b:a 192k -shortest -movflags +faststart $v-new.mp4 && mv $v-new.mp4 $v.mp4
 done
 ffmpeg -y -loglevel error -i noezys-30s.mp4 -i music-brand.wav -map 0:v -map 1:a \
-  -c:v copy -c:a aac -b:a 192k -shortest tmp.mp4 && mv tmp.mp4 noezys-30s.mp4
+  -c:v copy -c:a aac -b:a 192k -shortest -movflags +faststart tmp.mp4 && mv tmp.mp4 noezys-30s.mp4
 ```
 
 Les arguments de `make-music.py` : liste des frontières de scènes en secondes
