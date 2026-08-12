@@ -718,7 +718,8 @@
       "cut_min_mm": 0,
       "cut_max_mm": 1.7,
       "state": "wet",
-      "max_out_of_cut_tol_pct": null
+      "max_out_of_cut_tol_pct": 5,
+      "_criterion_note": "Client decision 2026-08-12 (zone-1.2 doc question Q8): acceptance criterion >= 95 % passing 1.7 mm, i.e. max 5 % out of cut. No contractual AgLime spec existed before; this is the project criterion"
     },
     "FeedLime grits": {
       "cut_min_mm": 2,
