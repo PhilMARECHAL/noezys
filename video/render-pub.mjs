@@ -38,7 +38,7 @@ await browser.close();
 const out = path.join(DIR, `noezys-pub-${LANG}.mp4`);
 execSync(
   `ffmpeg -y -loglevel error -framerate ${FPS} -i ${framesDir}/f%04d.png ` +
-  `-c:v libx264 -preset slow -crf 18 -pix_fmt yuv420p -movflags +faststart ${out}`,
+  `-c:v libx264 -preset slow -crf 18 -profile:v high -level:v 4.0 -x264-params ref=4:bframes=3 -pix_fmt yuv420p -movflags +faststart ${out}`,
   { stdio: 'inherit' }
 );
 console.log(`done → ${out} (${((Date.now() - t0) / 1000).toFixed(0)}s)`);

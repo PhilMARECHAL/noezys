@@ -267,3 +267,16 @@ plateforme de diffusion. Trois mécanismes sont en place ou documentés :
    texte du post.
 3. **YouTube** — fiches et écran de fin avec lien vers le site (chaîne
    vérifiée requise).
+
+## 12. Compatibilité lecteurs (leçon apprise)
+
+Toujours encoder en **H.264 High@4.0 maximum** (`-profile:v high -level:v 4.0
+-x264-params ref=4:bframes=3`) : le préréglage `slow` seul monte à 8 images de
+référence → niveau 5.0, que les décodeurs matériels de nombreux GPU/lecteurs
+(Windows Media Player, mobiles) refusent — symptôme : la vidéo affiche sa
+première image puis s'arrête immédiatement. Toujours garder aussi
+`-movflags +faststart` à CHAQUE étape qui réécrit le conteneur (rendu ET mux
+audio), sinon l'index moov repart en fin de fichier et la lecture progressive
+(navigateurs, aperçus) échoue. Vérifications avant livraison :
+`ffprobe … stream=profile,level` (attendu High,40) et position de `moov` dans
+les 200 premiers octets.

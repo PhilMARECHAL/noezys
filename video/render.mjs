@@ -37,7 +37,7 @@ console.log(`captured ${FRAMES} frames in ${((Date.now() - t0) / 1000).toFixed(0
 
 execSync(
   `ffmpeg -y -framerate ${FPS} -i ${framesDir}/f%04d.png ` +
-  `-c:v libx264 -preset slow -crf 18 -pix_fmt yuv420p -movflags +faststart ` +
+  `-c:v libx264 -preset slow -crf 18 -profile:v high -level:v 4.0 -x264-params ref=4:bframes=3 -pix_fmt yuv420p -movflags +faststart ` +
   `${path.join(DIR, 'noezys-30s.mp4')}`,
   { stdio: 'inherit' }
 );
