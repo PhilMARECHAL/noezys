@@ -63,8 +63,12 @@ topology stands. Zone 1.2 REBUILT to PFD REV18 (DONE 2026-08-12):
 FeedLime = 6/20 at single-deck 6 mm SR.5105; AgLime loop = open SR.5111
 + CR.5113 (ex-CR.5107) + closed-loop SR.5115; 60 t/h loop rating alert;
 planning = strict c2 (min of AgLime-cap / FeedLime-demand hours).
-KEY FINDINGS: AgLime lands ~112.8 kt/y BELOW its 135 kt cap (client
-arbitration pending); FeedLime/AgLime split 59/41 INVERTED vs PFD design
+PRIORITY RULE (client 2026-08-12): FIRM products KFS + grits are the
+absolute priority; AgLime is a CAMPAIGN product (separate campaigns,
+mode A or C, whenever convenient); everything else secondary. FeedLime
+runs mode B weekly at demand rate; storage/shortfall questions CLOSED.
+KEY FINDINGS: AgLime co-product ~112.8 kt/y in mode A (campaigns top up
+the 135 kt market at leisure); FeedLime/AgLime split 59/41 INVERTED vs PFD design
 42/58 (design curve finer than measured — expert question, same family
 as KFS 80-vs-51); recirculation now ~0 (two-stage closing); zone 1.3 at
 91.6 % hours on coarser FeedLime. Ch.9 zone-1.2/1.3 figures superseded,
