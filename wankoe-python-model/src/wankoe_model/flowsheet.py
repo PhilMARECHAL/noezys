@@ -218,12 +218,18 @@ def zone_1_1(feed: dict, params: dict, mode: str, alerts: list) -> dict:
 
 # ===================================================================== 1.2
 def zone_1_2(reclaim: dict, params: dict, mode: str, weather: str, alerts: list) -> dict:
-    """Zone 1.2 — reclaim / AgLime.
+    """Zone 1.2 — reclaim / AgLime (PFD REV18 topology, client ruling 2026-08-12).
 
-    0/20 stockpile -> BF.5101 -> SR.5105 (15/5): +15, 5-15 (mid), 0-5.
-    Mode 2A: mid -> FeedLime, rest -> loop; 2B (rain): everything ->
-    FeedLime; 2C: everything -> loop. Loop: SR.5115 (1.7); oversize ->
-    CR.5107 -> return; undersize 0-1.7 = AgLime.
+    KFS-fines 0/20 stockpile -> BF.5101/5102 -> DV.5104:
+    mode 2A -> SR.5105 (single deck, 6 mm): oversize 6/20 = FeedLime,
+    undersize 0/6 -> AgLime loop; mode 2B -> whole reclaim = FeedLime
+    (bypass, exact mass identity); mode 2C -> whole reclaim -> loop.
+
+    AgLime loop (two-stage closing, PFD REV18): the loop feed passes the
+    OPEN first screen SR.5111 (1.7 mm) — its undersize is AgLime; its
+    oversize goes to CR.5113 whose product passes the second screen
+    SR.5115 (1.7 mm): undersize joins AgLime, oversize recycles to
+    CR.5113 (the closed loop involves the second screen only).
 
     Under rain the spec forces mode 2B (scenario parameter
     ``rain_forces_mode_2B``, default true). When that forcing is disabled,
@@ -248,66 +254,95 @@ def zone_1_2(reclaim: dict, params: dict, mode: str, weather: str, alerts: list)
             "imperfection I_rain, DIRECTIONAL result"
         )
 
-    p05 = mp["SR.5105"]["parameters"]
-    over15, under15 = _karra_screen(reclaim, p05["a1"]["default"], calib["I_dry"], calib)
-    mid, under5 = (
-        _karra_screen(under15, p05["a2"]["default"], calib["I_dry"], calib)
-        if under15
-        else (None, None)
-    )
     wet_factor = calib["wet_capacity_factor"] if weather == "rain" else 1.0
-    sr5105_areas = {
-        "top_deck": models.m4_screen_area(under15["q"] if under15 else 0.0, p05["a1"]["default"], calib, wet_factor),
-        "bottom_deck": models.m4_screen_area(under5["q"] if under5 else 0.0, p05["a2"]["default"], calib, wet_factor),
-    }
-    _check_installed_area("SR.5105", sr5105_areas, mp["SR.5105"].get("installed_area_m2"), alerts)
-
     result = {
         "machines": {
-            "SR.5105": {"feed_tph": reclaim["q"], "areas_m2": sr5105_areas},
+            "SR.5105": {},
+            "SR.5111": {},
             "SR.5115": {},
-            "CR.5107": {},
+            "CR.5113": {},
         }
     }
 
     if mode == "2B":
+        # DV.5104 bypass: the whole reclaim goes to the Feed stockpile
         result["products"] = {"AgLime": None, "FeedLime": reclaim}
         result["recirculation_tph"] = 0.0
         return result
 
-    feedlime = mid if mode == "2A" else None
-    to_loop = [s for s in [over15, under5] + ([mid] if mode == "2C" else []) if s]
-    if not to_loop:
+    if mode == "2A":
+        p05 = mp["SR.5105"]["parameters"]
+        feedlime, under6 = _karra_screen(reclaim, p05["a"]["default"], calib["I_dry"], calib)
+        sr5105_areas = {
+            "deck": models.m4_screen_area(
+                under6["q"] if under6 else 0.0, p05["a"]["default"], calib, wet_factor
+            )
+        }
+        _check_installed_area("SR.5105", sr5105_areas, mp["SR.5105"].get("installed_area_m2"), alerts)
+        result["machines"]["SR.5105"] = {"feed_tph": reclaim["q"], "areas_m2": sr5105_areas}
+        loop_feed = under6
+    else:  # 2C: DV.5106 sends the whole reclaim to the loop, no FeedLime
+        feedlime = None
+        loop_feed = reclaim
+
+    if loop_feed is None or loop_feed["q"] <= 1e-12:
         result["products"] = {"AgLime": None, "FeedLime": feedlime}
         result["recirculation_tph"] = 0.0
         return result
-    loop_feed = _blend(to_loop)
 
+    loop_rating = mp["SR.5111"].get("loop_rating_tph")
+    loop_feed_wet = loop_feed["q"] / (1.0 - loop_feed["moisture"] / 100.0)
+    if loop_rating is not None and loop_feed_wet > loop_rating:
+        alerts.append(
+            f"AgLime loop: feed {loop_feed_wet:.1f} t/h wet > conveyor rating "
+            f"{loop_rating} t/h (BC.5110/BC.5116, PFD REV18)"
+        )
+
+    p11 = mp["SR.5111"]["parameters"]
     p15 = mp["SR.5115"]["parameters"]
-    p07 = mp["CR.5107"]["parameters"]
-    imp_1_7 = p15["I"]["default"] if weather == "dry" else calib["I_rain"]
-    cr5107_info = {}
+    p13 = mp["CR.5113"]["parameters"]
+    imp_1_7_first = p11["I"]["default"] if weather == "dry" else calib["I_rain"]
+    imp_1_7_second = p15["I"]["default"] if weather == "dry" else calib["I_rain"]
+
+    # ---- first screen SR.5111: OPEN circuit, single pass of the loop feed
+    over1, aglime1 = _karra_screen(loop_feed, p11["a"]["default"], imp_1_7_first, calib)
+    sr5111_areas = {
+        "deck": models.m4_screen_area(
+            aglime1["q"] if aglime1 else 0.0, p11["a"]["default"], calib, wet_factor
+        )
+    }
+    _check_installed_area("SR.5111", sr5111_areas, mp["SR.5111"].get("installed_area_m2"), alerts)
+    result["machines"]["SR.5111"] = {
+        "feed_tph": loop_feed["q"],
+        "areas_m2": sr5111_areas,
+        "imperfection_used": imp_1_7_first,
+    }
+
+    if over1 is None or over1["q"] <= 1e-12:
+        # nothing coarse: AgLime = the whole loop feed, crusher idle
+        result["products"] = {"AgLime": aglime1, "FeedLime": feedlime}
+        result["recirculation_tph"] = 0.0
+        return result
+
+    # ---- CR.5113 + second screen SR.5115: closed loop on the recycle
+    cr5113_info = {}
 
     def iterate(recycle):
-        screen_feed = _blend([loop_feed, recycle]) if recycle else loop_feed
-        oversize, aglime = _karra_screen(screen_feed, p15["a"]["default"], imp_1_7, calib)
-        if oversize:
-            out, info = _impactor(oversize, p07["v"]["default"], p07["x80"]["default"], calib)
-            cr5107_info.update(info)
-            new = out
-        else:
-            new = None
-        return new, {"aglime": aglime, "sr5115_feed": screen_feed}
+        crusher_feed = _blend([over1, recycle]) if recycle else over1
+        out, info = _impactor(crusher_feed, p13["v"]["default"], p13["x80"]["default"], calib)
+        cr5113_info.update(info)
+        oversize2, aglime2 = _karra_screen(out, p15["a"]["default"], imp_1_7_second, calib)
+        return oversize2, {"aglime2": aglime2, "sr5115_feed": out}
 
-    recycle, outputs = _fixed_point_loop(iterate, engine, alerts, "Zone 1.2 / CR.5107")
-    if recycle and recycle["q"] > engine["max_circulating_ratio"] * loop_feed["q"]:
+    recycle, outputs = _fixed_point_loop(iterate, engine, alerts, "Zone 1.2 / CR.5113")
+    if recycle and recycle["q"] > engine["max_circulating_ratio"] * over1["q"]:
         alerts.append(
-            "CR.5107: circulating load explodes (CSS too large?) — specification alarm"
+            "CR.5113: circulating load explodes (CSS too large?) — specification alarm"
         )
 
     sr5115_areas = {
         "deck": models.m4_screen_area(
-            outputs["aglime"]["q"] if outputs["aglime"] else 0.0,
+            outputs["aglime2"]["q"] if outputs["aglime2"] else 0.0,
             p15["a"]["default"],
             calib,
             wet_factor,
@@ -317,10 +352,13 @@ def zone_1_2(reclaim: dict, params: dict, mode: str, weather: str, alerts: list)
     result["machines"]["SR.5115"] = {
         "feed_tph": outputs["sr5115_feed"]["q"],
         "areas_m2": sr5115_areas,
-        "imperfection_used": imp_1_7,
+        "imperfection_used": imp_1_7_second,
     }
-    result["machines"]["CR.5107"] = cr5107_info
-    result["products"] = {"AgLime": outputs["aglime"], "FeedLime": feedlime}
+    result["machines"]["CR.5113"] = cr5113_info
+
+    aglime_parts = [s for s in (aglime1, outputs["aglime2"]) if s]
+    aglime = _blend(aglime_parts) if aglime_parts else None
+    result["products"] = {"AgLime": aglime, "FeedLime": feedlime}
     result["recirculation_tph"] = recycle["q"] if recycle else 0.0
     return result
 

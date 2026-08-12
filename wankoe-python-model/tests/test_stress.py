@@ -54,13 +54,13 @@ def test_random_mini_campaign_holds_invariants():
 
 
 def test_divergent_loop_is_self_declared():
-    # CR.5107 CSS above the 1.7 mm closing cut: no steady state can exist —
+    # CR.5113 CSS above the 1.7 mm closing cut: no steady state can exist —
     # the model must say so, never publish silently wrong tonnages
     results = run_scenario(
         load_parameters(
             overrides={
                 "machines": {
-                    "CR.5107": {"parameters": {"x80": {"default": 2.9}}},
+                    "CR.5113": {"parameters": {"x80": {"default": 2.9}}},
                     "SR.5115": {"parameters": {"a": {"default": 1.5}, "I": {"default": 0.11}}},
                 }
             }
@@ -76,7 +76,7 @@ def test_sweep_rejects_no_steady_state_scenarios():
             "method": "grid",
             "seasonal": False,
             "variables": [
-                {"path": ["machines", "CR.5107", "parameters", "x80", "default"],
+                {"path": ["machines", "CR.5113", "parameters", "x80", "default"],
                  "values": [1.0, 2.9]},
                 {"path": ["machines", "SR.5115", "parameters", "I", "default"],
                  "values": [0.11]},

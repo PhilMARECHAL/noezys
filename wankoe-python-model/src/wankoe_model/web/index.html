@@ -173,7 +173,7 @@
           <option value="1A">1A — 20-35 → KFS</option>
           <option value="1B">1B — 20-35 → CR.5011 (no KFS)</option></select></div>
         <div class="field"><label>Mode 1.2</label><select id="mode12">
-          <option value="2A">2A — 5-15 → FeedLime + AgLime loop</option>
+          <option value="2A">2A — 6/20 → FeedLime + 0/6 → AgLime loop</option>
           <option value="2B">2B — all → FeedLime (rain)</option>
           <option value="2C">2C — all → AgLime loop</option></select></div>
         <div class="field"><label>Weather</label><select id="weather"><option value="dry">dry</option><option value="rain">rain</option></select></div>
@@ -224,7 +224,7 @@ let DEFAULTS = null, PHOTO = null, PLAN = null, DESIGN = null, SEASON = null, TA
 const MODE_INFO = {
   "1A": { c: "#22d3ee", t: "the 20–35 mm cut becomes the KFS product; +35 mm loops on the CR.5011 impactor" },
   "1B": { c: "#a855f7", t: "the 20–35 mm cut joins the +35 mm on CR.5011 — no KFS, the whole feed reports to 0/20" },
-  "2A": { c: "#22d3ee", t: "5–15 mm goes to FeedLime; +15 mm and 0–5 mm feed the AgLime loop (SR.5115 + CR.5107)" },
+  "2A": { c: "#22d3ee", t: "6/20 mm goes to FeedLime; 0/6 mm feeds the AgLime loop (SR.5111 → CR.5113 → SR.5115, PFD REV18)" },
   "2B": { c: "#fbbf24", t: "the whole reclaim goes to FeedLime — the 1.7 mm cut is impossible on wet material, no AgLime" },
   "2C": { c: "#a855f7", t: "the whole reclaim feeds the AgLime loop — maximum AgLime, no FeedLime out of zone 1.2" },
 };
@@ -404,11 +404,12 @@ function drawFlowsheet() {
   g.push(arrow("M286,204 C286,260 320,290 332,328", `${S(q020)} t/h`, 236, 272, false, m11 === "1B" ? c11 : null));
   // ---- zone 1.2
   g.push(arrow("M374,376 H500 V204", "reclaim " + S(reclaim) + " t/h", 388, 366));
-  g.push(machineBox(484, 160, "SR.5105", areaKpi(mm("SR.5105")), ex.has("SR.5105")));
+  g.push(machineBox(484, 160, "SR.5105", mm("SR.5105").active ? areaKpi(mm("SR.5105")) : "bypass", ex.has("SR.5105")));
+  g.push(machineBox(571, 160, "SR.5111", mm("SR.5111").active ? areaKpi(mm("SR.5111")) : "inactive", ex.has("SR.5111")));
   g.push(machineBox(658, 160, "SR.5115", mm("SR.5115").active ? areaKpi(mm("SR.5115")) : "inactive", ex.has("SR.5115")));
-  g.push(machineBox(658, 52, "CR.5107", mm("CR.5107").active ? `${fmt(f.zone_1_2_recirculation_tph, 0)} t/h · ${fmt(mm("CR.5107").P_installed_kW, 0)} kW` : "inactive", ex.has("CR.5107")));
+  g.push(machineBox(658, 52, "CR.5113", mm("CR.5113").active ? `${fmt(mm("CR.5113").throughput_tph, 0)} t/h · ${fmt(mm("CR.5113").P_installed_kW, 0)} kW` : "inactive", ex.has("CR.5113")));
   if (m12 !== "2B") {
-    g.push(arrow("M588,182 H656", m12 === "2C" ? "+15 & 5-15 & 0-5" : "+15 & 0-5", 592, 172, false, c12));
+    g.push(arrow("M588,182 H656", m12 === "2C" ? "all 0/20" : "0/6", 592, 172, false, c12));
     g.push(arrow("M734,160 V98", "+1.7", 738, 132, true));
     g.push(arrow("M686,98 V160", "", 0, 0, true));
     g.push(arrow("M762,172 C790,150 800,130 828,108", "0-1.7", 766, 140, false, c12));
@@ -416,7 +417,7 @@ function drawFlowsheet() {
   g.push(pile(806, 60, "AgLime", pp("AgLime").tph, share(pp("AgLime").tph), true, m12 === "2B"));
   g.push(pile(700, 330, "FeedLime", flFromZ2, share(flFromZ2), false, m12 === "2C"));
   if (m12 !== "2C")
-    g.push(arrow("M536,204 C560,280 680,300 726,328", m12 === "2B" ? "all reclaim" : "5-15", 560, 292, false, c12));
+    g.push(arrow("M536,204 C560,280 680,300 726,328", m12 === "2B" ? "all reclaim" : "6/20", 560, 292, false, c12));
   // ---- zone 1.3
   g.push(arrow("M774,376 H946 V204", "drying " + S(feedl) + " t/h", 788, 366));
   g.push(machineBox(928, 160, "DY.03", mm("DY.03").burner_power_kW != null ? `${fmt(mm("DY.03").burner_power_kW / 1000, 2)} MW` : "stopped", ex.has("DY.03")));

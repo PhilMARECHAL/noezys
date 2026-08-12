@@ -59,13 +59,20 @@ assume the wider scope again — when in doubt, ask.
 Three NACO/Carmeuse PFDs in docs/pfd/ PREVAIL over the spec wherever
 they diverge — EXCEPT zone 1.3, where the PFD's DV.10 + ML.30 Unirotor
 were deleted from the design (client ruling): the model's zone-1.3
-topology stands. Zone 1.2 model must be REBUILT to PFD REV18 (FeedLime
-= 6/20 at a single-deck 6 mm screen; AgLime loop = open SR.5111 +
-CR.5113 + closed-loop SR.5115, 60 t/h rating). Zone 1.1 topology is
-confirmed; retag CR.5009->CR.5006, SR.5007->SR.5008, DV-5099->DV.5009;
-scenario B line feed 150 t/h. Full gap table: docs/pfd/gap-register.md.
-The 2026-08-12 zone-1.2 calc document is WITHDRAWN until the rebuild.
-Central open gap: design KFS 80 tph vs computed 51.35 tph.
+topology stands. Zone 1.2 REBUILT to PFD REV18 (DONE 2026-08-12):
+FeedLime = 6/20 at single-deck 6 mm SR.5105; AgLime loop = open SR.5111
++ CR.5113 (ex-CR.5107) + closed-loop SR.5115; 60 t/h loop rating alert;
+planning = strict c2 (min of AgLime-cap / FeedLime-demand hours).
+KEY FINDINGS: AgLime lands ~112.8 kt/y BELOW its 135 kt cap (client
+arbitration pending); FeedLime/AgLime split 59/41 INVERTED vs PFD design
+42/58 (design curve finer than measured — expert question, same family
+as KFS 80-vs-51); recirculation now ~0 (two-stage closing); zone 1.3 at
+91.6 % hours on coarser FeedLime. Ch.9 zone-1.2/1.3 figures superseded,
+tests re-baselined with dated comments. Zone 1.1 retags (CR.5006/
+SR.5008/DV.5009) + scenario-B 150 t/h still TO DO. Conformity-matrix
+chapters 2/4/9 partially outdated (decision log rows are authoritative).
+Zone-1.2 calc document still WITHDRAWN — re-issue next.
+Gap table: docs/pfd/gap-register.md.
 
 ## Engineering state (see docs/ for detail)
 

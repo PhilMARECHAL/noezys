@@ -12,7 +12,12 @@ def plan():
 
 def test_production_lands_exactly_on_targets(plan):
     assert plan["production_t"]["KFS"] == pytest.approx(85000, abs=1)
-    assert plan["production_t"]["AgLime"] == pytest.approx(135000, abs=1)
+    # Client rule c2 (2026-08-12) on the PFD REV18 topology: FeedLime
+    # demand binds FIRST (the 6 mm cut co-produces more FeedLime per
+    # AgLime tonne), so AgLime lands BELOW its 135 kt market cap —
+    # ~113 kt at defaults. The cap must never be exceeded.
+    assert plan["production_t"]["AgLime"] <= 135000 + 1
+    assert plan["production_t"]["AgLime"] == pytest.approx(112822, rel=0.02)
     assert plan["production_t"]["FeedLime grits"] == pytest.approx(40000, abs=1)
 
 

@@ -74,11 +74,11 @@ def run_design_check(params: dict) -> dict:
     if m.get("CR.5011", {}).get("active"):
         add("CR.5011", "circulating load", m["CR.5011"].get("throughput_tph"), "t/h", "max_capacity_tph")
         add("CR.5011", "installed power", m["CR.5011"].get("P_installed_kW"), "kW", "installed_power_kW")
-    # CR.5107 — impact crusher (AgLime loop)
-    if m.get("CR.5107", {}).get("active"):
-        add("CR.5107", "installed power", m["CR.5107"].get("P_installed_kW"), "kW", "installed_power_kW")
+    # CR.5113 — impact crusher (AgLime loop; PFD REV18 tag)
+    if m.get("CR.5113", {}).get("active"):
+        add("CR.5113", "installed power", m["CR.5113"].get("P_installed_kW"), "kW", "installed_power_kW")
     # screens — required vs installed area
-    for code in ("SR.5007", "SR.5105", "SR.5115", "SN.21"):
+    for code in ("SR.5007", "SR.5105", "SR.5111", "SR.5115", "SN.21"):
         if m.get(code, {}).get("active"):
             add(code, "screen area", _max_area(m[code]), "m2", "installed_area_m2")
     # DY.03 — dryer

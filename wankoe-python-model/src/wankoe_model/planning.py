@@ -103,14 +103,25 @@ def run_required_hours(params: dict) -> dict:
     zone13 = _zone_result("1.3", h13_eff)
     feedlime_demand_t = h13_eff * flow["zone_1_3_feedlime"]  # wet, consumed by the dryer
 
-    # ---- 2. Zone 1.2: dry-season hours set by the AgLime market volume,
-    #         rain-season hours added if FeedLime is still short
+    # ---- 2. Zone 1.2: client planning rule c2 (2026-08-12): hours follow
+    #         the FeedLime demand of zone 1.3; AgLime is co-produced UP TO
+    #         its market cap, never beyond (zero unsellable surplus).
+    #         Dry-season 2A hours therefore stop at whichever binds first:
+    #         the AgLime market cap or the FeedLime demand; any remaining
+    #         FeedLime shortfall is completed in rain-season mode 2B
+    #         (FeedLime = whole reclaim, no AgLime).
     aglime_target = targets["AgLime"].get("market_cap_t_per_year") or targets["AgLime"][
         "target_t_per_year"
     ]
     if aglime_tph <= 0:
         raise ValueError("Zone 1.2 produces no AgLime in dry weather: check the scenario")
-    h2_dry_eff = aglime_target / aglime_tph
+    h2_aglime_cap_eff = aglime_target / aglime_tph
+    h2_feedlime_eff = (
+        feedlime_demand_t / feedlime_dry_season_tph
+        if feedlime_dry_season_tph > 0
+        else float("inf")
+    )
+    h2_dry_eff = min(h2_aglime_cap_eff, h2_feedlime_eff)
     dry_capacity_eff = (
         ceilings["1.2"]["effective_h"] * f_dry if ceilings["1.2"]["effective_h"] else None
     )

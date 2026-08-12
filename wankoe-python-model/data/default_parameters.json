@@ -163,35 +163,51 @@
     },
     "BF.5101": {
       "zone": "1.2",
-      "type": "Reclaim feeder",
+      "type": "Reclaim feeders (pair BF.5101 + BF.5102, 100 T/h each — PFD REV18)",
       "parameters": {}
     },
     "SR.5105": {
       "zone": "1.2",
-      "type": "Reclaim screen 15/5 mm",
+      "type": "Reclaim screen 6 mm, single deck (PFD REV18; the spec's 15/5 double deck is SUPERSEDED — decision 2026-08-12)",
       "installed_area_m2": null,
       "parameters": {
-        "a1": {
-          "name": "Top aperture",
+        "a": {
+          "name": "Aperture (FeedLime cut: oversize a/20 = FeedLime, undersize 0/a -> AgLime loop)",
           "unit": "mm",
-          "min": 10,
-          "max": 20,
-          "default": 15,
-          "step": 1
-        },
-        "a2": {
-          "name": "Bottom aperture",
-          "unit": "mm",
-          "min": 3,
+          "min": 4,
           "max": 8,
-          "default": 5,
-          "step": 1
+          "default": 6,
+          "step": 0.5
         }
       }
     },
-    "CR.5107": {
+    "SR.5111": {
       "zone": "1.2",
-      "type": "Impact crusher (AgLime loop)",
+      "type": "First 1.7 mm closing screen, OPEN circuit (PFD REV18: undersize = AgLime, oversize -> CR.5113)",
+      "installed_area_m2": null,
+      "loop_rating_tph": 60,
+      "_loop_rating_note": "BC.5110/BC.5116 conveyors rated 60 T/h (PFD REV18) — alert when the loop feed exceeds it",
+      "parameters": {
+        "a": {
+          "name": "Aperture",
+          "unit": "mm",
+          "min": 1.5,
+          "max": 2.0,
+          "default": 1.7,
+          "step": 0.1
+        },
+        "I": {
+          "name": "Imperfection (same semantics and arbitration as SR.5115)",
+          "unit": "-",
+          "min": 0.1,
+          "max": 0.9,
+          "default": 0.15
+        }
+      }
+    },
+    "CR.5113": {
+      "zone": "1.2",
+      "type": "Impact crusher, AgLime loop (PFD REV18 tag; was CR.5107 in the spec — renamed 2026-08-12)",
       "parameters": {
         "v": {
           "name": "Rotor speed",
@@ -214,7 +230,7 @@
     },
     "SR.5115": {
       "zone": "1.2",
-      "type": "1.7 mm closing screen",
+      "type": "Second 1.7 mm closing screen, CLOSED loop with CR.5113 (PFD REV18: undersize joins AgLime, oversize recycles to the crusher)",
       "installed_area_m2": null,
       "parameters": {
         "a": {
@@ -739,6 +755,13 @@
       "state": "dry",
       "max_out_of_cut_tol_pct": null
     }
+  },
+  "stockpile_capacities_t": {
+    "_note": "Yard capacities from the NACO/Carmeuse PFDs (2026-08-12) — data only, engine does not enforce them yet; flagged for the seasonal-swing check (zone-1.2 planning found ~16.4 kt FeedLime swing vs 6 kt capacity)",
+    "KFS Fines 0/20 (SP.5014)": 10000,
+    "KFS 20/35 (SP.5015)": 5000,
+    "Feed 0-6/20 (SP.5109)": 6000,
+    "AG 0/1.7 (SP.5118)": 28000
   },
   "production_targets": {
     "KFS 20/35": {
