@@ -33,186 +33,189 @@ ol.refs li{margin-bottom:2.5pt}
 
 <h1 class="doctitle">Machine Calculation Sheets — Zone 1.2</h1>
 <p class="docsub">WANKOE limestone processing line — independent design-verification document</p>
-<p class="docmeta">NOEZYS · AI Innovation Lab &nbsp;—&nbsp; working version, 2026-08-12 &nbsp;—&nbsp; confidential &nbsp;—&nbsp; companion to "Machine Calculation Sheets — Zone 1"</p>
+<p class="docmeta">NOEZYS · AI Innovation Lab &nbsp;—&nbsp; revision B, 2026-08-12 (supersedes rev. A: topology aligned to PFD 12-01 REV18) &nbsp;—&nbsp; confidential &nbsp;—&nbsp; companion to "Machine Calculation Sheets — Zone 1"</p>
 <hr class="rule">
 
 <h3>Scope and method</h3>
-<p>This document presents the engineering calculation of the machines of Zone&nbsp;1.2 of the WANKOE limestone processing line, for independent validation. It follows the same method as the Zone-1 companion document: for each machine, its function, input data, constraints, the engineering model with every symbol defined and its literature source, the numerical application on validated project data, and the computed results. All figures come from the same deterministic flowsheet model (closed mass balances, closed circuits solved by fixed-point iteration on the recirculating stream). The document is self-contained.</p>
+<p>This document presents the engineering calculation of the machines of Zone&nbsp;1.2, for independent validation. Method identical to the Zone-1 companion document: per machine — function, input data, constraints, first-principles model with every symbol defined, numerical application, results; then zone balance, weekly production plan, hypothesis register, references. All figures come from a deterministic flowsheet model (closed mass balances; closed circuits solved by fixed-point iteration). <b>Revision B</b>: the zone topology follows the process flow diagram 12-01-PFD REV18 (NACO Engineering / Carmeuse South Africa), which the project has ruled authoritative over the earlier functional specification.</p>
 
 <h3>Zone 1.2 in the plant</h3>
-<p>Zone&nbsp;1 (companion document) produces a <b>0/20&nbsp;mm stockpile</b> alongside the KFS kiln stone. Zone&nbsp;1.2 reclaims this stockpile and converts it into two products: <b>AgLime 0/1.7&nbsp;mm</b> (agricultural lime, market cap 135&nbsp;000&nbsp;t/y) and <b>FeedLime 5–15&nbsp;mm</b>, the feedstock of Zone&nbsp;1.3 (drying/milling for feed-grade products, whose firm 40&nbsp;000&nbsp;t/y grits contract creates a FeedLime demand of 162&nbsp;075&nbsp;t/y). The chain: reclaim feeder <b>BF.5101</b> (100&nbsp;t/h, no process calculation — a constant-rate extractor) → double-deck screen <b>SR.5105</b> (15/5&nbsp;mm) → the 5–15&nbsp;mm mid cut goes to the FeedLime stockpile, while the +15 and 0–5 cuts feed the <b>AgLime closed loop</b>: closing screen <b>SR.5115</b> (1.7&nbsp;mm) whose oversize is crushed by impactor <b>CR.5107</b> and returned.</p>
-<p><b>Operating modes.</b> <b>2A</b> (computed here): mid cut → FeedLime, rest → AgLime loop. <b>2B</b>: the whole reclaim → FeedLime, loop stopped — this needs no machine model: it is the exact mass identity FeedLime&nbsp;=&nbsp;reclaim. Rain forces 2B, because the 1.7&nbsp;mm cut is physically impossible on wet fines (the partition collapses); 2B is also selectable in dry weather. <b>2C</b>: everything loops back to stock (flushing/return mode, no product; not computed).</p>
+<p>Zone&nbsp;1 (companion document) produces a <b>0/20&nbsp;mm stockpile</b> ("KFS Fines", 10&nbsp;000&nbsp;t) alongside the kiln stone. Zone&nbsp;1.2 reclaims this stockpile and converts it into two products: <b>FeedLime 6/20&nbsp;mm</b> — the feedstock of Zone&nbsp;1.3 (drying/milling; its firm 40&nbsp;000&nbsp;t/y grits contract creates a FeedLime demand of 164&nbsp;880&nbsp;t/y) — and <b>AgLime 0/1.7&nbsp;mm</b> (agricultural lime, market cap 135&nbsp;000&nbsp;t/y). The chain (PFD tags): reclaim feeders <b>BF.5101/BF.5102</b> (100&nbsp;T/h) → BC.5103 → mode flap <b>DV.5104</b> → screen <b>SR.5105</b> (single deck, 6&nbsp;mm): oversize 6/20 = FeedLime → Feed stockpile <b>SP.5109</b> (6&nbsp;000&nbsp;t); undersize 0/6 → flap DV.5106 → BC.5110 (rated 60&nbsp;T/h) → the two-stage AgLime closing: <b>SR.5111</b> (1.7&nbsp;mm, open circuit) → its undersize is AgLime; its oversize → <b>CR.5113</b> (impact crusher) → <b>SR.5115</b> (1.7&nbsp;mm) → undersize joins AgLime, oversize recycles to the crusher. AgLime → BC.5116/5117 (60&nbsp;T/h) → AG stockpile <b>SP.5118</b> (28&nbsp;000&nbsp;t).</p>
+<p><b>Operating modes</b> (PFD scenario table). <b>A</b> (= 2A, computed here): FeedLime 6-20 + AgLime 0-1.7. <b>B</b> (= 2B): DV.5104 bypasses the screen — the whole reclaim goes to the Feed stockpile; exact mass identity, no machine model; forced under rain (the 1.7&nbsp;mm cut collapses on wet fines) and selectable in dry weather. <b>C</b> (= 2C): the whole reclaim enters the AgLime loop (PFD runs this case at 60&nbsp;t/h — at 100&nbsp;t/h the loop rating alert fires).</p>
 
-<h3>Design basis (client-fixed, 2026-08-12)</h3>
+<h3>Design basis (client decisions + PFD authority ruling, 2026-08-12)</h3>
 <table>
 <tr><th>Item</th><th>Value</th><th>Origin / status</th></tr>
-<tr><td>Reclaim rate (BF.5101)</td><td>100 t/h wet = 93.0 t/h dry</td><td>client decision</td></tr>
-<tr><td>Reclaimed 0/20 PSD</td><td>Zone-1 product curve at validated settings (\(P_{80}\) = 13.66 mm)</td><td>client decision — consistent with the companion document</td></tr>
-<tr><td>Reclaim moisture</td><td>7 % (wet basis)</td><td>declared hypothesis: stockpile moisture = belt-measured value</td></tr>
-<tr><td>Weather</td><td>dry photo computed; rain = forced mode 2B (physical rule); season split 75 % dry / 25 % rain (39/13 weeks)</td><td>specification rule</td></tr>
-<tr><td>Planning driver</td><td>Zone-1.3 FeedLime demand (162 075 t/y), AgLime produced up to its 135 kt/y market cap — zero unsellable surplus</td><td>client decision</td></tr>
-<tr><td>AgLime acceptance criterion</td><td>≥ 95 % passing 1.7 mm</td><td>client-adopted project criterion (no prior contractual spec)</td></tr>
-<tr><td>Screen imperfection \(I\)</td><td>0.15 (dry) → sharpness s = 13.52; rain: cut impossible</td><td>project arbitration; 0.10 variant under expert review</td></tr>
-<tr><td>Bond work index / efficiency</td><td>\(W_i\) = 12.54 kWh/t · \(\eta_m\) = 0.75</td><td>[ref.] / project</td></tr>
-<tr><td>Shift regime</td><td>3 × 8-h shifts, 21 shifts/week = 168 h, maintenance reserve 23.8 h/week → net ceiling 144.2 h/week (7 500 h/y)</td><td>client operating frame</td></tr>
+<tr><td>Topology</td><td>PFD 12-01 REV18 (authoritative over the specification)</td><td>client ruling 2026-08-12</td></tr>
+<tr><td>Reclaim rate</td><td>100 t/h wet = 93.0 t/h dry</td><td>client decision</td></tr>
+<tr><td>Reclaimed 0/20 PSD</td><td>Zone-1 product curve at validated settings (\(P_{80}\) = 13.66 mm)</td><td>client decision</td></tr>
+<tr><td>Reclaim moisture</td><td>7 % (wet basis) — stockpile = belt hypothesis</td><td>client decision</td></tr>
+<tr><td>Weather</td><td>dry photo computed; rain = forced mode B; seasons 75/25 (39/13 weeks)</td><td>specification rule</td></tr>
+<tr><td>Planning rule</td><td>hours follow the Zone-1.3 FeedLime demand; AgLime co-produced up to its 135 kt/y cap, never beyond (zero unsellable surplus)</td><td>client decision (c2)</td></tr>
+<tr><td>AgLime acceptance criterion</td><td>≥ 95 % passing 1.7 mm</td><td>client-adopted project criterion</td></tr>
+<tr><td>Screen imperfection \(I\)</td><td>0.15 (dry) → s = 13.52; rain: cut impossible</td><td>project arbitration; 0.10 under expert review</td></tr>
+<tr><td>\(W_i\) / \(\eta_m\)</td><td>12.54 kWh/t [ref.] / 0.75</td><td>project</td></tr>
+<tr><td>Shift regime</td><td>21 × 8-h shifts = 168 h/week, maintenance reserve 23.8 h/week → net 144.2 h/week (7 500 h/y); availability 80 %</td><td>client operating frame</td></tr>
 </table>
+<div class="alert"><b>Design-basis caveat — feed curve.</b> The PFD's own scenario table (A: FeedLime 42 tph / AgLime 58 tph at 100 tph) was computed on a design curve assuming ≈ 58 % of the 0/20 finer than 6 mm. The measured zone-1 product gives ≈ 41 % — this document therefore computes <b>FeedLime 59.4 / AgLime 40.6 t/h wet</b>, the inverse proportion. The same design-vs-measurement gap affects zone 1 (design KFS 80 tph vs computed 51.4). Referred to the process experts; all figures here are on the <b>measured</b> curve.</div>
 
 <!-- ==================================================== SHEET 1 -->
-<h2 class="chap">Sheet 1 &nbsp;·&nbsp; SR.5105 — double-deck reclaim screen 15/5 mm</h2>
-<p class="chapsub">Primary split of the reclaimed 0/20 · feed: BF.5101 · products: +15 and 0–5 (to AgLime loop) · 5–15 = FeedLime</p>
+<h2 class="chap">Sheet 1 &nbsp;·&nbsp; SR.5105 — reclaim screen, single deck 6 mm</h2>
+<p class="chapsub">FeedLime cut · feed: BF.5101/5102 via DV.5104 · oversize 6/20 = FeedLime · undersize 0/6 → AgLime loop</p>
 
 <h3>1.1&emsp;Function</h3>
-<p>SR.5105 performs the three-way split that separates the FeedLime product from the AgLime loop feed. Its top deck (15&nbsp;mm) removes the coarse fraction; its bottom deck (5&nbsp;mm) isolates the 5–15&nbsp;mm FeedLime cut from the 0–5&nbsp;mm fines. Routing depends on the operating mode (§ preamble); in mode 2A the +15 and 0–5 streams merge into the closed loop.</p>
+<p>SR.5105 makes the FeedLime/AgLime split in one cut: everything coarser than 6&nbsp;mm becomes FeedLime (Zone-1.3 feedstock), everything finer feeds the AgLime closing loop. It replaces the two-deck 15/5&nbsp;mm arrangement of the earlier functional specification (superseded).</p>
 
 <h3>1.2&emsp;Input data</h3>
 <table>
 <tr><th>Quantity</th><th class="r">Value</th><th>Origin</th></tr>
 <tr><td>Throughput (dry)</td><td class="r">93.0 t/h</td><td>100 t/h wet reclaim at 7 % moisture</td></tr>
 <tr><td>Feed \(P_{80}\)</td><td class="r">13.66 mm</td><td>zone-1 0/20 product curve</td></tr>
+<tr><td>Fraction &lt; 6 mm (measured curve)</td><td class="r">≈ 41 %</td><td>drives the split — see design-basis caveat</td></tr>
 </table>
 
-<h3>1.3&emsp;Model — partition curve (Karra)</h3>
-<p>A real screen deck gives a particle of size \(x\) a probability \(\rho(x)\) of reporting to the oversize; Karra (1979) [3] describes it by a log-logistic function centred on the corrected cut size:</p>
-<div class="eqrow"><div class="eq">\(\displaystyle \rho(x)=\frac{1}{1+\left(d_{50c}/x\right)^{s}},\qquad d_{50c}=k_d\,a,\qquad s=\frac{\ln 9}{\ln\!\bigl(1/(1-I)\bigr)}\)</div><div class="no">(1.1)</div></div>
-<p>where the sharpness \(s\) follows from the quartile definition \(\rho(d_{25})=0.25\), \(\rho(d_{75})=0.75\) and the imperfection \(I\) is defined by \(d_{25}/d_{75}=1-I\) (derivation in the companion document, Sheet&nbsp;2). With \(I=0.15\): \(s=13.52\). Flows are computed class by class and mass is conserved exactly. Required deck area follows the VSMA/Fontaine capacity law:</p>
-<div class="eqrow"><div class="eq">\(\displaystyle Q_b=14\,a^{0.6}\ \ \mathrm{[t/h/m^2]},\qquad A=\frac{U\,f_p}{Q_b\,f_0},\qquad f_p=1.2,\ f_0=0.347\)</div><div class="no">(1.2)</div></div>
-<p class="note">The capacity law is a field heuristic flagged for cross-checking (companion document, §2.5 note). Under rain, wet screening loses 25 % capacity — but rain forces mode 2B on this zone anyway (the sizing consequence is shown in §1.5).</p>
+<h3>1.3&emsp;Model and numerical application</h3>
+<p>Karra partition (companion document, eq. 2.1–2.2) at \(a=6\) mm, \(I=0.15\), \(s=13.52\); VSMA area law:</p>
+<div class="eqrow"><div class="eq">\(\displaystyle Q_b=14\times 6^{0.6}=41.0\ \mathrm{t/h/m^2},\qquad A=\frac{37.8\times 1.2}{41.0\times 0.347}=3.19\ \mathrm{m^2}\ \ (\text{rain }4.25)\)</div><div class="no">(1.1)</div></div>
 
-<h3>1.4&emsp;Numerical application</h3>
-<div class="eqrow"><div class="eq">\(\displaystyle Q_{b,\mathrm{top}}=14\times 15^{0.6}=71.1,\qquad A_{\mathrm{top}}=\frac{78.25\times 1.2}{71.1\times 0.347}=3.81\ \mathrm{m^2}\)</div><div class="no">(1.3)</div></div>
-<div class="eqrow"><div class="eq">\(\displaystyle Q_{b,\mathrm{bot}}=14\times 5^{0.6}=36.8,\qquad A_{\mathrm{bot}}=\frac{31.25\times 1.2}{36.8\times 0.347}=2.94\ \mathrm{m^2}\)</div><div class="no">(1.4)</div></div>
-
-<h3>1.5&emsp;Results</h3>
-<table>
-<tr><th>Stream</th><th class="r">Dry (t/h)</th><th class="r">Wet (t/h)</th><th class="r">\(P_{80}\) (mm)</th><th>Destination (mode 2A)</th></tr>
-<tr><td>+15 oversize</td><td class="r">14.75</td><td class="r">15.86</td><td class="r">19.44</td><td>AgLime loop</td></tr>
-<tr><td><b>5–15 = FeedLime</b></td><td class="r">47.00</td><td class="r"><b>50.54</b></td><td class="r">12.23</td><td>FeedLime stockpile (Zone-1.3 feed)</td></tr>
-<tr><td>0–5 undersize</td><td class="r">31.25</td><td class="r">33.60</td><td class="r">4.14</td><td>AgLime loop</td></tr>
-</table>
-<table>
-<tr><th>Sieve (mm)</th><th class="r">0.5</th><th class="r">1</th><th class="r">2</th><th class="r">4</th><th class="r">5</th><th class="r">8</th><th class="r">10</th><th class="r">12.5</th><th class="r">15</th><th class="r">20</th></tr>
-<tr><td>Feed 0/20</td><td class="r">1.8</td><td class="r">4.6</td><td class="r">11.2</td><td class="r">26.0</td><td class="r">33.3</td><td class="r">53.0</td><td class="r">63.9</td><td class="r">75.4</td><td class="r">84.9</td><td class="r">98.0</td></tr>
-<tr><td>+15</td><td class="r">0</td><td class="r">0</td><td class="r">0</td><td class="r">0</td><td class="r">0</td><td class="r">0</td><td class="r">0.1</td><td class="r">1.4</td><td class="r">14.9</td><td class="r">87.2</td></tr>
-<tr><td>FeedLime 5–15</td><td class="r">0</td><td class="r">0</td><td class="r">0</td><td class="r">0.1</td><td class="r">2.7</td><td class="r">38.4</td><td class="r">60.0</td><td class="r">82.2</td><td class="r">96.7</td><td class="r">100</td></tr>
-<tr><td>0–5</td><td class="r">5.4</td><td class="r">13.6</td><td class="r">33.4</td><td class="r">77.2</td><td class="r">95.1</td><td class="r">100</td><td class="r">100</td><td class="r">100</td><td class="r">100</td><td class="r">100</td></tr>
-</table>
-<p>Required areas: top 3.81 m², bottom 2.94 m² (dry). <b>The sizing case is rain, mode 2B</b> (screen still runs, capacity × 0.75): 5.08 / 3.92 m².</p>
-<div class="alert"><b>Vendor data gap.</b> Installed deck areas unknown; requirement to state to the vendor: 5.08 / 3.92 m² (rain case). BF.5101 feeder datasheet also not provided.</div>
-
-<!-- ==================================================== SHEET 2 -->
-<h2 class="chap">Sheet 2 &nbsp;·&nbsp; SR.5115 — closing screen 1.7 mm (AgLime loop)</h2>
-<p class="chapsub">Closes the AgLime loop · feed: +15 and 0–5 from SR.5105 + CR.5107 recycle · undersize 0/1.7 = AgLime product</p>
-
-<h3>2.1&emsp;Function</h3>
-<p>SR.5115 makes the AgLime product cut. Its oversize goes to the impact crusher CR.5107 and returns: screen and crusher form a closed circuit. A structural property of any closed loop follows from mass conservation at stationarity: <b>everything that enters the loop leaves as undersize</b> — the AgLime rate equals the fresh loop feed, independently of the crusher setting, which only governs the circulating load:</p>
-<div class="eqrow"><div class="eq">\(\displaystyle \dot m_{\mathrm{AgLime}}=\dot m_{\mathrm{loop,in}},\qquad CL=\frac{R}{F}=\frac{1-e}{e}\)</div><div class="no">(2.1)</div></div>
-<dl class="symbols">
-<dt>\(R\)</dt><dd>recirculated flow; \(F\) fresh loop feed; \(e\) screen extraction efficiency</dd>
-</dl>
-
-<h3>2.2&emsp;Input data (converged loop state)</h3>
-<table>
-<tr><th>Quantity</th><th class="r">Value</th><th>Origin</th></tr>
-<tr><td>Fresh loop feed (+15 &amp; 0–5)</td><td class="r">46.00 t/h dry</td><td>SR.5105, mode 2A</td></tr>
-<tr><td>Screen feed (fresh + recycle)</td><td class="r">83.74 t/h dry</td><td>engine, converged</td></tr>
-<tr><td>Screen feed \(P_{80}\)</td><td class="r">4.91 mm</td><td>engine</td></tr>
-</table>
-
-<h3>2.3&emsp;Model and validity</h3>
-<p>Karra partition (1.1) at \(a=1.7\) mm, \(I=0.15\), \(s=13.52\); area law (1.2). <span class="note">Validity note: Karra's model is established for apertures &gt; 1 mm — the 1.7 mm cut sits near this limit; the partition is retained as the best available model, flagged for the ongoing expert review. Under rain the imperfection collapses and the cut becomes impossible: this is the physical basis of the forced mode-2B switch, not a modelling choice.</span></p>
-
-<h3>2.4&emsp;Numerical application and results</h3>
-<div class="eqrow"><div class="eq">\(\displaystyle Q_b=14\times 1.7^{0.6}=19.2\ \mathrm{t/h/m^2},\qquad A=\frac{46.0\times 1.2}{19.2\times 0.347}=8.26\ \mathrm{m^2}\)</div><div class="no">(2.2)</div></div>
+<h3>1.4&emsp;Results</h3>
 <table>
 <tr><th>Stream</th><th class="r">Dry (t/h)</th><th class="r">Wet (t/h)</th><th class="r">\(P_{80}\) (mm)</th><th>Destination</th></tr>
-<tr><td>+1.7 oversize</td><td class="r">37.74</td><td class="r">40.58</td><td class="r">17.17</td><td>CR.5107</td></tr>
-<tr><td><b>0/1.7 = AgLime</b></td><td class="r">46.00</td><td class="r"><b>49.46</b></td><td class="r">1.065</td><td>AgLime product</td></tr>
+<tr><td><b>6/20 = FeedLime</b></td><td class="r">55.22</td><td class="r"><b>59.37</b></td><td class="r">16.12</td><td>Feed stockpile SP.5109 (Zone-1.3 feed)</td></tr>
+<tr><td>0/6 undersize</td><td class="r">37.78</td><td class="r">40.63</td><td class="r">4.90</td><td>AgLime loop (BC.5110, 60 T/h rating: 40.6 ✓)</td></tr>
+</table>
+<table>
+<tr><th>Sieve (mm)</th><th class="r">0.5</th><th class="r">1</th><th class="r">1.7</th><th class="r">2.8</th><th class="r">4</th><th class="r">5</th><th class="r">6.3</th><th class="r">8</th><th class="r">10</th><th class="r">12.5</th><th class="r">15</th><th class="r">20</th></tr>
+<tr><td>Feed 0/20</td><td class="r">1.8</td><td class="r">4.6</td><td class="r">9.1</td><td class="r">17.0</td><td class="r">26.0</td><td class="r">33.3</td><td class="r">42.3</td><td class="r">53.0</td><td class="r">63.9</td><td class="r">75.4</td><td class="r">84.9</td><td class="r">98.0</td></tr>
+<tr><td>FeedLime 6/20</td><td class="r">0</td><td class="r">0</td><td class="r">0</td><td class="r">0</td><td class="r">0</td><td class="r">0.2</td><td class="r">4.6</td><td class="r">20.9</td><td class="r">39.2</td><td class="r">58.5</td><td class="r">74.5</td><td class="r">96.6</td></tr>
+<tr><td>0/6</td><td class="r">4.5</td><td class="r">11.2</td><td class="r">22.4</td><td class="r">41.9</td><td class="r">64.0</td><td class="r">81.6</td><td class="r">97.4</td><td class="r">99.9</td><td class="r">100</td><td class="r">100</td><td class="r">100</td></tr>
+</table>
+<div class="alert"><b>Vendor data gap.</b> Installed deck area unknown; requirement to state: 3.19 m² dry / <b>4.25 m² rain</b> (rain sizes the screen). BF.5101/5102 feeder datasheets not provided.</div>
+
+<!-- ==================================================== SHEET 2 -->
+<h2 class="chap">Sheet 2 &nbsp;·&nbsp; SR.5111 — first 1.7 mm closing screen (open circuit)</h2>
+<p class="chapsub">First AgLime cut · feed: 0/6 from SR.5105 · undersize = AgLime (part 1) · oversize → CR.5113</p>
+
+<h3>2.1&emsp;Function</h3>
+<p>SR.5111 removes, before crushing, the fraction of the 0/6 stream that is already finer than 1.7&nbsp;mm — about a quarter of the loop feed. This single-pass "scalping" protects the crusher from material that needs no crushing and cuts the circulating load to nearly zero (§4.1). The screen runs in open circuit: it sees the fresh loop feed only, never a recycle.</p>
+
+<h3>2.2&emsp;Model and numerical application</h3>
+<p>Karra partition at \(a=1.7\) mm, \(I=0.15\) (validity note: Karra is established for a &gt; 1 mm — the 1.7 mm cut sits near the limit; retained, flagged to the expert review). Area:</p>
+<div class="eqrow"><div class="eq">\(\displaystyle Q_b=14\times 1.7^{0.6}=19.2\ \mathrm{t/h/m^2},\qquad A=\frac{8.6\times 1.2}{19.2\times 0.347}=1.55\ \mathrm{m^2}\ \ (\text{rain }2.06)\)</div><div class="no">(2.1)</div></div>
+
+<h3>2.3&emsp;Results</h3>
+<table>
+<tr><th>Stream</th><th class="r">Dry (t/h)</th><th class="r">Wet (t/h)</th><th class="r">\(P_{80}\) (mm)</th><th>Destination</th></tr>
+<tr><td>Feed 0/6</td><td class="r">37.78</td><td class="r">40.63</td><td class="r">4.90</td><td>—</td></tr>
+<tr><td><b>0/1.7 = AgLime part 1</b></td><td class="r">8.61</td><td class="r">9.25</td><td class="r">1.44</td><td>BC.5116 (AgLime)</td></tr>
+<tr><td>1.7/6 oversize</td><td class="r">29.18</td><td class="r">31.37</td><td class="r">5.22</td><td>CR.5113 via BC.5112</td></tr>
+</table>
+<div class="alert"><b>Vendor data gap.</b> Installed area unknown; requirement 1.55 m² dry / 2.06 m² rain.</div>
+
+<!-- ==================================================== SHEET 3 -->
+<h2 class="chap">Sheet 3 &nbsp;·&nbsp; CR.5113 — impact crusher (AgLime loop)</h2>
+<p class="chapsub">Crushes the 1.7/6 oversize to below the cut · closed loop with SR.5115 only</p>
+
+<h3>3.1&emsp;Function and settings</h3>
+<p>CR.5113 receives the SR.5111 oversize plus the (small) SR.5115 recycle and crushes it below 1.7&nbsp;mm in essentially one pass. Settings: rotor speed \(v=40\) m/s, CSS = 1.0&nbsp;mm; breakage parameters \(A=60\), \(b=0.80\) [H] (calcite drop-weight literature gives softer values — pending site tests).</p>
+
+<h3>3.2&emsp;Model and numerical application</h3>
+<p>JKMRC impact model (companion document, Sheet 3): </p>
+<div class="eqrow"><div class="eq">\(\displaystyle E_{cs}=\frac{40^{2}}{7200}=0.2222\ \mathrm{kWh/t},\qquad t_{10}=60\left(1-e^{-0.8\times 0.2222}\right)=9.77\ \%,\qquad n=1.400\)</div><div class="no">(3.1)</div></div>
+<div class="eqrow"><div class="eq">\(\displaystyle W=10\times 12.54\left(\frac{1}{\sqrt{947}}-\frac{1}{\sqrt{5\,207}}\right)=2.34\ \mathrm{kWh/t}\)</div><div class="no">(3.2)</div></div>
+<div class="eqrow"><div class="eq">\(\displaystyle P_{\mathrm{net}}=2.34\times 29.45=68.9\ \mathrm{kW},\qquad P_{\mathrm{inst}}=\frac{68.9}{0.75}=91.8\ \mathrm{kW}\)</div><div class="no">(3.3)</div></div>
+<p class="note">Validity: the reduction 5.2 → 0.95 mm (ratio 5.5) is INSIDE Bond's comfort zone (ratios 3–6) — unlike the superseded single-screen arrangement (ratio 18): the two-stage topology also makes the power figure more trustworthy. Revision A's 156.9 kW requirement is superseded by <b>91.8 kW</b>.</p>
+
+<h3>3.3&emsp;Results</h3>
+<table>
+<tr><th>Sieve (mm)</th><th class="r">0.25</th><th class="r">0.5</th><th class="r">1.0</th><th class="r">1.5</th><th class="r">1.7</th><th class="r">2</th></tr>
+<tr><td>Feed, % passing</td><td class="r">0</td><td class="r">0</td><td class="r">0.3</td><td class="r">2.3</td><td class="r">7.3</td><td class="r">25.5</td></tr>
+<tr><td>Product, % passing</td><td class="r">21.4</td><td class="r">47.3</td><td class="r">82.8</td><td class="r">97.5</td><td class="r">100</td><td class="r">100</td></tr>
+</table>
+<p>Throughput 29.45 t/h dry (converged) · product \(P_{80}=0.95\) mm · 97.5 % &lt; 1.5 mm.</p>
+<div class="alert"><b>Vendor data gap.</b> No motor rating provided; computed requirement 91.8 kW installed.</div>
+
+<!-- ==================================================== SHEET 4 -->
+<h2 class="chap">Sheet 4 &nbsp;·&nbsp; SR.5115 — second 1.7 mm closing screen (closed loop)</h2>
+<p class="chapsub">Checks the crusher product · undersize joins AgLime · oversize recycles to CR.5113</p>
+
+<h3>4.1&emsp;Function and closed-loop identity</h3>
+<p>SR.5115 verifies the crusher product: what passed 1.7&nbsp;mm joins the AgLime; the residue returns to CR.5113. By mass conservation at stationarity, everything entering the loop leaves as AgLime:</p>
+<div class="eqrow"><div class="eq">\(\displaystyle \dot m_{\mathrm{AgLime}}=\dot m_{0/6}=37.78\ \mathrm{t/h\ dry\ (verified:}\ 8.61+29.18\ \mathrm{)}\)</div><div class="no">(4.1)</div></div>
+<p>The converged recycle is <b>0.28 t/h — a 0.9 % circulating load</b> (the superseded single-screen loop ran at 82 %): the crusher's one-pass fineness (97.5 % &lt; 1.5 mm) leaves the check screen almost nothing to reject. The two-stage design is markedly the better arrangement.</p>
+
+<h3>4.2&emsp;Model and numerical application</h3>
+<p>Karra at \(a=1.7\) mm, \(I=0.15\) (same validity note as Sheet 2); area:</p>
+<div class="eqrow"><div class="eq">\(\displaystyle A=\frac{29.2\times 1.2}{19.2\times 0.347}=5.24\ \mathrm{m^2}\ \ (\text{rain }6.99)\)</div><div class="no">(4.2)</div></div>
+
+<h3>4.3&emsp;Results — and the blended AgLime product</h3>
+<table>
+<tr><th>Stream</th><th class="r">Dry (t/h)</th><th class="r">Wet (t/h)</th><th class="r">\(P_{80}\) (mm)</th></tr>
+<tr><td>Feed (CR.5113 product)</td><td class="r">29.45</td><td class="r">31.67</td><td class="r">0.95</td></tr>
+<tr><td>0/1.7 = AgLime part 2</td><td class="r">29.18</td><td class="r">31.37</td><td class="r">0.93</td></tr>
+<tr><td>Oversize (recycle)</td><td class="r">0.28</td><td class="r">0.30</td><td class="r">1.65</td></tr>
 </table>
 <table>
 <tr><th>Sieve (mm)</th><th class="r">0.063</th><th class="r">0.25</th><th class="r">0.5</th><th class="r">1.0</th><th class="r">1.5</th><th class="r">1.7</th><th class="r">2</th></tr>
-<tr><td>AgLime, % passing</td><td class="r">3.0</td><td class="r">19.0</td><td class="r">42.5</td><td class="r">77.2</td><td class="r">95.4</td><td class="r">98.8</td><td class="r">99.9</td></tr>
+<tr><td><b>AgLime blended (parts 1+2)</b>, % passing</td><td class="r">2.9</td><td class="r">18.4</td><td class="r">41.3</td><td class="r">75.8</td><td class="r">94.8</td><td class="r">98.5</td><td class="r">99.8</td></tr>
 </table>
-<p><b>AgLime quality — acceptance criterion ≥ 95 % passing 1.7 mm: achieved 98.8 % → compliant.</b> The oversize \(P_{80}\) (17.2 mm) is coarse because the fresh +15 lumps concentrate in the oversize until crushed. Circulating load: 37.74/46.00 = 82 % of fresh feed. Verification of (2.1): loop in 46.00 = AgLime out 46.00 t/h dry.</p>
-<div class="alert"><b>Vendor data gap.</b> Installed area unknown; the 8.26 m² requirement makes SR.5115 the largest screen of the plant (fine apertures pass little flow per unit area).</div>
-
-<!-- ==================================================== SHEET 3 -->
-<h2 class="chap">Sheet 3 &nbsp;·&nbsp; CR.5107 — impact crusher (AgLime loop)</h2>
-<p class="chapsub">Crushes the +1.7 oversize and returns it to SR.5115 · the heaviest specific comminution duty of the line</p>
-
-<h3>3.1&emsp;Function and settings</h3>
-<p>CR.5107 closes the AgLime loop by crushing the +1.7&nbsp;mm oversize to near-product size in one pass. Per (2.1) its settings do not change the AgLime rate; they set the circulating load and its own power. Settings: rotor speed \(v=40\) m/s, CSS = 1.0&nbsp;mm — the minimum-circulating-load recommendation of the project's model book (CSS 1.0–1.2&nbsp;mm, \(v\approx 40\) m/s). Breakage parameters \(A=60\), \(b=0.80\) [H] (calcite drop-weight literature gives softer values, A 62–69, b 1.3–3.0 [6]; kept conservative pending site tests).</p>
-
-<h3>3.2&emsp;Model — impact fragmentation (JKMRC \(t_{10}\))</h3>
-<p>A particle struck at peripheral speed \(v\) receives the specific kinetic energy \(\tfrac12 v^2\) (J/kg), i.e. in kWh/t (1&nbsp;kWh/t = 3600&nbsp;J/kg):</p>
-<div class="eqrow"><div class="eq">\(\displaystyle E_{cs}=\frac{v^{2}}{7200},\qquad t_{10}=A\left(1-e^{-b\,E_{cs}}\right),\qquad n=\max\!\left(0.65,\ \left(\tfrac{30}{t_{10}}\right)^{0.30}\right)\)</div><div class="no">(3.1)</div></div>
-<p>(Narayanan &amp; Whiten, JKMRC [7]). The product follows the truncated Rosin–Rammler distribution with \(x_{80}=\mathrm{CSS}\) (companion document, Sheet&nbsp;1, eq.&nbsp;1.2), and power follows Bond (companion document, eq.&nbsp;1.3). The loop is solved by fixed-point iteration until the recycle stream converges in flow and size distribution.</p>
-
-<h3>3.3&emsp;Numerical application</h3>
-<div class="eqrow"><div class="eq">\(\displaystyle E_{cs}=\frac{40^{2}}{7200}=0.2222\ \mathrm{kWh/t},\qquad t_{10}=60\left(1-e^{-0.8\times 0.2222}\right)=9.77\ \%,\qquad n=1.400\)</div><div class="no">(3.2)</div></div>
-<div class="eqrow"><div class="eq">\(\displaystyle W=10\times 12.54\left(\frac{1}{\sqrt{947}}-\frac{1}{\sqrt{17\,167}}\right)=3.12\ \mathrm{kWh/t}\)</div><div class="no">(3.3)</div></div>
-<div class="eqrow"><div class="eq">\(\displaystyle P_{\mathrm{net}}=3.12\times 37.74=117.7\ \mathrm{kW},\qquad P_{\mathrm{inst}}=\frac{117.7}{0.75}=156.9\ \mathrm{kW}\)</div><div class="no">(3.4)</div></div>
-<p class="note">Validity: the reduction 17.2 → 0.95 mm (ratio 18) is far beyond Bond's comfort zone (ratios 3–6); \(W=3.12\) kWh/t is the line's heaviest specific duty and its least certain power figure — treat as an order-of-magnitude for motor selection, to be confirmed by the vendor.</p>
-
-<h3>3.4&emsp;Results</h3>
-<table>
-<tr><th>Sieve (mm)</th><th class="r">0.125</th><th class="r">0.25</th><th class="r">0.5</th><th class="r">1.0</th><th class="r">1.5</th><th class="r">1.7</th><th class="r">2</th></tr>
-<tr><td>Feed, % passing</td><td class="r">0</td><td class="r">0</td><td class="r">0</td><td class="r">0</td><td class="r">0.3</td><td class="r">2.0</td><td class="r">5.9</td></tr>
-<tr><td>Product, % passing</td><td class="r">8.7</td><td class="r">21.4</td><td class="r">47.3</td><td class="r">82.8</td><td class="r">97.5</td><td class="r">100</td><td class="r">100</td></tr>
-</table>
-<p>Throughput 37.74 t/h dry (converged) · product \(P_{80}=0.95\) mm, 97.5 % &lt; 1.5 mm — one pass nearly closes the cut, which is why the circulating load stays at 82 %.</p>
-<div class="alert"><b>Vendor data gap.</b> No motor rating provided; the computed requirement is 156.9 kW installed — the largest motor of zones 1–1.2, to be confirmed against vendor data given the Bond-validity caveat above.</div>
-
-<!-- ==================================================== SECTION 4 -->
-<h2 class="chap">4 &nbsp;·&nbsp; Zone balance, mode 2B, and weekly production plan</h2>
-
-<h3>4.1&emsp;Mass balance (mode 2A, dry)</h3>
-<div class="eqrow"><div class="eq">\(\displaystyle \underbrace{93.00}_{\text{reclaim}}=\underbrace{47.00}_{\text{FeedLime}}+\underbrace{46.00}_{\text{AgLime}}\ \ \mathrm{t/h\ dry}\qquad(\text{relative gap}<10^{-6})\)</div><div class="no">(4.1)</div></div>
-
-<h3>4.2&emsp;Mode 2B (rain, or by choice)</h3>
-<p>The loop stops; the mass identity FeedLime = reclaim holds exactly: 100 t/h wet of 0/20 becomes FeedLime at 100 t/h wet. No machine calculation is involved; SR.5105 runs as a bypass conveyor (its rain sizing is in §1.5). Mode 2B makes FeedLime <b>twice as fast</b> as mode 2A (100 vs 50.5 t/h wet) — the fact the weekly plan exploits.</p>
-
-<h3>4.3&emsp;Weekly production plan (client planning rule: FeedLime demand drives; AgLime up to its market cap, zero surplus)</h3>
-<p>Zone 1.3's FeedLime demand is 162 075 t/y = <b>3 117 t/week</b>, continuous. The AgLime market cap (135 000 t/y) limits mode-2A operation; the FeedLime balance is completed in mode 2B during the 13 rain weeks. Weekly ceiling: 21 × 8-h shifts = 168 h, of which 23.8 h/week are reserved for maintenance → net 144.2 h/week; hours below are clock hours at 80 % availability.</p>
-<table>
-<tr><th>Week type</th><th class="r">Count</th><th>Mode</th><th class="r">Clock h/wk</th><th class="r">FeedLime (t/wk)</th><th class="r">AgLime (t/wk)</th><th class="r">Ceiling use</th></tr>
-<tr><td>Dry-season week</td><td class="r">39</td><td>2A</td><td class="r">87.5</td><td class="r">3 537</td><td class="r">3 461</td><td class="r">61 %</td></tr>
-<tr><td>Rain-season week</td><td class="r">13</td><td>2B</td><td class="r">23.2</td><td class="r">1 855</td><td class="r">0</td><td class="r">16 %</td></tr>
-<tr><td><b>Year</b></td><td class="r">52</td><td>—</td><td class="r">3 713 h/y</td><td class="r"><b>162 075</b></td><td class="r"><b>135 000</b></td><td class="r">49.5 % of 7 500 h</td></tr>
-</table>
-<p>The seasonal FeedLime imbalance is carried by the stockpile: dry weeks overproduce (+420 t/wk to stock), rain weeks underproduce (−1 262 t/wk from stock); the two balance over the year (39 × 420 ≈ 13 × 1 262). The stockpile must therefore hold a seasonal swing of ≈ <b>16 400 t</b> of FeedLime — a storage-capacity requirement for the yard design.</p>
-<div class="alert"><b>Planning statement.</b> Zone 1.2 is comfortable: 49.5 % of its hour ceiling serves both the firm-grits-driven FeedLime demand and the full AgLime market, with zero unsellable surplus. Its feasibility is <i>conditional on Zone 1</i> delivering the 0/20 stockpile (26.5 kt/month in mode 1A at 250 t/h — companion document §4.2) and on the ≈ 16 400 t FeedLime seasonal storage.</div>
+<p><b>AgLime product: 37.78 t/h dry = 40.63 t/h wet · \(P_{80}\) = 1.09 mm · acceptance criterion ≥ 95 % &lt; 1.7 mm: achieved 98.5 % → COMPLIANT.</b></p>
+<div class="alert"><b>Vendor data gap.</b> Installed area unknown; requirement 5.24 m² dry / 6.99 m² rain (the loop's largest screen).</div>
 
 <!-- ==================================================== SECTION 5 -->
-<h2 class="chap">5 &nbsp;·&nbsp; Hypothesis register and open points</h2>
+<h2 class="chap">5 &nbsp;·&nbsp; Zone balance, mode B, and weekly production plan</h2>
+
+<h3>5.1&emsp;Mass balance (mode A, dry)</h3>
+<div class="eqrow"><div class="eq">\(\displaystyle \underbrace{93.00}_{\text{reclaim}}=\underbrace{55.22}_{\text{FeedLime}}+\underbrace{37.78}_{\text{AgLime}}\ \ \mathrm{t/h\ dry}\qquad(\text{relative gap}<10^{-6})\)</div><div class="no">(5.1)</div></div>
+
+<h3>5.2&emsp;Mode B (rain, or by choice)</h3>
+<p>DV.5104 bypasses everything to the Feed stockpile: FeedLime = reclaim = 100 t/h wet, exactly (mass identity, no machine model). Mode B makes FeedLime <b>1.7× as fast</b> as mode A (100 vs 59.4 t/h wet).</p>
+
+<h3>5.3&emsp;Annual plan (client rule c2: FeedLime demand drives; AgLime up to cap, zero surplus)</h3>
+<p>Zone-1.3 FeedLime demand: 164&nbsp;880 t/y. At 59.37 t/h wet, the demand binds FIRST (before the AgLime cap): <b>2&nbsp;777 effective hours, all in dry season</b>, co-producing <b>AgLime 112&nbsp;822 t/y — BELOW the 135&nbsp;000 t/y market cap</b>. Zone utilization 46.3 % of the 7&nbsp;500 h ceiling; FeedLime stock balanced annually; zero unsellable AgLime surplus.</p>
+<div class="alert"><b>Commercial arbitration pending (client).</b> On the measured curve the c2 rule can serve the AgLime market only at ≈ 113 kt/y of its 135 kt cap: the 6 mm split simply does not produce enough 0/6. Serving the full market would over-produce FeedLime by ≈ 25 kt/y into a 6 000 t stockpile. Options under client arbitration: accept ≈ 113 kt AgLime; or find a FeedLime surplus outlet; or raise the reclaim rate/hours. This document computes the c2 rule as decided.</div>
+
+<h3>5.4&emsp;Weekly translation and the seasonal storage tension</h3>
+<p>Weekly ceiling: 21 × 8-h shifts = 168 h, maintenance reserve 23.8 h → net 144.2 h/week. FeedLime demand is continuous: <b>3&nbsp;171 t/week</b> (Zone 1.3 runs year-round).</p>
+<table>
+<tr><th>Week type</th><th class="r">Count</th><th>Mode</th><th class="r">Clock h/wk</th><th class="r">FeedLime (t/wk)</th><th class="r">AgLime (t/wk)</th><th class="r">FeedLime stock</th></tr>
+<tr><td>Dry-season week (annual plan)</td><td class="r">39</td><td>A</td><td class="r">89.0</td><td class="r">4 228</td><td class="r">2 893</td><td class="r">+1 057</td></tr>
+<tr><td>Rain-season week (annual plan)</td><td class="r">13</td><td>—</td><td class="r">0</td><td class="r">0</td><td class="r">0</td><td class="r">−3 171</td></tr>
+</table>
+<div class="alert"><b>Storage tension.</b> The annual plan concentrates all FeedLime production in the 39 dry weeks: the seasonal swing is ≈ 13 × 3 171 ≈ <b>41 200 t against a 6 000 t Feed stockpile</b> — not operable as-is. Two bounding weekly strategies: <b>(S1)</b> run mode B during the 13 rain weeks at the demand rate (39.6 clock h/wk): storage tension eliminated, dry weeks relax to 66.8 h — but AgLime falls to ≈ <b>84.6 kt/y</b> (no AgLime in mode B). <b>(S2)</b> keep the annual plan and provide ≈ 41 kt of FeedLime storage (7× the PFD capacity). The choice binds the AgLime arbitration above; it belongs to the client and is NOT decided in this document.</div>
+
+<!-- ==================================================== SECTION 6 -->
+<h2 class="chap">6 &nbsp;·&nbsp; Hypothesis register and open points</h2>
 <table>
 <tr><th>#</th><th>Hypothesis</th><th>Value</th><th>Status</th></tr>
-<tr><td>H1</td><td>Reclaimed 0/20 PSD</td><td>zone-1 photo curve at validated settings</td><td>client decision; no stockpile measurement will ever exist (project measurement policy)</td></tr>
-<tr><td>H2</td><td>Stockpile moisture = belt moisture</td><td>7 %</td><td>declared hypothesis</td></tr>
-<tr><td>H3</td><td>Screen imperfection (dry)</td><td>I = 0.15 → s = 13.52</td><td>project arbitration; 0.10 under expert review (moves the split and circulating load)</td></tr>
-<tr><td>H4</td><td>Karra validity at 1.7 mm</td><td>model retained at its validity limit</td><td>documented caveat; expert review pending</td></tr>
-<tr><td>H5</td><td>Rain rule</td><td>1.7 mm cut impossible → mode 2B forced</td><td>specification physical rule</td></tr>
-<tr><td>H6</td><td>Screen capacity law</td><td>\(Q_b = 14a^{0.6}\), f₀ = 0.347, f_p = 1.2; rain × 0.75</td><td>field heuristic, flagged for cross-check</td></tr>
-<tr><td>H7</td><td>Impact breakage pair (CR.5107)</td><td>A = 60, b = 0.80</td><td>[H] conservative; drop-weight test = calibration trigger</td></tr>
-<tr><td>H8</td><td>Bond work index</td><td>12.54 kWh/t</td><td>[ref.]; CR.5107's W = 3.12 kWh/t carries the Bond-validity caveat (§3.3)</td></tr>
-<tr><td>H9</td><td>Planning rule</td><td>FeedLime demand drives; AgLime ≤ 135 kt cap; zero surplus</td><td>client decision 2026-08-12</td></tr>
-<tr><td>H10</td><td>AgLime acceptance criterion</td><td>≥ 95 % &lt; 1.7 mm</td><td>client-adopted 2026-08-12 (achieved: 98.8 %)</td></tr>
+<tr><td>H1</td><td>Topology</td><td>PFD 12-01 REV18</td><td>client authority ruling 2026-08-12</td></tr>
+<tr><td>H2</td><td>Reclaimed 0/20 PSD</td><td>zone-1 photo curve (measured feed)</td><td>client decision; design-curve gap flagged (58 % vs 41 % &lt; 6 mm)</td></tr>
+<tr><td>H3</td><td>Stockpile moisture = belt</td><td>7 %</td><td>declared hypothesis</td></tr>
+<tr><td>H4</td><td>Screen imperfection (dry)</td><td>I = 0.15 → s = 13.52</td><td>project arbitration; 0.10 under expert review</td></tr>
+<tr><td>H5</td><td>Karra validity at 1.7 mm</td><td>retained at validity limit</td><td>documented caveat (both closing screens)</td></tr>
+<tr><td>H6</td><td>Rain rule</td><td>1.7 mm cut impossible → mode B forced</td><td>specification physical rule</td></tr>
+<tr><td>H7</td><td>Screen capacity law</td><td>\(Q_b = 14a^{0.6}\), f₀ = 0.347, f_p = 1.2; rain ×0.75</td><td>field heuristic, flagged</td></tr>
+<tr><td>H8</td><td>Impact breakage pair (CR.5113)</td><td>A = 60, b = 0.80</td><td>[H] conservative; drop-weight test = trigger</td></tr>
+<tr><td>H9</td><td>Planning rule</td><td>c2: FeedLime demand drives, AgLime ≤ cap</td><td>client decision; commercial consequence under arbitration (§5.3)</td></tr>
+<tr><td>H10</td><td>AgLime acceptance</td><td>≥ 95 % &lt; 1.7 mm</td><td>client criterion (achieved 98.5 %)</td></tr>
+<tr><td>H11</td><td>Loop rating</td><td>60 t/h wet (BC.5110/5116)</td><td>PFD; 40.6 ✓ in mode A; exceeded in mode C at 100 t/h (PFD runs C at 60)</td></tr>
 </table>
-<p><b>Open points for the reviewer's attention:</b> (i) the CR.5107 power figure (Bond far out of its comfort zone at ratio 18 — the least certain number of the document); (ii) the 1.7 mm Karra validity limit; (iii) vendor gaps: SR.5105/SR.5115 installed areas, CR.5107 motor, BF.5101 datasheet; (iv) the ≈ 16 400 t FeedLime seasonal storage requirement; (v) the imperfection arbitration (0.15 vs 0.10).</p>
+<p><b>Open points for the reviewer:</b> (i) the design-curve vs measured-curve gap (42/58 vs 59/41 split — top expert question); (ii) the AgLime market shortfall and the seasonal storage tension (§5.3–5.4, client arbitration); (iii) Karra at 1.7 mm; (iv) vendor gaps: installed areas (3 screens), CR.5113 motor, feeder datasheets; (v) the imperfection arbitration (0.15 vs 0.10).</p>
 
-<h2 class="chap">6 &nbsp;·&nbsp; References</h2>
+<h2 class="chap">7 &nbsp;·&nbsp; References</h2>
 <ol class="refs">
 <li>P. Rosin, E. Rammler, <i>The laws governing the fineness of powdered coal</i>, J. Inst. Fuel, 1933.</li>
 <li>F. C. Bond, <i>The third theory of comminution</i>, Trans. AIME, 1952.</li>
 <li>V. K. Karra, <i>Development of a model for predicting the screening performance of a vibrating screen</i>, CIM Bulletin 72(804), 1979.</li>
 <li>R. Olsen, R. Carnes, VSMA method T-JCI-201 (screening capacity).</li>
-<li>J. M. Fontaine, crushing and screening field documents, Belgian limestone/lime industry (field-calibrated formulas).</li>
+<li>J. M. Fontaine, crushing and screening field documents, Belgian limestone/lime industry.</li>
 <li>Yang et al., <i>Fragmentation properties of calcite (drop-weight tests)</i>, Minerals 15:407, 2025.</li>
 <li>T. J. Napier-Munn et al., <i>Mineral Comminution Circuits</i>, JKMRC, 1996.</li>
-<li>D. Todorović et al., <i>Bond work index of limestone (12.6–13.9 kWh/t)</i>, 2017.</li>
+<li>NACO Engineering / Carmeuse South Africa, <i>WANKOE 1.2 PFD</i>, dwg 12-01-PFD REV18.</li>
 <li>NOEZYS, <i>Machine Calculation Sheets — Zone 1</i>, companion document, 2026-08-12.</li>
 </ol>
 
-<p class="prov">Provenance — deterministic engine, git commit 69c40e8, models M3 (Karra partition), M4 (screen area), M5 (JKMRC impact), M1 (Rosin–Rammler product), M2 (Bond power), run 2026-08-12, 110 regression tests passed. Weekly-plan arithmetic computed in the stamped verification script from the engine's planning module (`run_required_hours`: 2 729.5 dry + 241.2 rain effective hours). Every figure is engine output. Document typeset with KaTeX.</p>
+<p class="prov">Provenance — deterministic engine, git commit 240ad44 (zone-1.2 topology rebuilt to PFD REV18 the same day), models M3 (Karra), M4 (area), M5 (JKMRC), M1 (Rosin–Rammler), M2 (Bond), run 2026-08-12, 110 regression tests + 556-run stress campaign passed. Weekly-plan arithmetic from the engine's planning module (2 777 effective h, dry season only). Every figure is engine output. Document typeset with KaTeX.</p>
 
 <script>
 document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"\\(",right:"\\)",display:false},{left:"\\[",right:"\\]",display:true}]});});
