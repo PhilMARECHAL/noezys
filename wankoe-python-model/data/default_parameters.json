@@ -782,8 +782,10 @@
     },
     "FeedLime fines 0/1.5": {
       "product": "FeedLime fines",
-      "target_t_per_year": 56000,
-      "nature": "flexible"
+      "target_t_per_year": 60000,
+      "nature": "market cap",
+      "market_cap_t_per_year": 60000,
+      "_note": "Client 2026-08-13: max 60 000 t/y sellable (was 'flexible 56 000')"
     },
     "UltraFin <100um": {
       "product": "UltraFin",
