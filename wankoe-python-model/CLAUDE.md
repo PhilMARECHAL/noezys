@@ -54,6 +54,19 @@ assume the wider scope again — when in doubt, ask.
 6. He is not a developer: phone-first, web UI, never ran code. A GitHub
    repo alone does not reach him.
 
+## PFD authority (2026-08-12, load-bearing)
+
+Three NACO/Carmeuse PFDs in docs/pfd/ PREVAIL over the spec wherever
+they diverge — EXCEPT zone 1.3, where the PFD's DV.10 + ML.30 Unirotor
+were deleted from the design (client ruling): the model's zone-1.3
+topology stands. Zone 1.2 model must be REBUILT to PFD REV18 (FeedLime
+= 6/20 at a single-deck 6 mm screen; AgLime loop = open SR.5111 +
+CR.5113 + closed-loop SR.5115, 60 t/h rating). Zone 1.1 topology is
+confirmed; retag CR.5009->CR.5006, SR.5007->SR.5008, DV-5099->DV.5009;
+scenario B line feed 150 t/h. Full gap table: docs/pfd/gap-register.md.
+The 2026-08-12 zone-1.2 calc document is WITHDRAWN until the rebuild.
+Central open gap: design KFS 80 tph vs computed 51.35 tph.
+
 ## Engineering state (see docs/ for detail)
 
 - docs/spec-conformity-matrix.md: requirement-by-requirement traceability
