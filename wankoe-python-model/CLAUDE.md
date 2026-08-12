@@ -86,14 +86,16 @@ Gap table: docs/pfd/gap-register.md.
 - 12-question client arbitration round IN PROGRESS (2026-08-10). Decided:
   Q1 dry imperfection I = 0.15 (literature) — KFS envelope holds, but
   zone 1.1 needs 2069 h > 2000 h ceiling: the 85 kt firm KFS commitment
-  is AT RISK at defaults until the securing lever (Q7) is chosen.
+  was AT RISK until Q7 was CLOSED 2026-08-13: Saturday extension,
+  zone 1.1 = 1 shift x 6d/7, ceiling 2400 h -> 86.2 % utilization,
+  targets_reachable TRUE. Remaining watch: zone 1.3 at 91.6 %.
   CLOSED 2026-08-11 via the expert book: Q2 (Wi stays 12.54 [ref.],
   13.8 rejected), Q6 (SP.36 cut = 65 um; UltraFin 0.99 t/h at defaults),
   Q8 (AP-S 1010 machine docs: 75-90 t/h real, 132 kW, mode-1B line feed
   ~130 t/h). Q9 hosting: DONE (Render). Q11 French UI: rejected.
   Still open: I-remap ratification (Q3 — now tied to the expert
   clarification note), KFS tolerance vs envelope (Q4), spec 9.3 fines
-  figure (Q5), KFS securing lever (Q7), repo location (Q10), b_j soft
+  figure (Q5), repo location (Q10), b_j soft
   limestone (Q12 — book documents calcite A 62-69 / b 1.3-3.0 but keeps
   A=60/b=0.80 [H] pending drop-weight tests).
 - NEW WORKING MODE (client, 2026-08-11): the client found the web app too

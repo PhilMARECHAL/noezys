@@ -804,9 +804,9 @@
     },
     "zones": {
       "1.1": {
-        "available_hours": 2000,
+        "available_hours": 2400,
         "availability_pct": 80,
-        "_note": "1 shift, 5d/7 (client, 2026-08-08)"
+        "_note": "1 shift, 6d/7 — Saturday extension decided by the client 2026-08-13 (Q7 securing lever; was 2000 h at 5d/7)"
       },
       "1.2": {
         "available_hours": 7500,

@@ -22,23 +22,21 @@ def test_production_lands_exactly_on_targets(plan):
 
 
 def test_zone_feasibility_at_defaults(plan):
-    # client arbitration 2026-08-10 (Q1/12): dry imperfection I = 0.15 (literature): the sharper cut yields less KFS per hour, so zone 1.1
-    # needs ~2069 h > its 2000 h ceiling — a DOCUMENTED design risk (the
-    # securing levers are the client's question 7/12). Zones 1.2/1.3 hold.
-    assert plan["zones"]["1.1"]["feasible"] is False
-    for name in ("1.2", "1.3"):
+    # Q7 CLOSED 2026-08-13: the client extended zone 1.1 to 6 days/week
+    # (ceiling 2000 -> 2400 h). The 85 kt firm KFS commitment now fits:
+    # 2069 h required = 86.2 % utilization. ALL zones feasible.
+    for name in ("1.1", "1.2", "1.3"):
         zone = plan["zones"][name]
         assert zone["feasible"] is True, f"zone {name} infeasible: {zone}"
         assert zone["required_hours_clock"] <= zone["ceiling_hours_clock"]
-    assert any("Zone 1.1" in a and "NOT reachable" in a for a in plan["alerts"])
+    assert not any("NOT reachable" in a for a in plan["alerts"])
 
 
 def test_zone_1_1_driven_by_kfs(plan):
     z11 = plan["zones"]["1.1"]
     assert z11["driven_by"] == "KFS target"
-    # client arbitration 2026-08-10 (Q1/12): dry imperfection I = 0.15 (literature): ~103.5 % utilization — the 85 kt firm KFS commitment
-    # exceeds the 2000 h regime at 250 t/h (securing lever pending, Q7/12)
-    assert 100 < z11["utilization_pct"] < 110
+    # Saturday regime (Q7 closed 2026-08-13): 2069 h / 2400 h = 86.2 %
+    assert 80 < z11["utilization_pct"] < 95
 
 
 def test_feedlime_stock_balanced(plan):
