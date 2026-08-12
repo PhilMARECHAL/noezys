@@ -1,0 +1,282 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="package/dist/katex.min.css">
+<script src="package/dist/katex.min.js"></script>
+<script src="package/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 2.6cm 2.4cm; }
+html,body{margin:0;padding:0}
+body{font-family:"Bitstream Charter",Georgia,serif;font-size:10.5pt;line-height:1.45;color:#111;text-align:justify}
+h1.doctitle{font-size:19pt;text-align:center;margin:0 0 2pt;font-weight:bold}
+p.docsub{text-align:center;font-size:10.5pt;margin:0 0 4pt;font-style:italic}
+p.docmeta{text-align:center;font-size:9.5pt;margin:0 0 18pt;color:#444}
+hr.rule{border:none;border-top:0.7pt solid #333;margin:10pt 0 14pt}
+h2.chap{font-size:14.5pt;margin:16pt 0 4pt;font-weight:bold;page-break-before:always}
+h2.chap.first{page-break-before:avoid}
+p.chapsub{font-style:italic;color:#333;margin:0 0 10pt;font-size:10.5pt}
+h3{font-size:11.5pt;margin:13pt 0 5pt;font-weight:bold}
+table{border-collapse:collapse;margin:7pt auto;font-size:9.8pt;text-align:left}
+table th{border-top:1pt solid #111;border-bottom:0.6pt solid #111;padding:2.5pt 8pt;font-weight:bold}
+table td{padding:2.5pt 8pt;border:none}
+table tr:last-child td{border-bottom:1pt solid #111}
+table td.r, table th.r{text-align:right}
+.eqrow{display:flex;align-items:center;margin:4pt 0;page-break-inside:avoid}
+.eqrow .eq{flex:1;text-align:center}
+.eqrow .no{width:3em;text-align:right;font-size:10pt}
+.symbols{font-size:9.6pt;margin:4pt 0 8pt 1.4em}
+.symbols dt{float:left;clear:left;width:4.2em;font-style:italic}
+.symbols dd{margin-left:5em}
+.alert{border-left:2.2pt solid #8a6d1a;background:#faf6e8;padding:5pt 9pt;margin:8pt 0;font-size:9.9pt;page-break-inside:avoid}
+.prov{font-size:8.8pt;color:#444;border-top:0.6pt solid #999;margin-top:14pt;padding-top:5pt}
+.note{font-size:9.4pt;color:#333;font-style:italic}
+ol.refs{font-size:9.5pt;padding-left:1.6em}
+ol.refs li{margin-bottom:2.5pt}
+</style></head><body>
+
+<h1 class="doctitle">Machine Calculation Sheets — Zone 1</h1>
+<p class="docsub">WANKOE limestone processing line — independent design-verification document</p>
+<p class="docmeta">NOEZYS · AI Innovation Lab &nbsp;—&nbsp; working version, 2026-08-12 &nbsp;—&nbsp; confidential</p>
+<hr class="rule">
+
+<h3>Scope and method</h3>
+<p>This document presents the engineering calculation of the three machines of Zone&nbsp;1 of the WANKOE limestone processing line, for independent validation by a reviewer with no prior knowledge of the project. Each sheet gives: the machine's function in the flowsheet, its input data, the applicable constraints, the engineering model established from first principles with its literature source and every symbol defined, the numerical application on the site's measured data, and the computed results. All figures are produced by a deterministic flowsheet model: mass balances close on dry solids, closed circuits are solved by fixed-point iteration on the recirculating stream (convergence on both flow rate and size distribution), and every sheet ends with its computational provenance.</p>
+
+<h3>The plant</h3>
+<p>WANKOE is a new limestone processing line under construction. A quarry primary station (grizzly and jaw crusher CR.5003, closed side setting 175&nbsp;mm) delivers a 0/320&nbsp;mm product. The line then comprises three blocks. <b>Zone&nbsp;1 — this document</b>: secondary crushing (CR.5009) and double-deck screening (SR.5007, 35/20&nbsp;mm) with a closed impact-crushing loop on the screen oversize (CR.5011), producing <b>KFS 20/35&nbsp;mm</b> (kiln feed stone — firm contract 85&nbsp;000&nbsp;t/y, the kiln operating continuously year-round) and a <b>0/20&nbsp;mm stockpile</b>. Zone&nbsp;1.2 (reclaim and 1.7&nbsp;mm screening of the 0/20 for agricultural lime) and Zone&nbsp;1.3 (drying, milling, air classification for feed-grade products) are downstream consumers of the 0/20 stockpile and are outside the present scope.</p>
+<p><b>Tag convention:</b> CR = crusher · SR = vibrating screen · DV = diverter flap. Zone 1 equipment: <b>CR.5009</b> toothed roll crusher; <b>SR.5007</b> double-deck screen 35/20&nbsp;mm; <b>CR.5011</b> impact crusher (HAZEMAG AP-S&nbsp;1010) in closed loop; <b>DV-5099</b> mode flap — in mode&nbsp;1A the 20–35&nbsp;mm cut is extracted as KFS product, in mode&nbsp;1B it is sent back to CR.5011 (no KFS, stock-building operation). This document computes mode&nbsp;1A.</p>
+
+<h3>Design basis (common to all sheets)</h3>
+<table>
+<tr><th>Item</th><th>Value</th><th>Origin / status</th></tr>
+<tr><td>Feed size distribution</td><td>45 % passing 19 mm · 52 % @ 40 · 65 % @ 80 · 76 % @ 120 · 81 % @ 200 mm</td><td>measured belt-cut at the primary-station outlet, 2026-08-08, two tests averaged</td></tr>
+<tr><td>Curve completion</td><td>top size 320 mm (90 % @ 250); fine tail &lt; 19 mm from reference-curve shape</td><td>declared hypotheses H-FEED-2 / H-FEED-1</td></tr>
+<tr><td>Derived feed sizes</td><td>\(F_{80}\) = 180.6 mm · \(d_{50}\) ≈ 29–32 mm · 19 % &gt; 200 mm</td><td>computed from the completed curve</td></tr>
+<tr><td>Moisture</td><td>7 % (wet basis)</td><td>measured 2026-08-08</td></tr>
+<tr><td>Line feed rate</td><td>250 t/h wet = 232.5 t/h dry solids</td><td>design basis; balances close on dry solids</td></tr>
+<tr><td>Weather</td><td>dry; rain shown as screen-capacity sensitivity (×0.75)</td><td>specification rule</td></tr>
+<tr><td>Bond work index \(W_i\)</td><td>12.54 kWh/t</td><td>Fontaine, Belgian limestone [5]; published limestone range 12.6–13.9 [11]</td></tr>
+<tr><td>Screen imperfection \(I\)</td><td>0.15 (dry, coarse cuts)</td><td>literature value; alternative 0.10 under expert review</td></tr>
+<tr><td>Mechanical efficiency \(\eta_m\)</td><td>0.75 (net → installed)</td><td>project value</td></tr>
+<tr><td>Availability / shift regime</td><td>80 % · 8-h shifts, 5 d/7 (2 000 h/y ceiling)</td><td>client operating frame</td></tr>
+</table>
+
+<!-- ==================================================== SHEET 1 -->
+<h2 class="chap">Sheet 1 &nbsp;·&nbsp; CR.5009 — toothed roll crusher</h2>
+<p class="chapsub">Secondary crushing · upstream: primary station (0/320 mm) · downstream: screen SR.5007</p>
+
+<h3>1.1&emsp;Function</h3>
+<p>CR.5009 receives the full primary-station product and reduces it below ≈ 68&nbsp;mm to prepare the 35/20&nbsp;mm classification. The duty is size reduction only: the machine performs no classification and conserves mass. Toothed rolls are selected for their narrow product distribution (low fines generation), the property that protects the downstream KFS 20–35&nbsp;mm cut.</p>
+
+<h3>1.2&emsp;Input data</h3>
+<table>
+<tr><th>Quantity</th><th class="r">Value</th><th>Origin</th></tr>
+<tr><td>Throughput (dry solids)</td><td class="r">232.5 t/h</td><td>250 t/h wet at 7 % moisture</td></tr>
+<tr><td>Feed \(F_{80}\)</td><td class="r">180.6 mm</td><td>measured belt-cut</td></tr>
+<tr><td>Feed top size</td><td class="r">320 mm</td><td>hypothesis H-FEED-2 (19 % &gt; 200 mm)</td></tr>
+</table>
+
+<h3>1.3&emsp;Capacities, constraints and objective</h3>
+<table>
+<tr><th>Constraint</th><th class="r">Value</th><th>Status</th></tr>
+<tr><td>Maximum feed lump (nip angle)</td><td class="r">150 mm</td><td><b>exceeded by the measured feed — see §1.7</b></td></tr>
+<tr><td>Gap adjustment range</td><td class="r">20–60 mm</td><td>setting g = 40 mm</td></tr>
+<tr><td>Installed motor</td><td class="r">—</td><td>not provided by vendor; §1.6 gives the requirement</td></tr>
+</table>
+<p>Objective: product with \(P_{80}\approx g\), suitable for a 35&nbsp;mm top cut.</p>
+
+<h3>1.4&emsp;Model — product size distribution (Rosin–Rammler)</h3>
+<p>Let \(R(x)\) be the mass fraction retained above size \(x\) after breakage. Rosin, Rammler and Sperling (1933) [1] postulate that the relative rate of disappearance of retained mass follows a power law of size:</p>
+<div class="eqrow"><div class="eq">\(\displaystyle -\frac{1}{R}\frac{dR}{dx}=\frac{n}{x_c}\Bigl(\frac{x}{x_c}\Bigr)^{\,n-1}\)</div><div class="no">(1.1)</div></div>
+<p>Separating variables and integrating with \(R(0)=1\), \(R(\infty)=0\):</p>
+<div class="eqrow"><div class="eq">\(\displaystyle P(x)=1-\exp\Bigl[-\Bigl(\frac{x}{x_c}\Bigr)^{n}\Bigr],\qquad x_c=\frac{x_{80}}{(\ln 5)^{1/n}}\)</div><div class="no">(1.2)</div></div>
+<dl class="symbols">
+<dt>\(P(x)\)</dt><dd>cumulative mass fraction passing size \(x\) (–)</dd>
+<dt>\(x_c\)</dt><dd>characteristic size (mm)</dd>
+<dt>\(n\)</dt><dd>uniformity index (–); toothed rolls: 1.35 [ref. McLanahan norm; Lieberwirth 2023 [10]]</dd>
+<dt>\(x_{80}\)</dt><dd>product 80 %-passing size; gap-driven for roll crushers: \(x_{80}=g\) = 40 mm</dd>
+</dl>
+<p>Two physical corrections apply: the distribution is truncated at \(1.7\,x_{80}=68\) mm (no fragment survives beyond ≈ 1.7 × the setting; the truncated mass is redistributed over the kept classes), and feed already finer than \(x_{80}\) crosses the chamber unbroken — only the +40 mm fraction (48 % of feed) is redistributed by (1.2).</p>
+
+<h3>1.5&emsp;Model — power (Bond)</h3>
+<p>The general comminution law \(dE=-C\,dx/x^{m}\) with Bond's exponent \(m=3/2\) (Bond, 1952 [2]), integrated from feed to product size and calibrated by the work index \(W_i\), gives the operational form:</p>
+<div class="eqrow"><div class="eq">\(\displaystyle W=10\,W_i\left(\frac{1}{\sqrt{P_{80}}}-\frac{1}{\sqrt{F_{80}}}\right),\qquad P_{\mathrm{net}}=W\,Q,\qquad P_{\mathrm{inst}}=\frac{P_{\mathrm{net}}}{\eta_m}\)</div><div class="no">(1.3)</div></div>
+<dl class="symbols">
+<dt>\(W\)</dt><dd>specific energy (kWh/t); \(P_{80}\), \(F_{80}\) in µm</dd>
+<dt>\(Q\)</dt><dd>dry throughput (t/h)</dd>
+</dl>
+
+<h3>1.6&emsp;Numerical application</h3>
+<div class="eqrow"><div class="eq">\(\displaystyle x_c=\frac{40}{(\ln 5)^{1/1.35}}=28.0\ \mathrm{mm}\)</div><div class="no">(1.4)</div></div>
+<div class="eqrow"><div class="eq">\(\displaystyle W=10\times 12.54\left(\frac{1}{\sqrt{27\,955}}-\frac{1}{\sqrt{180\,575}}\right)=0.455\ \mathrm{kWh/t}\)</div><div class="no">(1.5)</div></div>
+<div class="eqrow"><div class="eq">\(\displaystyle P_{\mathrm{net}}=0.455\times 232.5=105.8\ \mathrm{kW},\qquad P_{\mathrm{inst}}=\frac{105.8}{0.75}=141.0\ \mathrm{kW}\)</div><div class="no">(1.6)</div></div>
+<p class="note">Validity: Bond's law in coarse crushing is a first-order estimate (documented deviations of several tens of percent, Donovan 2003 [8]; limestone crushing energy correlates with UCS, Korman 2015 [9]). The figure serves motor-sizing verification, not energy accounting.</p>
+
+<h3>1.7&emsp;Results</h3>
+<table>
+<tr><th>Sieve (mm)</th><th class="r">2</th><th class="r">5</th><th class="r">10</th><th class="r">20</th><th class="r">31.5</th><th class="r">40</th><th class="r">50</th><th class="r">63</th><th class="r">80</th></tr>
+<tr><td>Feed, % passing</td><td class="r">6.5</td><td class="r">18.8</td><td class="r">33.6</td><td class="r">45.5</td><td class="r">49.8</td><td class="r">52.0</td><td class="r">56.2</td><td class="r">60.5</td><td class="r">65.0</td></tr>
+<tr><td>Product, % passing</td><td class="r">7.9</td><td class="r">23.4</td><td class="r">44.5</td><td class="r">68.8</td><td class="r">84.1</td><td class="r">91.9</td><td class="r">96.2</td><td class="r">99.3</td><td class="r">100</td></tr>
+</table>
+<p>Throughput 232.5 t/h dry (conserved) · \(P_{80}=27.96\) mm · reduction ratio 6.5 · \(W=0.455\) kWh/t · \(P_{\mathrm{net}}=105.8\) kW · \(P_{\mathrm{inst}}=141.0\) kW.</p>
+<div class="alert"><b>Design alert.</b> The measured feed (\(F_{80}=180.6\) mm, 19 % &gt; 200 mm) exceeds the 150 mm nip limit: bridging/stalling risk. To be resolved at the upstream primary station or by machine selection review. This is the principal design flag of Zone 1.</div>
+
+<!-- ==================================================== SHEET 2 -->
+<h2 class="chap">Sheet 2 &nbsp;·&nbsp; SR.5007 — double-deck vibrating screen 35/20 mm</h2>
+<p class="chapsub">Primary classification · feed: CR.5009 product + CR.5011 recycle · products: +35 (to CR.5011) · 20–35 = KFS · 0/20 (to stockpile)</p>
+
+<h3>2.1&emsp;Function</h3>
+<p>SR.5007 performs the classification that defines both saleable streams of Zone 1. Its top deck (35 mm) returns the coarse fraction to the impact crusher CR.5011; its bottom deck (20 mm) separates the KFS 20–35 mm product (extracted via flap DV-5099 in mode 1A) from the 0/20 stockpile stream. The screen operates in closed circuit with CR.5011: its feed is the crusher product blended with the converged recycle stream.</p>
+
+<h3>2.2&emsp;Input data (converged loop state)</h3>
+<table>
+<tr><th>Quantity</th><th class="r">Value</th><th>Origin</th></tr>
+<tr><td>Screen feed (dry)</td><td class="r">261.97 t/h</td><td>232.5 fresh (CR.5009) + 29.47 recycle (CR.5011)</td></tr>
+<tr><td>Feed \(P_{80}\)</td><td class="r">26.56 mm</td><td>engine, converged blend</td></tr>
+</table>
+
+<h3>2.3&emsp;Capacities, constraints and objective</h3>
+<table>
+<tr><th>Item</th><th class="r">Value</th><th>Status</th></tr>
+<tr><td>Apertures \(a_1\) / \(a_2\)</td><td class="r">35 / 20 mm</td><td>settings</td></tr>
+<tr><td>Installed deck area</td><td class="r">—</td><td>not provided by vendor; §2.6 gives the requirement</td></tr>
+</table>
+<p>Objective: KFS 20–35 mm meeting the contractual "30/55/15" envelope — at most 30 % below the cut, at least 55 % within it, at most 15 % above it.</p>
+
+<h3>2.4&emsp;Model — partition curve (Karra)</h3>
+<p>A real screen is not a sharp cut: a particle of size \(x\) has a probability \(\rho(x)\) of reporting to the oversize. Karra (1979) [3] describes it by a log-logistic function centred on the corrected cut size \(d_{50c}\):</p>
+<div class="eqrow"><div class="eq">\(\displaystyle \rho(x)=\frac{1}{1+\left(d_{50c}/x\right)^{s}},\qquad d_{50c}=k_d\,a\)</div><div class="no">(2.1)</div></div>
+<p>The sharpness \(s\) follows from the quartile definition \(\rho(d_{25})=0.25\), \(\rho(d_{75})=0.75\): substituting into (2.1) gives \((d_{50c}/d_{25})^s=3\) and \((d_{50c}/d_{75})^s=1/3\), hence \((d_{75}/d_{25})^s=9\). Writing the quartile ratio through the imperfection \(I\) as \(d_{25}/d_{75}=1-I\):</p>
+<div class="eqrow"><div class="eq">\(\displaystyle s=\frac{\ln 9}{\ln\left(d_{75}/d_{25}\right)}=\frac{\ln 9}{\ln\!\bigl(1/(1-I)\bigr)}\;\xrightarrow{\;I=0.15\;}\;s=13.52\)</div><div class="no">(2.2)</div></div>
+<dl class="symbols">
+<dt>\(a\)</dt><dd>aperture (mm); \(k_d\) cut-size correction, 1.0 [H]</dd>
+<dt>\(I\)</dt><dd>imperfection (–): 0 = perfect cut; 0.15 dry [literature; 0.10 under expert review]; degrades strongly wet on fine cuts</dd>
+</dl>
+<p>Flows are computed class by class: oversize = \(Q\,\rho(x)\), undersize = \(Q\,[1-\rho(x)]\); mass is conserved exactly. The mid cut 20–35 therefore inevitably contains some sub-20 and super-35 material — quantified in §2.7 against the envelope.</p>
+
+<h3>2.5&emsp;Model — required area (VSMA/Fontaine)</h3>
+<div class="eqrow"><div class="eq">\(\displaystyle Q_b=14\,a^{0.6}\ \ \mathrm{[t/h/m^2]},\qquad A=\frac{U\,f_p}{Q_b\,f_0}\)</div><div class="no">(2.3)</div></div>
+<dl class="symbols">
+<dt>\(Q_b\)</dt><dd>basic capacity — admissible undersize flow per unit area [4, 5]</dd>
+<dt>\(U\)</dt><dd>undersize flow through the deck (t/h)</dd>
+<dt>\(f_p\)</dt><dd>peak factor, 1.2 · \(f_0\) global correction, 0.347 (calibrated on this screen)</dd>
+</dl>
+<p class="note">The project's literature review found \(Q_b=14a^{0.6}\) (field heuristic) unconfirmed in validated sources; it is retained as calibrated but flagged for cross-checking (Karra/King capacity as alternative). Under rain, wet screening loses 25 % capacity: the required area divides by 0.75.</p>
+
+<h3>2.6&emsp;Numerical application</h3>
+<div class="eqrow"><div class="eq">\(\displaystyle Q_{b,\mathrm{top}}=14\times 35^{0.6}=118.2,\qquad A_{\mathrm{top}}=\frac{232.5\times 1.2}{118.2\times 0.347}=6.80\ \mathrm{m^2}\)</div><div class="no">(2.4)</div></div>
+<div class="eqrow"><div class="eq">\(\displaystyle Q_{b,\mathrm{bot}}=14\times 20^{0.6}=84.5,\qquad A_{\mathrm{bot}}=\frac{184.7\times 1.2}{84.5\times 0.347}=7.56\ \mathrm{m^2}\)</div><div class="no">(2.5)</div></div>
+<p>Rain sensitivity: \(A_{\mathrm{top}}\) = 9.07 m², \(A_{\mathrm{bot}}\) = 10.08 m². The bottom deck is limiting in both cases.</p>
+
+<h3>2.7&emsp;Results</h3>
+<table>
+<tr><th>Stream</th><th class="r">Dry (t/h)</th><th class="r">Wet (t/h)</th><th class="r">\(P_{80}\) (mm)</th><th>Destination</th></tr>
+<tr><td>+35 oversize</td><td class="r">29.47</td><td class="r">31.69</td><td class="r">54.97</td><td>CR.5011 (closed loop)</td></tr>
+<tr><td><b>20–35 = KFS</b></td><td class="r">47.76</td><td class="r"><b>51.35</b></td><td class="r">31.30</td><td>KFS product (kiln)</td></tr>
+<tr><td><b>0/20 undersize</b></td><td class="r">184.74</td><td class="r"><b>198.65</b></td><td class="r">13.66</td><td>0/20 stockpile (zones 1.2/1.3 feed)</td></tr>
+</table>
+<table>
+<tr><th>Sieve (mm)</th><th class="r">2</th><th class="r">5</th><th class="r">10</th><th class="r">15</th><th class="r">20</th><th class="r">25</th><th class="r">31.5</th><th class="r">35</th><th class="r">40</th><th class="r">50</th><th class="r">63</th></tr>
+<tr><td>Screen feed</td><td class="r">7.9</td><td class="r">23.5</td><td class="r">45.1</td><td class="r">59.9</td><td class="r">70.4</td><td class="r">78.0</td><td class="r">85.7</td><td class="r">89.0</td><td class="r">92.8</td><td class="r">96.6</td><td class="r">99.4</td></tr>
+<tr><td>KFS 20–35</td><td class="r">0</td><td class="r">0</td><td class="r">0</td><td class="r">0.2</td><td class="r">7.5</td><td class="r">41.2</td><td class="r">81.1</td><td class="r">93.2</td><td class="r">99.2</td><td class="r">100</td><td class="r">100</td></tr>
+<tr><td>0/20</td><td class="r">11.2</td><td class="r">33.3</td><td class="r">63.9</td><td class="r">84.9</td><td class="r">98.0</td><td class="r">99.9</td><td class="r">100</td><td class="r">100</td><td class="r">100</td><td class="r">100</td><td class="r">100</td></tr>
+</table>
+<p><b>KFS quality — 30/55/15 envelope:</b> below cut 7.48 % (≤ 30 ✓) · in cut <b>85.73 %</b> (≥ 55 ✓) · above cut 6.78 % (≤ 15 ✓) → <b>compliant, with wide margin</b>.</p>
+<div class="alert"><b>Vendor data gap.</b> The installed deck areas are unknown. The requirement to state to the vendor is 7.56 m² (dry) and <b>10.08 m² (rain)</b> on the bottom deck — the rain case sizes the screen.</div>
+
+<!-- ==================================================== SHEET 3 -->
+<h2 class="chap">Sheet 3 &nbsp;·&nbsp; CR.5011 — impact crusher (HAZEMAG AP-S 1010), closed loop</h2>
+<p class="chapsub">Oversize re-crushing · feed: SR.5007 +35 oversize · product: returned to SR.5007</p>
+
+<h3>3.1&emsp;Function</h3>
+<p>CR.5011 crushes the +35 mm screen oversize and returns it to SR.5007: screen and crusher form a closed circuit whose stationary state fixes the circulating load. In mode 1B the machine additionally receives the 20–35 mm cut (stock-building operation, not computed here). The machine is identified from its vendor documents: HAZEMAG AP-S 1010, rotor 1000 × 1000 mm, nominal capacity 100 t/h, <b>real capacity on limestone 75–90 t/h</b> (rotor-bound, not motor-bound), maximum feed lump 400 mm, installed motor 132 kW.</p>
+
+<h3>3.2&emsp;Input data (converged loop state)</h3>
+<table>
+<tr><th>Quantity</th><th class="r">Value</th><th>Origin</th></tr>
+<tr><td>Throughput (dry)</td><td class="r">29.47 t/h</td><td>converged +35 oversize — 33 % of real capacity</td></tr>
+<tr><td>Feed \(F_{80}\)</td><td class="r">54.97 mm</td><td>engine; top size 63–80 mm ≪ 400 mm limit</td></tr>
+</table>
+
+<h3>3.3&emsp;Settings</h3>
+<table>
+<tr><th>Parameter</th><th class="r">Value</th><th>Status</th></tr>
+<tr><td>Rotor peripheral speed \(v\)</td><td class="r">45 m/s</td><td>setting (range 30–60)</td></tr>
+<tr><td>CSS (= product \(x_{80}\))</td><td class="r">20 mm</td><td>setting (range 10–30)</td></tr>
+<tr><td>Breakage parameters \(A\), \(b\)</td><td class="r">60 · 0.80</td><td>[H] — calcite drop-weight literature gives A 62–69, b 1.3–3.0 [6]; kept conservative pending site tests</td></tr>
+</table>
+
+<h3>3.4&emsp;Model — impact fragmentation (JKMRC \(t_{10}\))</h3>
+<p>A particle struck by a rotor bar at peripheral speed \(v\) receives the specific kinetic energy \(e_k=\tfrac12 v^2\) (J/kg); converting to kWh/t (1 kWh/t = 3600 J/kg):</p>
+<div class="eqrow"><div class="eq">\(\displaystyle E_{cs}=\frac{v^{2}}{7200}\ \ \mathrm{[kWh/t]}\)</div><div class="no">(3.1)</div></div>
+<p>Narayanan and Whiten (JKMRC) [7] correlate the fragmentation fineness \(t_{10}\) (% passing 1/10 of the initial size) with this energy, and the product distribution is rebuilt through the Rosin–Rammler uniformity:</p>
+<div class="eqrow"><div class="eq">\(\displaystyle t_{10}=A\left(1-e^{-b\,E_{cs}}\right),\qquad n=\max\!\left(0.65,\ \left(\frac{30}{t_{10}}\right)^{0.30}\right),\qquad x_{80}=\mathrm{CSS}\)</div><div class="no">(3.2)</div></div>
+<p>The product then follows (1.2) with truncation at \(1.7\,x_{80}=34\) mm; power follows Bond (1.3). The closed circuit is solved by fixed-point iteration: the recycle stream is updated until both its flow rate and its size distribution converge to the engine tolerance. At stationarity, a mass balance around screen + crusher gives the circulating-load identity \(CL=(1-e)/e\), where \(e\) is the screen's extraction efficiency — a sharp cut keeps \(CL\) low.</p>
+
+<h3>3.5&emsp;Numerical application</h3>
+<div class="eqrow"><div class="eq">\(\displaystyle E_{cs}=\frac{45^{2}}{7200}=0.2813\ \mathrm{kWh/t},\qquad t_{10}=60\left(1-e^{-0.8\times 0.2813}\right)=12.09\ \%\)</div><div class="no">(3.3)</div></div>
+<div class="eqrow"><div class="eq">\(\displaystyle n=\left(\frac{30}{12.09}\right)^{0.30}=1.313\)</div><div class="no">(3.4)</div></div>
+<div class="eqrow"><div class="eq">\(\displaystyle W=10\times 12.54\left(\frac{1}{\sqrt{18\,668}}-\frac{1}{\sqrt{54\,971}}\right)=0.383\ \mathrm{kWh/t}\)</div><div class="no">(3.5)</div></div>
+<p>Converged loop: recycle 29.47 t/h dry = 12.7 % of fresh feed — a healthy circulating load, consistent with the screen's sharp cut (s = 13.52).</p>
+
+<h3>3.6&emsp;Results</h3>
+<table>
+<tr><th>Sieve (mm)</th><th class="r">1</th><th class="r">2</th><th class="r">5</th><th class="r">10</th><th class="r">15</th><th class="r">20</th><th class="r">25</th><th class="r">31.5</th><th class="r">35</th></tr>
+<tr><td>Feed, % passing</td><td class="r">0</td><td class="r">0</td><td class="r">0</td><td class="r">0</td><td class="r">0</td><td class="r">0</td><td class="r">0.2</td><td class="r">3.5</td><td class="r">13.1</td></tr>
+<tr><td>Product, % passing</td><td class="r">3.2</td><td class="r">7.8</td><td class="r">23.9</td><td class="r">49.6</td><td class="r">69.6</td><td class="r">83.3</td><td class="r">92.1</td><td class="r">98.5</td><td class="r">100</td></tr>
+</table>
+<p>Product \(P_{80}=18.67\) mm, 100 % &lt; 35 mm (vendor documents state ≈ 95 % &lt; 35 mm — consistent within the truncation hypothesis). Power: \(P_{\mathrm{net}}=0.383\times 29.47=11.3\) kW at loop equilibrium; at real capacity (90 t/h): 34.5 kW net, 46.0 kW installed — <b>motor utilization ≤ 35 %</b>, confirming the vendor's statement that capacity is rotor-bound, not motor-bound.</p>
+
+<!-- ==================================================== SECTION 4 -->
+<h2 class="chap">4 &nbsp;·&nbsp; Zone balance and production verification</h2>
+
+<h3>4.1&emsp;Mass balance</h3>
+<div class="eqrow"><div class="eq">\(\displaystyle \underbrace{232.50}_{\text{feed}}=\underbrace{47.76}_{\text{KFS}}+\underbrace{184.74}_{0/20}\ \ \mathrm{t/h\ dry}\qquad(\text{relative gap}<10^{-7})\)</div><div class="no">(4.1)</div></div>
+
+<h3>4.2&emsp;Weekly production requirement (kiln runs continuously)</h3>
+<table>
+<tr><th>Step</th><th class="r">Value</th></tr>
+<tr><td>Weekly KFS need: 85 000 / 52</td><td class="r"><b>1 634.6 t/week</b></td></tr>
+<tr><td>Effective hours: 1 634.6 / 51.35 t/h</td><td class="r">31.83 h</td></tr>
+<tr><td>Clock hours at 80 % availability</td><td class="r">39.79 h</td></tr>
+<tr><td><b>8-h shifts required</b></td><td class="r"><b>4.97 → 5 shifts (Monday–Friday, 1 shift/day)</b></td></tr>
+<tr><td>Production in 5 shifts / weekly margin</td><td class="r">1 643.3 t / <b>+8.7 t (≈ 10 min)</b></td></tr>
+</table>
+<div class="alert"><b>Planning flag.</b> 39.79 h/week × 52 = 2 069 h/y against the 2 000 h/y regime ceiling (1 shift, 5 d/7): the firm 85 000 t/y commitment exceeds the shift regime by 3.5 %, i.e. a ten-minute weekly margin with no allowance for holidays or breakdowns. Securing levers (higher feed rate, occasional 6th shift, or yield improvement) are under separate arbitration.</div>
+
+<!-- ==================================================== SECTION 5 -->
+<h2 class="chap">5 &nbsp;·&nbsp; Hypothesis register and open points</h2>
+<table>
+<tr><th>#</th><th>Hypothesis</th><th>Value</th><th>Status</th></tr>
+<tr><td>H1</td><td>Feed curve completion (fine tail / top size)</td><td>H-FEED-1 / H-FEED-2</td><td>declared; to be replaced by fine sieving when available</td></tr>
+<tr><td>H2</td><td>Roll-crusher product size rule</td><td>\(x_{80}=g\)</td><td>client-validated</td></tr>
+<tr><td>H3</td><td>Uniformity indices</td><td>rolls 1.35 · impactor from \(t_{10}\)</td><td>[ref.] / model correlation [H]</td></tr>
+<tr><td>H4</td><td>Truncation and bypass rule</td><td>1.7·\(x_{80}\); sub-\(x_{80}\) unbroken</td><td>[H] — coarse selection function</td></tr>
+<tr><td>H5</td><td>Bond work index</td><td>12.54 kWh/t</td><td>[ref.]; site Bond test = calibration trigger</td></tr>
+<tr><td>H6</td><td>Screen imperfection (dry)</td><td>I = 0.15</td><td>literature; 0.10 variant under expert review — affects KFS yield</td></tr>
+<tr><td>H7</td><td>Screen capacity law</td><td>\(Q_b=14a^{0.6}\), \(f_0=0.347\)</td><td>field heuristic, flagged for cross-check</td></tr>
+<tr><td>H8</td><td>Impact breakage pair</td><td>A = 60, b = 0.80</td><td>[H] conservative; calcite literature softer; drop-weight test = trigger</td></tr>
+<tr><td>H9</td><td>Availability</td><td>80 %</td><td>client frame; inclusive of start/stop losses to be confirmed</td></tr>
+</table>
+<p><b>Open points for the reviewer's attention:</b> (i) the nip-limit exceedance of CR.5009 (§1.7) — the zone's principal design question; (ii) the missing vendor data: SR.5007 installed areas, CR.5009 motor rating; (iii) the imperfection arbitration (0.15 vs 0.10), which moves the KFS yield and thereby the weekly shift count; (iv) Bond's validity in coarse crushing (§1.6 note).</p>
+
+<h2 class="chap">6 &nbsp;·&nbsp; References</h2>
+<ol class="refs">
+<li>P. Rosin, E. Rammler, <i>The laws governing the fineness of powdered coal</i>, J. Inst. Fuel, 1933.</li>
+<li>F. C. Bond, <i>The third theory of comminution</i>, Trans. AIME, 1952.</li>
+<li>V. K. Karra, <i>Development of a model for predicting the screening performance of a vibrating screen</i>, CIM Bulletin 72(804), 1979.</li>
+<li>R. Olsen, R. Carnes, VSMA method T-JCI-201 (screening capacity).</li>
+<li>J. M. Fontaine, crushing and screening field documents, Belgian limestone/lime industry (field-calibrated formulas).</li>
+<li>Yang et al., <i>Fragmentation properties of calcite (drop-weight tests)</i>, Minerals 15:407, 2025.</li>
+<li>T. J. Napier-Munn et al., <i>Mineral Comminution Circuits</i>, JKMRC, 1996.</li>
+<li>J. G. Donovan, <i>Fracture toughness based models for the prediction of power consumption</i>, PhD thesis, Virginia Tech, 2003.</li>
+<li>T. Korman et al., <i>Crushing energy and UCS (limestone)</i>, Physicochem. Probl. Miner. Process. 51(2), 2015.</li>
+<li>H. Lieberwirth et al., <i>Roll crusher throughput (limestone)</i>, 2023.</li>
+<li>D. Todorović et al., <i>Bond work index of limestone (12.6–13.9 kWh/t)</i>, 2017.</li>
+<li>HAZEMAG AP-S 1010 machine documents (vendor capacity, rotor, motor), 2026.</li>
+</ol>
+
+<p class="prov">Provenance — deterministic engine, git commit 3bdc6dc, models M1 (Rosin–Rammler product), M2 (Bond power), M3 (Karra partition), M4 (screen area), M5 (JKMRC impact), run 2026-08-12, 110 regression tests passed. Every figure in this document is engine output except the §4.2 planning arithmetic, computed in the stamped verification script and shown step by step. The replay script is archived in the project repository (dossiers/DT-001/extract_dt001.py reproduces all machine figures). Document typeset with KaTeX.</p>
+
+<script>
+document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"\\(",right:"\\)",display:false},{left:"\\[",right:"\\]",display:true}]});});
+</script>
+</body></html>
