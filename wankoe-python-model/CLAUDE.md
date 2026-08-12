@@ -63,10 +63,14 @@ topology stands. Zone 1.2 REBUILT to PFD REV18 (DONE 2026-08-12):
 FeedLime = 6/20 at single-deck 6 mm SR.5105; AgLime loop = open SR.5111
 + CR.5113 (ex-CR.5107) + closed-loop SR.5115; 60 t/h loop rating alert;
 planning = strict c2 (min of AgLime-cap / FeedLime-demand hours).
-PRIORITY RULE (client 2026-08-12): FIRM products KFS + grits are the
-absolute priority; AgLime is a CAMPAIGN product (separate campaigns,
-mode A or C, whenever convenient); everything else secondary. FeedLime
-runs mode B weekly at demand rate; storage/shortfall questions CLOSED.
+PRIORITY & ZERO-WASTE RULES (client, 2026-08-12/13): FIRM products KFS
+85 kt + grits 40 kt are the absolute priority. Fines sold up to their
+60 kt market cap; the FINES SURPLUS IS REDIRECTED INTO THE AGLIME
+CHANNEL (0/1.5 fits the >=95% <1.7 spec); the AgLime loop only makes
+the complement to the 135 kt cap — NO AgLime objective or campaigns.
+planning.py implements this (sales_t view). Zero unsellable product at
+defaults; 0/20 stock grows ~76.8 kt/y (yard sizing watch). Grits 80 kt
+= documented EXTENSION CASE only (not feasible on current line).
 KEY FINDINGS: AgLime co-product ~112.8 kt/y in mode A (campaigns top up
 the 135 kt market at leisure); FeedLime/AgLime split 59/41 INVERTED vs PFD design
 42/58 (design curve finer than measured — expert question, same family

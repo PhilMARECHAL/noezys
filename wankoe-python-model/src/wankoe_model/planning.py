@@ -103,19 +103,30 @@ def run_required_hours(params: dict) -> dict:
     zone13 = _zone_result("1.3", h13_eff)
     feedlime_demand_t = h13_eff * flow["zone_1_3_feedlime"]  # wet, consumed by the dryer
 
-    # ---- 2. Zone 1.2: client planning rule c2 (2026-08-12): hours follow
-    #         the FeedLime demand of zone 1.3; AgLime is co-produced UP TO
-    #         its market cap, never beyond (zero unsellable surplus).
-    #         Dry-season 2A hours therefore stop at whichever binds first:
-    #         the AgLime market cap or the FeedLime demand; any remaining
-    #         FeedLime shortfall is completed in rain-season mode 2B
-    #         (FeedLime = whole reclaim, no AgLime).
-    aglime_target = targets["AgLime"].get("market_cap_t_per_year") or targets["AgLime"][
+    # ---- 2. Zone 1.2: client planning rules (c2 2026-08-12, amended by the
+    #         ZERO-WASTE rule 2026-08-13): hours follow the FeedLime demand
+    #         of zone 1.3. The fines surplus beyond its own market is
+    #         REDIRECTED into the AgLime sales channel (fines 0/1.5 sit
+    #         inside the AgLime 0/1.7 acceptance spec), so the AgLime LOOP
+    #         only produces the complement up to the AgLime market cap.
+    #         There is NO AgLime production objective and NO AgLime campaign.
+    aglime_cap = targets["AgLime"].get("market_cap_t_per_year") or targets["AgLime"][
         "target_t_per_year"
     ]
+    fines_spec = targets["FeedLime fines"]
+    fines_cap = fines_spec.get("market_cap_t_per_year") or fines_spec["target_t_per_year"]
+    fines_production_t = h13_eff * fines_tph
+    fines_redirect_t = max(0.0, fines_production_t - fines_cap)
+    if fines_redirect_t > aglime_cap:
+        alerts.append(
+            f"Zero-waste rule saturated: fines surplus {fines_redirect_t:.0f} t exceeds the "
+            f"whole AgLime market {aglime_cap:.0f} t — {fines_redirect_t - aglime_cap:.0f} t "
+            "remain UNSELLABLE"
+        )
+    aglime_loop_target = max(0.0, aglime_cap - fines_redirect_t)
     if aglime_tph <= 0:
         raise ValueError("Zone 1.2 produces no AgLime in dry weather: check the scenario")
-    h2_aglime_cap_eff = aglime_target / aglime_tph
+    h2_aglime_cap_eff = aglime_loop_target / aglime_tph
     h2_feedlime_eff = (
         feedlime_demand_t / feedlime_dry_season_tph
         if feedlime_dry_season_tph > 0
@@ -174,6 +185,8 @@ def run_required_hours(params: dict) -> dict:
         "UltraFin": round(h13_eff * ultrafin_tph, 0),
     }
     for product, tonnage in production_t.items():
+        if product in ("FeedLime fines", "AgLime"):
+            continue  # handled by the zero-waste redirect accounting below
         target = targets[product]
         cap = target.get("market_cap_t_per_year")
         if cap is None and target["nature"] == "flexible":
@@ -183,6 +196,22 @@ def run_required_hours(params: dict) -> dict:
                 f"{product}: {tonnage:.0f} t produced > market {cap} t — unsellable surplus "
                 f"{tonnage - cap:.0f} t (inherent co-product at these settings)"
             )
+    # ---- zero-waste sales accounting (client rule 2026-08-13)
+    fines_sold_t = min(fines_production_t, fines_cap)
+    aglime_sold_t = min(aglime_cap, aglime_t + fines_redirect_t)
+    sales_t = {
+        "FeedLime fines sold as fines": round(fines_sold_t, 0),
+        "Fines surplus redirected to AgLime": round(fines_redirect_t, 0),
+        "AgLime from loop": round(aglime_t, 0),
+        "AgLime total sold (loop + redirect)": round(aglime_sold_t, 0),
+        "AgLime market cap": aglime_cap,
+    }
+    if fines_redirect_t > 0:
+        alerts.append(
+            f"Zero-waste rule: {fines_redirect_t:.0f} t of fines redirected to the AgLime "
+            f"channel (loop production reduced to {aglime_t:.0f} t so total AgLime sales "
+            f"stay at the {aglime_cap:.0f} t market cap)"
+        )
 
     stockpiles_t = {
         "0/20 produced": round(h11_eff * q020_tph_wet, 0),
@@ -204,6 +233,7 @@ def run_required_hours(params: dict) -> dict:
             "rain_season_hours_effective": round(h2_rain_eff, 1),
         },
         "production_t": production_t,
+        "sales_t": sales_t,
         "stockpiles_t": stockpiles_t,
         # the photo's own period/stockpile alerts are computed AT CEILING
         # hours — planning solves the hours, so only process alerts carry over
