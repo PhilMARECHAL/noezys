@@ -98,14 +98,13 @@ ne pas les re-télécharger, c'est ce qui garantit un rendu identique au pixel.
 cd video
 
 # Pub FR + EN (≈ 3-4 min chacune)
-node render-pub.mjs fr        # → noezys-pub-fr.mp4 (muet)
-node render-pub.mjs en        # → noezys-pub-en.mp4 (muet)
+node render-pub.mjs fr        # → noezys-pub-fr.mp4 (muet, 34,5 s)
 
 # Vidéo de marque
 node render.mjs               # → noezys-30s.mp4 (muet)
 
 # Bandes-son (déterministes — mêmes fichiers à l'octet près, seed 42)
-python3 make-music.py music-pub.wav   "0,4,7.5,11,15,19,25" 11 19
+python3 make-music.py music-pub.wav   "0,2,5,11.2,17.2,23.2,28.2" 11.2 23.2 34.5
 python3 make-music.py music-brand.wav "0,3.3,6.5,10,14,17.3,21.8,25.8" 17.3 21.8
 
 # Mux audio (remplace les mp4 en place)
@@ -142,20 +141,10 @@ Version française uniquement, 34,5 s. Marque uniquement en fin (avec la scène
 Frontières musicales : `0,2,5,11.2,17.2,23.2,28.2` (durée en 5e argument de
 make-music.py : `34.5`). Player cliquable : CTA_START = 28.2 dans player.html.
 
----|---|---|
-| S1 ouverture | 0–2 s | **L'intelligence artificielle** intégrée à votre métier (coupe nette à 2 s) |
-| S2 accroche | 2–5 s | Gagnez du temps. Augmentez votre **chiffre d'affaires**. (fond clair, SANS logo, sortie anticipée) |
-| S3 titre | 5–6,2 s | Des solutions sur mesure (typo réduite, 84 px) |
-| S4 bulles | 6,2–11,2 s | 5 bulles « paf paf paf » : Devis automatisé · Chatbot client · Site web sur mesure · Application mobile · IA 100% custom + **curseur animé qui clique** sur « Chatbot client » (onde de clic) |
-| S5 chat | 11,2–17,2 s | Mini-démo : l'utilisateur tape sa demande de devis → indicateur de frappe → l'IA répond « Devis généré : 8 940 € HT, PDF prêt à envoyer ✓ » |
-| S6 dashboard | 17,2–23,2 s | Le site web se construit sous nos yeux (navbar, héro, graphique qui pousse, badge ✦ IA intégrée) — « VOTRE SITE WEB, PROPULSÉ PAR L'IA » |
-| S7 fin | 23,2–30 s | SEULE apparition de la marque : logo N + NOEZYS + AI INNOVATION LAB + tagline *technology that listens before it acts* + bouton **Découvrez le lab** + noezys.com/fr/lab |
-
-Frontières musicales : `0,2,5,6.2,11.2,17.2,23.2`.
-
-**Interdits actés en réunion (ne jamais réintroduire)** : marque en ouverture,
-« Le contact humain avant tout », « Pas seulement une IA », QR code,
-numérotation « 01 », énumération « site web / logiciel / application mobile ».
+**Interdits toujours en vigueur** : marque en ouverture, QR code, tagline,
+numérotation « 01 », énumération « site web / logiciel / application mobile »,
+phrase « Pas seulement une IA ». (Le contact humain, les valeurs et la ligne
+verte ont été RÉINTRODUITS à la demande du client — ne plus les supprimer.)
 
 **Anti-vibration (validé après diagnostic)** : aucune transform continue —
 chaque élément a une animation d'entrée puis se « pose net » (transform/filter
@@ -171,12 +160,12 @@ en tête du `<script>` de `video/pub.html` (clés `fr:` et `en:` côte à côte)
 
 | Pour changer… | Modifier |
 |---|---|
-| L'ouverture (S1) | `COPY.<lang>.s1` — tableau de lignes ; chaque ligne = tableau de `["mot "]` (garder l'espace final) ; `["mot ",true]` = mot en dégradé |
-| La mission (S2) | `COPY.<lang>.s2` — même format que s1 |
-| Les 2 cartes | `COPY.<lang>.cases` — `{head, sub}` ×2, HTML autorisé (`<span class="grad-text">` pour un mot en dégradé) |
-| La scène équipe | `COPY.<lang>.label` (petit titre espacé), `values` (3 mots qui claquent), `sig` (ligne en dégradé) |
-| Le CTA final | `COPY.<lang>.cta` |
-| La ligne verte finale | `COPY.<lang>.eco` |
+| L'ouverture (S1) et l'accroche (S2) | `COPY.s1` / `COPY.s2` — tableaux de lignes de `["mot "]` (garder l'espace final) ; `["mot ",true]` = mot en dégradé |
+| Les 5 bulles (texte, icône, position) | Tableau `BUBBLES` (+ icônes SVG dans `ICONS`) |
+| Les messages du chat | `COPY.userMsg` / `COPY.aiMsg` |
+| La maquette Atelier Nova | `COPY.siteUrl` + textes en dur dans le bloc `#s5` du HTML |
+| Les valeurs de l'équipe | `COPY.values` (le label et la signature sont dans le HTML `#s6`) |
+| CTA, url, ligne verte de fin | Textes en dur dans le bloc `#s7` du HTML |
 | Un timing de scène | Tableau `scenes` (champs `a`/`b`) — **reporter les nouvelles frontières dans l'appel `make-music.py`** |
 | Des photos/visuels | Ajouter un bloc dans la scène concernée sur le modèle `.photocard` de `scene.html` (cadre blanc 16 px, radius 14, rotation ±5°, pop `outBack`) |
 
