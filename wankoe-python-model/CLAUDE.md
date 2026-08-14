@@ -32,6 +32,14 @@ rule or arbitration.
   decided (the client / delegated hypothesis / expert proposal pending
   ratification).
 
+## Total-flow rule (client, 2026-08-14, load-bearing)
+
+Every line feed rate is the TOTAL flow — WET basis (dry solids + water),
+as belt-weighed: zone 1.1 = 250 t/h wet, zone 1.2 reclaim = 100 t/h
+wet, zone-1.3 feedlime wet too. Engine converts to dry at each zone
+boundary; PRESENTED rates are quoted in total (wet) flow unless
+explicitly labeled dry.
+
 ## Client vocabulary (2026-08-11, load-bearing)
 
 When the client says "zone 1" he means the CRUSHING/SCREENING BLOCK ONLY
