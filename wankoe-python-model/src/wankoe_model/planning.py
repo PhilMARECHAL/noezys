@@ -286,6 +286,39 @@ def run_required_hours(params: dict) -> dict:
         stockpiles_t["FeedLime produced"] - stockpiles_t["FeedLime consumed"], 0
     )
 
+    # ---- KFS Yield indicator (client definition 2026-08-14, wet/wet at
+    # the pivot) with its DYNAMIC target: the yield at which zone 1.1
+    # co-produces exactly the 0/20 the downstream demands (zero landfill)
+    kfs_target_t = targets["KFS"]["target_t_per_year"]
+    kfs_yield_realized_pct = 100.0 * kfs_tph / flow["zone_1_1_feed"]
+    kfs_yield_required_pct = (
+        100.0 * kfs_target_t / (kfs_target_t + reclaimed_020_t)
+        if kfs_target_t + reclaimed_020_t > 0
+        else None
+    )
+    kfs_photo_compliance = products["KFS"]["compliance"]
+    kfs_yield = {
+        "realized_pct": round(kfs_yield_realized_pct, 2),
+        "required_for_zero_landfill_pct": (
+            round(kfs_yield_required_pct, 2) if kfs_yield_required_pct is not None else None
+        ),
+        "kfs_real_psd_pct": {
+            "in_cut_20_35": kfs_photo_compliance["in_cut_pct"],
+            "below_20": kfs_photo_compliance["below_cut_pct"],
+            "above_35": kfs_photo_compliance["above_cut_pct"],
+        },
+        "_basis": "wet KFS product stream / wet pivot feed",
+    }
+    if (
+        kfs_yield_required_pct is not None
+        and kfs_yield_realized_pct < kfs_yield_required_pct - 0.005
+    ):
+        alerts.append(
+            f"KFS Yield {kfs_yield_realized_pct:.1f} % < {kfs_yield_required_pct:.1f} % "
+            "required for zero landfill — the gap is the 0/20 excess (quarry curve "
+            "and/or downstream demand are the remaining levers)"
+        )
+
     return {
         "principle": "hours follow the production targets (client rule 2026-08-08)",
         "flow_rates_tph": dict(flow),
@@ -298,6 +331,7 @@ def run_required_hours(params: dict) -> dict:
         "production_t": production_t,
         "sales_t": sales_t,
         "stockpiles_t": stockpiles_t,
+        "kfs_yield": kfs_yield,
         # the photo's own period/stockpile alerts are computed AT CEILING
         # hours — planning solves the hours, so only process alerts carry over
         "alerts": alerts

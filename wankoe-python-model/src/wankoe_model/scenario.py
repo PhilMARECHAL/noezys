@@ -338,6 +338,25 @@ def run_scenario(params: dict) -> dict:
         "balances": balances,
         "alerts": alerts,
     }
+    # ---- KFS Yield (client indicator, definition arbitrated 2026-08-14):
+    # whole KFS product stream / zone-1.1 PIVOT feed, wet/wet, always
+    # reported with the real KFS 20/35 PSD (see data "indicators" block)
+    kfs = products["KFS"]
+    results["indicators"] = {
+        "kfs_yield_pct": (
+            round(100.0 * kfs["tph"] / q_feed, 2) if kfs["present"] and q_feed > 0 else None
+        ),
+        "kfs_real_psd_pct": (
+            {
+                "in_cut_20_35": kfs["compliance"]["in_cut_pct"],
+                "below_20": kfs["compliance"]["below_cut_pct"],
+                "above_35": kfs["compliance"]["above_cut_pct"],
+            }
+            if kfs["present"]
+            else None
+        ),
+        "_basis": "wet KFS product stream / wet pivot feed (client definition 2026-08-14)",
+    }
     results["period_balance"] = _period_balance(params, results, alerts)
     return results
 

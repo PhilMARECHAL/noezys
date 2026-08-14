@@ -983,5 +983,13 @@
     "_020_note": "Client 2026-08-13 (final): there is NO market for crude 0/20 \u2014 the excess beyond the downstream reclaim goes to LANDFILL and is a NET FINANCIAL LOSS. It must be reported as a loss (with an alert), never as a sale, and minimized by design/operating choices.",
     "aglime_2c_campaigns": true,
     "_aglime_2c_note": "Client rule (2026-08-13: 'producing lime is never a problem, separate campaign' \u2014 wired 2026-08-14 after the C1 adoption dried up the fines redirect): when the 2A co-production plus the fines redirect leave the AgLime market cap unserved, zone 1.2 runs DEDICATED mode-2C campaigns (everything reclaimed leaves as AgLime) to produce the complement. Toggleable; campaign hours count toward the zone-1.2 ceiling."
+  },
+  "indicators": {
+    "kfs_yield": {
+      "definition": "KFS Yield = whole KFS product stream (BC.5013 to stock, wet) / zone-1.1 PIVOT feed (wet, measured downstream of CR.5003). Always reported WITH the real KFS 20/35 PSD (in-cut / below / above).",
+      "basis": "wet / wet (commercial basis \u2014 belt-weighed tonnages)",
+      "target": "dynamic: required-for-zero-landfill = KFS / (KFS + downstream 0/20 demand); alert when realized < required",
+      "status": "Client definition, 4 questions arbitrated 2026-08-14 (numerator = whole product stream; wet/wet; pivot denominator; dynamic target)"
+    }
   }
 }

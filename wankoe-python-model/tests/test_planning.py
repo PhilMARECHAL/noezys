@@ -100,3 +100,14 @@ def test_zone_1_1_can_be_driven_by_020_demand():
     )
     assert plan["zones"]["1.1"]["driven_by"] == "0/20 demand of zone 1.2"
     assert plan["production_t"]["KFS"] > 10000  # co-produced beyond its target
+
+def test_kfs_yield_indicator(plan):
+    # Client indicator (definition arbitrated in 4 questions, 2026-08-14):
+    # whole KFS product stream / wet pivot feed, with the real PSD attached
+    # and a DYNAMIC zero-landfill target
+    ky = plan["kfs_yield"]
+    # 24.6 % at the v = 30 reference settings (was 23.9 % at v = 35)
+    assert ky["realized_pct"] == pytest.approx(24.6, abs=0.2)
+    assert ky["required_for_zero_landfill_pct"] == pytest.approx(28.6, abs=0.3)
+    assert ky["kfs_real_psd_pct"]["in_cut_20_35"] > 80
+    assert any(a.startswith("KFS Yield") for a in plan["alerts"])

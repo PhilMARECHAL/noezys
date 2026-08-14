@@ -122,6 +122,11 @@ quarry-feed finding). COMMERCIAL CASCADE OF ADOPTION: fines fall to
 31.5 kt (60 kt market), redirect = 0. AGLIME 2C CAMPAIGNS WIRED
 (client lever 1, commercial_rules.aglime_2c_campaigns): AgLime = 2A
 49.2 + 2C 85.8 = 135 kt served; LANDFILL 144.2 -> 58.4 kt/y.
+KFS YIELD indicator (client 2026-08-14, 4-question definition): whole
+KFS stream / wet pivot feed, real PSD attached, dynamic
+required-for-zero-landfill target (KFS/(KFS + 0/20 demand)) — in
+scenario results.indicators + planning kfs_yield + alert; realized
+24.59 % vs required 28.61 % at reference.
 ZERO-LANDFILL RULE STILL UNMET — residual 48.6 kt after v = 30
 (client 2026-08-14). QUARRY TARGET RECOMPUTED on the C1+2C balance:
 38.1 % < 20 mm at the zone-1 inlet = exact zero-landfill (supersedes
