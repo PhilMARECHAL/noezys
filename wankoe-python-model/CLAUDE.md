@@ -82,6 +82,16 @@ chapters 2/4/9 partially outdated (decision log rows are authoritative).
 Zone-1.2 calc document still WITHDRAWN — re-issue next.
 Gap table: docs/pfd/gap-register.md.
 
+## Reference configuration (client, 2026-08-13 — the operating point)
+
+Zone-1 settings g = 60 / CSS = 30 / v = 35 (KFS yield 23.9 %); dryer
+limit 30 t/h AT OUTLET = 32.1 t/h wet feed (encoded); grits planning
+target 44 400 t/y (firm floor 40 000); Saturday regime zone 1 (2 400 h).
+Sales: KFS 85 000 + grits 44 400 + fines 60 000 + AgLime exactly
+135 000 (zero-waste redirect); residual 0/20 ~12.2 kt/y = strategic
+reserve. Zones 74.1 / 43.0 / 95.0 %. Mode 1B unusable at 250 t/h with
+CSS 30 (no longer needed). Ch.9 tests pin all spec-era settings.
+
 ## Engineering state (see docs/ for detail)
 
 - docs/spec-conformity-matrix.md: requirement-by-requirement traceability

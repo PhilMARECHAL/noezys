@@ -40,6 +40,10 @@ def results():
                 "default_scenario": {"flow_rates_tph": {"zone_1_3_feedlime": 30}},
                 "calibration": {"I_dry": {"default": 0.4}},
                 "machines": {
+                    # 2026-08-13 optimization changed the shipped defaults
+                    # (g 60, CSS 30, v 35) — pin ch.9's spec-era settings
+                    "CR.5009": {"parameters": {"g": {"default": 40}}},
+                    "CR.5011": {"parameters": {"x80": {"default": 20}, "v": {"default": 45}}},
                     "SR.5007": {"parameters": {"I": {"default": 0.4}}},
                     "SR.5115": {"parameters": {"I": {"default": 0.4}}},
                     # ch.9 fines were authored with the spec-era 100 um cut;

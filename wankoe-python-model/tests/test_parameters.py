@@ -52,7 +52,7 @@ def test_cr5009_gap_is_live():
     base = run_scenario(load_parameters())
     changed = run_scenario(
         load_parameters(
-            overrides={"machines": {"CR.5009": {"parameters": {"g": {"default": 60}}}}}
+            overrides={"machines": {"CR.5009": {"parameters": {"g": {"default": 40}}}}}
         )
     )
     assert (
