@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Noezys — pub 30s (script flyers v3)</title>
+<title>NOEZYS — pub 30s (v4 remontage)</title>
 <style>
   @font-face { font-family:'Outfit'; font-weight:300; src:url('fonts/outfit-300.woff2') format('woff2'); }
   @font-face { font-family:'Outfit'; font-weight:400; src:url('fonts/outfit-400.woff2') format('woff2'); }
@@ -15,7 +15,6 @@
     --cyan:#00D4FF; --purple:#8B5CF6;
     --text:#F0F3FA; --text2:#8A96B4;
     --light:#E9EDF4; --ink:#0B0F1E;
-    --green:#55B97E;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   html,body { width:1920px; height:1080px; overflow:hidden; background:#000; }
@@ -31,171 +30,199 @@
   .center-wrap { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
   .w { display:inline-block; opacity:0; white-space:pre; }
 
-  /* S1 ouverture — dark kinetic */
+  /* S1 ouverture 0-2s */
   #s1 { background:var(--bg-deep); }
-  #s1 .line { text-align:center; color:var(--text); font-weight:700; font-size:132px; line-height:1.16; letter-spacing:-2px; }
+  #s1 .line { text-align:center; color:var(--text); font-weight:700; font-size:126px; line-height:1.16; letter-spacing:-2px; }
 
-  /* S2 mission — light + mark */
+  /* S2 accroche 2-5s — light, SANS logo (marque interdite en ouverture) */
   #s2 { background:linear-gradient(160deg,#F2F4F8,#DDE2EC); }
-  #s2 .row { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; gap:90px; padding:0 120px; }
-  #s2 .mark { width:280px; height:280px; opacity:0; flex:0 0 auto; filter:drop-shadow(0 40px 60px rgba(10,14,26,.25)); }
-  #s2 .txt { font-size:92px; font-weight:600; color:var(--ink); letter-spacing:-1px; max-width:1150px; line-height:1.25; }
-  #s2 .w { margin-right:0.24em; }
+  #s2 .line { text-align:center; color:var(--ink); font-weight:700; font-size:110px; line-height:1.22; letter-spacing:-1px; }
 
-  /* S3 logo reveal */
-  #s3 { background:radial-gradient(ellipse at 50% 38%,var(--bg-mid) 0%,var(--bg-deep) 70%); }
-  #s3 .mark { width:250px; height:250px; opacity:0;
-              filter:drop-shadow(0 0 50px rgba(0,212,255,.35)) drop-shadow(0 0 110px rgba(139,92,246,.3)); }
-  #s3 .name { margin-top:46px; font-size:140px; font-weight:600; color:var(--text); opacity:0; }
-  #s3 .divider { margin-top:32px; height:3px; width:0; background:linear-gradient(90deg,var(--cyan),var(--purple)); border-radius:2px; }
-  #s3 .sub { margin-top:28px; font-size:38px; font-weight:400; color:var(--text2); letter-spacing:14px; opacity:0; }
+  /* S3 titre 5-6.2s */
+  #s3 { background:var(--bg-deep); }
+  #s3 .title { font-size:84px; font-weight:600; color:var(--text); letter-spacing:-1px; opacity:0; }
 
-  /* S4 cartes */
-  .case { position:absolute; inset:0; display:none; }
-  .case.on { display:block; }
-  #s4 { background:var(--bg-deep); }
-  #s4 .glowbg { position:absolute; inset:0; }
-  .case .inner { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; gap:80px; padding:0 160px; }
-  .case .num { font-size:230px; font-weight:700; opacity:0; flex:0 0 auto; line-height:1; }
-  .case .sep { width:3px; height:340px; background:linear-gradient(180deg,var(--cyan),var(--purple)); border-radius:2px; opacity:0; }
-  .case .txt { max-width:1080px; }
-  .case .head { font-size:86px; font-weight:600; color:var(--text); line-height:1.18; letter-spacing:-1px; opacity:0; }
-  .case .sub { margin-top:26px; font-size:46px; font-weight:300; color:var(--text2); line-height:1.35; opacity:0; }
-  .case .sub .grad-text { font-weight:400; }
+  /* S4 bulles 6.2-11.2s */
+  #s4 { background:radial-gradient(ellipse 1400px 900px at 50% 45%,var(--bg-mid) 0%,var(--bg-deep) 70%); }
+  #s4 .header { position:absolute; top:70px; left:0; right:0; text-align:center;
+                font-size:38px; font-weight:500; color:var(--text2); letter-spacing:4px; opacity:0; }
+  .bubble { position:absolute; display:flex; align-items:center; gap:20px;
+            padding:26px 42px; border-radius:70px; opacity:0;
+            background:linear-gradient(var(--bg-mid),var(--bg-mid)) padding-box,
+                       linear-gradient(90deg,var(--cyan),var(--purple)) border-box;
+            border:2px solid transparent;
+            box-shadow:0 18px 50px rgba(0,0,0,.45), 0 0 40px rgba(0,212,255,.08); }
+  .bubble .ico { font-size:44px; line-height:1; }
+  .bubble .lbl { font-size:38px; font-weight:600; color:var(--text); white-space:nowrap; }
+  #cursor { position:absolute; width:44px; height:44px; opacity:0; z-index:10; filter:drop-shadow(0 4px 10px rgba(0,0,0,.6)); }
+  #ripple { position:absolute; width:24px; height:24px; border-radius:50%; border:3px solid var(--cyan); opacity:0; z-index:9; }
 
-  /* S5 équipe — light */
-  #s5 { background:linear-gradient(160deg,#F2F4F8,#DDE2EC); }
-  #s5 .label { font-size:30px; font-weight:500; color:#5A6580; letter-spacing:12px; opacity:0; }
-  #s5 .values { margin-top:44px; font-size:104px; font-weight:700; color:var(--ink); letter-spacing:-1px; }
-  #s5 .values .w { margin-right:0.3em; }
-  #s5 .sig { margin-top:48px; font-size:76px; font-weight:600; opacity:0; }
+  /* S5 chat 11.2-17.2s */
+  #s5 { background:radial-gradient(ellipse 1400px 900px at 50% 45%,var(--bg-mid) 0%,var(--bg-deep) 70%); }
+  #s5 .chatwin { position:absolute; left:50%; top:50%; width:980px; transform:translate(-50%,-50%);
+                 background:#0D1225; border:1px solid rgba(255,255,255,.09); border-radius:22px;
+                 box-shadow:0 40px 100px rgba(0,0,0,.55); opacity:0; overflow:hidden; }
+  #s5 .chathead { display:flex; align-items:center; gap:12px; padding:20px 26px;
+                  border-bottom:1px solid rgba(255,255,255,.07); }
+  #s5 .dot { width:15px; height:15px; border-radius:50%; }
+  #s5 .chathead .ttl { margin-left:14px; font-size:26px; font-weight:500; color:var(--text2); }
+  #s5 .msgs { padding:34px 40px 40px; display:flex; flex-direction:column; gap:26px; min-height:380px; }
+  #s5 .msg { max-width:78%; padding:22px 30px; border-radius:18px; font-size:32px; line-height:1.4; opacity:0; }
+  #s5 .msg.user { align-self:flex-end; background:var(--light); color:var(--ink); border-bottom-right-radius:4px; }
+  #s5 .msg.ai { align-self:flex-start; color:var(--text); border-bottom-left-radius:4px;
+                background:linear-gradient(rgba(0,212,255,.10),rgba(139,92,246,.10)) padding-box,
+                           linear-gradient(90deg,var(--cyan),var(--purple)) border-box;
+                border:2px solid transparent; }
+  #s5 .typing { align-self:flex-start; display:flex; gap:10px; padding:24px 28px; opacity:0;
+                background:rgba(255,255,255,.05); border-radius:18px; border-bottom-left-radius:4px; }
+  #s5 .typing i { width:12px; height:12px; border-radius:50%; background:var(--text2); display:block; }
+  #s5 .caret { display:inline-block; width:3px; height:1em; background:var(--ink); vertical-align:-0.15em; }
 
-  /* S6 carte finale */
-  #s6 { background:
+  /* S6 dashboard 17.2-23.2s */
+  #s6 { background:radial-gradient(ellipse 1400px 900px at 50% 45%,var(--bg-mid) 0%,var(--bg-deep) 70%); }
+  #s6 .caption { position:absolute; top:78px; left:0; right:0; text-align:center;
+                 font-size:38px; font-weight:500; color:var(--text2); letter-spacing:4px; opacity:0; }
+  #s6 .browser { position:absolute; left:50%; top:54%; width:1240px; height:640px; transform:translate(-50%,-50%);
+                 background:#0D1225; border:1px solid rgba(255,255,255,.09); border-radius:18px;
+                 box-shadow:0 40px 100px rgba(0,0,0,.55); opacity:0; overflow:hidden; }
+  #s6 .bbar { display:flex; align-items:center; gap:10px; padding:16px 22px; border-bottom:1px solid rgba(255,255,255,.07); }
+  #s6 .bbar .dot { width:14px; height:14px; border-radius:50%; }
+  #s6 .bbar .urlf { margin-left:16px; flex:1; height:34px; border-radius:17px; background:rgba(255,255,255,.06);
+                    font-size:20px; color:var(--text2); display:flex; align-items:center; padding:0 18px; }
+  #s6 .site { position:relative; padding:26px 34px; }
+  #s6 .nav { height:46px; border-radius:10px; background:rgba(255,255,255,.07); opacity:0; }
+  #s6 .cols { display:flex; gap:30px; margin-top:26px; }
+  #s6 .heroL { flex:1.15; }
+  #s6 .hline { height:34px; border-radius:8px; background:linear-gradient(90deg,var(--cyan),var(--purple)); opacity:0; }
+  #s6 .hline.h2 { width:70%; margin-top:14px; background:rgba(255,255,255,.16); }
+  #s6 .hbtn { width:220px; height:52px; margin-top:24px; border-radius:26px;
+              background:linear-gradient(90deg,var(--cyan),var(--purple)); opacity:0; }
+  #s6 .chart { display:flex; align-items:flex-end; gap:22px; height:150px; margin-top:34px; }
+  #s6 .bar { width:52px; border-radius:8px 8px 0 0; background:linear-gradient(180deg,var(--cyan),var(--purple)); height:0; }
+  #s6 .imgblk { flex:0.85; border-radius:14px; background:rgba(255,255,255,.06); min-height:330px; opacity:0;
+                display:flex; align-items:center; justify-content:center; font-size:60px; }
+  #s6 .badge { position:absolute; top:96px; right:60px; padding:16px 30px; border-radius:40px; opacity:0;
+               background:linear-gradient(90deg,var(--cyan),var(--purple));
+               font-size:30px; font-weight:600; color:#fff; box-shadow:0 14px 40px rgba(139,92,246,.4); }
+
+  /* S7 slide de fin 23.2-30s — SEULE apparition de la marque */
+  #s7 { background:
         radial-gradient(ellipse 900px 600px at 12% 88%,rgba(139,92,246,.16),transparent 60%),
         radial-gradient(ellipse 900px 600px at 88% 12%,rgba(0,212,255,.14),transparent 60%),
         var(--bg-deep); }
-  #s6 .dot { position:absolute; border-radius:50%; background:#9FB6FF; }
-  #s6 .mark { width:130px; height:130px; opacity:0;
+  #s7 .dot { position:absolute; border-radius:50%; background:#9FB6FF; }
+  #s7 .mark { width:150px; height:150px; opacity:0;
               filter:drop-shadow(0 0 40px rgba(0,212,255,.3)) drop-shadow(0 0 90px rgba(139,92,246,.25)); }
-  #s6 .name { margin-top:22px; font-size:80px; font-weight:600; color:var(--text); opacity:0; }
-  #s6 .divider { margin-top:20px; height:3px; width:0; background:linear-gradient(90deg,var(--cyan),var(--purple)); border-radius:2px; }
-  #s6 .cta { margin-top:28px; font-size:48px; font-weight:500; color:var(--text); opacity:0; }
-  #s6 .qrrow { margin-top:34px; display:flex; align-items:center; gap:42px; }
-  #s6 .qrcard { width:230px; height:230px; background:#fff; border-radius:22px; padding:15px; opacity:0;
-                box-shadow:0 0 50px rgba(0,212,255,.2), 0 24px 60px rgba(0,0,0,.5); }
-  #s6 .qrcard img { display:block; width:100%; height:100%; }
-  #s6 .qrside { text-align:left; }
-  #s6 .scanlabel { font-size:28px; font-weight:500; color:var(--text2); letter-spacing:2px; opacity:0; }
-  #s6 .url { margin-top:12px; font-size:46px; font-weight:600; opacity:0; }
-  #s6 .eco { margin-top:30px; font-size:24px; font-weight:500; color:var(--green); letter-spacing:6px; opacity:0; }
+  #s7 .name { margin-top:26px; font-size:88px; font-weight:600; color:var(--text); letter-spacing:12px; padding-left:12px; opacity:0; }
+  #s7 .sub { margin-top:16px; font-size:30px; font-weight:400; color:var(--text2); letter-spacing:12px; opacity:0; }
+  #s7 .tag { margin-top:34px; font-size:40px; font-weight:300; font-style:italic; color:#D7DDEA; opacity:0;
+             text-shadow:0 0 22px rgba(139,92,246,.2); }
+  #s7 .ctabtn { margin-top:44px; padding:24px 56px; border-radius:48px; opacity:0;
+                background:linear-gradient(90deg,var(--cyan),var(--purple));
+                font-size:38px; font-weight:600; color:#fff;
+                box-shadow:0 18px 50px rgba(0,212,255,.25), 0 18px 60px rgba(139,92,246,.3); }
+  #s7 .url { margin-top:22px; font-size:30px; font-weight:500; color:var(--text2); letter-spacing:2px; opacity:0; }
 </style>
 </head>
 <body>
 <div id="stage">
-  <div class="scene" id="s1"><div class="center-wrap" id="s1group"></div></div>
+
+  <div class="scene" id="s1">
+    <div class="center-wrap" id="s1group"></div>
+  </div>
 
   <div class="scene" id="s2">
-    <div class="row">
-      <img class="mark" id="s2mark" src="../assets/noezys-n-mark.png" alt="">
-      <div class="txt" id="s2txt"></div>
-    </div>
+    <div class="center-wrap" id="s2group"></div>
   </div>
 
   <div class="scene" id="s3">
-    <div class="center-wrap">
-      <img class="mark" id="s3mark" src="../assets/noezys-n-mark.png" alt="">
-      <div class="name">NOEZYS</div>
-      <div class="divider" id="s3div"></div>
-      <div class="sub" id="s3sub">AI INNOVATION LAB</div>
-    </div>
+    <div class="center-wrap"><div class="title" id="s3title">Des solutions sur mesure</div></div>
   </div>
 
   <div class="scene" id="s4">
-    <div class="glowbg" id="s4glow"></div>
-    <div class="case" id="case0"><div class="inner">
-      <div class="num grad-text">01</div><div class="sep"></div>
-      <div class="txt"><div class="head"></div><div class="sub"></div></div>
-    </div></div>
-    <div class="case" id="case1"><div class="inner">
-      <div class="num grad-text">02</div><div class="sep"></div>
-      <div class="txt"><div class="head"></div><div class="sub"></div></div>
-    </div></div>
+    <div class="header" id="s4header">DES SOLUTIONS SUR MESURE</div>
+    <div id="s4bubbles"></div>
+    <div id="ripple"></div>
+    <svg id="cursor" viewBox="0 0 24 24"><path d="M4 2 L20 12 L12.5 13.5 L9 21 Z" fill="#fff" stroke="#0B0F1E" stroke-width="1.4"/></svg>
   </div>
 
   <div class="scene" id="s5">
-    <div class="center-wrap">
-      <div class="label" id="s5label"></div>
-      <div class="values" id="s5values"></div>
-      <div class="sig grad-text" id="s5sig"></div>
+    <div class="chatwin" id="chatwin">
+      <div class="chathead">
+        <span class="dot" style="background:#FF5F57"></span>
+        <span class="dot" style="background:#FEBC2E"></span>
+        <span class="dot" style="background:#28C840"></span>
+        <span class="ttl">Votre assistant IA</span>
+      </div>
+      <div class="msgs">
+        <div class="msg user" id="umsg"><span id="utxt"></span><span class="caret" id="ucaret"></span></div>
+        <div class="typing" id="typing"><i></i><i></i><i></i></div>
+        <div class="msg ai" id="aimsg"><span id="aitxt"></span></div>
+      </div>
     </div>
   </div>
 
   <div class="scene" id="s6">
-    <div id="s6dots"></div>
-    <div class="center-wrap" id="s6group">
-      <img class="mark" id="s6mark" src="../assets/noezys-n-mark.png" alt="">
-      <div class="name">NOEZYS</div>
-      <div class="divider" id="s6div"></div>
-      <div class="cta" id="s6cta"></div>
-      <div class="qrrow">
-        <div class="qrcard" id="s6qr"><img id="s6qrimg" src="" alt="QR code"></div>
-        <div class="qrside">
-          <div class="scanlabel" id="s6scan"></div>
-          <div class="url grad-text" id="s6url"></div>
+    <div class="caption" id="s6caption">VOTRE SITE WEB, PROPULSÉ PAR L'IA</div>
+    <div class="browser" id="browser">
+      <div class="bbar">
+        <span class="dot" style="background:#FF5F57"></span>
+        <span class="dot" style="background:#FEBC2E"></span>
+        <span class="dot" style="background:#28C840"></span>
+        <div class="urlf">https://www.votre-entreprise.be</div>
+      </div>
+      <div class="site">
+        <div class="nav" id="d-nav"></div>
+        <div class="cols">
+          <div class="heroL">
+            <div class="hline" id="d-h1"></div>
+            <div class="hline h2" id="d-h2"></div>
+            <div class="hbtn" id="d-btn"></div>
+            <div class="chart" id="d-chart">
+              <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            </div>
+          </div>
+          <div class="imgblk" id="d-img">🖼️</div>
         </div>
       </div>
-      <div class="eco" id="s6eco"></div>
+      <div class="badge" id="d-badge">✦ IA intégrée</div>
     </div>
   </div>
+
+  <div class="scene" id="s7">
+    <div id="s7dots"></div>
+    <div class="center-wrap">
+      <img class="mark" id="s7mark" src="../assets/noezys-n-mark.png" alt="">
+      <div class="name" id="s7name">NOEZYS</div>
+      <div class="sub" id="s7sub">AI INNOVATION LAB</div>
+      <div class="tag" id="s7tag">technology that listens before it acts</div>
+      <div class="ctabtn" id="s7cta">Découvrez le lab</div>
+      <div class="url" id="s7url">noezys.com/fr/lab</div>
+    </div>
+  </div>
+
 </div>
 
 <script>
-/* ═══ copy v3 — validée par le client (script flyers) ═══ */
-const LANG=(new URLSearchParams(location.search).get('lang'))||'fr';
-const COPY={
- fr:{
-  s1:[[["L'intelligence ",true],["artificielle,",true]],[["intégrée "],["à "],["votre "],["métier."]]],
-  s2:[[["Gagner "],["du "],["temps."]],[["Faire "],["grandir "],["votre "],["chiffre d'affaires.",true]]],
-  cases:[
-   {head:'Des solutions <span class="grad-text">sur mesure</span> pour vous.',
-    sub:"Site web, logiciel, applications mobiles, avec le meilleur de l'IA."},
-   {head:'Pas seulement une IA.',
-    sub:'Une <span class="grad-text">vraie équipe</span> qui vous écoute et vous accompagne.'},
+/* ═══ Textes (source unique pour les ajustements) ═══ */
+const COPY = {
+  s1: [[["L'intelligence ",true],["artificielle",true]],[["intégrée "],["à "],["votre "],["métier"]]],
+  s2: [[["Gagnez "],["du "],["temps."]],[["Augmentez "],["votre "],["chiffre d'affaires.",true]]],
+  bubbles: [
+    { ico:"📄", lbl:"Devis automatisé",   x:430,  y:330 },
+    { ico:"💬", lbl:"Chatbot client",     x:1150, y:300 },
+    { ico:"🌐", lbl:"Site web sur mesure",x:360,  y:640 },
+    { ico:"📱", lbl:"Application mobile", x:1190, y:660 },
+    { ico:"🧠", lbl:"IA 100% custom",     x:790,  y:480 },
   ],
-  label:"L'ÉQUIPE NOEZYS",
-  values:["Authenticité.","Impact.","Créativité."],
-  sig:"Le contact humain avant tout.",
-  cta:"30 minutes. Un plan d'action concret. Sans engagement.",
-  scan:"Scannez pour découvrir",
-  url:"noezys.com/fr/lab",
-  qr:"qr-fr.png",
-  eco:"SOLUTIONS DIGITALES DURABLES · IA RESPONSABLE",
- },
- en:{
-  s1:[[["Artificial ",true],["intelligence,",true]],[["built "],["into "],["your "],["business."]]],
-  s2:[[["Save "],["time."]],[["Grow "],["your "],["revenue.",true]]],
-  cases:[
-   {head:'Solutions built around <span class="grad-text">you</span>.',
-    sub:"Websites, software and mobile apps that put AI to work for you."},
-   {head:'Not just AI.',
-    sub:'A <span class="grad-text">real team</span> that listens and stays by your side.'},
-  ],
-  label:"THE NOEZYS TEAM",
-  values:["Authenticity.","Impact.","Creativity."],
-  sig:"Human connection comes first.",
-  cta:"30 minutes. A clear action plan. No strings attached.",
-  scan:"Scan to discover",
-  url:"noezys.com/en/lab",
-  qr:"qr-en.png",
-  eco:"SUSTAINABLE DIGITAL SOLUTIONS · RESPONSIBLE AI",
- },
-}[LANG];
+  userMsg: "Bonjour, il me faut un devis pour une toiture de 120 m²",
+  aiMsg:   "Devis généré : 8 940 € HT, PDF prêt à envoyer ✓",
+};
 
-/* build word-pop lines: array of lines, each line = array of [word, gradient?] */
-function buildLines(container, lines, lineClass){
+/* build S1/S2 word lines */
+function buildLines(container, lines, fontClass){
   lines.forEach(line=>{
-    const d=document.createElement('div'); if(lineClass) d.className=lineClass;
+    const d=document.createElement('div'); d.className='line';
     line.forEach(w=>{
       const s=document.createElement('span'); s.className='w'+(w[1]?' grad-text':'');
       s.textContent=w[0]; d.appendChild(s);
@@ -203,141 +230,184 @@ function buildLines(container, lines, lineClass){
     container.appendChild(d);
   });
 }
-buildLines(document.getElementById('s1group'), COPY.s1, 'line');
-buildLines(document.getElementById('s2txt'), COPY.s2);
+buildLines(document.getElementById('s1group'), COPY.s1);
+buildLines(document.getElementById('s2group'), COPY.s2);
 const s1words=[...document.querySelectorAll('#s1 .w')];
 const s2words=[...document.querySelectorAll('#s2 .w')];
 
-COPY.cases.forEach((c,i)=>{
-  const el=document.getElementById('case'+i);
-  el.querySelector('.head').innerHTML=c.head;
-  el.querySelector('.sub').innerHTML=c.sub;
+/* build bubbles */
+const bwrap=document.getElementById('s4bubbles');
+const bubbles=COPY.bubbles.map(b=>{
+  const el=document.createElement('div'); el.className='bubble';
+  el.style.left=b.x+'px'; el.style.top=b.y+'px';
+  el.innerHTML=`<span class="ico">${b.ico}</span><span class="lbl">${b.lbl}</span>`;
+  bwrap.appendChild(el);
+  return el;
 });
 
-document.getElementById('s5label').textContent=COPY.label;
-const valWrap=document.getElementById('s5values');
-COPY.values.forEach(v=>{
-  const s=document.createElement('span'); s.className='w'; s.textContent=v+' ';
-  valWrap.appendChild(s);
-});
-const valWords=[...valWrap.children];
-document.getElementById('s5sig').textContent=COPY.sig;
-document.getElementById('s6cta').textContent=COPY.cta;
-document.getElementById('s6scan').textContent=COPY.scan;
-document.getElementById('s6url').textContent=COPY.url;
-document.getElementById('s6qrimg').src=COPY.qr;
-document.getElementById('s6eco').textContent=COPY.eco;
-
-/* particles finale */
-const dotsWrap=document.getElementById('s6dots');
+/* particules FIGÉES (positions fixes, seule l'opacité scintille doucement) */
+const dotsWrap=document.getElementById('s7dots');
 const DOTS=[];
-for(let i=0;i<42;i++){
+for(let i=0;i<36;i++){
   const r1=Math.abs(Math.sin(i*127.1))%1, r2=Math.abs(Math.sin(i*311.7))%1, r3=Math.abs(Math.sin(i*74.3))%1;
   const d=document.createElement('div'); d.className='dot';
-  const size=1.5+r3*3; d.style.width=size+'px'; d.style.height=size+'px';
+  const size=1.5+r3*3;
+  d.style.width=size+'px'; d.style.height=size+'px';
+  d.style.left=(r1*1920)+'px'; d.style.top=(r2*1080)+'px';
   dotsWrap.appendChild(d);
-  DOTS.push({el:d,x:r1*1920,y:r2*1080,ph:i*0.7,sp:0.3+r3*0.5,amp:14+r1*22});
+  DOTS.push({el:d,ph:i*0.7});
 }
 
-/* ═══ engine ═══ */
+/* ═══ moteur — avec « pose nette » anti-vibration ═══ */
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
 const nrm=(t,a,b)=>clamp((t-a)/(b-a),0,1);
-const outExpo=p=>p>=1?1:1-Math.pow(2,-10*p);
-const outBack=p=>{const c=1.70158,c3=c+1;return 1+c3*Math.pow(p-1,3)+c*Math.pow(p-1,2);};
 const outCubic=p=>1-Math.pow(1-p,3);
-function pop(el,t,t0,dur=0.32){
-  const p=nrm(t,t0,t0+dur), e=outExpo(p);
-  el.style.opacity=p<=0?0:e;
-  el.style.transform=`scale(${1.9-0.9*e})`;
-  el.style.filter=`blur(${(1-e)*10}px)`;
+const outBack=p=>{const c=1.2,c3=c+1;return 1+c3*Math.pow(p-1,3)+c*Math.pow(p-1,2);};
+const easeInOut=p=>p<0.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+
+/* pop avec SNAP : à la fin, aucune propriété résiduelle — texte natif immobile */
+function pop(el,t,t0,dur=0.3){
+  const p=nrm(t,t0,t0+dur);
+  if(p<=0){ el.style.opacity=0; return; }
+  if(p>=1){ el.style.opacity=1; el.style.transform=''; el.style.filter=''; return; }
+  const e=outCubic(p);
+  el.style.opacity=e;
+  el.style.transform=`scale(${1.6-0.6*e})`;
+  el.style.filter=`blur(${(1-e)*6}px)`;
+}
+function fadeUp(el,t,t0,dur=0.5,dy=26){
+  const p=nrm(t,t0,t0+dur);
+  if(p<=0){ el.style.opacity=0; return; }
+  if(p>=1){ el.style.opacity=1; el.style.transform=''; return; }
+  const e=outCubic(p);
+  el.style.opacity=e; el.style.transform=`translateY(${(1-e)*dy}px)`;
+}
+function popBack(el,t,t0,dur=0.45,extra=''){
+  const p=nrm(t,t0,t0+dur);
+  if(p<=0){ el.style.opacity=0; return; }
+  if(p>=1){ el.style.opacity=1; el.style.transform=extra; return; }
+  const e=outBack(outCubic(p));
+  el.style.opacity=Math.min(1,p*3);
+  el.style.transform=`${extra} scale(${0.4+0.6*e})`;
 }
 const S=id=>document.getElementById(id);
-const CASE_HUES=['rgba(0,212,255,.10)','rgba(139,92,246,.12)'];
 
-/* ═══ timeline v3 : 0-4-7.5-11-15-19-25-30 ═══ */
+/* trajectoire du curseur : segments (t0,t1, de→vers), easing doux */
+const CUR_PATH=[
+  { t0:3.0, t1:3.15, from:[1650,950], to:[1650,950] },   /* apparition */
+  { t0:3.15,t1:4.1,  from:[1650,950], to:[1330,365] },   /* vers Chatbot client */
+  { t0:4.1, t1:4.9,  from:[1330,365], to:[1330,365] },   /* clic + pause */
+];
+function cursorPos(lt){
+  for(const seg of CUR_PATH){
+    if(lt<=seg.t1||seg===CUR_PATH[CUR_PATH.length-1]){
+      const p=easeInOut(nrm(lt,seg.t0,seg.t1));
+      return [seg.from[0]+(seg.to[0]-seg.from[0])*p, seg.from[1]+(seg.to[1]-seg.from[1])*p];
+    }
+  }
+}
+
 const scenes=[
- /* S1 ouverture 0–4.0 */
- {id:'s1',a:0,b:4.0,update(t){
-   s1words.forEach((w,i)=>pop(w,t,0.15+i*0.35));
-   S('s1group').style.transform=`scale(${1+0.05*nrm(t,0,4.0)})`;
+ /* S1 ouverture 0–2.0 : pops rapides puis IMMOBILE, coupe nette */
+ {id:'s1',a:0,b:2.0,update(t){
+   s1words.forEach((w,i)=>pop(w,t,0.08+i*0.17,0.26));
  }},
- /* S2 mission 4.0–7.5 */
- {id:'s2',a:4.0,b:7.5,update(t){
-   const lt=t-4.0;
-   const m=S('s2mark');
-   const p=nrm(lt,0.05,0.8), e=outBack(outCubic(p));
-   m.style.opacity=p<=0?0:1;
-   m.style.transform=`translateY(${-750+750*e}px) rotate(${-70+82*e}deg)`;
-   s2words.forEach((w,i)=>pop(w,lt,0.4+i*0.22,0.3));
+ /* S2 accroche 2.0–5.0 : pops rapides, sortie anticipée (rémanence courte) */
+ {id:'s2',a:2.0,b:5.0,update(t){
+   const lt=t-2.0;
+   s2words.forEach((w,i)=>pop(w,lt,0.08+i*0.15,0.26));
+   /* sortie : fondu rapide en toute fin de plan */
+   const out=nrm(lt,2.72,2.98);
+   S('s2group').style.opacity=1-out;
  }},
- /* S3 logo 7.5–11.0 */
- {id:'s3',a:7.5,b:11.0,update(t){
-   const lt=t-7.5;
-   const m=S('s3mark');
-   const p=nrm(lt,0.05,0.65), e=outBack(outCubic(p));
-   m.style.opacity=p<=0?0:1; m.style.transform=`scale(${0.3+0.7*e})`;
-   const nm=document.querySelector('#s3 .name');
-   const p2=outExpo(nrm(lt,0.5,1.4));
-   nm.style.opacity=p2; nm.style.letterSpacing=(70-56*p2)+'px'; nm.style.paddingLeft=(70-56*p2)+'px';
-   S('s3div').style.width=(outCubic(nrm(lt,0.9,1.7))*420)+'px';
-   S('s3sub').style.opacity=outCubic(nrm(lt,1.2,2.0));
+ /* S3 titre 5.0–6.2 : typo réduite, apparition franche */
+ {id:'s3',a:5.0,b:6.2,update(t){
+   const lt=t-5.0;
+   popBack(S('s3title'),lt,0.08,0.4);
  }},
- /* S4 cartes 11.0–19.0 (2 × 4 s) */
- {id:'s4',a:11.0,b:19.0,update(t){
-   const lt=t-11.0;
-   const idx=clamp(Math.floor(lt/4),0,1);
-   [0,1].forEach(i=>S('case'+i).classList.toggle('on',i===idx));
-   S('s4glow').style.background=`radial-gradient(ellipse 1200px 800px at ${35+idx*30}% 50%,${CASE_HUES[idx]},transparent 65%)`;
-   const ct=lt-idx*4;
-   const c=S('case'+idx);
-   const num=c.querySelector('.num'), sep=c.querySelector('.sep'),
-         head=c.querySelector('.head'), sub=c.querySelector('.sub');
-   const pn=nrm(ct,0.05,0.5), en=outBack(outCubic(pn));
-   num.style.opacity=pn<=0?0:1; num.style.transform=`scale(${0.5+0.5*en})`;
-   const ps=outCubic(nrm(ct,0.25,0.8));
-   sep.style.opacity=ps; sep.style.transform=`scaleY(${ps})`;
-   const ph=outExpo(nrm(ct,0.35,1.0));
-   head.style.opacity=ph; head.style.transform=`translateX(${(1-ph)*60}px)`;
-   const pu=outCubic(nrm(ct,0.8,1.5));
-   sub.style.opacity=pu; sub.style.transform=`translateX(${(1-pu)*40}px)`;
- }},
- /* S5 équipe 19.0–25.0 */
- {id:'s5',a:19.0,b:25.0,update(t){
-   const lt=t-19.0;
-   const lb=S('s5label');
-   const p=outCubic(nrm(lt,0.15,0.9));
-   lb.style.opacity=p; lb.style.transform=`translateY(${(1-p)*20}px)`;
-   valWords.forEach((w,i)=>pop(w,lt,0.9+i*0.75,0.4));
-   const sg=S('s5sig');
-   const p2=outExpo(nrm(lt,3.4,4.2));
-   sg.style.opacity=p2; sg.style.transform=`translateY(${(1-p2)*30}px) scale(${0.9+0.1*p2})`;
- }},
- /* S6 finale 25.0–30.0 */
- {id:'s6',a:25.0,b:30.01,update(t){
-   const lt=t-25.0;
-   DOTS.forEach(d=>{
-     d.el.style.left=(d.x+Math.sin(lt*d.sp+d.ph)*d.amp)+'px';
-     d.el.style.top=(d.y+Math.cos(lt*d.sp*0.8+d.ph)*d.amp)+'px';
-     d.el.style.opacity=0.15+0.25*Math.abs(Math.sin(lt*0.8+d.ph));
+ /* S4 bulles 6.2–11.2 : paf paf paf + curseur + clic */
+ {id:'s4',a:6.2,b:11.2,update(t){
+   const lt=t-6.2;
+   fadeUp(S('s4header'),lt,0.05,0.4,14);
+   bubbles.forEach((b,i)=>{
+     popBack(b,lt,0.25+i*0.55,0.42);
+     /* effet « pressé » de la bulle Chatbot au clic (4.35→4.6) */
+     if(i===1&&lt>4.35){
+       const pr=nrm(lt,4.35,4.45)-nrm(lt,4.5,4.62);
+       b.style.transform=`scale(${1-0.06*pr})`;
+       if(lt>4.62)b.style.transform='';
+     }
    });
-   const m=S('s6mark');
-   const p=nrm(lt,0.05,0.6), e=outBack(outCubic(p));
-   m.style.opacity=p<=0?0:1; m.style.transform=`scale(${0.4+0.6*e})`;
-   const nm=document.querySelector('#s6 .name');
-   const p2=outExpo(nrm(lt,0.35,1.0));
-   nm.style.opacity=p2; nm.style.transform=`translateY(${(1-p2)*25}px)`;
-   S('s6div').style.width=(outCubic(nrm(lt,0.6,1.2))*380)+'px';
-   const p3=outExpo(nrm(lt,0.9,1.7));
-   S('s6cta').style.opacity=p3; S('s6cta').style.transform=`translateY(${(1-p3)*20}px)`;
-   const pq=nrm(lt,1.4,2.0), eq=outBack(outCubic(pq));
-   const qr=S('s6qr');
-   qr.style.opacity=pq<=0?0:1; qr.style.transform=`scale(${0.5+0.5*eq}) rotate(${(1-eq)*-8}deg)`;
-   const p4=outExpo(nrm(lt,1.7,2.4));
-   S('s6scan').style.opacity=p4;
-   const url=S('s6url');
-   url.style.opacity=p4; url.style.transform=`scale(${0.85+0.15*p4})`;
-   S('s6eco').style.opacity=outCubic(nrm(lt,2.2,3.0));
-   S('s6group').style.transform=`translateY(${Math.sin(lt*0.9)*6}px)`;
+   /* curseur */
+   const cur=S('cursor');
+   if(lt<3.0){ cur.style.opacity=0; }
+   else{
+     cur.style.opacity=Math.min(1,nrm(lt,3.0,3.2));
+     const [x,y]=cursorPos(lt);
+     cur.style.left=Math.round(x)+'px'; cur.style.top=Math.round(y)+'px';
+     const click=nrm(lt,4.35,4.45)-nrm(lt,4.5,4.62);
+     cur.style.transform=`scale(${1-0.18*click})`;
+   }
+   /* onde de clic */
+   const rp=S('ripple');
+   const p=nrm(lt,4.4,5.0);
+   if(p<=0||p>=1){ rp.style.opacity=0; }
+   else{
+     rp.style.opacity=(1-p)*0.9;
+     rp.style.left=(1330-12)+'px'; rp.style.top=(365-12)+'px';
+     rp.style.transform=`scale(${1+p*7})`;
+   }
+ }},
+ /* S5 chat 11.2–17.2 : l'utilisateur écrit → l'IA répond */
+ {id:'s5',a:11.2,b:17.2,update(t){
+   const lt=t-11.2;
+   popBack(S('chatwin'),lt,0.1,0.45,'translate(-50%,-50%)');
+   /* message utilisateur : frappe 0.6→2.4 */
+   const um=S('umsg'), ut=S('utxt'), uc=S('ucaret');
+   const nChars=Math.floor(nrm(lt,0.6,2.4)*COPY.userMsg.length);
+   um.style.opacity=lt>0.55?1:0;
+   ut.textContent=COPY.userMsg.slice(0,nChars);
+   uc.style.opacity=(lt>0.55&&lt<2.5)?(Math.floor(lt*3)%2?1:0):0;
+   /* indicateur de frappe IA 2.6→3.6 */
+   const ty=S('typing');
+   if(lt>2.6&&lt<3.6){
+     ty.style.display='flex'; ty.style.opacity=1;
+     [...ty.children].forEach((d,i)=>{ d.style.opacity=0.35+0.65*Math.abs(Math.sin((lt*4+i*0.5))); });
+   } else { ty.style.opacity=0; ty.style.display='none'; }
+   /* réponse IA : pop 3.6 puis frappe rapide */
+   const am=S('aimsg'), at=S('aitxt');
+   popBack(am,lt,3.6,0.35);
+   const aChars=Math.floor(nrm(lt,3.7,5.0)*COPY.aiMsg.length);
+   at.textContent=COPY.aiMsg.slice(0,aChars);
+ }},
+ /* S6 dashboard 17.2–23.2 : le site se construit sous nos yeux */
+ {id:'s6',a:17.2,b:23.2,update(t){
+   const lt=t-17.2;
+   fadeUp(S('s6caption'),lt,0.05,0.4,14);
+   popBack(S('browser'),lt,0.12,0.5,'translate(-50%,-50%)');
+   fadeUp(S('d-nav'),lt,0.7,0.4,12);
+   fadeUp(S('d-h1'),lt,1.05,0.4,12);
+   fadeUp(S('d-h2'),lt,1.25,0.4,12);
+   fadeUp(S('d-btn'),lt,1.5,0.4,12);
+   fadeUp(S('d-img'),lt,1.8,0.45,16);
+   const bars=[...document.querySelectorAll('#s6 .bar')];
+   const H=[86,120,74,142,104];
+   bars.forEach((b,i)=>{
+     const p=outCubic(nrm(lt,2.2+i*0.22,2.75+i*0.22));
+     b.style.height=Math.round(H[i]*p)+'px';
+   });
+   popBack(S('d-badge'),lt,3.6,0.45);
+ }},
+ /* S7 slide de fin 23.2–30 : marque (unique), tagline, CTA — le tout se pose et NE BOUGE PLUS */
+ {id:'s7',a:23.2,b:30.01,update(t){
+   const lt=t-23.2;
+   DOTS.forEach(d=>{ d.el.style.opacity=0.14+0.16*Math.abs(Math.sin(lt*0.6+d.ph)); });
+   popBack(S('s7mark'),lt,0.1,0.5);
+   fadeUp(S('s7name'),lt,0.45,0.5,22);
+   fadeUp(S('s7sub'),lt,0.7,0.5,16);
+   fadeUp(S('s7tag'),lt,1.15,0.6,18);
+   popBack(S('s7cta'),lt,1.8,0.5);
+   fadeUp(S('s7url'),lt,2.2,0.45,12);
  }},
 ];
 

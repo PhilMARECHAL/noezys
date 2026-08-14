@@ -124,27 +124,31 @@ valeur dans la liste des frontières.**
 
 ---
 
-## 5. Timeline et contenu actuels (script v3 « flyers », validé scène par scène)
+## 5. Timeline et contenu actuels (v4 « remontage », brief de réunion appliqué au détail)
 
-Script construit avec le client à partir de ses **deux flyers** (recto « L'IA,
-intégrée à votre métier » + verso « Bonjour, ») : ouverture par la promesse,
-puis le verso déroulé dans l'ordre, révisé par un panel d'experts pour sonner
-humain (zéro tiret à l'écran, anglais natif, pas de tournures « IA »).
+Version française uniquement. Objectif : vidéo CONCRÈTE et EXPLICATIVE,
+lisible sans le son, accroche ≤ 3 s, marque UNIQUEMENT sur la slide de fin.
 
-| Scène | Temps | FR | EN |
-|---|---|---|---|
-| S1 ouverture | 0–4 s | **L'intelligence artificielle,** intégrée à votre métier. | **Artificial intelligence,** built into your business. |
-| S2 mission | 4–7,5 s | Gagner du temps. Faire grandir votre **chiffre d'affaires**. | Save time. Grow your **revenue**. |
-| S3 logo | 7,5–11 s | NOEZYS · AI INNOVATION LAB | idem |
-| S4 carte 01 | 11–15 s | Des solutions **sur mesure** pour vous. / Site web, logiciel, applications mobiles, avec le meilleur de l'IA. | Solutions built around **you**. / Websites, software and mobile apps that put AI to work for you. |
-| S4 carte 02 | 15–19 s | Pas seulement une IA. / Une **vraie équipe** qui vous écoute et vous accompagne. | Not just AI. / A **real team** that listens and stays by your side. |
-| S5 équipe | 19–25 s | L'ÉQUIPE NOEZYS · Authenticité. Impact. Créativité. · **Le contact humain avant tout.** | THE NOEZYS TEAM · Authenticity. Impact. Creativity. · **Human connection comes first.** |
-| S6 finale | 25–30 s | 30 minutes. Un plan d'action concret. Sans engagement. + www.noezys.com + ligne verte SOLUTIONS DIGITALES DURABLES · IA RESPONSABLE | 30 minutes. A clear action plan. No strings attached. + SUSTAINABLE DIGITAL SOLUTIONS · RESPONSIBLE AI |
+| Scène | Temps | Contenu |
+|---|---|---|
+| S1 ouverture | 0–2 s | **L'intelligence artificielle** intégrée à votre métier (coupe nette à 2 s) |
+| S2 accroche | 2–5 s | Gagnez du temps. Augmentez votre **chiffre d'affaires**. (fond clair, SANS logo, sortie anticipée) |
+| S3 titre | 5–6,2 s | Des solutions sur mesure (typo réduite, 84 px) |
+| S4 bulles | 6,2–11,2 s | 5 bulles « paf paf paf » : Devis automatisé · Chatbot client · Site web sur mesure · Application mobile · IA 100% custom + **curseur animé qui clique** sur « Chatbot client » (onde de clic) |
+| S5 chat | 11,2–17,2 s | Mini-démo : l'utilisateur tape sa demande de devis → indicateur de frappe → l'IA répond « Devis généré : 8 940 € HT, PDF prêt à envoyer ✓ » |
+| S6 dashboard | 17,2–23,2 s | Le site web se construit sous nos yeux (navbar, héro, graphique qui pousse, badge ✦ IA intégrée) — « VOTRE SITE WEB, PROPULSÉ PAR L'IA » |
+| S7 fin | 23,2–30 s | SEULE apparition de la marque : logo N + NOEZYS + AI INNOVATION LAB + tagline *technology that listens before it acts* + bouton **Découvrez le lab** + noezys.com/fr/lab |
 
-Nouveauté charte : la ligne signature finale est **verte** (`#55B97E`, var
-`--green`), reprise de la ligne écologique du flyer — seule entorse autorisée
-au duo cyan/violet. Les frontières musicales suivent ces timings
-(`0,4,7.5,11,15,19,25`).
+Frontières musicales : `0,2,5,6.2,11.2,17.2,23.2`.
+
+**Interdits actés en réunion (ne jamais réintroduire)** : marque en ouverture,
+« Le contact humain avant tout », « Pas seulement une IA », QR code,
+numérotation « 01 », énumération « site web / logiciel / application mobile ».
+
+**Anti-vibration (validé après diagnostic)** : aucune transform continue —
+chaque élément a une animation d'entrée puis se « pose net » (transform/filter
+remis à vide quand p≥1) ; pas de zoom lent, pas de flottement sinusoïdal,
+particules figées (seule l'opacité scintille), pas de letter-spacing animé.
 
 ---
 
