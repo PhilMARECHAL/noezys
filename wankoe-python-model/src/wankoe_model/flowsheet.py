@@ -117,7 +117,7 @@ def _fixed_point_loop(iterate, engine: dict, alerts: list, loop_name: str):
 
 
 # ===================================================================== 1.1
-def zone_1_1(feed: dict, params: dict, mode: str, alerts: list) -> dict:
+def zone_1_1(feed: dict, params: dict, mode: str, alerts: list, weather: str | None = None) -> dict:
     """Zone 1.1 — crushing / primary screening (pivot feed -> KFS + 0/20).
 
     Pivot (§5): the feed curve is MEASURED at the primary station outlet
@@ -177,10 +177,18 @@ def zone_1_1(feed: dict, params: dict, mode: str, alerts: list) -> dict:
     recycle, outputs = _fixed_point_loop(iterate, engine, alerts, "Zone 1.1 / CR.5011")
 
     cap11 = mp["CR.5011"].get("max_capacity_tph")
-    if recycle and cap11 and recycle["q"] > cap11:
-        alerts.append(
-            f"CR.5011: bottleneck — load {recycle['q']:.1f} t/h > capacity {cap11} t/h"
-        )
+    # capacity-basis fix (adversarial audit 2026-08-14): the 90 t/h is a
+    # VENDOR rating — vendor tonnages are as-fed (wet); the loop stream is
+    # dry solids, so compare in the capacity's own declared basis
+    if recycle and cap11:
+        load = recycle["q"]
+        if mp["CR.5011"].get("capacity_basis", "dry") == "wet":
+            load = recycle["q"] / (1.0 - recycle["moisture"] / 100.0)
+        if load > cap11:
+            alerts.append(
+                f"CR.5011: bottleneck — load {load:.1f} t/h "
+                f"({mp['CR.5011'].get('capacity_basis', 'dry')} basis) > capacity {cap11} t/h"
+            )
     if cr5011_info and cap11:
         # the spec's reference power (~37 kW) evaluates the impactor AT its
         # nameplate capacity, not at the loop equilibrium — report both
@@ -192,11 +200,11 @@ def zone_1_1(feed: dict, params: dict, mode: str, alerts: list) -> dict:
         alerts.append("Zone 1.1: excessive circulating load (max_circulating_ratio exceeded)")
 
     # spec: wet screening loses capacity — derate outdoor screens under rain
-    wet_factor = (
-        calib["wet_capacity_factor"]
-        if params["default_scenario"]["weather"] == "rain"
-        else 1.0
-    )
+    # weather comes as an argument like zone_1_2 (audit 2026-08-14: the
+    # old default_scenario read could silently diverge from the caller's)
+    if weather is None:
+        weather = params["default_scenario"]["weather"]
+    wet_factor = calib["wet_capacity_factor"] if weather == "rain" else 1.0
     areas = {
         "top_deck": models.m4_screen_area(outputs["u_top_deck"], a1, calib, wet_factor),
         "bottom_deck": models.m4_screen_area(outputs["u_bottom_deck"], a2, calib, wet_factor),
@@ -605,7 +613,7 @@ def zone_1_3_c1(feedlime: dict, params: dict, phi_100_pct, alerts: list) -> dict
     if cap_rc1 is not None and rc1_info.get("throughput_tph", 0.0) > cap_rc1 * mp["RC.1"].get("n_units", 1):
         alerts.append(
             f"RC.1: bottleneck — load {rc1_info['throughput_tph']:.1f} t/h > "
-            f"capacity {cap_rc1} t/h"
+            f"{mp['RC.1'].get('n_units', 1)} x {cap_rc1} t/h installed"
         )
     cap_rc2 = mp["RC.2"].get("max_capacity_tph")
     n_rc2 = mp["RC.2"].get("n_units", 1)

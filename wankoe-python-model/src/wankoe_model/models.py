@@ -17,12 +17,23 @@ from .grid import PSD
 
 
 # --------------------------------------------------------------------- M1
-def m1_crusher_product(feed_psd: PSD, x80: float, n: float, calib: dict) -> PSD:
+def m1_crusher_product(
+    feed_psd: PSD, x80: float, n: float, calib: dict, bypass_below: float | None = None
+) -> PSD:
     """M1 — truncated Rosin-Rammler crusher product.
 
     xc = x80 / (ln arg)^(1/n) ;  P(x) = 1 − exp(−(x/xc)^n).
     Product truncated above trunc_factor·x80 (mass rescaled); the feed
-    fraction already finer than x80 passes through unchanged.
+    fraction already finer than the bypass threshold passes through
+    unchanged (threshold = x80 by default; M7 passes its GAP so the
+    sub-gap bypass stays at the gap even when the per-pass reduction cap
+    raises the effective x80 — adversarial review fix 2026-08-14).
+
+    Convention note (units audit 2026-08-14): P(x80) = 0.8 holds for the
+    RR component BEFORE truncation; after the 1.7·x80 truncation-rescale
+    the delivered product passes ~0.83 at the nominal x80 (n = 1.35), i.e.
+    its true x80 is ~6 % finer than the setting. Spec-prescribed behavior,
+    disclosed here and in the verification dossier.
     """
     trunc = float(calib["trunc_factor"])
     ln_arg = float(calib["m1_ln_arg"])
@@ -36,7 +47,8 @@ def m1_crusher_product(feed_psd: PSD, x80: float, n: float, calib: dict) -> PSD:
     if p_xt <= 0:
         raise ValueError("M1: degenerate truncation (check x80, n, trunc_factor)")
 
-    phi_fine = feed_psd.passing_at(x80)  # feed fraction finer than x80: unchanged
+    threshold = x80 if bypass_below is None else float(bypass_below)
+    phi_fine = feed_psd.passing_at(threshold)  # feed finer than the bypass: unchanged
     meshes = feed_psd.meshes
     feed_passing = feed_psd.passing  # meshes ARE the psd grid: direct indexing is exact
     coarse_share = 1.0 - phi_fine
@@ -85,10 +97,19 @@ def m3_karra_partition(
     classic imperfection of ~0.13 — much sharper than the current I_dry
     default (a pending client arbitration).
 
-    I is a CLASSIC imperfection: higher = worse separation (flatter
-    partition). The spec's written form s = ln9/ln(1/I) contradicted its
-    own narrative (I degrades up to ~0.9 under rain); client arbitration
-    2026-08-08 (option A): the narrative wins, hence the (1−I) substitution.
+    I semantics (units audit 2026-08-14, confirming the open Q3 family):
+    higher I = worse separation, BUT with s = ln9/ln(1/(1−I)) the
+    parameter is a (d90−d10)/(2·d50)-type sharpness, NOT the classic
+    (d75−d25)/(2·d50) imperfection quoted by the literature that justified
+    the 0.15 default. The realized classic imperfection of the curve is
+    sinh(ln(1/(1−I))/2) ≈ 0.081 at I = 0.15 — screens ~2x sharper than a
+    classic-0.15 screen. To realize a classic I the sharpness would be
+    s = ln3/asinh(I) (7.35 at 0.15). Value/convention arbitration belongs
+    to the expert clarification note (Q3); the formula itself is the
+    spec's, kept as prescribed. The spec's written s = ln9/ln(1/I)
+    contradicted its own narrative (I degrades up to ~0.9 under rain);
+    client arbitration 2026-08-08 (option A): the narrative wins, hence
+    the (1−I) substitution.
     """
     k_d = float(calib["k_d"])
     ln_arg = float(calib["m3_ln_arg"])
@@ -163,8 +184,11 @@ def m6_drying(wet_feed_tph: float, m_in_pct: float, m_out_pct: float, calib: dic
     """M6 — drying: water + heat balance (moistures on a wet basis).
 
     When the feed is already drier than the target (m_in <= m_out) the
-    dryer cannot ADD water: evaporation clamps to zero and the outlet
-    keeps the feed moisture (flag ``no_drying`` for the caller's alert).
+    dryer cannot ADD water: evaporation clamps to zero, the outlet keeps
+    the feed moisture (flag ``no_drying`` for the caller's alert) and the
+    thermal duty is ZERO — the burner is not fired for a pass that dries
+    nothing (formula-fidelity audit 2026-08-14: the solids-sensible term
+    used to survive in this branch and reported ~1.2 MW of phantom duty).
     """
     no_drying = m_in_pct <= m_out_pct
     if no_drying:
@@ -173,9 +197,12 @@ def m6_drying(wet_feed_tph: float, m_in_pct: float, m_out_pct: float, calib: dic
     wet_out = dry / (1.0 - m_out_pct / 100.0)
     evaporated = wet_feed_tph - wet_out  # t/h of evaporated water
     kg_s = 1000.0 / 3600.0  # t/h -> kg/s (unit conversion, not a parameter)
-    duty_kw = (evaporated * kg_s) * (
-        float(calib["L_v"]) + float(calib["c_e"]) * float(calib["dT_e"])
-    ) + (dry * kg_s) * float(calib["c_s"]) * float(calib["dT_s"])
+    if no_drying:
+        duty_kw = 0.0
+    else:
+        duty_kw = (evaporated * kg_s) * (
+            float(calib["L_v"]) + float(calib["c_e"]) * float(calib["dT_e"])
+        ) + (dry * kg_s) * float(calib["c_s"]) * float(calib["dT_s"])
     burner_kw = duty_kw / float(calib["eta_th"])
     drum_m3 = (evaporated * 1000.0) / float(calib["I_ev"])  # kg/h ÷ kg/m³·h
     return {
@@ -250,7 +277,12 @@ def m7_bed_mill_pass(feed_psd: PSD, gap_mm: float, calib: dict) -> PSD:
         coarse_f80 = gap_mm
     effective_x80 = max(gap_mm, coarse_f80 / comp_lam)
 
-    compressed = m1_crusher_product(feed_psd, effective_x80, n_comp, calib)
+    # bypass stays at the GAP even when the reduction cap raises the
+    # effective x80: a particle wider than the roll gap cannot survive the
+    # pass (formula-fidelity audit 2026-08-14 — the code previously let
+    # ]gap; effective_x80] bypass in the capped regime, contradicting the
+    # documented "+gap compression / sub-gap bypass" mechanism)
+    compressed = m1_crusher_product(feed_psd, effective_x80, n_comp, calib, bypass_below=gap_mm)
     fines = _m7_attrition_fines(feed_psd.meshes, calib)
     meshes = feed_psd.meshes
     passing = [

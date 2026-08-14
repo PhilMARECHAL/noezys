@@ -193,7 +193,7 @@ def run_scenario(params: dict) -> dict:
     # ---------------- Zone 1.1
     q_feed = sc["flow_rates_tph"]["zone_1_1_feed"]
     feed = {"q": q_feed * (1.0 - moisture / 100.0), "psd": feed_psd, "moisture": moisture}
-    z11 = flowsheet.zone_1_1(feed, params, sc["zone_1_1_mode"], alerts)
+    z11 = flowsheet.zone_1_1(feed, params, sc["zone_1_1_mode"], alerts, weather)
 
     # ---------------- Zone 1.2 (reclaim from the 0/20 stockpile)
     q_reclaim = sc["flow_rates_tph"]["zone_1_2_reclaim"]
