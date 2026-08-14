@@ -25,9 +25,10 @@
     <a id="cta" class="cta-link" target="_blank" rel="noopener" aria-label="Découvrir le lab Noezys"></a>
   </div>
 <script>
-  const SRC  = { fr: 'noezys-pub-fr.mp4' };
-  const LINK = { fr: 'https://noezys.com/fr/lab' };
-  const LANG = 'fr';
+  /* ?lang=fr (défaut) ou ?lang=en */
+  const LANG = (new URLSearchParams(location.search).get('lang')) === 'en' ? 'en' : 'fr';
+  const SRC  = { fr: 'noezys-pub-fr.mp4', en: 'noezys-pub-en.mp4' };
+  const LINK = { fr: 'https://noezys.com/fr/lab', en: 'https://noezys.com/en/lab' };
   const CTA_START = 28.2;   /* la slide de fin commence à 28,2 s */
 
   const v = document.getElementById('v');

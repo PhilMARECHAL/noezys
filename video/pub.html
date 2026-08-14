@@ -266,15 +266,60 @@
 </div>
 
 <script>
-/* ═══ Textes validés par le client ═══ */
+/* ═══ Textes validés par le client — FR (v5) · EN (panel 10 traducteurs + 5 arbitres) ═══ */
+const LANG=(new URLSearchParams(location.search).get('lang'))==='en'?'en':'fr';
 const COPY = {
+ fr: {
   s1: [[["L'intelligence ",true],["artificielle",true]],[["intégrée "],["à "],["votre "],["métier"]]],
   s2: [[["Gagnez "],["du "],["temps."]],[["Augmentez "],["votre "],["chiffre d'affaires.",true]]],
-  values: ["Authenticité.","Impact.","Créativité."],
+  s3title: "Des solutions sur mesure",
+  bubbles: ["Devis automatisé","Chatbot client","Site web sur mesure","Application mobile","IA 100% custom"],
+  chatHeader: "Votre assistant IA",
   userMsg: "Bonjour, il me faudra un devis pour une prestation de service.",
   aiMsg:   "Bonjour, voici ce que nous pouvons vous proposer.",
+  s5caption: "VOTRE SITE WEB, PROPULSÉ PAR L'IA",
   siteUrl: "https://www.atelier-nova.be",
-};
+  nav: ["Projets","Studio","Approche","Contact"],
+  siteLabel: "ATELIER D'ARCHITECTURE",
+  siteT1: "Concevoir des espaces",
+  siteT2: 'qui <span class="grad-text">inspirent</span>',
+  siteCta: "Prendre rendez-vous",
+  cards: ["Conception","Réalisation","Suivi"],
+  statusGen: "IA · génération",
+  statusDone: "Site généré",
+  teamLabel: "L'ÉQUIPE NOEZYS",
+  values: ["Authenticité.","Impact.","Créativité."],
+  sig: "Le contact humain avant tout.",
+  cta: "Découvrez le lab",
+  url: "noezys.com/fr/lab",
+  eco: "SOLUTIONS DIGITALES DURABLES · IA RESPONSABLE",
+ },
+ en: {
+  s1: [[["AI ",true],["that "],["works "]],[["the "],["way "],["you "],["do"]]],
+  s2: [[["Save "],["time."]],[["Grow "],["your "],["revenue.",true]]],
+  s3title: "Custom-built solutions",
+  bubbles: ["Instant quotes","Customer chatbot","Custom websites","Mobile apps","100% custom AI"],
+  chatHeader: "Your AI assistant",
+  userMsg: "Hi, I'd like a quote for your services.",
+  aiMsg:   "Of course. Here's what we can offer.",
+  s5caption: "YOUR WEBSITE, POWERED BY AI",
+  siteUrl: "https://www.atelier-nova.com",
+  nav: ["Work","Studio","Approach","Contact"],
+  siteLabel: "ARCHITECTURE STUDIO",
+  siteT1: "Designing spaces",
+  siteT2: 'that <span class="grad-text">inspire</span>',
+  siteCta: "Book a consultation",
+  cards: ["Design","Build","Support"],
+  statusGen: "AI · generating",
+  statusDone: "Site ready",
+  teamLabel: "THE NOEZYS TEAM",
+  values: ["Authenticity.","Impact.","Creativity."],
+  sig: "People first. Always.",
+  cta: "Explore the Lab",
+  url: "noezys.com/en/lab",
+  eco: "SUSTAINABLE DIGITAL SOLUTIONS · RESPONSIBLE AI",
+ },
+}[LANG];
 
 /* ═══ icônes vectorielles premium (charte : trait dégradé cyan→violet) ═══ */
 const ICONS = {
@@ -309,22 +354,40 @@ buildLines(document.getElementById('s2group'), COPY.s2);
 const s1words=[...document.querySelectorAll('#s1 .w')];
 const s2words=[...document.querySelectorAll('#s2 .w')];
 
-/* bulles autour du titre central */
+/* bulles autour du titre central (libellés par langue) */
 const BUBBLES=[
-  { icon:'devis',  lbl:"Devis automatisé",    x:430,  y:240 },
-  { icon:'chatbot',lbl:"Chatbot client",      x:1170, y:225 },
-  { icon:'web',    lbl:"Site web sur mesure", x:360,  y:700 },
-  { icon:'mobile', lbl:"Application mobile",  x:1220, y:712 },
-  { icon:'ia',     lbl:"IA 100% custom",      x:772,  y:852 },
+  { icon:'devis',  x:430,  y:240 },
+  { icon:'chatbot',x:1170, y:225 },
+  { icon:'web',    x:360,  y:700 },
+  { icon:'mobile', x:1220, y:712 },
+  { icon:'ia',     x:772,  y:852 },
 ];
 const bwrap=document.getElementById('s3bubbles');
-const bubbles=BUBBLES.map(b=>{
+const bubbles=BUBBLES.map((b,i)=>{
   const el=document.createElement('div'); el.className='bubble';
   el.style.left=b.x+'px'; el.style.top=b.y+'px';
-  el.innerHTML=`${ICONS[b.icon]}<span class="lbl">${b.lbl}</span>`;
+  el.innerHTML=`${ICONS[b.icon]}<span class="lbl">${COPY.bubbles[i]}</span>`;
   bwrap.appendChild(el);
   return el;
 });
+
+/* application des textes de la langue courante */
+document.getElementById('s3title').textContent=COPY.s3title;
+document.querySelector('#s4 .ttl').textContent=COPY.chatHeader;
+document.getElementById('s5caption').textContent=COPY.s5caption;
+['sl-1','sl-2','sl-3','sl-4'].forEach((id,i)=>document.getElementById(id).textContent=COPY.nav[i]);
+document.getElementById('sh-label').textContent=COPY.siteLabel;
+document.getElementById('sh-t1').textContent=COPY.siteT1;
+document.getElementById('sh-t2').innerHTML=COPY.siteT2;
+document.getElementById('sh-cta').textContent=COPY.siteCta;
+['sc-1','sc-2','sc-3'].forEach((id,i)=>document.querySelector('#'+id+' .nm').textContent=COPY.cards[i]);
+document.getElementById('s5st1').textContent=COPY.statusGen;
+document.getElementById('s5st2').textContent=COPY.statusDone;
+document.getElementById('s6label').textContent=COPY.teamLabel;
+document.getElementById('s6sig').textContent=COPY.sig;
+document.getElementById('s7cta').textContent=COPY.cta;
+document.getElementById('s7url').textContent=COPY.url;
+document.getElementById('s7eco').textContent=COPY.eco;
 
 /* équipe : valeurs */
 const valWrap=document.getElementById('s6values');
