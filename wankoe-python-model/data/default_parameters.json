@@ -790,7 +790,9 @@
       "monthly": 0.08333333,
       "weekly": 0.01923077,
       "daily": 0.00273973
-    }
+    },
+    "computation_grid_refinement": 2,
+    "_grid_refinement_note": "Client arbitration 2026-08-14 (numerical-robustness study, action 5): the computation grid inserts 1 geometric midpoint per spec-sieve interval (57 meshes) \u2014 converged to < 0.05 pt of KFS Yield vs x4; the spec sieve series stays the PRESENTATION format. Set to 1 to reproduce spec-era (ch.9) numerics."
   },
   "feed_product": {
     "comment": "Pivot feed: belt-cut PSD MEASURED at the primary crusher outlet on 2026-08-08 (raw data: data/feed_measurements/2026-08-08-belt-cut.json). Measured range 19-200 mm; fine tail < 19 mm and top size completed by hypotheses H-FEED-1/H-FEED-2 (see data/measured_feed_curve.json, rebuild with scripts/build_feed_curve_from_measurement.py). Model checks: d50 32.3 mm (measured 32), d80 180.6 mm (measured 180).",
@@ -952,7 +954,7 @@
     "flow_rates_tph": {
       "zone_1_1_feed": 250,
       "zone_1_2_reclaim": 100,
-      "zone_1_3_feedlime": 22.27
+      "zone_1_3_feedlime": 21.29
     },
     "zones": {
       "1.1": {
@@ -974,7 +976,7 @@
     "zone_1_1_mode": "1A",
     "zone_1_2_mode": "2A",
     "zone_1_3_variant": "c1",
-    "_variant_note": "C1 ADOPTED as the reference configuration (client 2026-08-14): 2-stage smooth rolls RC.1 + single RC.2 unit, SC.A 8/3.75 + SC.B 2/1.5, sliver regrind, dryer throttled to 22.27 t/h wet (base scenario, max grits 69 300 t/y). 'as-built' remains selectable for comparison/history. Machine [H] coefficients (n_comp, S_att) pending the vendor gradation test \u2014 traceability rule."
+    "_variant_note": "C1 ADOPTED as the reference configuration (client 2026-08-14): 2-stage smooth rolls RC.1 + single RC.2 unit, SC.A 8/3.75 + SC.B 2/1.5, sliver regrind, dryer throttled to 21.29 t/h wet \u2014 the single RC.2 unit exactly at its 22 t/h loop limit on the CONVERGED x2 grid (re-bisected 2026-08-14 after the grid arbitration; was 22.27 on the spec grid). Max grits capacity 64 554 t/y at the 6 000 h ceiling. 'as-built' remains selectable. [H] coefficients pending the vendor gradation test."
   },
   "commercial_rules": {
     "_note": "Client rules governing how the planning closes the commercial balance",

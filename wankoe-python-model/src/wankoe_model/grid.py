@@ -15,12 +15,32 @@ import math
 from collections.abc import Sequence
 
 
-def engine_grid(reference_series: Sequence[float], extension: Sequence[float]) -> list[float]:
-    """Internal grid: reference series + extension meshes, sorted."""
+def engine_grid(
+    reference_series: Sequence[float],
+    extension: Sequence[float],
+    refinement: int = 1,
+) -> list[float]:
+    """Internal COMPUTATION grid: reference series + extension meshes,
+    sorted, then ``refinement - 1`` geometric midpoints inserted in every
+    interval (client arbitration 2026-08-14 after the numerical-robustness
+    study: refinement 2 converges the discretization bias to < 0.05 pt of
+    KFS Yield; the reference series alone remains the PRESENTATION format
+    of every reported curve)."""
     meshes = sorted(set(float(x) for x in reference_series) | set(float(x) for x in extension))
     if any(m <= 0 for m in meshes):
         raise ValueError("all meshes must be > 0 mm")
-    return meshes
+    refinement = int(refinement)
+    if refinement < 1:
+        raise ValueError("grid refinement must be >= 1")
+    if refinement == 1:
+        return meshes
+    refined: list[float] = []
+    for a, b in zip(meshes, meshes[1:]):
+        refined.append(a)
+        for i in range(1, refinement):
+            refined.append(round(a * (b / a) ** (i / refinement), 9))
+    refined.append(meshes[-1])
+    return refined
 
 
 class PSD:

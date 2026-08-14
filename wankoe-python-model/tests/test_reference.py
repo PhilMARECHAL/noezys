@@ -44,6 +44,10 @@ def results():
                     "flow_rates_tph": {"zone_1_3_feedlime": 30},
                     "zone_1_3_variant": "as-built",
                 },
+                # ch.9 numerics were the unrefined spec sieve grid — the x2
+                # computation grid (client arbitration 2026-08-14) is pinned
+                # back to 1 here for exact spec-era reproduction
+                "engine": {"computation_grid_refinement": 1},
                 "calibration": {"I_dry": {"default": 0.4}},
                 "machines": {
                     # 2026-08-13 optimization changed the shipped defaults

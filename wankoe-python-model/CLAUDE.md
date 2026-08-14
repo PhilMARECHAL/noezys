@@ -126,8 +126,12 @@ KFS YIELD indicator (client 2026-08-14, 4-question definition): whole
 KFS stream / wet pivot feed, real PSD attached, dynamic
 required-for-zero-landfill target (KFS/(KFS + 0/20 demand)) — in
 scenario results.indicators + planning kfs_yield + alert; realized
-24.59 % vs required 28.61 % at reference.
-ZERO-LANDFILL RULE STILL UNMET — residual 48.6 kt after v = 30
+24.88 % vs required 28.41 % on the X2 CONVERGED GRID (client
+2026-08-14: engine.computation_grid_refinement 2; spec sieves stay the
+presentation format; C1 base point re-bisected: feed 21.29 t/h wet,
+grits 10.76 t/h, single-unit max 64 554 t/y; internal confidence
+program docs/design/zone11-verification/, meta-score 74 -> 91).
+ZERO-LANDFILL RULE STILL UNMET — residual 42.5 kt after v = 30
 (client 2026-08-14). QUARRY TARGET RECOMPUTED on the C1+2C balance:
 38.1 % < 20 mm at the zone-1 inlet = exact zero-landfill (supersedes
 the obsolete 41 %); ADOPTION PENDING the client. Other lever: grits

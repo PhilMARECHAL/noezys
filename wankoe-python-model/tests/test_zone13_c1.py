@@ -86,15 +86,17 @@ def test_c1_full_dryer_flow_exceeds_the_single_rc2_unit():
 
 
 def test_c1_base_scenario_single_unit_at_69_kt():
-    """Base scenario (client 2026-08-14): dryer throttled to 22.27 t/h wet
-    -> the single RC.2 unit runs exactly at its 22 t/h loop capacity, no
-    bottleneck, grits 11.56 t/h = 69.3 kt/y max at the 6 000 h ceiling."""
+    """Base scenario (client 2026-08-14): dryer throttled so the single
+    RC.2 unit runs exactly at its 22 t/h loop capacity. Re-bisected on the
+    x2 converged grid (client grid arbitration 2026-08-14): feed 21.29 t/h
+    wet, grits 10.76 t/h = 64.6 kt/y max at the 6 000 h ceiling (was
+    22.27 / 69.3 kt on the spec grid)."""
     r = run_scenario(
         load_parameters(
             overrides={
                 "default_scenario": {
                     "zone_1_3_variant": "c1",
-                    "flow_rates_tph": {"zone_1_3_feedlime": 22.27},
+                    "flow_rates_tph": {"zone_1_3_feedlime": 21.29},
                 }
             }
         )
@@ -104,7 +106,7 @@ def test_c1_base_scenario_single_unit_at_69_kt():
     assert r["machines"]["RC.1"]["throughput_tph"] <= 29
     assert not any(a.startswith(("RC.1:", "RC.2:", "DY.03:")) for a in r["alerts"])
     grits = r["products"]["FeedLime grits"]["tph"]
-    assert 69000 < grits * 6000 < 70000  # engine 2026-08-14: 69 342 t/y
+    assert 64000 < grits * 6000 < 65000  # engine 2026-08-14 (x2 grid): 64 554 t/y
 
 
 def test_c1_balances_close(c1):

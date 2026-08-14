@@ -21,10 +21,11 @@ def test_production_lands_exactly_on_targets(plan):
     # landfill drops 144 -> 58.4 kt/y (further reduction = grits sales
     # and/or the quarry target curve, client arbitration pending).
     assert plan["production_t"]["AgLime"] == pytest.approx(135000, abs=1)
-    assert plan["sales_t"]["AgLime from dedicated 2C campaigns"] == pytest.approx(85811, rel=0.02)
+    # re-baselined 2026-08-14 (x2 converged grid, client arbitration)
+    assert plan["sales_t"]["AgLime from dedicated 2C campaigns"] == pytest.approx(85708, rel=0.02)
     assert plan["sales_t"]["AgLime total sold (loop + campaigns + redirect)"] == pytest.approx(135000, abs=1)
     assert plan["sales_t"]["Fines surplus redirected to the AgLime sales channel"] == pytest.approx(0, abs=1)
-    assert plan["sales_t"]["FeedLime fines sold as fines"] == pytest.approx(31531, rel=0.02)
+    assert plan["sales_t"]["FeedLime fines sold as fines"] == pytest.approx(33456, rel=0.02)
     assert not any("unsellable" in a for a in plan["alerts"])
     assert plan["production_t"]["FeedLime grits"] == pytest.approx(40000, abs=1)
 
@@ -34,8 +35,8 @@ def test_2c_campaigns_are_toggleable(plan):
     off = run_required_hours(
         load_parameters(overrides={"commercial_rules": {"aglime_2c_campaigns": False}})
     )
-    # re-baselined 2026-08-14 (v = 30 m/s adopted): 2A co-production 47 810
-    assert off["production_t"]["AgLime"] == pytest.approx(47810, rel=0.02)
+    # re-baselined 2026-08-14 (v = 30, then the x2 converged grid): 2A 49 292
+    assert off["production_t"]["AgLime"] == pytest.approx(49292, rel=0.02)
     assert off["sales_t"]["AgLime from dedicated 2C campaigns"] == 0
     # and the landfill worsens accordingly
     assert (
@@ -106,8 +107,9 @@ def test_kfs_yield_indicator(plan):
     # whole KFS product stream / wet pivot feed, with the real PSD attached
     # and a DYNAMIC zero-landfill target
     ky = plan["kfs_yield"]
-    # 24.6 % at the v = 30 reference settings (was 23.9 % at v = 35)
-    assert ky["realized_pct"] == pytest.approx(24.6, abs=0.2)
-    assert ky["required_for_zero_landfill_pct"] == pytest.approx(28.6, abs=0.3)
+    # 24.88 % on the x2 converged grid (was 24.59 on the spec grid; the
+    # action-5 study quantified the +0.3 pt discretization bias)
+    assert ky["realized_pct"] == pytest.approx(24.88, abs=0.2)
+    assert ky["required_for_zero_landfill_pct"] == pytest.approx(28.4, abs=0.3)
     assert ky["kfs_real_psd_pct"]["in_cut_20_35"] > 80
     assert any(a.startswith("KFS Yield") for a in plan["alerts"])

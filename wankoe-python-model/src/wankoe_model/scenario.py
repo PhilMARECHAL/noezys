@@ -99,7 +99,11 @@ def _build_feed(params: dict, alerts: list) -> tuple:
             "hypothesize the top size so the curve reaches 100% (see H-FEED-2 in "
             "scripts/build_feed_curve_from_measurement.py)"
         )
-    grid = engine_grid(params["mesh_series_mm"], params["engine"]["extension_meshes_mm"])
+    grid = engine_grid(
+        params["mesh_series_mm"],
+        params["engine"]["extension_meshes_mm"],
+        params["engine"].get("computation_grid_refinement", 1),
+    )
     points = sorted((float(k), float(v) / 100.0) for k, v in curve.items())  # sorted ONCE
     psd = PSD(grid, [_interp_points(points, x) for x in grid])
     moisture = fp["properties"]["moisture_pct"]["default"]
