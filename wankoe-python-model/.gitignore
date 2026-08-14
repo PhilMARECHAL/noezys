@@ -20,3 +20,5 @@ htmlcov/
 # IDE
 .idea/
 .vscode/
+docs/report/package/
+docs/report/preview.png
