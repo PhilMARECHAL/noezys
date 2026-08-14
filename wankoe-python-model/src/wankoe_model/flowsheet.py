@@ -556,6 +556,13 @@ def zone_1_3_c1(feedlime: dict, params: dict, phi_100_pct, alerts: list) -> dict
     pb = mp["SC.B"]["parameters"]
     b1, b2 = (pb[k]["default"] for k in ("a1", "a2"))
     sliver_regrind = mp["SC.B"].get("sliver_routing", "regrind") == "regrind"
+    # two operating modes (client design 2026-08-14): "G" = grits to
+    # product; "F" = fines campaign — the SC.B deck-1 oversize (2/3.75) is
+    # diverted into the RC.2 regrind circuit and RC.2 tightens its gap
+    mode13 = params["default_scenario"].get("zone_1_3_mode", "G")
+    if mode13 not in ("G", "F"):
+        raise ValueError(f"zone 1.3: unknown mode {mode13!r} (expected 'G' or 'F')")
+    grits_regrind = mode13 == "F"
 
     def _roll_calib(code):
         p = mp[code]["parameters"]
@@ -568,6 +575,8 @@ def zone_1_3_c1(feedlime: dict, params: dict, phi_100_pct, alerts: list) -> dict
 
     g1, calib_rc1 = _roll_calib("RC.1")
     g2, calib_rc2 = _roll_calib("RC.2")
+    if grits_regrind:
+        g2 = mp["RC.2"].get("mode_F_gap_mm", g2)
     rc1_info, rc2_info = {}, {}
 
     def _roll_pass(stream, gap, calib_rc, info):
@@ -583,11 +592,15 @@ def zone_1_3_c1(feedlime: dict, params: dict, phi_100_pct, alerts: list) -> dict
         # SC.A undersize 0/3.75 travels on the linking conveyor to SC.B
         grits, under2 = _karra_screen(under375, b1, calib["I_dry"], calib) if under375 else (None, None)
         sliver, fines = _karra_screen(under2, b2, calib["I_dry"], calib) if under2 else (None, None)
+        to_rc2 = [mid]
         if sliver_regrind and sliver:
-            rc2_feed = _blend([s for s in (mid, sliver) if s])
+            to_rc2.append(sliver)
             sliver = None
-        else:
-            rc2_feed = mid
+        if grits_regrind and grits:
+            # mode F: the grits diverter sends the 2/3.75 stream to regrind
+            to_rc2.append(grits)
+            grits = None
+        rc2_feed = _blend([s for s in to_rc2 if s]) if any(to_rc2) else None
         crushed = [s for s in (
             _roll_pass(over8, g1, calib_rc1, rc1_info) if over8 else None,
             _roll_pass(rc2_feed, g2, calib_rc2, rc2_info) if rc2_feed else None,
