@@ -148,11 +148,14 @@ vendor curves, drop-weight, sieve test, repeat belt-cuts, NACO
 reconciliation. Audit fixes 2026-08-14: M7 bypass pinned at gap in
 capped regime; capacity_basis per machine; M6 zero duty on
 no-drying).
-ZERO-LANDFILL RULE STILL UNMET — residual 42.5 kt after v = 30
-(client 2026-08-14). QUARRY TARGET RECOMPUTED on the C1+2C balance:
-38.1 % < 20 mm at the zone-1 inlet = exact zero-landfill (supersedes
-the obsolete 41 %); ADOPTION PENDING the client. Other lever: grits
-sales toward the 69.3 kt base capacity. OTHER OPEN: extension provision
+QUARRY WORKS SPEC ADOPTED (client 2026-08-14): 40.1 % < 20 mm at the
+zone-1 inlet (rescale k 1.426; supersedes 38.1 and 41 % history) =
+zero landfill WITH a 20 % AgLime-market flex buffer (AgLime baseline
+108 kt, 27 kt held open as shock absorber; explicit cost -27 kt/y
+baseline sales). docs/design/zone13-redesign/
+quarry-works-specification.md (control point 20 mm, acceptance bands
+40.1/45.5, KFS-Yield live monitor). At target: yield 28.26 %
+self-consistent, zones 62.7/36.0/60.2. OTHER OPEN: extension provision
 (civil reserve for 2nd RC.2 + BC.22 retrofit deferred); final machine
 codification (SN.2x/CR.2x proposal to NACO); installed screen areas &
 motor sizes (recommend sizing for the extension per D1); linking
