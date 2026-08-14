@@ -213,10 +213,19 @@ def run_required_hours(params: dict) -> dict:
             f"stay at the {aglime_cap:.0f} t market cap)"
         )
 
+    # ---- crude-0/20 balancing sales (client zero-residual rule 2026-08-13):
+    # any 0/20 beyond the downstream reclaim is SOLD as crude product, so
+    # the stock balance closes at zero in every configuration
+    produced_020_t = h11_eff * q020_tph_wet
+    crude_rule = params.get("commercial_rules", {}).get("crude_020_balancing_sales", False)
+    crude_020_t = max(0.0, produced_020_t - reclaimed_020_t) if crude_rule else 0.0
+    if crude_020_t > 0:
+        sales_t["Crude 0/20 sold (balancing)"] = round(crude_020_t, 0)
     stockpiles_t = {
-        "0/20 produced": round(h11_eff * q020_tph_wet, 0),
+        "0/20 produced": round(produced_020_t, 0),
         "0/20 reclaimed": round(reclaimed_020_t, 0),
-        "0/20 net to stock": round(h11_eff * q020_tph_wet - reclaimed_020_t, 0),
+        "0/20 sold as crude": round(crude_020_t, 0),
+        "0/20 net to stock": round(produced_020_t - reclaimed_020_t - crude_020_t, 0),
         "FeedLime produced": round(feedlime_from_dry_t + h2_rain_eff * feedlime_rain_season_tph, 0),
         "FeedLime consumed": round(feedlime_demand_t, 0),
     }

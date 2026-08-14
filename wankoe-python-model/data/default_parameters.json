@@ -828,5 +828,10 @@
     },
     "zone_1_1_mode": "1A",
     "zone_1_2_mode": "2A"
+  },
+  "commercial_rules": {
+    "_note": "Client rules governing how the planning closes the commercial balance",
+    "crude_020_balancing_sales": true,
+    "_crude_020_note": "Client 2026-08-13: the 0/20 residual must be ZERO in all configurations — any 0/20 produced beyond the downstream reclaim is sold as CRUDE 0-20 (a product the NACO PFD zone-1.1 scenario table lists explicitly). The crude tonnage is the swing variable of the balance."
   }
 }
