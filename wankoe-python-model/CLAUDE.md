@@ -103,9 +103,13 @@ RC.1/RC.2 smooth rolls + two double-deck screens (client 2026-08-14,
 "2+2"): SC.A 8/3.75 recycle cuts, SC.B 2/1.5 product cuts (linking
 conveyor 39.9 t/h of 0/3.75). SLIVER ARBITRATION (client, option B):
 SC.B deck-2 oversize REGROUND through RC.2 (SC.B.sliver_routing,
-"extract" stays selectable — diverter in the design). Engine (regrind): ratio 0.79 (as-built 2.83), grits 16.66 t/h
-(55.5 %), D6 met margin 1.4 pts, BOTH RC.2 units in service, 80 kt
-grits feasible (4 802 h, 80 %). D6 envelope now encoded on FeedLime
+"extract" stays selectable — diverter in the design). BASE SCENARIO (client 2026-08-14): SINGLE RC.2 unit (n_units 1),
+dryer throttled to 22.27 t/h wet -> grits 11.56 t/h, MAX 69 300 t/y
+(6 000 h); ratio 0.79 (as-built 2.83), D6 met margin 1.4 pts,
+recirculation 42 t/h, 40 kt in 3 461 h. EXTENSION: 2nd RC.2 slot
+reserved (full dryer, 16.66 t/h, 80 kt in 4 802 h, BC.22 retrofit);
+stopgap: diverter 'extract' = full dryer on one unit (87.5 kt/y max,
+no margin, 4 t/h sliver product). D6 envelope encoded on FeedLime
 grits — AS-BUILT FAILS IT (15.4 % < 2 mm; quality_holds False).
 NAMING RULE (client): zone 1.3 = DRY products only (grits, fines,
 UltraFin); AgLime is a WET zone-1.2 product — the fines-surplus

@@ -416,9 +416,9 @@
     },
     "RC.2": {
       "zone": "1.3",
-      "type": "Smooth double-roll crusher, stage 2, 2 parallel units (C1 study variant; phase 1 at 40 kt grits runs 1 of 2 units \u2014 turndown, no equipment change per D1)",
+      "type": "Smooth double-roll crusher, stage 2, SINGLE unit (client base scenario 2026-08-14: max grits capacity 69 300 t/y at the 22 t/h loop limit, dryer throttled to 22.3 t/h wet; a 2nd parallel unit is the EXTENSION provision for full-dryer regrind / 80 kt+)",
       "max_capacity_tph": 22,
-      "n_units": 2,
+      "n_units": 1,
       "parameters": {
         "g": {
           "name": "Gap",
@@ -453,7 +453,8 @@
       "installed_power_kW": null,
       "product_curve_table": null,
       "_product_curve_note": "Vendor abaque slot (golden rule 2): roll capacity at 3.4 mm gap to be confirmed by vendor trial.",
-      "_model_note": "max_capacity_tph is PER UNIT; the flowsheet splits the stage-2 feed across the units in service."
+      "_model_note": "max_capacity_tph is PER UNIT; the flowsheet splits the stage-2 feed across the units in service.",
+      "_extension_note": "Client arbitration 2026-08-14: ONE unit installed (base scenario). Extension provision: civil works and layout must reserve the slot for a 2nd identical unit \u2014 with it, full-dryer regrind gives 16.66 t/h grits (100 kt/y at 6000 h). Alternative phase-1 stopgap: sliver diverter on 'extract' allows full dryer flow on one unit (14.6 t/h grits, 98.5 % unit load, 4 t/h sliver product to dispose)."
     },
     "SC.A": {
       "zone": "1.3",
@@ -971,7 +972,8 @@
     "zone_1_1_mode": "1A",
     "zone_1_2_mode": "2A",
     "zone_1_3_variant": "as-built",
-    "_variant_note": "'as-built' = SN.21 + ML.26 closed loop (the default until the client adopts a redesign); 'c1' = 2-stage smooth rolls RC.1/RC.2 + SC.A triple deck + SC.B sliver screen (STUDY variant, panel round 1)"
+    "_variant_note": "'as-built' = SN.21 + ML.26 closed loop (the default until the client adopts a redesign); 'c1' = 2-stage smooth rolls RC.1/RC.2 + SC.A triple deck + SC.B sliver screen (STUDY variant, panel round 1)",
+    "_c1_base_feed_note": "C1 base scenario (client 2026-08-14): zone_1_3_feedlime = 22.27 t/h wet (dryer at 69 %) so the single RC.2 unit runs at its 22 t/h loop capacity under regrind routing. The default 32.1 belongs to the as-built variant; set 22.27 when running c1 until C1 is formally adopted."
   },
   "commercial_rules": {
     "_note": "Client rules governing how the planning closes the commercial balance",

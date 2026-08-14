@@ -62,14 +62,35 @@ def test_c1_grits_quality(c1):
     assert comp["above_cut_pct"] <= 5  # engine 2026-08-14 (regrind): 2.6
 
 
-def test_c1_capacities_hold_at_reference_feed(c1):
-    """RC.1 single unit; regrind raises the stage-2 load to 31.7 t/h so
-    BOTH RC.2 units are in service (2 x 22 = 44 t/h installed) — no
-    bottleneck alert at the reference dryer-outlet flow."""
-    assert c1["machines"]["RC.1"]["throughput_tph"] <= 29
-    assert c1["machines"]["RC.2"]["throughput_tph"] <= 2 * 22
-    assert c1["machines"]["RC.2"]["units_in_service"] == 2
-    assert not any(a.startswith(("RC.1:", "RC.2:")) for a in c1["alerts"])
+def test_c1_full_dryer_flow_exceeds_the_single_rc2_unit(c1):
+    """Client base scenario 2026-08-14: ONE RC.2 unit (n_units 1). At the
+    FULL dryer flow (32.1 t/h wet) the regrind loop loads it at 31.7 t/h
+    > 22 — the engine must flag the bottleneck (this is exactly why the
+    base scenario throttles the dryer; the 2nd unit is the extension)."""
+    assert c1["machines"]["RC.2"]["throughput_tph"] > 22
+    assert any(a.startswith("RC.2:") for a in c1["alerts"])
+
+
+def test_c1_base_scenario_single_unit_at_69_kt():
+    """Base scenario (client 2026-08-14): dryer throttled to 22.27 t/h wet
+    -> the single RC.2 unit runs exactly at its 22 t/h loop capacity, no
+    bottleneck, grits 11.56 t/h = 69.3 kt/y max at the 6 000 h ceiling."""
+    r = run_scenario(
+        load_parameters(
+            overrides={
+                "default_scenario": {
+                    "zone_1_3_variant": "c1",
+                    "flow_rates_tph": {"zone_1_3_feedlime": 22.27},
+                }
+            }
+        )
+    )
+    assert r["machines"]["RC.2"]["throughput_tph"] <= 22.0 + 1e-6
+    assert r["machines"]["RC.2"]["units_in_service"] == 1
+    assert r["machines"]["RC.1"]["throughput_tph"] <= 29
+    assert not any(a.startswith(("RC.1:", "RC.2:", "DY.03:")) for a in r["alerts"])
+    grits = r["products"]["FeedLime grits"]["tph"]
+    assert 69000 < grits * 6000 < 70000  # engine 2026-08-14: 69 342 t/y
 
 
 def test_c1_balances_close(c1):
