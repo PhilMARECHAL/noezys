@@ -831,7 +831,8 @@
   },
   "commercial_rules": {
     "_note": "Client rules governing how the planning closes the commercial balance",
-    "crude_020_balancing_sales": true,
-    "_crude_020_note": "Client 2026-08-13: the 0/20 residual must be ZERO in all configurations — any 0/20 produced beyond the downstream reclaim is sold as CRUDE 0-20 (a product the NACO PFD zone-1.1 scenario table lists explicitly). The crude tonnage is the swing variable of the balance."
+    "crude_020_balancing_sales": false,
+    "excess_020_to_landfill": true,
+    "_020_note": "Client 2026-08-13 (final): there is NO market for crude 0/20 — the excess beyond the downstream reclaim goes to LANDFILL and is a NET FINANCIAL LOSS. It must be reported as a loss (with an alert), never as a sale, and minimized by design/operating choices."
   }
 }

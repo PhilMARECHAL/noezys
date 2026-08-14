@@ -48,14 +48,13 @@ def test_feedlime_stock_balanced(plan):
 
 
 def test_020_surplus_accumulates(plan):
-    # Zero-residual rule (client 2026-08-13): the mechanical 0/20 surplus
-    # is SOLD as crude product — the stock balance closes at zero in every
-    # configuration, and the crude tonnage is the swing variable
+    # Client ruling 2026-08-13 (final): NO crude-0/20 market exists — the
+    # excess goes to LANDFILL as a net financial loss, alerted so it is
+    # minimized, and it never appears as a sale
     assert plan["stockpiles_t"]["0/20 net to stock"] == pytest.approx(0, abs=1)
-    assert plan["stockpiles_t"]["0/20 sold as crude"] > 0
-    assert plan["sales_t"]["Crude 0/20 sold (balancing)"] == pytest.approx(
-        plan["stockpiles_t"]["0/20 sold as crude"], abs=1
-    )
+    assert plan["stockpiles_t"]["0/20 to LANDFILL (net loss)"] > 0
+    assert "Crude 0/20 sold (balancing)" not in plan["sales_t"]
+    assert any("LANDFILL" in a for a in plan["alerts"])
 
 
 def test_infeasible_ceiling_is_flagged():

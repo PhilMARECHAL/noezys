@@ -88,9 +88,10 @@ Zone-1 settings g = 60 / CSS = 30 / v = 35 (KFS yield 23.9 %); dryer
 limit 30 t/h AT OUTLET = 32.1 t/h wet feed (encoded); grits planning
 target 44 400 t/y (firm floor 40 000); Saturday regime zone 1 (2 400 h).
 Sales: KFS 85 000 + grits 44 400 + fines 60 000 + AgLime exactly
-135 000 (zero-waste redirect) + CRUDE 0/20 as the balancing product
-(zero-residual rule 2026-08-13: 0/20 net stock = 0 in ALL configs,
-commercial_rules.crude_020_balancing_sales; 12.2 kt/y crude at ref). Zones 74.1 / 43.0 / 95.0 %. Mode 1B unusable at 250 t/h with
+135 000 (zero-waste redirect). 0/20 EXCESS = LANDFILL, a NET LOSS
+(client final ruling 2026-08-13: NO crude market exists;
+commercial_rules.excess_020_to_landfill, alerted, minimized — 18.5 kt/y
+at grits 40 kt; 12.2 at 44.4 kt; 8.9 at dryer-flat-out 46.7 kt). Zones 74.1 / 43.0 / 95.0 %. Mode 1B unusable at 250 t/h with
 CSS 30 (no longer needed). Ch.9 tests pin all spec-era settings.
 
 ## Engineering state (see docs/ for detail)
