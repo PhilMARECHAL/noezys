@@ -44,8 +44,10 @@ def test_bounds_are_respected():
 
 
 def test_multi_parameter_fit_improves_cost():
+    # the ML.26 free parameter belongs to the as-built circuit — pinned
+    # since the C1 adoption (client 2026-08-14) made "c1" the default
     report = fit_parameters(
-        load_parameters(),
+        load_parameters(overrides={"default_scenario": {"zone_1_3_variant": "as-built"}}),
         observations=[
             {"result_path": ["products", "FeedLime grits", "tph"], "measured": 9.0},
             {"result_path": ["products", "FeedLime fines", "tph"], "measured": 17.5},

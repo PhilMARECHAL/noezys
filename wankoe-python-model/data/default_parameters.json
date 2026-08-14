@@ -951,7 +951,7 @@
     "flow_rates_tph": {
       "zone_1_1_feed": 250,
       "zone_1_2_reclaim": 100,
-      "zone_1_3_feedlime": 32.1
+      "zone_1_3_feedlime": 22.27
     },
     "zones": {
       "1.1": {
@@ -972,9 +972,8 @@
     },
     "zone_1_1_mode": "1A",
     "zone_1_2_mode": "2A",
-    "zone_1_3_variant": "as-built",
-    "_variant_note": "'as-built' = SN.21 + ML.26 closed loop (the default until the client adopts a redesign); 'c1' = 2-stage smooth rolls RC.1/RC.2 + SC.A triple deck + SC.B sliver screen (STUDY variant, panel round 1)",
-    "_c1_base_feed_note": "C1 base scenario (client 2026-08-14): zone_1_3_feedlime = 22.27 t/h wet (dryer at 69 %) so the single RC.2 unit runs at its 22 t/h loop capacity under regrind routing. The default 32.1 belongs to the as-built variant; set 22.27 when running c1 until C1 is formally adopted."
+    "zone_1_3_variant": "c1",
+    "_variant_note": "C1 ADOPTED as the reference configuration (client 2026-08-14): 2-stage smooth rolls RC.1 + single RC.2 unit, SC.A 8/3.75 + SC.B 2/1.5, sliver regrind, dryer throttled to 22.27 t/h wet (base scenario, max grits 69 300 t/y). 'as-built' remains selectable for comparison/history. Machine [H] coefficients (n_comp, S_att) pending the vendor gradation test \u2014 traceability rule."
   },
   "commercial_rules": {
     "_note": "Client rules governing how the planning closes the commercial balance",

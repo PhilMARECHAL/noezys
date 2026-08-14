@@ -94,11 +94,12 @@ commercial_rules.excess_020_to_landfill, alerted, minimized — 18.5 kt/y
 at grits 40 kt; 12.2 at 44.4 kt; 8.9 at dryer-flat-out 46.7 kt). Zones 74.1 / 43.0 / 95.0 %. Mode 1B unusable at 250 t/h with
 CSS 30 (no longer needed). Ch.9 tests pin all spec-era settings.
 
-## Zone-1.3 redesign (2026-08-14, IN PROGRESS)
+## Zone-1.3 redesign (2026-08-14 — C1 ADOPTED)
 
 Design basis D1-D8 frozen (docs/design/zone13-redesign/design-basis.md).
-C1 = client-validated lead candidate, wired as STUDY variant
-zone_1_3_variant "c1" (as-built stays the DEFAULT until adoption):
+C1 FORMALLY ADOPTED as the reference configuration (client 2026-08-14):
+zone_1_3_variant "c1" IS the default (feed 22.27 t/h wet; as-built
+selectable for history; ch.9 + ML.26 epoch tests pin as-built):
 RC.1/RC.2 smooth rolls + two double-deck screens (client 2026-08-14,
 "2+2"): SC.A 8/3.75 recycle cuts, SC.B 2/1.5 product cuts (linking
 conveyor 39.9 t/h of 0/3.75). SLIVER ARBITRATION (client, option B):
@@ -116,11 +117,17 @@ UltraFin); AgLime is a WET zone-1.2 product — the fines-surplus
 redirect is a SALES routing at loadout, say "redirect eligibility",
 never "AgLime spec", for zone-1.3 streams.
 RC.1 purchase spec = 32 t/h (client 2026-08-14, closes the D4
-quarry-feed finding). OPEN: formal C1 adoption (default swap +
-planning + docs re-issue + DT); extension provision (civil reserve
-for 2nd RC.2 + BC.22 retrofit deferred); final machine codification
-(SN.2x/CR.2x proposal to NACO); installed screen areas & motor sizes
-(recommend sizing for the extension per D1); linking conveyor rating;
+quarry-feed finding). COMMERCIAL CASCADE OF ADOPTION (client
+arbitration PENDING): fines fall to 31.5 kt (60 kt market), redirect
+= 0, AgLime loop-only 49.2 kt vs 135 kt market (strict-c2 caps zone
+1.2 at the collapsed 77 kt FeedLime demand), 0/20 LANDFILL 18.5 ->
+144.2 kt/y; levers = mode-2C AgLime campaigns, quarry-curve
+recompute, fines-driven z1.3 hours. OTHER OPEN: extension provision
+(civil reserve for 2nd RC.2 + BC.22 retrofit deferred); final machine
+codification (SN.2x/CR.2x proposal to NACO); installed screen areas &
+motor sizes (recommend sizing for the extension per D1); linking
+conveyor rating; docs re-issue (zone-1.3 calc doc, DT-001 revision,
+web-UI zone-1.3 topology);
 C2 escalation / C4 comparator in reserve; vendor gradation test fixes
 n_comp & S_att [H]. Block diagram (draw.io, as-built + C1):
 docs/design/zone13-redesign/zone13-block-diagram.drawio.

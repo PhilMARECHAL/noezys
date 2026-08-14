@@ -71,11 +71,27 @@ def test_cr5009_explicit_x80_overrides_gap():
 
 def test_ml26_machine_sheet_coefficients_are_live():
     # audit finding: calibration.comp_lam/S_att were shadowed — the machine
-    # sheet is now the single source and sweeping it must change the result
+    # sheet is now the single source and sweeping it must change the result.
+    # ML.26 lives in the as-built circuit — pinned since the C1 adoption
+    # (client 2026-08-14) made "c1" the shipped default variant
+    as_built = {"default_scenario": {"zone_1_3_variant": "as-built"}}
+    base = run_scenario(load_parameters(overrides=as_built))
+    changed = run_scenario(
+        load_parameters(
+            overrides={**as_built, "machines": {"ML.26": {"parameters": {"S_att": {"default": 0.18}}}}}
+        )
+    )
+    assert (
+        changed["products"]["FeedLime grits"]["tph"] != base["products"]["FeedLime grits"]["tph"]
+    )
+
+
+def test_rc2_machine_sheet_coefficients_are_live():
+    # same single-source guarantee for the adopted C1 machines
     base = run_scenario(load_parameters())
     changed = run_scenario(
         load_parameters(
-            overrides={"machines": {"ML.26": {"parameters": {"S_att": {"default": 0.18}}}}}
+            overrides={"machines": {"RC.2": {"parameters": {"S_att": {"default": 0.09}}}}}
         )
     )
     assert (

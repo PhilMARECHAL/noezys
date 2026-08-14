@@ -24,16 +24,21 @@ def test_sp36_block_toggle():
 
 
 def test_ml26_vendor_curve_table_replaces_hypothesis():
+    # ML.26 lives in the AS-BUILT circuit only — pinned since the C1
+    # adoption made "c1" the default variant (client, 2026-08-14)
+    as_built = {"default_scenario": {"zone_1_3_variant": "as-built"}}
     table = {
         "curve_pct": {"0.5": 20, "1.5": 45, "2.0": 55, "4.0": 82, "6.3": 100},
         "interpolation": "linear",
     }
     results = run_scenario(
-        load_parameters(overrides={"machines": {"ML.26": {"product_curve_table": table}}})
+        load_parameters(
+            overrides={**as_built, "machines": {"ML.26": {"product_curve_table": table}}}
+        )
     )
     assert any("vendor product curve" in a for a in results["alerts"])
     assert results["balances"]["zone_1_3"]["closed"]
-    base = run_scenario(load_parameters())
+    base = run_scenario(load_parameters(overrides=as_built))
     assert (
         results["products"]["FeedLime grits"]["tph"] != base["products"]["FeedLime grits"]["tph"]
     )
@@ -62,11 +67,11 @@ def test_design_check_has_three_verdicts_and_not_checkable():
     assert v["machines_hold"] is False  # CR.5009 nip exceedance
     # KFS envelope HOLDS (Q1) and targets FIT since the Saturday regime
     # extension (Q7 closed 2026-08-13: zone 1.1 ceiling 2400 h).
-    # Re-baselined 2026-08-14: the D6 grits envelope (<2 mm <= 15 %,
-    # >4 mm <= 5 %, client-adopted) is now encoded on FeedLime grits and
-    # the AS-BUILT circuit FAILS it (15.4 % < 2 mm) — a quantified
-    # redesign driver, so quality_holds is False at the as-built default
-    assert v["quality_holds"] is False
+    # 2026-08-14 (same day, two re-baselines): the D6 grits envelope made
+    # the AS-BUILT default fail quality (15.4 % < 2 mm > 15 %); then the
+    # client ADOPTED the C1 redesign as the default configuration — its
+    # grits PASS D6 (13.6 % < 2 mm), so quality_holds is True again
+    assert v["quality_holds"] is True
     assert v["targets_reachable"] is True
     assert report["not_checkable"][0]["machine"] == "CR.5003"
 

@@ -36,8 +36,14 @@ def results():
                 # ch.9 was authored with 30 t/h at the dryer INLET; the
                 # 2026-08-13 client ruling redefined the default as 32.1
                 # (= 30 t/h at the OUTLET, the dryer's capacity limit) —
-                # pin the spec-era inlet basis here
-                "default_scenario": {"flow_rates_tph": {"zone_1_3_feedlime": 30}},
+                # pin the spec-era inlet basis here. 2026-08-14: the C1
+                # redesign became the shipped default (zone_1_3_variant
+                # "c1", feed 22.27) — ch.9 describes the AS-BUILT circuit,
+                # so this suite pins the as-built variant too
+                "default_scenario": {
+                    "flow_rates_tph": {"zone_1_3_feedlime": 30},
+                    "zone_1_3_variant": "as-built",
+                },
                 "calibration": {"I_dry": {"default": 0.4}},
                 "machines": {
                     # 2026-08-13 optimization changed the shipped defaults

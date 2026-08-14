@@ -11,18 +11,25 @@ from wankoe_model import load_parameters, run_scenario
 
 @pytest.fixture(scope="module")
 def c1():
-    return run_scenario(
-        load_parameters(overrides={"default_scenario": {"zone_1_3_variant": "c1"}})
-    )
+    # C1 ADOPTED as the default (client 2026-08-14): base scenario, single
+    # RC.2 unit, dryer throttled to 22.27 t/h wet
+    return run_scenario(load_parameters())
 
 
-def test_default_variant_is_as_built():
+def test_c1_is_the_default_and_as_built_stays_selectable():
+    # adoption arbitration (client 2026-08-14, option 1): C1 is the shipped
+    # default; the as-built circuit remains selectable for comparison
     params = load_parameters()
-    assert params["default_scenario"]["zone_1_3_variant"] == "as-built"
+    assert params["default_scenario"]["zone_1_3_variant"] == "c1"
     results = run_scenario(params)
-    assert results["products"]["Sliver 1.5/2"]["present"] is False
-    assert "ML.26" in results["machines"] and results["machines"]["ML.26"]["active"]
-    assert "RC.1" not in results["machines"]
+    assert results["products"]["Sliver 1.5/2"]["present"] is False  # regrind
+    assert "RC.1" in results["machines"] and results["machines"]["RC.1"]["active"]
+    assert "ML.26" not in results["machines"]
+    as_built = run_scenario(
+        load_parameters(overrides={"default_scenario": {"zone_1_3_variant": "as-built"}})
+    )
+    assert as_built["machines"]["ML.26"]["active"]
+    assert "RC.1" not in as_built["machines"]
 
 
 def test_c1_machines_replace_as_built(c1):
@@ -62,13 +69,20 @@ def test_c1_grits_quality(c1):
     assert comp["above_cut_pct"] <= 5  # engine 2026-08-14 (regrind): 2.6
 
 
-def test_c1_full_dryer_flow_exceeds_the_single_rc2_unit(c1):
+def test_c1_full_dryer_flow_exceeds_the_single_rc2_unit():
     """Client base scenario 2026-08-14: ONE RC.2 unit (n_units 1). At the
     FULL dryer flow (32.1 t/h wet) the regrind loop loads it at 31.7 t/h
     > 22 — the engine must flag the bottleneck (this is exactly why the
     base scenario throttles the dryer; the 2nd unit is the extension)."""
-    assert c1["machines"]["RC.2"]["throughput_tph"] > 22
-    assert any(a.startswith("RC.2:") for a in c1["alerts"])
+    r = run_scenario(
+        load_parameters(
+            overrides={
+                "default_scenario": {"flow_rates_tph": {"zone_1_3_feedlime": 32.1}}
+            }
+        )
+    )
+    assert r["machines"]["RC.2"]["throughput_tph"] > 22
+    assert any(a.startswith("RC.2:") for a in r["alerts"])
 
 
 def test_c1_base_scenario_single_unit_at_69_kt():

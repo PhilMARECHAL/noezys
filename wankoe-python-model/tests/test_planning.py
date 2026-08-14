@@ -12,15 +12,17 @@ def plan():
 
 def test_production_lands_exactly_on_targets(plan):
     assert plan["production_t"]["KFS"] == pytest.approx(85000, abs=1)
-    # ZERO-WASTE rule (client 2026-08-13): the fines surplus beyond its
-    # 60 kt market is redirected into the AgLime channel; the loop only
-    # produces the complement, so TOTAL AgLime sales land exactly on the
-    # 135 kt market cap and nothing is unsellable.
-    # Reference configuration 2026-08-13 evening: optimal zone-1 settings,
-    # grits back at the FIRM 40 000 t/y (client), crude 0/20 balancing
-    assert plan["production_t"]["AgLime"] == pytest.approx(87109, rel=0.02)
-    assert plan["sales_t"]["AgLime total sold (loop + redirect)"] == pytest.approx(135000, abs=1)
-    assert plan["sales_t"]["FeedLime fines sold as fines"] == pytest.approx(60000, abs=1)
+    # C1 ADOPTION re-baseline (client 2026-08-14): the redesigned zone 1.3
+    # makes 2.8x fewer fines per grits tonne, so at the 40 kt grits target
+    # the fines flood DISAPPEARS: fines production falls to ~31.5 kt
+    # (below the 60 kt market — nothing left to redirect), and the AgLime
+    # loop only co-produces ~49 kt in mode 2A against its 135 kt market.
+    # The commercial cascade (fines shortfall, AgLime gap, 0/20 landfill
+    # explosion 18.5 -> 144 kt/y) is REPORTED to the client — arbitration
+    # pending (2C campaigns / quarry curve recomputation are the levers).
+    assert plan["production_t"]["AgLime"] == pytest.approx(49189, rel=0.02)
+    assert plan["sales_t"]["Fines surplus redirected to the AgLime sales channel"] == pytest.approx(0, abs=1)
+    assert plan["sales_t"]["FeedLime fines sold as fines"] == pytest.approx(31531, rel=0.02)
     assert not any("unsellable" in a for a in plan["alerts"])
     assert plan["production_t"]["FeedLime grits"] == pytest.approx(40000, abs=1)
 
