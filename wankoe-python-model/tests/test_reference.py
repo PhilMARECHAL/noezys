@@ -33,6 +33,11 @@ def results():
                     "cumulative_passing_curve": curve,
                     "properties": {"moisture_pct": {"default": 8}},
                 },
+                # ch.9 was authored with 30 t/h at the dryer INLET; the
+                # 2026-08-13 client ruling redefined the default as 32.1
+                # (= 30 t/h at the OUTLET, the dryer's capacity limit) —
+                # pin the spec-era inlet basis here
+                "default_scenario": {"flow_rates_tph": {"zone_1_3_feedlime": 30}},
                 "calibration": {"I_dry": {"default": 0.4}},
                 "machines": {
                     "SR.5007": {"parameters": {"I": {"default": 0.4}}},
