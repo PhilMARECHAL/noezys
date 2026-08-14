@@ -61,8 +61,12 @@ def test_design_check_has_three_verdicts_and_not_checkable():
     assert set(v) == {"machines_hold", "quality_holds", "targets_reachable"}
     assert v["machines_hold"] is False  # CR.5009 nip exceedance
     # KFS envelope HOLDS (Q1) and targets FIT since the Saturday regime
-    # extension (Q7 closed 2026-08-13: zone 1.1 ceiling 2400 h)
-    assert v["quality_holds"] is True
+    # extension (Q7 closed 2026-08-13: zone 1.1 ceiling 2400 h).
+    # Re-baselined 2026-08-14: the D6 grits envelope (<2 mm <= 15 %,
+    # >4 mm <= 5 %, client-adopted) is now encoded on FeedLime grits and
+    # the AS-BUILT circuit FAILS it (15.4 % < 2 mm) — a quantified
+    # redesign driver, so quality_holds is False at the as-built default
+    assert v["quality_holds"] is False
     assert v["targets_reachable"] is True
     assert report["not_checkable"][0]["machine"] == "CR.5003"
 

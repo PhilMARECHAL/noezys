@@ -36,34 +36,39 @@ def test_c1_machines_replace_as_built(c1):
 
 
 def test_c1_meets_the_machine_spec(c1):
-    """The redesign objective (design basis D6 + machine spec from the
+    """The redesign objective (design basis D3 + machine spec from the
     diagnosis): >=40 % of the zone-1.3 feed leaves as 2-4 grits, and the
     total-fines-to-grits ratio comes down from the as-built 2.83 to <=1.25
-    (the FIRM planning ratio)."""
+    FIRM. Client arbitration 2026-08-14 (option B): the 1.5/2 sliver is
+    REGROUND through RC.2 — the ratio drops to 0.79, also meeting the
+    <=1.0 D3 objective."""
     p = c1["products"]
     grits = p["FeedLime grits"]["tph"]
-    total_fines = (
-        p["FeedLime fines"]["tph"] + p["UltraFin"]["tph"] + p["Sliver 1.5/2"]["tph"]
-    )
+    total_fines = p["FeedLime fines"]["tph"] + p["UltraFin"]["tph"]
     dryer_out = c1["machines"]["DY.03"]["dry_solids_tph"] / (
         1.0 - c1["machines"]["DY.03"]["m_out_effective_pct"] / 100.0
     )
-    assert grits / dryer_out >= 0.40  # engine 2026-08-14: 48.6 %
-    assert total_fines / grits <= 1.25  # engine 2026-08-14: 1.05
+    assert grits / dryer_out >= 0.40  # engine 2026-08-14 (regrind): 55.5 %
+    assert total_fines / grits <= 1.0  # engine 2026-08-14 (regrind): 0.79
 
 
 def test_c1_grits_quality(c1):
+    # D6 envelope encoded 2026-08-14: <2 mm <= 15 %, >4 mm <= 5 %.
+    # Regrind narrows the below-cut margin (13.6 % vs 5.2 % in extract
+    # mode) — the client accepted this against the vendor gradation test.
     comp = c1["products"]["FeedLime grits"]["compliance"]
-    assert comp["in_cut_pct"] >= 90  # engine 2026-08-14: 91.7 % in 2-4
-    assert comp["above_cut_pct"] <= 5
+    assert comp["compliant"] is True
+    assert comp["below_cut_pct"] <= 15  # engine 2026-08-14 (regrind): 13.6
+    assert comp["above_cut_pct"] <= 5  # engine 2026-08-14 (regrind): 2.6
 
 
 def test_c1_capacities_hold_at_reference_feed(c1):
-    """RC.1 single unit and RC.2 with ONE of two units in service carry the
-    reference dryer-outlet flow (30 t/h) without a bottleneck alert."""
+    """RC.1 single unit; regrind raises the stage-2 load to 31.7 t/h so
+    BOTH RC.2 units are in service (2 x 22 = 44 t/h installed) — no
+    bottleneck alert at the reference dryer-outlet flow."""
     assert c1["machines"]["RC.1"]["throughput_tph"] <= 29
-    assert c1["machines"]["RC.2"]["throughput_tph"] <= 22
-    assert c1["machines"]["RC.2"]["units_in_service"] == 1
+    assert c1["machines"]["RC.2"]["throughput_tph"] <= 2 * 22
+    assert c1["machines"]["RC.2"]["units_in_service"] == 2
     assert not any(a.startswith(("RC.1:", "RC.2:")) for a in c1["alerts"])
 
 
@@ -72,7 +77,24 @@ def test_c1_balances_close(c1):
     assert c1["balances"]["water_zone_1_3"]["closed"]
 
 
-def test_c1_sliver_is_a_separate_stream(c1):
-    sliver = c1["products"]["Sliver 1.5/2"]
+def test_c1_sliver_regrind_is_the_default(c1):
+    # Client arbitration 2026-08-14 (option B): SC.B oversize_routing =
+    # "regrind" — the sliver returns to RC.2 and the product is absent
+    assert c1["products"]["Sliver 1.5/2"]["present"] is False
+
+
+def test_c1_extract_routing_stays_selectable():
+    # the two-position diverter of the design: "extract" keeps the sliver
+    # as a separate product (reversible in operation)
+    r = run_scenario(
+        load_parameters(
+            overrides={
+                "default_scenario": {"zone_1_3_variant": "c1"},
+                "machines": {"SC.B": {"oversize_routing": "extract"}},
+            }
+        )
+    )
+    sliver = r["products"]["Sliver 1.5/2"]
     assert sliver["present"] is True
-    assert 0 < sliver["tph"] < c1["products"]["FeedLime grits"]["tph"]
+    assert 0 < sliver["tph"] < r["products"]["FeedLime grits"]["tph"]
+    assert r["machines"]["RC.2"]["units_in_service"] == 1

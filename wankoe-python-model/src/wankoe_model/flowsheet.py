@@ -528,9 +528,12 @@ def zone_1_3_c1(feedlime: dict, params: dict, phi_100_pct, alerts: list) -> dict
     +8 -> RC.1 (smooth rolls stage 1); 3.75-8 -> RC.2 (smooth rolls
     stage 2, 2 parallel units); both roll products return to SC.A (closed
     circuit); 2-3.75 = grits leave IMMEDIATELY (no regrind of in-spec
-    material); 0-2 -> SC.B at 1.5 mm: 1.5-2 = sliver (NOT reground —
-    disposition pending client arbitration), 0-1.5 = fines -> SP.36
-    (+ CL.38) -> UltraFin; remainder = FeedLime fines.
+    material); 0-2 -> SC.B at 1.5 mm: 0-1.5 = fines -> SP.36 (+ CL.38)
+    -> UltraFin; remainder = FeedLime fines. The 1.5-2 sliver (SC.B
+    oversize) follows SC.B's oversize_routing (client arbitration
+    2026-08-14, two-position diverter in the design): "regrind" (default)
+    sends it to RC.2 with the 3.75-8 midsize; "extract" keeps it as the
+    separate Sliver 1.5/2 product.
     """
     mp = params["machines"]
     calib = params["calibration"]
@@ -541,6 +544,7 @@ def zone_1_3_c1(feedlime: dict, params: dict, phi_100_pct, alerts: list) -> dict
     pa = mp["SC.A"]["parameters"]
     a1, a2, a3 = (pa[k]["default"] for k in ("a1", "a2", "a3"))
     a_sliver = mp["SC.B"]["parameters"]["a"]["default"]
+    sliver_regrind = mp["SC.B"].get("oversize_routing", "regrind") == "regrind"
 
     def _roll_calib(code):
         p = mp[code]["parameters"]
@@ -567,9 +571,14 @@ def zone_1_3_c1(feedlime: dict, params: dict, phi_100_pct, alerts: list) -> dict
         mid, under375 = _karra_screen(under8, a2, calib["I_dry"], calib) if under8 else (None, None)
         grits, under2 = _karra_screen(under375, a3, calib["I_dry"], calib) if under375 else (None, None)
         sliver, fines = _karra_screen(under2, a_sliver, calib["I_dry"], calib) if under2 else (None, None)
+        if sliver_regrind and sliver:
+            rc2_feed = _blend([s for s in (mid, sliver) if s])
+            sliver = None
+        else:
+            rc2_feed = mid
         crushed = [s for s in (
             _roll_pass(over8, g1, calib_rc1, rc1_info) if over8 else None,
-            _roll_pass(mid, g2, calib_rc2, rc2_info) if mid else None,
+            _roll_pass(rc2_feed, g2, calib_rc2, rc2_info) if rc2_feed else None,
         ) if s]
         new = _blend(crushed) if crushed else None
         return new, {
