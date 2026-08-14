@@ -124,13 +124,25 @@ valeur dans la liste des frontières.**
 
 ---
 
-## 5. Timeline et contenu actuels (v4 « remontage », brief de réunion appliqué au détail)
+## 5. Timeline et contenu actuels (v5 — texte validé scène par scène par le client)
 
-Version française uniquement. Objectif : vidéo CONCRÈTE et EXPLICATIVE,
-lisible sans le son, accroche ≤ 3 s, marque UNIQUEMENT sur la slide de fin.
+Version française uniquement, 34,5 s. Marque uniquement en fin (avec la scène
+équipe), aucun QR, aucune numérotation, icônes SVG à la charte, pas de tagline.
 
 | Scène | Temps | Contenu |
 |---|---|---|
+| S1 ouverture | 0–2 s | **L'intelligence artificielle** intégrée à votre métier |
+| S2 accroche | 2–5 s | Gagnez du temps. Augmentez votre **chiffre d'affaires.** |
+| S3 titre+bulles | 5–11,2 s | « Des solutions sur mesure » immobile au centre, 5 bulles autour (Devis automatisé · Chatbot client · Site web sur mesure · Application mobile · IA 100% custom), curseur + clic → bulle **verte** |
+| S4 chat | 11,2–17,2 s | « Bonjour, il me faudra un devis pour une prestation de service. » → « Bonjour, voici ce que nous pouvons vous proposer. » ; la fenêtre disparaît en fin de scène |
+| S5 site web | 17,2–23,2 s | Concept « faisceau » : un site fictif Atelier Nova se cristallise au passage d'un faisceau dégradé ; pastille « IA · génération » → « Site généré ✓ » |
+| S6 équipe | 23,2–28,2 s | L'ÉQUIPE NOEZYS · Authenticité. Impact. Créativité. · **Le contact humain avant tout.** |
+| S7 fin | 28,2–34,5 s | Logo N + NOEZYS + AI INNOVATION LAB + bouton **Découvrez le lab** + noezys.com/fr/lab + ligne verte SOLUTIONS DIGITALES DURABLES · IA RESPONSABLE |
+
+Frontières musicales : `0,2,5,11.2,17.2,23.2,28.2` (durée en 5e argument de
+make-music.py : `34.5`). Player cliquable : CTA_START = 28.2 dans player.html.
+
+---|---|---|
 | S1 ouverture | 0–2 s | **L'intelligence artificielle** intégrée à votre métier (coupe nette à 2 s) |
 | S2 accroche | 2–5 s | Gagnez du temps. Augmentez votre **chiffre d'affaires**. (fond clair, SANS logo, sortie anticipée) |
 | S3 titre | 5–6,2 s | Des solutions sur mesure (typo réduite, 84 px) |
