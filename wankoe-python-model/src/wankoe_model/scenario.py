@@ -303,7 +303,9 @@ def run_scenario(params: dict) -> dict:
     _product("FeedLime grits", z13["products"]["FeedLime grits"] if z13 else None)
     _product("FeedLime fines", z13["products"]["FeedLime fines"] if z13 else None)
     _product("UltraFin", z13["products"]["UltraFin"] if z13 else None)
-    # Sliver 1.5/2 exists only in the C1 study variant (disposition pending)
+    # Sliver 1.5/2 is a product ONLY in the C1 study variant with SC.B
+    # oversize_routing = "extract"; under the default regrind routing
+    # (client 2026-08-14) it is an internal recycle stream, present=False
     _product("Sliver 1.5/2", z13["products"].get("Sliver 1.5/2") if z13 else None)
 
     machines = {**z11["machines"], **z12["machines"], **(z13["machines"] if z13 else {})}

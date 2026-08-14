@@ -203,7 +203,9 @@ def run_required_hours(params: dict) -> dict:
     sales_t = {
         "UltraFin sold (market to develop)": round(ultrafin_production_t, 0),
         "FeedLime fines sold as fines": round(fines_sold_t, 0),
-        "Fines surplus redirected to AgLime": round(fines_redirect_t, 0),
+        # naming convention (client, 2026-08-14): the redirect is a SALES
+        # routing at loadout — zone 1.3 never produces AgLime
+        "Fines surplus redirected to the AgLime sales channel": round(fines_redirect_t, 0),
         "AgLime from loop": round(aglime_t, 0),
         "AgLime total sold (loop + redirect)": round(aglime_sold_t, 0),
         "AgLime market cap": aglime_cap,
