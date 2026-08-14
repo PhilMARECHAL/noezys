@@ -90,7 +90,7 @@ def test_c1_extract_routing_stays_selectable():
         load_parameters(
             overrides={
                 "default_scenario": {"zone_1_3_variant": "c1"},
-                "machines": {"SC.B": {"oversize_routing": "extract"}},
+                "machines": {"SC.B": {"sliver_routing": "extract"}},
             }
         )
     )

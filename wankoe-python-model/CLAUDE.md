@@ -99,10 +99,11 @@ CSS 30 (no longer needed). Ch.9 tests pin all spec-era settings.
 Design basis D1-D8 frozen (docs/design/zone13-redesign/design-basis.md).
 C1 = client-validated lead candidate, wired as STUDY variant
 zone_1_3_variant "c1" (as-built stays the DEFAULT until adoption):
-RC.1/RC.2 smooth rolls + SC.A 8/3.75/2 + SC.B 1.5. SLIVER ARBITRATION
-(client, option B): SC.B oversize REGROUND through RC.2
-(SC.B.oversize_routing, "extract" stays selectable — diverter in the
-design). Engine (regrind): ratio 0.79 (as-built 2.83), grits 16.66 t/h
+RC.1/RC.2 smooth rolls + two double-deck screens (client 2026-08-14,
+"2+2"): SC.A 8/3.75 recycle cuts, SC.B 2/1.5 product cuts (linking
+conveyor 39.9 t/h of 0/3.75). SLIVER ARBITRATION (client, option B):
+SC.B deck-2 oversize REGROUND through RC.2 (SC.B.sliver_routing,
+"extract" stays selectable — diverter in the design). Engine (regrind): ratio 0.79 (as-built 2.83), grits 16.66 t/h
 (55.5 %), D6 met margin 1.4 pts, BOTH RC.2 units in service, 80 kt
 grits feasible (4 802 h, 80 %). D6 envelope now encoded on FeedLime
 grits — AS-BUILT FAILS IT (15.4 % < 2 mm; quality_holds False).
@@ -110,8 +111,7 @@ NAMING RULE (client): zone 1.3 = DRY products only (grits, fines,
 UltraFin); AgLime is a WET zone-1.2 product — the fines-surplus
 redirect is a SALES routing at loadout, say "redirect eligibility",
 never "AgLime spec", for zone-1.3 streams.
-OPEN: 4-deck arrangement (2+2 double-decks recommended vs quad vs
-3+1) — client arbitration pending; RC.1 spec 29 -> ~32 t/h
+OPEN: RC.1 spec 29 -> ~32 t/h
 (quarry-feed alert); BC.22 retrofit (16.7 vs 15 t/h rating);
 C2 escalation / C4 comparator in reserve; vendor gradation test fixes
 n_comp & S_att [H]. Block diagram (draw.io, as-built + C1):

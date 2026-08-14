@@ -524,16 +524,18 @@ def zone_1_3_c1(feedlime: dict, params: dict, phi_100_pct, alerts: list) -> dict
     """Zone 1.3 — C1 STUDY VARIANT (zone-1.3 redesign, panel round 1,
     client-validated lead candidate 2026-08-14; as-built stays the default).
 
-    FeedLime -> DY.03 (unchanged, D2) -> SC.A triple deck 8/3.75/2:
-    +8 -> RC.1 (smooth rolls stage 1); 3.75-8 -> RC.2 (smooth rolls
-    stage 2, 2 parallel units); both roll products return to SC.A (closed
-    circuit); 2-3.75 = grits leave IMMEDIATELY (no regrind of in-spec
-    material); 0-2 -> SC.B at 1.5 mm: 0-1.5 = fines -> SP.36 (+ CL.38)
-    -> UltraFin; remainder = FeedLime fines. The 1.5-2 sliver (SC.B
-    oversize) follows SC.B's oversize_routing (client arbitration
-    2026-08-14, two-position diverter in the design): "regrind" (default)
-    sends it to RC.2 with the 3.75-8 midsize; "extract" keeps it as the
-    separate Sliver 1.5/2 product.
+    FeedLime -> DY.03 (unchanged, D2) -> two double-deck screens (client
+    arbitration 2026-08-14, "2+2" arrangement): SC.A 8/3.75 carries the
+    RECYCLE cuts (+8 -> RC.1 smooth rolls stage 1; 3.75-8 -> RC.2 smooth
+    rolls stage 2, 2 parallel units; both roll products return to SC.A —
+    closed circuit); the SC.A undersize 0/3.75 feeds SC.B 2/1.5 carrying
+    the PRODUCT cuts (2-3.75 = grits leave IMMEDIATELY, no regrind of
+    in-spec material; 0-1.5 = fines -> SP.36 (+ CL.38) -> UltraFin;
+    remainder = FeedLime fines). The 1.5-2 sliver (SC.B deck-2 oversize)
+    follows SC.B's sliver_routing (client arbitration 2026-08-14,
+    two-position diverter in the design): "regrind" (default) sends it to
+    RC.2 with the 3.75-8 midsize; "extract" keeps it as the separate
+    Sliver 1.5/2 product.
     """
     mp = params["machines"]
     calib = params["calibration"]
@@ -542,9 +544,10 @@ def zone_1_3_c1(feedlime: dict, params: dict, phi_100_pct, alerts: list) -> dict
     m6, dried = _dy03_dryer(feedlime, mp, calib, alerts)
 
     pa = mp["SC.A"]["parameters"]
-    a1, a2, a3 = (pa[k]["default"] for k in ("a1", "a2", "a3"))
-    a_sliver = mp["SC.B"]["parameters"]["a"]["default"]
-    sliver_regrind = mp["SC.B"].get("oversize_routing", "regrind") == "regrind"
+    a1, a2 = (pa[k]["default"] for k in ("a1", "a2"))
+    pb = mp["SC.B"]["parameters"]
+    b1, b2 = (pb[k]["default"] for k in ("a1", "a2"))
+    sliver_regrind = mp["SC.B"].get("sliver_routing", "regrind") == "regrind"
 
     def _roll_calib(code):
         p = mp[code]["parameters"]
@@ -569,8 +572,9 @@ def zone_1_3_c1(feedlime: dict, params: dict, phi_100_pct, alerts: list) -> dict
         screen_feed = _blend([dried, recycle]) if recycle else dried
         over8, under8 = _karra_screen(screen_feed, a1, calib["I_dry"], calib)
         mid, under375 = _karra_screen(under8, a2, calib["I_dry"], calib) if under8 else (None, None)
-        grits, under2 = _karra_screen(under375, a3, calib["I_dry"], calib) if under375 else (None, None)
-        sliver, fines = _karra_screen(under2, a_sliver, calib["I_dry"], calib) if under2 else (None, None)
+        # SC.A undersize 0/3.75 travels on the linking conveyor to SC.B
+        grits, under2 = _karra_screen(under375, b1, calib["I_dry"], calib) if under375 else (None, None)
+        sliver, fines = _karra_screen(under2, b2, calib["I_dry"], calib) if under2 else (None, None)
         if sliver_regrind and sliver:
             rc2_feed = _blend([s for s in (mid, sliver) if s])
             sliver = None
@@ -586,9 +590,11 @@ def zone_1_3_c1(feedlime: dict, params: dict, phi_100_pct, alerts: list) -> dict
             "sliver": sliver,
             "fines": fines,
             "sca_feed": screen_feed,
-            "u1": under8["q"] if under8 else 0.0,
-            "u2": under375["q"] if under375 else 0.0,
-            "u3": under2["q"] if under2 else 0.0,
+            "scb_feed": under375,
+            "ua1": under8["q"] if under8 else 0.0,
+            "ua2": under375["q"] if under375 else 0.0,
+            "ub1": under2["q"] if under2 else 0.0,
+            "ub2": fines["q"] if fines else 0.0,
         }
 
     recycle, outputs = _fixed_point_loop(iterate, engine, alerts, "Zone 1.3 C1 / RC.1+RC.2")
@@ -620,13 +626,13 @@ def zone_1_3_c1(feedlime: dict, params: dict, phi_100_pct, alerts: list) -> dict
     )
 
     sca_areas = {
-        "deck_1": models.m4_screen_area(outputs["u1"], a1, calib),
-        "deck_2": models.m4_screen_area(outputs["u2"], a2, calib),
-        "deck_3": models.m4_screen_area(outputs["u3"], a3, calib),
+        "deck_1": models.m4_screen_area(outputs["ua1"], a1, calib),
+        "deck_2": models.m4_screen_area(outputs["ua2"], a2, calib),
     }
     _check_installed_area("SC.A", sca_areas, mp["SC.A"].get("installed_area_m2"), alerts)
     scb_areas = {
-        "deck_1": models.m4_screen_area(outputs["fines"]["q"] if outputs["fines"] else 0.0, a_sliver, calib),
+        "deck_1": models.m4_screen_area(outputs["ub1"], b1, calib),
+        "deck_2": models.m4_screen_area(outputs["ub2"], b2, calib),
     }
     _check_installed_area("SC.B", scb_areas, mp["SC.B"].get("installed_area_m2"), alerts)
 
@@ -644,7 +650,7 @@ def zone_1_3_c1(feedlime: dict, params: dict, phi_100_pct, alerts: list) -> dict
                 "areas_m2": sca_areas,
             },
             "SC.B": {
-                "feed_tph": outputs["u3"],
+                "feed_tph": outputs["scb_feed"]["q"] if outputs["scb_feed"] else 0.0,
                 "areas_m2": scb_areas,
             },
             "RC.1": rc1_info,
