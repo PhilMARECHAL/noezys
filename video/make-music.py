@@ -17,7 +17,7 @@ OUT = sys.argv[1]
 BOUNDS = [float(x) for x in sys.argv[2].split(',')]
 
 SR = 44100
-DUR = 30.0
+DUR = float(sys.argv[5]) if len(sys.argv) > 5 else 30.0
 N = int(SR * DUR)
 BEAT = 0.5  # 120 BPM
 L = np.zeros(N); R = np.zeros(N)
@@ -96,7 +96,7 @@ for i in range(len(BOUNDS)):
 
 # ── batterie : grille globale 120 BPM ────────────────────────────────
 t = 0.0
-while t < 29.2:
+while t < DUR - 0.8:
     lv = level(t)
     # kick 4/4, punchy
     n = int(0.3*SR); tt = np.arange(n)/SR
@@ -120,7 +120,7 @@ while t < 29.2:
 
 # ── basse pulsée en croches ──────────────────────────────────────────
 t = 0.0
-while t < 29.0:
+while t < DUR - 1.0:
     chord = chord_at(t)
     froot = nfreq(chord[0])
     n = int(0.32*SR); tt = np.arange(n)/SR
@@ -137,7 +137,7 @@ while t < 29.0:
 if len(b) > 1:
     t = b[1]
     step = 0
-    while t < 29.0:
+    while t < DUR - 1.0:
         chord = chord_at(t)
         tones = chord[2:6]
         f = nfreq(tones[step % len(tones)]) * 2
@@ -154,7 +154,7 @@ if len(b) > 1:
 if len(b) >= 5:
     t = b[4]
     step = 0
-    while t < 28.5:
+    while t < DUR - 1.5:
         chord = chord_at(t)
         f = nfreq(chord[4 if step % 4 in (0, 3) else 5])
         n = int(1.1*SR); tt = np.arange(n)/SR
@@ -202,7 +202,7 @@ for k, name in enumerate(['C2','C3','G3','E4','B4','D5','G5']):
     sig *= env_ar(n, 0.15, 1.8) * 0.05
     pan = 0.5 + 0.35*np.sin(k*1.7)
     add(sig, fin, left=1-pan+0.5, right=pan+0.5)
-impact(29.0, 0.9)
+impact(DUR - 1.0, 0.9)
 
 # ── mastering ───────────────────────────────────────────────────────
 mix = np.stack([L, R])

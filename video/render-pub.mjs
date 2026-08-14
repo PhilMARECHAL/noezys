@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 const DIR = path.dirname(fileURLToPath(import.meta.url));
 const LANG = process.argv[2] || 'fr';
 const FPS = Number(process.argv[3]) || 30;
-const DURATION = 30;
+const DURATION = 34.5;
 const FRAMES = FPS * DURATION;
 const framesDir = path.join(DIR, 'frames');
 
