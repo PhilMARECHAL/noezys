@@ -2,8 +2,8 @@
 
 > Document de référence pour régénérer **à l'identique** les vidéos publicitaires
 > Noezys, puis appliquer des ajustements de contenu **sans jamais toucher à
-> l'identité visuelle**. Rédigé après la production validée du 6 août 2026
-> (commit `e6cd1a6`, branche `claude/noezys-30sec-video-0m1k07`).
+> l'identité visuelle**. Version finale v5 validée par le client le 20 août 2026
+> (branche `claude/noezys-30sec-video-0m1k07` — bande-son fluidifiée incluse).
 
 ---
 
