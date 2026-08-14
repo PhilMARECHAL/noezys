@@ -6,10 +6,13 @@
         <mxCell id="1" parent="0" />
 
         <mxCell id="title" value="ZONE 1.3 — AS-BUILT CIRCUIT (machine tags verified against the DBR PFD; rates = engine at the 30 t/h dryer outlet, measured chain)" style="text;html=1;fontSize=14;fontStyle=1;fontColor=#1f2a44;align=left;" vertex="1" parent="1">
-          <mxGeometry x="20" y="10" width="1100" height="30" as="geometry" />
+          <mxGeometry x="20" y="10" width="1140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="brand1" value="by NOEZYS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0a0f2e;strokeColor=#22d3ee;fontColor=#22d3ee;fontSize=11;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1240" y="10" width="110" height="30" as="geometry" />
         </mxCell>
 
-        <mxCell id="src" value="FeedLime 6/20 from SP.5109 stockpile (zone 1.2)&#10;32.1 t/h wet — 7 % moisture" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#1f2a44;dashed=1;fontSize=10;fontColor=#1f2a44;" vertex="1" parent="1">
+        <mxCell id="src" value="FeedLime 6/20 from SP.5109 stockpile (zone 1.2)&#10;32.1 t/h total — 7 % moisture" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#1f2a44;dashed=1;fontSize=10;fontColor=#1f2a44;" vertex="1" parent="1">
           <mxGeometry x="20" y="220" width="150" height="60" as="geometry" />
         </mxCell>
         <mxCell id="ho01" value="HO.01&#10;feed hopper" style="shape=trapezoid;perimeter=trapezoidPerimeter;whiteSpace=wrap;html=1;flipV=1;fillColor=#ffffff;strokeColor=#1f2a44;fontSize=10;fontColor=#1f2a44;" vertex="1" parent="1">
@@ -61,11 +64,11 @@
         <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontSize=10;" edge="1" parent="1" source="src" target="ho01"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontSize=10;" edge="1" parent="1" source="ho01" target="bc02"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontSize=10;" edge="1" parent="1" source="bc02" target="dy03"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e4" value="29.85 t/h dry solids" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontSize=10;fontColor=#1f2a44;" edge="1" parent="1" source="dy03" target="em09"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e4" value="29.85 t/h dry" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontColor=#1f2a44;fontSize=10;" edge="1" parent="1" source="dy03" target="em09"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontSize=10;" edge="1" parent="1" source="em09" target="sn21"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e6" value="+4 mm oversize + sliver 1.5/2&#10;39.1 t/h combined" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontSize=10;fontColor=#1f2a44;exitX=0.75;exitY=0;entryX=0.75;entryY=1;" edge="1" parent="1" source="sn21" target="ml26"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e7" value="recycle 39.1 t/h&#10;(131 % of fresh feed)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#c62828;fontColor=#c62828;dashed=1;fontSize=10;exitX=0.15;exitY=1;entryX=0.15;entryY=0;" edge="1" parent="1" source="ml26" target="sn21"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e8" value="grits 2/4 — 7.79 t/h&#10;(26.1 % of dryer outlet)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2e7d32;fontColor=#1b5e20;fontSize=10;exitX=1;exitY=0.3;entryX=0;entryY=0.5;" edge="1" parent="1" source="sn21" target="bc22"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e6" value="+4 mm + sliver 1.5/2&#10;39.1 t/h combined" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontColor=#1f2a44;fontSize=10;exitX=0.75;exitY=0;entryX=0.75;entryY=1;" edge="1" parent="1" source="sn21" target="ml26"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e7" value="recycle 39.1 t/h" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#c62828;fontColor=#c62828;dashed=1;fontSize=10;exitX=0.15;exitY=1;entryX=0.15;entryY=0;" edge="1" parent="1" source="ml26" target="sn21"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e8" value="grits 2/4 — 7.79 t/h (26.1 %)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2e7d32;fontColor=#1b5e20;fontSize=10;exitX=1;exitY=0.3;entryX=0;entryY=0.5;" edge="1" parent="1" source="sn21" target="bc22"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2e7d32;fontSize=10;" edge="1" parent="1" source="bc22" target="bi80"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="e10" value="0/1.5 fines — 22.07 t/h" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontColor=#1f2a44;fontSize=10;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="sn21" target="sp36"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="e11" value="UltraFin 1.07 t/h" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontColor=#1f2a44;fontSize=10;" edge="1" parent="1" source="sp36" target="cl38"><mxGeometry relative="1" as="geometry" /></mxCell>
@@ -81,103 +84,114 @@
         <mxCell id="note-diag" value="AS-BUILT PERFORMANCE (redesign driver):&#10;grits 7.79 t/h (26.1 %) — total-fines/grits ratio 2.83&#10;80 kt/y grits would need 10 275 h: INFEASIBLE&#10;grits FAIL the D6 spec: 15.4 % below 2 mm (limit 15 %)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fdecea;strokeColor=#c62828;fontSize=10;fontColor=#b71c1c;align=left;spacing=6;" vertex="1" parent="1">
           <mxGeometry x="20" y="470" width="290" height="85" as="geometry" />
         </mxCell>
-        <mxCell id="footer1" value="Engine run: run_scenario, zone_1_3_variant = as-built, commit 12edbd8, 2026-08-14. Tags verified against docs/pfd/Wankoe-1.3-PFD-DBR.pdf + docs/pfd/gap-register.md. Silo capacities and conveyor ratings are PFD design data (INFO rows of the gap register)." style="text;html=1;fontSize=9;fontColor=#5a5f68;align=left;" vertex="1" parent="1">
+        <mxCell id="footer1" value="Engine run: run_scenario, zone_1_3_variant = as-built (superseded reference: C1 adopted 2026-08-14), spec-grid era figures. Tags verified against docs/pfd/Wankoe-1.3-PFD-DBR.pdf + gap register. Silo capacities and conveyor ratings are PFD design data." style="text;html=1;fontSize=9;fontColor=#5a5f68;align=left;" vertex="1" parent="1">
           <mxGeometry x="20" y="650" width="1300" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="z13-c1" name="Zone 1.3 — C1 proposal">
-    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="850" math="0" shadow="0">
+  <diagram id="z13-c1" name="Zone 1.3 — C1 adopted (two modes)">
+    <mxGraphModel dx="1500" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1520" pageHeight="980" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
 
-        <mxCell id="c-title" value="ZONE 1.3 — C1 PROPOSAL (client-validated lead candidate, panel round 1; rates = engine at the 30 t/h dryer outlet, measured chain)" style="text;html=1;fontSize=14;fontStyle=1;fontColor=#1f2a44;align=left;" vertex="1" parent="1">
-          <mxGeometry x="20" y="10" width="1100" height="30" as="geometry" />
+        <mxCell id="c-title" value="ZONE 1.3 — C1 ADOPTED CONFIGURATION, TWO OPERATING MODES (client 2026-08-14; rates = engine, mode G / mode F)" style="text;html=1;fontSize=14;fontStyle=1;fontColor=#1f2a44;align=left;" vertex="1" parent="1">
+          <mxGeometry x="20" y="10" width="1180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="brand2" value="by NOEZYS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0a0f2e;strokeColor=#22d3ee;fontColor=#22d3ee;fontSize=11;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1360" y="10" width="110" height="30" as="geometry" />
         </mxCell>
 
-        <mxCell id="c-src" value="FeedLime 6/20 from SP.5109 stockpile (zone 1.2)&#10;22.3 t/h wet — 7 % moisture&#10;(BASE SCENARIO: dryer at 69 %)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#1f2a44;dashed=1;fontSize=10;fontColor=#1f2a44;" vertex="1" parent="1">
-          <mxGeometry x="20" y="250" width="150" height="70" as="geometry" />
+        <mxCell id="rc1" value="RC.1 * — smooth double-roll, STAGE 1&#10;gap 8 mm — load 29.2 (G) / 22.8 (F) t/h&#10;purchase spec 32 t/h — 17.4 kW installed" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1565c0;fontSize=10;fontColor=#0d47a1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="620" y="62" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="rc2" value="RC.2 * — smooth double-roll, STAGE 2&#10;TWO 22 t/h units (client 2026-08-14)&#10;gap 3.4 mm (G) / 1.5 mm (F — vendor to confirm)&#10;load 33.2 (G) / 44.0 (F) t/h — up to 48.5 kW" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1565c0;fontSize=10;fontColor=#0d47a1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="890" y="55" width="260" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="c-src" value="FeedLime 6/20 from SP.5109 (zone 1.2)&#10;32.1 t/h total (mode G — full dryer)&#10;25.05 t/h total (mode F)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#1f2a44;dashed=1;fontSize=10;fontColor=#1f2a44;" vertex="1" parent="1">
+          <mxGeometry x="20" y="245" width="160" height="80" as="geometry" />
         </mxCell>
         <mxCell id="c-ho01" value="HO.01&#10;feed hopper" style="shape=trapezoid;perimeter=trapezoidPerimeter;whiteSpace=wrap;html=1;flipV=1;fillColor=#ffffff;strokeColor=#1f2a44;fontSize=10;fontColor=#1f2a44;" vertex="1" parent="1">
-          <mxGeometry x="210" y="250" width="90" height="60" as="geometry" />
+          <mxGeometry x="215" y="255" width="85" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="c-bc02" value="BC.02&#10;weighing conveyor&#10;(rated 30 t/h)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1f2a44;fontSize=10;fontColor=#1f2a44;" vertex="1" parent="1">
-          <mxGeometry x="330" y="250" width="110" height="60" as="geometry" />
+        <mxCell id="c-bc02" value="BC.02&#10;weighing conveyor" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1f2a44;fontSize=10;fontColor=#1f2a44;" vertex="1" parent="1">
+          <mxGeometry x="330" y="255" width="105" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="c-dy03" value="DY.03 — rotary dryer (UNCHANGED, design basis D2)&#10;20.8 t/h at outlet, 0.5 % moisture (capacity 30)&#10;vapor 1.5 t/h — burner duty 2.6 MW" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1f2a44;fontSize=10;fontColor=#1f2a44;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="470" y="240" width="180" height="80" as="geometry" />
+        <mxCell id="c-dy03" value="DY.03 — rotary dryer (unchanged, D2)&#10;outlet 30.0 t/h (G, at capacity) / 23.4 (F)&#10;burner 3.7 / 2.9 MW — vapor 2.1 / 1.6 t/h" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1f2a44;fontSize=10;fontColor=#1f2a44;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="465" y="245" width="195" height="85" as="geometry" />
         </mxCell>
         <mxCell id="c-em09" value="EM.09&#10;metal detector" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1f2a44;fontSize=10;fontColor=#1f2a44;" vertex="1" parent="1">
-          <mxGeometry x="680" y="250" width="100" height="60" as="geometry" />
+          <mxGeometry x="690" y="255" width="100" height="60" as="geometry" />
         </mxCell>
-
-        <mxCell id="rc1" value="RC.1 * — smooth double-roll crusher, STAGE 1&#10;gap 8 mm — load 20.0 t/h — 12.2 kW installed&#10;capacity 32 t/h (purchase spec, client 2026-08-14)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1565c0;fontSize=10;fontColor=#0d47a1;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="640" y="50" width="220" height="70" as="geometry" />
+        <mxCell id="sca" value="SC.A * — double-deck RECYCLE screen&#10;decks 8 / 3.75 mm&#10;feed 92.2 (G) / 90.1 (F) t/h&#10;required areas 4.5 / 4.6 m2 (size for mode F: 4.8 / 5.6)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1565c0;fontSize=10;fontColor=#0d47a1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="830" y="240" width="190" height="120" as="geometry" />
         </mxCell>
-        <mxCell id="rc2" value="RC.2 * — smooth double-roll crusher, STAGE 2&#10;gap 3.4 mm — SINGLE 22 t/h unit (base scenario)&#10;load 22.0 t/h (AT capacity) — 24.1 kW installed&#10;2nd-unit slot RESERVED (extension provision)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1565c0;fontSize=10;fontColor=#0d47a1;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="920" y="45" width="230" height="80" as="geometry" />
+        <mxCell id="scb" value="SC.B * — double-deck PRODUCT screen&#10;decks 2 / 1.5 mm&#10;feed 40.8 (G) / 50.0 (F) t/h&#10;required areas up to 5.2 / 4.5 m2 (mode F)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1565c0;fontSize=10;fontColor=#0d47a1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="830" y="440" width="190" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="sca" value="SC.A * — double-deck RECYCLE screen&#10;decks 8 / 3.75 mm&#10;feed 62.7 t/h (fresh + recycle)&#10;required areas 3.0 / 3.1 m2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1565c0;fontSize=10;fontColor=#0d47a1;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="820" y="230" width="180" height="110" as="geometry" />
+        <mxCell id="dvgf" value="DV.GF * — GRITS DIVERTER&#10;(the mode selector)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fffde7;strokeColor=#f9a825;fontSize=10;fontColor=#795500;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1100" y="455" width="140" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="scb" value="SC.B * — double-deck PRODUCT screen&#10;decks 2 / 1.5 mm — feed 27.7 t/h&#10;required areas 2.6 / 1.8 m2&#10;sliver DIVERTER: regrind / extract" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1565c0;fontSize=10;fontColor=#0d47a1;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="820" y="430" width="180" height="85" as="geometry" />
-        </mxCell>
-
-        <mxCell id="c-bc22" value="BC.22 — grits conveyor (rated 15 t/h)&#10;load 11.6 t/h — WITHIN rating at base&#10;(16.7 t/h at extension full flow: retrofit then)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#2e7d32;fontSize=10;fontColor=#1b5e20;" vertex="1" parent="1">
-          <mxGeometry x="1080" y="235" width="170" height="60" as="geometry" />
+        <mxCell id="c-bc22" value="BC.22 — grits conveyor (rated 15 t/h)&#10;mode-G load 16.2 t/h — retrofit ~20 t/h" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3e0;strokeColor=#ef6c00;fontSize=10;fontColor=#e65100;" vertex="1" parent="1">
+          <mxGeometry x="1300" y="450" width="180" height="60" as="geometry" />
         </mxCell>
         <mxCell id="c-bi80" value="BI.80&#10;grits silo&#10;250 t" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#e8f5e9;strokeColor=#2e7d32;fontSize=10;fontColor=#1b5e20;" vertex="1" parent="1">
-          <mxGeometry x="1280" y="220" width="90" height="85" as="geometry" />
+          <mxGeometry x="1345" y="560" width="90" height="85" as="geometry" />
         </mxCell>
-        <mxCell id="c-sp36" value="SP.36 — air classifier&#10;cut 65 um (UNCHANGED)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1f2a44;fontSize=10;fontColor=#1f2a44;" vertex="1" parent="1">
-          <mxGeometry x="830" y="560" width="160" height="60" as="geometry" />
+        <mxCell id="c-sp36" value="SP.36 — air classifier&#10;cut 65 um (unchanged)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1f2a44;fontSize=10;fontColor=#1f2a44;" vertex="1" parent="1">
+          <mxGeometry x="840" y="620" width="170" height="60" as="geometry" />
         </mxCell>
         <mxCell id="c-cl38" value="CL.38&#10;cyclone" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1f2a44;fontSize=10;fontColor=#1f2a44;" vertex="1" parent="1">
-          <mxGeometry x="1080" y="560" width="100" height="60" as="geometry" />
+          <mxGeometry x="1080" y="620" width="100" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="c-bi50" value="BI.50&#10;UltraFin silo&#10;250 t (100 um)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#e8f5e9;strokeColor=#2e7d32;fontSize=10;fontColor=#1b5e20;" vertex="1" parent="1">
-          <mxGeometry x="1280" y="550" width="90" height="85" as="geometry" />
+        <mxCell id="c-bi50" value="BI.50&#10;UltraFin silo&#10;250 t" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#e8f5e9;strokeColor=#2e7d32;fontSize=10;fontColor=#1b5e20;" vertex="1" parent="1">
+          <mxGeometry x="1240" y="610" width="90" height="85" as="geometry" />
         </mxCell>
-        <mxCell id="c-be40" value="BE.40 — fines conveyor (rated 20 t/h)&#10;load 9.1 t/h — WITHIN rating (as-built was 21.0)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#2e7d32;fontSize=10;fontColor=#1b5e20;" vertex="1" parent="1">
-          <mxGeometry x="830" y="680" width="250" height="50" as="geometry" />
+        <mxCell id="c-be40" value="BE.40 — fines conveyor (rated 20 t/h)&#10;load 13.6 (G) / 23.2 (F — retrofit or derate) t/h" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3e0;strokeColor=#ef6c00;fontSize=10;fontColor=#e65100;" vertex="1" parent="1">
+          <mxGeometry x="840" y="750" width="260" height="50" as="geometry" />
         </mxCell>
         <mxCell id="c-bi6070" value="BI.60 / BI.70&#10;fines silos&#10;2 x 250 t" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#e8f5e9;strokeColor=#2e7d32;fontSize=10;fontColor=#1b5e20;" vertex="1" parent="1">
-          <mxGeometry x="1140" y="665" width="100" height="85" as="geometry" />
+          <mxGeometry x="1160" y="735" width="100" height="85" as="geometry" />
         </mxCell>
 
         <mxCell id="ce1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontSize=10;" edge="1" parent="1" source="c-src" target="c-ho01"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="ce2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontSize=10;" edge="1" parent="1" source="c-ho01" target="c-bc02"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="ce3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontSize=10;" edge="1" parent="1" source="c-bc02" target="c-dy03"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="ce4" value="20.7 t/h dry solids" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontColor=#1f2a44;fontSize=10;" edge="1" parent="1" source="c-dy03" target="c-em09"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="ce5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontSize=10;" edge="1" parent="1" source="c-em09" target="sca"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="ce6" value="+8 mm — 20.0 t/h" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontColor=#1f2a44;fontSize=10;exitX=0.25;exitY=0;entryX=0.5;entryY=1;" edge="1" parent="1" source="sca" target="rc1"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="ce7" value="3.75/8 — 15.0 t/h" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontColor=#1f2a44;fontSize=10;exitX=0.75;exitY=0;entryX=0.5;entryY=1;" edge="1" parent="1" source="sca" target="rc2"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="ce8" value="recycle 20.0 t/h" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#c62828;fontColor=#c62828;dashed=1;fontSize=10;exitX=0;exitY=0.5;entryX=0;entryY=0.2;" edge="1" parent="1" source="rc1" target="sca"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="ce9" value="recycle 22.0 t/h&#10;(combined 42.0 t/h)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#c62828;fontColor=#c62828;dashed=1;fontSize=10;exitX=1;exitY=0.5;entryX=1;entryY=0.2;" edge="1" parent="1" source="rc2" target="sca"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="ce10" value="grits 2/3.75 — 11.56 t/h&#10;(55.8 % of dryer outlet)&#10;IMMEDIATE RELIEF, no regrind" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2e7d32;fontColor=#1b5e20;fontSize=10;exitX=1;exitY=0.2;entryX=0;entryY=0.8;" edge="1" parent="1" source="scb" target="c-bc22"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="ce11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2e7d32;fontSize=10;" edge="1" parent="1" source="c-bc22" target="c-bi80"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="ce12" value="0/3.75 — 27.7 t/h&#10;(linking conveyor)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontColor=#1f2a44;fontSize=10;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="sca" target="scb"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="ce13" value="sliver 1.5/2 — 7.0 t/h&#10;REGRIND to RC.2 (client 2026-08-14)&#10;internal recycle stream, NOT a product" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#c62828;fontColor=#c62828;dashed=1;fontSize=10;exitX=1;exitY=0.3;entryX=1;entryY=1;" edge="1" parent="1" source="scb" target="rc2"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="ce14" value="0/1.5 fines — 9.2 t/h" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontColor=#1f2a44;fontSize=10;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="scb" target="c-sp36"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="ce15" value="UltraFin 0.05 t/h" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontColor=#1f2a44;fontSize=10;" edge="1" parent="1" source="c-sp36" target="c-cl38"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="ce16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2e7d32;fontSize=10;" edge="1" parent="1" source="c-cl38" target="c-bi50"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="ce17" value="FeedLime fines 9.11 t/h (dry, 0/1.5)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontColor=#1f2a44;fontSize=10;exitX=0.3;exitY=1;entryX=0.3;entryY=0;" edge="1" parent="1" source="c-sp36" target="c-be40"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="ce18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2e7d32;fontSize=10;" edge="1" parent="1" source="c-be40" target="c-bi6070"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce4" value="29.9 / 23.3 t/h dry" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontColor=#1f2a44;fontSize=10;" edge="1" parent="1" source="c-dy03" target="c-em09"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontSize=10;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="c-em09" target="sca"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce6" value="+8 mm" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontColor=#1f2a44;fontSize=10;exitX=0.2;exitY=0;entryX=0.5;entryY=1;" edge="1" parent="1" source="sca" target="rc1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce7" value="3.75/8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontColor=#1f2a44;fontSize=10;exitX=0.65;exitY=0;entryX=0.35;entryY=1;" edge="1" parent="1" source="sca" target="rc2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce8" value="recycle" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#c62828;fontColor=#c62828;dashed=1;fontSize=10;exitX=0;exitY=0.5;entryX=0;entryY=0.3;" edge="1" parent="1" source="rc1" target="sca"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce9" value="recycle (combined&#10;62.4 G / 66.8 F t/h)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#c62828;fontColor=#c62828;dashed=1;fontSize=10;exitX=0.75;exitY=1;entryX=0.85;entryY=0;" edge="1" parent="1" source="rc2" target="sca"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce12" value="0/3.75 — 40.8 / 50.0 t/h&#10;(linking conveyor)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontColor=#1f2a44;fontSize=10;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="sca" target="scb"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce-grits" value="grits 2/3.75" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontColor=#1f2a44;fontSize=10;exitX=1;exitY=0.35;entryX=0;entryY=0.5;" edge="1" parent="1" source="scb" target="dvgf"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce-modeG" value="MODE G: product&#10;16.22 t/h" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2e7d32;fontColor=#1b5e20;fontSize=10;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="dvgf" target="c-bc22"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce-modeF" value="MODE F: regrind&#10;(fines campaign)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#c62828;fontColor=#c62828;dashed=1;fontSize=10;exitX=0.5;exitY=0;entryX=1;entryY=0.6;" edge="1" parent="1" source="dvgf" target="rc2">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1170" y="180" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="ce-sliver" value="sliver 1.5/2 — regrind (both modes)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#c62828;fontColor=#c62828;dashed=1;fontSize=10;exitX=1;exitY=0.75;entryX=1;entryY=0.85;" edge="1" parent="1" source="scb" target="rc2">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1060" y="595" /><mxPoint x="1275" y="595" /><mxPoint x="1275" y="115" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="ce-fines" value="0/1.5 fines — 13.6 / 23.2 t/h" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontColor=#1f2a44;fontSize=10;exitX=0.3;exitY=1;entryX=0.4;entryY=0;" edge="1" parent="1" source="scb" target="c-sp36"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce-uf" value="UltraFin 0.07 / 0.10 t/h" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontColor=#1f2a44;fontSize=10;" edge="1" parent="1" source="c-sp36" target="c-cl38"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce-bi50" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2e7d32;fontSize=10;" edge="1" parent="1" source="c-cl38" target="c-bi50"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce-flf" value="FeedLime fines (dry, 0/1.5)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontColor=#1f2a44;fontSize=10;exitX=0.3;exitY=1;entryX=0.3;entryY=0;" edge="1" parent="1" source="c-sp36" target="c-be40"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce-bi6070" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2e7d32;fontSize=10;" edge="1" parent="1" source="c-be40" target="c-bi6070"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce-bi80" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2e7d32;fontSize=10;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="c-bc22" target="c-bi80"><mxGeometry relative="1" as="geometry" /></mxCell>
 
-        <mxCell id="c-note-tags" value="* STUDY TAGS — new machines of the C1 redesign, no PFD reference numbers exist yet. Screen arrangement per client arbitration 2026-08-14: 2+2 — SC.A carries the recycle cuts (8/3.75), SC.B the product cuts (2/1.5), both critical decks in favorable position. Final numbers to be assigned in the plant codification series on adoption (proposal: SC.A takes the SN.21 slot, SC.B a new SN.2x, RC.1/RC.2 new CR.2x tags replacing ML.26; formal codification by NACO). All other tags are the verified as-built references (unchanged equipment)." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1565c0;fontSize=10;fontColor=#0d47a1;align=left;spacing=6;" vertex="1" parent="1">
-          <mxGeometry x="20" y="390" width="345" height="125" as="geometry" />
+        <mxCell id="c-note-modes" value="TWO OPERATING MODES (client 2026-08-14):&#10;MODE G — grits production: diverter to product; RC.2 gap 3.4 mm; dryer at its full 32.1 t/h limit; grits 16.22 + fines 13.57 t/h.&#10;MODE F — fines campaign: 2/3.75 diverted to RC.2 regrind; gap 1.5 mm; feed 25.05 t/h; fines 23.2 t/h, no grits; fines 98.9 % below 1.7 mm.&#10;ANNUAL SPLIT (two-mode planning): 2 466 h G + 1 144 h F = 60.2 % — grits 40 000 + fines 60 000 t/y EXACTLY." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1565c0;fontSize=10;fontColor=#0d47a1;align=left;spacing=6;" vertex="1" parent="1">
+          <mxGeometry x="20" y="380" width="360" height="180" as="geometry" />
         </mxCell>
-        <mxCell id="c-note-perf" value="BASE SCENARIO (client 2026-08-14): single RC.2 unit, sliver regrind, dryer throttled to 22.3 t/h wet.&#10;grits 11.56 t/h (55.8 %) — MAX CAPACITY 69 300 t/y at the 6 000 h ceiling&#10;total-fines/grits ratio 0.79 (D3 firm 1.25 AND objective 1.0 MET)&#10;grits QC: below 2 mm 13.6 % / above 4 mm 2.6 % (D6 MET, margin 1.4 pts — vendor test to confirm)&#10;40 kt/y = 3 461 h (57.7 %) — EXTENSION (2nd RC.2 unit, full dryer): 16.66 t/h, 80 kt/y in 4 802 h&#10;RC.1 purchase spec 32 t/h (client 2026-08-14: covers full-dryer extension + quarry feed)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#2e7d32;fontSize=10;fontColor=#1b5e20;align=left;spacing=6;" vertex="1" parent="1">
-          <mxGeometry x="20" y="530" width="345" height="130" as="geometry" />
+        <mxCell id="c-note-perf" value="LINE RESULT (engine, annual two-mode plan):&#10;KFS 85 000 + grits 40 000 + fines 60 000 + AgLime 108 000 baseline (20 % market margin held as flex) — LANDFILL 0 at the adopted quarry curve (40.1 % below 20 mm at the zone-1 inlet).&#10;KFS Yield self-consistent at 28.3 %.&#10;Zones 1.1 / 1.2 / 1.3: 62.7 / 36.0 / 60.2 %." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#2e7d32;fontSize=10;fontColor=#1b5e20;align=left;spacing=6;" vertex="1" parent="1">
+          <mxGeometry x="20" y="580" width="360" height="150" as="geometry" />
         </mxCell>
-        <mxCell id="c-note-naming" value="STREAM NAMING (client rule 2026-08-14): zone 1.3 makes DRY products only — FeedLime grits 2/4, FeedLime fines 0/1.5, UltraFin. AgLime is a WET zone-1.2 product; zone 1.3 NEVER produces AgLime. The commercial redirect of the FeedLime-fines surplus into the AgLime SALES channel happens at loadout, not in this flowsheet." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fffde7;strokeColor=#f9a825;fontSize=10;fontColor=#795500;align=left;spacing=6;" vertex="1" parent="1">
-          <mxGeometry x="20" y="665" width="345" height="95" as="geometry" />
+        <mxCell id="c-note-tags" value="* STUDY TAGS — final numbers to be assigned in the plant codification on adoption of the detailed design (proposal: SC.A takes the SN.21 slot, SC.B a new SN.2x, RC.1/RC.2 new CR.2x, DV.GF a DV.2x tag; formal codification by NACO). All other tags are verified as-built references. Purchase specs: RC.1 32 t/h; RC.2 2 x 22 t/h, gap range down to 1.5 mm (vendor gradation test to confirm, with n_comp / S_att and the D6 margin)." style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#8a8f98;dashed=1;fontSize=10;fontColor=#5a5f68;align=left;spacing=6;" vertex="1" parent="1">
+          <mxGeometry x="20" y="750" width="360" height="150" as="geometry" />
         </mxCell>
-        <mxCell id="c-footer" value="Engine run: run_scenario, zone_1_3_variant = c1, SC.B sliver_routing = regrind (client arbitration 2026-08-14; two-position diverter keeps 'extract' selectable). C1 is a STUDY variant — the as-built circuit remains the model default until client adoption. Dryer chain auxiliaries (BU.04, FI.05/FN.06) unchanged, omitted for clarity. Design basis: docs/design/zone13-redesign/design-basis.md." style="text;html=1;fontSize=9;fontColor=#5a5f68;align=left;" vertex="1" parent="1">
-          <mxGeometry x="20" y="780" width="1350" height="40" as="geometry" />
+        <mxCell id="c-footer" value="Engine runs: run_scenario zone_1_3_mode = G / F + run_required_hours (two-mode plan), converged x2 grid, 2026-08-14. Sliver routing = regrind (client); grits diverter DV.GF = the mode selector. Dryer auxiliaries (BU.04, FI.05/FN.06) unchanged, omitted for clarity. Quarry works spec: docs/design/zone13-redesign/quarry-works-specification.md." style="text;html=1;fontSize=9;fontColor=#5a5f68;align=left;" vertex="1" parent="1">
+          <mxGeometry x="20" y="920" width="1450" height="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
