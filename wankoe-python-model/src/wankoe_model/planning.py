@@ -109,7 +109,9 @@ def run_required_hours(params: dict) -> dict:
     #         REDIRECTED into the AgLime sales channel (fines 0/1.5 sit
     #         inside the AgLime 0/1.7 acceptance spec), so the AgLime LOOP
     #         only produces the complement up to the AgLime market cap.
-    #         There is NO AgLime production objective and NO AgLime campaign.
+    #         There is NO AgLime production objective. 2026-08-14 amendment
+    #         (C1 adoption dried up the redirect): the residual market gap
+    #         is served by DEDICATED 2C campaigns (see the campaign block).
     aglime_cap = targets["AgLime"].get("market_cap_t_per_year") or targets["AgLime"][
         "target_t_per_year"
     ]
@@ -163,8 +165,43 @@ def run_required_hours(params: dict) -> dict:
         h13_eff = achieved_feedlime / flow["zone_1_3_feedlime"]
         feedlime_demand_t = achieved_feedlime
         zone13 = _zone_result("1.3", h13_eff)
-    zone12 = _zone_result("1.2", h2_dry_eff + h2_rain_eff)
-    reclaimed_020_t = (h2_dry_eff + h2_rain_eff) * flow["zone_1_2_reclaim"]
+    # ---- 2C AgLime campaigns (client rule, wired 2026-08-14): when the 2A
+    #      co-production + fines redirect leave the AgLime market unserved
+    #      (the C1 adoption dried up the redirect), zone 1.2 runs DEDICATED
+    #      mode-2C campaigns — everything reclaimed leaves as AgLime.
+    rules = params.get("commercial_rules", {})
+    aglime_2a_t = h2_dry_eff * aglime_tph
+    aglime_2c_t = 0.0
+    h2c_eff = 0.0
+    aglime_gap_t = max(0.0, aglime_loop_target - aglime_2a_t)
+    if rules.get("aglime_2c_campaigns", False) and aglime_gap_t > 0.5:
+        photo_2c = run_scenario(
+            deep_merge(
+                params,
+                {"default_scenario": {"weather": "dry", "zone_1_2_mode": "2C"}},
+            )
+        )
+        aglime_2c_tph = photo_2c["products"]["AgLime"]["tph"]
+        if aglime_2c_tph <= 0:
+            raise ValueError("Mode 2C produces no AgLime: check the scenario")
+        h2c_eff = aglime_gap_t / aglime_2c_tph
+        ceiling_2_eff = ceilings["1.2"]["effective_h"]
+        if ceiling_2_eff is not None and h2_dry_eff + h2_rain_eff + h2c_eff > ceiling_2_eff:
+            h2c_eff = max(0.0, ceiling_2_eff - h2_dry_eff - h2_rain_eff)
+            alerts.append(
+                "Zone 1.2: 2C campaign hours capped by the zone ceiling — AgLime "
+                "market not fully served"
+            )
+        aglime_2c_t = h2c_eff * aglime_2c_tph
+        if aglime_2c_t > 0:
+            alerts.append(
+                f"AgLime 2C campaigns: {h2c_eff:.0f} effective hours produce "
+                f"{aglime_2c_t:.0f} t to complete the market beyond the 2A "
+                f"co-production ({aglime_2a_t:.0f} t) — consumes "
+                f"{h2c_eff * flow['zone_1_2_reclaim']:.0f} t of 0/20"
+            )
+    zone12 = _zone_result("1.2", h2_dry_eff + h2_rain_eff + h2c_eff)
+    reclaimed_020_t = (h2_dry_eff + h2_rain_eff + h2c_eff) * flow["zone_1_2_reclaim"]
 
     # ---- 3. Zone 1.1: hours set by the FIRM KFS target AND the 0/20 demand
     if kfs_tph <= 0:
@@ -176,7 +213,7 @@ def run_required_hours(params: dict) -> dict:
     zone11 = {**_zone_result("1.1", h11_eff), "driven_by": driver}
 
     # ---- resulting yearly production and stockpile balance
-    aglime_t = h2_dry_eff * aglime_tph
+    aglime_t = aglime_2a_t + aglime_2c_t
     production_t = {
         "KFS": round(h11_eff * kfs_tph, 0),
         "AgLime": round(aglime_t, 0),
@@ -206,8 +243,9 @@ def run_required_hours(params: dict) -> dict:
         # naming convention (client, 2026-08-14): the redirect is a SALES
         # routing at loadout — zone 1.3 never produces AgLime
         "Fines surplus redirected to the AgLime sales channel": round(fines_redirect_t, 0),
-        "AgLime from loop": round(aglime_t, 0),
-        "AgLime total sold (loop + redirect)": round(aglime_sold_t, 0),
+        "AgLime from loop (2A co-production)": round(aglime_2a_t, 0),
+        "AgLime from dedicated 2C campaigns": round(aglime_2c_t, 0),
+        "AgLime total sold (loop + campaigns + redirect)": round(aglime_sold_t, 0),
         "AgLime market cap": aglime_cap,
     }
     if fines_redirect_t > 0:
@@ -221,7 +259,6 @@ def run_required_hours(params: dict) -> dict:
     # NO market for crude 0/20 — the excess beyond the downstream reclaim
     # goes to LANDFILL and is a NET FINANCIAL LOSS, alerted and minimized
     produced_020_t = h11_eff * q020_tph_wet
-    rules = params.get("commercial_rules", {})
     excess_020_t = max(0.0, produced_020_t - reclaimed_020_t)
     if rules.get("crude_020_balancing_sales", False):
         # superseded historical rule kept toggleable for audit only
@@ -256,6 +293,7 @@ def run_required_hours(params: dict) -> dict:
         "zone_1_2_split": {
             "dry_season_hours_effective": round(h2_dry_eff, 1),
             "rain_season_hours_effective": round(h2_rain_eff, 1),
+            "aglime_2c_campaign_hours_effective": round(h2c_eff, 1),
         },
         "production_t": production_t,
         "sales_t": sales_t,

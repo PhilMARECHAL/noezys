@@ -117,12 +117,14 @@ UltraFin); AgLime is a WET zone-1.2 product — the fines-surplus
 redirect is a SALES routing at loadout, say "redirect eligibility",
 never "AgLime spec", for zone-1.3 streams.
 RC.1 purchase spec = 32 t/h (client 2026-08-14, closes the D4
-quarry-feed finding). COMMERCIAL CASCADE OF ADOPTION (client
-arbitration PENDING): fines fall to 31.5 kt (60 kt market), redirect
-= 0, AgLime loop-only 49.2 kt vs 135 kt market (strict-c2 caps zone
-1.2 at the collapsed 77 kt FeedLime demand), 0/20 LANDFILL 18.5 ->
-144.2 kt/y; levers = mode-2C AgLime campaigns, quarry-curve
-recompute, fines-driven z1.3 hours. OTHER OPEN: extension provision
+quarry-feed finding). COMMERCIAL CASCADE OF ADOPTION: fines fall to
+31.5 kt (60 kt market), redirect = 0. AGLIME 2C CAMPAIGNS WIRED
+(client lever 1, commercial_rules.aglime_2c_campaigns): AgLime = 2A
+49.2 + 2C 85.8 = 135 kt served; LANDFILL 144.2 -> 58.4 kt/y.
+ZERO-LANDFILL RULE STILL UNMET — residual 58.4 kt; remaining levers
+(client arbitration PENDING, quarry recompute explicitly deferred by
+the client): grits sales toward the 69.3 kt base capacity (landfill
+~1.8 kt at 69.3 kt sold, z1.3 then 100 %) and/or quarry curve. OTHER OPEN: extension provision
 (civil reserve for 2nd RC.2 + BC.22 retrofit deferred); final machine
 codification (SN.2x/CR.2x proposal to NACO); installed screen areas &
 motor sizes (recommend sizing for the extension per D1); linking
