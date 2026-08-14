@@ -1,0 +1,1531 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="package/dist/katex.min.css">
+<script src="package/dist/katex.min.js"></script>
+<script src="package/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 2.6cm 2.4cm; }
+html,body{margin:0;padding:0}
+body{font-family:"Bitstream Charter",Georgia,serif;font-size:10.5pt;line-height:1.45;color:#111;text-align:justify}
+h1.doctitle{font-size:19pt;text-align:center;margin:0 0 2pt;font-weight:bold}
+p.docsub{text-align:center;font-size:10.5pt;margin:0 0 4pt;font-style:italic}
+p.docmeta{text-align:center;font-size:9.5pt;margin:0 0 18pt;color:#444}
+hr.rule{border:none;border-top:0.7pt solid #333;margin:10pt 0 14pt}
+h2.chap{font-size:14.5pt;margin:16pt 0 4pt;font-weight:bold;page-break-before:always}
+h2.chap.first{page-break-before:avoid}
+p.chapsub{font-style:italic;color:#333;margin:0 0 10pt;font-size:10.5pt}
+h3{font-size:11.5pt;margin:13pt 0 5pt;font-weight:bold}
+table{border-collapse:collapse;margin:7pt auto;font-size:9.8pt;text-align:left}
+table th{border-top:1pt solid #111;border-bottom:0.6pt solid #111;padding:2.5pt 8pt;font-weight:bold}
+table td{padding:2.5pt 8pt;border:none}
+table tr:last-child td{border-bottom:1pt solid #111}
+table td.r, table th.r{text-align:right}
+.eqrow{display:flex;align-items:center;margin:4pt 0;page-break-inside:avoid}
+.eqrow .eq{flex:1;text-align:center}
+.eqrow .no{width:3em;text-align:right;font-size:10pt}
+.alert{border-left:2.2pt solid #8a6d1a;background:#faf6e8;padding:5pt 9pt;margin:8pt 0;font-size:9.9pt;page-break-inside:avoid}
+.good{border-left:2.2pt solid #2e7d32;background:#eef6ee;padding:5pt 9pt;margin:8pt 0;font-size:9.9pt;page-break-inside:avoid}
+.prov{font-size:8.8pt;color:#444;border-top:0.6pt solid #999;margin-top:14pt;padding-top:5pt}
+.note{font-size:9.4pt;color:#333;font-style:italic}
+img.fig{max-width:100%;display:block;margin:8pt auto}
+p.figcap{font-size:9.4pt;text-align:center;color:#333;margin:2pt 0 10pt}
+</style></head><body>
+
+<h1 class="doctitle">WANKOE Line Design Report</h1>
+<p class="docsub">Limestone processing line — complete design, calculation and verification record</p>
+<p class="docmeta">NOEZYS · AI Innovation Lab &nbsp;—&nbsp; full report, chapters 0–10 + annexes, 2026-08-14 &nbsp;—&nbsp; confidential</p>
+<hr class="rule">
+
+<table>
+<tr><th colspan="2">Contents</th></tr>
+<tr><td>0</td><td>Executive summary</td></tr>
+<tr><td>1</td><td>Conventions and definitions — total-flow rule, stream naming, operating modes, KFS Yield, computation grid</td></tr>
+<tr><td>2</td><td>Design basis and decision trail — targets, D1–D8, document authority, the dated register</td></tr>
+<tr><td>3</td><td>The calculation models M1–M8 — formulas, provenance, literature anchors, coefficients</td></tr>
+<tr><td>4</td><td>Zone 1.1 — complete calculation (CR.5009, SR.5007, CR.5011 loop, KFS, 0/20)</td></tr>
+<tr><td>5</td><td>Zone 1.2 — complete calculation (SR.5105 split, AgLime loop, 2A/2C logic)</td></tr>
+<tr><td>6</td><td>Zone 1.3 — the redesign (diagnosis, candidates, C1, two modes, purchase specifications)</td></tr>
+<tr><td>7</td><td>Annual plan and consolidated balance — hours, zone-by-zone closure, sales, landfill</td></tr>
+<tr><td>8</td><td>Quarry works specification — the adopted 40.1 % / 20 mm inlet target</td></tr>
+<tr><td>9</td><td>Verification and confidence — the six-action program, 74 → 94 %</td></tr>
+<tr><td>10</td><td>Open items and external triggers</td></tr>
+<tr><td>A–C</td><td>Annexes: feed curves · machine settings and purchase specifications · replayable scripts</td></tr>
+</table>
+
+<h2 class="chap first" style="page-break-before:always">0 &nbsp; Executive summary</h2>
+<p class="chapsub">The whole line on one page — what is sold, what is proven, what remains open.</p>
+
+<p>The WANKOE line converts a single quarry feed into four sold products. At the configuration
+adopted on 2026-08-14 — the redesigned zone 1.3 operating in two modes behind a grits
+diverter, dedicated AgLime campaigns in zone 1.2, and the impactor at its low-speed
+setting — the annual plan serves <b>every market exactly</b>:</p>
+
+<table>
+<tr><th>Product</th><th class="r">Sold (t/y)</th><th>Status</th><th>Zone utilization</th></tr>
+<tr><td>KFS 20/35 (kiln, firm)</td><td class="r">85 000</td><td>envelope compliant</td><td>zone 1.1 — 71.2 %</td></tr>
+<tr><td>FeedLime grits 2/4 (firm)</td><td class="r">40 000</td><td>D6 compliant</td><td rowspan="2">zone 1.3 — 60.2 %<br>(2 466 h mode G + 1 144 h mode F)</td></tr>
+<tr><td>FeedLime fines 0/1.5 (objective)</td><td class="r">60 000</td><td>96.6 % &lt; 1.7 mm</td></tr>
+<tr><td>AgLime 0/1.7</td><td class="r">135 000</td><td>98.4 % &lt; 1.7 mm</td><td>zone 1.2 — 40.5 %</td></tr>
+</table>
+
+<p>The single open cost is the disposal of surplus crushed fines: <b>13 816 t/y of 0/20 still
+go to landfill</b> at today's measured feed. The governing indicator is the <i>KFS Yield</i>,
+defined by the client and computed on every engine run:</p>
+
+<div class="eqrow"><div class="eq">$$Y_{KFS}=\frac{\dot m_{KFS}^{wet}}{\dot m_{pivot}^{wet}}\qquad
+Y_{KFS}^{req}=\frac{T_{KFS}}{T_{KFS}+D_{0/20}}$$</div><div class="no">(0.1)</div></div>
+
+<p>Today the line realizes $Y_{KFS}=24.88\,\%$ against a zero-landfill requirement of
+$25.93\,\%$. Closing the 1.05-point gap is the object of the adopted quarry works
+specification (chapter&nbsp;8): at the target inlet curve the balance closes exactly —
+zero landfill with a 20&nbsp;% AgLime-market buffer held open as the shock absorber.</p>
+
+<div class="good"><b>Confidence statement.</b> The zone-1.1 calculation chain passed a six-action
+internal verification program: blind independent recalculation (full concordance, 25 scalars +
+29-point curve), literature anchors (7/7, sources cited in-test), 580-scenario invariant sweep,
+a Monte-Carlo uncertainty band ($Y_{KFS}$ = 24.3 % [P10 22.4 – P90 26.0]), numerical-grid
+convergence (adopted ×2 grid), and a two-lens adversarial formula audit (zero sign or unit
+errors; three boundary-condition fixes). Meta-score <b>94 %</b> — the internal ceiling; the
+remaining points require the vendor gradation test, drop-weight and sieve tests, repeat
+belt-cuts, and the design-curve reconciliation with the engineering contractor.</div>
+
+<h3>The redesign in one paragraph</h3>
+<p>The as-built zone 1.3 ground 2.83 tonnes of fines for every tonne of grits and failed the
+adopted grits specification (15.4 % below 2 mm against a 15 % limit). The adopted C1 circuit —
+two-stage smooth rolls with immediate product relief on a double-deck screen pair — cuts the
+ratio to 0.84, passes the specification, and, operated in two modes behind the grits diverter
+DV.GF, decouples the grits and fines order books entirely. Purchase specifications: RC.1
+32&nbsp;t/h; RC.2 two units of 22&nbsp;t/h each, gap range down to 1.5&nbsp;mm (mode F), all
+[H] coefficients pending the vendor gradation test.</p>
+
+<h2 class="chap">1 &nbsp; Conventions and definitions</h2>
+<p class="chapsub">The rules every number in this report obeys — flow bases, stream names, the yield indicator, and the computation grid.</p>
+
+<p>One principle frames everything: <b>the result of this project is the mathematical model,
+never a document</b> — this report is a printout of model output, dated and replayable, and
+the model outlives it. The engine computes one deterministic "photo" per scenario, never
+optimizes on its own and imposes no operating choice; sweeps and plans are explicit,
+user-configured calls. The line is a new process under construction, and the model's
+ultimate purpose is to <b>confirm the line design and the machine selection</b>. The only
+plant data that will ever exist are belt-cut PSD analyses at the primary crusher outlet;
+downstream behavior rests on the validated engineering models of chapter 3 and their
+documented hypotheses — a constraint the verification program of chapter 9 was built
+around.</p>
+
+<h3>1.1 &nbsp; The total-flow rule (wet basis)</h3>
+<p>Every line feed rate in this report — and in the model's data file — is the <b>total flow
+on the wet basis</b>: dry solids plus their water, exactly as a belt weigher would report it.
+The rule was ratified by the client on 2026-08-14 and is load-bearing: zone 1.1 is fed at
+250&nbsp;t/h wet, the zone-1.2 reclaim runs at 100&nbsp;t/h wet, and the zone-1.3 FeedLime
+feed rates (32.1&nbsp;t/h in mode G, 25.05&nbsp;t/h in mode F) are wet as well. The engine
+converts to dry solids at each zone boundary, because dry solids are the conserved quantity
+(water leaves only at the dryer DY.03):</p>
+
+<div class="eqrow"><div class="eq">$$q_{dry}=q_{wet}\left(1-\frac{w}{100}\right)$$</div><div class="no">(1.1)</div></div>
+
+<p>with $w$ the wet-basis moisture in percent (7 % as measured with the 2026-08-08 belt cut;
+0.5 % downstream of the dryer). Presented rates are quoted in total (wet) flow unless they are
+explicitly labeled dry; in the calculation chapters the wet figure comes first and the dry
+figure follows in parentheses wherever a balance is being closed.</p>
+
+<h3>1.2 &nbsp; Stream naming convention</h3>
+<p>The client ratified a strict naming rule on 2026-08-14, after one table had blurred it:
+<b>zone 1.3 produces DRY products only</b> — FeedLime grits 2/4, FeedLime fines 0/1.5 and
+UltraFin, all at 0.5 % moisture. <b>AgLime 0/1.7 is a WET zone-1.2 product</b>; zone 1.3 never
+produces AgLime. The zero-waste rule that sends the FeedLime-fines surplus into the AgLime
+sales channel is a <b>commercial routing at loadout</b> — a line in the planning's sales view,
+never a production stream. Tables in this report therefore say "redirect eligibility
+(≥ 95 % &lt; 1.7 mm)" when they qualify a zone-1.3 fines stream against that routing, and
+reserve the words "AgLime spec" for the zone-1.2 product itself.</p>
+
+<p>Machine tags follow the specification codification (CR.5009, SR.5007, CR.5011, SR.5105,
+SR.5111, CR.5113, SR.5115, DY.03, SP.36, CL.38); the C1 redesign units carry the working
+tags RC.1, RC.2, SC.A, SC.B and DV.GF until the final codification (an SN.2x/CR.2x proposal
+to the engineering contractor is a chapter-10 item). The jaw crusher CR.5003 sits upstream
+of the pivot measurement point and is deliberately outside the flowsheet — its parameters
+feed the reference-curve calibration script only.</p>
+
+<p>The line map, for orientation:</p>
+
+<table>
+<tr><th>Zone</th><th>Function</th><th>Machines</th><th>Products (state)</th></tr>
+<tr><td>1.1</td><td>crushing / screening block ("zone 1")</td><td>CR.5009 → SR.5007 ⇄ CR.5011</td><td>KFS 20/35 (wet); 0/20 stream to stockpile (wet)</td></tr>
+<tr><td>1.2</td><td>reclaim and wet finishing</td><td>SR.5105; SR.5111 → CR.5113 ⇄ SR.5115</td><td>AgLime 0/1.7 (wet); FeedLime 6/20 interstage (wet)</td></tr>
+<tr><td>1.3</td><td>drying and dry finishing (C1)</td><td>DY.03 → RC.1/RC.2 ⇄ SC.A/SC.B (+ SP.36/CL.38)</td><td>FeedLime grits 2/4, FeedLime fines 0/1.5, UltraFin (all dry)</td></tr>
+</table>
+
+<h3>1.3 &nbsp; Operating modes</h3>
+<p>Each zone runs one of a small set of explicit operating modes; the engine fails fast on an
+unknown mode and never chooses one by itself:</p>
+
+<table>
+<tr><th>Zone</th><th>Mode</th><th>Meaning</th><th>Status at the adopted plan</th></tr>
+<tr><td rowspan="2">1.1</td><td>1A</td><td>production: KFS 20/35 to stock + 0/20 to stockpile</td><td>the plan's only zone-1.1 mode</td></tr>
+<tr><td>1B</td><td>full-crushing stock campaign (all flow through the impactor)</td><td>unusable at 250 t/h with CSS 30 — and no longer needed</td></tr>
+<tr><td rowspan="3">1.2</td><td>2A</td><td>reclaim split at 6 mm: FeedLime 6/20 + AgLime loop</td><td>demand-driven hours (strict c2 rule)</td></tr>
+<tr><td>2B</td><td>rain mode: FeedLime = whole reclaim (mass identity)</td><td>0 h required at the adopted plan</td></tr>
+<tr><td>2C</td><td>dedicated AgLime campaign: everything reclaimed leaves as AgLime</td><td>completes the AgLime market (chapter 5)</td></tr>
+<tr><td rowspan="2">1.3</td><td>G</td><td>grits production: 2/3.75 band to the grits product chain</td><td>2 466 effective h/y</td></tr>
+<tr><td>F</td><td>fines campaign: 2/3.75 diverted into the RC.2 regrind circuit, RC.2 at the 1.5 mm mode-F gap</td><td>1 144 effective h/y</td></tr>
+</table>
+
+<h3>1.4 &nbsp; Size curves and their bookkeeping</h3>
+<p>Every particle-size distribution is a <b>cumulative % passing</b> curve on a logarithmic
+mesh axis, stored as a value table with a declared interpolation mode (log-linear throughout
+this project) — the specification's golden rule 2, which forbids implicit interpolation of
+vendor or measured curves. The conserved quantity of every balance is <b>dry solids</b>;
+water is carried alongside each stream as wet-basis moisture and leaves the line only as
+vapor at the dryer DY.03. Both the dry-solids and the water balance of every zone are
+asserted on every engine run at a strict tolerance (the realized closure gaps of the runs in
+this report are below 2×10⁻⁶ relative).</p>
+
+<h3>1.5 &nbsp; The KFS Yield indicator</h3>
+<p>The project's governing indicator was introduced by the client on 2026-08-14 and its
+definition was arbitrated in four explicit sub-decisions: (1) the numerator is the
+<b>whole KFS product stream</b> (conveyor BC.5013 to stock), always reported together with its
+real 20/35 PSD (in-cut / below / above), never a hypothetical in-spec fraction; (2) the basis
+is <b>wet over wet</b> — the commercial basis, what belt weighers see; (3) the denominator is
+the <b>pivot feed</b>, measured downstream of the primary crusher CR.5003, the project's one
+standard measurement point; (4) the usage is an indicator with a <b>dynamic target</b>: the
+required-for-zero-landfill yield $Y^{req}_{KFS}=T_{KFS}/(T_{KFS}+D_{0/20})$, where $D_{0/20}$
+is the annual downstream demand for crushed 0/20, with an engine alert whenever the realized
+value falls below the required one. Both values appear in every scenario result and in the
+annual plan.</p>
+
+<h3>1.6 &nbsp; Computation grid and presentation grid</h3>
+<p>All particle-size computations run on the <b>×2 refined grid</b> adopted by the client on
+2026-08-14 (engine key <code>computation_grid_refinement = 2</code>): one geometric midpoint is
+inserted in every interval of the 29-sieve specification series, giving 57 computation meshes,
+converged to better than 0.05 point of KFS Yield against a ×4 grid (chapter 9, action 5). The
+specification sieve series remains the <b>presentation format</b> — every curve printed in this
+report is read off at the spec sieves. Chapter-9-era reference tests pin refinement 1 so the
+model still reproduces the specification's own numerics on demand.</p>
+
+<h3>1.7 &nbsp; Symbols, units and flags</h3>
+<p>Units follow the project data file throughout: t/h, mm (µm where stated), kW, % by mass,
+kWh/t, °C, h; moisture is wet-basis. Coefficients carry their provenance flag: <b>[ref.]</b>
+traceable to literature or vendor documents, <b>[H]</b> a documented hypothesis awaiting a
+measurement, <b>[F]</b> fitted on the specification's reference case. Every [H] coefficient
+that a result depends on is flagged where the result is presented.</p>
+
+<h2 class="chap">2 &nbsp; Design basis and decision trail</h2>
+<p class="chapsub">What the line must sell, what the redesign must satisfy, and how every arbitration is recorded.</p>
+
+<h3>2.1 &nbsp; Production targets and market caps</h3>
+<p>The commercial frame, as encoded in <code>production_targets</code> (all values client-arbitrated,
+final states dated 2026-08-13/14):</p>
+
+<table>
+<tr><th>Product</th><th class="r">Target (t/y)</th><th>Nature</th><th>Note</th></tr>
+<tr><td>KFS 20/35</td><td class="r">85 000</td><td>FIRM</td><td>kiln contract — absolute priority</td></tr>
+<tr><td>FeedLime grits 2/4</td><td class="r">40 000</td><td>FIRM</td><td>80 000 t/y documented as the extension case (D1 sizing case)</td></tr>
+<tr><td>FeedLime fines 0/1.5</td><td class="r">60 000</td><td>objective + market cap</td><td>production objective since 2026-08-14 (was a passive cap)</td></tr>
+<tr><td>AgLime 0/1.7</td><td class="r">135 000</td><td>market cap</td><td>loop co-production + dedicated 2C campaigns + fines redirect</td></tr>
+<tr><td>UltraFin &lt; 100 µm</td><td class="r">4 000</td><td>capped by natural fines content</td><td>optional extraction (D7)</td></tr>
+</table>
+
+<p>Two commercial rules close the balance: the <b>zero-waste redirect</b> (2026-08-13) — any
+fines surplus beyond the 60 kt market is redirected into the AgLime sales channel at loadout,
+the AgLime loop producing only the complement to the cap — and the <b>landfill ruling</b>
+(2026-08-13, final): no market exists for crude 0/20, so any 0/20 produced beyond the
+downstream reclaim goes to landfill and is reported as a net financial loss with an alert,
+never as a sale.</p>
+
+<p>The product specifications, as encoded in <code>output_products</code> and evaluated on every
+run:</p>
+
+<table>
+<tr><th>Product</th><th>Cut</th><th>State</th><th>Acceptance criterion</th></tr>
+<tr><td>KFS</td><td>20 / 35 mm</td><td>wet</td><td>30/55/15 envelope: ≤ 30 % below cut, ≥ 55 % in cut, ≤ 15 % above cut (validated 2026-08-08; supersedes the unworkable 15 % total out-of-cut reading — Q4)</td></tr>
+<tr><td>AgLime</td><td>0 / 1.7 mm</td><td>wet</td><td>≥ 95 % passing 1.7 mm (client 2026-08-12 — the first numeric AgLime spec)</td></tr>
+<tr><td>FeedLime grits</td><td>2 / 4 mm</td><td>dry (0.5 %)</td><td>D6 envelope: ≤ 15 % below 2 mm, ≤ 5 % above 4 mm (client 2026-08-14)</td></tr>
+<tr><td>FeedLime fines</td><td>0 / 1.5 mm</td><td>dry (0.5 %)</td><td>no numeric spec; redirect eligibility ≥ 95 % &lt; 1.7 mm when routed to the AgLime channel</td></tr>
+<tr><td>UltraFin</td><td>0 / 0.1 mm</td><td>dry</td><td>no numeric spec; NOT CERTIFIED until Φ measured</td></tr>
+<tr><td>Sliver 1.5/2</td><td>1.5 / 2 mm</td><td>dry</td><td>present only when the sliver diverter is on "extract" — normally absent (regrind)</td></tr>
+</table>
+
+<h3>2.2 &nbsp; Zone-1.3 design basis D1–D8</h3>
+<p>The client judged the as-built zone 1.3 badly dimensioned and ordered a from-scratch
+redesign on 2026-08-14. The design basis was frozen element by element, each row validated
+individually:</p>
+
+<table>
+<tr><th>#</th><th>Item</th><th>Requirement</th></tr>
+<tr><td>D1</td><td>Duty</td><td>one machine park for BOTH 40 000 and 80 000 t/y grits; sizing case 80 kt — only rates, settings and hours differ</td></tr>
+<tr><td>D2</td><td>Fixed equipment</td><td>dryer DY.03 acquired: 30 t/h at outlet (32.1 t/h wet feed), the single drying line; everything else free</td></tr>
+<tr><td>D3</td><td>Fines constraint</td><td>fines/grits ≤ 1.25 FIRM (80 kt through the single dryer); ≤ 1.0 objective; grits share ≥ 44 % of dried product</td></tr>
+<tr><td>D4</td><td>Design feed</td><td>sized on the measured chain's FeedLime 6/20; every candidate verified on the quarry-target variant too</td></tr>
+<tr><td>D5</td><td>Shift frame</td><td>3 × 8 h continuous, 7 500 h/y ceiling, 80 % availability = 6 000 effective h/y</td></tr>
+<tr><td>D6</td><td>Grits quality</td><td>2–4 mm: &gt; 4 mm ≤ 5 %; &lt; 2 mm ≤ 15 %; moisture 0.5 % — adopted 2026-08-14, both thresholds adjustable parameters</td></tr>
+<tr><td>D7</td><td>Co-products</td><td>fines 0/1.5 sellable (60 kt market + redirect-compatible); UltraFin optional</td></tr>
+<tr><td>D8</td><td>Commercial frame</td><td>zero unsellable product; 0/20 landfill to avoid by construction; candidates judged on the FULL line balance</td></tr>
+</table>
+
+<h3>2.3 &nbsp; Document authority: specification, PFDs, expert book</h3>
+<p>Three layers of source documents govern the model, in a client-ruled order of authority.
+The <b>specification</b> (nine chapters plus preamble, v. 2026-08-08) defines the models
+M1–M8, the flowsheet, the products and the reference cases; its conformity is tracked
+requirement by requirement in the conformity matrix. The three <b>NACO/Carmeuse PFDs</b>
+received on 2026-08-12 (zone 1.1 REV15, zone 1.2 REV18, zone 1.3 DBR) <b>prevail over the
+specification wherever they diverge</b> — the client's authority ruling of the same day —
+with one exception: in zone 1.3 the PFD's DV.10 and ML.30 "Unirotor" were deleted by the
+client, and since 2026-08-14 the whole zone is superseded by the C1 redesign of chapter 6.
+The ruling forced the complete rebuild of zone 1.2 to the REV18 topology (single-deck 6 mm
+FeedLime cut; open + closed 1.7 mm AgLime loop) presented in chapter 5. The <b>expert book</b>
+(23 pages, 22 references, received 2026-08-11) derives every machine model from first
+principles with a provenance status per coefficient; it confirmed the implemented
+architecture and closed three of the open arbitration questions (Q2, Q6, Q8). Four of its
+issues await an expert clarification note (imperfection convention and value; the book's
+CR.5009 worked-example F80 120 mm vs the measured 180.6; S_att 0.206 vs the fitted 0.171;
+CR.5011 capacity) — all tracked in the register.</p>
+
+<h3>2.4 &nbsp; The 12-question arbitration round</h3>
+<p>The client answers best to one question at a time with proposed options; the standing
+round of twelve structural questions (opened 2026-08-10) reads as follows today:</p>
+
+<table>
+<tr><th>Q</th><th>Question</th><th>State</th></tr>
+<tr><td>Q1</td><td>screen imperfection value</td><td>CLOSED 2026-08-10 — I = 0.15 from literature [H], sieve test to refit</td></tr>
+<tr><td>Q2</td><td>Bond work index 12.54 vs 13.8 (short-ton reading)</td><td>CLOSED 2026-08-11 — 12.54 kWh/t confirmed [ref.] (expert book)</td></tr>
+<tr><td>Q3</td><td>imperfection-remap ratification + convention nuance</td><td>OPEN — tied to the expert clarification note and the sieve test</td></tr>
+<tr><td>Q4</td><td>KFS tolerance vs envelope (the nulled 15 % out-of-cut)</td><td>OPEN</td></tr>
+<tr><td>Q5</td><td>spec §9.3 fines figure 19.9 t/h (cannot close mass)</td><td>OPEN — model enforces closure</td></tr>
+<tr><td>Q6</td><td>SP.36 cut size</td><td>CLOSED 2026-08-11 — 65 µm (0.65·d97, Stokes; expert book)</td></tr>
+<tr><td>Q7</td><td>KFS 85 kt securing lever (zone-1.1 hours)</td><td>CLOSED 2026-08-13 — Saturday extension, ceiling 2 400 h</td></tr>
+<tr><td>Q8</td><td>CR.5011 real capacity</td><td>CLOSED 2026-08-11 — HAZEMAG AP-S 1010 docs: 75–90 t/h, motor 132 kW</td></tr>
+<tr><td>Q9</td><td>hosting</td><td>CLOSED 2026-08-09 — deployed with access control</td></tr>
+<tr><td>Q10</td><td>repository location</td><td>OPEN (deployment-safety caution)</td></tr>
+<tr><td>Q11</td><td>French web-UI exception</td><td>CLOSED 2026-08-09 — REJECTED; English everywhere</td></tr>
+<tr><td>Q12</td><td>b_j for soft limestone</td><td>OPEN — on hold pending the commissioned hardness note; drop-weight test decides</td></tr>
+</table>
+
+<h3>2.5 &nbsp; The decision-register method</h3>
+<p>This is an evolving project, never a frozen one. Every change lands through the data file
+first and code second, and every arbitration receives a dated row in the decision register
+(<code>docs/spec-conformity-matrix.md</code>) stating <b>who decided</b>: the client, a delegated
+hypothesis, or an expert proposal pending ratification. The register is the project's memory
+and the authority whenever an older document diverges from it; this report quotes register
+rows with their dates wherever a figure is a decision rather than an engine output. The
+2026-08-13 and 2026-08-14 rows carry the whole story of the adopted configuration; the most
+load-bearing of them are condensed below.</p>
+
+<p>Four standing client rules govern how work lands. <b>Nothing hardcoded</b>: every
+parameter is adjustable in the data file without reprogramming — the redesign of chapter 6
+was wired entirely through data plus one flowsheet variant. <b>Hours follow the targets,
+never the reverse</b>: annual production targets are the inputs, operating hours the
+computed outputs, shift regimes only capacity ceilings. The specification's <b>golden
+rules</b>: an undefined symbol becomes a question, never a guess; vendor curves are value
+tables with a declared interpolation mode; data is separated from code. And <b>maximum rigor
+and honesty</b>: expert panels and adversarial verification at every significant step, with
+findings disclosed even when uncomfortable — the fines-cascade episode of §6.4 and the
+grid-bias finding of §9.5 are this rule in action. A companion traceability rule
+(2026-08-11) requires every issued datasheet and dossier to carry an engine-run provenance
+footer, and any figure not produced by an engine execution to be flagged; the extraction
+scripts are archived in the repository so any engineer can replay the numbers without
+assistance.</p>
+
+<h3>2.6 &nbsp; The issued document record</h3>
+<p>The client-facing paper trail this report consolidates: technical dossier <b>DT-001</b>
+(zone 1 complete, eleven machine datasheets at the client-validated inputs, each datasheet
+validated in review before issuance, tracked in the dossier register — revision pending on
+the C1 adoption); the zone-1 <b>calculation-sheet document</b> issued for external design
+review (2026-08-12, thesis-grade, three machines plus zone balance and weekly translation);
+the zone-1.2 calculation document, withdrawn when the PFDs superseded its topology and
+pending re-issue on the REV18 rebuild; the <b>quarry works specification</b> (chapter 8,
+issued 2026-08-14); the zone-1.3 <b>design-basis, panel-diagnosis and candidate notes</b>
+plus the block diagram (as-built and C1) in the design dossier; and the six verification
+action reports of chapter 9. Every issued figure traces to an engine run through the
+provenance footers.</p>
+
+<table>
+<tr><th>Date</th><th>Decision (condensed)</th><th>Decided by</th></tr>
+<tr><td>2026-08-13</td><td>Q7 closed — Saturday extension: zone 1.1 ceiling 2 000 → 2 400 h/y; 85 kt KFS firm commitment feasible</td><td>the client</td></tr>
+<tr><td>2026-08-13</td><td>FeedLime fines market defined: 60 000 t/y sellable maximum</td><td>the client</td></tr>
+<tr><td>2026-08-13</td><td>Zero-waste rule: fines surplus redirected into the AgLime sales channel; loop makes only the complement</td><td>the client</td></tr>
+<tr><td>2026-08-13</td><td>Dryer capacity defined: 30 t/h AT THE OUTLET = 32.1 t/h wet feed</td><td>the client</td></tr>
+<tr><td>2026-08-13</td><td>Reference zone-1 settings g = 60 / CSS = 30 adopted (0/20-balance campaign)</td><td>the client</td></tr>
+<tr><td>2026-08-13</td><td>0/20 excess = LANDFILL, a net financial loss — no crude market exists (supersedes the same-day crude-sales rule)</td><td>the client</td></tr>
+<tr><td>2026-08-14</td><td>Zone-1.3 redesign launched; design basis D1–D8 frozen</td><td>the client</td></tr>
+<tr><td>2026-08-14</td><td>D6 grits envelope encoded — the as-built circuit FAILS it (15.4 % &lt; 2 mm)</td><td>the client (spec) + engine (finding)</td></tr>
+<tr><td>2026-08-14</td><td>C1 validated as lead candidate, then FORMALLY ADOPTED as the reference configuration</td><td>the client</td></tr>
+<tr><td>2026-08-14</td><td>Sliver 1.5/2 arbitration: REGRIND through RC.2 (two-position diverter, reversible)</td><td>the client</td></tr>
+<tr><td>2026-08-14</td><td>Screen arrangement: 2+2 — SC.A recycle cuts 8/3.75, SC.B product cuts 2/1.5</td><td>the client</td></tr>
+<tr><td>2026-08-14</td><td>RC.1 purchase specification raised to 32 t/h (closes the D4 quarry-feed finding)</td><td>the client</td></tr>
+<tr><td>2026-08-14</td><td>AgLime dedicated 2C campaigns wired into the planning (landfill 144.2 → 58.4 kt/y at that epoch)</td><td>the client (rule) + engine</td></tr>
+<tr><td>2026-08-14</td><td>Impactor v = 35 → 30 m/s — the last settings headroom against landfill</td><td>the client</td></tr>
+<tr><td>2026-08-14</td><td>KFS Yield indicator defined (4 arbitrated sub-decisions, §1.3)</td><td>the client</td></tr>
+<tr><td>2026-08-14</td><td>×2 computation grid adopted; converged figures rebased (KFS Yield 24.59 → 24.88 %)</td><td>the client</td></tr>
+<tr><td>2026-08-14</td><td>Fines 60 kt becomes a production OBJECTIVE; grits diverter DV.GF; two-mode zone 1.3; second RC.2 unit; mode-F gap 1.5 mm</td><td>the client + engine (feasibility)</td></tr>
+<tr><td>2026-08-14</td><td>Total-flow rule ratified: all feed rates wet (dry + water), as belt-weighed</td><td>the client</td></tr>
+<tr><td>2026-08-14</td><td>Quarry works target adopted: 40.1 % passing 20 mm at the zone-1 inlet, 20 % AgLime flex margin</td><td>the client</td></tr>
+</table>
+
+<h2 class="chap">3 &nbsp; The calculation models M1–M8</h2>
+<p class="chapsub">Eight machine models, their exact formulas, their provenance, and the seven literature anchors that pin them.</p>
+
+<p>All machine physics lives in eight pure functions (one model, one function, coefficients
+in the data file only). The scientific review (<code>docs/model-science-review.md</code>) grades
+each on provenance: <b>A</b> — established law in its exact textbook form; <b>B</b> — established
+family with a spec-specific parameterization; <b>C</b> — documented, bounded, fitted
+phenomenological hypothesis.</p>
+
+<p>A scenario execution composes them in a fixed pipeline: the feed builder assembles the
+pivot PSD from the measurement plus the H-FEED completions and refines it to the computation
+grid; each zone function then chains its machines — M1/M2 at every crusher, M3/M4 at every
+screen deck, M5 feeding M1's slope at the impactors, M6 at the dryer, M7 at the rolls, M8 at
+the classifier — iterating the closed loops to their fixed points; and the scenario layer
+closes the dry-solids and water balances, evaluates every product against its specification,
+computes the indicators and emits the alerts. Nothing else happens: no hidden state, no
+optimization, one photo per call.</p>
+
+<h3>3.1 &nbsp; M1 — Crusher product: truncated Rosin–Rammler (grade A)</h3>
+<div class="eqrow"><div class="eq">$$P(x)=1-\exp\!\left[-\left(\frac{x}{x_c}\right)^{n}\right],\qquad
+x_c=\frac{x_{80}}{(\ln 5)^{1/n}}$$</div><div class="no">(3.1)</div></div>
+<p>Rosin &amp; Rammler (1933), the universal representation of comminution products; the
+$\ln 5$ anchor follows exactly from requiring $P(x_{80})=0.8$. The product is truncated at
+$1.7\,x_{80}$ with mass rescaling (spec parameter <code>trunc_factor</code>), and feed already finer
+than the product size bypasses unbroken — the standard classification device of Whiten-type
+crusher models. Disclosed nuance (adversarial audit, 2026-08-14): after truncation the
+delivered value at the nominal $x_{80}$ is ≈ 0.83, stated in the data notes. The slope $n$
+is machine-specific ([H] for the smooth rolls until the vendor gradation test).</p>
+
+<h3>3.2 &nbsp; M2 — Comminution power: Bond's third theory (grade A)</h3>
+<div class="eqrow"><div class="eq">$$W=10\,W_i\left(\frac{1}{\sqrt{P_{80}}}-\frac{1}{\sqrt{F_{80}}}\right)\ \mathrm{kWh/t}
+\quad(\mu\mathrm{m}),\qquad P_{inst}=\frac{W\,Q}{\eta_m}$$</div><div class="no">(3.2)</div></div>
+<p>Bond (1952), the industry standard for seventy years, implemented in its exact textbook
+form and hand-checked in the tests. $W_i = 12.54$ kWh/t is <b>[ref.]</b> since Q2 closed on
+2026-08-11 (the expert book's referenced Belgian-limestone value; consistent with the
+measured limestone range 12.6–13.9 kWh/t); $\eta_m = 0.75$. Accepted accuracy for impact crushers is ±25–30 % — a
+limit of the law, adequate for the design-margin use this project makes of it.</p>
+
+<h3>3.3 &nbsp; M3 — Screen partition: efficiency curve (grade B)</h3>
+<div class="eqrow"><div class="eq">$$\rho(x)=\frac{1}{1+\left(d_{50c}/x\right)^{s}},\qquad
+d_{50c}=a\,k_d,\qquad s=\frac{\ln 9}{\ln\!\left(1/(1-I)\right)}$$</div><div class="no">(3.3)</div></div>
+<p>The partition-curve standard of mineral-processing simulation (Reid/Plitt logistic family,
+Lynch-school sharpness through an imperfection $I$; the spec labels it "Karra"). The formula
+as written in the spec contradicted its own narrative and was arbitrated on 2026-08-08
+(option A: the narrative wins); $I = 0.15$ was adopted from literature on 2026-08-10
+<b>[H]</b>, pending a screen-product sieve test. <b>Disclosed convention nuance</b>
+(action 2, 2026-08-14): with the spec's sharpness formula, inputting $I=0.15$ yields a
+partition curve whose <i>classic</i> imperfection $(d_{75}-d_{25})/(2\,d_{50})$ is
+$\sinh(\ln(1/(1-I))/2)\approx 0.081$ — the implemented screens are about twice as sharp as a
+classic $I=0.15$ screen, close to Karra 1979's fixed-sharpness family. The convention is
+client-arbitrated and stated wherever it matters; it belongs to the Q3 sieve-test closure.</p>
+
+<h3>3.4 &nbsp; M4 — Screen area: VSMA sizing (grade B)</h3>
+<div class="eqrow"><div class="eq">$$A=\frac{U\,f_p}{Q_b\,f_0},\qquad Q_b=14\,a^{0.6}$$</div><div class="no">(3.4)</div></div>
+<p>The VSMA handbook method, the industry's screen-sizing standard; $14\,a^{0.6}$ is the
+spec's fit of the basic-capacity curve and the global correction $f_0 = 0.347$ <b>[H]</b>
+(fitted on SR.5007) absorbs the usual factor stack, with peak factor $f_p = 1.2$ <b>[H]</b>.
+Sizing-level accuracy ±20–30 % — exactly the design-confirmation use. Under rain the basic
+capacity derates by the factor 0.75 <b>[H]</b>.</p>
+
+<h3>3.5 &nbsp; M5 — Impact breakage: JKMRC t10 (grade A)</h3>
+<div class="eqrow"><div class="eq">$$E_{cs}=\frac{v^{2}}{7200},\qquad
+t_{10}=A_j\left(1-e^{-b_j E_{cs}}\right),\qquad n=\left(\frac{30}{t_{10}}\right)^{0.30}$$</div><div class="no">(3.5)</div></div>
+<p>The JKMRC breakage model (Napier-Munn et al.), backbone of JKSimMet. $v^2/7200$ is exact
+physics — the rotor-tip kinetic energy per unit mass converted to kWh/t (proven an identity in
+action 2). $A_j = 60$ and $b_j = 0.8$ are literature defaults <b>[H]</b>; the JKTech database
+trend puts soft limestone at $A\!\cdot\!b \sim 60$–80, so the current $A\!\cdot\!b = 48$ is a
+conservative hard-side choice — the drop-weight question Q12 remains open. The $t_{10}\to n$
+mapping is the spec's bounded, monotone simplification.</p>
+
+<h3>3.6 &nbsp; M6 — Drying: mass and energy balance (grade A)</h3>
+<div class="eqrow"><div class="eq">$$Q_{th}=\frac{\dot m_w\left(L_v+c_e\,\Delta T_e\right)+\dot m_s\,c_s\,\Delta T_s}{\eta_{th}},
+\qquad V_{drum}=\frac{\dot m_w}{I_{ev}}$$</div><div class="no">(3.6)</div></div>
+<p>First-principles thermodynamics: latent heat 2 257 kJ/kg, sensible heats, thermal
+efficiency $\eta_{th}=0.6$ <b>[H]</b>, evaporation intensity 45 kg/m³·h <b>[H]</b> for drum
+sizing (Perry's rule of thumb). Water closure is asserted on every run. This is the most
+certain model of the chain (it reproduces the spec's reference figures to three digits); the
+adversarial audit added the boundary fix that a no-drying pass reports exactly zero duty.</p>
+
+<h3>3.7 &nbsp; M7 — Bed roller mill / smooth rolls (grade C — the honest weak point)</h3>
+<p>A two-component phenomenological model: material coarser than the gap is compressed to a
+Rosin–Rammler product at $x_{80} = g$ (slope $n_{comp}$, per-pass reduction capped by
+$\lambda_{comp}$, hypothesis H-M7-1), and a fraction $S_{att}$ of each pass reports to
+attrition fines with their own RR parameters (hypothesis H-M7-2); sub-gap material bypasses
+unbroken — pinned <i>at the gap</i> even in the capped regime since the 2026-08-14 audit fix.
+The structure is validated by literature for toothed double rolls (Thiere, TU Freiberg 2020),
+which raised the grade from C to B− for ML.26; for the C1 smooth rolls the coefficients
+($n_{comp}=1.8$, $\lambda_{comp}=2.2$, $S_{att}=0.06$) are <b>[H]</b> and are trial trigger #1:
+the vendor gradation test on WANKOE 6/20 fixes them before any purchase. A vendor product
+curve, when available, plugs directly into the data (<code>product_curve_table</code> slot).</p>
+
+<h3>3.8 &nbsp; M8 — Air classification and cyclone (grade A/B)</h3>
+<div class="eqrow"><div class="eq">$$\dot m_{fine}=\dot m_{feed}\,\Phi(&lt;cut)\,\eta_{cl},\qquad
+d_{50}=\sqrt{\frac{9\,\mu\,b}{2\pi N_e\,v_{in}\left(\rho_p-\rho_a\right)}}$$</div><div class="no">(3.7)</div></div>
+<p>The standard efficiency-recovery classifier form, mass-exact per size interval, and the
+Lapple (1951) cyclone model in its exact form ($d_{50}=4.2$ µm at the adopted Stairmand
+geometry, $b = 0.14$ m, vendor drawing to confirm). $\Phi$ at the 65 µm cut (Q6 closed
+2026-08-11) comes from the modelled curve until measured and every UltraFin figure is flagged
+NOT CERTIFIED accordingly; $\eta_{cl} = 0.75$ <b>[H]</b>. The sub-4 µm cyclone tail requires
+a polishing bag filter that is absent from the flowsheet — a standing design-review item.</p>
+
+<h3>3.9 &nbsp; Literature anchors — 7/7 pass</h3>
+<p>Action 2 of the verification program (chapter 9) confronted each model with its source
+literature, every expected value hand-computed into the permanent test module
+<code>tests/test_literature_anchors.py</code> with the source cited:</p>
+
+<table>
+<tr><th>Model</th><th>Anchor (source)</th><th>Result</th></tr>
+<tr><td>M2 Bond</td><td>worked case $W_i$ 12.74, 25 → 3 mm → W = 1.520246 kWh/t (Wills)</td><td>exact to 1e-5</td></tr>
+<tr><td>M5</td><td>$E_{cs}=v^2/7200$ exact physics identity; v = 30 → 0.125</td><td>exact to 1e-12</td></tr>
+<tr><td>M5</td><td>JKMRC $t_{10}$ = 5.709755 % (Napier-Munn 1996)</td><td>exact to 1e-5</td></tr>
+<tr><td>M3</td><td>logistic partition quartiles $x_{25}/x_{75}$ analytic (Reid/Plitt; King)</td><td>both reproduced</td></tr>
+<tr><td>M3</td><td>sharpness s = ln 9 / ln(1/(1−I)) = 13.5198 at I = 0.15</td><td>exact</td></tr>
+<tr><td>M4</td><td>VSMA effective capacity vs published Factor-A: 29.3 vs 30.8 (20 mm); 41.0 vs 39.5 (35 mm)</td><td>within 5 %</td></tr>
+<tr><td>M1</td><td>truncated RR $P_t(x_{80})$ = 0.830814 (hand exponentials) + hard truncation at 1.7·$x_{80}$</td><td>exact to 1e-5</td></tr>
+</table>
+
+<p>One disclosed incident does the program credit: the checker's first 4-digit hand value for
+the M1 anchor (0.830783) disagreed with the engine; the high-precision recomputation confirmed
+<b>the engine</b> (0.830814) — the independent check corrected the checker, recorded verbatim
+in the test docstring.</p>
+
+<h3>3.10 &nbsp; Model verdict and the upgrade path</h3>
+<p>The scientific review's one-line verdict per model, with the single measurement or vendor
+input that would upgrade it:</p>
+
+<table>
+<tr><th>Model</th><th>Grade</th><th>The one thing that would upgrade it</th></tr>
+<tr><td>M1 Rosin–Rammler</td><td>A</td><td>n per machine from vendor gradation curves</td></tr>
+<tr><td>M2 Bond</td><td>A</td><td>accept ±25–30 % — intrinsic to the law (site Bond test optional)</td></tr>
+<tr><td>M3 partition</td><td>B</td><td>screen imperfection from a product sieve test (Q3)</td></tr>
+<tr><td>M4 VSMA</td><td>B</td><td>installed areas from design drawings</td></tr>
+<tr><td>M5 JKMRC</td><td>A</td><td>A_j / b_j from a drop-weight test (Q12)</td></tr>
+<tr><td>M6 drying</td><td>A</td><td>—</td></tr>
+<tr><td>M7 bed mill / smooth rolls</td><td><b>C</b></td><td>vendor performance curve (product_curve_table slot ready)</td></tr>
+<tr><td>M8 classifier / cyclone</td><td>A/B</td><td>Φ measurement at the cut; cyclone inlet width from the vendor drawing</td></tr>
+</table>
+
+<h3>3.11 &nbsp; Key coefficients and their provenance</h3>
+<p>The load-bearing coefficients of the chain, from the calibration block of the data file
+(every one adjustable without reprogramming — the client's rule 1):</p>
+
+<table>
+<tr><th>Symbol</th><th>Meaning</th><th class="r">Value</th><th>Status</th><th>Used by</th></tr>
+<tr><td>Wi</td><td>Bond work index</td><td class="r">12.54 kWh/t</td><td>[ref.] — Q2 closed</td><td>M2</td></tr>
+<tr><td>η_m</td><td>mechanical efficiency</td><td class="r">0.75</td><td>project</td><td>M2</td></tr>
+<tr><td>A_j / b_j</td><td>JKMRC breakage parameters</td><td class="r">60 % / 0.8</td><td>[H] — conservative hard-side; Q12 open</td><td>M5</td></tr>
+<tr><td>I_dry / I_rain</td><td>screen imperfection</td><td class="r">0.15 / 0.9</td><td>[H] — Q1 arbitrated; sieve test to refit</td><td>M3</td></tr>
+<tr><td>k_d</td><td>screen d50c factor</td><td class="r">1.0</td><td>[H]</td><td>M3</td></tr>
+<tr><td>f0 / f_p</td><td>VSMA global correction / peak factor</td><td class="r">0.347 / 1.2</td><td>[H] — f0 fitted on SR.5007</td><td>M4</td></tr>
+<tr><td>L_v, c_e</td><td>latent heat, water heat capacity</td><td class="r">2 257 kJ/kg, 4.18</td><td>physics</td><td>M6</td></tr>
+<tr><td>η_th / I_ev</td><td>dryer thermal efficiency / evaporation intensity</td><td class="r">0.6 / 45 kg/m³·h</td><td>[H]</td><td>M6</td></tr>
+<tr><td>λ_comp, n_comp, S_att (ML.26)</td><td>as-built mill hypotheses H-M7-1/2</td><td class="r">4.11 / 0.86 / 0.171</td><td>[H][F] — fitted on the spec's reference case</td><td>M7</td></tr>
+<tr><td>λ_comp, n_comp, S_att (RC.1/RC.2)</td><td>smooth-roll hypotheses</td><td class="r">2.2 / 1.8 / 0.06</td><td>[H] — vendor gradation test = trial trigger #1</td><td>M7</td></tr>
+<tr><td>η_cl</td><td>classifier extraction efficiency</td><td class="r">0.75</td><td>[H] — flagged optimistic</td><td>M8</td></tr>
+<tr><td>N_e, b, ρ_p</td><td>cyclone turns, inlet width, particle density</td><td class="r">5 / 0.14 m / 2 700 kg/m³</td><td>[H] — Stairmand assumption, vendor to confirm</td><td>M8</td></tr>
+<tr><td>Φ(&lt;cut)</td><td>natural fines content below the 65 µm cut</td><td class="r">null</td><td>TO BE MEASURED — UltraFin not certified until then</td><td>M8</td></tr>
+</table>
+
+<h2 class="chap">4 &nbsp; Zone 1.1 — complete calculation</h2>
+<p class="chapsub">From the 250 t/h wet pivot feed to KFS 20/35 and the 0/20 stream, machine by machine, at the adopted settings g = 60 / CSS = 30 / v = 30.</p>
+
+<p>All figures in this chapter are one engine execution of <code>run_scenario</code> at the
+default parameter set (measured 2026-08-08 feed curve, mode 1A, dry weather, ×2 grid).
+Zone 1.1 is the crushing/screening block — what the client means by "zone 1": the pivot feed
+enters the roll crusher CR.5009, its product joins the recirculating load on the double-deck
+screen SR.5007, the top-deck oversize closes the loop through the impact crusher CR.5011,
+and the screen delivers KFS 20/35 to stock and the 0/20 stream to the downstream stockpile.</p>
+
+<h3>4.1 &nbsp; The validated inputs</h3>
+<p>The zone-1 inputs were validated first, before any machine sheet, per the step-by-step
+review protocol (client, 2026-08-11):</p>
+
+<table>
+<tr><th>Input</th><th class="r">Value</th><th>Provenance</th></tr>
+<tr><td>Pivot feed rate</td><td class="r">250 t/h wet (232.5 dry)</td><td>client-validated 2026-08-11; total-flow rule §1.1</td></tr>
+<tr><td>Moisture</td><td class="r">7 % wet basis</td><td>measured with the 2026-08-08 belt cut</td></tr>
+<tr><td>Feed PSD</td><td class="r">d50 32.3 mm, F80 180.6 mm</td><td>belt-cut 2026-08-08 (measured 32 / 180); H-FEED-1 fine-tail and H-FEED-2 top-size completions; Annex A</td></tr>
+<tr><td>Bond work index</td><td class="r">12.54 kWh/t</td><td>[ref.] — Q2 closed 2026-08-11</td></tr>
+<tr><td>Settings</td><td class="r">g = 60 mm / CSS = 30 mm / v = 30 m/s</td><td>client 2026-08-13 (g, CSS) and 2026-08-14 (v)</td></tr>
+<tr><td>Mode / weather</td><td class="r">1A / dry</td><td>default scenario</td></tr>
+</table>
+
+<p>The three settings all sit at the yield-favorable end of their machine ranges — g and CSS
+at their maxima, v at its minimum — and each direction is engine-proven monotone (chapter 9,
+action 3). Zone 1.1 has no settings headroom left against the 0/20 balance: what remains is
+the quarry curve.</p>
+
+<h3>4.2 &nbsp; CR.5009 — toothed roll crusher</h3>
+<p>The roll crusher takes the full pivot flow at the adopted gap g = 60 mm ($x_{80}=g$,
+client validation 2026-08-08; RR slope n = 1.35). The engine reports:</p>
+
+<table>
+<tr><th>Quantity</th><th class="r">Value</th><th>Model</th></tr>
+<tr><td>Throughput</td><td class="r">250 t/h wet (232.5 dry)</td><td>—</td></tr>
+<tr><td>F80 / P80</td><td class="r">180.6 / 42.7 mm</td><td>M1</td></tr>
+<tr><td>Specific energy W</td><td class="r">0.312 kWh/t</td><td>M2</td></tr>
+<tr><td>Net / installed power</td><td class="r">72.5 / 96.6 kW</td><td>M2 (η_m 0.75)</td></tr>
+</table>
+
+<div class="alert"><b>Nip saturation (standing alert).</b> The measured feed $F_{80}$ of
+181 mm exceeds the CR.5009 maximum nip size of 150 mm — the engine raises this alert on every
+run of the measured curve. Top-size control at the primary crusher belongs to the same quarry
+conversation as the fines fraction (chapter 8), and the alert worsens on the coarser target
+curve ($F_{80}$ ≈ 251 mm).</div>
+
+<p>The gap g = 60 mm was adopted in the 0/20-balance optimization campaign of 2026-08-13: a
+coarser roll product preserves the 20–35 mm KFS band instead of grinding it into 0/20. The
+model applies the client-validated identity $x_{80} = g$ (2026-08-08) with the M1 product
+form of §3.1 (n = 1.35); the specification's ~116 kW chapter-9 power expectation is a known
+spec-side artefact of the back-fitted reference curve (Q2 closure) — the engine's 96.6 kW
+installed at the measured curve is the design number. The expert book's worked CR.5009
+example uses an F80 of 120 mm where the belt cut measures 180.6 (66 vs 106 kW net at the
+book's settings) — one of the four points logged for the expert clarification note; the
+model always computes on the measured curve.</p>
+
+<h3>4.3 &nbsp; SR.5007 — double-deck screen 35/20 mm</h3>
+<p>The screen receives the crusher product plus the recirculating load — 301.8 t/h dry at
+loop equilibrium — and cuts at 35 and 20 mm with imperfection I = 0.15 [H] (M3). The VSMA
+sizing (M4, $f_0$ = 0.347 fitted, $f_p$ = 1.2) gives the required areas:</p>
+
+<table>
+<tr><th>Deck</th><th class="r">Aperture (mm)</th><th class="r">Basic capacity Q_b (t/h·m²)</th><th class="r">Required area (m²)</th></tr>
+<tr><td>Top deck</td><td class="r">35</td><td class="r">118.2</td><td class="r">6.80</td></tr>
+<tr><td>Bottom deck</td><td class="r">20</td><td class="r">84.5</td><td class="r">7.15</td></tr>
+</table>
+
+<p>Installed areas are open data slots (null) awaiting the design drawings; the design check
+reports "no limit" until they are filled. The partition of each deck follows the M3
+efficiency curve at sharpness s = 13.52 (I = 0.15), roughly twice as sharp as a classic
+I = 0.15 screen under the disclosed convention nuance of §3.3 — a bias direction the Q3
+sieve test will settle.</p>
+
+<h3>4.4 &nbsp; CR.5011 — impact crusher (HAZEMAG AP-S 1010) and the closed loop</h3>
+<p>The top-deck oversize (&gt; 35 mm) recirculates through the impactor at the adopted
+settings CSS = 30 mm, v = 30 m/s — both at the yield-favorable end of their ranges (the
+monotonicity of each is engine-proven, chapter 9 action 3). The M5 chain at loop equilibrium:</p>
+
+<table>
+<tr><th>Quantity</th><th class="r">Value</th><th>Model</th></tr>
+<tr><td>Ecs = v²/7200</td><td class="r">0.125 kWh/t</td><td>M5 (exact identity)</td></tr>
+<tr><td>t10 = A_j(1−e^(−b_j·Ecs))</td><td class="r">5.71 %</td><td>M5 (A_j 60, b_j 0.8 — both [H])</td></tr>
+<tr><td>RR slope n = (30/t10)^0.30</td><td class="r">1.645</td><td>M5</td></tr>
+<tr><td>F80 / P80</td><td class="r">63.0 / 29.3 mm</td><td>M1</td></tr>
+<tr><td>Net / installed power at loop load</td><td class="r">16.1 / 21.5 kW</td><td>M2</td></tr>
+<tr><td>Net / installed power at 90 t/h rating</td><td class="r">21.0 / 28.0 kW</td><td>M2 (motor 132 kW installed)</td></tr>
+</table>
+
+<p>The recirculating load at equilibrium is <b>69.3 t/h dry</b> (29.8 % of the zone feed).
+The capacity check runs in the rating's declared basis (audit fix, 2026-08-14): the vendor's
+90 t/h real-capacity rating is wet, so the engine compares the wet loop load —
+74.5 t/h — against it: <b>82.8 % of rating</b>, inside capacity. Mode 1B at 250 t/h would
+exceed it and is unusable at these settings — irrelevant, since the adopted balance needs no
+stock campaigns.</p>
+
+<p>The loop is a fixed-point iteration on the recirculating stream (tolerance 10⁻⁶ on the
+size fractions, maximum circulating ratio 10, divergent configurations self-declared): the
+top-deck oversize feeds the impactor, whose product returns to the screen feed, and the
+engine iterates the pair to equilibrium. Action 5 of the verification program tightened the
+tolerance to 10⁻⁹ and confirmed the equilibrium unchanged — the loops are numerically clean.</p>
+
+<h3>4.5 &nbsp; KFS product</h3>
+<p>The 20/35 band reports to the KFS stockpile at <b>62.2 t/h wet</b> (57.8 dry). The real
+KFS PSD against its 30/55/15 envelope (three %-passing thresholds, interpretation validated
+2026-08-08):</p>
+
+<table>
+<tr><th>Envelope check</th><th class="r">Limit</th><th class="r">Realized</th><th>Verdict</th></tr>
+<tr><td>Below cut (&lt; 20 mm)</td><td class="r">≤ 30 %</td><td class="r">8.7 %</td><td>pass</td></tr>
+<tr><td>In cut (20–35 mm)</td><td class="r">≥ 55 %</td><td class="r">82.7 %</td><td>pass</td></tr>
+<tr><td>Above cut (&gt; 35 mm)</td><td class="r">≤ 15 %</td><td class="r">8.6 %</td><td>pass</td></tr>
+</table>
+
+<p>The full product curve on the presentation grid ($P_{80}$ = 31.7 mm; meshes with 0 or
+100 % passing omitted):</p>
+
+<table>
+<tr><th class="r">Mesh (mm)</th><th class="r">10</th><th class="r">12.5</th><th class="r">15</th><th class="r">20</th><th class="r">25</th><th class="r">31.5</th><th class="r">35</th><th class="r">40</th><th class="r">50</th><th class="r">63</th></tr>
+<tr><td>Cumulative passing (%)</td><td class="r">0.00</td><td class="r">0.02</td><td class="r">0.24</td><td class="r">8.69</td><td class="r">39.45</td><td class="r">79.24</td><td class="r">91.44</td><td class="r">98.04</td><td class="r">99.92</td><td class="r">100.00</td></tr>
+</table>
+
+<p>The product is envelope-compliant with comfortable margins on all three thresholds, and
+the compliance is robust: the Monte-Carlo band of chapter 9 found the envelope holding in
+200 of 200 hypothesis draws (in-cut 77.9–92.7 %). The quality of KFS is not in question;
+only the quantity balance is.</p>
+
+<p>The internal streams of the zone at loop equilibrium, dry solids:</p>
+
+<table>
+<tr><th>Stream</th><th class="r">Rate (t/h dry)</th><th>From → to</th></tr>
+<tr><td>Pivot feed</td><td class="r">232.5</td><td>pivot → CR.5009</td></tr>
+<tr><td>Crusher product</td><td class="r">232.5</td><td>CR.5009 → SR.5007 (joins the return)</td></tr>
+<tr><td>Screen feed</td><td class="r">301.8</td><td>= 232.5 + 69.3 recirculation</td></tr>
+<tr><td>Top-deck oversize (&gt; 35 mm)</td><td class="r">69.3</td><td>SR.5007 → CR.5011 → back to SR.5007</td></tr>
+<tr><td>KFS 20/35</td><td class="r">57.8</td><td>SR.5007 → BC.5013 → KFS stock</td></tr>
+<tr><td>0/20 undersize</td><td class="r">174.7</td><td>SR.5007 → 0/20 stockpile (SP.5014)</td></tr>
+</table>
+
+<h3>4.6 &nbsp; The 0/20 stream and the zone balance</h3>
+<p>The bottom-deck undersize is the 0/20 stream at <b>187.8 t/h wet</b> (174.7 dry) — the
+feedstock of everything downstream and, through the reclaim, the physical carrier of the
+whole commercial balance. Its composition at the adopted settings drives the zone-1.2 split
+of chapter 5 (61.6 % coarser than 6 mm) and, two zones later, the fines/grits economics of
+chapter 6. The zone closes exactly:</p>
+
+<table>
+<tr><th>Zone 1.1 stream</th><th class="r">Wet (t/h)</th><th class="r">Dry (t/h)</th></tr>
+<tr><td>IN — pivot feed</td><td class="r">250.0</td><td class="r">232.5</td></tr>
+<tr><td>OUT — KFS 20/35</td><td class="r">62.2</td><td class="r">57.8</td></tr>
+<tr><td>OUT — 0/20 to stockpile</td><td class="r">187.8</td><td class="r">174.7</td></tr>
+<tr><td class="r"><i>closure gap (dry, relative)</i></td><td class="r" colspan="2"><i>5.5×10⁻⁸ — closed</i></td></tr>
+</table>
+
+<p>Installed power engaged in the zone: 96.6 kW (CR.5009) + 21.5 kW (CR.5011 at loop load;
+132 kW motor installed) — comminution is not the zone's binding constraint; the hours ceiling
+was (chapter 7), until the Saturday extension closed Q7.</p>
+
+<p>How the settings got here — the zone-1 operating point is itself a decision trail, each
+step engine-quantified before adoption:</p>
+
+<table>
+<tr><th>Epoch</th><th class="r">g / CSS / v</th><th>Effect (engine, at adoption)</th></tr>
+<tr><td>Spec-era published settings</td><td class="r">40 / 20 / 45</td><td>KFS 51.35 t/h wet — the point the PFD's 80 t/h design rate is confronted with (RC7)</td></tr>
+<tr><td>0/20-balance campaign (2026-08-13)</td><td class="r">60 / 30 / 35</td><td>KFS yield 20.5 → 23.9 % (spec grid); envelope compliant; g and CSS at machine maxima</td></tr>
+<tr><td>Last headroom (2026-08-14)</td><td class="r">60 / 30 / <b>30</b></td><td>landfill −9 800 t/y at that epoch (58.4 → 48.6 kt); envelope verified compliant</td></tr>
+<tr><td>×2 grid rebase (2026-08-14)</td><td class="r">60 / 30 / 30</td><td>KFS Yield 24.59 → <b>24.88 %</b> converged — this chapter's operating point</td></tr>
+</table>
+
+<h3>4.7 &nbsp; KFS Yield — realized against required</h3>
+<div class="eqrow"><div class="eq">$$Y_{KFS}=\frac{62.20}{250}=24.88\,\%\qquad
+Y_{KFS}^{req}=\frac{85\,000}{85\,000+242\,829}=25.93\,\%$$</div><div class="no">(4.1)</div></div>
+<p>The realized yield sits 1.05 points below the requirement for zero landfill at the adopted
+annual plan — the engine alerts it on every run. The gap is structural, not a settings issue:
+g and CSS sit at their machine maxima and v at its minimum, all yield-favorable directions
+engine-proven; 45.5 % of the measured feed is already finer than 20 mm at the inlet and is
+fatally 0/20. The remaining lever is the quarry curve (chapter 8).</p>
+
+<h2 class="chap">5 &nbsp; Zone 1.2 — complete calculation</h2>
+<p class="chapsub">The 100 t/h wet reclaim split at 6 mm into FeedLime and the AgLime loop — PFD REV18 topology, mode 2A photo at defaults.</p>
+
+<p>Zone 1.2 reclaims the 0/20 stockpile at 100 t/h wet (93.0 dry) and was rebuilt to the
+NACO/Carmeuse PFD REV18 topology on 2026-08-12 (PFD authority ruling): FeedLime is the 6/20
+oversize of the single-deck 6 mm screen SR.5105; the undersize feeds the AgLime finishing
+loop — open screen SR.5111, impact crusher CR.5113, and the closed-loop screen SR.5115, both
+screens cutting at 1.7 mm. All figures below are the engine's mode-2A dry photo at defaults.</p>
+
+<p>The reclaim inputs carry two declared hypotheses, both arbitrated in the zone-1.2 question
+round of 2026-08-12: the reclaim PSD is the zone-1 photo's 0/20 curve at the validated
+settings (the stockpile is assumed well-mixed — the only consistent choice, since no
+downstream measurement will ever exist), and the reclaim moisture is the belt moisture of
+7 %. The reclaim feeders BF.5101/BF.5102 are rated 100 t/h each (PFD REV18); routing units
+have no process influence.</p>
+
+<h3>5.1 &nbsp; SR.5105 — the 6 mm FeedLime cut</h3>
+<p>The reclaimed 0/20 (the zone-1.1 product curve of chapter 4) splits at 6 mm into
+<b>FeedLime 6/20 at 61.6 t/h wet</b> (57.3 dry, 61.6 % of the reclaim) and 38.4 t/h wet
+(35.7 dry) toward the AgLime loop. The VSMA required area is 3.01 m². The split is the
+mirror of the zone-1 product's fineness: the measured chain gives ~61/39, the inverse of the
+PFD design table's 42/58 — the design curve assumed a finer 0/20 than the measured chain
+produces (the same family as the KFS design-rate gap, register 2026-08-12; NACO
+reconciliation, chapter 10).</p>
+
+<h3>5.2 &nbsp; The AgLime loop — SR.5111 open, CR.5113 + SR.5115 closed</h3>
+<table>
+<tr><th>Machine</th><th class="r">Load</th><th class="r">Result</th></tr>
+<tr><td>SR.5111 (1.7 mm, open)</td><td class="r">35.7 t/h dry</td><td class="r">undersize 7.9 t/h direct to AgLime; area 1.42 m²</td></tr>
+<tr><td>CR.5113 (impactor, v 40 / CSS 1.0)</td><td class="r">28.1 t/h dry</td><td class="r">Ecs 0.222 kWh/t, t10 9.77 %, n 1.400; P80 0.95 mm; 65.5 / 87.4 kW net/installed</td></tr>
+<tr><td>SR.5115 (1.7 mm, closed loop)</td><td class="r">28.1 t/h dry</td><td class="r">undersize joins AgLime; area 4.99 m²</td></tr>
+</table>
+
+<p>The loop streams at equilibrium, dry solids: the SR.5105 undersize (35.7 t/h) reaches
+SR.5111, whose undersize — 7.9 t/h of natively fine material — reports directly to AgLime;
+the 27.8 t/h oversize joins the 0.3 t/h SR.5115 return at the crusher (28.1 t/h through
+CR.5113), and the crushed product passes SR.5115, 27.8 t/h joining AgLime and 0.3 t/h
+recycling. Two-stage closing nearly eliminates recirculation: <b>0.3 t/h</b> at equilibrium,
+where the pre-rebuild single-stage loop ran at 82 % circulating ratio. The loop conveyors'
+60 t/h PFD rating (BC.5110/BC.5116) is checked on every run: the mode-2A loop feed of
+28.1 t/h uses 47 % of it — ample.</p>
+
+<h3>5.3 &nbsp; AgLime product</h3>
+<p>The combined AgLime stream is <b>38.4 t/h wet</b>, of which <b>98.4 % passes 1.7 mm</b> —
+comfortably above the ≥ 95 % acceptance criterion adopted on 2026-08-12 (the project's first
+numeric AgLime specification; out-of-cut 1.6 % against the 5 % tolerance). The full product
+curve ($P_{80}$ = 1.08 mm):</p>
+
+<table>
+<tr><th class="r">Mesh (mm)</th><th class="r">0.063</th><th class="r">0.1</th><th class="r">0.125</th><th class="r">0.25</th><th class="r">0.5</th><th class="r">1.0</th><th class="r">1.5</th><th class="r">1.7</th><th class="r">2.0</th><th class="r">2.8</th></tr>
+<tr><td>Cumulative passing (%)</td><td class="r">2.95</td><td class="r">5.53</td><td class="r">7.48</td><td class="r">18.46</td><td class="r">41.41</td><td class="r">75.91</td><td class="r">94.71</td><td class="r">98.38</td><td class="r">99.73</td><td class="r">100.00</td></tr>
+</table>
+
+<p>The wet balance closes exactly: 61.6 FeedLime + 38.4 AgLime = 100 t/h reclaim (dry:
+57.3 + 35.7 = 93.0, engine closure gap 4×10⁻¹¹ relative).</p>
+
+<table>
+<tr><th>Zone 1.2 stream (mode 2A)</th><th class="r">Wet (t/h)</th><th class="r">Dry (t/h)</th></tr>
+<tr><td>IN — 0/20 reclaim</td><td class="r">100.0</td><td class="r">93.0</td></tr>
+<tr><td>OUT — FeedLime 6/20 to zone 1.3</td><td class="r">61.6</td><td class="r">57.3</td></tr>
+<tr><td>OUT — AgLime 0/1.7 to stock</td><td class="r">38.4</td><td class="r">35.7</td></tr>
+<tr><td class="r"><i>closure gap (dry, relative)</i></td><td class="r" colspan="2"><i>4.0×10⁻¹¹ — closed</i></td></tr>
+</table>
+
+<h3>5.4 &nbsp; The 2A/2C operating logic</h3>
+<p>Zone 1.2 runs on the strict demand rule: in mode 2A its hours are set by the zone-1.3
+FeedLime demand, and AgLime is the co-product of those hours. Since the C1 adoption collapsed
+the FeedLime demand (2.8× fewer fines ground downstream), the 2A co-production alone leaves
+the AgLime market unserved; the client's rule of 2026-08-13 ("producing lime is never a
+problem — separate campaign"), wired on 2026-08-14 as
+<code>commercial_rules.aglime_2c_campaigns</code>, closes the gap with <b>dedicated mode-2C
+campaigns</b> in which the whole reclaim leaves as AgLime. Campaign hours count against the
+zone-1.2 ceiling and are alerted if capped. At the adopted plan (chapter 7) the split is
+67 144 t from 2A co-production plus 67 856 t from 679 effective campaign hours —
+exactly the 135 kt market. Rain forces mode 2B (a mass identity, FeedLime = whole reclaim);
+at the adopted plan the rain complement is zero hours (dry/rain season split 75/25 as
+parameters, never imposed by the engine).</p>
+
+<p>The engine's mode-2C photo at the full 100 t/h wet reclaim: AgLime 100 t/h wet, 99.4 %
+below 1.7 mm — comfortably compliant, the campaign product being finer than the 2A
+co-product because everything passes the crushing loop. Two consequences are alerted and
+belong on the design table:</p>
+
+<div class="alert"><b>2C campaign loading (standing alerts).</b> At the full 100 t/h reclaim
+the 2C photo drives the AgLime loop at 86.0 t/h dry through CR.5113 — the engine flags the
+loop feed of 100 t/h wet against the 60 t/h conveyor rating (BC.5110/BC.5116, PFD REV18),
+and the computed CR.5113 requirement rises to 261 kW net (348 kW installed basis) against
+the 87 kW of mode 2A. Either the campaign reclaim rate is derated to the loop rating —
+lengthening the 2C hours accordingly, ceiling margin is ample — or the loop conveying and
+motor are sized for campaign duty. To reconcile with the engineering contractor; the annual
+tonnages of chapter 7 are unaffected (hours scale inversely with rate).</div>
+
+<p>Under rain the 1.7 mm cut is physically impossible on the outdoor screens and the engine
+replaces mode 2A by 2B, alerted (the rule is a data parameter, disengageable). The rain
+photo at defaults: the whole 100 t/h wet reclaim leaves as FeedLime — SR.5105 inactive, no
+AgLime production — and zone 1.3 then runs on straight 0/20 (grits 16.62 t/h, fines
+13.15 t/h in mode G: nearly unchanged, the 6/20 insulation again). Because the adopted plan
+needs zero rain-season zone-1.2 hours, rain is a scheduling constraint (AgLime hours belong
+to the dry season), not a capacity one; the rain-mode screen derating (basic-capacity
+factor 0.75 [H]) is carried in M4 for the day it matters.</p>
+
+<h3>5.5 &nbsp; Stockpiles and the seasonal watch</h3>
+<p>The PFD yard capacities are recorded as data (KFS fines 0/20: 10 000 t at SP.5014;
+KFS 20/35: 5 000 t; Feed 0-6/20: 6 000 t at SP.5109; AG 0/1.7: 28 000 t at SP.5118) but not
+yet enforced by the engine. Two watches stand: the FeedLime interstage stock is a weekly
+buffer (the 6 000 t capacity is ample for the ~40 clock-hours-per-week demand rhythm, per
+the 2026-08-12 priority ruling), and the earlier planning epochs found a seasonal FeedLime
+swing larger than the yard when rain-mode hours concentrate — a sizing check to repeat when
+the operating calendar firms up. At the adopted plan the 0/20 stockpile nets to zero over
+the year by construction (the landfill line absorbs the excess), so no yard-growth alert
+remains.</p>
+
+<h2 class="chap">6 &nbsp; Zone 1.3 — the redesign</h2>
+<p class="chapsub">Why the as-built circuit was condemned, what C1 is, and the two operating modes that serve both the grits and the fines markets.</p>
+
+<h3>6.1 &nbsp; As-built diagnosis — the case for the redesign</h3>
+<p>The as-built zone 1.3 (dryer DY.03 → classification screen SN.21 → toothed roller mill
+ML.26 in closed circuit) was condemned on three engine-proven counts. Re-run at today's HEAD
+(as-built variant selectable, converged grid, full 32.1 t/h wet feed), the circuit grinds
+<b>21.0 t/h of fines for 7.8 t/h of grits — a fines/grits ratio of 2.7</b> (2.83 on the
+diagnosis-era grid, register 2026-08-14) where the design basis demands ≤ 1.25 firm. Its
+grits <b>fail the D6 envelope: 15.4 % below 2 mm</b> against the 15 % limit (and 5.3 % above
+4 mm against 5 %). And the 80 kt/y extension regime is <b>infeasible</b>: at 7.8 t/h of
+grits it needs over 10 000 effective hours against the 6 000 h ceiling (register: 10 275 h).
+The panel diagnosis attributed the ratio, engine-backed: ML.26 compression spread
+($n_{comp}$ 0.86) 67 %, bed attrition ($S_{att}$ 0.171) 28 %, sliver-band leak 5 % — and the
+feed is blameless. Counter-intuitively, the closed loop and screen imperfection are <i>not</i>
+ratio destroyers (perfect screens worsen the ratio to 3.65); an 810-run settings sweep floors
+the existing machine at 2.90. <b>It is a machine problem</b> — confirmed by candidate C3,
+which kept the toothed rolls in a fixed topology and still returned 2.90.</p>
+
+<p>The condemnation in one table — the as-built circuit and the adopted C1 mode-G photo at
+the identical duty (full 32.1 t/h wet dryer feed, both engine runs at today's HEAD):</p>
+
+<table>
+<tr><th>Quantity</th><th class="r">As-built (SN.21 + ML.26)</th><th class="r">C1 mode G (RC.1/RC.2 + SC.A/SC.B)</th></tr>
+<tr><td>FeedLime grits 2/4</td><td class="r">7.76 t/h (26.0 % of dried)</td><td class="r"><b>16.22 t/h</b> (54.3 %)</td></tr>
+<tr><td>FeedLime fines 0/1.5</td><td class="r">21.03 t/h</td><td class="r">13.57 t/h</td></tr>
+<tr><td>Fines/grits ratio (D3: ≤ 1.25 firm, ≤ 1.0 objective)</td><td class="r">2.71</td><td class="r"><b>0.84</b></td></tr>
+<tr><td>Grits &lt; 2 mm (D6: ≤ 15 %)</td><td class="r">15.4 % — <b>FAIL</b></td><td class="r">14.2 % — pass</td></tr>
+<tr><td>Grits &gt; 4 mm (D6: ≤ 5 %)</td><td class="r">5.3 % — <b>FAIL</b></td><td class="r">3.4 % — pass</td></tr>
+<tr><td>UltraFin (not certified)</td><td class="r">1.07 t/h</td><td class="r">0.07 t/h</td></tr>
+<tr><td>Recirculating load</td><td class="r">39.6 t/h</td><td class="r">62.4 t/h</td></tr>
+<tr><td>Effective hours for 80 kt/y grits (D5 ceiling 6 000)</td><td class="r">&gt; 10 300 — <b>infeasible</b></td><td class="r">~4 800 (with the BC.22 retrofit)</td></tr>
+</table>
+
+<p>The panel's derived purchase-grade machine requirement: the final-stage crusher must place
+at least 40 % of each crushed tonne in 2–4 mm with at most 29 % below 1.5 mm per pass — a
+Rosin–Rammler slope n ≥ 1.6 at $x_{80}\!\sim$ 3.5–4 mm. Smooth double rolls at reduction
+ratio ≤ 2–2.5 are the only credible machine class [H — the vendor gradation test on WANKOE
+6/20 is trial trigger #1]. A structural robustness gift came free: the FeedLime 6/20 double
+cut leaves the zone-1.3 feed with no native 2–4 band and no fines, so both D4 feed qualities
+give identical zone-1.3 results — the redesign is insulated from the quarry question.</p>
+
+<h3>6.2 &nbsp; Candidate circuits — panel round 1</h3>
+<table>
+<tr><th>Candidate</th><th>Concept</th><th class="r">Fines/grits ratio</th><th>Verdict</th></tr>
+<tr><td><b>C1</b></td><td>two-stage smooth double rolls + grading screens with immediate 2–4 relief</td><td class="r">0.98–1.05 (worst-sensitivity 1.13)</td><td><b>BUILD recommendation — adopted</b>; 5 units; 80 kt at 88.6–91.5 % of ceiling</td></tr>
+<tr><td>C2</td><td>three-stage extra-gentle (reduction ~1.7 per pass)</td><td class="r">0.84 (0.99 at n = 1.6)</td><td>escalation reserve if the vendor test returns n &lt; 1.7; 7 units</td></tr>
+<tr><td>C3</td><td>topology fix, toothed rolls kept</td><td class="r">2.90</td><td>REJECTED — proves the machine, not the circuit, is the root cause</td></tr>
+<tr><td>C4</td><td>quad-roll compact (2 units)</td><td class="r">1.10, but 1.30 at S_att = 0.10</td><td>crosses the firm limit on a plausible coefficient — capex fallback only</td></tr>
+<tr><td>C5</td><td>low-speed impactor stage 1</td><td class="r">1.09, but 1.30 at honest n = 1.0</td><td>marginal; blowbar operating cost at 7 500 h</td></tr>
+</table>
+
+<p>All ratios are engine results on the D4 design feed across the honest [H] coefficient
+band (panel round 1, 2026-08-14). C1 was validated as lead candidate the same day, wired
+into the engine as a selectable variant, and then formally adopted as the reference
+configuration after the arbitrations below.</p>
+
+<h3>6.3 &nbsp; The C1 circuit</h3>
+<p>Candidate C1 — validated as lead candidate and then formally adopted as the reference
+configuration on 2026-08-14 — replaces the mill with <b>two-stage smooth double rolls with
+immediate product relief</b>:</p>
+
+<table>
+<tr><th>Unit</th><th>Duty</th><th>Purchase specification</th></tr>
+<tr><td>RC.1</td><td>stage-1 smooth double roll, gap 8 mm</td><td>32 t/h (client 2026-08-14; closes the D4 quarry-feed finding — the 29 t/h panel sizing was exceeded at 29.7 t/h on the target curve)</td></tr>
+<tr><td>RC.2</td><td>stage-2 smooth double roll, gap 3.4 mm (mode G) / 1.5 mm (mode F)</td><td>TWO units × 22 t/h; minimum gap 1.5 mm — vendor to confirm</td></tr>
+<tr><td>SC.A</td><td>double-deck RECYCLE screen 8 / 3.75 mm</td><td>required areas 4.8 / 5.6 m² (worst mode)</td></tr>
+<tr><td>SC.B</td><td>double-deck PRODUCT screen 2 / 1.5 mm</td><td>required areas 5.2 / 4.5 m² (worst mode)</td></tr>
+<tr><td>Sliver diverter</td><td>SC.B deck-2 oversize (1.5/2 band)</td><td>two-position: REGRIND through RC.2 (adopted, option B) / extract as Sliver 1.5/2</td></tr>
+<tr><td>DV.GF grits diverter</td><td>SC.B deck-1 oversize (2/3.75 band)</td><td>two-position: grits product chain (mode G) / RC.2 regrind circuit (mode F)</td></tr>
+</table>
+
+<p>The screen arrangement is the client's "2+2" of 2026-08-14: SC.A carries the recycle cuts
+(8 mm back to RC.1, 3.75 mm back to RC.2), SC.B carries the two quality-critical product cuts
+— the 2.0 mm deck protecting the D6 &lt; 2 mm limit and the 1.5 mm deck protecting the 0/1.5
+fines specification and its redirect eligibility — each in the favorable deck position. A
+linking conveyor carries the SC.A undersize (0/3.75, ~41 t/h in mode G) to SC.B. The sliver
+arbitration (option B) reground the 1.5/2 no-man's-band through RC.2 after an engine
+counterfactual showed regrind <i>wins</i> with smooth rolls ($S_{att}$ 0.06): ratio 0.79
+versus 1.05 extracted, with D6 still met — the panel's "never regrind" rule had been
+calibrated on the toothed mill. The dryer DY.03 and the optional SP.36/CL.38 UltraFin block
+are unchanged (D2).</p>
+
+<h3>6.4 &nbsp; The adoption sequence and its commercial cascade</h3>
+<p>The path from candidate to reference configuration ran through five same-day arbitrations
+(2026-08-14, register rows in chapter 2), and the honest record includes the commercial
+shock the adoption caused. First the sliver arbitration (regrind, ratio 0.79) and the 2+2
+screen arrangement; then a "base scenario" with a single RC.2 unit and the dryer throttled
+so the unit runs exactly at its 22 t/h loop limit — re-bisected on the converged grid to a
+feed of 21.29 t/h wet, grits 10.76 t/h, single-unit maximum capacity 64 554 t/y. When C1
+became the default, the engine exposed the <b>cascade of making 2.8× fewer fines</b>: fines
+production collapsed below the 60 kt market, the fines redirect dried up, the strict demand
+rule capped zone 1.2 at the collapsed FeedLime demand, AgLime fell to loop-only 49 kt
+against its 135 kt market, and the 0/20 landfill exploded from 18.5 to 144.2 kt/y. The
+client then pulled the levers in order: the dedicated 2C campaigns (landfill 144.2 → 58.4),
+the impactor at v = 30 (→ 48.6), the converged grid rebase (→ 42.5), and finally the fines
+objective with the two-mode design below (→ <b>13.8 kt/y</b>), leaving the quarry curve of
+chapter 8 to close the rest. Every step of that history is a dated register row with its
+engine numbers.</p>
+
+<h3>6.5 &nbsp; The two operating modes — engine results</h3>
+<p>The fines objective of 2026-08-14 (60 kt/y must be <i>served</i>, not merely capped) added
+the grits diverter and the second RC.2 unit, and made zone 1.3 a two-mode plant. Both photos
+below are engine runs at the adopted defaults:</p>
+
+<table>
+<tr><th>Quantity</th><th class="r">Mode G — grits</th><th class="r">Mode F — fines campaign</th></tr>
+<tr><td>Feed (wet)</td><td class="r">32.10 t/h (full dryer limit)</td><td class="r">25.05 t/h</td></tr>
+<tr><td>Dryer outlet (wet / dry)</td><td class="r">30.00 / 29.85 t/h</td><td class="r">23.41 / 23.30 t/h</td></tr>
+<tr><td>FeedLime grits 2/4</td><td class="r"><b>16.22 t/h</b> (54.3 % of dried)</td><td class="r">0 (diverted)</td></tr>
+<tr><td>FeedLime fines 0/1.5</td><td class="r">13.57 t/h</td><td class="r"><b>23.19 t/h</b></td></tr>
+<tr><td>UltraFin (not certified)</td><td class="r">0.07 t/h</td><td class="r">0.10 t/h</td></tr>
+<tr><td>RC.1 load / spec</td><td class="r">29.2 / 32 t/h</td><td class="r">22.8 / 32 t/h</td></tr>
+<tr><td>RC.2 load / installed (gap)</td><td class="r">33.2 / 44 t/h (3.4 mm)</td><td class="r"><b>44.0 / 44 t/h</b> (1.5 mm)</td></tr>
+<tr><td>Recirculating load</td><td class="r">62.4 t/h</td><td class="r">66.8 t/h</td></tr>
+<tr><td>Grits QC: &lt; 2 mm / &gt; 4 mm</td><td class="r">14.2 % / 3.4 % — D6 met</td><td class="r">—</td></tr>
+<tr><td>Fines &lt; 1.7 mm (redirect eligibility ≥ 95 %)</td><td class="r">96.6 %</td><td class="r">98.9 % (94.4 % &lt; 1.5)</td></tr>
+<tr><td>RC.1 + RC.2 installed power</td><td class="r">17.4 + 37.9 kW</td><td class="r">13.6 + 48.5 kW</td></tr>
+<tr><td>Dryer burner / vapor</td><td class="r">3 718 kW / 2.10 t/h</td><td class="r">2 901 kW / 1.64 t/h</td></tr>
+</table>
+
+<p>Mode F runs both RC.2 units exactly at capacity — 25.05 t/h wet is the bisected feed at
+which the constraint binds. The mode-G point runs the dryer at its full 32.1 t/h wet limit,
+maximizing grits co-production per hour; the diverter DV.GF switches the plant between the
+two order books without touching a single machine.</p>
+
+<p>The internal streams of the C1 circuit at both operating points, dry solids:</p>
+
+<table>
+<tr><th>Stream</th><th class="r">Mode G (t/h dry)</th><th class="r">Mode F (t/h dry)</th></tr>
+<tr><td>Dryer outlet → RC.1 circuit</td><td class="r">29.85</td><td class="r">23.30</td></tr>
+<tr><td>RC.1 load (fresh + 8 mm recycle)</td><td class="r">29.2</td><td class="r">22.8</td></tr>
+<tr><td>SC.A feed</td><td class="r">92.2</td><td class="r">90.1</td></tr>
+<tr><td>Linking conveyor SC.A → SC.B (0/3.75)</td><td class="r">40.8</td><td class="r">50.0</td></tr>
+<tr><td>RC.2 load (3.75 recycle + sliver regrind [+ 2/3.75 in mode F])</td><td class="r">33.2</td><td class="r">44.0</td></tr>
+<tr><td>Total recirculating load</td><td class="r">62.4</td><td class="r">66.8</td></tr>
+<tr><td>Products (grits + fines + UltraFin)</td><td class="r">16.22 + 13.57 + 0.07</td><td class="r">0 + 23.19 + 0.10</td></tr>
+</table>
+
+<h3>6.6 &nbsp; Product size distributions</h3>
+<p>The three product curves at the adopted operating points (presentation grid, meshes at 0
+or 100 % omitted; all dry-basis zone-1.3 products at 0.5 % moisture):</p>
+
+<table>
+<tr><th class="r">Mesh (mm)</th><th class="r">0.063</th><th class="r">0.1</th><th class="r">0.25</th><th class="r">0.5</th><th class="r">1.0</th><th class="r">1.5</th><th class="r">1.7</th><th class="r">2.0</th><th class="r">2.8</th><th class="r">4.0</th><th class="r">5.0</th></tr>
+<tr><td>Grits 2/4, mode G (P80 3.32 mm)</td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="r">0.11</td><td class="r">1.79</td><td class="r"><b>14.18</b></td><td class="r">56.06</td><td class="r"><b>96.63</b></td><td class="r">99.80</td></tr>
+<tr><td>Fines 0/1.5, mode G (P80 1.41 mm)</td><td class="r">0.16</td><td class="r">0.92</td><td class="r">5.85</td><td class="r">18.51</td><td class="r">51.32</td><td class="r">86.13</td><td class="r"><b>96.61</b></td><td class="r">99.95</td><td class="r">100.00</td><td class="r">—</td><td class="r">—</td></tr>
+<tr><td>Fines 0/1.5, mode F (P80 1.31 mm)</td><td class="r">0.15</td><td class="r">0.86</td><td class="r">5.72</td><td class="r">18.86</td><td class="r">55.08</td><td class="r">94.41</td><td class="r"><b>98.88</b></td><td class="r">99.96</td><td class="r">100.00</td><td class="r">—</td><td class="r">—</td></tr>
+</table>
+
+<p>The bold cells are the specification-critical readings: grits 14.18 % below 2 mm (D6
+limit 15 %) and 96.63 % below 4 mm (i.e. 3.37 % oversize against the 5 % limit); fines
+96.6 / 98.9 % below 1.7 mm against the ≥ 95 % redirect-eligibility threshold. The mode-F
+fines are markedly tighter than mode G's — the 1.5 mm regrind gap converts the 1.5/2 sliver
+band into sellable fines instead of letting it dilute the top of the curve.</p>
+
+<p>Turndown and degraded operation are covered by the same diverters. Phase-1 stopgap, on
+record from the base-scenario study: with the sliver diverter on "extract", a single RC.2
+unit carries the full dryer (grits 14.6 t/h, 87.5 kt/y maximum, unit at 98.5 % load) at the
+cost of a 4 t/h Sliver 1.5/2 by-product — one unit down does not stop the zone. And mode G
+itself can run one unit at throttled feed or two at full dryer; the annual plan is
+indifferent to how the operator schedules the G/F campaign blocks within the 60.2 %
+utilization.</p>
+
+<h3>6.7 &nbsp; The mode-F gap physics finding</h3>
+<p>Mode F is only feasible because the purchase specification extends the RC.2 gap range down
+to 1.5 mm. The engine finding that forced it: at the machine-class minimum gap of 2.8 mm, the
+diverted 2/3.75 band can never be nipped — everything between the 2.0 mm screen cut and the
+2.8 mm gap bypasses the rolls unbroken and returns to the screen, forever. Re-run at today's
+HEAD at the adopted mode-F feed, the RC.2 load diverges to <b>172.8 t/h against 44 t/h
+installed</b> (the register's design-study figure was 147 t/h at its study feed, 2026-08-14);
+at the 1.5 mm gap the same circuit settles at 44.0 t/h. The 1.5 mm capability is therefore a
+<b>hard purchase requirement</b>, flagged vendor-to-confirm, and belongs to the same gradation
+test as the [H] coefficients.</p>
+
+<div class="alert"><b>D6 margin watch.</b> Under sliver regrind the mode-G grits carry
+14.2 % below 2 mm against the 15 % limit — a margin of 0.8 point that rests on the [H]
+smooth-roll coefficients ($n_{comp}$ 1.8, $S_{att}$ 0.06). The vendor gradation test must
+confirm the margin before the purchase is closed; the diverter keeps the extract fallback
+reversible in operation.</div>
+
+<h3>6.8 &nbsp; Conveying consequences</h3>
+<p>At the adopted operating points the BC.22 grits conveyor stays within its 15 t/h PFD
+rating in the 40 kt plan; the full-dryer regrind extension case (grits 16.7 t/h) exceeds it
+and carries a flagged retrofit to ~20 t/h. The BE.40 fines conveyor, overloaded by the
+as-built circuit (21.0 t/h), returns within its rating under C1. Both are chapter-10 items.</p>
+
+<h3>6.9 &nbsp; Purchase specifications — consolidated</h3>
+<table>
+<tr><th>Item</th><th>Specification</th><th>Basis</th><th>Open point</th></tr>
+<tr><td>RC.1 smooth double roll</td><td>32 t/h, gap range around 8 mm</td><td>dry solids (engine-derived loop load; client 2026-08-14)</td><td>gradation test fixes n_comp / S_att; capacity at gap</td></tr>
+<tr><td>RC.2 smooth double rolls</td><td><b>two units</b> × 22 t/h; gap range 3.4 mm down to <b>1.5 mm</b></td><td>dry solids; mode-F capability is a hard requirement (§6.7)</td><td>1.5 mm gap capability vendor-to-confirm</td></tr>
+<tr><td>SC.A recycle screen</td><td>double deck 8 / 3.75 mm; required 4.8 / 5.6 m²</td><td>VSMA (±20–30 %); worst mode F</td><td>installed areas and motors to size — recommend sizing for the 80 kt extension (D1)</td></tr>
+<tr><td>SC.B product screen</td><td>double deck 2.0 / 1.5 mm; required 5.2 / 4.5 m²; sliver diverter + DV.GF grits diverter</td><td>VSMA; both quality-critical decks in favorable position</td><td>1.5 mm deck efficiency at scale</td></tr>
+<tr><td>Linking conveyor SC.A → SC.B</td><td>≥ 50 t/h of 0/3.75 (mode-F load)</td><td>engine stream table §6.5</td><td>rating to fix at design</td></tr>
+<tr><td>BC.22 grits conveyor</td><td>15 t/h adequate at 40 kt; ~20 t/h for the extension</td><td>PFD rating vs engine loads</td><td>retrofit deferred with the extension provision</td></tr>
+</table>
+
+<h2 class="chap">7 &nbsp; Annual plan and consolidated balance</h2>
+<p class="chapsub">Hours follow the targets, never the reverse — the full-year balance at today's feed and at the quarry target.</p>
+
+<p>The planning engine (<code>run_required_hours</code>) computes the hours each zone needs to land
+its targets, respecting the shift-regime ceilings as capacity limits (client rule 2026-08-08).
+Two engine executions are consolidated here: the default parameter set (measured 2026-08-08
+feed, AgLime market 135 kt) and the quarry-target variant (target curve of chapter 8,
+AgLime baseline 108 kt).</p>
+
+<p>The shift frames behind the ceilings:</p>
+
+<table>
+<tr><th>Zone</th><th>Regime</th><th class="r">Clock ceiling (h/y)</th><th class="r">Availability</th><th class="r">Effective ceiling (h/y)</th></tr>
+<tr><td>1.1</td><td>1 shift × 6 d/7 — the Saturday extension (Q7, 2026-08-13)</td><td class="r">2 400</td><td class="r">80 %</td><td class="r">1 920</td></tr>
+<tr><td>1.2</td><td>3 × 8 h continuous</td><td class="r">7 500</td><td class="r">80 %</td><td class="r">6 000</td></tr>
+<tr><td>1.3</td><td>3 × 8 h continuous (D5)</td><td class="r">7 500</td><td class="r">80 %</td><td class="r">6 000</td></tr>
+</table>
+
+<p>Time bases other than annual (monthly, weekly, daily) are parameters of the same engine;
+the annual basis is used throughout this report. Utilization percentages below are quoted
+against the clock ceilings, as the engine reports them.</p>
+
+<h3>7.1 &nbsp; Hours and mode splits</h3>
+<table>
+<tr><th>Zone</th><th class="r">Measured feed</th><th class="r">At quarry target</th><th class="r">Ceiling (clock)</th></tr>
+<tr><td>1.1 — effective / clock h</td><td class="r">1 367 / 1 708 (71.2 %)</td><td class="r">1 203 / 1 504 (62.7 %)</td><td class="r">2 400 (Saturday regime)</td></tr>
+<tr><td>1.2 — effective / clock h</td><td class="r">2 428 / 3 035 (40.5 %)</td><td class="r">2 158 / 2 698 (36.0 %)</td><td class="r">7 500</td></tr>
+<tr><td>1.3 — effective / clock h</td><td class="r">3 611 / 4 513 (60.2 %)</td><td class="r">3 612 / 4 515 (60.2 %)</td><td class="r">7 500</td></tr>
+<tr><td>Zone-1.3 split: mode G + mode F (eff.)</td><td class="r">2 466 + 1 144 h</td><td class="r">2 460 + 1 152 h</td><td class="r">—</td></tr>
+<tr><td>Zone-1.2 split: 2A + 2C campaigns (eff.)</td><td class="r">1 750 + 679 h</td><td class="r">1 576 + 582 h</td><td class="r">—</td></tr>
+</table>
+
+<p>All zones are feasible with margin; zone 1.1 is KFS-driven in both cases. Zone 1.3 is
+insensitive to the quarry curve by construction — the 6/20 double cut insulates it (the
+panel's structural-robustness finding). In the weekly translation the kiln contract reads
+1 634.6 t of KFS per week (85 000/52, continuous kiln; register 2026-08-12): zone 1.1
+delivers it in about 26 effective hours per week within its 6-day, one-shift Saturday
+regime, keeping roughly one shift per week of buffer — the slack Q7 was closed to create.
+The utilization percentages above are the design margin statement: no zone above 72 %, no
+seasonal squeeze, and the two zone-1.3 modes schedulable as campaigns at the operator's
+convenience.</p>
+
+<h3>7.2 &nbsp; Consolidated zone-by-zone balance (annual, wet tonnes)</h3>
+<table>
+<tr><th>Stream</th><th class="r">Measured feed (t/y)</th><th class="r">At quarry target (t/y)</th></tr>
+<tr><td><b>Zone 1.1 IN</b> — quarry feed at 250 t/h wet</td><td class="r">341 650</td><td class="r">300 825</td></tr>
+<tr><td>Zone 1.1 OUT — KFS 20/35 to stock</td><td class="r">85 000</td><td class="r">85 000</td></tr>
+<tr><td>Zone 1.1 OUT — 0/20 to stockpile</td><td class="r">256 645</td><td class="r">215 830</td></tr>
+<tr><td class="r"><i>closure gap</i></td><td class="r"><i>−0.1 (&lt; 0.001 %)</i></td><td class="r"><i>−0.4 (&lt; 0.001 %)</i></td></tr>
+<tr><td>0/20 reclaimed downstream</td><td class="r">242 829</td><td class="r">215 830</td></tr>
+<tr><td><b>0/20 to LANDFILL (net loss)</b></td><td class="r"><b>13 816</b></td><td class="r"><b>0</b></td></tr>
+<tr><td><b>Zone 1.2 IN</b> — reclaim at 100 t/h wet</td><td class="r">242 830</td><td class="r">215 830</td></tr>
+<tr><td>Zone 1.2 OUT — AgLime sold</td><td class="r">135 000</td><td class="r">108 000</td></tr>
+<tr><td>Zone 1.2 OUT — FeedLime 6/20 to zone 1.3</td><td class="r">107 829</td><td class="r">107 830</td></tr>
+<tr><td class="r"><i>closure gap</i></td><td class="r"><i>+1.0 (&lt; 0.001 %)</i></td><td class="r"><i>0.0</i></td></tr>
+<tr><td><b>Zone 1.3 IN</b> — FeedLime (mode G + mode F)</td><td class="r">107 829</td><td class="r">107 830</td></tr>
+<tr><td>Zone 1.3 OUT — FeedLime grits 2/4 (dry)</td><td class="r">40 000</td><td class="r">40 000</td></tr>
+<tr><td>Zone 1.3 OUT — FeedLime fines 0/1.5 (dry)</td><td class="r">60 000</td><td class="r">60 000</td></tr>
+<tr><td>Zone 1.3 OUT — UltraFin (dry, not certified)</td><td class="r">284</td><td class="r">285</td></tr>
+<tr><td>Zone 1.3 OUT — dryer vapor</td><td class="r">7 044</td><td class="r">7 044</td></tr>
+<tr><td>Zone 1.3 OUT — residual product moisture (0.5 %)</td><td class="r">504</td><td class="r">504</td></tr>
+<tr><td class="r"><i>closure gap</i></td><td class="r"><i>−3.1 (0.003 %)</i></td><td class="r"><i>−3.1 (0.003 %)</i></td></tr>
+</table>
+
+<p>Every closure gap is below 0.003 % — presentation rounding of engine streams whose
+per-run balances close to better than 2×10⁻⁶ relative (dry solids and water asserted on
+every run). The FeedLime interstage stock is balanced (produced = consumed) in both cases;
+the 0/20 stockpile nets to zero, the landfill line absorbing the excess at the measured
+feed.</p>
+
+<h3>7.3 &nbsp; Sales</h3>
+<table>
+<tr><th>Sales line</th><th class="r">Measured feed (t/y)</th><th class="r">At quarry target (t/y)</th></tr>
+<tr><td>KFS 20/35 (firm)</td><td class="r">85 000</td><td class="r">85 000</td></tr>
+<tr><td>FeedLime grits 2/4 (firm)</td><td class="r">40 000</td><td class="r">40 000</td></tr>
+<tr><td>FeedLime fines sold as fines</td><td class="r">60 000</td><td class="r">60 000</td></tr>
+<tr><td>Fines surplus redirected to the AgLime sales channel</td><td class="r">0</td><td class="r">0</td></tr>
+<tr><td>AgLime from loop (2A co-production)</td><td class="r">67 144</td><td class="r">49 814</td></tr>
+<tr><td>AgLime from dedicated 2C campaigns</td><td class="r">67 856</td><td class="r">58 186</td></tr>
+<tr><td>AgLime total sold / market cap</td><td class="r">135 000 / 135 000</td><td class="r">108 000 / 108 000 (+27 000 flex reserve)</td></tr>
+<tr><td>UltraFin (market to develop, Φ not certified)</td><td class="r">284</td><td class="r">285</td></tr>
+<tr><td><b>0/20 to landfill (net loss)</b></td><td class="r"><b>13 816</b></td><td class="r"><b>0</b></td></tr>
+</table>
+
+<p>The two-mode zone 1.3 serves all four markets exactly in both cases; the fines redirect is
+zero because mode F closes the fines market directly. The KFS Yield reads 24.88 % realized
+against 25.93 % required at the measured feed, and a self-consistent 28.26 / 28.26 % at the
+target — the balance's whole story in one indicator pair.</p>
+
+<h3>7.4 &nbsp; How the landfill line got here</h3>
+<p>The 13 816 t/y residual is the end of a documented descent, each step a dated decision
+with its engine number — the honest measure of how much design work the balance absorbed:</p>
+
+<table>
+<tr><th>Configuration epoch (register date)</th><th class="r">0/20 to landfill (t/y)</th></tr>
+<tr><td>C1 adopted, strict demand rule, no campaigns (2026-08-14)</td><td class="r">144 200</td></tr>
+<tr><td>+ dedicated AgLime 2C campaigns (2026-08-14)</td><td class="r">58 400</td></tr>
+<tr><td>+ impactor v = 30 m/s (2026-08-14)</td><td class="r">48 600</td></tr>
+<tr><td>+ converged ×2 grid rebase (2026-08-14)</td><td class="r">42 500</td></tr>
+<tr><td>+ fines objective, two-mode zone 1.3 (2026-08-14) — <b>this report's plan</b></td><td class="r"><b>13 816</b></td></tr>
+<tr><td>+ quarry target curve 40.1 % &lt; 20 mm (chapter 8)</td><td class="r"><b>0</b></td></tr>
+</table>
+
+<p>The remaining internal lever is commercial, not technical: grits sales beyond the firm
+40 kt toward the chain's capacity absorb roughly 1.4 t of landfill per extra grits tonne
+(register arithmetic, 2026-08-13/14). The structural lever is the quarry curve — and action
+4 of chapter 9 proved it indispensable: no plausible combination of model hypotheses closes
+the landfill gap at today's feed.</p>
+
+<h3>7.5 &nbsp; UltraFin and the extension case</h3>
+<p>UltraFin extraction is optional (D7) and marginal at the C1 configuration: 284 t/y against
+a 4 000 t/y target, because the smooth-roll circuit — that is its virtue — barely produces
+sub-65 µm material, and the figure remains NOT CERTIFIED until Φ at the cut is measured
+(§3.8). The 80 kt/y grits extension (D1's sizing case) is served by design, not by the
+plan: the machine park handles it (mode-G full-dryer regrind, ~4 800 effective hours at
+80 kt, 80 % of the D5 ceiling) once the BC.22 conveyor is retrofitted, and the layout keeps
+the civil reserve; the 40 kt plan simply runs the same park fewer hours. What the extension
+also needs — more 0/20 demand upstream feeding more zone-1 hours — was quantified when the
+80 kt case was recorded as an extension study (register 2026-08-13) and is to reopen with
+the engineering contractor if the market firms up.</p>
+
+<h3>7.6 &nbsp; Standing engine alerts at the adopted plan</h3>
+<p>The engine's own alert list, reported verbatim as the honest margin statement of the
+plan (measured feed; the same run that produced the tables above):</p>
+
+<table>
+<tr><th>Alert (engine text, condensed)</th><th>Disposition</th></tr>
+<tr><td>AgLime 2C campaigns: 679 effective hours produce 67 856 t to complete the market — consumes 67 856 t of 0/20</td><td>by design (§5.4); campaign loading alerts to reconcile with the contractor</td></tr>
+<tr><td>0/20 excess 13 816 t/y to LANDFILL — net financial loss; reduce via grits sales, settings or KFS yield</td><td>the chapter-8 quarry target closes it to zero</td></tr>
+<tr><td>KFS Yield 24.9 % &lt; 25.9 % required for zero landfill</td><td>same — the live monitor of the quarry protocol</td></tr>
+<tr><td>CR.5009: feed F80 181 mm &gt; max nip size 150 mm — saturation</td><td>top-size control at the primary (§4.2, chapter 8 caution)</td></tr>
+<tr><td>SP.36: Φ(&lt; cut) not measured — UltraFin NOT CERTIFIED</td><td>measurement trigger (chapter 10)</td></tr>
+</table>
+
+<h2 class="chap">8 &nbsp; Quarry works specification</h2>
+<p class="chapsub">The adopted inlet-PSD target: zero landfill with a 20 % AgLime-market margin.</p>
+
+<h3>8.1 &nbsp; Definition of the target</h3>
+<p>The firm and objective sales (KFS 85 kt, grits 40 kt, fines 60 kt) fix the downstream
+demand for crushed 0/20; the AgLime market absorbs the remainder through dedicated
+campaigns. The client's margin rule holds <b>20 % of the AgLime market open</b> as
+operational flexibility: the target curve is calibrated so the annual balance lands at</p>
+
+<div class="eqrow"><div class="eq">$$A_{baseline}=0.8\,A_{cap}=108\,000\ \mathrm{t/y},\qquad
+L_{0/20}=0$$</div><div class="no">(8.1)</div></div>
+
+<p>The curve is a shape-preserving size rescale of the measured 2026-08-08 belt-cut,
+$P_{tgt}(x)=P_{meas}(x/k)$, with $k$ found by bisection on the full two-mode annual plan.
+The result is $k = 1.426$, i.e. a feed whose every characteristic size is 43&nbsp;% coarser
+($D_{50}$: 32&nbsp;→&nbsp;46&nbsp;mm), delivering</p>
+
+<div class="eqrow"><div class="eq">$$\boxed{\;P_{tgt}(20\ \mathrm{mm}) = 40.1\ \%\;}\qquad
+\text{(measured today: } 45.5\ \%\text{)}$$</div><div class="no">(8.2)</div></div>
+
+<img class="fig" src="quarry-target-curve-semilog.png" alt="semi-log PSD comparison">
+<p class="figcap">Fig. 8.1 — Zone-1 inlet PSD, semi-log: measured curve vs adopted target.
+The 20 mm control point carries the whole specification.</p>
+
+<h3>8.2 &nbsp; What the target buys</h3>
+<table>
+<tr><th>Annual quantity</th><th class="r">Today's feed</th><th class="r">At target</th></tr>
+<tr><td>Quarry extraction for the same firm sales</td><td class="r">341 650 t</td><td class="r">300 825 t &nbsp;(−40 825)</td></tr>
+<tr><td>0/20 to landfill (net loss)</td><td class="r">13 816 t</td><td class="r"><b>0</b></td></tr>
+<tr><td>AgLime baseline / flex reserve</td><td class="r">135 000 / 0 t</td><td class="r">108 000 / <b>27 000 t</b></td></tr>
+<tr><td>KFS Yield realized vs required</td><td class="r">24.88 / 25.93 %</td><td class="r">28.26 / 28.26 % — self-consistent</td></tr>
+<tr><td>Zone utilizations 1.1 / 1.2 / 1.3</td><td class="r">71.2 / 40.5 / 60.2 %</td><td class="r">62.7 / 36.0 / 60.2 %</td></tr>
+</table>
+
+<p class="note">The explicit cost of the margin: 27 000 t/y of AgLime sales are not planned in
+the baseline. They are recoverable at will — whenever the quarry runs finer than target, the
+excess 0/20 is absorbed by pushing the 2C campaigns toward the full 135 kt market instead of
+being landfilled. The margin is bought with optional sales, not with waste.</p>
+
+<h3>8.3 &nbsp; Control protocol</h3>
+<table>
+<tr><th>Step</th><th>Rule</th></tr>
+<tr><td>Measurement point</td><td>belt-cut PSD at the PIVOT (downstream of the primary crusher), standard project protocol</td></tr>
+<tr><td>Control point</td><td>cumulative passing at <b>20 mm</b></td></tr>
+<tr><td>≤ 40.1 %</td><td>on target or coarser — full flexibility available</td></tr>
+<tr><td>40.1 – 45.5 %</td><td>workable — AgLime campaigns absorb the excess; the flex reserve shrinks accordingly</td></tr>
+<tr><td>&gt; 45.5 %</td><td>worse than today — landfill exposure returns; escalate to the quarry</td></tr>
+<tr><td>Live monitor</td><td>the engine's KFS Yield alert: each point of gap ≈ 12 kt/y of landfill exposure</td></tr>
+</table>
+
+<div class="alert"><b>Top-size caution.</b> Coarser than target is safe for the balance but not
+for the machines: the measured feed $F_{80}$ (181 mm) already exceeds the CR.5009 maximum nip
+size (150 mm — standing engine alert). Top-size control at the primary crusher matters as much
+as the fines fraction; both belong to the same quarry conversation.</div>
+
+<h2 class="chap">9 &nbsp; Verification and confidence</h2>
+<p class="chapsub">Six internal actions, a doubt budget spent down from 26 points to 6, and the honest statement of what stays external.</p>
+
+<p>On the client's order ("maximum rigor and honesty — internal actions only, one at a time,
+quantified gains"), the zone-1.1 calculation chain — the root of every downstream figure —
+went through a six-action confidence program on 2026-08-14. The starting meta-score of 74 %
+was decomposed into a doubt budget; each action attacked one component, and the score moved
+only when the component demonstrably closed. Full reports:
+<code>docs/design/zone11-verification/</code>, all replayable (Annex C).</p>
+
+<p>The initial decomposition of the 26 doubt points, each component with its designed
+attack: implementation errors (5 pts — could the code diverge from the intended formulas?),
+formula transcription (4 pts — were the right formulas chosen and copied?), physical
+behavior (3 pts — does the model move in the right directions?), numerics (2 pts — grid and
+loop convergence), the naked [H] point figure (8 pts — a single yield number resting on
+unmeasured coefficients), and feed representativeness (4 pts — one belt-cut carries the
+denominator). The first three and the numerics are internally closable; the last two are
+only partially so, which is why 94 % is a ceiling and not a stopping point.</p>
+
+<h3>9.1 &nbsp; Action 1 — blind independent recalculation (74 → 79)</h3>
+<p><b>Mechanism.</b> A verification agent, forbidden to read the source code, the tests and the
+engine reference extract, rebuilt the entire zone-1.1 chain in pure standard-library Python
+from the documentation and the data file alone. <b>Verdict: PASS, full concordance</b> —
+25 scalar values (powers, F80/P80, areas, recirculation, streams) and the full 29-point KFS
+curve match with worst deviation below 5×10⁻³ (display rounding); a replay at the old
+published settings reproduced the issued zone-1 calculation document exactly, proving the
+implemented conventions at two operating points. All 16 formula-detail assumptions the agent
+made alone landed on the engine's documented convention. The implementation-error component
+is closed. An excerpt of the concordance (action-era reference settings, spec grid):</p>
+
+<table>
+<tr><th>Quantity</th><th class="r">Engine</th><th class="r">Independent</th><th class="r">Deviation</th></tr>
+<tr><td>KFS Yield (wet/wet)</td><td class="r">24.59 %</td><td class="r">24.59 %</td><td class="r">0</td></tr>
+<tr><td>KFS product</td><td class="r">61.478 t/h wet</td><td class="r">61.478 t/h wet</td><td class="r">0</td></tr>
+<tr><td>0/20 stream</td><td class="r">175.325 t/h dry</td><td class="r">175.325 t/h dry</td><td class="r">0</td></tr>
+<tr><td>Recirculation (CR.5011 load)</td><td class="r">69.261 t/h</td><td class="r">69.261 t/h</td><td class="r">0</td></tr>
+<tr><td>KFS cumulative curve, 29 points</td><td class="r">—</td><td class="r">—</td><td class="r">0.00 at every point</td></tr>
+<tr><td>CR.5009 W / P_net / P_inst / F80 / P80</td><td class="r">0.312 / 72.468 / 96.624 / 180.575 / 42.709</td><td class="r">idem (2-decimal rounding)</td><td class="r">&lt; 5×10⁻³</td></tr>
+<tr><td>CR.5011 Ecs / t10 / n / P_net / F80 / P80</td><td class="r">0.125 / 5.71 / 1.645 / 16.163 / 63.022 / 29.277</td><td class="r">idem</td><td class="r">&lt; 3×10⁻³</td></tr>
+<tr><td>SR.5007 VSMA areas</td><td class="r">6.80 / 7.18 m²</td><td class="r">6.80 / 7.18 m²</td><td class="r">0</td></tr>
+</table>
+
+<h3>9.2 &nbsp; Action 2 — literature anchors (79 → 83)</h3>
+<p><b>Mechanism.</b> Each model confronted with its source formula, every expected value hand
+arithmetic with the source cited, in a permanent test module. <b>Verdict: 7/7 pass</b>
+(table in §3.9), including one incident where the engine corrected the checker's own
+arithmetic, and the quantified disclosure of the M3 convention nuance (classic imperfection
+≈ 0.081 at input I = 0.15). The transcription component is closed.</p>
+
+<h3>9.3 &nbsp; Action 3 — physical invariants (83 → 86)</h3>
+<p><b>Mechanism.</b> The full stress campaign re-run at HEAD — 580 runs including the adopted
+C1 circuit: 0 failures on balances, curve monotonicity, finiteness and non-negativity — plus
+a new permanent module proving nine direction laws: coarser feed, wider gap, wider CSS and
+slower impactor all raise KFS Yield strictly; imperfection degrades in-cut monotonically;
+the M1/M2/M3/M6 limit behaviors are exact. <b>Verdict: PASS.</b> Every optimization decision
+of the project (g max, CSS max, v min, quarry coarsening) now rests on an engine-proven
+monotonicity, not a plausible narrative.</p>
+
+<h3>9.4 &nbsp; Action 4 — Monte-Carlo uncertainty band (86 → 89)</h3>
+<p><b>Mechanism.</b> 200 seeded draws over the five uncertain inputs, each range traceable to a
+register row: CR.5009 slope n [1.05; 1.65], $A_j$ [50; 69], $b_j$ [0.6; 1.3], I [0.10; 0.20],
+feed size-rescale [0.93; 1.07] — uniform and independent, because no better information
+exists before the vendor tests. <b>Verdict:</b></p>
+
+<table>
+<tr><th>KFS Yield (action-era reference settings)</th><th class="r">Value</th></tr>
+<tr><td>P50 (median)</td><td class="r"><b>24.3 %</b></td></tr>
+<tr><td>P10 – P90</td><td class="r">22.4 – 26.0 %</td></tr>
+<tr><td>Full range (200 draws)</td><td class="r">21.6 – 27.1 %</td></tr>
+<tr><td>Implied 0/20 landfill, P10 / P50 / P90 (t/y)</td><td class="r">30 474 / 52 715 / 83 234</td></tr>
+<tr><td>KFS envelope compliance</td><td class="r"><b>200 / 200 draws</b> (in-cut 77.9 – 92.7 %)</td></tr>
+<tr><td>Labeled literature-tail scenario outside the band (b = 3.0, A = 69)</td><td class="r">yield 21.8 %, landfill ~93 kt/y — the drop-weight test decides</td></tr>
+</table>
+
+<p>Product quality is hypothesis-robust; only the quantity balance moves. The conclusion
+that survives every draw: the zero-landfill requirement lies above the P90 and even above
+the best of the 200 draws — <b>the quarry lever is indispensable under every plausible
+hypothesis combination</b>, and landfill stays strictly positive in all 200 draws. The
+project's central recommendation is hypothesis-robust, not an artifact of one parameter
+choice. The remaining points of this component are the [H] values themselves and the feed
+representativeness — external by nature.</p>
+
+<h3>9.5 &nbsp; Action 5 — numerical robustness (89 → 91)</h3>
+<p><b>Mechanism.</b> Grid refinement ×2/×4 by geometric midpoints and loop tolerance tightened
+to 10⁻⁹, physics untouched. <b>Verdict: a real finding.</b> The fixed-point loops are clean,
+but the 29-mesh spec sieve grid carried a quantified discretization bias: KFS Yield
+underestimated ~0.32 pt (converged 24.91 %), in-cut overestimated ~3.3 pts (converged 82.1 %,
+still compliant), C1 grits overestimated ~0.32 t/h. Smaller than the Monte-Carlo band — no
+conclusion flips — but found and fixed internally: the client adopted the ×2 grid as the
+engine default and all figures were rebased (this report's 24.88 % is the converged value).</p>
+
+<h3>9.6 &nbsp; Action 6 — adversarial formula review (91 → 94)</h3>
+<p><b>Mechanism.</b> Two independent adversarial audits (units/conventions lens; formula-fidelity
+lens), every claim numerically probed, every finding adjudicated. <b>Verdict: zero sign,
+inversion or exponent errors in M1–M8.</b> Three code fixes landed: the M7 capped-regime
+bypass pinned at the gap (material wider than the roll gap no longer survives a capped pass);
+capacity checks compare in each rating's declared basis (closing a ~7.5 % wet/dry blind spot
+on CR.5011); and M6 reports zero duty on a no-drying pass (was a ~1.2 MW phantom). The
+converged default results were unchanged by all three code fixes. The adjudication in full:</p>
+
+<table>
+<tr><th>Category</th><th class="r">Count</th><th>Content</th></tr>
+<tr><td>Code fixes</td><td class="r">3</td><td>M7 capped-regime bypass at the gap; per-machine capacity_basis (wet/dry); M6 zero duty on no-drying</td></tr>
+<tr><td>Doc/data fixes</td><td class="r">6</td><td>M3 convention note with conversion formulas; M1 truncation anchor disclosed; Phi measure-at-the-cut trap defused; unit labels (A_j %, densities kg/m³); RC.2 flow-split wording; zone_1_1 weather argument</td></tr>
+<tr><td>Disclosed, no change</td><td class="r">6</td><td>VSMA on dry tonnage (absorbed by the f0 fit); loop criterion naming; M1 truncation between meshes (&lt; 0.5 %); attrition-fines truncation; dryer outlet sensible heat (~0.7 %); dual sub-mesh convention (&lt; 1 %)</td></tr>
+<tr><td>Verified clean by probe</td><td class="r">—</td><td>mm/µm, wet/dry at every model boundary, %/fraction, kWh/t→kW (η applied once), M6 thermal chain, M8 Lapple, per-hour/per-year, RR conventions, water bookkeeping, C1 regrind composition</td></tr>
+</table>
+
+<h3>9.7 &nbsp; The doubt budget</h3>
+<table>
+<tr><th>Doubt component</th><th class="r">Points</th><th>Closed by</th><th class="r">Meta-score after</th></tr>
+<tr><td>Implementation errors</td><td class="r">5</td><td>Action 1 — blind recalculation</td><td class="r">79 %</td></tr>
+<tr><td>Formula transcription</td><td class="r">4</td><td>Action 2 — literature anchors</td><td class="r">83 %</td></tr>
+<tr><td>Physical behavior</td><td class="r">3</td><td>Action 3 — invariants + stress</td><td class="r">86 %</td></tr>
+<tr><td>Naked [H] point figure</td><td class="r">3 of 8</td><td>Action 4 — Monte-Carlo band (internal share)</td><td class="r">89 %</td></tr>
+<tr><td>Numerics</td><td class="r">2</td><td>Action 5 + ×2 grid adoption</td><td class="r">91 %</td></tr>
+<tr><td>Transcription residual</td><td class="r">3</td><td>Action 6 — adversarial audit (as adjudicated)</td><td class="r"><b>94 % — internal ceiling</b></td></tr>
+<tr><td>External residual: [H] values + feed representativeness</td><td class="r">6</td><td>vendor gradation test, drop-weight A·b, sieve test, repeat belt-cuts, contractor design-curve reconciliation</td><td class="r">→ 100 %</td></tr>
+</table>
+
+<p>The residual six external points map one-to-one onto the chapter-10 triggers:</p>
+
+<table>
+<tr><th>External residual</th><th>Closing trigger (chapter 10)</th><th>What moves when it closes</th></tr>
+<tr><td>Smooth-roll n_comp / S_att [H]</td><td>T1 — vendor gradation test</td><td>C1 ratio, D6 margin, mode-F gap capability</td></tr>
+<tr><td>A_j · b_j [H]</td><td>T2 — drop-weight test</td><td>CR.5011 product slope; the literature-tail scenario</td></tr>
+<tr><td>Screen imperfection I [H]</td><td>T3 — product sieve test</td><td>every cut sharpness; KFS in-cut; convention nuance</td></tr>
+<tr><td>Feed representativeness</td><td>T4 — repeat belt-cuts</td><td>the denominator of every yield; the quarry protocol</td></tr>
+<tr><td>Design-curve divergence</td><td>T5 — contractor reconciliation</td><td>the KFS 80-vs-62 and FeedLime-split design questions</td></tr>
+</table>
+
+<h3>9.8 &nbsp; Honest limits</h3>
+<p>The 94 % is an internal ceiling by construction, and the report states plainly what no
+internal action can close. The [H] coefficient values themselves — the smooth-roll $n_{comp}$
+and $S_{att}$, the drop-weight $A_j\!\cdot\!b_j$, the screen imperfection — are hypotheses
+until the corresponding tests exist. The feed representativeness rests on a single belt-cut
+measurement (2026-08-08); the entire quantitative story pivots on it until repeats
+accumulate. And the model's original validation against the specification's chapter 9 is
+circular by construction (the reference curve was back-fitted to those figures): the
+verification program validates the model's mathematics and physics; real grounding comes
+only from feed measurements. These are precisely the chapter-10 triggers.</p>
+
+<p>How to read the 94 % in one sentence each. What is <i>proven</i>: the code computes the
+documented formulas exactly (action 1), the formulas are the established ones correctly
+transcribed (actions 2 and 6), the model moves in the physically right directions under
+every probed condition (action 3), and the numerics are converged (action 5). What is
+<i>bounded</i>: the effect of every unmeasured coefficient, as an honest probability band
+with the project's central recommendation invariant across it (action 4). What is
+<i>pending</i>: the coefficient values themselves and the feed statistics — nothing internal
+can substitute for a test, and this report does not pretend otherwise.</p>
+
+<h2 class="chap">10 &nbsp; Open items and external triggers</h2>
+<p class="chapsub">Everything that still needs a measurement, a vendor, a contractor, or a client arbitration — with what each one unlocks.</p>
+
+<p>The design is internally verified to its ceiling; what remains is, by construction,
+external. Each trigger below names the measurement or counterpart that closes it and the
+exact model coefficient or decision it unlocks — when a result arrives, it lands in the data
+file first (the [H] coefficients refit with the archived calibration script), the test suite
+guards the physics, and the register gains a dated row. Nothing on this list blocks the
+purchase specifications of chapter 6 except where explicitly marked vendor-to-confirm.</p>
+
+<h3>10.1 &nbsp; Measurement and vendor triggers</h3>
+<table>
+<tr><th>#</th><th>Trigger</th><th>What it fixes / decides</th></tr>
+<tr><td>T1</td><td><b>Vendor gradation test</b> — smooth rolls on WANKOE 6/20 (trial trigger #1)</td><td>fixes $n_{comp}$ = 1.8 [H] and $S_{att}$ = 0.06 [H]; confirms the 1.5 mm mode-F gap capability and roll capacity at gap; confirms the 0.8-pt D6 grits margin under sliver regrind</td></tr>
+<tr><td>T2</td><td><b>Drop-weight test</b> (Q12)</td><td>fixes $A_j$ = 60 / $b_j$ = 0.8 [H]; decides whether the soft-limestone literature tail (b up to 3.0 → yield 21.8 %, landfill ~93 kt/y) is real</td></tr>
+<tr><td>T3</td><td><b>Screen-product sieve test</b> (Q3)</td><td>fixes I = 0.15 [H] and closes the disclosed convention nuance (spec-formula screens ≈ 2× sharper than a classic I = 0.15; classic imperfection 0.081)</td></tr>
+<tr><td>T4</td><td><b>Repeat belt-cuts</b> at the pivot</td><td>the single 2026-08-08 measurement is the pivot of every quantitative conclusion; repeats also drive the chapter-8 control protocol</td></tr>
+<tr><td>T5</td><td><b>Design-curve reconciliation with the engineering contractor</b> (RC7)</td><td>the PFD lists KFS at 80 t/h design where the engine computes 62.2 t/h wet at the adopted settings (51.35 at the pre-optimization settings, register 2026-08-12) — same family as the FeedLime/AgLime split inversion (61/39 vs the PFD's 42/58); one shared root: the design curve is finer than the measured feed</td></tr>
+</table>
+
+<h3>10.2 &nbsp; Design actions</h3>
+<table>
+<tr><th>#</th><th>Item</th><th>Status</th></tr>
+<tr><td>A1</td><td>CR.5009 nip saturation — measured $F_{80}$ 181 mm &gt; 150 mm max nip (251 mm at the target curve)</td><td>standing alert; top-size control in the quarry conversation (ch. 8)</td></tr>
+<tr><td>A2</td><td>BC.22 grits conveyor retrofit ~20 t/h — needed only by the 80 kt full-dryer extension case (16.7 &gt; 15 t/h)</td><td>deferred with the extension provision (civil reserve kept)</td></tr>
+<tr><td>A3</td><td>BE.40 fines conveyor</td><td>back within rating under C1; keep on the checklist until commissioning</td></tr>
+<tr><td>A4</td><td>Final machine codification — SN.2x/CR.2x proposal for the C1 units to the engineering contractor</td><td>proposal pending</td></tr>
+<tr><td>A5</td><td>Installed screen areas and motor sizes (all null data slots); linking-conveyor rating; sizing recommended for the extension per D1</td><td>awaiting design drawings</td></tr>
+<tr><td>A6</td><td>Polishing bag filter for the sub-4 µm cyclone tail — absent from the flowsheet</td><td>design-review item (expert book, 2026-08-11)</td></tr>
+<tr><td>A7</td><td>Documentation re-issue: zone-1.3 calculation document, DT-001 revision, web-UI zone-1.3 topology</td><td>pending</td></tr>
+</table>
+
+<h3>10.3 &nbsp; Open questions of the arbitration round</h3>
+<table>
+<tr><th>Q</th><th>Question</th><th>State</th></tr>
+<tr><td>Q3</td><td>Imperfection-remap ratification + convention nuance</td><td>tied to the expert clarification note and the sieve test (T3)</td></tr>
+<tr><td>Q4</td><td>KFS tolerance vs envelope (the nulled 15 % out-of-cut)</td><td>question pending</td></tr>
+<tr><td>Q5</td><td>Spec §9.3 fines figure (19.9 t/h cannot close mass)</td><td>question pending</td></tr>
+<tr><td>Q10</td><td>Repository relocation (deployment-safety caution)</td><td>open with the client</td></tr>
+<tr><td>Q12</td><td>$b_j$ for soft limestone</td><td>on hold pending the commissioned hardness note; T2 decides</td></tr>
+</table>
+
+<h3>10.4 &nbsp; Suggested sequencing</h3>
+<p>The natural order of closure: <b>T1 first</b> — the vendor gradation test gates the RC.2
+purchase (the 1.5 mm capability and the D6 margin both hang on it) and it is the cheapest of
+the five; <b>T4 continuously</b> — repeat belt-cuts start delivering value with the second
+sample and drive the chapter-8 control protocol from day one; <b>T5 early</b> — the
+design-curve reconciliation with the engineering contractor is a meeting, not a test, and it
+retires the last systematic divergence between the two engineering records; <b>T2 and T3
+opportunistically</b> — both refine coefficients whose uncertainty is already bounded by the
+chapter-9 Monte-Carlo band, so they sharpen the numbers without threatening the conclusions.
+The commissioned hardness note, when it arrives, is confronted with models M1–M8 and lands
+data-first like every other change.</p>
+
+<h2 class="chap">Annex A &nbsp; Feed curves</h2>
+<p class="chapsub">The measured 2026-08-08 belt-cut (with H-FEED-1/2 completions) and the adopted quarry target, cumulative % passing.</p>
+
+<table>
+<tr><th class="r">Mesh (mm)</th><th class="r">Measured (%)</th><th class="r">Target (%)</th>
+<th class="r">Mesh (mm)</th><th class="r">Measured (%)</th><th class="r">Target (%)</th></tr>
+<tr><td class="r">0.063</td><td class="r">0.07</td><td class="r">0.05</td><td class="r">15</td><td class="r">41.30</td><td class="r">34.58</td></tr>
+<tr><td class="r">0.1</td><td class="r">0.12</td><td class="r">0.08</td><td class="r"><b>20</b></td><td class="r"><b>45.48</b></td><td class="r"><b>40.10</b></td></tr>
+<tr><td class="r">0.125</td><td class="r">0.17</td><td class="r">0.11</td><td class="r">25</td><td class="r">47.58</td><td class="r">43.56</td></tr>
+<tr><td class="r">0.25</td><td class="r">0.42</td><td class="r">0.29</td><td class="r">31.5</td><td class="r">49.75</td><td class="r">46.42</td></tr>
+<tr><td class="r">0.5</td><td class="r">1.06</td><td class="r">0.73</td><td class="r">35</td><td class="r">50.74</td><td class="r">47.41</td></tr>
+<tr><td class="r">1.0</td><td class="r">2.67</td><td class="r">1.84</td><td class="r">40</td><td class="r">52.00</td><td class="r">48.66</td></tr>
+<tr><td class="r">1.5</td><td class="r">4.53</td><td class="r">2.90</td><td class="r">50</td><td class="r">56.19</td><td class="r">50.76</td></tr>
+<tr><td class="r">1.7</td><td class="r">5.31</td><td class="r">3.47</td><td class="r">63</td><td class="r">60.52</td><td class="r">53.86</td></tr>
+<tr><td class="r">2.0</td><td class="r">6.53</td><td class="r">4.22</td><td class="r">80</td><td class="r">65.00</td><td class="r">58.34</td></tr>
+<tr><td class="r">2.8</td><td class="r">9.86</td><td class="r">6.39</td><td class="r">100</td><td class="r">71.05</td><td class="r">62.53</td></tr>
+<tr><td class="r">4.0</td><td class="r">14.87</td><td class="r">9.89</td><td class="r">125</td><td class="r">76.40</td><td class="r">67.47</td></tr>
+<tr><td class="r">5.0</td><td class="r">18.82</td><td class="r">13.02</td><td class="r">160</td><td class="r">78.82</td><td class="r">73.81</td></tr>
+<tr><td class="r">6.3</td><td class="r">23.50</td><td class="r">16.63</td><td class="r">200</td><td class="r">81.00</td><td class="r">77.52</td></tr>
+<tr><td class="r">8.0</td><td class="r">28.71</td><td class="r">21.15</td><td class="r">250</td><td class="r">90.02</td><td class="r">79.71</td></tr>
+<tr><td class="r">10</td><td class="r">33.57</td><td class="r">25.84</td><td class="r">320</td><td class="r">100.00</td><td class="r">100.00</td></tr>
+</table>
+
+<p class="note">Measured curve: belt-cut at the pivot 2026-08-08 (measured range 19–200 mm;
+fine tail completed by H-FEED-1, top size by H-FEED-2; moisture 7 % measured; model checks
+d50 32.3 vs measured 32 mm, d80 180.6 vs 180 mm). Target curve: shape-preserving rescale
+k = 1.4263 (chapter 8); log-linear interpolation between points in both cases. Control point
+20 mm in bold.</p>
+
+<table>
+<tr><th>Characteristic</th><th class="r">Measured 2026-08-08</th><th class="r">Quarry target</th></tr>
+<tr><td>d50</td><td class="r">32.3 mm</td><td class="r">~46 mm</td></tr>
+<tr><td>F80</td><td class="r">180.6 mm</td><td class="r">~251 mm (CR.5009 nip watch, §4.2)</td></tr>
+<tr><td>Passing 20 mm (control point)</td><td class="r">45.5 %</td><td class="r">40.1 %</td></tr>
+<tr><td>Passing 6.3 mm (zone-1.2 split driver)</td><td class="r">23.5 %</td><td class="r">16.6 %</td></tr>
+<tr><td>Top size (H-FEED-2)</td><td class="r">320 mm</td><td class="r">320 mm (unchanged)</td></tr>
+<tr><td>Moisture (wet basis)</td><td class="r">7 %</td><td class="r">7 % (assumed unchanged)</td></tr>
+</table>
+
+<h2 class="chap">Annex B &nbsp; Machine settings and purchase specifications</h2>
+<p class="chapsub">The adopted operating point and the rating of every wired machine, from data/default_parameters.json.</p>
+
+<table>
+<tr><th>Machine</th><th>Type</th><th>Adopted settings</th><th>Rating / purchase spec</th></tr>
+<tr><td>CR.5009</td><td>toothed roll crusher (z1.1)</td><td>g = 60 mm; n = 1.35; x80 = g</td><td>max nip 150 mm (saturated — alert); motor slot open</td></tr>
+<tr><td>SR.5007</td><td>double-deck screen (z1.1)</td><td>35 / 20 mm; I = 0.15 [H]</td><td>required 6.80 / 7.15 m²; installed areas open</td></tr>
+<tr><td>CR.5011</td><td>impact crusher HAZEMAG AP-S 1010 (z1.1)</td><td>v = 30 m/s; CSS = 30 mm</td><td>90 t/h real (wet basis, vendor); motor 132 kW</td></tr>
+<tr><td>SR.5105</td><td>reclaim screen, single deck (z1.2)</td><td>a = 6 mm (FeedLime cut)</td><td>required 3.01 m²</td></tr>
+<tr><td>SR.5111</td><td>1.7 mm open closing screen (z1.2)</td><td>a = 1.7 mm; I = 0.15 [H]</td><td>required 1.42 m²; loop conveyors 60 t/h (47 % used)</td></tr>
+<tr><td>CR.5113</td><td>impact crusher, AgLime loop (z1.2)</td><td>v = 40 m/s; CSS = 1.0 mm</td><td>motor slot open (computed 87.4 kW installed)</td></tr>
+<tr><td>SR.5115</td><td>1.7 mm closed-loop screen (z1.2)</td><td>a = 1.7 mm; I = 0.15 [H]</td><td>required 4.99 m²</td></tr>
+<tr><td>DY.03</td><td>rotary dryer + burner BU.04 (z1.3)</td><td>m_out = 0.5 %</td><td>30 t/h AT OUTLET = 32.1 t/h wet feed (acquired, D2)</td></tr>
+<tr><td>RC.1</td><td>smooth double roll, stage 1 (z1.3 C1)</td><td>g = 8 mm; λ 2.2, n 1.8, S_att 0.06 — all [H]</td><td><b>32 t/h</b> (dry basis; client 2026-08-14)</td></tr>
+<tr><td>RC.2</td><td>smooth double roll, stage 2 (z1.3 C1)</td><td>g = 3.4 mm (G) / 1.5 mm (F); same [H] set</td><td><b>2 × 22 t/h</b> (dry basis); min gap 1.5 mm vendor-to-confirm</td></tr>
+<tr><td>SC.A</td><td>double-deck recycle screen (z1.3 C1)</td><td>8 / 3.75 mm; I = 0.15 [H]</td><td>required 4.8 / 5.6 m² (worst mode)</td></tr>
+<tr><td>SC.B</td><td>double-deck product screen (z1.3 C1)</td><td>2.0 / 1.5 mm; sliver regrind; DV.GF per mode</td><td>required 5.2 / 4.5 m² (worst mode)</td></tr>
+<tr><td>SP.36</td><td>air classifier (UltraFin, optional)</td><td>cut 65 µm (Q6); η_cl 0.75 [H]</td><td>Φ at cut NOT CERTIFIED until measured</td></tr>
+<tr><td>CL.38</td><td>cyclones (UltraFin)</td><td>v_in = 15 m/s; b = 0.14 m (Stairmand, to confirm)</td><td>d50 = 4.2 µm; bag filter missing (design review)</td></tr>
+</table>
+
+<p class="note">As-built zone-1.3 units SN.21 and ML.26 remain in the data as the selectable
+"as-built" variant for history and epoch tests. ML.26 coefficients (λ 4.11, S_att 0.171,
+n_comp 0.86) are the fitted H-M7 hypotheses. Calibration constants: Wi 12.54 kWh/t [ref.],
+η_m 0.75, A_j 60 / b_j 0.8 [H], f0 0.347 [H], f_p 1.2 [H], I_dry 0.15 [H], I_rain 0.9 [H],
+dryer η_th 0.6 / I_ev 45 [H], λ_air 0.5 [H], N_e 5 [H], ρ_p 2 700 kg/m³ [H].</p>
+
+<h3>B.1 &nbsp; Stockpile capacities (PFD, data only)</h3>
+<table>
+<tr><th>Yard</th><th class="r">Capacity (t)</th><th>Role at the adopted plan</th></tr>
+<tr><td>KFS Fines 0/20 (SP.5014)</td><td class="r">10 000</td><td>inter-zone buffer; nets to zero over the year (landfill absorbs the excess)</td></tr>
+<tr><td>KFS 20/35 (SP.5015)</td><td class="r">5 000</td><td>KFS shipping buffer (weekly kiln rhythm)</td></tr>
+<tr><td>Feed 0-6/20 (SP.5109)</td><td class="r">6 000</td><td>FeedLime weekly buffer — seasonal-swing watch (§5.5)</td></tr>
+<tr><td>AG 0/1.7 (SP.5118)</td><td class="r">28 000</td><td>AgLime campaign buffer</td></tr>
+</table>
+
+<h3>B.2 &nbsp; Engine numerical settings</h3>
+<table>
+<tr><th>Key</th><th class="r">Value</th><th>Meaning</th></tr>
+<tr><td>computation_grid_refinement</td><td class="r">2</td><td>×2 converged grid (57 meshes); 1 reproduces spec-era numerics</td></tr>
+<tr><td>loop_relative_tolerance</td><td class="r">10⁻⁶</td><td>fixed-point convergence (10⁻⁹ verified identical, action 5)</td></tr>
+<tr><td>loop_max_iterations / max_circulating_ratio</td><td class="r">200 / 10</td><td>divergence self-declared, never silently reported</td></tr>
+<tr><td>balance_relative_tolerance</td><td class="r">10⁻³</td><td>assertion threshold; realized gaps &lt; 2×10⁻⁶</td></tr>
+<tr><td>extension_meshes_mm</td><td class="r">250, 320</td><td>top-size completion meshes (H-FEED-2)</td></tr>
+</table>
+
+<h2 class="chap">Annex C &nbsp; Replayable scripts</h2>
+<p class="chapsub">The verification chain is replayable without any assistant — one command each, from the repository root.</p>
+
+<table>
+<tr><th>Script</th><th>What it replays</th></tr>
+<tr><td><code>scripts/verify_zone11_independent.py</code></td><td>Action 1 — the blind stdlib re-derivation of the whole zone-1.1 chain from documentation only; prints the 25-scalar + 29-point concordance table. Run: <code>python scripts/verify_zone11_independent.py</code></td></tr>
+<tr><td><code>scripts/monte_carlo_kfs_yield.py</code></td><td>Action 4 — the 200-draw seeded Monte-Carlo band over the five [H] ranges (seed 7); prints P10/P50/P90 KFS Yield and implied landfill. Run: <code>PYTHONPATH=src python scripts/monte_carlo_kfs_yield.py</code></td></tr>
+<tr><td><code>scripts/numerical_robustness.py</code></td><td>Action 5 — grid ×2/×4 refinement and loop-tolerance study; prints the convergence table behind the ×2 grid adoption. Run: <code>PYTHONPATH=src python scripts/numerical_robustness.py</code></td></tr>
+<tr><td><code>scripts/stress_test.py</code></td><td>Action 3 — the 580-run stress campaign (500 seeded random draws + settings extremes + degenerate feeds + brutal rates); asserts balances, monotonicity, finiteness. Run: <code>PYTHONPATH=src python scripts/stress_test.py</code></td></tr>
+</table>
+
+<p class="note">The full automated suite (138 tests, including the literature anchors, the
+physical invariants, the chapter-9 epoch pins and the C1/zone-1.3 baselines) runs with
+<code>python -m pytest tests/ -q</code>.</p>
+
+<h3>C.1 &nbsp; Reproducing this report's engine runs</h3>
+<p>Every table in chapters 4–7 replays from the repository root with the public API
+(<code>PYTHONPATH=src</code>, or the package installed):</p>
+
+<table>
+<tr><th>Run</th><th>Call</th></tr>
+<tr><td>Mode-G photo (chapters 4, 5, 6)</td><td><code>run_scenario(load_parameters())</code></td></tr>
+<tr><td>Mode-F photo (chapter 6)</td><td><code>run_scenario(load_parameters(overrides={"default_scenario": {"zone_1_3_mode": "F"}}))</code></td></tr>
+<tr><td>As-built counterfactual (§6.1)</td><td><code>… overrides={"default_scenario": {"zone_1_3_variant": "as-built"}}</code></td></tr>
+<tr><td>Mode-F gap counterfactual (§6.7)</td><td><code>… overrides={"default_scenario": {"zone_1_3_mode": "F"}, "machines": {"RC.2": {"mode_F_gap_mm": 2.8}}}</code></td></tr>
+<tr><td>Rain photo (§5.4)</td><td><code>… overrides={"default_scenario": {"weather": "rain"}}</code></td></tr>
+<tr><td>2C campaign photo (§5.4)</td><td><code>… overrides={"default_scenario": {"zone_1_2_mode": "2C"}}</code></td></tr>
+<tr><td>Annual plan, measured feed (chapter 7)</td><td><code>run_required_hours(load_parameters())</code></td></tr>
+<tr><td>Annual plan at the quarry target (chapters 7, 8)</td><td><code>run_required_hours(load_parameters(overrides={"feed_product": {"cumulative_passing_curve": &lt;target curve JSON&gt;}, "production_targets": {"AgLime 0/1.7": {"target_t_per_year": 108000, "market_cap_t_per_year": 108000}}}))</code></td></tr>
+</table>
+
+<div class="prov">Provenance — every figure in this document is an engine execution or a dated
+decision-register quotation: run_scenario (mode-G and mode-F photos, as-built counterfactual,
+mode-F 2.8 mm gap counterfactual) and run_required_hours (two-mode plan, 2C campaigns) at the
+converged ×2 grid, defaults plus the quarry-target overrides
+(quarry-target-curve-20pct-margin.json, AgLime baseline 108 kt); repository branch
+wankoe-python-model, 2026-08-14. Hypothesis coefficients flagged [H] throughout; UltraFin
+figures NOT CERTIFIED until Φ is measured. Verification dossier:
+docs/design/zone11-verification (actions 1–6, meta-score 94 %). Decision register:
+docs/spec-conformity-matrix.md. Quarry curve by bisection (scripts archived, replayable
+without the assistant). — <b>by NOEZYS</b>.</div>
+
+<script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}]});});</script>
+</body></html>
