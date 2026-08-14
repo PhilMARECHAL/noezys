@@ -113,14 +113,18 @@ RC.1/RC.2 smooth rolls + two double-deck screens (client 2026-08-14,
 "2+2"): SC.A 8/3.75 recycle cuts, SC.B 2/1.5 product cuts (linking
 conveyor 39.9 t/h of 0/3.75). SLIVER ARBITRATION (client, option B):
 SC.B deck-2 oversize REGROUND through RC.2 (SC.B.sliver_routing,
-"extract" stays selectable — diverter in the design). BASE SCENARIO (client 2026-08-14): SINGLE RC.2 unit (n_units 1),
-dryer throttled to 22.27 t/h wet -> grits 11.56 t/h, MAX 69 300 t/y
-(6 000 h); ratio 0.79 (as-built 2.83), D6 met margin 1.4 pts,
-recirculation 42 t/h, 40 kt in 3 461 h. EXTENSION: 2nd RC.2 slot
-reserved (full dryer, 16.66 t/h, 80 kt in 4 802 h, BC.22 retrofit);
-stopgap: diverter 'extract' = full dryer on one unit (87.5 kt/y max,
-no margin, 4 t/h sliver product). D6 envelope encoded on FeedLime
-grits — AS-BUILT FAILS IT (15.4 % < 2 mm; quality_holds False).
+"extract" stays selectable — diverter in the design). FINES OBJECTIVE + TWO-MODE CONFIG (client 2026-08-14, supersedes the
+throttled single-unit base): fines 60 kt/y is a PRODUCTION OBJECTIVE;
+new GRITS DIVERTER (SC.B deck-1 oversize) gives mode G (grits) /
+mode F (fines campaign: 2/3.75 + sliver reground in RC.2 at the
+mode-F gap 1.5 mm — 2.8 mm circulates 147 t/h, engine-proven). TWO
+RC.2 UNITS installed (purchase spec: min gap 1.5, vendor to confirm).
+Operating points: mode G = full dryer 32.1 (grits 16.22 t/h, RC.2
+33.2/44); mode F = 25.05 t/h (fines 23.2 t/h, units at capacity).
+Two-mode planning: z1.3 = 2 466 h G + 1 144 h F (60.2 %); all four
+markets served exactly; LANDFILL 13.8 kt/y; KFS Yield required
+25.93 % vs realized 24.88 (gap 1.05 pt). D6 envelope encoded on
+FeedLime grits — AS-BUILT FAILS IT (15.4 % < 2 mm).
 NAMING RULE (client): zone 1.3 = DRY products only (grits, fines,
 UltraFin); AgLime is a WET zone-1.2 product — the fines-surplus
 redirect is a SALES routing at loadout, say "redirect eligibility",

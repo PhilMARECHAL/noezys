@@ -208,7 +208,14 @@ def run_scenario(params: dict) -> dict:
     z12 = flowsheet.zone_1_2(reclaim, params, sc["zone_1_2_mode"], weather, alerts)
 
     # ---------------- Zone 1.3 (reclaim from the FeedLime stockpile)
-    q_feedlime = sc["flow_rates_tph"]["zone_1_3_feedlime"]
+    # mode-F campaigns run at their own (lower) feed so both RC.2 units
+    # sit exactly at capacity (client design 2026-08-14)
+    if sc.get("zone_1_3_mode", "G") == "F":
+        q_feedlime = sc["flow_rates_tph"].get(
+            "zone_1_3_feedlime_mode_F", sc["flow_rates_tph"]["zone_1_3_feedlime"]
+        )
+    else:
+        q_feedlime = sc["flow_rates_tph"]["zone_1_3_feedlime"]
     stream_fl = z12["products"]["FeedLime"]
     if stream_fl is not None and q_feedlime > 0:
         feedlime = {

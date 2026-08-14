@@ -69,44 +69,34 @@ def test_c1_grits_quality(c1):
     assert comp["above_cut_pct"] <= 5  # engine 2026-08-14 (regrind): 2.6
 
 
-def test_c1_full_dryer_flow_exceeds_the_single_rc2_unit():
-    """Client base scenario 2026-08-14: ONE RC.2 unit (n_units 1). At the
-    FULL dryer flow (32.1 t/h wet) the regrind loop loads it at 31.7 t/h
-    > 22 — the engine must flag the bottleneck (this is exactly why the
-    base scenario throttles the dryer; the 2nd unit is the extension)."""
+def test_c1_single_unit_would_bottleneck_at_full_dryer_flow():
+    """History guard (re-baselined 2026-08-14, fines-objective config): with
+    only ONE RC.2 unit the full dryer flow overloads it at 33.2 t/h > 22 —
+    this is why the client installed the 2nd unit (option 1)."""
     r = run_scenario(
-        load_parameters(
-            overrides={
-                "default_scenario": {"flow_rates_tph": {"zone_1_3_feedlime": 32.1}}
-            }
-        )
+        load_parameters(overrides={"machines": {"RC.2": {"n_units": 1}}})
     )
     assert r["machines"]["RC.2"]["throughput_tph"] > 22
     assert any(a.startswith("RC.2:") for a in r["alerts"])
 
 
-def test_c1_base_scenario_single_unit_at_69_kt():
-    """Base scenario (client 2026-08-14): dryer throttled so the single
-    RC.2 unit runs exactly at its 22 t/h loop capacity. Re-bisected on the
-    x2 converged grid (client grid arbitration 2026-08-14): feed 21.29 t/h
-    wet, grits 10.76 t/h = 64.6 kt/y max at the 6 000 h ceiling (was
-    22.27 / 69.3 kt on the spec grid)."""
-    r = run_scenario(
-        load_parameters(
-            overrides={
-                "default_scenario": {
-                    "zone_1_3_variant": "c1",
-                    "flow_rates_tph": {"zone_1_3_feedlime": 21.29},
-                }
-            }
-        )
+def test_c1_reference_operating_points():
+    """Reference operating points (client 2026-08-14, fines-objective
+    config, option 1: TWO RC.2 units + mode-F gap 1.5): mode G at the full
+    32.1 t/h dryer limit (RC.2 33.2/44), mode F at 25.05 t/h with both
+    units exactly at capacity."""
+    g = run_scenario(load_parameters())
+    assert g["machines"]["RC.2"]["throughput_tph"] <= 44.0
+    assert g["machines"]["RC.2"]["units_in_service"] == 2
+    assert not any(a.startswith(("RC.1:", "RC.2:", "DY.03:")) for a in g["alerts"])
+    f = run_scenario(
+        load_parameters(overrides={"default_scenario": {"zone_1_3_mode": "F"}})
     )
-    assert r["machines"]["RC.2"]["throughput_tph"] <= 22.0 + 1e-6
-    assert r["machines"]["RC.2"]["units_in_service"] == 1
-    assert r["machines"]["RC.1"]["throughput_tph"] <= 29
-    assert not any(a.startswith(("RC.1:", "RC.2:", "DY.03:")) for a in r["alerts"])
-    grits = r["products"]["FeedLime grits"]["tph"]
-    assert 64000 < grits * 6000 < 65000  # engine 2026-08-14 (x2 grid): 64 554 t/y
+    assert f["machines"]["RC.2"]["throughput_tph"] <= 44.0 + 1e-6
+    assert f["products"]["FeedLime grits"]["present"] is False  # all diverted
+    assert f["products"]["FeedLime fines"]["tph"] > 20  # fines campaign rate
+    assert f["balances"]["zone_1_3"]["closed"] and f["balances"]["water_zone_1_3"]["closed"]
+    assert not any(a.startswith(("RC.1:", "RC.2:")) for a in f["alerts"])
 
 
 def test_c1_balances_close(c1):
@@ -134,4 +124,7 @@ def test_c1_extract_routing_stays_selectable():
     sliver = r["products"]["Sliver 1.5/2"]
     assert sliver["present"] is True
     assert 0 < sliver["tph"] < r["products"]["FeedLime grits"]["tph"]
-    assert r["machines"]["RC.2"]["units_in_service"] == 1
+    # extract relieves RC.2 substantially (22.2 vs 33.2 t/h under regrind
+    # at the full dryer flow — marginally above a single 22 t/h unit)
+    assert r["machines"]["RC.2"]["throughput_tph"] < 23
+    assert not any(a.startswith("RC.2:") for a in r["alerts"])

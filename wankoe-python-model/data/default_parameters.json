@@ -422,9 +422,9 @@
     },
     "RC.2": {
       "zone": "1.3",
-      "type": "Smooth double-roll crusher, stage 2, SINGLE unit (client base scenario 2026-08-14: max grits capacity 69 300 t/y at the 22 t/h loop limit, dryer throttled to 22.3 t/h wet; a 2nd parallel unit is the EXTENSION provision for full-dryer regrind / 80 kt+)",
+      "type": "Smooth double-roll crusher, stage 2, TWO parallel units (client 2026-08-14: 2nd unit installed to serve the 60 kt/y fines objective; purchase spec includes mode-F capability = minimum gap 1.5 mm, vendor to confirm)",
       "max_capacity_tph": 22,
-      "n_units": 1,
+      "n_units": 2,
       "parameters": {
         "g": {
           "name": "Gap",
@@ -460,11 +460,11 @@
       "product_curve_table": null,
       "_product_curve_note": "Vendor abaque slot (golden rule 2): roll capacity at 3.4 mm gap to be confirmed by vendor trial.",
       "_model_note": "max_capacity_tph is PER UNIT. No physical feed split is modelled: m7's product PSD is flow-independent and Bond power uses the total flow, so splitting across units in service is mathematically equivalent (audit 2026-08-14 clarification of the earlier 'splits the feed' wording).",
-      "_extension_note": "Client arbitration 2026-08-14: ONE unit installed (base scenario). Extension provision: civil works and layout must reserve the slot for a 2nd identical unit \u2014 with it, full-dryer regrind gives 16.66 t/h grits (100 kt/y at 6000 h). Alternative phase-1 stopgap: sliver diverter on 'extract' allows full dryer flow on one unit (14.6 t/h grits, 98.5 % unit load, 4 t/h sliver product to dispose).",
+      "_extension_note": "Client arbitration 2026-08-14 (fines-objective config, option 1): BOTH units installed. Mode G runs 1 unit at the throttled feed or 2 at full dryer; mode F needs both (load ~44 t/h at its feed). Purchase spec: rolls capable of closing to 1.5 mm (mode-F gap) \u2014 vendor gradation test to confirm.",
       "capacity_basis": "dry",
       "_capacity_basis_note": "DRY-solids loop capacity by definition: these purchase specs were derived from the engine's dry loop loads (zone 1.3 runs at 0.5 % outlet moisture, so wet/dry differ by < 0.5 %). Audit 2026-08-14.",
-      "mode_F_gap_mm": 2.8,
-      "_mode_F_note": "Mode-F operating setting (client design 2026-08-14): the RC.2 gap tightens to its low bound so the diverted 2/3.4 band is actually nipped instead of bypassing and circulating; g stays 3.4 in mode G."
+      "mode_F_gap_mm": 1.5,
+      "_mode_F_note": "Mode-F gap = 1.5 mm (client design 2026-08-14): required so the diverted 2/3.75 band is nipped instead of circulating (engine: 147 t/h runaway load at 2.8 mm vs 37-44 t/h workable at 1.5)."
     },
     "SC.A": {
       "zone": "1.3",
@@ -963,7 +963,8 @@
     "flow_rates_tph": {
       "zone_1_1_feed": 250,
       "zone_1_2_reclaim": 100,
-      "zone_1_3_feedlime": 21.29
+      "zone_1_3_feedlime": 32.1,
+      "zone_1_3_feedlime_mode_F": 25.05
     },
     "zones": {
       "1.1": {
@@ -985,7 +986,7 @@
     "zone_1_1_mode": "1A",
     "zone_1_2_mode": "2A",
     "zone_1_3_variant": "c1",
-    "_variant_note": "C1 ADOPTED as the reference configuration (client 2026-08-14): 2-stage smooth rolls RC.1 + single RC.2 unit, SC.A 8/3.75 + SC.B 2/1.5, sliver regrind, dryer throttled to 21.29 t/h wet \u2014 the single RC.2 unit exactly at its 22 t/h loop limit on the CONVERGED x2 grid (re-bisected 2026-08-14 after the grid arbitration; was 22.27 on the spec grid). Max grits capacity 64 554 t/y at the 6 000 h ceiling. 'as-built' remains selectable. [H] coefficients pending the vendor gradation test.",
+    "_variant_note": "C1 reference configuration (client 2026-08-14, fines-objective update): RC.1 + TWO RC.2 units, SC.A 8/3.75 + SC.B 2/1.5, sliver regrind, grits diverter (modes G/F). Mode G runs the dryer at its full 32.1 t/h wet limit (RC.2 33.2/44); mode F (fines campaign, RC.2 gap 1.5) at 25.05 t/h wet \u2014 both RC.2 units exactly at capacity. 'as-built' remains selectable. [H] coefficients pending the vendor gradation test.",
     "_flow_rates_note": "CLIENT RULE (ratified 2026-08-14): every flow_rates_tph entry is the TOTAL flow \u2014 WET basis, dry solids PLUS water \u2014 as belt-weighed. zone_1_1_feed 250 and zone_1_2_reclaim 100 are wet by this rule; zone_1_3_feedlime is wet too (the dryer sheet converts). The engine converts to dry solids at each zone boundary (q_dry = q_wet x (1 - moisture/100)); internal stream 'q' values are dry solids for conservation, and PRESENTED rates are quoted in total (wet) flow unless explicitly labeled dry.",
     "zone_1_3_mode": "G",
     "_zone_1_3_mode_note": "Two zone-1.3 operating modes (client 2026-08-14): 'G' = grits production (2/3.75 to product); 'F' = fines campaign (2/3.75 diverted to RC.2 regrind, RC.2 at mode_F_gap_mm). The annual plan splits the hours between modes so BOTH the firm grits target and the fines market land exactly."

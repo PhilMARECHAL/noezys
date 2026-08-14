@@ -93,15 +93,40 @@ def run_required_hours(params: dict) -> dict:
             )
         return result
 
-    # ---- 1. Zone 1.3: hours set by the FIRM grits target
+    # ---- 1. Zone 1.3: TWO-MODE plan (client design 2026-08-14) — mode-G
+    #         hours land the FIRM grits target; the fines OBJECTIVE (client
+    #         2026-08-14: the 60 kt market must be served) is completed by
+    #         mode-F fines-campaign hours (grits diverter to regrind)
     if grits_tph <= 0:
         raise ValueError(
             "Zone 1.3 produces no grits (zone 1.2 mode 2C, or no FeedLime): "
             "cannot plan hours from the grits target"
         )
-    h13_eff = targets["FeedLime grits"]["target_t_per_year"] / grits_tph
+    h13_g_eff = targets["FeedLime grits"]["target_t_per_year"] / grits_tph
+    fines_target_t = targets["FeedLime fines"]["target_t_per_year"]
+    fines_from_g_t = h13_g_eff * fines_tph
+    fines_gap_t = max(0.0, fines_target_t - fines_from_g_t)
+    h13_f_eff = 0.0
+    fines_f_tph = 0.0
+    ultrafin_f_tph = 0.0
+    if fines_gap_t > 0.5:
+        photo_f = run_scenario(
+            deep_merge(
+                params,
+                {"default_scenario": {"weather": "dry", "zone_1_3_mode": "F"}},
+            )
+        )
+        fines_f_tph = photo_f["products"]["FeedLime fines"]["tph"]
+        ultrafin_f_tph = photo_f["products"]["UltraFin"]["tph"]
+        if fines_f_tph <= 0:
+            raise ValueError("Zone 1.3 mode F produces no fines: check the scenario")
+        h13_f_eff = fines_gap_t / fines_f_tph
+    h13_eff = h13_g_eff + h13_f_eff
     zone13 = _zone_result("1.3", h13_eff)
-    feedlime_demand_t = h13_eff * flow["zone_1_3_feedlime"]  # wet, consumed by the dryer
+    feed_f_tph = flow.get("zone_1_3_feedlime_mode_F", flow["zone_1_3_feedlime"])
+    feedlime_demand_t = (
+        h13_g_eff * flow["zone_1_3_feedlime"] + h13_f_eff * feed_f_tph
+    )  # wet, consumed by the dryer
 
     # ---- 2. Zone 1.2: client planning rules (c2 2026-08-12, amended by the
     #         ZERO-WASTE rule 2026-08-13): hours follow the FeedLime demand
@@ -117,7 +142,7 @@ def run_required_hours(params: dict) -> dict:
     ]
     fines_spec = targets["FeedLime fines"]
     fines_cap = fines_spec.get("market_cap_t_per_year") or fines_spec["target_t_per_year"]
-    fines_production_t = h13_eff * fines_tph
+    fines_production_t = fines_from_g_t + h13_f_eff * fines_f_tph
     fines_redirect_t = max(0.0, fines_production_t - fines_cap)
     if fines_redirect_t > aglime_cap:
         alerts.append(
@@ -217,9 +242,10 @@ def run_required_hours(params: dict) -> dict:
     production_t = {
         "KFS": round(h11_eff * kfs_tph, 0),
         "AgLime": round(aglime_t, 0),
-        "FeedLime grits": round(h13_eff * grits_tph, 0),
-        "FeedLime fines": round(h13_eff * fines_tph, 0),
-        "UltraFin": round(h13_eff * ultrafin_tph, 0),
+        # mode split: grits come from mode-G hours only; fines from both
+        "FeedLime grits": round(h13_g_eff * grits_tph, 0),
+        "FeedLime fines": round(fines_production_t, 0),
+        "UltraFin": round(h13_g_eff * ultrafin_tph + h13_f_eff * ultrafin_f_tph, 0),
     }
     for product, tonnage in production_t.items():
         if product in ("FeedLime fines", "AgLime"):
@@ -236,7 +262,7 @@ def run_required_hours(params: dict) -> dict:
     # ---- zero-waste sales accounting (client rule 2026-08-13)
     fines_sold_t = min(fines_production_t, fines_cap)
     aglime_sold_t = min(aglime_cap, aglime_t + fines_redirect_t)
-    ultrafin_production_t = h13_eff * ultrafin_tph
+    ultrafin_production_t = h13_g_eff * ultrafin_tph + h13_f_eff * ultrafin_f_tph
     sales_t = {
         "UltraFin sold (market to develop)": round(ultrafin_production_t, 0),
         "FeedLime fines sold as fines": round(fines_sold_t, 0),
@@ -323,6 +349,10 @@ def run_required_hours(params: dict) -> dict:
         "principle": "hours follow the production targets (client rule 2026-08-08)",
         "flow_rates_tph": dict(flow),
         "zones": {"1.1": zone11, "1.2": zone12, "1.3": zone13},
+        "zone_1_3_split": {
+            "mode_G_hours_effective": round(h13_g_eff, 1),
+            "mode_F_hours_effective": round(h13_f_eff, 1),
+        },
         "zone_1_2_split": {
             "dry_season_hours_effective": round(h2_dry_eff, 1),
             "rain_season_hours_effective": round(h2_rain_eff, 1),
