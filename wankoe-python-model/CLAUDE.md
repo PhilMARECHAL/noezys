@@ -130,7 +130,12 @@ scenario results.indicators + planning kfs_yield + alert; realized
 2026-08-14: engine.computation_grid_refinement 2; spec sieves stay the
 presentation format; C1 base point re-bisected: feed 21.29 t/h wet,
 grits 10.76 t/h, single-unit max 64 554 t/y; internal confidence
-program docs/design/zone11-verification/, meta-score 74 -> 91).
+program docs/design/zone11-verification/ COMPLETE, actions 1-6,
+meta-score 74 -> 94 = internal ceiling; residual 6 pts external:
+vendor curves, drop-weight, sieve test, repeat belt-cuts, NACO
+reconciliation. Audit fixes 2026-08-14: M7 bypass pinned at gap in
+capped regime; capacity_basis per machine; M6 zero duty on
+no-drying).
 ZERO-LANDFILL RULE STILL UNMET — residual 42.5 kt after v = 30
 (client 2026-08-14). QUARRY TARGET RECOMPUTED on the C1+2C balance:
 38.1 % < 20 mm at the zone-1 inlet = exact zero-landfill (supersedes
