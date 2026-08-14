@@ -115,8 +115,12 @@ NAMING RULE (client): zone 1.3 = DRY products only (grits, fines,
 UltraFin); AgLime is a WET zone-1.2 product — the fines-surplus
 redirect is a SALES routing at loadout, say "redirect eligibility",
 never "AgLime spec", for zone-1.3 streams.
-OPEN: RC.1 spec 29 -> ~32 t/h
-(quarry-feed alert); BC.22 retrofit (16.7 vs 15 t/h rating);
+RC.1 purchase spec = 32 t/h (client 2026-08-14, closes the D4
+quarry-feed finding). OPEN: formal C1 adoption (default swap +
+planning + docs re-issue + DT); extension provision (civil reserve
+for 2nd RC.2 + BC.22 retrofit deferred); final machine codification
+(SN.2x/CR.2x proposal to NACO); installed screen areas & motor sizes
+(recommend sizing for the extension per D1); linking conveyor rating;
 C2 escalation / C4 comparator in reserve; vendor gradation test fixes
 n_comp & S_att [H]. Block diagram (draw.io, as-built + C1):
 docs/design/zone13-redesign/zone13-block-diagram.drawio.
