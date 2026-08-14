@@ -34,7 +34,8 @@ def test_2c_campaigns_are_toggleable(plan):
     off = run_required_hours(
         load_parameters(overrides={"commercial_rules": {"aglime_2c_campaigns": False}})
     )
-    assert off["production_t"]["AgLime"] == pytest.approx(49189, rel=0.02)
+    # re-baselined 2026-08-14 (v = 30 m/s adopted): 2A co-production 47 810
+    assert off["production_t"]["AgLime"] == pytest.approx(47810, rel=0.02)
     assert off["sales_t"]["AgLime from dedicated 2C campaigns"] == 0
     # and the landfill worsens accordingly
     assert (

@@ -84,7 +84,8 @@ Gap table: docs/pfd/gap-register.md.
 
 ## Reference configuration (client, 2026-08-13 — the operating point)
 
-Zone-1 settings g = 60 / CSS = 30 / v = 35 (KFS yield 23.9 %); dryer
+Zone-1 settings g = 60 / CSS = 30 / v = 30 (v 35 -> 30 client
+2026-08-14, last settings headroom vs landfill; KFS compliant); dryer
 limit 30 t/h AT OUTLET = 32.1 t/h wet feed (encoded); grits planning
 target 44 400 t/y (firm floor 40 000); Saturday regime zone 1 (2 400 h).
 Sales: KFS 85 000 + grits 44 400 + fines 60 000 + AgLime exactly
@@ -121,10 +122,11 @@ quarry-feed finding). COMMERCIAL CASCADE OF ADOPTION: fines fall to
 31.5 kt (60 kt market), redirect = 0. AGLIME 2C CAMPAIGNS WIRED
 (client lever 1, commercial_rules.aglime_2c_campaigns): AgLime = 2A
 49.2 + 2C 85.8 = 135 kt served; LANDFILL 144.2 -> 58.4 kt/y.
-ZERO-LANDFILL RULE STILL UNMET — residual 58.4 kt; remaining levers
-(client arbitration PENDING, quarry recompute explicitly deferred by
-the client): grits sales toward the 69.3 kt base capacity (landfill
-~1.8 kt at 69.3 kt sold, z1.3 then 100 %) and/or quarry curve. OTHER OPEN: extension provision
+ZERO-LANDFILL RULE STILL UNMET — residual 48.6 kt after v = 30
+(client 2026-08-14). QUARRY TARGET RECOMPUTED on the C1+2C balance:
+38.1 % < 20 mm at the zone-1 inlet = exact zero-landfill (supersedes
+the obsolete 41 %); ADOPTION PENDING the client. Other lever: grits
+sales toward the 69.3 kt base capacity. OTHER OPEN: extension provision
 (civil reserve for 2nd RC.2 + BC.22 retrofit deferred); final machine
 codification (SN.2x/CR.2x proposal to NACO); installed screen areas &
 motor sizes (recommend sizing for the extension per D1); linking

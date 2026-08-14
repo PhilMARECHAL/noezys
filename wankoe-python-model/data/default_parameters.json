@@ -142,8 +142,9 @@
           "unit": "m/s",
           "min": 30,
           "max": 60,
-          "default": 35,
-          "step": 1
+          "default": 30,
+          "step": 1,
+          "status": "Client arbitration 2026-08-14: v = 30 m/s adopted (was 35, reference configuration 2026-08-13). The impactor's minimum speed \u2014 last remaining zone-1 settings headroom against the 0/20 landfill: -9 800 t/y (58.4 -> 48.6 kt), KFS envelope verified compliant (in-cut 85.4 %)."
         },
         "x80": {
           "name": "CSS (x80)",
