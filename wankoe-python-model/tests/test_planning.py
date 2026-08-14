@@ -16,13 +16,13 @@ def test_production_lands_exactly_on_targets(plan):
     # 60 kt market is redirected into the AgLime channel; the loop only
     # produces the complement, so TOTAL AgLime sales land exactly on the
     # 135 kt market cap and nothing is unsellable.
-    # Reference configuration 2026-08-13 (0/20-closure campaign): optimal
-    # zone-1 settings + grits planning target 44 400 t/y at the dryer limit
-    assert plan["production_t"]["AgLime"] == pytest.approx(75241, rel=0.02)
+    # Reference configuration 2026-08-13 evening: optimal zone-1 settings,
+    # grits back at the FIRM 40 000 t/y (client), crude 0/20 balancing
+    assert plan["production_t"]["AgLime"] == pytest.approx(87109, rel=0.02)
     assert plan["sales_t"]["AgLime total sold (loop + redirect)"] == pytest.approx(135000, abs=1)
     assert plan["sales_t"]["FeedLime fines sold as fines"] == pytest.approx(60000, abs=1)
     assert not any("unsellable" in a for a in plan["alerts"])
-    assert plan["production_t"]["FeedLime grits"] == pytest.approx(44400, abs=1)
+    assert plan["production_t"]["FeedLime grits"] == pytest.approx(40000, abs=1)
 
 
 def test_zone_feasibility_at_defaults(plan):

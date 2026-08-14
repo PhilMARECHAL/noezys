@@ -775,9 +775,9 @@
     },
     "FeedLime grits 2-4": {
       "product": "FeedLime grits",
-      "target_t_per_year": 44400,
+      "target_t_per_year": 40000,
       "nature": "FIRM",
-      "_note": "Client 2026-08-13: planning target raised to 44 400 t/y (0/20-closure optimization, keeps 5 % zone-1.3 margin at the dryer limit). The contractual FIRM floor remains 40 000 t/y; 80 kt is a documented extension case"
+      "_note": "Client 2026-08-13 (evening): back to the FIRM 40 000 t/y — the 44 400 optimization variant remains available as a scenario, not the default"
     },
     "AgLime 0/1.7": {
       "product": "AgLime",

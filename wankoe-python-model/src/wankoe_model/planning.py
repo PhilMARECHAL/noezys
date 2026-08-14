@@ -199,7 +199,9 @@ def run_required_hours(params: dict) -> dict:
     # ---- zero-waste sales accounting (client rule 2026-08-13)
     fines_sold_t = min(fines_production_t, fines_cap)
     aglime_sold_t = min(aglime_cap, aglime_t + fines_redirect_t)
+    ultrafin_production_t = h13_eff * ultrafin_tph
     sales_t = {
+        "UltraFin sold (market to develop)": round(ultrafin_production_t, 0),
         "FeedLime fines sold as fines": round(fines_sold_t, 0),
         "Fines surplus redirected to AgLime": round(fines_redirect_t, 0),
         "AgLime from loop": round(aglime_t, 0),
