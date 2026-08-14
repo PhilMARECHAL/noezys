@@ -364,19 +364,9 @@ def zone_1_2(reclaim: dict, params: dict, mode: str, weather: str, alerts: list)
 
 
 # ===================================================================== 1.3
-def zone_1_3(feedlime: dict, params: dict, phi_100_pct, alerts: list) -> dict:
-    """Zone 1.3 — drying / grits / UltraFin.
-
-    FeedLime -> DY.03 (dryer, -> m_out) -> SN.21 (4/2/1.5): 2-4 = grits;
-    +4 oversize and 1.5-2 sliver -> ML.26 -> back to SN.21 (closed circuit);
-    0-1.5 undersize = fines -> SP.36 (+ CL.38) -> UltraFin; remainder =
-    FeedLime fines.
-    """
-    mp = params["machines"]
-    calib = params["calibration"]
-    engine = params["engine"]
-
-    # DY.03 — dryer: M6 balance on the WET flow rate
+def _dy03_dryer(feedlime: dict, mp: dict, calib: dict, alerts: list):
+    """DY.03 — dryer: M6 balance on the WET flow rate. Shared by every
+    zone-1.3 variant (D2: the dryer is acquired, identical in all designs)."""
     m_out = mp["DY.03"]["parameters"]["m_out"]["default"]
     wet_feed = feedlime["q"] / (1.0 - feedlime["moisture"] / 100.0)
     cap_dryer = mp["DY.03"].get("max_capacity_tph")
@@ -391,6 +381,57 @@ def zone_1_3(feedlime: dict, params: dict, phi_100_pct, alerts: list) -> dict:
             f"m_out ({m_out}%) — no drying, outlet keeps the feed moisture"
         )
     dried = _stream(m6["dry_solids_tph"], feedlime["psd"], m6["m_out_effective_pct"])
+    return m6, dried
+
+
+def _sp36_ultrafin(fines, mp: dict, calib: dict, phi_100_pct, alerts: list):
+    """SP.36 + CL.38 — UltraFin by air classification on the 0-1.5 fines.
+    Shared by every zone-1.3 variant. Returns (m8, ultrafin, remaining_fines,
+    d50_cyclone_um)."""
+    sp36_enabled = mp["SP.36"].get("enabled", True)
+    if not sp36_enabled:
+        alerts.append("SP.36/CL.38 block disabled by parameter — no UltraFin extraction, fines kept whole")
+    p36 = mp["SP.36"]["parameters"]
+    # the SP.36 / CL.38 machine sheets take precedence for their own settings
+    calib_cl = {
+        **calib,
+        "eta_cl": p36["eta_cl"]["default"],
+        "v_in_cyclone": mp["CL.38"]["parameters"]["v_in"]["default"],
+    }
+    if fines and sp36_enabled:
+        m8 = models.m8_air_classification(
+            fines["q"], fines["psd"], p36["coupe"]["default"], phi_100_pct, calib_cl
+        )
+        if not m8["certified"]:
+            alerts.append(
+                "SP.36: Phi(<cut) not measured — UltraFin computed from the modelled "
+                "curve, flagged NOT CERTIFIED (to be measured by sieve/laser)"
+            )
+        if m8["warning"]:
+            alerts.append(f"SP.36: {m8['warning']}")
+        ultrafin = _stream(m8["fine_product_tph"], m8["fine_product_psd"], fines["moisture"])
+        remaining_fines = _stream(m8["remainder_tph"], m8["remainder_psd"], fines["moisture"])
+    else:
+        m8 = None
+        ultrafin = None
+        # block disabled (or no fines): the 0-1.5 stream stays whole
+        remaining_fines = fines
+    return m8, ultrafin, remaining_fines, models.m8_cyclone_d50(calib_cl)
+
+
+def zone_1_3(feedlime: dict, params: dict, phi_100_pct, alerts: list) -> dict:
+    """Zone 1.3 AS-BUILT — drying / grits / UltraFin.
+
+    FeedLime -> DY.03 (dryer, -> m_out) -> SN.21 (4/2/1.5): 2-4 = grits;
+    +4 oversize and 1.5-2 sliver -> ML.26 -> back to SN.21 (closed circuit);
+    0-1.5 undersize = fines -> SP.36 (+ CL.38) -> UltraFin; remainder =
+    FeedLime fines.
+    """
+    mp = params["machines"]
+    calib = params["calibration"]
+    engine = params["engine"]
+
+    m6, dried = _dy03_dryer(feedlime, mp, calib, alerts)
 
     p21 = mp["SN.21"]["parameters"]
     a1, a2, a3 = (p21[k]["default"] for k in ("a1", "a2", "a3"))
@@ -442,36 +483,9 @@ def zone_1_3(feedlime: dict, params: dict, phi_100_pct, alerts: list) -> dict:
 
     # SP.36 + CL.38 — UltraFin by air classification
     fines = outputs["fines"]
-    sp36_enabled = mp["SP.36"].get("enabled", True)
-    if not sp36_enabled:
-        alerts.append("SP.36/CL.38 block disabled by parameter — no UltraFin extraction, fines kept whole")
-    p36 = mp["SP.36"]["parameters"]
-    # the SP.36 / CL.38 machine sheets take precedence for their own settings
-    calib_cl = {
-        **calib,
-        "eta_cl": p36["eta_cl"]["default"],
-        "v_in_cyclone": mp["CL.38"]["parameters"]["v_in"]["default"],
-    }
-    if fines and sp36_enabled:
-        m8 = models.m8_air_classification(
-            fines["q"], fines["psd"], p36["coupe"]["default"], phi_100_pct, calib_cl
-        )
-        if not m8["certified"]:
-            alerts.append(
-                "SP.36: Phi(<cut) not measured — UltraFin computed from the modelled "
-                "curve, flagged NOT CERTIFIED (to be measured by sieve/laser)"
-            )
-        if m8["warning"]:
-            alerts.append(f"SP.36: {m8['warning']}")
-        ultrafin = _stream(m8["fine_product_tph"], m8["fine_product_psd"], fines["moisture"])
-        remaining_fines = _stream(m8["remainder_tph"], m8["remainder_psd"], fines["moisture"])
-    else:
-        m8 = None
-        ultrafin = None
-        # block disabled (or no fines): the 0-1.5 stream stays whole
-        remaining_fines = fines
-
-    d50_cyclone = models.m8_cyclone_d50(calib_cl)
+    m8, ultrafin, remaining_fines, d50_cyclone = _sp36_ultrafin(
+        fines, mp, calib, phi_100_pct, alerts
+    )
 
     sn21_areas = {
         "deck_1": models.m4_screen_area(outputs["u1"], a1, calib),
@@ -493,6 +507,139 @@ def zone_1_3(feedlime: dict, params: dict, phi_100_pct, alerts: list) -> dict:
                 "areas_m2": sn21_areas,
             },
             "ML.26": ml26_info,
+            "SP.36": {
+                "Q_air_m3h": m8["Q_air_m3h"] if m8 else None,
+                "Phi_cut": m8["Phi_cut"] if m8 else None,
+                "certified": m8["certified"] if m8 else None,
+            },
+            "CL.38": {"d50_um": d50_cyclone},
+        },
+        "recirculation_tph": recycle["q"] if recycle else 0.0,
+        "vapor_tph": m6["evaporated_water_tph"],
+    }
+
+
+# ================================================================ 1.3 / C1
+def zone_1_3_c1(feedlime: dict, params: dict, phi_100_pct, alerts: list) -> dict:
+    """Zone 1.3 — C1 STUDY VARIANT (zone-1.3 redesign, panel round 1,
+    client-validated lead candidate 2026-08-14; as-built stays the default).
+
+    FeedLime -> DY.03 (unchanged, D2) -> SC.A triple deck 8/3.75/2:
+    +8 -> RC.1 (smooth rolls stage 1); 3.75-8 -> RC.2 (smooth rolls
+    stage 2, 2 parallel units); both roll products return to SC.A (closed
+    circuit); 2-3.75 = grits leave IMMEDIATELY (no regrind of in-spec
+    material); 0-2 -> SC.B at 1.5 mm: 1.5-2 = sliver (NOT reground —
+    disposition pending client arbitration), 0-1.5 = fines -> SP.36
+    (+ CL.38) -> UltraFin; remainder = FeedLime fines.
+    """
+    mp = params["machines"]
+    calib = params["calibration"]
+    engine = params["engine"]
+
+    m6, dried = _dy03_dryer(feedlime, mp, calib, alerts)
+
+    pa = mp["SC.A"]["parameters"]
+    a1, a2, a3 = (pa[k]["default"] for k in ("a1", "a2", "a3"))
+    a_sliver = mp["SC.B"]["parameters"]["a"]["default"]
+
+    def _roll_calib(code):
+        p = mp[code]["parameters"]
+        return p["g"]["default"], {
+            **calib,
+            "comp_lam": p["comp_lam"]["default"],
+            "S_att": p["S_att"]["default"],
+            "m7_n_comp": p["n_comp"]["default"],
+        }
+
+    g1, calib_rc1 = _roll_calib("RC.1")
+    g2, calib_rc2 = _roll_calib("RC.2")
+    rc1_info, rc2_info = {}, {}
+
+    def _roll_pass(stream, gap, calib_rc, info):
+        out_psd = models.m7_bed_mill_pass(stream["psd"], gap, calib_rc)
+        bond = models.m2_bond_power(stream["q"], stream["psd"].p80(), out_psd.p80(), calib)
+        info.update({**bond, "throughput_tph": stream["q"]})
+        return _stream(stream["q"], out_psd, stream["moisture"])
+
+    def iterate(recycle):
+        screen_feed = _blend([dried, recycle]) if recycle else dried
+        over8, under8 = _karra_screen(screen_feed, a1, calib["I_dry"], calib)
+        mid, under375 = _karra_screen(under8, a2, calib["I_dry"], calib) if under8 else (None, None)
+        grits, under2 = _karra_screen(under375, a3, calib["I_dry"], calib) if under375 else (None, None)
+        sliver, fines = _karra_screen(under2, a_sliver, calib["I_dry"], calib) if under2 else (None, None)
+        crushed = [s for s in (
+            _roll_pass(over8, g1, calib_rc1, rc1_info) if over8 else None,
+            _roll_pass(mid, g2, calib_rc2, rc2_info) if mid else None,
+        ) if s]
+        new = _blend(crushed) if crushed else None
+        return new, {
+            "grits": grits,
+            "sliver": sliver,
+            "fines": fines,
+            "sca_feed": screen_feed,
+            "u1": under8["q"] if under8 else 0.0,
+            "u2": under375["q"] if under375 else 0.0,
+            "u3": under2["q"] if under2 else 0.0,
+        }
+
+    recycle, outputs = _fixed_point_loop(iterate, engine, alerts, "Zone 1.3 C1 / RC.1+RC.2")
+
+    # capacity checks: RC.1 single unit; RC.2 capacity is PER UNIT with
+    # n_units in parallel (phase 1 runs 1 of 2 — turndown, per D1)
+    cap_rc1 = mp["RC.1"].get("max_capacity_tph")
+    if cap_rc1 is not None and rc1_info.get("throughput_tph", 0.0) > cap_rc1 * mp["RC.1"].get("n_units", 1):
+        alerts.append(
+            f"RC.1: bottleneck — load {rc1_info['throughput_tph']:.1f} t/h > "
+            f"capacity {cap_rc1} t/h"
+        )
+    cap_rc2 = mp["RC.2"].get("max_capacity_tph")
+    n_rc2 = mp["RC.2"].get("n_units", 1)
+    load_rc2 = rc2_info.get("throughput_tph", 0.0)
+    if cap_rc2 is not None:
+        units_needed = max(1, -(-load_rc2 // cap_rc2)) if load_rc2 > 0 else 0
+        rc2_info["units_in_service"] = int(min(units_needed, n_rc2))
+        if load_rc2 > cap_rc2 * n_rc2:
+            alerts.append(
+                f"RC.2: bottleneck — load {load_rc2:.1f} t/h > "
+                f"{n_rc2} x {cap_rc2} t/h installed"
+            )
+
+    # SP.36 + CL.38 — identical UltraFin block (D2 scope)
+    fines = outputs["fines"]
+    m8, ultrafin, remaining_fines, d50_cyclone = _sp36_ultrafin(
+        fines, mp, calib, phi_100_pct, alerts
+    )
+
+    sca_areas = {
+        "deck_1": models.m4_screen_area(outputs["u1"], a1, calib),
+        "deck_2": models.m4_screen_area(outputs["u2"], a2, calib),
+        "deck_3": models.m4_screen_area(outputs["u3"], a3, calib),
+    }
+    _check_installed_area("SC.A", sca_areas, mp["SC.A"].get("installed_area_m2"), alerts)
+    scb_areas = {
+        "deck_1": models.m4_screen_area(outputs["fines"]["q"] if outputs["fines"] else 0.0, a_sliver, calib),
+    }
+    _check_installed_area("SC.B", scb_areas, mp["SC.B"].get("installed_area_m2"), alerts)
+
+    return {
+        "products": {
+            "FeedLime grits": outputs["grits"],
+            "FeedLime fines": remaining_fines,
+            "UltraFin": ultrafin,
+            "Sliver 1.5/2": outputs["sliver"],
+        },
+        "machines": {
+            "DY.03": m6,
+            "SC.A": {
+                "feed_tph": outputs["sca_feed"]["q"],
+                "areas_m2": sca_areas,
+            },
+            "SC.B": {
+                "feed_tph": outputs["u3"],
+                "areas_m2": scb_areas,
+            },
+            "RC.1": rc1_info,
+            "RC.2": rc2_info,
             "SP.36": {
                 "Q_air_m3h": m8["Q_air_m3h"] if m8 else None,
                 "Phi_cut": m8["Phi_cut"] if m8 else None,

@@ -94,6 +94,17 @@ commercial_rules.excess_020_to_landfill, alerted, minimized — 18.5 kt/y
 at grits 40 kt; 12.2 at 44.4 kt; 8.9 at dryer-flat-out 46.7 kt). Zones 74.1 / 43.0 / 95.0 %. Mode 1B unusable at 250 t/h with
 CSS 30 (no longer needed). Ch.9 tests pin all spec-era settings.
 
+## Zone-1.3 redesign (2026-08-14, IN PROGRESS)
+
+Design basis D1-D8 frozen (docs/design/zone13-redesign/design-basis.md).
+C1 = client-validated lead candidate, wired as STUDY variant
+zone_1_3_variant "c1" (as-built stays the DEFAULT until adoption):
+RC.1/RC.2 smooth rolls + SC.A 8/3.75/2 + SC.B 1.5. Engine: ratio 1.05
+(vs 2.83 as-built), grits 14.58 t/h, 80 kt grits feasible (5 489 h).
+OPEN: RC.1 spec 29 -> ~32 t/h (quarry-feed alert), sliver 1.5/2
+disposition (4 t/h), C2 escalation / C4 comparator held in reserve,
+vendor gradation test fixes n_comp & S_att [H].
+
 ## Engineering state (see docs/ for detail)
 
 - docs/spec-conformity-matrix.md: requirement-by-requirement traceability

@@ -73,8 +73,11 @@ def test_products_always_carry_the_same_keys():
         {"default_scenario": {"weather": "rain"}},
     ):
         results = run_scenario(load_parameters(overrides=overrides))
+        # "Sliver 1.5/2" added 2026-08-14 (zone-1.3 C1 study variant):
+        # stable shape — always present as a key, present=False in as-built
         assert set(results["products"]) == {
-            "KFS", "AgLime", "FeedLime grits", "FeedLime fines", "UltraFin"
+            "KFS", "AgLime", "FeedLime grits", "FeedLime fines", "UltraFin",
+            "Sliver 1.5/2",
         }
         for product in results["products"].values():
             assert set(product) == keys

@@ -212,7 +212,13 @@ def run_scenario(params: dict) -> dict:
             "psd": stream_fl["psd"],
             "moisture": moisture,
         }
-        z13 = flowsheet.zone_1_3(feedlime, params, calib["Phi_100"], alerts)
+        # variant dispatch (zone-1.3 redesign study, 2026-08-14):
+        # "as-built" (default) = SN.21 + ML.26; "c1" = RC.1/RC.2 + SC.A/SC.B
+        variant = sc.get("zone_1_3_variant", "as-built")
+        if variant == "c1":
+            z13 = flowsheet.zone_1_3_c1(feedlime, params, calib["Phi_100"], alerts)
+        else:
+            z13 = flowsheet.zone_1_3(feedlime, params, calib["Phi_100"], alerts)
     else:
         z13 = None
         if q_feedlime > 0:
@@ -297,6 +303,8 @@ def run_scenario(params: dict) -> dict:
     _product("FeedLime grits", z13["products"]["FeedLime grits"] if z13 else None)
     _product("FeedLime fines", z13["products"]["FeedLime fines"] if z13 else None)
     _product("UltraFin", z13["products"]["UltraFin"] if z13 else None)
+    # Sliver 1.5/2 exists only in the C1 study variant (disposition pending)
+    _product("Sliver 1.5/2", z13["products"].get("Sliver 1.5/2") if z13 else None)
 
     machines = {**z11["machines"], **z12["machines"], **(z13["machines"] if z13 else {})}
     # stable shape: an inactive machine is {"active": False}, never {}
