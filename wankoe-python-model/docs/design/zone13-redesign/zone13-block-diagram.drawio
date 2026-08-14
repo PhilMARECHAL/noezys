@@ -67,8 +67,8 @@
         <mxCell id="e4" value="29.85 t/h dry" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontColor=#1f2a44;fontSize=10;" edge="1" parent="1" source="dy03" target="em09"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontSize=10;" edge="1" parent="1" source="em09" target="sn21"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="e6" value="+4 mm + sliver 1.5/2&#10;39.1 t/h combined" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontColor=#1f2a44;fontSize=10;exitX=0.75;exitY=0;entryX=0.75;entryY=1;" edge="1" parent="1" source="sn21" target="ml26"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e7" value="recycle 39.1 t/h" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#c62828;fontColor=#c62828;dashed=1;fontSize=10;exitX=0.15;exitY=1;entryX=0.15;entryY=0;" edge="1" parent="1" source="ml26" target="sn21"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e8" value="grits 2/4 — 7.79 t/h (26.1 %)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2e7d32;fontColor=#1b5e20;fontSize=10;exitX=1;exitY=0.3;entryX=0;entryY=0.5;" edge="1" parent="1" source="sn21" target="bc22"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e7" value="recycle" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#c62828;fontColor=#c62828;dashed=1;fontSize=10;exitX=0.15;exitY=1;entryX=0.15;entryY=0;" edge="1" parent="1" source="ml26" target="sn21"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e8" value="grits 2/4 — 7.79 t/h" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2e7d32;fontColor=#1b5e20;fontSize=10;exitX=1;exitY=0.3;entryX=0.5;entryY=1;" edge="1" parent="1" source="sn21" target="bc22"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2e7d32;fontSize=10;" edge="1" parent="1" source="bc22" target="bi80"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="e10" value="0/1.5 fines — 22.07 t/h" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontColor=#1f2a44;fontSize=10;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="sn21" target="sp36"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="e11" value="UltraFin 1.07 t/h" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontColor=#1f2a44;fontSize=10;" edge="1" parent="1" source="sp36" target="cl38"><mxGeometry relative="1" as="geometry" /></mxCell>
@@ -125,7 +125,7 @@
         <mxCell id="c-em09" value="EM.09&#10;metal detector" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1f2a44;fontSize=10;fontColor=#1f2a44;" vertex="1" parent="1">
           <mxGeometry x="690" y="255" width="100" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="sca" value="SC.A * — double-deck RECYCLE screen&#10;decks 8 / 3.75 mm&#10;feed 92.2 (G) / 90.1 (F) t/h&#10;required areas 4.5 / 4.6 m2 (size for mode F: 4.8 / 5.6)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1565c0;fontSize=10;fontColor=#0d47a1;fontStyle=1" vertex="1" parent="1">
+        <mxCell id="sca" value="SC.A * — double-deck RECYCLE screen&#10;decks 8 / 3.75 mm&#10;feed 92.3 (G) / 90.1 (F) t/h&#10;required areas 4.5 / 4.6 m2 (size for mode F: 4.8 / 5.6)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1565c0;fontSize=10;fontColor=#0d47a1;fontStyle=1" vertex="1" parent="1">
           <mxGeometry x="830" y="240" width="190" height="120" as="geometry" />
         </mxCell>
         <mxCell id="scb" value="SC.B * — double-deck PRODUCT screen&#10;decks 2 / 1.5 mm&#10;feed 40.8 (G) / 50.0 (F) t/h&#10;required areas up to 5.2 / 4.5 m2 (mode F)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1565c0;fontSize=10;fontColor=#0d47a1;fontStyle=1" vertex="1" parent="1">
@@ -149,7 +149,7 @@
         <mxCell id="c-bi50" value="BI.50&#10;UltraFin silo&#10;250 t" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#e8f5e9;strokeColor=#2e7d32;fontSize=10;fontColor=#1b5e20;" vertex="1" parent="1">
           <mxGeometry x="1240" y="610" width="90" height="85" as="geometry" />
         </mxCell>
-        <mxCell id="c-be40" value="BE.40 — fines conveyor (rated 20 t/h)&#10;load 13.6 (G) / 23.2 (F — retrofit or derate) t/h" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3e0;strokeColor=#ef6c00;fontSize=10;fontColor=#e65100;" vertex="1" parent="1">
+        <mxCell id="c-be40" value="BE.40 — fines conveyor (rated 20 t/h)&#10;load 13.5 (G) / 23.1 (F — retrofit or derate) t/h" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3e0;strokeColor=#ef6c00;fontSize=10;fontColor=#e65100;" vertex="1" parent="1">
           <mxGeometry x="840" y="750" width="260" height="50" as="geometry" />
         </mxCell>
         <mxCell id="c-bi6070" value="BI.60 / BI.70&#10;fines silos&#10;2 x 250 t" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#e8f5e9;strokeColor=#2e7d32;fontSize=10;fontColor=#1b5e20;" vertex="1" parent="1">
@@ -163,16 +163,16 @@
         <mxCell id="ce5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontSize=10;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="c-em09" target="sca"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="ce6" value="+8 mm" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontColor=#1f2a44;fontSize=10;exitX=0.2;exitY=0;entryX=0.5;entryY=1;" edge="1" parent="1" source="sca" target="rc1"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="ce7" value="3.75/8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontColor=#1f2a44;fontSize=10;exitX=0.65;exitY=0;entryX=0.35;entryY=1;" edge="1" parent="1" source="sca" target="rc2"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="ce8" value="recycle" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#c62828;fontColor=#c62828;dashed=1;fontSize=10;exitX=0;exitY=0.5;entryX=0;entryY=0.3;" edge="1" parent="1" source="rc1" target="sca"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="ce9" value="recycle (combined&#10;62.4 G / 66.8 F t/h)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#c62828;fontColor=#c62828;dashed=1;fontSize=10;exitX=0.75;exitY=1;entryX=0.85;entryY=0;" edge="1" parent="1" source="rc2" target="sca"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#c62828;fontColor=#c62828;dashed=1;fontSize=10;exitX=0.3;exitY=1;entryX=0.25;entryY=0;" edge="1" parent="1" source="rc1" target="sca"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce9" value="recycle 62.4 / 66.8 t/h" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#c62828;fontColor=#c62828;dashed=1;fontSize=10;exitX=0.9;exitY=1;entryX=0.92;entryY=0;" edge="1" parent="1" source="rc2" target="sca"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="ce12" value="0/3.75 — 40.8 / 50.0 t/h&#10;(linking conveyor)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontColor=#1f2a44;fontSize=10;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="sca" target="scb"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="ce-grits" value="grits 2/3.75" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontColor=#1f2a44;fontSize=10;exitX=1;exitY=0.35;entryX=0;entryY=0.5;" edge="1" parent="1" source="scb" target="dvgf"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="ce-modeG" value="MODE G: product&#10;16.22 t/h" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2e7d32;fontColor=#1b5e20;fontSize=10;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="dvgf" target="c-bc22"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="ce-modeF" value="MODE F: regrind&#10;(fines campaign)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#c62828;fontColor=#c62828;dashed=1;fontSize=10;exitX=0.5;exitY=0;entryX=1;entryY=0.6;" edge="1" parent="1" source="dvgf" target="rc2">
+        <mxCell id="ce-modeG" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2e7d32;fontColor=#1b5e20;fontSize=10;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="dvgf" target="c-bc22"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce-modeF" value="MODE F: regrind&#10;(fines campaign)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#c62828;fontColor=#c62828;dashed=1;fontSize=10;exitX=0.5;exitY=0;entryX=1;entryY=0.4;" edge="1" parent="1" source="dvgf" target="rc2">
           <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1170" y="180" /></Array></mxGeometry>
         </mxCell>
-        <mxCell id="ce-sliver" value="sliver 1.5/2 — regrind (both modes)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#c62828;fontColor=#c62828;dashed=1;fontSize=10;exitX=1;exitY=0.75;entryX=1;entryY=0.85;" edge="1" parent="1" source="scb" target="rc2">
-          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1060" y="595" /><mxPoint x="1275" y="595" /><mxPoint x="1275" y="115" /></Array></mxGeometry>
+        <mxCell id="ce-sliver" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#c62828;fontColor=#c62828;dashed=1;fontSize=10;exitX=1;exitY=0.75;entryX=1;entryY=0.85;" edge="1" parent="1" source="scb" target="rc2">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1060" y="595" /><mxPoint x="1275" y="595" /><mxPoint x="1275" y="140" /></Array></mxGeometry>
         </mxCell>
         <mxCell id="ce-fines" value="0/1.5 fines — 13.6 / 23.2 t/h" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontColor=#1f2a44;fontSize=10;exitX=0.3;exitY=1;entryX=0.4;entryY=0;" edge="1" parent="1" source="scb" target="c-sp36"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="ce-uf" value="UltraFin 0.07 / 0.10 t/h" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1f2a44;fontColor=#1f2a44;fontSize=10;" edge="1" parent="1" source="c-sp36" target="c-cl38"><mxGeometry relative="1" as="geometry" /></mxCell>
@@ -181,6 +181,12 @@
         <mxCell id="ce-bi6070" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2e7d32;fontSize=10;" edge="1" parent="1" source="c-be40" target="c-bi6070"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="ce-bi80" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2e7d32;fontSize=10;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="c-bc22" target="c-bi80"><mxGeometry relative="1" as="geometry" /></mxCell>
 
+        <mxCell id="lbl-sliver" value="sliver 1.5/2 — regrind (both modes)" style="text;html=1;fontSize=10;fontColor=#c62828;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1285" y="330" width="190" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl-modeG" value="MODE G: grits product — 16.22 t/h" style="text;html=1;fontSize=10;fontColor=#1b5e20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="408" width="230" height="25" as="geometry" />
+        </mxCell>
         <mxCell id="c-note-modes" value="TWO OPERATING MODES (client 2026-08-14):&#10;MODE G — grits production: diverter to product; RC.2 gap 3.4 mm; dryer at its full 32.1 t/h limit; grits 16.22 + fines 13.57 t/h.&#10;MODE F — fines campaign: 2/3.75 diverted to RC.2 regrind; gap 1.5 mm; feed 25.05 t/h; fines 23.2 t/h, no grits; fines 98.9 % below 1.7 mm.&#10;ANNUAL SPLIT (two-mode planning): 2 466 h G + 1 144 h F = 60.2 % — grits 40 000 + fines 60 000 t/y EXACTLY." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1565c0;fontSize=10;fontColor=#0d47a1;align=left;spacing=6;" vertex="1" parent="1">
           <mxGeometry x="20" y="380" width="360" height="180" as="geometry" />
         </mxCell>
