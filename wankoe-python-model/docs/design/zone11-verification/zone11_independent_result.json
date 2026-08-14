@@ -1,0 +1,86 @@
+{
+  "kfs_yield_pct": 24.59,
+  "kfs_tph_wet": 61.478,
+  "kfs_psd": {
+    "in_cut_20_35": 85.39,
+    "below_20": 6.62,
+    "above_35": 7.99
+  },
+  "stream_0_20_dry_tph": 175.325,
+  "recirculation_tph": 69.261,
+  "CR5009": {
+    "W_kWh_t": 0.3117,
+    "P_net_kW": 72.47,
+    "P_installed_kW": 96.62,
+    "F80_mm": 180.57,
+    "P80_mm": 42.71,
+    "throughput_tph": 232.5,
+    "x80_mm": 60
+  },
+  "CR5011": {
+    "Ecs_kWh_t": 0.125,
+    "t10_pct": 5.71,
+    "n": 1.6449,
+    "W_kWh_t": 0.2334,
+    "P_net_kW": 16.16,
+    "F80_mm": 63.02,
+    "P80_mm": 29.28,
+    "throughput_tph": 69.261
+  },
+  "SR5007": {
+    "feed_tph": 301.761,
+    "areas": {
+      "top_deck": 6.803,
+      "bottom_deck": 7.177
+    }
+  },
+  "kfs_passing_curve_pct": {
+    "0.063": 0.0,
+    "0.1": 0.0,
+    "0.125": 0.0,
+    "0.25": 0.0,
+    "0.5": 0.0,
+    "1.0": 0.0,
+    "1.5": 0.0,
+    "1.7": 0.0,
+    "2.0": 0.0,
+    "2.8": 0.0,
+    "4.0": 0.0,
+    "5.0": 0.0,
+    "6.3": 0.0,
+    "8.0": 0.0,
+    "10.0": 0.001,
+    "12.5": 0.014,
+    "15.0": 0.198,
+    "20.0": 6.617,
+    "25.0": 38.7,
+    "31.5": 79.589,
+    "35.0": 92.01,
+    "40.0": 98.468,
+    "50.0": 99.945,
+    "63.0": 99.999,
+    "80.0": 100.0,
+    "100.0": 100.0,
+    "125.0": 100.0,
+    "160.0": 100.0,
+    "200.0": 100.0
+  },
+  "assumptions": [
+    "M1 bypass convention taken in cumulative form: P_prod(x) = min(F(x), F(x80)) + (1-F(x80)) * P_trunc(x), where F is the feed cumulative-passing fraction; F(x80) obtained by linear interpolation in ln(size). Validated against the calc document's CR.5009 numeric table (old settings g=40: reproduces 68.8 % @ 20 mm, 91.9 % @ 40 mm exactly).",
+    "M1 truncation implemented as renormalization: P_trunc(x) = P_RR(x)/P_RR(trunc_factor*x80) for x below the truncation size, 1 above (mass rescaled over kept classes, per the calc document).",
+    "x80 values (60 and 30 mm) fall between mesh points; all cumulative-curve evaluations at off-mesh sizes use linear interpolation in ln(size), consistent with the log-size grid interpolation the engine documents for the feed curve.",
+    "F80/P80 of any stream extracted from its cumulative curve on the mesh grid by linear interpolation in ln(size) (validated: reproduces the document's feed F80 = 180.6 mm and old-settings CR.5009 P80 = 27.96 mm).",
+    "Screen partition applied class-by-class on the mesh intervals at a representative size = geometric mean sqrt(lo*hi) of the interval bounds; the bottom interval [0, 0.063] uses rep = 0.063/sqrt(bottom_interval_ratio) per calibration.bottom_interval_ratio = 2.",
+    "Double-deck screen modelled sequentially: top-deck (35 mm) partition on the full screen feed; its undersize is the bottom-deck (20 mm) feed; mid cut = bottom-deck oversize.",
+    "Closed loop initialized with zero recycle; fixed point iterated until BOTH the relative change of the recycle dry flow AND the max absolute change of its cumulative-passing fractions are < engine.loop_relative_tolerance (1e-6), capped at engine.loop_max_iterations (200). Exact convergence metric wording was my choice; at 1e-6 the fixed point is metric-insensitive.",
+    "CR.5009 x80 = g (gap) because its x80 parameter is null in the JSON ('x80 = g validated 2026-08-08').",
+    "Bond W uses the F80 of each machine's own feed (fresh feed for CR.5009; converged +35 oversize for CR.5011) and the P80 of its computed product curve, in micrometres (mm*1000).",
+    "Installed power = P_net / eta_m with eta_m = 0.75 (the document's only net->installed factor); no extra design margin applied.",
+    "VSMA deck loads: U(top deck) = screen feed minus +35 oversize (flow THROUGH the top deck), U(bottom deck) = 0/20 undersize; dry weather, so no wet_capacity_factor derating.",
+    "KFS envelope figures read directly at the exact 20 and 35 mm mesh points of the KFS cumulative curve (in-cut = P(35)-P(20)).",
+    "Moisture is conserved through zone 1.1 (no drying): wet flow = dry flow / (1 - 0.07) for every stream; KFS sold wet; yield = wet KFS / 250 wet feed.",
+    "CR.5011 t10->n floor (m5_n_min = 0.65) checked but not binding at v = 30 m/s.",
+    "engine.max_circulating_ratio = 10 treated as a divergence guard only; the loop converges far below it so no action needed.",
+    "kfs_passing_curve_pct reported on the base mesh_series_mm (29 meshes), without the 250/320 extension meshes used internally."
+  ]
+}
