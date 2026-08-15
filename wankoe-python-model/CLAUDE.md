@@ -215,7 +215,10 @@ the CR.5113 2C motor branch (348 kW absorbed -> 450 kW rec. [H] or
 capped rate), the SR.5111 loop resize (167 % wet), SR.5115 19.1 m2, SC.B
 certified-aperture panels (RPN 252), and the RC.1/RC.2 vendor
 gradation test as a REQUIREMENT. Margins stated: screen areas worst
-mode +25 % [H]; motors worst absorbed x1.15 [H] to IEC.
+mode +25 % [H]; motors worst absorbed x1.15 [H] to IEC. EXCEPTION
+SR.5007 (client PD-2 decision 2026-08-15): purchase minima = RAIN duty
+9.1/9.6 m2 (data machines.SR.5007.purchase_min_area_m2, rain photos in
+the evidence; +25 % survives as dry-weather headroom only).
 
 ## Soft-rock sensitivity study (client 3 choices 2026-08-15)
 

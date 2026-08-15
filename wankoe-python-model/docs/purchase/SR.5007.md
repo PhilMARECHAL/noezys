@@ -37,14 +37,16 @@ Aperture changes are made by PANEL EXCHANGE — see the FMECA requirements below
 
 ## 4. Capacity and sizing requirements (screen areas)
 
-Sized on the WORST mode (1A) plus a **+25 % purchase margin [H]** (design allowance pending the vendor's own bed-depth / V-factor verification at the stated duty):
+**CLIENT DECISION 2026-08-15 (error-hunt PD-2, option 1): the purchase minima are the RAIN duty — the true worst circumstance.** Rain is a normal operating condition for this screen (25 % of the season, and the line runs through rain weeks by client ruling); wet screening at 20/35 mm stays feasible but derated by the wet capacity factor 0.75, which consumes the entire former +25 % dry-basis margin. A screen bought on the previous dry-basis minima (8.5/8.9 m2) would be undersized in rain — corrected here.
 
-| Deck | Worst-mode required area (engine) | **Purchase area (x1.25)** |
-|---|---|---|
-| Top deck (35 mm) | 6.80 m2 (1A) | **>= 8.5 m2** |
-| Bottom deck (20 mm) | 7.15 m2 (1A) | **>= 8.9 m2** |
+| Deck | Dry duty (1A) | **RAIN duty (1A-rain) — sizing case** | **Purchase minimum (client-decided)** |
+|---|---|---|---|
+| Top deck (35 mm) | 6.80 m2 | 9.07 m2 | **>= 9.1 m2** |
+| Bottom deck (20 mm) | 7.15 m2 | 9.53 m2 | **>= 9.6 m2** |
 
-Feed basis for the vendor's sizing check: 324.5 t/h wet (301.8 t/h dry) at 7 % moisture, feed PSD = CR.5009 product curve (engine reference P80 42.7 mm).
+No further margin is stacked on the rain case; the +25 % [H] allowance survives as natural DRY-weather headroom (~33 % over the dry duty). Vendor to verify by its own bed-depth / V-factor method at BOTH duty points.
+
+Feed basis for the vendor's sizing check: 324.5 t/h wet (301.8 t/h dry) at 7 % moisture, feed PSD = CR.5009 product curve (engine reference P80 42.7 mm); rain case = same feed with the vendor's wet-screening derating (engine reference factor 0.75 [H], to be confirmed by the vendor for these apertures).
 
 ## 5. FMECA-derived purchase requirements
 

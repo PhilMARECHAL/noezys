@@ -10,7 +10,7 @@ Every datasheet consolidates: (1) PROCESS DUTY from fresh engine runs (per-mode 
 | Datasheet | Machine | Headline purchase requirements |
 |---|---|---|
 | [CR.5009.md](CR.5009.md) | Toothed double-roll primary crusher | Max nip vs the MEASURED F80 181 mm > 150 mm (standing alert — resolve vs the quarry top size); zone-1.1 tramp-metal protection (EM.09-adjacent, FMECA design rec); motor >= 132 kW rec. [H]; bearing temperature/vibration provision |
-| [SR.5007.md](SR.5007.md) | Double-deck 35/20 screen | Areas >= 8.5 / 8.9 m2 (worst mode 1A + 25 % [H]); quick-change panels + spare sets + gauging access (KFS envelope, RPN 210); exciter bearing monitoring; imperfection guarantee replaces I = 0.15 [H] |
+| [SR.5007.md](SR.5007.md) | Double-deck 35/20 screen | **Areas >= 9.1 / 9.6 m2 — RAIN duty is the sizing case (client decision 2026-08-15, error-hunt PD-2**; the former dry-basis 8.5/8.9 was undersized in rain); quick-change panels + spare sets + gauging access (KFS envelope, RPN 210); exciter bearing monitoring; imperfection guarantee replaces I = 0.15 [H] |
 | [CR.5011.md](CR.5011.md) | Impact crusher (AP-S 1010 class) | 90 t/h WET vendor-basis capacity GUARANTEED at the mode-1B CSS 18 mm; blow-bar wear metallurgy + 2 spare sets; rotor balance spec + bar-change balancing acceptance |
 
 ## Zone 1.2 — reclaim / FeedLime / AgLime loop

@@ -122,8 +122,12 @@ zone-1.3 duties — not a hidden worst case).
    wet on the quarry curve / 83.2 on the measured curve, clean on grids
    ×2/×3/×4 — no operating point encoded at 100 % of capacity). Sheets
    CR.5011/CR.5009 and evidence regenerated.
-2. **PD-2 / SR.5007**: raise the purchase minima to the rain duty
-   (9.1/9.6 m² before margin) — or accept a derated rain throughput.
+2. **PD-2 / SR.5007** — **DECIDED by the client 2026-08-15: option 1,
+   purchase minima = the rain duty.** Applied data-first:
+   `machines.SR.5007.purchase_min_area_m2` = **9.1 / 9.6 m²** (rain duty
+   9.07/9.53 rounded UP); rain photos (1A-rain/1B-rain) added to the
+   purchase evidence; the +25 % [H] allowance survives as dry-weather
+   headroom only. Sheet and INDEX updated.
 3. **PD-3 / SP.36 fan**: buy the fan for the soft-rock envelope (~420 m³/h
    with damper turndown) — or hold for the drop-weight test.
 4. **PD-4 / RC.2**: add a capacity step (e.g. 2 × 25 t/h) — or lower the

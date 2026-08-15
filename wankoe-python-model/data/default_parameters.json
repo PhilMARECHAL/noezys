@@ -76,6 +76,11 @@
       "zone": "1.1",
       "type": "Double-deck screen 35/20 mm",
       "installed_area_m2": null,
+      "purchase_min_area_m2": {
+        "top_deck": 9.1,
+        "bottom_deck": 9.6
+      },
+      "_purchase_min_note": "CLIENT DECISION 2026-08-15 (error-hunt PD-2, option 1 of 3): purchase minima = the RAIN duty, the true worst circumstance (weather rain, 7 % moisture, wet_capacity_factor 0.75 -> engine 9.07/9.53 m2, rounded UP to 9.1/9.6) - full production during rain weeks per the rain-week ruling. The +25 % [H] allowance is NOT stacked on the rain case; it survives as natural dry-weather headroom (~33 % over the dry duty 6.80/7.15 m2). Rejected options: rain duty +25 % (11.3/11.9 m2) and rain feed derate (~233 t/h).",
       "parameters": {
         "a1": {
           "name": "Top deck aperture",

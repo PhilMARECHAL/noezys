@@ -1,6 +1,6 @@
 {
  "_provenance": {
-  "engine_commit": "4cb4afb",
+  "engine_commit": "215c6c7",
   "run_date": "2026-08-15",
   "functions": [
    "wankoe_model.scenario.run_scenario (per-mode photos 1A / forced 1B / 2A / 2C / G / F, weather dry)"
@@ -81,21 +81,43 @@
       "top_deck": 5.7,
       "bottom_deck": 6.55
      }
+    },
+    "1A-rain": {
+     "active": true,
+     "feed_tph_dry": 301.77,
+     "feed_tph_wet": 324.48,
+     "required_areas_m2": {
+      "top_deck": 9.07,
+      "bottom_deck": 9.53
+     }
+    },
+    "1B-rain": {
+     "active": true,
+     "feed_tph_dry": 237.34,
+     "feed_tph_wet": 255.2,
+     "required_areas_m2": {
+      "top_deck": 7.6,
+      "bottom_deck": 8.73
+     }
     }
    },
    "purchase_area_m2": {
     "top_deck": {
-     "worst_mode": "1A",
-     "required_m2": 6.8,
-     "with_margin_m2": 8.5
+     "worst_mode": "1A-rain",
+     "required_m2": 9.07,
+     "with_margin_m2": 11.34
     },
     "bottom_deck": {
-     "worst_mode": "1A",
-     "required_m2": 7.15,
-     "with_margin_m2": 8.94
+     "worst_mode": "1A-rain",
+     "required_m2": 9.53,
+     "with_margin_m2": 11.91
     }
    },
-   "area_margin": "+25 % [H]"
+   "area_margin": "+25 % [H]",
+   "client_decided_min_area_m2": {
+    "top_deck": 9.1,
+    "bottom_deck": 9.6
+   }
   },
   "CR.5011": {
    "modes": {

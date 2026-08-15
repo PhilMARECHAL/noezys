@@ -47,11 +47,16 @@ MODE_PHOTO_OVERRIDES = {
     "2C": {"zone_1_2_mode": "2C"},
     "G": {"zone_1_3_mode": "G"},
     "F": {"zone_1_3_mode": "F"},
+    # Error-hunt PD-2 (client 2026-08-15): rain is a NORMAL circumstance for
+    # zone 1.1 (the line continues through rain weeks) — the SR.5007 sizing
+    # must see the rain photos (wet_capacity_factor derating)
+    "1A-rain": {"zone_1_1_mode": "1A", "weather": "rain"},
+    "1B-rain": {"zone_1_1_mode": "1B", "weather": "rain"},
 }
 
 MACHINE_MODES = {
     "CR.5009": ["1A", "1B"],
-    "SR.5007": ["1A", "1B"],
+    "SR.5007": ["1A", "1B", "1A-rain", "1B-rain"],
     "CR.5011": ["1A", "1B"],
     "SR.5105": ["2A"],  # inactive in 2C (full reclaim to the loop)
     "SR.5111": ["2A", "2C"],
@@ -112,6 +117,7 @@ def main() -> dict:
     wet_over_dry_12 = 100.0 / reclaim_dry  # 100 t/h wet reclaim
 
     wet_ratio = {"1A": wet_over_dry_11, "1B": wet_over_dry_11,
+                 "1A-rain": wet_over_dry_11, "1B-rain": wet_over_dry_11,
                  "2A": wet_over_dry_12, "2C": wet_over_dry_12,
                  "G": 1.0, "F": 1.0}  # zone 1.3 dry basis (0.5 % out-moisture)
 
@@ -169,6 +175,18 @@ def main() -> dict:
                 for deck, (mode, a) in decks.items()
             }
             block["area_margin"] = f"+{round((AREA_MARGIN - 1) * 100)} % [H]"
+            # client-decided purchase minima override (data-first), e.g.
+            # SR.5007 PD-2 2026-08-15: minima = the rain duty, no stacked margin
+            decided = params["machines"].get(code, {}).get("purchase_min_area_m2")
+            if decided:
+                block["client_decided_min_area_m2"] = decided
+                for deck, floor in decided.items():
+                    worst = decks.get(deck)
+                    if worst and worst[1] > floor:
+                        raise SystemExit(
+                            f"{code} {deck}: engine worst {worst[1]} m2 exceeds "
+                            f"the client-decided minimum {floor} m2 — re-arbitrate"
+                        )
 
         # recommended minimum installed motor rating (engine-modeled drives)
         absorbed = [e["absorbed_kW"] for e in per_mode.values()
