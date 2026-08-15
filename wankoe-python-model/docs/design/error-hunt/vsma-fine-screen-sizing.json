@@ -1,0 +1,722 @@
+{
+ "_provenance": {
+  "engine_commit": "a72fa04",
+  "script": "scripts/vsma_factor_sizing.py",
+  "margin": "x1.25 [H] on the factor-method worst case",
+  "note": "Client decision 2026-08-15 (error-hunt M-1, option 1): fine-screen purchase minima by the FULL VSMA factor method (the engine M4 model has no composition factors and under-sizes low-half-size feeds by ~25-30 %). Factor data [H]; vendor bed-depth sizing verifies."
+ },
+ "purchase_minima": {
+  "SC.B": {
+   "deck_1": {
+    "worst_circumstance": "measured / 1B / 2A+F",
+    "worst_vsma_area_m2": 5.85,
+    "model_area_at_worst_m2": 5.19,
+    "purchase_min_m2": 7.4
+   },
+   "deck_2": {
+    "worst_circumstance": "measured / 1A / 2A+F",
+    "worst_vsma_area_m2": 5.95,
+    "model_area_at_worst_m2": 4.51,
+    "purchase_min_m2": 7.5
+   }
+  },
+  "SR.5111": {
+   "deck": {
+    "worst_circumstance": "measured / 1A / 2C",
+    "worst_vsma_area_m2": 1.65,
+    "model_area_at_worst_m2": 1.42,
+    "purchase_min_m2": 2.1
+   }
+  },
+  "SR.5115": {
+   "deck": {
+    "worst_circumstance": "quarry / 1B / 2C",
+    "worst_vsma_area_m2": 10.61,
+    "model_area_at_worst_m2": 15.72,
+    "purchase_min_m2": 13.3
+   }
+  }
+ },
+ "sweep": [
+  {
+   "circumstance": "measured / 1A / 2A+G",
+   "machine": "SC.B",
+   "deck": "deck_1",
+   "aperture_mm": 2.0,
+   "undersize_tph": 24.59,
+   "pct_half_size": 17.2,
+   "pct_oversize": 36.9,
+   "factors": {
+    "C_basic": 6.3,
+    "M_oversize": 1.11,
+    "K_half_size": 0.66,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 5.36,
+   "area_model_m2": 4.01
+  },
+  {
+   "circumstance": "measured / 1A / 2A+G",
+   "machine": "SC.B",
+   "deck": "deck_2",
+   "aperture_mm": 1.5,
+   "undersize_tph": 13.63,
+   "pct_half_size": 19.5,
+   "pct_oversize": 49.4,
+   "factors": {
+    "C_basic": 5.2,
+    "M_oversize": 1.21,
+    "K_half_size": 0.69,
+    "D_deck": 0.9
+   },
+   "area_vsma_m2": 3.49,
+   "area_model_m2": 2.64
+  },
+  {
+   "circumstance": "measured / 1A / 2A+G",
+   "machine": "SR.5111",
+   "deck": "deck",
+   "aperture_mm": 1.7,
+   "undersize_tph": 7.93,
+   "pct_half_size": 9.2,
+   "pct_oversize": 78.2,
+   "factors": {
+    "C_basic": 5.68,
+    "M_oversize": 1.58,
+    "K_half_size": 0.54,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 1.64,
+   "area_model_m2": 1.42
+  },
+  {
+   "circumstance": "measured / 1A / 2A+G",
+   "machine": "SR.5115",
+   "deck": "deck",
+   "aperture_mm": 1.7,
+   "undersize_tph": 27.76,
+   "pct_half_size": 74.5,
+   "pct_oversize": 0.0,
+   "factors": {
+    "C_basic": 5.68,
+    "M_oversize": 0.86,
+    "K_half_size": 1.69,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 3.36,
+   "area_model_m2": 4.99
+  },
+  {
+   "circumstance": "measured / 1A / 2A+F",
+   "machine": "SC.B",
+   "deck": "deck_1",
+   "aperture_mm": 2.0,
+   "undersize_tph": 31.84,
+   "pct_half_size": 25.8,
+   "pct_oversize": 36.2,
+   "factors": {
+    "C_basic": 6.3,
+    "M_oversize": 1.1,
+    "K_half_size": 0.79,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 5.84,
+   "area_model_m2": 5.19
+  },
+  {
+   "circumstance": "measured / 1A / 2A+F",
+   "machine": "SC.B",
+   "deck": "deck_2",
+   "aperture_mm": 1.5,
+   "undersize_tph": 23.3,
+   "pct_half_size": 27.0,
+   "pct_oversize": 26.7,
+   "factors": {
+    "C_basic": 5.2,
+    "M_oversize": 1.04,
+    "K_half_size": 0.8,
+    "D_deck": 0.9
+   },
+   "area_vsma_m2": 5.95,
+   "area_model_m2": 4.51
+  },
+  {
+   "circumstance": "measured / 1A / 2A+F",
+   "machine": "SR.5111",
+   "deck": "deck",
+   "aperture_mm": 1.7,
+   "undersize_tph": 7.93,
+   "pct_half_size": 9.2,
+   "pct_oversize": 78.2,
+   "factors": {
+    "C_basic": 5.68,
+    "M_oversize": 1.58,
+    "K_half_size": 0.54,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 1.64,
+   "area_model_m2": 1.42
+  },
+  {
+   "circumstance": "measured / 1A / 2A+F",
+   "machine": "SR.5115",
+   "deck": "deck",
+   "aperture_mm": 1.7,
+   "undersize_tph": 27.76,
+   "pct_half_size": 74.5,
+   "pct_oversize": 0.0,
+   "factors": {
+    "C_basic": 5.68,
+    "M_oversize": 0.86,
+    "K_half_size": 1.69,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 3.36,
+   "area_model_m2": 4.99
+  },
+  {
+   "circumstance": "measured / 1A / 2C",
+   "machine": "SR.5111",
+   "deck": "deck",
+   "aperture_mm": 1.7,
+   "undersize_tph": 7.93,
+   "pct_half_size": 3.5,
+   "pct_oversize": 91.6,
+   "factors": {
+    "C_basic": 5.68,
+    "M_oversize": 1.87,
+    "K_half_size": 0.45,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 1.65,
+   "area_model_m2": 1.42
+  },
+  {
+   "circumstance": "measured / 1A / 2C",
+   "machine": "SR.5115",
+   "deck": "deck",
+   "aperture_mm": 1.7,
+   "undersize_tph": 85.07,
+   "pct_half_size": 74.5,
+   "pct_oversize": 0.0,
+   "factors": {
+    "C_basic": 5.68,
+    "M_oversize": 0.86,
+    "K_half_size": 1.69,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 10.31,
+   "area_model_m2": 15.28
+  },
+  {
+   "circumstance": "measured / 1B / 2A+G",
+   "machine": "SC.B",
+   "deck": "deck_1",
+   "aperture_mm": 2.0,
+   "undersize_tph": 24.6,
+   "pct_half_size": 17.2,
+   "pct_oversize": 36.9,
+   "factors": {
+    "C_basic": 6.3,
+    "M_oversize": 1.11,
+    "K_half_size": 0.66,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 5.37,
+   "area_model_m2": 4.01
+  },
+  {
+   "circumstance": "measured / 1B / 2A+G",
+   "machine": "SC.B",
+   "deck": "deck_2",
+   "aperture_mm": 1.5,
+   "undersize_tph": 13.64,
+   "pct_half_size": 19.5,
+   "pct_oversize": 49.4,
+   "factors": {
+    "C_basic": 5.2,
+    "M_oversize": 1.21,
+    "K_half_size": 0.69,
+    "D_deck": 0.9
+   },
+   "area_vsma_m2": 3.5,
+   "area_model_m2": 2.64
+  },
+  {
+   "circumstance": "measured / 1B / 2A+G",
+   "machine": "SR.5111",
+   "deck": "deck",
+   "aperture_mm": 1.7,
+   "undersize_tph": 7.05,
+   "pct_half_size": 8.2,
+   "pct_oversize": 79.9,
+   "factors": {
+    "C_basic": 5.68,
+    "M_oversize": 1.61,
+    "K_half_size": 0.52,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 1.48,
+   "area_model_m2": 1.27
+  },
+  {
+   "circumstance": "measured / 1B / 2A+G",
+   "machine": "SR.5115",
+   "deck": "deck",
+   "aperture_mm": 1.7,
+   "undersize_tph": 27.29,
+   "pct_half_size": 74.5,
+   "pct_oversize": 0.0,
+   "factors": {
+    "C_basic": 5.68,
+    "M_oversize": 0.86,
+    "K_half_size": 1.69,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 3.31,
+   "area_model_m2": 4.9
+  },
+  {
+   "circumstance": "measured / 1B / 2A+F",
+   "machine": "SC.B",
+   "deck": "deck_1",
+   "aperture_mm": 2.0,
+   "undersize_tph": 31.85,
+   "pct_half_size": 25.7,
+   "pct_oversize": 36.3,
+   "factors": {
+    "C_basic": 6.3,
+    "M_oversize": 1.1,
+    "K_half_size": 0.79,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 5.85,
+   "area_model_m2": 5.19
+  },
+  {
+   "circumstance": "measured / 1B / 2A+F",
+   "machine": "SC.B",
+   "deck": "deck_2",
+   "aperture_mm": 1.5,
+   "undersize_tph": 23.3,
+   "pct_half_size": 27.0,
+   "pct_oversize": 26.7,
+   "factors": {
+    "C_basic": 5.2,
+    "M_oversize": 1.04,
+    "K_half_size": 0.8,
+    "D_deck": 0.9
+   },
+   "area_vsma_m2": 5.95,
+   "area_model_m2": 4.51
+  },
+  {
+   "circumstance": "measured / 1B / 2A+F",
+   "machine": "SR.5111",
+   "deck": "deck",
+   "aperture_mm": 1.7,
+   "undersize_tph": 7.05,
+   "pct_half_size": 8.2,
+   "pct_oversize": 79.9,
+   "factors": {
+    "C_basic": 5.68,
+    "M_oversize": 1.61,
+    "K_half_size": 0.52,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 1.48,
+   "area_model_m2": 1.27
+  },
+  {
+   "circumstance": "measured / 1B / 2A+F",
+   "machine": "SR.5115",
+   "deck": "deck",
+   "aperture_mm": 1.7,
+   "undersize_tph": 27.29,
+   "pct_half_size": 74.5,
+   "pct_oversize": 0.0,
+   "factors": {
+    "C_basic": 5.68,
+    "M_oversize": 0.86,
+    "K_half_size": 1.69,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 3.31,
+   "area_model_m2": 4.9
+  },
+  {
+   "circumstance": "measured / 1B / 2C",
+   "machine": "SR.5111",
+   "deck": "deck",
+   "aperture_mm": 1.7,
+   "undersize_tph": 7.05,
+   "pct_half_size": 3.0,
+   "pct_oversize": 92.6,
+   "factors": {
+    "C_basic": 5.68,
+    "M_oversize": 1.9,
+    "K_half_size": 0.45,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 1.47,
+   "area_model_m2": 1.27
+  },
+  {
+   "circumstance": "measured / 1B / 2C",
+   "machine": "SR.5115",
+   "deck": "deck",
+   "aperture_mm": 1.7,
+   "undersize_tph": 85.95,
+   "pct_half_size": 74.5,
+   "pct_oversize": 0.0,
+   "factors": {
+    "C_basic": 5.68,
+    "M_oversize": 0.86,
+    "K_half_size": 1.69,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 10.41,
+   "area_model_m2": 15.44
+  },
+  {
+   "circumstance": "quarry / 1A / 2A+G",
+   "machine": "SC.B",
+   "deck": "deck_1",
+   "aperture_mm": 2.0,
+   "undersize_tph": 24.51,
+   "pct_half_size": 17.2,
+   "pct_oversize": 37.1,
+   "factors": {
+    "C_basic": 6.3,
+    "M_oversize": 1.11,
+    "K_half_size": 0.66,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 5.34,
+   "area_model_m2": 3.99
+  },
+  {
+   "circumstance": "quarry / 1A / 2A+G",
+   "machine": "SC.B",
+   "deck": "deck_2",
+   "aperture_mm": 1.5,
+   "undersize_tph": 13.59,
+   "pct_half_size": 19.5,
+   "pct_oversize": 49.4,
+   "factors": {
+    "C_basic": 5.2,
+    "M_oversize": 1.21,
+    "K_half_size": 0.69,
+    "D_deck": 0.9
+   },
+   "area_vsma_m2": 3.48,
+   "area_model_m2": 2.63
+  },
+  {
+   "circumstance": "quarry / 1A / 2A+G",
+   "machine": "SR.5111",
+   "deck": "deck",
+   "aperture_mm": 1.7,
+   "undersize_tph": 5.94,
+   "pct_half_size": 8.7,
+   "pct_oversize": 80.0,
+   "factors": {
+    "C_basic": 5.68,
+    "M_oversize": 1.61,
+    "K_half_size": 0.53,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 1.22,
+   "area_model_m2": 1.07
+  },
+  {
+   "circumstance": "quarry / 1A / 2A+G",
+   "machine": "SR.5115",
+   "deck": "deck",
+   "aperture_mm": 1.7,
+   "undersize_tph": 23.44,
+   "pct_half_size": 74.5,
+   "pct_oversize": 0.0,
+   "factors": {
+    "C_basic": 5.68,
+    "M_oversize": 0.86,
+    "K_half_size": 1.69,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 2.84,
+   "area_model_m2": 4.21
+  },
+  {
+   "circumstance": "quarry / 1A / 2A+F",
+   "machine": "SC.B",
+   "deck": "deck_1",
+   "aperture_mm": 2.0,
+   "undersize_tph": 31.79,
+   "pct_half_size": 25.9,
+   "pct_oversize": 36.0,
+   "factors": {
+    "C_basic": 6.3,
+    "M_oversize": 1.1,
+    "K_half_size": 0.79,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 5.82,
+   "area_model_m2": 5.18
+  },
+  {
+   "circumstance": "quarry / 1A / 2A+F",
+   "machine": "SC.B",
+   "deck": "deck_2",
+   "aperture_mm": 1.5,
+   "undersize_tph": 23.3,
+   "pct_half_size": 27.1,
+   "pct_oversize": 26.6,
+   "factors": {
+    "C_basic": 5.2,
+    "M_oversize": 1.04,
+    "K_half_size": 0.81,
+    "D_deck": 0.9
+   },
+   "area_vsma_m2": 5.94,
+   "area_model_m2": 4.51
+  },
+  {
+   "circumstance": "quarry / 1A / 2A+F",
+   "machine": "SR.5111",
+   "deck": "deck",
+   "aperture_mm": 1.7,
+   "undersize_tph": 5.94,
+   "pct_half_size": 8.7,
+   "pct_oversize": 80.0,
+   "factors": {
+    "C_basic": 5.68,
+    "M_oversize": 1.61,
+    "K_half_size": 0.53,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 1.22,
+   "area_model_m2": 1.07
+  },
+  {
+   "circumstance": "quarry / 1A / 2A+F",
+   "machine": "SR.5115",
+   "deck": "deck",
+   "aperture_mm": 1.7,
+   "undersize_tph": 23.44,
+   "pct_half_size": 74.5,
+   "pct_oversize": 0.0,
+   "factors": {
+    "C_basic": 5.68,
+    "M_oversize": 0.86,
+    "K_half_size": 1.69,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 2.84,
+   "area_model_m2": 4.21
+  },
+  {
+   "circumstance": "quarry / 1A / 2C",
+   "machine": "SR.5111",
+   "deck": "deck",
+   "aperture_mm": 1.7,
+   "undersize_tph": 5.94,
+   "pct_half_size": 2.8,
+   "pct_oversize": 93.7,
+   "factors": {
+    "C_basic": 5.68,
+    "M_oversize": 1.93,
+    "K_half_size": 0.44,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 1.23,
+   "area_model_m2": 1.07
+  },
+  {
+   "circumstance": "quarry / 1A / 2C",
+   "machine": "SR.5115",
+   "deck": "deck",
+   "aperture_mm": 1.7,
+   "undersize_tph": 87.06,
+   "pct_half_size": 74.5,
+   "pct_oversize": 0.0,
+   "factors": {
+    "C_basic": 5.68,
+    "M_oversize": 0.86,
+    "K_half_size": 1.69,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 10.55,
+   "area_model_m2": 15.64
+  },
+  {
+   "circumstance": "quarry / 1B / 2A+G",
+   "machine": "SC.B",
+   "deck": "deck_1",
+   "aperture_mm": 2.0,
+   "undersize_tph": 24.54,
+   "pct_half_size": 17.2,
+   "pct_oversize": 37.0,
+   "factors": {
+    "C_basic": 6.3,
+    "M_oversize": 1.11,
+    "K_half_size": 0.66,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 5.35,
+   "area_model_m2": 4.0
+  },
+  {
+   "circumstance": "quarry / 1B / 2A+G",
+   "machine": "SC.B",
+   "deck": "deck_2",
+   "aperture_mm": 1.5,
+   "undersize_tph": 13.61,
+   "pct_half_size": 19.5,
+   "pct_oversize": 49.4,
+   "factors": {
+    "C_basic": 5.2,
+    "M_oversize": 1.21,
+    "K_half_size": 0.69,
+    "D_deck": 0.9
+   },
+   "area_vsma_m2": 3.49,
+   "area_model_m2": 2.64
+  },
+  {
+   "circumstance": "quarry / 1B / 2A+G",
+   "machine": "SR.5111",
+   "deck": "deck",
+   "aperture_mm": 1.7,
+   "undersize_tph": 5.48,
+   "pct_half_size": 7.6,
+   "pct_oversize": 81.7,
+   "factors": {
+    "C_basic": 5.68,
+    "M_oversize": 1.64,
+    "K_half_size": 0.51,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 1.14,
+   "area_model_m2": 0.98
+  },
+  {
+   "circumstance": "quarry / 1B / 2A+G",
+   "machine": "SR.5115",
+   "deck": "deck",
+   "aperture_mm": 1.7,
+   "undersize_tph": 23.96,
+   "pct_half_size": 74.5,
+   "pct_oversize": 0.0,
+   "factors": {
+    "C_basic": 5.68,
+    "M_oversize": 0.86,
+    "K_half_size": 1.69,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 2.9,
+   "area_model_m2": 4.31
+  },
+  {
+   "circumstance": "quarry / 1B / 2A+F",
+   "machine": "SC.B",
+   "deck": "deck_1",
+   "aperture_mm": 2.0,
+   "undersize_tph": 31.81,
+   "pct_half_size": 25.8,
+   "pct_oversize": 36.1,
+   "factors": {
+    "C_basic": 6.3,
+    "M_oversize": 1.1,
+    "K_half_size": 0.79,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 5.83,
+   "area_model_m2": 5.18
+  },
+  {
+   "circumstance": "quarry / 1B / 2A+F",
+   "machine": "SC.B",
+   "deck": "deck_2",
+   "aperture_mm": 1.5,
+   "undersize_tph": 23.3,
+   "pct_half_size": 27.0,
+   "pct_oversize": 26.6,
+   "factors": {
+    "C_basic": 5.2,
+    "M_oversize": 1.04,
+    "K_half_size": 0.81,
+    "D_deck": 0.9
+   },
+   "area_vsma_m2": 5.94,
+   "area_model_m2": 4.51
+  },
+  {
+   "circumstance": "quarry / 1B / 2A+F",
+   "machine": "SR.5111",
+   "deck": "deck",
+   "aperture_mm": 1.7,
+   "undersize_tph": 5.48,
+   "pct_half_size": 7.6,
+   "pct_oversize": 81.7,
+   "factors": {
+    "C_basic": 5.68,
+    "M_oversize": 1.64,
+    "K_half_size": 0.51,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 1.14,
+   "area_model_m2": 0.98
+  },
+  {
+   "circumstance": "quarry / 1B / 2A+F",
+   "machine": "SR.5115",
+   "deck": "deck",
+   "aperture_mm": 1.7,
+   "undersize_tph": 23.96,
+   "pct_half_size": 74.5,
+   "pct_oversize": 0.0,
+   "factors": {
+    "C_basic": 5.68,
+    "M_oversize": 0.86,
+    "K_half_size": 1.69,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 2.9,
+   "area_model_m2": 4.31
+  },
+  {
+   "circumstance": "quarry / 1B / 2C",
+   "machine": "SR.5111",
+   "deck": "deck",
+   "aperture_mm": 1.7,
+   "undersize_tph": 5.48,
+   "pct_half_size": 2.4,
+   "pct_oversize": 94.2,
+   "factors": {
+    "C_basic": 5.68,
+    "M_oversize": 1.94,
+    "K_half_size": 0.44,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 1.14,
+   "area_model_m2": 0.98
+  },
+  {
+   "circumstance": "quarry / 1B / 2C",
+   "machine": "SR.5115",
+   "deck": "deck",
+   "aperture_mm": 1.7,
+   "undersize_tph": 87.52,
+   "pct_half_size": 74.5,
+   "pct_oversize": 0.0,
+   "factors": {
+    "C_basic": 5.68,
+    "M_oversize": 0.86,
+    "K_half_size": 1.69,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 10.61,
+   "area_model_m2": 15.72
+  }
+ ]
+}

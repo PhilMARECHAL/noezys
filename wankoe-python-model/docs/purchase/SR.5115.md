@@ -38,7 +38,9 @@ Total-flow rule: wet basis primary (wet = dry x 1.07527).
 
 | Deck | Worst-mode required area (engine) | **Purchase area (x1.25)** |
 |---|---|---|
-| 1.7 mm deck | 15.28 m2 (2C) | **>= 19.1 m2** |
+| 1.7 mm deck | 15.28 m2 (2C) | **>= 19.1 m2 — RETAINED as the client-decided floor (error-hunt M-1 disposition 2026-08-15)** |
+
+M-1 disclosure: the full VSMA factor method (`scripts/vsma_factor_sizing.py`) gives a LOWER worst duty here — 10.61 m2 (quarry curve, 1B upstream, 2C) → 13.3 m2 with margin — because this deck's ~78 % oversize feed earns a high VSMA oversize factor. Rule applied: an issued purchase floor is never weakened without a dedicated client arbitration, so **19.1 m2 stands** (it also covers the audit's M-2 note that the model worst 15.72 × 1.25 = 19.65 slightly exceeded the old basis). The vendor bed-depth sizing at the 2C bed load governs.
 
 This is the LARGEST screen area requirement of the line — a screen bought on the 2A duty (5 m2 class) would be undersized 3:1 for campaigns. Feed basis for the vendor check: 92.5 t/h wet of CR.5113 product (P80 0.95 mm) at the 1.7 mm cut; part of the same resize file as SR.5111 and the CR.5113 motor.
 

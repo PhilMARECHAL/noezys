@@ -322,9 +322,13 @@ def zone_1_2(reclaim: dict, params: dict, mode: str, weather: str, alerts: list)
     # ---- first screen SR.5111: OPEN circuit, single pass of the loop feed
     over1, aglime1 = _karra_screen(loop_feed, p11["a"]["default"], imp_1_7_first, calib)
     sr5111_areas = {
-        "deck": models.m4_screen_area(
-            aglime1["q"] if aglime1 else 0.0, p11["a"]["default"], calib, wet_factor
-        )
+        "deck": {
+            **models.m4_screen_area(
+                aglime1["q"] if aglime1 else 0.0, p11["a"]["default"], calib, wet_factor
+            ),
+            "undersize_tph": aglime1["q"] if aglime1 else 0.0,
+            **models.m4_feed_composition(loop_feed["psd"], p11["a"]["default"]),
+        }
     }
     _check_installed_area("SR.5111", sr5111_areas, mp["SR.5111"].get("installed_area_m2"), alerts)
     result["machines"]["SR.5111"] = {
@@ -356,12 +360,18 @@ def zone_1_2(reclaim: dict, params: dict, mode: str, weather: str, alerts: list)
         )
 
     sr5115_areas = {
-        "deck": models.m4_screen_area(
-            outputs["aglime2"]["q"] if outputs["aglime2"] else 0.0,
-            p15["a"]["default"],
-            calib,
-            wet_factor,
-        )
+        "deck": {
+            **models.m4_screen_area(
+                outputs["aglime2"]["q"] if outputs["aglime2"] else 0.0,
+                p15["a"]["default"],
+                calib,
+                wet_factor,
+            ),
+            "undersize_tph": outputs["aglime2"]["q"] if outputs["aglime2"] else 0.0,
+            **models.m4_feed_composition(
+                outputs["sr5115_feed"]["psd"], p15["a"]["default"]
+            ),
+        }
     }
     _check_installed_area("SR.5115", sr5115_areas, mp["SR.5115"].get("installed_area_m2"), alerts)
     result["machines"]["SR.5115"] = {
@@ -632,6 +642,7 @@ def zone_1_3_c1(feedlime: dict, params: dict, phi_100_pct, alerts: list) -> dict
             "ua2": under375["q"] if under375 else 0.0,
             "ub1": under2["q"] if under2 else 0.0,
             "ub2": fines["q"] if fines else 0.0,
+            "scb_d2_feed": under2,
         }
 
     recycle, outputs = _fixed_point_loop(iterate, engine, alerts, "Zone 1.3 C1 / RC.1+RC.2")
@@ -668,8 +679,24 @@ def zone_1_3_c1(feedlime: dict, params: dict, phi_100_pct, alerts: list) -> dict
     }
     _check_installed_area("SC.A", sca_areas, mp["SC.A"].get("installed_area_m2"), alerts)
     scb_areas = {
-        "deck_1": models.m4_screen_area(outputs["ub1"], b1, calib),
-        "deck_2": models.m4_screen_area(outputs["ub2"], b2, calib),
+        "deck_1": {
+            **models.m4_screen_area(outputs["ub1"], b1, calib),
+            "undersize_tph": outputs["ub1"],
+            **(
+                models.m4_feed_composition(outputs["scb_feed"]["psd"], b1)
+                if outputs["scb_feed"]
+                else {}
+            ),
+        },
+        "deck_2": {
+            **models.m4_screen_area(outputs["ub2"], b2, calib),
+            "undersize_tph": outputs["ub2"],
+            **(
+                models.m4_feed_composition(outputs["scb_d2_feed"]["psd"], b2)
+                if outputs["scb_d2_feed"]
+                else {}
+            ),
+        },
     }
     _check_installed_area("SC.B", scb_areas, mp["SC.B"].get("installed_area_m2"), alerts)
 

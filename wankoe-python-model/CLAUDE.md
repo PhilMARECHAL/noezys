@@ -355,8 +355,17 @@ labeled mode-photo alerts, mode-F FeedLime booking; 4 regression
 tests, suite 148). FINES GUARANTEE (client order): 60 kt/y fines
 served EXACTLY in all 9 ruled circumstances
 (scripts/fines_floor_verification.py, evidence in error-hunt/).
-REMAINING arbitrations: PD-4 RC.2 headroom, M-1 fine-screen VSMA
-margin; plus CR.5113/CR.5009 standing branches, DY.03 burner rating.
+ALL FIVE ARBITRATIONS CLOSED 2026-08-15: PD-1 CR.5011 1B feed 172.0
+(quarry bisection), PD-2 SR.5007 rain minima 9.1/9.6, PD-3 SP.36 fan
+420 m3/h + engine guard, PD-4 RC.2 2x25 t/h, M-1 fine screens by the
+FULL VSMA factor method (m4_feed_composition wired on
+SC.B/SR.5111/SR.5115; scripts/vsma_factor_sizing.py; SC.B 7.4/7.5,
+SR.5111 2.1, SR.5115 19.1 RETAINED — never weaken a published floor).
+purchase_min_area_m2 data slots guarded by the evidence script.
+STILL OPEN (not arbitration — external inputs): CR.5113 motor branch
+(hold order, soft-rock), CR.5009 nip 251 quarry / two branches, DY.03
+burner vendor rating vs 5.2-6.7 MW rain duty, external tests register
+(drop-weight #1, vendor gradation, sieve, absorption, belt-cuts, NACO).
 
 ## Repository caution
 

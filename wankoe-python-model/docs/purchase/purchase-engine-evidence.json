@@ -1,6 +1,6 @@
 {
  "_provenance": {
-  "engine_commit": "dcc908d",
+  "engine_commit": "a72fa04",
   "run_date": "2026-08-15",
   "functions": [
    "wankoe_model.scenario.run_scenario (per-mode photos 1A / forced 1B / 2A / 2C / G / F, weather dry)"
@@ -200,7 +200,10 @@
      "with_margin_m2": 1.77
     }
    },
-   "area_margin": "+25 % [H]"
+   "area_margin": "+25 % [H]",
+   "client_decided_min_area_m2": {
+    "deck": 2.1
+   }
   },
   "CR.5113": {
    "modes": {
@@ -263,7 +266,10 @@
      "with_margin_m2": 19.1
     }
    },
-   "area_margin": "+25 % [H]"
+   "area_margin": "+25 % [H]",
+   "client_decided_min_area_m2": {
+    "deck": 19.1
+   }
   },
   "RC.1": {
    "modes": {
@@ -395,7 +401,11 @@
      "with_margin_m2": 5.64
     }
    },
-   "area_margin": "+25 % [H]"
+   "area_margin": "+25 % [H]",
+   "client_decided_min_area_m2": {
+    "deck_1": 7.4,
+    "deck_2": 7.5
+   }
   },
   "SP.36": {
    "modes": {

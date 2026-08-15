@@ -197,6 +197,10 @@
       "zone": "1.2",
       "type": "First 1.7 mm closing screen, OPEN circuit (PFD REV18: undersize = AgLime, oversize -> CR.5113)",
       "installed_area_m2": null,
+      "purchase_min_area_m2": {
+        "deck": 2.1
+      },
+      "_purchase_min_note": "CLIENT DECISION 2026-08-15 (error-hunt M-1, option 1 of 3): re-quoted by the FULL VSMA factor method (scripts/vsma_factor_sizing.py) - worst factor duty 1.65 m2 (2C, measured/1A; the model said 1.42) -> x1.25 -> 2.1 m2 (was 1.8). The vendor bed-depth sizing at 100 t/h WET still GOVERNS over this cut-duty minimum (sheet caveat unchanged).",
       "loop_rating_tph": 60,
       "_loop_rating_note": "BC.5110/BC.5116 conveyors rated 60 T/h (PFD REV18) \u2014 alert when the loop feed exceeds it",
       "parameters": {
@@ -244,6 +248,10 @@
       "zone": "1.2",
       "type": "Second 1.7 mm closing screen, CLOSED loop with CR.5113 (PFD REV18: undersize joins AgLime, oversize recycles to the crusher)",
       "installed_area_m2": null,
+      "purchase_min_area_m2": {
+        "deck": 19.1
+      },
+      "_purchase_min_note": "Error-hunt M-1 disposition 2026-08-15: the VSMA factor method gives a LOWER worst duty here (10.61 m2 quarry/1B/2C -> 13.3 with margin) than the published model-based minimum 19.1 m2 (its ~78 % oversize feed earns a high VSMA oversize factor). RULE APPLIED: an issued purchase floor is never weakened without a dedicated client arbitration - 19.1 m2 RETAINED (conservative), factor-method figure disclosed on the sheet. Also fixes the audit's M-2 note (the model worst 15.72 m2 x1.25 = 19.65 slightly exceeded 19.1; the retained floor is now formally the CLIENT-DECIDED value, and the vendor bed-depth sizing at the 2C bed load governs).",
       "parameters": {
         "a": {
           "name": "Aperture",
@@ -502,6 +510,11 @@
       "zone": "1.3",
       "type": "Double-deck PRODUCT screen 2 / 1.5 mm (C1 study variant: deck 1 = grits bottom cut, D6-critical; deck 2 = fines top cut; both critical decks in favorable position \u2014 the 2+2 rationale)",
       "installed_area_m2": null,
+      "purchase_min_area_m2": {
+        "deck_1": 7.4,
+        "deck_2": 7.5
+      },
+      "_purchase_min_note": "CLIENT DECISION 2026-08-15 (error-hunt M-1, option 1 of 3): fine-screen purchase minima re-quoted by the FULL VSMA factor method (scripts/vsma_factor_sizing.py) - the engine M4 model carries no composition factors and under-sizes SC.B's low-half-size feeds (17-20 % passing a/2) by ~25-30 %. Worst factor-method duty across measured/quarry x 1A/1B x G/F: 5.85 m2 (d1, 1B x F) / 5.95 m2 (d2, mode F mass-pinned) -> x1.25 -> 7.4 / 7.5 m2 (was 6.5 / 5.6 model-based). Vendor bed-depth sizing verifies; the RPN-252 panel requirements are unchanged.",
       "parameters": {
         "a1": {
           "name": "Aperture 1 (grits bottom cut; 2.0 protects the D6 <2 mm <= 15 %)",

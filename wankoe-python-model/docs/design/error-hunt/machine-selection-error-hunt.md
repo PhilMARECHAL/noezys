@@ -147,8 +147,18 @@ zone-1.3 duties — not a hidden worst case).
    output) — ~12 % headroom covers the grid bias, 0.2 mm of gap drift and
    the comp_lam [H] band until the vendor gradation test. Sheet, INDEX
    and evidence updated.
-5. **M-1 / SC.B family**: re-quote fine-screen areas with the full VSMA
-   factor string — or enlarge the margin explicitly.
+5. **M-1 / SC.B family** — **DECIDED by the client 2026-08-15: option 1,
+   full VSMA factor-method re-quote.** Implemented: the engine now exposes
+   per-deck feed composition (`models.m4_feed_composition`, wired on
+   SC.B/SR.5111/SR.5115), and `scripts/vsma_factor_sizing.py` sweeps
+   measured/quarry × 1A/1B × G/F/2A/2C. New data-anchored minima:
+   **SC.B ≥ 7.4 / 7.5 m²** (was 6.5/5.6 — the model bias consumed the
+   whole margin), **SR.5111 ≥ 2.1 m²** (vendor 100 t/h wet bed-depth
+   sizing still governs), **SR.5115 kept at 19.1 m²** (the factor method
+   gives 13.3 — LOWER; a published purchase floor is never weakened
+   without a dedicated arbitration, and 19.1 also settles the M-2 note).
+   The engine M4 model itself is unchanged (model improvement stays a
+   register item; purchase sizing no longer depends on it).
 6. **M-3/M-4/M-5/C-5 code fixes** — **DONE 2026-08-15** (same commit as
    PD-3): the rain-capped branch re-plans the two-mode split with grits
    priority and closes the mass balance (dry products = dry feed to 0.1 %);
