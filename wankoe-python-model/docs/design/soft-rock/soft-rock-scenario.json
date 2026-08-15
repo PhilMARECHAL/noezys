@@ -1,0 +1,68 @@
+{
+  "_scenario": "SOFT-ROCK central coefficient scenario (UCS 20 MPa reference) - client arbitration 2026-08-15 (soft-rock study, choice 2). OVERRIDES FILE: pass this dict to load_parameters(overrides=...) / the web-UI overrides body. Every value is [H] from soft-limestone literature, pending the drop-weight test (A/b), the site Bond test (Wi) and the RC.1/RC.2 vendor gradation test (n_comp, S_att). Engine DEFAULTS are unchanged (data/default_parameters.json keeps the mid-hard reference set).",
+  "_ucs_scaling_assumption": "Envelope variants soft15 / soft30 (companion files soft-rock-scenario-soft15.json / soft-rock-scenario-soft30.json): each coefficient is mapped PIECEWISE-LINEARLY in UCS across the client envelope 15-30 MPa, anchored at the 20 MPa central value; the endpoints are the soft edge / hard edge of the literature range for that coefficient, clipped to the machine's declared parameter range. Softer UCS = lower Wi, higher A_j.b_j, lower RR slopes, higher S_att. [H] - no measured UCS-coefficient law exists for this deposit; the map is a documented monotone interpolation, to be replaced by the test campaign.",
+  "feed_product": {
+    "properties": {
+      "UCS_MPa": {
+        "default": 20,
+        "_soft_rock_rationale": "Client ruling 2026-08-15: very soft limestone, rippable, no blasting - reference 20 MPa (same value as the new data default; repeated here so the scenario is self-describing)."
+      }
+    }
+  },
+  "calibration": {
+    "Wi": {
+      "default": 7.5,
+      "_soft_rock_rationale": "[H] Bond work-index tabulations put soft/weathered limestone at ~6-9 kWh/t (Bond 1961 tables and later compilations, soft limestone band; vs the current 12.54 kWh/t Fontaine reference for competent Belgian limestone) - central 7.5, envelope 6.0 (soft15) / 9.0 (soft30). Affects M2 power only, never the PSDs."
+    },
+    "A_j": {
+      "default": 65,
+      "_soft_rock_rationale": "[H] JKMRC drop-weight database, soft calcite/limestone: A ~62-69 (expert book Q12 note documents calcite A 62-69) - central 65 (vs current 60). A saturates t10 at high energy; the soft range is slightly higher."
+    },
+    "b_j": {
+      "default": 1.5,
+      "_soft_rock_rationale": "[H] JKMRC soft calcite/limestone b ~1.3-3.0 (expert book Q12 note; JKTech trends put SOFT limestone at A*b ~60-80 and beyond) - central 1.5 (vs current hard-side 0.80 [H]). A*b rises 48 -> 97.5: much softer impact breakage, t10 at CR.5011 v=30 goes 5.7 -> 11.1 %, RR n of the impact product drops 1.65 -> 1.35 (broader, finer product)."
+    }
+  },
+  "machines": {
+    "CR.5009": {
+      "parameters": {
+        "n": {
+          "default": 1.15,
+          "_soft_rock_rationale": "[H] Softer, more friable rock breaks with a BROADER fragment distribution: RR uniformity of crusher products on soft/friable limestone typically ~1.0-1.2 vs ~1.3-1.5 on competent rock (RR slope compilations for crushed aggregates). -15 % vs the 1.35 reference; x80 = gap rule unchanged, so the whole shift goes into extra fines below the gap."
+        }
+      }
+    },
+    "RC.1": {
+      "parameters": {
+        "n_comp": {
+          "default": 1.6,
+          "_soft_rock_rationale": "[H] Same physical direction for the smooth-roll compression component (finer, broader single-pass product on weak rock): 1.8 -> 1.6, inside the machine's declared 1.5-2.2 range; soft edge of the range at soft15."
+        },
+        "S_att": {
+          "default": 0.09,
+          "_soft_rock_rationale": "[H] Weak rock abrades more per pass (attrition scales inversely with strength; Thiere 2020 gap/feed-dependent attrition rises on weaker stone): 0.06 -> 0.09, upper half of the declared 0.03-0.10 range (+50 %)."
+        }
+      }
+    },
+    "RC.2": {
+      "parameters": {
+        "n_comp": {
+          "default": 1.6,
+          "_soft_rock_rationale": "[H] Identical to RC.1 (same smooth-roll model M7, same rock): 1.8 -> 1.6."
+        },
+        "S_att": {
+          "default": 0.09,
+          "_soft_rock_rationale": "[H] Identical to RC.1: 0.06 -> 0.09."
+        }
+      }
+    },
+    "ML.26": {
+      "parameters": {
+        "S_att": {
+          "default": 0.22,
+          "_soft_rock_rationale": "[H] As-built variant only (c1 is the default). Toothed-roll bed attrition rises on weak rock: 0.171 (Thiere refit) -> 0.22, above the book's Houben 0.206 and inside the declared 0.15-0.25 range (+29 %)."
+        }
+      }
+    }
+  }
+}

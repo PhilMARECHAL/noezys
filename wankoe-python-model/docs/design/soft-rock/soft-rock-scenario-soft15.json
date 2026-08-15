@@ -1,0 +1,23 @@
+{
+  "_scenario": "SOFT-ROCK envelope variant soft15 (UCS 15 MPa, soft edge of the client envelope 15-30 MPa) - client arbitration 2026-08-15. Values [H]: piecewise-linear UCS map documented in soft-rock-scenario.json (_ucs_scaling_assumption); this is the SOFT endpoint = soft edge of each literature range, clipped to the machines' declared parameter ranges.",
+  "feed_product": {
+    "properties": {
+      "UCS_MPa": { "default": 15 }
+    }
+  },
+  "calibration": {
+    "Wi": { "default": 6.0, "_soft_rock_rationale": "[H] soft edge of the Bond soft-limestone band 6-9 kWh/t" },
+    "A_j": { "default": 67, "_soft_rock_rationale": "[H] toward the top of the calcite A range 62-69" },
+    "b_j": { "default": 2.0, "_soft_rock_rationale": "[H] upper-central of the soft-calcite b range 1.3-3.0 (A*b = 134)" }
+  },
+  "machines": {
+    "CR.5009": { "parameters": { "n": { "default": 1.1, "_soft_rock_rationale": "[H] soft edge of the friable-limestone RR slope band ~1.0-1.2" } } },
+    "RC.1": { "parameters": {
+      "n_comp": { "default": 1.5, "_soft_rock_rationale": "[H] soft edge = declared range minimum 1.5" },
+      "S_att": { "default": 0.1, "_soft_rock_rationale": "[H] soft edge = declared range maximum 0.10" } } },
+    "RC.2": { "parameters": {
+      "n_comp": { "default": 1.5, "_soft_rock_rationale": "[H] identical to RC.1" },
+      "S_att": { "default": 0.1, "_soft_rock_rationale": "[H] identical to RC.1" } } },
+    "ML.26": { "parameters": { "S_att": { "default": 0.25, "_soft_rock_rationale": "[H] declared range maximum (as-built variant only)" } } }
+  }
+}

@@ -858,8 +858,9 @@
         "status": "measured Bond index of the feed; null = use calibration.Wi; a value here OVERRIDES calibration.Wi"
       },
       "UCS_MPa": {
-        "default": null,
-        "status": "geology DP9442 (3 rock types) - reserved, not used by the engine yet"
+        "default": 20,
+        "envelope_MPa": [15, 30],
+        "status": "Client arbitration 2026-08-15 (soft-rock study, choice 1): rock class = very soft limestone, rippable, no blasting - UCS reference 20 MPa, envelope 15-30 MPa (supersedes the reserved geology DP9442 slot). CASE DISCRIMINATOR ONLY, never a formula input (rule 2026-08-11): hardness enters the engine via Wi (M2) and A_j.b_j (M5), whose DEFAULTS ARE UNCHANGED pending the drop-weight/gradation tests - the soft-rock coefficient set lives in docs/design/soft-rock/soft-rock-scenario.json as an overrides scenario"
       },
       "friability": {
         "default": null,

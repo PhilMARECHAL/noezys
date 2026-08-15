@@ -1,0 +1,23 @@
+{
+  "_scenario": "SOFT-ROCK envelope variant soft30 (UCS 30 MPa, hard edge of the client envelope 15-30 MPa) - client arbitration 2026-08-15. Values [H]: piecewise-linear UCS map documented in soft-rock-scenario.json (_ucs_scaling_assumption); this is the HARD endpoint of the envelope - still notably softer than the engine's mid-hard defaults (Wi 12.54, b_j 0.80).",
+  "feed_product": {
+    "properties": {
+      "UCS_MPa": { "default": 30 }
+    }
+  },
+  "calibration": {
+    "Wi": { "default": 9.0, "_soft_rock_rationale": "[H] hard edge of the Bond soft-limestone band 6-9 kWh/t" },
+    "A_j": { "default": 62, "_soft_rock_rationale": "[H] bottom of the calcite A range 62-69" },
+    "b_j": { "default": 1.3, "_soft_rock_rationale": "[H] bottom of the soft-calcite b range 1.3-3.0 (A*b = 80.6)" }
+  },
+  "machines": {
+    "CR.5009": { "parameters": { "n": { "default": 1.25, "_soft_rock_rationale": "[H] hard edge of the envelope, still below the 1.35 mid-hard reference" } } },
+    "RC.1": { "parameters": {
+      "n_comp": { "default": 1.7, "_soft_rock_rationale": "[H] hard edge of the envelope, still below the 1.8 reference" },
+      "S_att": { "default": 0.075, "_soft_rock_rationale": "[H] hard edge of the envelope, still above the 0.06 reference" } } },
+    "RC.2": { "parameters": {
+      "n_comp": { "default": 1.7, "_soft_rock_rationale": "[H] identical to RC.1" },
+      "S_att": { "default": 0.075, "_soft_rock_rationale": "[H] identical to RC.1" } } },
+    "ML.26": { "parameters": { "S_att": { "default": 0.19, "_soft_rock_rationale": "[H] hard edge of the envelope, still above the 0.171 reference (as-built variant only)" } } }
+  }
+}

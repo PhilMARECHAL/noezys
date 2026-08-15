@@ -213,6 +213,26 @@ certified-aperture panels (RPN 252), and the RC.1/RC.2 vendor
 gradation test as a REQUIREMENT. Margins stated: screen areas worst
 mode +25 % [H]; motors worst absorbed x1.15 [H] to IEC.
 
+## Soft-rock sensitivity study (client 3 choices 2026-08-15)
+
+Rock class ruled: VERY SOFT limestone, rippable, no blasting — UCS
+reference 20 MPa, envelope 15-30 (data-first
+feed_product.properties.UCS_MPa; case discriminator only, NO engine
+coefficient default changed). Soft-rock coefficient scenario (all [H],
+pending drop-weight/Bond/vendor-gradation tests) as overrides:
+docs/design/soft-rock/soft-rock-scenario.json (+soft15/soft30): Wi 7.5,
+A 65 x b 1.5, CR.5009 n 1.15, RC n_comp 1.6 / S_att 0.09, ML.26 0.22.
+VERDICTS (soft-rock-study.md, evidence JSON + replay
+scripts/soft_rock_sensitivity.py): C1 two-mode plan / RC.1 32 / RC.2
+2x22 gap 1.5 all HOLD (loads drop: RC.2 F 38.7 vs 44); CR.5113 2C motor
+finding holds in kind but 348 -> 211 kW (rec. 450 -> 250 kW); QUARRY
+TARGET 40.1 % <20 mm FLIPS — zero-landfill control value becomes
+35.13 % (36 kt/y landfill if 40.1 kept); landfill at today's curve
+13.8 -> 57.6 kt/y (yield 22.04 vs 25.92 required); FMECA partial flip
+(SC.B up, D6 margin 0.82 -> 0.59 pt; CR.5113 down); modeled-drive
+electricity -300 MWh/y. Revisit on test confirmation: quarry spec,
+CR.5113 motor, settings re-optimization, FMECA re-score.
+
 ## Engineering state (see docs/ for detail)
 
 - docs/spec-conformity-matrix.md: requirement-by-requirement traceability

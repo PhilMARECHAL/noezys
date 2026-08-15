@@ -1,0 +1,505 @@
+{
+ "_provenance": {
+  "engine_commit": "8a7ee50",
+  "run_date": "2026-08-15",
+  "functions": [
+   "wankoe_model.scenario.run_scenario (per-mode photos G/F/forced 1B/2C, weather dry)",
+   "wankoe_model.planning.run_required_hours"
+  ],
+  "data": "data/default_parameters.json + docs/design/soft-rock/soft-rock-scenario*.json",
+  "produced_by": "NOEZYS",
+  "replay": "PYTHONPATH=src python scripts/soft_rock_sensitivity.py"
+ },
+ "cases": {
+  "defaults": {
+   "label": "defaults (mid-hard reference set)",
+   "kfs": {
+    "tph_wet": 62.199,
+    "yield_realized_pct": 24.88,
+    "yield_required_pct": 25.93,
+    "psd_pct": {
+     "in_cut_20_35": 82.75,
+     "below_20": 8.69,
+     "above_35": 8.56
+    },
+    "envelope": {
+     "below_ok": true,
+     "in_cut_ok": true,
+     "above_ok": true
+    },
+    "envelope_compliant": true
+   },
+   "grits_D6": {
+    "tph_dry_mode_G": 16.22,
+    "below_2mm_pct": 14.18,
+    "above_4mm_pct": 3.37,
+    "margin_below_pt": 0.82,
+    "margin_above_pt": 1.63,
+    "compliant": true
+   },
+   "fines": {
+    "tph_mode_G": 13.567,
+    "tph_mode_F": 23.193,
+    "passing_1p7_mode_G_pct": 96.61,
+    "passing_1p7_mode_F_pct": 98.88,
+    "redirect_eligible_G": true,
+    "redirect_eligible_F": true
+   },
+   "zone_1_3": {
+    "fines_over_grits_ratio_mode_G": 0.836,
+    "recirculation_tph_G": 62.38,
+    "recirculation_tph_F": 66.788
+   },
+   "machine_loads": {
+    "RC.1_mode_G_tph_dry": 29.21,
+    "RC.1_capacity_tph": 32,
+    "RC.2_mode_F_tph_dry_total": 43.99,
+    "RC.2_capacity_tph_total": 44,
+    "CR.5011_mode_1A_tph_wet": 74.48,
+    "CR.5011_forced_1B_tph_wet": 90.02,
+    "CR.5011_capacity_tph_wet": 90,
+    "SR.5111_loop_feed_2C_tph_dry": 93.0,
+    "zone_1_2_loop_rating_tph": 60
+   },
+   "absorbed_kW": {
+    "CR.5009_1A": 96.6,
+    "CR.5011_1A": 21.5,
+    "CR.5011_1B": 46.0,
+    "CR.5113_2A": 87.4,
+    "CR.5113_2C": 348.1,
+    "RC.1_G": 17.4,
+    "RC.2_F_total": 48.5
+   },
+   "plan": {
+    "zones": {
+     "1.1": {
+      "required_hours_clock": 1708.2,
+      "utilization_pct": 71.2,
+      "feasible": true
+     },
+     "1.2": {
+      "required_hours_clock": 3035.4,
+      "utilization_pct": 40.5,
+      "feasible": true
+     },
+     "1.3": {
+      "required_hours_clock": 4513.1,
+      "utilization_pct": 60.2,
+      "feasible": true
+     }
+    },
+    "zone_1_1_split_eff_h": {
+     "mode_1A_hours_effective": 1366.6,
+     "mode_1B_hours_effective": 0.0
+    },
+    "zone_1_3_split_eff_h": {
+     "mode_G_hours_effective": 2466.1,
+     "mode_F_hours_effective": 1144.4
+    },
+    "zone_1_2_split_eff_h": {
+     "dry_season_hours_effective": 1749.7,
+     "rain_season_hours_effective": 0.0,
+     "aglime_2c_campaign_hours_effective": 678.6
+    },
+    "production_t": {
+     "KFS": 85000.0,
+     "AgLime": 135000.0,
+     "FeedLime grits": 40000.0,
+     "FeedLime fines": 60000.0,
+     "UltraFin": 284.0
+    },
+    "landfill_t_per_y": 13816.0
+   },
+   "electricity_modeled_drives": {
+    "per_machine_MWh_per_y": {
+     "CR.5009": 132.1,
+     "CR.5011": 29.4,
+     "CR.5113": 389.1,
+     "RC.1": 58.6,
+     "RC.2": 148.9
+    },
+    "total_MWh_per_y": 758.2,
+    "cost_kEUR_per_y_at_115": 87.2,
+    "_note": "engine-modeled drives only (CR.5009/CR.5011/CR.5113/RC.1/RC.2), same absorbed-power x mode-hours method as the 2026-08-15 OPEX study; non-modeled drives keep their typical ratings and move only through the hour changes"
+   }
+  },
+  "soft20": {
+   "label": "soft-rock central UCS 20",
+   "kfs": {
+    "tph_wet": 55.111,
+    "yield_realized_pct": 22.04,
+    "yield_required_pct": 25.92,
+    "psd_pct": {
+     "in_cut_20_35": 82.24,
+     "below_20": 9.07,
+     "above_35": 8.68
+    },
+    "envelope": {
+     "below_ok": true,
+     "in_cut_ok": true,
+     "above_ok": true
+    },
+    "envelope_compliant": true
+   },
+   "grits_D6": {
+    "tph_dry_mode_G": 14.196,
+    "below_2mm_pct": 14.41,
+    "above_4mm_pct": 3.4,
+    "margin_below_pt": 0.59,
+    "margin_above_pt": 1.6,
+    "compliant": true
+   },
+   "fines": {
+    "tph_mode_G": 15.546,
+    "tph_mode_F": 23.13,
+    "passing_1p7_mode_G_pct": 97.39,
+    "passing_1p7_mode_F_pct": 99.07,
+    "redirect_eligible_G": true,
+    "redirect_eligible_F": true
+   },
+   "zone_1_3": {
+    "fines_over_grits_ratio_mode_G": 1.095,
+    "recirculation_tph_G": 58.696,
+    "recirculation_tph_F": 60.834
+   },
+   "machine_loads": {
+    "RC.1_mode_G_tph_dry": 28.31,
+    "RC.1_capacity_tph": 32,
+    "RC.2_mode_F_tph_dry_total": 38.74,
+    "RC.2_capacity_tph_total": 44,
+    "CR.5011_mode_1A_tph_wet": 68.58,
+    "CR.5011_forced_1B_tph_wet": 83.51,
+    "CR.5011_capacity_tph_wet": 90,
+    "SR.5111_loop_feed_2C_tph_dry": 93.0,
+    "zone_1_2_loop_rating_tph": 60
+   },
+   "absorbed_kW": {
+    "CR.5009_1A": 60.1,
+    "CR.5011_1A": 12.5,
+    "CR.5011_1B": 26.4,
+    "CR.5113_2A": 57.2,
+    "CR.5113_2C": 211.0,
+    "RC.1_G": 10.2,
+    "RC.2_F_total": 26.3
+   },
+   "plan": {
+    "zones": {
+     "1.1": {
+      "required_hours_clock": 1927.9,
+      "utilization_pct": 80.3,
+      "feasible": true
+     },
+     "1.2": {
+      "required_hours_clock": 3037.4,
+      "utilization_pct": 40.5,
+      "feasible": true
+     },
+     "1.3": {
+      "required_hours_clock": 4397.4,
+      "utilization_pct": 58.6,
+      "feasible": true
+     }
+    },
+    "zone_1_1_split_eff_h": {
+     "mode_1A_hours_effective": 1542.3,
+     "mode_1B_hours_effective": 0.0
+    },
+    "zone_1_3_split_eff_h": {
+     "mode_G_hours_effective": 2817.7,
+     "mode_F_hours_effective": 700.2
+    },
+    "zone_1_2_split_eff_h": {
+     "dry_season_hours_effective": 1831.4,
+     "rain_season_hours_effective": 0.0,
+     "aglime_2c_campaign_hours_effective": 598.5
+    },
+    "production_t": {
+     "KFS": 85000.0,
+     "AgLime": 135000.0,
+     "FeedLime grits": 40000.0,
+     "FeedLime fines": 60000.0,
+     "UltraFin": 429.0
+    },
+    "landfill_t_per_y": 57597.0
+   },
+   "electricity_modeled_drives": {
+    "per_machine_MWh_per_y": {
+     "CR.5009": 92.7,
+     "CR.5011": 19.3,
+     "CR.5113": 231.0,
+     "RC.1": 34.4,
+     "RC.2": 81.0
+    },
+    "total_MWh_per_y": 458.4,
+    "cost_kEUR_per_y_at_115": 52.7,
+    "_note": "engine-modeled drives only (CR.5009/CR.5011/CR.5113/RC.1/RC.2), same absorbed-power x mode-hours method as the 2026-08-15 OPEX study; non-modeled drives keep their typical ratings and move only through the hour changes"
+   }
+  },
+  "soft15": {
+   "label": "soft-rock envelope UCS 15",
+   "kfs": {
+    "tph_wet": 52.816,
+    "yield_realized_pct": 21.13,
+    "yield_required_pct": 25.91,
+    "psd_pct": {
+     "in_cut_20_35": 82.07,
+     "below_20": 9.17,
+     "above_35": 8.75
+    },
+    "envelope": {
+     "below_ok": true,
+     "in_cut_ok": true,
+     "above_ok": true
+    },
+    "envelope_compliant": true
+   },
+   "grits_D6": {
+    "tph_dry_mode_G": 13.353,
+    "below_2mm_pct": 14.59,
+    "above_4mm_pct": 3.4,
+    "margin_below_pt": 0.41,
+    "margin_above_pt": 1.6,
+    "compliant": true
+   },
+   "fines": {
+    "tph_mode_G": 16.361,
+    "tph_mode_F": 23.088,
+    "passing_1p7_mode_G_pct": 97.65,
+    "passing_1p7_mode_F_pct": 99.15,
+    "redirect_eligible_G": true,
+    "redirect_eligible_F": true
+   },
+   "zone_1_3": {
+    "fines_over_grits_ratio_mode_G": 1.225,
+    "recirculation_tph_G": 57.157,
+    "recirculation_tph_F": 58.203
+   },
+   "machine_loads": {
+    "RC.1_mode_G_tph_dry": 27.95,
+    "RC.1_capacity_tph": 32,
+    "RC.2_mode_F_tph_dry_total": 36.39,
+    "RC.2_capacity_tph_total": 44,
+    "CR.5011_mode_1A_tph_wet": 66.88,
+    "CR.5011_forced_1B_tph_wet": 81.52,
+    "CR.5011_capacity_tph_wet": 90,
+    "SR.5111_loop_feed_2C_tph_dry": 93.0,
+    "zone_1_2_loop_rating_tph": 60
+   },
+   "absorbed_kW": {
+    "CR.5009_1A": 48.6,
+    "CR.5011_1A": 10.0,
+    "CR.5011_1B": 21.0,
+    "CR.5113_2A": 47.5,
+    "CR.5113_2C": 170.2,
+    "RC.1_G": 8.2,
+    "RC.2_F_total": 20.2
+   },
+   "plan": {
+    "zones": {
+     "1.1": {
+      "required_hours_clock": 2011.7,
+      "utilization_pct": 83.8,
+      "feasible": true
+     },
+     "1.2": {
+      "required_hours_clock": 3038.5,
+      "utilization_pct": 40.5,
+      "feasible": true
+     },
+     "1.3": {
+      "required_hours_clock": 4339.4,
+      "utilization_pct": 57.9,
+      "feasible": true
+     }
+    },
+    "zone_1_1_split_eff_h": {
+     "mode_1A_hours_effective": 1609.4,
+     "mode_1B_hours_effective": 0.0
+    },
+    "zone_1_3_split_eff_h": {
+     "mode_G_hours_effective": 2995.6,
+     "mode_F_hours_effective": 476.0
+    },
+    "zone_1_2_split_eff_h": {
+     "dry_season_hours_effective": 1869.3,
+     "rain_season_hours_effective": 0.0,
+     "aglime_2c_campaign_hours_effective": 561.5
+    },
+    "production_t": {
+     "KFS": 85000.0,
+     "AgLime": 135000.0,
+     "FeedLime grits": 40000.0,
+     "FeedLime fines": 60000.0,
+     "UltraFin": 515.0
+    },
+    "landfill_t_per_y": 74259.0
+   },
+   "electricity_modeled_drives": {
+    "per_machine_MWh_per_y": {
+     "CR.5009": 78.2,
+     "CR.5011": 16.1,
+     "CR.5113": 184.4,
+     "RC.1": 27.5,
+     "RC.2": 62.6
+    },
+    "total_MWh_per_y": 368.8,
+    "cost_kEUR_per_y_at_115": 42.4,
+    "_note": "engine-modeled drives only (CR.5009/CR.5011/CR.5113/RC.1/RC.2), same absorbed-power x mode-hours method as the 2026-08-15 OPEX study; non-modeled drives keep their typical ratings and move only through the hour changes"
+   }
+  },
+  "soft30": {
+   "label": "soft-rock envelope UCS 30",
+   "kfs": {
+    "tph_wet": 57.792,
+    "yield_realized_pct": 23.12,
+    "yield_required_pct": 25.92,
+    "psd_pct": {
+     "in_cut_20_35": 82.39,
+     "below_20": 8.9,
+     "above_35": 8.71
+    },
+    "envelope": {
+     "below_ok": true,
+     "in_cut_ok": true,
+     "above_ok": true
+    },
+    "envelope_compliant": true
+   },
+   "grits_D6": {
+    "tph_dry_mode_G": 15.193,
+    "below_2mm_pct": 14.29,
+    "above_4mm_pct": 3.39,
+    "margin_below_pt": 0.71,
+    "margin_above_pt": 1.61,
+    "compliant": true
+   },
+   "fines": {
+    "tph_mode_G": 14.574,
+    "tph_mode_F": 23.165,
+    "passing_1p7_mode_G_pct": 97.03,
+    "passing_1p7_mode_F_pct": 98.98,
+    "redirect_eligible_G": true,
+    "redirect_eligible_F": true
+   },
+   "zone_1_3": {
+    "fines_over_grits_ratio_mode_G": 0.959,
+    "recirculation_tph_G": 60.499,
+    "recirculation_tph_F": 63.765
+   },
+   "machine_loads": {
+    "RC.1_mode_G_tph_dry": 28.7,
+    "RC.1_capacity_tph": 32,
+    "RC.2_mode_F_tph_dry_total": 41.37,
+    "RC.2_capacity_tph_total": 44,
+    "CR.5011_mode_1A_tph_wet": 71.54,
+    "CR.5011_forced_1B_tph_wet": 86.74,
+    "CR.5011_capacity_tph_wet": 90,
+    "SR.5111_loop_feed_2C_tph_dry": 93.0,
+    "zone_1_2_loop_rating_tph": 60
+   },
+   "absorbed_kW": {
+    "CR.5009_1A": 70.6,
+    "CR.5011_1A": 15.4,
+    "CR.5011_1B": 32.6,
+    "CR.5113_2A": 66.6,
+    "CR.5113_2C": 252.8,
+    "RC.1_G": 12.3,
+    "RC.2_F_total": 33.2
+   },
+   "plan": {
+    "zones": {
+     "1.1": {
+      "required_hours_clock": 1838.5,
+      "utilization_pct": 76.6,
+      "feasible": true
+     },
+     "1.2": {
+      "required_hours_clock": 3036.3,
+      "utilization_pct": 40.5,
+      "feasible": true
+     },
+     "1.3": {
+      "required_hours_clock": 4458.1,
+      "utilization_pct": 59.4,
+      "feasible": true
+     }
+    },
+    "zone_1_1_split_eff_h": {
+     "mode_1A_hours_effective": 1470.8,
+     "mode_1B_hours_effective": 0.0
+    },
+    "zone_1_3_split_eff_h": {
+     "mode_G_hours_effective": 2632.8,
+     "mode_F_hours_effective": 933.7
+    },
+    "zone_1_2_split_eff_h": {
+     "dry_season_hours_effective": 1797.7,
+     "rain_season_hours_effective": 0.0,
+     "aglime_2c_campaign_hours_effective": 631.3
+    },
+    "production_t": {
+     "KFS": 85000.0,
+     "AgLime": 135000.0,
+     "FeedLime grits": 40000.0,
+     "FeedLime fines": 60000.0,
+     "UltraFin": 350.0
+    },
+    "landfill_t_per_y": 39796.0
+   },
+   "electricity_modeled_drives": {
+    "per_machine_MWh_per_y": {
+     "CR.5009": 103.9,
+     "CR.5011": 22.6,
+     "CR.5113": 279.3,
+     "RC.1": 41.5,
+     "RC.2": 101.9
+    },
+    "total_MWh_per_y": 549.2,
+    "cost_kEUR_per_y_at_115": 63.2,
+    "_note": "engine-modeled drives only (CR.5009/CR.5011/CR.5113/RC.1/RC.2), same absorbed-power x mode-hours method as the 2026-08-15 OPEX study; non-modeled drives keep their typical ratings and move only through the hour changes"
+   }
+  }
+ },
+ "quarry_target_check": {
+  "defaults_quarry_401": {
+   "label": "defaults + quarry 40.1 % curve + AgLime 108 kt",
+   "p20_inlet_pct": 40.1,
+   "landfill_t_per_y": 0.0,
+   "kfs_yield_realized_pct": 28.26,
+   "kfs_yield_required_pct": 28.26,
+   "utilizations_pct": [
+    62.7,
+    36.0,
+    60.2
+   ],
+   "feasible": true
+  },
+  "soft20_quarry_401": {
+   "label": "soft20 + quarry 40.1 % curve + AgLime 108 kt",
+   "p20_inlet_pct": 40.1,
+   "landfill_t_per_y": 36034.0,
+   "kfs_yield_realized_pct": 25.22,
+   "kfs_yield_required_pct": 28.24,
+   "utilizations_pct": [
+    70.2,
+    36.0,
+    58.7
+   ],
+   "feasible": true
+  },
+  "soft20_zero_landfill_rebisect": {
+   "label": "zero-landfill k=1.8504",
+   "p20_inlet_pct": 35.13,
+   "landfill_t_per_y": 1.0,
+   "kfs_yield_realized_pct": 28.24,
+   "kfs_yield_required_pct": 28.24,
+   "utilizations_pct": [
+    62.7,
+    36.0,
+    58.7
+   ],
+   "feasible": true,
+   "rescale_k": 1.8504
+  }
+ }
+}
