@@ -1,0 +1,412 @@
+{
+ "_provenance": {
+  "engine_commit": "5dc5b53",
+  "run_date": "2026-08-15",
+  "functions": [
+   "wankoe_model.scenario.run_scenario (per-mode photos 1A / forced 1B / 2A / 2C / G / F, weather dry)"
+  ],
+  "data": "data/default_parameters.json",
+  "eta_m": 0.75,
+  "produced_by": "NOEZYS",
+  "replay": "PYTHONPATH=src python scripts/purchase_datasheet_evidence.py"
+ },
+ "conventions": {
+  "total_flow_rule": "wet basis primary (client 2026-08-14): zone-1.1 wet = dry x 1.07527 (250 t/h wet pivot feed), zone-1.2 wet = dry x 1.07527 (100 t/h wet reclaim); zone 1.3 quoted dry (post-dryer, 0.5 % moisture)",
+  "absorbed_kW": "P_net / eta_m (motor input)",
+  "screen_area_margin": "purchase area = worst-mode required area x 1.25 ([H] +25 % design allowance, vendor to verify by bed-depth / V-factor method)",
+  "motor_sizing": "recommended min installed = worst-mode absorbed x 1.15 [H], rounded up to standard IEC rating (vendor to confirm)"
+ },
+ "client_decided_ratings": {
+  "CR.5011_max_capacity_tph_wet": 90,
+  "CR.5011_installed_kW_vendor": 132,
+  "CR.5011_mode_1B_x80_mm": 18,
+  "RC.1_max_capacity_tph_dry": 32,
+  "RC.2_max_capacity_tph_dry_per_unit": 22,
+  "RC.2_n_units": 2,
+  "RC.2_mode_F_gap_mm": 1.5,
+  "zone_1_2_loop_rating_tph": 60,
+  "CR.5009_max_feed_size_mm": 150,
+  "SR.5111_loop_load_ratio_2C": 1.55,
+  "CR.5011_load_ratio_1A_wet": 0.828,
+  "CR.5011_load_ratio_1B_wet": 1.0,
+  "RC.1_load_ratio_G": 0.913,
+  "RC.2_load_ratio_F": 1.0
+ },
+ "machines": {
+  "CR.5009": {
+   "modes": {
+    "1A": {
+     "active": true,
+     "throughput_tph_dry": 232.5,
+     "throughput_tph_wet": 250.0,
+     "F80_mm": 180.57,
+     "P80_mm": 42.7,
+     "P_net_kW": 72.5,
+     "absorbed_kW": 96.6,
+     "W_kWh_t": 0.3118
+    },
+    "1B": {
+     "active": true,
+     "throughput_tph_dry": 173.07,
+     "throughput_tph_wet": 186.1,
+     "F80_mm": 180.57,
+     "P80_mm": 42.7,
+     "P_net_kW": 54.0,
+     "absorbed_kW": 71.9,
+     "W_kWh_t": 0.3118
+    }
+   },
+   "motor_sizing": {
+    "worst_mode_absorbed_kW": 96.6,
+    "service_allowance": "x1.15 [H]",
+    "recommended_min_installed_kW": 132
+   }
+  },
+  "SR.5007": {
+   "modes": {
+    "1A": {
+     "active": true,
+     "feed_tph_dry": 301.77,
+     "feed_tph_wet": 324.48,
+     "required_areas_m2": {
+      "top_deck": 6.8,
+      "bottom_deck": 7.15
+     }
+    },
+    "1B": {
+     "active": true,
+     "feed_tph_dry": 256.79,
+     "feed_tph_wet": 276.12,
+     "required_areas_m2": {
+      "top_deck": 6.17,
+      "bottom_deck": 7.08
+     }
+    }
+   },
+   "purchase_area_m2": {
+    "top_deck": {
+     "worst_mode": "1A",
+     "required_m2": 6.8,
+     "with_margin_m2": 8.5
+    },
+    "bottom_deck": {
+     "worst_mode": "1A",
+     "required_m2": 7.15,
+     "with_margin_m2": 8.94
+    }
+   },
+   "area_margin": "+25 % [H]"
+  },
+  "CR.5011": {
+   "modes": {
+    "1A": {
+     "active": true,
+     "throughput_tph_dry": 69.27,
+     "throughput_tph_wet": 74.48,
+     "F80_mm": 63.02,
+     "P80_mm": 29.29,
+     "P_net_kW": 16.1,
+     "absorbed_kW": 21.5,
+     "W_kWh_t": 0.2331,
+     "Ecs_kWh_t": 0.125,
+     "t10_pct": 5.7098
+    },
+    "1B": {
+     "active": true,
+     "throughput_tph_dry": 83.72,
+     "throughput_tph_wet": 90.02,
+     "F80_mm": 55.63,
+     "P80_mm": 17.66,
+     "P_net_kW": 34.5,
+     "absorbed_kW": 46.0,
+     "W_kWh_t": 0.4119,
+     "Ecs_kWh_t": 0.125,
+     "t10_pct": 5.7098
+    }
+   },
+   "motor_sizing": {
+    "worst_mode_absorbed_kW": 46.0,
+    "service_allowance": "x1.15 [H]",
+    "recommended_min_installed_kW": 55
+   }
+  },
+  "SR.5105": {
+   "modes": {
+    "2A": {
+     "active": true,
+     "feed_tph_dry": 93.0,
+     "feed_tph_wet": 100.0,
+     "required_areas_m2": {
+      "deck": 3.01
+     }
+    }
+   },
+   "purchase_area_m2": {
+    "deck": {
+     "worst_mode": "2A",
+     "required_m2": 3.01,
+     "with_margin_m2": 3.76
+    }
+   },
+   "area_margin": "+25 % [H]"
+  },
+  "SR.5111": {
+   "modes": {
+    "2A": {
+     "active": true,
+     "feed_tph_dry": 35.69,
+     "feed_tph_wet": 38.37,
+     "required_areas_m2": {
+      "deck": 1.42
+     },
+     "imperfection_used": 0.15
+    },
+    "2C": {
+     "active": true,
+     "feed_tph_dry": 93.0,
+     "feed_tph_wet": 100.0,
+     "required_areas_m2": {
+      "deck": 1.42
+     },
+     "imperfection_used": 0.15
+    }
+   },
+   "purchase_area_m2": {
+    "deck": {
+     "worst_mode": "2C",
+     "required_m2": 1.42,
+     "with_margin_m2": 1.77
+    }
+   },
+   "area_margin": "+25 % [H]"
+  },
+  "CR.5113": {
+   "modes": {
+    "2A": {
+     "active": true,
+     "throughput_tph_dry": 28.06,
+     "throughput_tph_wet": 30.17,
+     "F80_mm": 5.19,
+     "P80_mm": 0.95,
+     "P_net_kW": 65.5,
+     "absorbed_kW": 87.4,
+     "W_kWh_t": 2.3356,
+     "Ecs_kWh_t": 0.2222,
+     "t10_pct": 9.7723
+    },
+    "2C": {
+     "active": true,
+     "throughput_tph_dry": 85.99,
+     "throughput_tph_wet": 92.46,
+     "F80_mm": 14.56,
+     "P80_mm": 0.95,
+     "P_net_kW": 261.1,
+     "absorbed_kW": 348.1,
+     "W_kWh_t": 3.0366,
+     "Ecs_kWh_t": 0.2222,
+     "t10_pct": 9.7723
+    }
+   },
+   "motor_sizing": {
+    "worst_mode_absorbed_kW": 348.1,
+    "service_allowance": "x1.15 [H]",
+    "recommended_min_installed_kW": 450
+   }
+  },
+  "SR.5115": {
+   "modes": {
+    "2A": {
+     "active": true,
+     "feed_tph_dry": 28.06,
+     "feed_tph_wet": 30.17,
+     "required_areas_m2": {
+      "deck": 4.99
+     },
+     "imperfection_used": 0.15
+    },
+    "2C": {
+     "active": true,
+     "feed_tph_dry": 85.99,
+     "feed_tph_wet": 92.46,
+     "required_areas_m2": {
+      "deck": 15.28
+     },
+     "imperfection_used": 0.15
+    }
+   },
+   "purchase_area_m2": {
+    "deck": {
+     "worst_mode": "2C",
+     "required_m2": 15.28,
+     "with_margin_m2": 19.1
+    }
+   },
+   "area_margin": "+25 % [H]"
+  },
+  "RC.1": {
+   "modes": {
+    "G": {
+     "active": true,
+     "throughput_tph_dry": 29.21,
+     "throughput_tph_wet": 29.21,
+     "F80_mm": 16.39,
+     "P80_mm": 7.72,
+     "P_net_kW": 13.1,
+     "absorbed_kW": 17.4,
+     "W_kWh_t": 0.448
+    },
+    "F": {
+     "active": true,
+     "throughput_tph_dry": 22.8,
+     "throughput_tph_wet": 22.8,
+     "F80_mm": 16.39,
+     "P80_mm": 7.72,
+     "P_net_kW": 10.2,
+     "absorbed_kW": 13.6,
+     "W_kWh_t": 0.448
+    }
+   },
+   "motor_sizing": {
+    "worst_mode_absorbed_kW": 17.4,
+    "service_allowance": "x1.15 [H]",
+    "recommended_min_installed_kW": 22
+   }
+  },
+  "RC.2": {
+   "modes": {
+    "G": {
+     "active": true,
+     "throughput_tph_dry": 33.17,
+     "throughput_tph_wet": 33.17,
+     "F80_mm": 6.97,
+     "P80_mm": 2.83,
+     "P_net_kW": 28.4,
+     "absorbed_kW": 37.9,
+     "units_in_service": 2,
+     "W_kWh_t": 0.8569
+    },
+    "F": {
+     "active": true,
+     "throughput_tph_dry": 43.99,
+     "throughput_tph_wet": 43.99,
+     "F80_mm": 6.0,
+     "P80_mm": 2.63,
+     "P_net_kW": 36.4,
+     "absorbed_kW": 48.5,
+     "units_in_service": 2,
+     "W_kWh_t": 0.8268
+    }
+   },
+   "motor_sizing": {
+    "worst_mode_absorbed_kW": 48.5,
+    "service_allowance": "x1.15 [H]",
+    "recommended_min_installed_kW": 75,
+    "per_unit_absorbed_kW": 24.2,
+    "recommended_min_installed_kW_per_unit": 30
+   }
+  },
+  "SC.A": {
+   "modes": {
+    "G": {
+     "active": true,
+     "feed_tph_dry": 92.23,
+     "feed_tph_wet": 92.23,
+     "required_areas_m2": {
+      "deck_1": 4.47,
+      "deck_2": 4.56
+     }
+    },
+    "F": {
+     "active": true,
+     "feed_tph_dry": 90.08,
+     "feed_tph_wet": 90.08,
+     "required_areas_m2": {
+      "deck_1": 4.77,
+      "deck_2": 5.59
+     }
+    }
+   },
+   "purchase_area_m2": {
+    "deck_1": {
+     "worst_mode": "F",
+     "required_m2": 4.77,
+     "with_margin_m2": 5.96
+    },
+    "deck_2": {
+     "worst_mode": "F",
+     "required_m2": 5.59,
+     "with_margin_m2": 6.99
+    }
+   },
+   "area_margin": "+25 % [H]"
+  },
+  "SC.B": {
+   "modes": {
+    "G": {
+     "active": true,
+     "feed_tph_dry": 40.81,
+     "feed_tph_wet": 40.81,
+     "required_areas_m2": {
+      "deck_1": 4.01,
+      "deck_2": 2.64
+     }
+    },
+    "F": {
+     "active": true,
+     "feed_tph_dry": 50.0,
+     "feed_tph_wet": 50.0,
+     "required_areas_m2": {
+      "deck_1": 5.19,
+      "deck_2": 4.51
+     }
+    }
+   },
+   "purchase_area_m2": {
+    "deck_1": {
+     "worst_mode": "F",
+     "required_m2": 5.19,
+     "with_margin_m2": 6.49
+    },
+    "deck_2": {
+     "worst_mode": "F",
+     "required_m2": 4.51,
+     "with_margin_m2": 5.64
+    }
+   },
+   "area_margin": "+25 % [H]"
+  },
+  "SP.36": {
+   "modes": {
+    "G": {
+     "active": true,
+     "Q_air_m3h": 133.1065,
+     "Phi_cut": 0.0065,
+     "certified": false
+    },
+    "F": {
+     "active": true,
+     "Q_air_m3h": 207.2215,
+     "Phi_cut": 0.0059,
+     "certified": false
+    }
+   }
+  },
+  "CL.38": {
+   "modes": {
+    "G": {
+     "active": true,
+     "d50_um": 4.2347
+    },
+    "F": {
+     "active": true,
+     "d50_um": 4.2347
+    }
+   }
+  }
+ },
+ "alerts_1A": [
+  "CR.5009: feed F80 181 mm > max nip size 150 mm — saturation",
+  "SP.36: Phi(<cut) not measured — UltraFin computed from the modelled curve, flagged NOT CERTIFIED (to be measured by sieve/laser)",
+  "Stockpile 0/20: 239422 t reclaimed beyond what is produced when every zone runs its FULL ceiling hours — downstream tonnages of this table are not simultaneously achievable at these rates; the hours planning (hours follow the targets) gives the consistent operating point"
+ ]
+}

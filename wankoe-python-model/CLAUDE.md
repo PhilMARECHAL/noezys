@@ -199,6 +199,20 @@ scripts/fmeca_engine_evidence.py. Top-3 RPN: SC.B deck-2.0 panel wear
 224 (standing finding). 4 of 5 critical modes = design/purchase fixes
 (CR.5113 motor, BE.40/BC.22 uprate, zone-1.2 loop resize at 155 % in 2C).
 
+## Purchase datasheets (client order 2026-08-15)
+
+docs/purchase/: PURCHASE TECHNICAL DATASHEETS for the 13 major process
+machines (DY.03 excluded — already acquired): one .md per machine +
+INDEX.md, FMECA-informed, fresh engine runs (evidence
+purchase-engine-evidence.json, replay
+scripts/purchase_datasheet_evidence.py). Carries the client-decided
+ratings (RC.1 32; RC.2 2x22 gap 3.4->1.5; CR.5011 90 wet @ CSS 18),
+the CR.5113 2C motor branch (348 kW absorbed -> 450 kW rec. [H] or
+capped rate), the SR.5111 loop resize (155 %), SR.5115 19.1 m2, SC.B
+certified-aperture panels (RPN 252), and the RC.1/RC.2 vendor
+gradation test as a REQUIREMENT. Margins stated: screen areas worst
+mode +25 % [H]; motors worst absorbed x1.15 [H] to IEC.
+
 ## Engineering state (see docs/ for detail)
 
 - docs/spec-conformity-matrix.md: requirement-by-requirement traceability
