@@ -233,14 +233,48 @@ def run_required_hours(params: dict) -> dict:
         raise ValueError("Zone 1.1 produces no KFS (mode 1B?): cannot plan from the KFS target")
     h11_kfs_eff = targets["KFS"]["target_t_per_year"] / kfs_tph
     h11_020_eff = reclaimed_020_t / q020_tph_wet
-    h11_eff = max(h11_kfs_eff, h11_020_eff)
-    driver = "KFS target" if h11_kfs_eff >= h11_020_eff else "0/20 demand of zone 1.2"
+    # ---- AUTO MODE-1B RULE (client 2026-08-14): KFS is NEVER over-produced.
+    # When the 0/20 demand would drive zone 1.1 beyond the KFS-target hours,
+    # mode-1A hours land the KFS target EXACTLY and the 0/20 deficit is
+    # produced by DEDICATED mode-1B hours (no KFS: 20-35 recirculated into
+    # CR.5011 at the mode-1B feed and CSS). Toggleable; off = legacy max().
+    h11_1b_eff = 0.0
+    q020_1b_tph_wet = 0.0
+    if rules.get("zone_1_1_auto_mode_1B", False) and h11_020_eff > h11_kfs_eff:
+        h11_1a_eff = h11_kfs_eff  # KFS lands EXACTLY on its firm target
+        deficit_020_t = reclaimed_020_t - h11_1a_eff * q020_tph_wet
+        photo_1b = run_scenario(
+            deep_merge(
+                params,
+                {"default_scenario": {"weather": "dry", "zone_1_1_mode": "1B"}},
+            )
+        )
+        q020_1b_tph_wet = photo_1b["intermediate_flows"]["stream_0_20_dry_tph"] / (
+            1.0 - moisture / 100.0
+        )
+        if q020_1b_tph_wet <= 0:
+            raise ValueError("Zone 1.1 mode 1B produces no 0/20: check the scenario")
+        h11_1b_eff = deficit_020_t / q020_1b_tph_wet
+        driver = "KFS target + auto mode-1B for the 0/20 deficit"
+    else:
+        h11_1a_eff = max(h11_kfs_eff, h11_020_eff)
+        driver = "KFS target" if h11_kfs_eff >= h11_020_eff else "0/20 demand of zone 1.2"
+        if h11_020_eff > h11_kfs_eff:
+            # legacy behavior (rule OFF): the 0/20-driven hours co-produce
+            # KFS beyond its firm target — surface it
+            alerts.append(
+                f"KFS over-produced: {(h11_020_eff - h11_kfs_eff) * kfs_tph:.0f} t beyond "
+                f"the {targets['KFS']['target_t_per_year']:.0f} t target (0/20 demand drives "
+                "zone 1.1 and commercial_rules.zone_1_1_auto_mode_1B is OFF)"
+            )
+    h11_eff = h11_1a_eff + h11_1b_eff
     zone11 = {**_zone_result("1.1", h11_eff), "driven_by": driver}
 
     # ---- resulting yearly production and stockpile balance
     aglime_t = aglime_2a_t + aglime_2c_t
     production_t = {
-        "KFS": round(h11_eff * kfs_tph, 0),
+        # KFS comes from the mode-1A hours only (mode 1B makes no KFS)
+        "KFS": round(h11_1a_eff * kfs_tph, 0),
         "AgLime": round(aglime_t, 0),
         # mode split: grits come from mode-G hours only; fines from both
         "FeedLime grits": round(h13_g_eff * grits_tph, 0),
@@ -284,7 +318,8 @@ def run_required_hours(params: dict) -> dict:
     # ---- excess 0/20 disposal (client ruling 2026-08-13, final): there is
     # NO market for crude 0/20 — the excess beyond the downstream reclaim
     # goes to LANDFILL and is a NET FINANCIAL LOSS, alerted and minimized
-    produced_020_t = h11_eff * q020_tph_wet
+    # 0/20 comes from both modes (mode 1B at its own, richer wet rate)
+    produced_020_t = h11_1a_eff * q020_tph_wet + h11_1b_eff * q020_1b_tph_wet
     excess_020_t = max(0.0, produced_020_t - reclaimed_020_t)
     if rules.get("crude_020_balancing_sales", False):
         # superseded historical rule kept toggleable for audit only
@@ -349,6 +384,10 @@ def run_required_hours(params: dict) -> dict:
         "principle": "hours follow the production targets (client rule 2026-08-08)",
         "flow_rates_tph": dict(flow),
         "zones": {"1.1": zone11, "1.2": zone12, "1.3": zone13},
+        "zone_1_1_split": {
+            "mode_1A_hours_effective": round(h11_1a_eff, 1),
+            "mode_1B_hours_effective": round(h11_1b_eff, 1),
+        },
         "zone_1_3_split": {
             "mode_G_hours_effective": round(h13_g_eff, 1),
             "mode_F_hours_effective": round(h13_f_eff, 1),

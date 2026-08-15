@@ -159,7 +159,9 @@
       "_capacity_note": "Q8 CLOSED 2026-08-11 (expert book ch.4, machine documents Ochse 2026-07-17): HAZEMAG AP-S 1010 \u2014 100 t/h nominal, 75-90 t/h real on limestone (max_capacity_tph = 90, conservative bound 75), rotor 1000x1000, max feed 400 mm, motor 132 kW; capacity bound by the rotor, not the motor. Supersedes the spec's '~125 t/h (mode A)'. Operational constraint: in mode 1B the LINE feed must drop to ~130 t/h to keep the impactor in range (the engine does not enforce line feed; check mode-1B scenarios against this)",
       "_settings_note": "CSS 30 mm / v 35 m/s adopted 2026-08-13 (same campaign: recycle re-crushed coarse reports to KFS; low speed limits fines). Mode 1B at 250 t/h is NOT possible at these settings (impactor would exceed capacity) \u2014 irrelevant since the 0/20 balance no longer needs stock campaigns",
       "capacity_basis": "wet",
-      "_capacity_basis_note": "Adversarial audit 2026-08-14: the 90 t/h real capacity is a VENDOR rating (Q8, AP-S 1010 docs) \u2014 vendor tonnages are as-fed (wet). The loop check converts the dry stream to wet before comparing (previously a ~7.5 % blind spot at 7 % moisture)."
+      "_capacity_basis_note": "Adversarial audit 2026-08-14: the 90 t/h real capacity is a VENDOR rating (Q8, AP-S 1010 docs) \u2014 vendor tonnages are as-fed (wet). The loop check converts the dry stream to wet before comparing (previously a ~7.5 % blind spot at 7 % moisture).",
+      "mode_1B_x80_mm": 18,
+      "_mode_1B_note": "Mode-1B setting (2026-08-14): at the reference CSS 30 the 1B loop cannot pass material below 20 mm and diverges; 18 mm restores convergence. Operations switch the CSS with the mode (pattern: RC.2 mode_F_gap_mm)."
     },
     "DV-5099": {
       "zone": "1.1",
@@ -962,6 +964,8 @@
     "rain_season_fraction": 0.25,
     "flow_rates_tph": {
       "zone_1_1_feed": 250,
+      "zone_1_1_feed_mode_1B": 186.1,
+      "_mode_1B_note": "Engine bisection 2026-08-14: 186.1 t/h wet is the max mode-1B feed with CR.5011 at its 90 t/h WET vendor limit, at the mode-1B CSS (CR.5011.mode_1B_x80_mm).",
       "zone_1_2_reclaim": 100,
       "zone_1_3_feedlime": 32.1,
       "zone_1_3_feedlime_mode_F": 25.05
@@ -996,6 +1000,8 @@
     "crude_020_balancing_sales": false,
     "excess_020_to_landfill": true,
     "_020_note": "Client 2026-08-13 (final): there is NO market for crude 0/20 \u2014 the excess beyond the downstream reclaim goes to LANDFILL and is a NET FINANCIAL LOSS. It must be reported as a loss (with an alert), never as a sale, and minimized by design/operating choices.",
+    "zone_1_1_auto_mode_1B": true,
+    "_auto_mode_1B_note": "Client rule 2026-08-14: KFS is NEVER over-produced — when the 0/20 demand would drive zone 1.1 beyond the KFS-target hours, mode-1A hours land the KFS target EXACTLY and the 0/20 deficit is produced by dedicated mode-1B hours (no KFS: 20-35 recirculated into CR.5011 at zone_1_1_feed_mode_1B / mode_1B_x80_mm). Toggleable; off = legacy max() behavior with an overproduction alert.",
     "aglime_2c_campaigns": true,
     "_aglime_2c_note": "Client rule (2026-08-13: 'producing lime is never a problem, separate campaign' \u2014 wired 2026-08-14 after the C1 adoption dried up the fines redirect): when the 2A co-production plus the fines redirect leave the AgLime market cap unserved, zone 1.2 runs DEDICATED mode-2C campaigns (everything reclaimed leaves as AgLime) to produce the complement. Toggleable; campaign hours count toward the zone-1.2 ceiling."
   },

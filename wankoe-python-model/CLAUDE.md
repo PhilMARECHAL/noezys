@@ -102,6 +102,11 @@ Sales: KFS 85 000 + grits 44 400 + fines 60 000 + AgLime exactly
 commercial_rules.excess_020_to_landfill, alerted, minimized — 18.5 kt/y
 at grits 40 kt; 12.2 at 44.4 kt; 8.9 at dryer-flat-out 46.7 kt). Zones 74.1 / 43.0 / 95.0 %. Mode 1B unusable at 250 t/h with
 CSS 30 (no longer needed). Ch.9 tests pin all spec-era settings.
+AUTO MODE-1B RULE (client 2026-08-14): KFS is NEVER over-produced —
+if the 0/20 demand would drive zone 1.1 beyond the KFS-target hours,
+the deficit is made in dedicated mode-1B hours (feed 186.1 t/h wet,
+CSS 18, CR.5011 at its 90 t/h wet limit;
+commercial_rules.zone_1_1_auto_mode_1B, no-op at current defaults).
 
 ## Zone-1.3 redesign (2026-08-14 — C1 ADOPTED)
 

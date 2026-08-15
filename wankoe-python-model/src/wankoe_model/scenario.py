@@ -191,7 +191,15 @@ def run_scenario(params: dict) -> dict:
     feed_psd, moisture = _build_feed(params, alerts)
 
     # ---------------- Zone 1.1
-    q_feed = sc["flow_rates_tph"]["zone_1_1_feed"]
+    # mode-1B campaigns run at their own (lower) feed so CR.5011 sits at
+    # its 90 t/h wet vendor limit (client auto-1B rule 2026-08-14; same
+    # pattern as zone_1_3_feedlime_mode_F)
+    if sc["zone_1_1_mode"] == "1B":
+        q_feed = sc["flow_rates_tph"].get(
+            "zone_1_1_feed_mode_1B", sc["flow_rates_tph"]["zone_1_1_feed"]
+        )
+    else:
+        q_feed = sc["flow_rates_tph"]["zone_1_1_feed"]
     feed = {"q": q_feed * (1.0 - moisture / 100.0), "psd": feed_psd, "moisture": moisture}
     z11 = flowsheet.zone_1_1(feed, params, sc["zone_1_1_mode"], alerts, weather)
 

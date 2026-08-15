@@ -97,7 +97,11 @@ def test_infeasible_ceiling_is_flagged():
     assert any("Zone 1.1" in a and "NOT reachable" in a for a in plan["alerts"])
 
 
-def test_zone_1_1_can_be_driven_by_020_demand():
+def test_zone_1_1_auto_mode_1B_serves_020_deficit():
+    # Rewritten 2026-08-14 (client rule zone_1_1_auto_mode_1B): KFS is
+    # NEVER over-produced — when the 0/20 demand exceeds the KFS-driven
+    # hours, KFS lands EXACTLY on its target and the 0/20 deficit is
+    # produced by dedicated mode-1B hours (was: max() with co-produced KFS)
     plan = run_required_hours(
         load_parameters(
             overrides={
@@ -105,8 +109,30 @@ def test_zone_1_1_can_be_driven_by_020_demand():
             }
         )
     )
+    assert plan["zones"]["1.1"]["driven_by"] == "KFS target + auto mode-1B for the 0/20 deficit"
+    assert plan["production_t"]["KFS"] == pytest.approx(10000, abs=1)
+    assert plan["zone_1_1_split"]["mode_1B_hours_effective"] > 0
+    # the 0/20 balance still closes: produced = reclaimed + landfill
+    assert plan["stockpiles_t"]["0/20 net to stock"] == pytest.approx(0, abs=1)
+    assert not any(a.startswith("KFS over-produced") for a in plan["alerts"])
+
+
+def test_zone_1_1_auto_mode_1B_toggle_off_keeps_legacy_max():
+    # Toggle-off audit path (2026-08-14): the legacy max() behavior is
+    # preserved — 0/20-driven hours co-produce KFS beyond its target,
+    # now surfaced by an overproduction alert
+    plan = run_required_hours(
+        load_parameters(
+            overrides={
+                "production_targets": {"KFS 20/35": {"target_t_per_year": 10000}},
+                "commercial_rules": {"zone_1_1_auto_mode_1B": False},
+            }
+        )
+    )
     assert plan["zones"]["1.1"]["driven_by"] == "0/20 demand of zone 1.2"
     assert plan["production_t"]["KFS"] > 10000  # co-produced beyond its target
+    assert plan["zone_1_1_split"]["mode_1B_hours_effective"] == 0
+    assert any(a.startswith("KFS over-produced") for a in plan["alerts"])
 
 def test_kfs_yield_indicator(plan):
     # Client indicator (definition arbitrated in 4 questions, 2026-08-14):

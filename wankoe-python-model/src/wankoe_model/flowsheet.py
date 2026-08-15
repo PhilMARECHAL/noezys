@@ -150,6 +150,13 @@ def zone_1_1(feed: dict, params: dict, mode: str, alerts: list, weather: str | N
     p7 = mp["SR.5007"]["parameters"]
     p11 = mp["CR.5011"]["parameters"]
     a1, a2, imp = p7["a1"]["default"], p7["a2"]["default"], p7["I"]["default"]
+    x80_11 = p11["x80"]["default"]
+    if mode == "1B":
+        # mode-1B CSS (client auto-1B rule 2026-08-14, pattern: RC.2
+        # mode_F_gap_mm): at the reference CSS 30 the 1B loop cannot pass
+        # material below 20 mm and diverges; 18 mm restores convergence —
+        # operations switch the CSS with the mode
+        x80_11 = mp["CR.5011"].get("mode_1B_x80_mm", x80_11)
     cr5011_info = {}
 
     def iterate(recycle):
@@ -160,7 +167,7 @@ def zone_1_1(feed: dict, params: dict, mode: str, alerts: list, weather: str | N
         to_impactor = [s for s in [over35] + ([mid] if mode == "1B" else []) if s]
         if to_impactor:
             feed11 = _blend(to_impactor)
-            out11, info11 = _impactor(feed11, p11["v"]["default"], p11["x80"]["default"], calib)
+            out11, info11 = _impactor(feed11, p11["v"]["default"], x80_11, calib)
             cr5011_info.update(info11)
             new_recycle = out11
         else:
