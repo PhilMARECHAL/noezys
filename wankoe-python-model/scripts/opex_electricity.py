@@ -38,6 +38,32 @@ ALLOCATION RULE for kWh/t per sold product (documented per client choice 4):
   - The LINE-LEVEL figure = total electricity kWh / total SOLD tonnes
     (sales_t view: KFS + grits + fines sold + AgLime sold + UltraFin).
 
+CASCADED ZONE-EXIT ELECTRICITY COST ("prix de revient" cascade — client
+arbitration 2026-08-15, second round of the same day):
+
+  - MASS allocation (client option 1): within each zone, every OUTGOING
+    tonne carries the same kWh/t regardless of product — no product is
+    favoured inside a zone.
+  - Zone 1.1 exit: kWh/t = zone-1.1 kWh / (KFS + 0/20 produced, wet).
+    The SAME rate applies to 1 t of KFS and 1 t of 0/20.
+  - Zone 1.2 exit: each inlet 0/20 tonne carries the zone-1.1 rate; the
+    zone adds its own kWh spread over its throughput. Zone 1.2 conserves
+    wet mass (reclaimed = AgLime + FeedLime produced), so the exit rate =
+    zone-1.1 rate + zone-1.2 kWh / reclaimed tonnes — identical for
+    AgLime and FeedLime 6/20 (numerically equal to the chained rate12).
+  - Zone 1.3 exit: inlet = the 6/20 stockpile cumulative kWh/t (rate12).
+    MASS-SHRINK CONVENTION (stated per the client's request): zone 1.3
+    shrinks the mass (wet FeedLime -> dry products + vapor + dedusting);
+    the evaporated water carries NO energy out — the WHOLE energy (the
+    inherited inlet energy AND the zone-1.3 direct kWh) is divided by the
+    OUTGOING product tonnes (grits + fines + UltraFin), so each product
+    tonne carries the same added kWh/t. Exit rate identical for grits,
+    fines and UltraFin (numerically equal to the chained rate13).
+  - EUR/t = kWh/t x electricity price. Price = electrical_loads.
+    electricity_price_eur_per_mwh = 115 EUR/MWh [H] (Western-Europe
+    industrial average 2025, ex-recoverable taxes; to be replaced by the
+    client's contract). Data-first — nothing hardcoded here.
+
 Run:  PYTHONPATH=src python scripts/opex_electricity.py
 Writes docs/design/opex/electricity-opex.json and prints the full table.
 """
@@ -225,6 +251,74 @@ def compute_scenario(name: str, params: dict) -> dict:
     total_sold_t = sum(sold.values())
     landfill_embedded_kwh = rate11 * stocks["0/20 to LANDFILL (net loss)"]
 
+    # ---- CASCADED ZONE-EXIT ELECTRICITY COST (client arbitration 2026-08-15:
+    # MASS allocation + Western-Europe industrial average price, [H] in data)
+    price = el["electricity_price_eur_per_mwh"]["default"]
+
+    def _eur_t(rate_kwh_per_t: float) -> float:
+        return rate_kwh_per_t * price / 1000.0
+
+    zone_exit_costs = {
+        "method": (
+            "MASS allocation (client option 1, 2026-08-15): within each zone "
+            "every outgoing tonne carries the same kWh/t regardless of "
+            "product. Zone 1.3 mass-shrink convention: the evaporated water "
+            "carries no energy — inherited + direct kWh are divided by the "
+            "OUTGOING product tonnes."
+        ),
+        "electricity_price_eur_per_mwh_H": price,
+        "zone_exits": {
+            "1.1": {
+                "products": ["KFS", "0/20 (to stockpile)"],
+                "direct_zone_kWh": round(e11_kwh, 0),
+                "outgoing_t_wet": round(z11_mass, 0),
+                "inherited_kWh_per_t": 0.0,
+                "direct_kWh_per_t": round(rate11, 3),
+                "cumulative_kWh_per_t": round(rate11, 3),
+                "cost_eur_per_t": round(_eur_t(rate11), 3),
+            },
+            "1.2": {
+                "products": ["AgLime", "FeedLime 6/20"],
+                "direct_zone_kWh": round(e12_kwh, 0),
+                "inlet_t_wet_at_rate_1_1": round(stocks["0/20 reclaimed"], 0),
+                "outgoing_t_wet": round(z12_mass, 0),
+                "inherited_kWh_per_t": round(rate11 * stocks["0/20 reclaimed"] / z12_mass, 3)
+                if z12_mass > 0
+                else 0.0,
+                "direct_kWh_per_t": round(e12_kwh / z12_mass, 3) if z12_mass > 0 else 0.0,
+                "cumulative_kWh_per_t": round(rate12, 3),
+                "cost_eur_per_t": round(_eur_t(rate12), 3),
+            },
+            "1.3": {
+                "products": ["FeedLime grits", "FeedLime fines", "UltraFin"],
+                "direct_zone_kWh": round(e13_kwh, 0),
+                "inlet_t_wet_at_rate_1_2": round(stocks["FeedLime consumed"], 0),
+                "outgoing_t_product": round(z13_mass, 0),
+                "mass_shrink_note": (
+                    "wet FeedLime in, dry products out — the whole energy is "
+                    "carried by the outgoing product tonnes (convention)"
+                ),
+                "inherited_kWh_per_t": round(rate12 * stocks["FeedLime consumed"] / z13_mass, 3)
+                if z13_mass > 0
+                else 0.0,
+                "direct_kWh_per_t": round(e13_kwh / z13_mass, 3) if z13_mass > 0 else 0.0,
+                "cumulative_kWh_per_t": round(rate13, 3),
+                "cost_eur_per_t": round(_eur_t(rate13), 3),
+            },
+        },
+        "cost_eur_per_t_by_product": {
+            "KFS": round(_eur_t(rate11), 3),
+            "AgLime": round(_eur_t(rate12), 3),
+            "FeedLime grits": round(_eur_t(rate13), 3),
+            "FeedLime fines": round(_eur_t(rate13), 3),
+            "UltraFin": round(_eur_t(rate13), 3),
+        },
+        "line_level_eur_per_t_total_sold": round(
+            _eur_t(total_kwh / total_sold_t) if total_sold_t > 0 else 0.0, 3
+        ),
+        "total_electricity_cost_eur_per_year": round(total_kwh / 1000.0 * price, 0),
+    }
+
     return {
         "scenario": name,
         "hours_effective_by_mode": hours,
@@ -244,6 +338,7 @@ def compute_scenario(name: str, params: dict) -> dict:
                 landfill_embedded_kwh, 0
             ),
         },
+        "cascaded_zone_exit_costs": zone_exit_costs,
         "excluded_dryer_burner_fuel": {
             "burner_fuel_MWh_per_year": round(burner_fuel_mwh, 1),
             "thermal_duty_MWh_per_year": round(burner_duty_mwh, 1),
@@ -349,6 +444,23 @@ def _print_report(results: dict) -> None:
         print(
             f"  {'LINE-LEVEL':<16} {scn['line_level_kWh_per_t_total_sold']:>8.3f} kWh/t "
             f"of total sold product ({sum(scn['sold_t'].values()):,.0f} t)"
+        )
+        zc = scn["cascaded_zone_exit_costs"]
+        print(
+            f"\nCASCADED ZONE-EXIT ELECTRICITY COST (mass allocation, "
+            f"{zc['electricity_price_eur_per_mwh_H']} EUR/MWh [H]):"
+        )
+        for zone, row in zc["zone_exits"].items():
+            print(
+                f"  zone {zone} exit ({' = '.join(row['products'])}): "
+                f"inherited {row['inherited_kWh_per_t']:.3f} + direct "
+                f"{row['direct_kWh_per_t']:.3f} = {row['cumulative_kWh_per_t']:.3f} kWh/t "
+                f"-> {row['cost_eur_per_t']:.3f} EUR/t"
+            )
+        print(
+            f"  LINE-LEVEL {zc['line_level_eur_per_t_total_sold']:.3f} EUR/t of total "
+            f"sold product; total electricity cost "
+            f"{zc['total_electricity_cost_eur_per_year']:,.0f} EUR/y"
         )
         bf = scn["excluded_dryer_burner_fuel"]
         print(

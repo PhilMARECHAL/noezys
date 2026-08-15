@@ -1028,6 +1028,12 @@
         "energy": "kWh on EFFECTIVE hours"
       }
     },
+    "electricity_price_eur_per_mwh": {
+      "name": "Electricity price for the cascaded zone-exit cost model",
+      "unit": "EUR/MWh",
+      "default": 115,
+      "status": "hypothesis [H] \u2014 client arbitration 2026-08-15 (cascaded zone-exit cost model): Western-Europe industrial average 2025, ex-recoverable taxes; to be replaced by the client's actual electricity supply contract price"
+    },
     "absorption_factor": {
       "name": "Average absorption factor on typical installed ratings",
       "unit": "-",

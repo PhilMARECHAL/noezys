@@ -1,6 +1,6 @@
 {
  "_provenance": {
-  "engine_commit": "1b19e11",
+  "engine_commit": "5d16977",
   "run_date": "2026-08-15",
   "functions": [
    "wankoe_model.planning.run_required_hours",
@@ -681,6 +681,61 @@
     "zone_1_2_chained_rate_kWh_per_t_output": 2.795,
     "zone_1_3_chained_rate_kWh_per_t_output": 8.347,
     "kWh_embedded_in_landfilled_0_20_not_charged_to_products": 8739.0
+   },
+   "cascaded_zone_exit_costs": {
+    "method": "MASS allocation (client option 1, 2026-08-15): within each zone every outgoing tonne carries the same kWh/t regardless of product. Zone 1.3 mass-shrink convention: the evaporated water carries no energy \u2014 inherited + direct kWh are divided by the OUTGOING product tonnes.",
+    "electricity_price_eur_per_mwh_H": 115,
+    "zone_exits": {
+     "1.1": {
+      "products": [
+       "KFS",
+       "0/20 (to stockpile)"
+      ],
+      "direct_zone_kWh": 216107.0,
+      "outgoing_t_wet": 341645.0,
+      "inherited_kWh_per_t": 0.0,
+      "direct_kWh_per_t": 0.633,
+      "cumulative_kWh_per_t": 0.633,
+      "cost_eur_per_t": 0.073
+     },
+     "1.2": {
+      "products": [
+       "AgLime",
+       "FeedLime 6/20"
+      ],
+      "direct_zone_kWh": 525103.0,
+      "inlet_t_wet_at_rate_1_1": 242829.0,
+      "outgoing_t_wet": 242829.0,
+      "inherited_kWh_per_t": 0.633,
+      "direct_kWh_per_t": 2.162,
+      "cumulative_kWh_per_t": 2.795,
+      "cost_eur_per_t": 0.321
+     },
+     "1.3": {
+      "products": [
+       "FeedLime grits",
+       "FeedLime fines",
+       "UltraFin"
+      ],
+      "direct_zone_kWh": 535706.0,
+      "inlet_t_wet_at_rate_1_2": 107829.0,
+      "outgoing_t_product": 100284.0,
+      "mass_shrink_note": "wet FeedLime in, dry products out \u2014 the whole energy is carried by the outgoing product tonnes (convention)",
+      "inherited_kWh_per_t": 3.005,
+      "direct_kWh_per_t": 5.342,
+      "cumulative_kWh_per_t": 8.347,
+      "cost_eur_per_t": 0.96
+     }
+    },
+    "cost_eur_per_t_by_product": {
+     "KFS": 0.073,
+     "AgLime": 0.321,
+     "FeedLime grits": 0.96,
+     "FeedLime fines": 0.96,
+     "UltraFin": 0.96
+    },
+    "line_level_eur_per_t_total_sold": 0.458,
+    "total_electricity_cost_eur_per_year": 146845.0
    },
    "excluded_dryer_burner_fuel": {
     "burner_fuel_MWh_per_year": 12488.6,
@@ -1406,6 +1461,61 @@
     "zone_1_2_chained_rate_kWh_per_t_output": 2.767,
     "zone_1_3_chained_rate_kWh_per_t_output": 8.325,
     "kWh_embedded_in_landfilled_0_20_not_charged_to_products": 0.0
+   },
+   "cascaded_zone_exit_costs": {
+    "method": "MASS allocation (client option 1, 2026-08-15): within each zone every outgoing tonne carries the same kWh/t regardless of product. Zone 1.3 mass-shrink convention: the evaporated water carries no energy \u2014 inherited + direct kWh are divided by the OUTGOING product tonnes.",
+    "electricity_price_eur_per_mwh_H": 115,
+    "zone_exits": {
+     "1.1": {
+      "products": [
+       "KFS",
+       "0/20 (to stockpile)"
+      ],
+      "direct_zone_kWh": 209212.0,
+      "outgoing_t_wet": 300830.0,
+      "inherited_kWh_per_t": 0.0,
+      "direct_kWh_per_t": 0.695,
+      "cumulative_kWh_per_t": 0.695,
+      "cost_eur_per_t": 0.08
+     },
+     "1.2": {
+      "products": [
+       "AgLime",
+       "FeedLime 6/20"
+      ],
+      "direct_zone_kWh": 447054.0,
+      "inlet_t_wet_at_rate_1_1": 215830.0,
+      "outgoing_t_wet": 215830.0,
+      "inherited_kWh_per_t": 0.695,
+      "direct_kWh_per_t": 2.071,
+      "cumulative_kWh_per_t": 2.767,
+      "cost_eur_per_t": 0.318
+     },
+     "1.3": {
+      "products": [
+       "FeedLime grits",
+       "FeedLime fines",
+       "UltraFin"
+      ],
+      "direct_zone_kWh": 536484.0,
+      "inlet_t_wet_at_rate_1_2": 107830.0,
+      "outgoing_t_product": 100285.0,
+      "mass_shrink_note": "wet FeedLime in, dry products out \u2014 the whole energy is carried by the outgoing product tonnes (convention)",
+      "inherited_kWh_per_t": 2.975,
+      "direct_kWh_per_t": 5.35,
+      "cumulative_kWh_per_t": 8.325,
+      "cost_eur_per_t": 0.957
+     }
+    },
+    "cost_eur_per_t_by_product": {
+     "KFS": 0.08,
+     "AgLime": 0.318,
+     "FeedLime grits": 0.957,
+     "FeedLime fines": 0.957,
+     "UltraFin": 0.957
+    },
+    "line_level_eur_per_t_total_sold": 0.468,
+    "total_electricity_cost_eur_per_year": 137166.0
    },
    "excluded_dryer_burner_fuel": {
     "burner_fuel_MWh_per_year": 12488.7,

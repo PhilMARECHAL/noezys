@@ -170,6 +170,22 @@ C2 escalation / C4 comparator in reserve; vendor gradation test fixes
 n_comp & S_att [H]. Block diagram (draw.io, as-built + C1):
 docs/design/zone13-redesign/zone13-block-diagram.drawio.
 
+## OPEX energy model (client arbitrations 2026-08-15)
+
+scripts/opex_electricity.py + data "electrical_loads" (data-first):
+electricity-only kWh — perimeter excludes the fuel-fired dryer burner
+(illuminating paraffin, ~1 043 t/y ~ 1.30 ML/y, reported apart); ABSORBED
+power (engine P_net/eta_m or typical ratings [H] x 0.72 [H]); hours =
+run_required_hours per mode bucket; both scenarios (defaults / quarry
+target + AgLime 108 kt). Totals 1 276.9 / 1 192.8 MWh/y. CASCADED
+ZONE-EXIT COST (same day): MASS allocation (every outgoing tonne of a
+zone carries the same kWh/t; zone-1.3 mass-shrink convention: vapor
+carries no energy, all kWh on the outgoing product tonnes) x
+115 EUR/MWh [H] (Western-Europe industrial average, awaiting the
+client's contract) -> EUR/t defaults/quarry: KFS 0.073/0.080, AgLime +
+FeedLime 6/20 0.321/0.318, dry products 0.960/0.957. Report:
+docs/design/opex/electricity-opex.md + .json.
+
 ## Engineering state (see docs/ for detail)
 
 - docs/spec-conformity-matrix.md: requirement-by-requirement traceability

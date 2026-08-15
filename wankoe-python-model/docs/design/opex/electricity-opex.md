@@ -1,4 +1,4 @@
-# Electricity OPEX model — annual kWh (no euros)
+# Electricity OPEX model — annual kWh + cascaded zone-exit EUR/t
 
 **Date: 2026-08-15 — built on the client's 4 arbitrated choices of the same
 day (see the decision-log row in `docs/spec-conformity-matrix.md`).**
@@ -18,7 +18,9 @@ day (see the decision-log row in `docs/spec-conformity-matrix.md`).**
    scenarios; consumers run only during their zone's mode-hour buckets
    (client 2026-08-15: SR.5105 and the loop machines SR.5111 / CR.5113 /
    SR.5115 run in BOTH the 2A and 2C hours).
-4. **Output** — kWh only.
+4. **Output** — kWh only. **Partly superseded the same day**: the second
+   2026-08-15 arbitration (cascaded zone-exit cost model, below) adds a
+   EUR/t "prix de revient" at each zone exit, priced at 115 EUR/MWh [H].
 
 Scenarios: **(a) defaults** = today's measured feed, AgLime market 135 kt;
 **(b) quarry target** = quarry-works curve (40.1 % < 20 mm,
@@ -149,6 +151,68 @@ The dry-products chain (zone 1.3) is ~13x more electricity-intensive per
 tonne than KFS — three zones of embedded energy plus the dryer's
 electrical auxiliaries over a small tonnage.
 
+## Cascaded zone-exit costs ("prix de revient", client arbitration 2026-08-15)
+
+**Client choices (second arbitration of 2026-08-15): MASS allocation
+(option 1 — within each zone every outgoing tonne carries the same kWh/t
+regardless of product) and electricity priced at the Western-Europe
+industrial average, 115 EUR/MWh [H]** (2025, ex-recoverable taxes; encoded
+data-first as `electrical_loads.electricity_price_eur_per_mwh` in
+`data/default_parameters.json`, **to be replaced by the client's actual
+supply contract price**).
+
+The cascade:
+
+- **Zone 1.1 exit** — kWh/t = zone-1.1 kWh / (KFS + 0/20 produced, wet).
+  The SAME rate for 1 t of KFS and 1 t of 0/20.
+- **Zone 1.2 exit** — each inlet 0/20 tonne carries the zone-1.1 rate;
+  zone 1.2 conserves wet mass (reclaimed = AgLime + FeedLime produced),
+  so exit kWh/t = zone-1.1 rate + zone-1.2 kWh / reclaimed tonnes —
+  identical for AgLime and FeedLime 6/20.
+- **Zone 1.3 exit** — inlet = the 6/20 stockpile cumulative kWh/t.
+  **Mass-shrink convention (stated per the client's request)**: zone 1.3
+  shrinks the mass (wet FeedLime in, dry products + vapor out); the
+  evaporated water carries NO energy out — the whole energy (inherited
+  inlet energy AND the zone-1.3 direct kWh) is divided by the **OUTGOING
+  product tonnes**, so each product tonne carries the same added kWh/t.
+  Exit rate identical for grits, fines and UltraFin.
+- **EUR/t = kWh/t × 115 / 1000.** The cascade rates coincide numerically
+  with the chained mass-allocation rates of the kWh section above (same
+  rule, now priced).
+
+### Zone-exit build-up (inherited + direct = cumulative kWh/t)
+
+| Zone exit (products) | (a) inherited + direct = kWh/t | (a) EUR/t | (b) inherited + direct = kWh/t | (b) EUR/t |
+|---|---:|---:|---:|---:|
+| 1.1 — KFS = 0/20 stockpile | 0 + 0.633 = **0.633** | **0.073** | 0 + 0.695 = **0.695** | **0.080** |
+| 1.2 — AgLime = FeedLime 6/20 | 0.633 + 2.162 = **2.795** | **0.321** | 0.695 + 2.071 = **2.767** | **0.318** |
+| 1.3 — grits = fines = UltraFin | 3.005 + 5.342 = **8.347** | **0.960** | 2.975 + 5.350 = **8.325** | **0.957** |
+
+(Zone-1.3 inherited > zone-1.2 cumulative because of the mass-shrink
+convention: 107.8 kt wet FeedLime in, 100.3 kt dry product out.)
+
+### EUR per tonne at each zone exit (headline)
+
+| Product | (a) defaults kWh/t | (a) defaults EUR/t | (b) quarry kWh/t | (b) quarry EUR/t |
+|---|---:|---:|---:|---:|
+| KFS (zone-1.1 exit) | 0.633 | **0.073** | 0.695 | **0.080** |
+| 0/20 to stockpile (zone-1.1 exit) | 0.633 | 0.073 | 0.695 | 0.080 |
+| AgLime (zone-1.2 exit) | 2.795 | **0.321** | 2.767 | **0.318** |
+| FeedLime 6/20 (zone-1.2 exit) | 2.795 | 0.321 | 2.767 | 0.318 |
+| FeedLime grits (zone-1.3 exit) | 8.347 | **0.960** | 8.325 | **0.957** |
+| FeedLime fines (zone-1.3 exit) | 8.347 | **0.960** | 8.325 | **0.957** |
+| UltraFin (zone-1.3 exit) | 8.347 | 0.960 | 8.325 | 0.957 |
+| **Line level (total sold product)** | 3.987 | **0.458** | 4.067 | **0.468** |
+
+Total electricity cost at 115 EUR/MWh [H]: **146 845 EUR/y (defaults) /
+137 166 EUR/y (quarry target)**. Even for the dry products the
+electricity "prix de revient" stays below 1 EUR/t — the economic weight
+of the line's energy is the dryer FUEL (~1 043 t/y of paraffin), not the
+electricity.
+
+Full detail (zone kWh, inlet/outgoing tonnages, per-product EUR/t) in
+`electricity-opex.json` → `scenarios.*.cascaded_zone_exit_costs`.
+
 ## Excluded: dryer burner FUEL (reported apart, never added)
 
 | | (a) defaults | (b) quarry target |
@@ -203,11 +267,16 @@ program; only the G/F split shifts marginally.
   **0.80 kg/L [H]** of illuminating paraffin — both pending the supplier
   datasheet (the fuel CHOICE itself is the client's, 2026-08-15, not a
   hypothesis).
+- Electricity price **115 EUR/MWh [H]** — Western-Europe industrial
+  average 2025, ex-recoverable taxes; to be replaced by the client's
+  actual supply contract price (the MASS-allocation cascade itself is the
+  client's choice, 2026-08-15, not a hypothesis).
 
 ---
 *Engine run: `wankoe_model.planning.run_required_hours` +
 `wankoe_model.scenario.run_scenario` (per-mode photos), engine commit
-1b19e11 (fuel conversion added the same day), data
-`default_parameters.json` (electrical_loads incl. dryer_burner fuel),
-run date 2026-08-15. Replay: `PYTHONPATH=src python scripts/opex_electricity.py`.
+5d16977 (cascaded zone-exit costs added the same day, in the commit that
+carries this revision), data `default_parameters.json` (electrical_loads
+incl. dryer_burner fuel + electricity_price_eur_per_mwh), run date
+2026-08-15. Replay: `PYTHONPATH=src python scripts/opex_electricity.py`.
 This software is created **by NOEZYS**.*
