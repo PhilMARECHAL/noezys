@@ -116,9 +116,12 @@ zone-1.3 duties — not a hidden worst case).
 
 ## 9. Client arbitrations required (to be asked one at a time)
 
-1. **PD-1 / CR.5011**: re-bisect the 1B feed on the quarry curve (~172 t/h,
-   longer 1B hours) — or raise the purchased capacity point — or gate on the
-   vendor gradation test.
+1. **PD-1 / CR.5011** — **DECIDED by the client 2026-08-15: option 1,
+   re-bisect on the quarry curve.** Applied data-first:
+   `zone_1_1_feed_mode_1B` 186.1 → **172.0 t/h wet** (CR.5011 at 89.7 t/h
+   wet on the quarry curve / 83.2 on the measured curve, clean on grids
+   ×2/×3/×4 — no operating point encoded at 100 % of capacity). Sheets
+   CR.5011/CR.5009 and evidence regenerated.
 2. **PD-2 / SR.5007**: raise the purchase minima to the rain duty
    (9.1/9.6 m² before margin) — or accept a derated rain throughput.
 3. **PD-3 / SP.36 fan**: buy the fan for the soft-rock envelope (~420 m³/h

@@ -1,6 +1,6 @@
 {
  "_provenance": {
-  "engine_commit": "e6541dd",
+  "engine_commit": "4cb4afb",
   "run_date": "2026-08-15",
   "functions": [
    "wankoe_model.scenario.run_scenario (per-mode photos 1A / forced 1B / 2A / 2C / G / F, weather dry)"
@@ -28,7 +28,7 @@
   "CR.5009_max_feed_size_mm": 150,
   "SR.5111_loop_load_ratio_2C": 1.667,
   "CR.5011_load_ratio_1A_wet": 0.828,
-  "CR.5011_load_ratio_1B_wet": 1.0,
+  "CR.5011_load_ratio_1B_wet": 0.924,
   "RC.1_load_ratio_G": 0.913,
   "RC.2_load_ratio_F": 1.0
  },
@@ -47,12 +47,12 @@
     },
     "1B": {
      "active": true,
-     "throughput_tph_dry": 173.07,
-     "throughput_tph_wet": 186.1,
+     "throughput_tph_dry": 159.96,
+     "throughput_tph_wet": 172.0,
      "F80_mm": 180.57,
      "P80_mm": 42.7,
-     "P_net_kW": 54.0,
-     "absorbed_kW": 71.9,
+     "P_net_kW": 49.9,
+     "absorbed_kW": 66.5,
      "W_kWh_t": 0.3118
     }
    },
@@ -75,11 +75,11 @@
     },
     "1B": {
      "active": true,
-     "feed_tph_dry": 256.79,
-     "feed_tph_wet": 276.12,
+     "feed_tph_dry": 237.34,
+     "feed_tph_wet": 255.2,
      "required_areas_m2": {
-      "top_deck": 6.17,
-      "bottom_deck": 7.08
+      "top_deck": 5.7,
+      "bottom_deck": 6.55
      }
     }
    },
@@ -113,19 +113,19 @@
     },
     "1B": {
      "active": true,
-     "throughput_tph_dry": 83.72,
-     "throughput_tph_wet": 90.02,
+     "throughput_tph_dry": 77.38,
+     "throughput_tph_wet": 83.2,
      "F80_mm": 55.63,
      "P80_mm": 17.66,
-     "P_net_kW": 34.5,
-     "absorbed_kW": 46.0,
+     "P_net_kW": 31.9,
+     "absorbed_kW": 42.5,
      "W_kWh_t": 0.4119,
      "Ecs_kWh_t": 0.125,
      "t10_pct": 5.7098
     }
    },
    "motor_sizing": {
-    "worst_mode_absorbed_kW": 46.0,
+    "worst_mode_absorbed_kW": 42.5,
     "service_allowance": "x1.15 [H]",
     "recommended_min_installed_kW": 55
    }

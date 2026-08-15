@@ -94,7 +94,8 @@ def compute_case(label: str, overrides: dict | None) -> dict:
 
     # wet/dry conversion at the zone-1.1 boundary (total-flow rule)
     wet_ratio_11 = 250.0 / pg["machines"]["CR.5009"]["throughput_tph"]
-    wet_ratio_1b = 186.1 / photos["1B"]["machines"]["CR.5009"]["throughput_tph"]
+    feed_1b = params["default_scenario"]["flow_rates_tph"]["zone_1_1_feed_mode_1B"]
+    wet_ratio_1b = feed_1b / photos["1B"]["machines"]["CR.5009"]["throughput_tph"]
 
     kfs = pg["products"]["KFS"]
     grits = pg["products"]["FeedLime grits"]

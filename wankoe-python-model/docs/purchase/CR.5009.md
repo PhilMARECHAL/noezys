@@ -20,13 +20,13 @@ Feed rates follow the total-flow rule (client 2026-08-14): wet basis primary, dr
 
 | Quantity | Mode 1A | Mode 1B |
 |---|---|---|
-| Feed rate, wet (primary) | **250.0 t/h** | **186.1 t/h** |
-| Feed rate, dry solids | 232.5 t/h | 173.1 t/h |
+| Feed rate, wet (primary) | **250.0 t/h** | **172.0 t/h** (re-bisected on the quarry-target curve, client 2026-08-15) |
+| Feed rate, dry solids | 232.5 t/h | 160.0 t/h |
 | Feed F80 | 180.6 mm (measured belt-cut curve) | 180.6 mm |
 | Product P80 | 42.7 mm | 42.7 mm |
 | Specific energy W | 0.312 kWh/t | 0.312 kWh/t |
 | Net power P_net | 72.5 kW | 54.0 kW |
-| Absorbed power (P_net / eta_m 0.75) | **96.6 kW** | 71.9 kW |
+| Absorbed power (P_net / eta_m 0.75) | **96.6 kW** | 66.5 kW (feed 172.0, client 2026-08-15) |
 
 ## 3. Settings and required adjustability (nothing hardcoded — client rule 1)
 

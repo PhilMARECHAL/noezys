@@ -967,8 +967,8 @@
     "rain_season_fraction": 0.25,
     "flow_rates_tph": {
       "zone_1_1_feed": 250,
-      "zone_1_1_feed_mode_1B": 186.1,
-      "_mode_1B_note": "Engine bisection 2026-08-14: 186.1 t/h wet is the max mode-1B feed with CR.5011 at its 90 t/h WET vendor limit, at the mode-1B CSS (CR.5011.mode_1B_x80_mm).",
+      "zone_1_1_feed_mode_1B": 172.0,
+      "_mode_1B_note": "CLIENT DECISION 2026-08-15 (error-hunt PD-1, option 1): re-bisected on the ADOPTED QUARRY-TARGET CURVE so the CR.5011 90 t/h WET vendor guarantee holds in ALL circumstances - 172.0 t/h wet gives 89.7 t/h wet on the quarry curve and 83.2 on the measured curve, CLEAN on grids x2/x3/x4 (no operating point encoded at exactly 100 % of capacity - PD-4 lesson). Supersedes the 2026-08-14 bisection (186.1, measured curve only, which put the quarry-curve load at 97.1 > 90). At the mode-1B CSS (CR.5011.mode_1B_x80_mm).",
       "zone_1_2_reclaim": 100,
       "zone_1_3_feedlime": 32.1,
       "zone_1_3_feedlime_mode_F": 25.05
