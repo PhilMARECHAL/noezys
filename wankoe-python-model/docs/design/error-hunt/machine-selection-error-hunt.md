@@ -139,9 +139,14 @@ zone-1.3 duties — not a hidden worst case).
    fixes, the 60 000 t/y fines objective lands EXACTLY in all 9 ruled
    circumstances (measured/quarry curve × mid-hard/soft envelope ×
    rain 25 %/20 %), all zones feasible, zone 1.3 at 58–60 % utilization.
-4. **PD-4 / RC.2**: add a capacity step (e.g. 2 × 25 t/h) — or lower the
-   mode-F feed (~24.5 t/h wet, longer F campaigns) — re-bisect on ×4 grid
-   either way.
+4. **PD-4 / RC.2** — **DECIDED by the client 2026-08-15: option 1,
+   purchase capacity raised to 2 × 25 t/h dry** (standard vendor step;
+   mode-F feed unchanged at 25.05). Applied data-first:
+   `machines.RC.2.max_capacity_tph` 22 → 25. The mode-F point now sits at
+   88 % of capacity (was exactly 100 % on a grid biased low for that
+   output) — ~12 % headroom covers the grid bias, 0.2 mm of gap drift and
+   the comp_lam [H] band until the vendor gradation test. Sheet, INDEX
+   and evidence updated.
 5. **M-1 / SC.B family**: re-quote fine-screen areas with the full VSMA
    factor string — or enlarge the margin explicitly.
 6. **M-3/M-4/M-5/C-5 code fixes** — **DONE 2026-08-15** (same commit as

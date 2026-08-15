@@ -1,6 +1,6 @@
 {
  "_provenance": {
-  "engine_commit": "215c6c7",
+  "engine_commit": "dcc908d",
   "run_date": "2026-08-15",
   "functions": [
    "wankoe_model.scenario.run_scenario (per-mode photos 1A / forced 1B / 2A / 2C / G / F, weather dry)"
@@ -21,7 +21,7 @@
   "CR.5011_installed_kW_vendor": 132,
   "CR.5011_mode_1B_x80_mm": 18,
   "RC.1_max_capacity_tph_dry": 32,
-  "RC.2_max_capacity_tph_dry_per_unit": 22,
+  "RC.2_max_capacity_tph_dry_per_unit": 25,
   "RC.2_n_units": 2,
   "RC.2_mode_F_gap_mm": 1.5,
   "zone_1_2_loop_rating_tph": 60,
@@ -30,7 +30,7 @@
   "CR.5011_load_ratio_1A_wet": 0.828,
   "CR.5011_load_ratio_1B_wet": 0.924,
   "RC.1_load_ratio_G": 0.913,
-  "RC.2_load_ratio_F": 1.0
+  "RC.2_load_ratio_F": 0.88
  },
  "machines": {
   "CR.5009": {

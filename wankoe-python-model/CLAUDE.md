@@ -210,7 +210,8 @@ machines (DY.03 excluded — already acquired): one .md per machine +
 INDEX.md, FMECA-informed, fresh engine runs (evidence
 purchase-engine-evidence.json, replay
 scripts/purchase_datasheet_evidence.py). Carries the client-decided
-ratings (RC.1 32; RC.2 2x22 gap 3.4->1.5; CR.5011 90 wet @ CSS 18),
+ratings (RC.1 32; RC.2 2x25 gap 3.4->1.5, raised from 2x22 by the
+PD-4 decision 2026-08-15; CR.5011 90 wet @ CSS 18),
 the CR.5113 2C motor branch (348 kW absorbed -> 450 kW rec. [H] or
 capped rate), the SR.5111 loop resize (167 % wet), SR.5115 19.1 m2, SC.B
 certified-aperture panels (RPN 252), and the RC.1/RC.2 vendor
@@ -231,7 +232,7 @@ docs/design/soft-rock/soft-rock-scenario.json (+soft15/soft30): Wi 7.5,
 A 65 x b 1.5, CR.5009 n 1.15, RC n_comp 1.6 / S_att 0.09, ML.26 0.22.
 VERDICTS (soft-rock-study.md, evidence JSON + replay
 scripts/soft_rock_sensitivity.py): C1 two-mode plan / RC.1 32 / RC.2
-2x22 gap 1.5 all HOLD (loads drop: RC.2 F 38.7 vs 44); CR.5113 2C motor
+RC.2 gap 1.5 all HOLD (loads drop: RC.2 F 38.7 vs 44); CR.5113 2C motor
 finding holds in kind but 348 -> 211 kW (rec. 450 -> 250 kW); QUARRY
 TARGET 40.1 % <20 mm FLIPS — zero-landfill control value becomes
 35.13 % (36 kt/y landfill if 40.1 kept); landfill at today's curve
