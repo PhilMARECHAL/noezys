@@ -1,6 +1,6 @@
 {
  "_provenance": {
-  "engine_commit": "8f415f9",
+  "engine_commit": "1b19e11",
   "run_date": "2026-08-15",
   "functions": [
    "wankoe_model.planning.run_required_hours",
@@ -685,7 +685,27 @@
    "excluded_dryer_burner_fuel": {
     "burner_fuel_MWh_per_year": 12488.6,
     "thermal_duty_MWh_per_year": 7493.2,
-    "note": "Client choice 1 (2026-08-15): the DY.03/BU.04 burner is fuel-fired \u2014 its annual thermal MWh (engine M6 burner_power_kW x zone-1.3 mode hours) is reported SEPARATELY from the electricity total, never added to it."
+    "note": "Client choice 1 (2026-08-15): the DY.03/BU.04 burner is fuel-fired \u2014 its annual thermal MWh (engine M6 burner_power_kW x zone-1.3 mode hours) is reported SEPARATELY from the electricity total, never added to it.",
+    "fuel_conversion": {
+     "fuel": "illuminating paraffin (kerosene)",
+     "lhv_kwh_per_kg_H": 11.97,
+     "density_kg_per_l_H": 0.8,
+     "by_dryer_mode": {
+      "G": {
+       "burner_fuel_MWh": 9168.4,
+       "paraffin_t": 765.9,
+       "paraffin_L": 957435.0
+      },
+      "F": {
+       "burner_fuel_MWh": 3320.2,
+       "paraffin_t": 277.4,
+       "paraffin_L": 346720.0
+      }
+     },
+     "paraffin_t_per_year": 1043.3,
+     "paraffin_L_per_year": 1304155.0,
+     "status": "Client fuel specification 2026-08-15: illuminating paraffin (kerosene). LHV 11.97 kWh/kg [H] and density 0.80 kg/L [H] pending the supplier datasheet."
+    }
    },
    "planning_context": {
     "production_t": {
@@ -1390,7 +1410,27 @@
    "excluded_dryer_burner_fuel": {
     "burner_fuel_MWh_per_year": 12488.7,
     "thermal_duty_MWh_per_year": 7493.2,
-    "note": "Client choice 1 (2026-08-15): the DY.03/BU.04 burner is fuel-fired \u2014 its annual thermal MWh (engine M6 burner_power_kW x zone-1.3 mode hours) is reported SEPARATELY from the electricity total, never added to it."
+    "note": "Client choice 1 (2026-08-15): the DY.03/BU.04 burner is fuel-fired \u2014 its annual thermal MWh (engine M6 burner_power_kW x zone-1.3 mode hours) is reported SEPARATELY from the electricity total, never added to it.",
+    "fuel_conversion": {
+     "fuel": "illuminating paraffin (kerosene)",
+     "lhv_kwh_per_kg_H": 11.97,
+     "density_kg_per_l_H": 0.8,
+     "by_dryer_mode": {
+      "G": {
+       "burner_fuel_MWh": 9145.3,
+       "paraffin_t": 764.0,
+       "paraffin_L": 955028.0
+      },
+      "F": {
+       "burner_fuel_MWh": 3343.4,
+       "paraffin_t": 279.3,
+       "paraffin_L": 349144.0
+      }
+     },
+     "paraffin_t_per_year": 1043.3,
+     "paraffin_L_per_year": 1304172.0,
+     "status": "Client fuel specification 2026-08-15: illuminating paraffin (kerosene). LHV 11.97 kWh/kg [H] and density 0.80 kg/L [H] pending the supplier datasheet."
+    }
    },
    "planning_context": {
     "production_t": {

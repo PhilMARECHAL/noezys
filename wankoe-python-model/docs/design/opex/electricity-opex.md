@@ -159,6 +159,31 @@ electrical auxiliaries over a small tonnage.
 The burner fuel is ~10x the whole line's electricity — the dominant energy
 cost of the line is thermal, not electrical.
 
+## Dryer fuel (illuminating paraffin)
+
+**The client specified the DY.03 burner fuel on 2026-08-15: ILLUMINATING
+PARAFFIN (kerosene).** The burner therefore stays **EXCLUDED from every
+electricity figure** (client choice 1 above, unchanged) — this section
+converts its thermal MWh into fuel quantities, nothing moves into the
+kWh totals.
+
+Conversion (data-first, `electrical_loads.dryer_burner` in
+`data/default_parameters.json`): LHV = **11.97 kWh/kg [H]** (typical
+kerosene LHV ~43.1 MJ/kg; **supplier datasheet to confirm**), density =
+**0.80 kg/L [H]**.
+
+| | (a) defaults | (b) quarry target |
+|---|---:|---:|
+| Burner fuel input | 12 488.6 MWh/y | 12 488.7 MWh/y |
+| **Illuminating paraffin** | **1 043.3 t/y** | **1 043.3 t/y** |
+| **Volume at 0.80 kg/L [H]** | **1 304 155 L/y** | **1 304 172 L/y** |
+| — of which dryer mode G (grits) | 765.9 t / 957 435 L | 764.0 t / 955 028 L |
+| — of which dryer mode F (fines campaign) | 277.4 t / 346 720 L | 279.3 t / 349 144 L |
+
+The fuel bill is essentially scenario-independent (~1 043 t/y ≈ 1.30 ML/y
+in both): the dryer runs the same annual duty for the same dry-products
+program; only the G/F split shifts marginally.
+
 ## Hypotheses register ([H] flags of this model)
 
 - Absorption factor **0.72 [H]** on every typical rating (client
@@ -174,10 +199,15 @@ cost of the line is thermal, not electrical.
 - Mode-hour assignments (which consumer runs in which bucket) are encoded
   per consumer in the data; the 2A+2C rule for SR.5105 and the loop
   machines is the client's 2026-08-15 arbitration.
+- Dryer fuel conversion: LHV **11.97 kWh/kg [H]** and density
+  **0.80 kg/L [H]** of illuminating paraffin — both pending the supplier
+  datasheet (the fuel CHOICE itself is the client's, 2026-08-15, not a
+  hypothesis).
 
 ---
 *Engine run: `wankoe_model.planning.run_required_hours` +
 `wankoe_model.scenario.run_scenario` (per-mode photos), engine commit
-8f415f9, data `default_parameters.json` (electrical_loads), run date
-2026-08-15. Replay: `PYTHONPATH=src python scripts/opex_electricity.py`.
+1b19e11 (fuel conversion added the same day), data
+`default_parameters.json` (electrical_loads incl. dryer_burner fuel),
+run date 2026-08-15. Replay: `PYTHONPATH=src python scripts/opex_electricity.py`.
 This software is created **by NOEZYS**.*

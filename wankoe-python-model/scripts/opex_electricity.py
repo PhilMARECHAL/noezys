@@ -167,14 +167,30 @@ def compute_scenario(name: str, params: dict) -> dict:
     total_kwh = sum(per_zone.values())
 
     # ---- excluded burner fuel (client choice 1): thermal MWh, reported apart
+    # + conversion to ILLUMINATING PARAFFIN (kerosene) tonnes and litres
+    # (client fuel specification 2026-08-15; LHV and density [H] from data)
+    burner = el["dryer_burner"]
+    lhv_kwh_per_kg = burner["lhv_kwh_per_kg"]["default"]
+    density_kg_per_l = burner["density_kg_per_l"]["default"]
     burner_fuel_mwh = 0.0
     burner_duty_mwh = 0.0
+    fuel_by_mode = {}
     for mode in ("G", "F"):
         if hours[mode] <= 0 or mode not in photos:
             continue
         dy = photos[mode]["machines"]["DY.03"]
-        burner_fuel_mwh += dy["burner_power_kW"] * hours[mode] / 1000.0
+        mode_mwh = dy["burner_power_kW"] * hours[mode] / 1000.0
+        burner_fuel_mwh += mode_mwh
         burner_duty_mwh += dy["thermal_duty_kW"] * hours[mode] / 1000.0
+        mode_kg = mode_mwh * 1000.0 / lhv_kwh_per_kg
+        fuel_by_mode[mode] = {
+            "burner_fuel_MWh": round(mode_mwh, 1),
+            "paraffin_t": round(mode_kg / 1000.0, 1),
+            "paraffin_L": round(mode_kg / density_kg_per_l, 0),
+        }
+    fuel_total_kg = burner_fuel_mwh * 1000.0 / lhv_kwh_per_kg
+    fuel_total_t = fuel_total_kg / 1000.0
+    fuel_total_l = fuel_total_kg / density_kg_per_l
 
     # ---- kWh/t chain allocation (rule in the module docstring)
     prod = plan["production_t"]
@@ -232,6 +248,15 @@ def compute_scenario(name: str, params: dict) -> dict:
             "burner_fuel_MWh_per_year": round(burner_fuel_mwh, 1),
             "thermal_duty_MWh_per_year": round(burner_duty_mwh, 1),
             "note": params["electrical_loads"]["dryer_burner"]["note"],
+            "fuel_conversion": {
+                "fuel": burner["fuel"],
+                "lhv_kwh_per_kg_H": lhv_kwh_per_kg,
+                "density_kg_per_l_H": density_kg_per_l,
+                "by_dryer_mode": fuel_by_mode,
+                "paraffin_t_per_year": round(fuel_total_t, 1),
+                "paraffin_L_per_year": round(fuel_total_l, 0),
+                "status": "Client fuel specification 2026-08-15: illuminating paraffin (kerosene). LHV 11.97 kWh/kg [H] and density 0.80 kg/L [H] pending the supplier datasheet.",
+            },
         },
         "planning_context": {
             "production_t": prod,
@@ -331,6 +356,19 @@ def _print_report(results: dict) -> None:
             f"{bf['burner_fuel_MWh_per_year']:,.1f} MWh/y fuel input "
             f"({bf['thermal_duty_MWh_per_year']:,.1f} MWh/y thermal duty)"
         )
+        fc = bf["fuel_conversion"]
+        print(
+            f"Dryer fuel = {fc['fuel'].upper()} (client 2026-08-15): "
+            f"{fc['paraffin_t_per_year']:,.1f} t/y = "
+            f"{fc['paraffin_L_per_year']:,.0f} L/y "
+            f"(LHV {fc['lhv_kwh_per_kg_H']} kWh/kg [H], "
+            f"density {fc['density_kg_per_l_H']} kg/L [H])"
+        )
+        for mode, row in fc["by_dryer_mode"].items():
+            print(
+                f"  mode {mode}: {row['burner_fuel_MWh']:,.1f} MWh = "
+                f"{row['paraffin_t']:,.1f} t/y = {row['paraffin_L']:,.0f} L/y"
+            )
         print()
 
 
