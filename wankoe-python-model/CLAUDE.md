@@ -186,6 +186,19 @@ client's contract) -> EUR/t defaults/quarry: KFS 0.073/0.080, AgLime +
 FeedLime 6/20 0.321/0.318, dry products 0.960/0.957. Report:
 docs/design/opex/electricity-opex.md + .json.
 
+## FMECA maintenance plan (client arbitrations 2026-08-15)
+
+Full-park FMECA (5 client choices: 35 electrical_loads consumers +
+process machines + diverters/silos = 38 items, 147 modes; RPN = SxOxD,
+>=200 critical / 100-199 watch; severity anchor mixed; occurrence =
+generic classes [H] x engine load factors). docs/design/maintenance/:
+fmeca-register.json (authoritative) + .md, preventive-maintenance-plan.md
+(RPN-sorted, fits idle windows — zero production loss), evidence replay
+scripts/fmeca_engine_evidence.py. Top-3 RPN: SC.B deck-2.0 panel wear
+252, BE.40 bucket wear 245 (116 % of rating), CR.5113 2C motor overload
+224 (standing finding). 4 of 5 critical modes = design/purchase fixes
+(CR.5113 motor, BE.40/BC.22 uprate, zone-1.2 loop resize at 155 % in 2C).
+
 ## Engineering state (see docs/ for detail)
 
 - docs/spec-conformity-matrix.md: requirement-by-requirement traceability
