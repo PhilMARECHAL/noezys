@@ -34,8 +34,8 @@ The cut must be adjustable in operation (air-flow and/or rotor-speed lever) acro
 ## 4. Capacity and sizing requirements
 
 - Continuous duty on the full fines stream in mode F (23.2 t/h fines context) at 3 610 h/y.
-- Fan sized for the worst-mode air flow **plus the vendor's own circuit-loss margin** (engine reference 207.2 m3/h at the model operating point — the vendor must state its own air-to-solids ratio; the engine figure is the process-model reference, not a fan datasheet).
-- `max_airflow_m3h` null in the data — the vendor fan curve closes it (value table, declared interpolation — golden rule 3).
+- **Fan capacity >= 420 m3/h with damper/VFD turndown — CLIENT DECISION 2026-08-15 (error-hunt PD-3, option 1)**: the fan is purchased for the FULL client-ruled soft-rock envelope, not the default calibration. Engine air demands: 207.2 m3/h (default calibration, mode F), 332.3 m3/h at the ruled UCS 20 reference, ~416 m3/h at the UCS 15 envelope edge (soft rock doubles the sub-65-um ultrafines). Turndown to ~130 m3/h (mode G, hard calibration) required — a VFD covers the full range. The vendor adds its own circuit-loss margin on top; the engine figures are process-model references, not a fan datasheet.
+- `max_airflow_m3h` = 420 encoded in the data (was null — finding PD-3: no alert could ever fire on air demand); the engine now raises a fan bottleneck alert beyond it. The vendor fan curve refines it (value table, declared interpolation — golden rule 3).
 
 ## 5. FMECA-derived purchase requirements
 
@@ -49,7 +49,7 @@ The cut must be adjustable in operation (air-flow and/or rotor-speed lever) acro
 
 - **Cut certification**: Phi(<cut) is UNMEASURED (standing alert) — the vendor acceptance test must include **sieve/laser sizing of both classifier products**, which simultaneously certifies the cut and closes the alert (the FMECA quarterly lab-sizing task then maintains it).
 - **[H] eta_cl = 0.75** (flagged optimistic): the vendor must GUARANTEE the extraction efficiency at d50c 65 um on WANKOE fines — if the guarantee lands in the literature band (50-65 %), the UltraFin balance (0.067 t/h mode G / 0.104 t/h mode F at current defaults — error-hunt fix 2026-08-15: the previously quoted 0.99 t/h was the pre-C1 as-built figure) must be re-run by the engine before contract.
-- Fan curve / max airflow (data slot null).
+- Fan curve to be provided by the vendor (refines the encoded 420 m3/h rating; the soft-rock duty band 332-416 m3/h must sit on the stable part of the curve).
 - Design-review adjacency (expert book 2026-08-11): a **polishing bag filter for the sub-4 um cyclone tail is MISSING from the flowsheet** — the SP.36/CL.38 vendor must state its air-circuit tail-dust loading so that design gap can be closed coherently.
 
 ## 7. Acceptance tests and QC criteria

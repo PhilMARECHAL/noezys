@@ -345,9 +345,17 @@ alerts dropped (sensitivity branches only — fixes scheduled);
 DY.03 burner rain duty 5.2-6.7 MW vs ~3.7 MW class [PLAUSIBLE].
 FIXED 2026-08-15: RC.2/SC.B 147 t/h gap attribution INVERTED;
 SR.5111 155 % dry -> 167 % wet (script+sheets); UltraFin 0.99 stale;
-CR.5009 UCS 20-80 -> 15-30. Five sizing arbitrations QUEUED for the
-client one at a time (PD-1 first). No existing test covered any
-finding — test-plan input.
+CR.5009 UCS 20-80 -> 15-30. No existing test covered any finding —
+test-plan input. ARBITRATED same day: PD-1 (CR.5011 1B feed 172.0,
+quarry-curve bisection), PD-2 (SR.5007 minima = rain duty 9.1/9.6),
+PD-3 (SP.36 fan 420 m3/h + engine guard). PLANNING FIXES M-3/M-4/M-5
++ C-5 DONE (mass-consistent capped branches, dry-season 2C check,
+labeled mode-photo alerts, mode-F FeedLime booking; 4 regression
+tests, suite 148). FINES GUARANTEE (client order): 60 kt/y fines
+served EXACTLY in all 9 ruled circumstances
+(scripts/fines_floor_verification.py, evidence in error-hunt/).
+REMAINING arbitrations: PD-4 RC.2 headroom, M-1 fine-screen VSMA
+margin; plus CR.5113/CR.5009 standing branches, DY.03 burner rating.
 
 ## Repository caution
 

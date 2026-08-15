@@ -424,6 +424,15 @@ def _sp36_ultrafin(fines, mp: dict, calib: dict, phi_100_pct, alerts: list):
             )
         if m8["warning"]:
             alerts.append(f"SP.36: {m8['warning']}")
+        # fan capacity guard (client PD-3 decision 2026-08-15: fan purchased
+        # for the soft-rock envelope; before this cap existed no alert could
+        # ever fire on the classifier air demand)
+        max_q_air = mp["SP.36"].get("max_airflow_m3h")
+        if max_q_air is not None and m8["Q_air_m3h"] > max_q_air:
+            alerts.append(
+                f"SP.36 fan: bottleneck — air demand {m8['Q_air_m3h']:.0f} m3/h "
+                f"> fan rating {max_q_air:.0f} m3/h"
+            )
         ultrafin = _stream(m8["fine_product_tph"], m8["fine_product_psd"], fines["moisture"])
         remaining_fines = _stream(m8["remainder_tph"], m8["remainder_psd"], fines["moisture"])
     else:

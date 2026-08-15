@@ -1,0 +1,126 @@
+{
+ "_provenance": {
+  "engine_commit": "ea5fd91",
+  "script": "scripts/fines_floor_verification.py",
+  "note": "Client guarantee check 2026-08-15: FeedLime fines objective (60 000 t/y) across all ruled circumstances. Runs AFTER the planning error-hunt fixes M-3/M-4/M-5 (mass-consistent capped branches, dry-season 2C check, scheduled-mode alerts)."
+ },
+ "results": [
+  {
+   "circumstance": "defaults (measured curve, mid-hard, rain 25 %)",
+   "fines_t_per_year": 60000.0,
+   "objective_t": 60000.0,
+   "objective_served": true,
+   "zone_1_3_split_h": {
+    "mode_G_hours_effective": 2466.1,
+    "mode_F_hours_effective": 1144.4
+   },
+   "zone_1_3_utilization_pct": 60.2,
+   "all_zones_feasible": true,
+   "fines_alerts": []
+  },
+  {
+   "circumstance": "quarry-target curve (adopted works spec)",
+   "fines_t_per_year": 60000.0,
+   "objective_t": 60000.0,
+   "objective_served": true,
+   "zone_1_3_split_h": {
+    "mode_G_hours_effective": 2459.9,
+    "mode_F_hours_effective": 1152.4
+   },
+   "zone_1_3_utilization_pct": 60.2,
+   "all_zones_feasible": true,
+   "fines_alerts": []
+  },
+  {
+   "circumstance": "soft rock central (UCS 20, client reference)",
+   "fines_t_per_year": 60000.0,
+   "objective_t": 60000.0,
+   "objective_served": true,
+   "zone_1_3_split_h": {
+    "mode_G_hours_effective": 2817.7,
+    "mode_F_hours_effective": 700.2
+   },
+   "zone_1_3_utilization_pct": 58.6,
+   "all_zones_feasible": true,
+   "fines_alerts": []
+  },
+  {
+   "circumstance": "soft rock envelope edge UCS 15",
+   "fines_t_per_year": 60000.0,
+   "objective_t": 60000.0,
+   "objective_served": true,
+   "zone_1_3_split_h": {
+    "mode_G_hours_effective": 2995.6,
+    "mode_F_hours_effective": 476.0
+   },
+   "zone_1_3_utilization_pct": 57.9,
+   "all_zones_feasible": true,
+   "fines_alerts": []
+  },
+  {
+   "circumstance": "soft rock envelope edge UCS 30",
+   "fines_t_per_year": 60000.0,
+   "objective_t": 60000.0,
+   "objective_served": true,
+   "zone_1_3_split_h": {
+    "mode_G_hours_effective": 2632.8,
+    "mode_F_hours_effective": 933.7
+   },
+   "zone_1_3_utilization_pct": 59.4,
+   "all_zones_feasible": true,
+   "fines_alerts": []
+  },
+  {
+   "circumstance": "rain time 20 % (client 2026-08-15 figure)",
+   "fines_t_per_year": 60000.0,
+   "objective_t": 60000.0,
+   "objective_served": true,
+   "zone_1_3_split_h": {
+    "mode_G_hours_effective": 2466.1,
+    "mode_F_hours_effective": 1144.4
+   },
+   "zone_1_3_utilization_pct": 60.2,
+   "all_zones_feasible": true,
+   "fines_alerts": []
+  },
+  {
+   "circumstance": "quarry curve + soft central",
+   "fines_t_per_year": 60000.0,
+   "objective_t": 60000.0,
+   "objective_served": true,
+   "zone_1_3_split_h": {
+    "mode_G_hours_effective": 2809.2,
+    "mode_F_hours_effective": 711.2
+   },
+   "zone_1_3_utilization_pct": 58.7,
+   "all_zones_feasible": true,
+   "fines_alerts": []
+  },
+  {
+   "circumstance": "quarry curve + rain 20 %",
+   "fines_t_per_year": 60000.0,
+   "objective_t": 60000.0,
+   "objective_served": true,
+   "zone_1_3_split_h": {
+    "mode_G_hours_effective": 2459.9,
+    "mode_F_hours_effective": 1152.4
+   },
+   "zone_1_3_utilization_pct": 60.2,
+   "all_zones_feasible": true,
+   "fines_alerts": []
+  },
+  {
+   "circumstance": "soft central + rain 20 %",
+   "fines_t_per_year": 60000.0,
+   "objective_t": 60000.0,
+   "objective_served": true,
+   "zone_1_3_split_h": {
+    "mode_G_hours_effective": 2817.7,
+    "mode_F_hours_effective": 700.2
+   },
+   "zone_1_3_utilization_pct": 58.6,
+   "all_zones_feasible": true,
+   "fines_alerts": []
+  }
+ ]
+}

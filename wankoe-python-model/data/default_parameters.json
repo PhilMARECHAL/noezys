@@ -366,7 +366,8 @@
           "default": 0.75
         }
       },
-      "max_airflow_m3h": null,
+      "max_airflow_m3h": 420,
+      "_max_airflow_note": "CLIENT DECISION 2026-08-15 (error-hunt PD-3, option 1 of 3): fan purchased for the FULL soft-rock envelope - >= 420 m3/h with damper/VFD turndown (engine: 207 m3/h default calibration mode F, 332 at the ruled UCS 20 reference, ~416 at the UCS 15 edge where soft rock doubles the sub-65-um ultrafines). Before this value existed the engine could never alert on air demand (finding PD-3). Rejected: sizing at the UCS-20 center (~380) and holding the order for the drop-weight test.",
       "enabled": true
     },
     "CL.38": {

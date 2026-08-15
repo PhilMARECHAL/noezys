@@ -2,7 +2,7 @@
 
 import pytest
 
-from wankoe_model import load_parameters, run_required_hours
+from wankoe_model import load_parameters, run_required_hours, run_scenario
 
 
 @pytest.fixture(scope="module")
@@ -133,6 +133,76 @@ def test_zone_1_1_auto_mode_1B_toggle_off_keeps_legacy_max():
     assert plan["production_t"]["KFS"] > 10000  # co-produced beyond its target
     assert plan["zone_1_1_split"]["mode_1B_hours_effective"] == 0
     assert any(a.startswith("KFS over-produced") for a in plan["alerts"])
+
+def test_rain_capped_branch_is_mass_consistent():
+    # Error-hunt fix M-3 (2026-08-15): before the fix a capped plan divided
+    # the achievable FeedLime by the mode-G rate only — it reported 100 284 t
+    # of product from 84 780 t of dry feed (mass-impossible) with a split
+    # that contradicted the zone hours
+    plan = run_required_hours(
+        load_parameters(
+            overrides={
+                "default_scenario": {"zones": {"1.2": {"available_hours": 1600}}}
+            }
+        )
+    )
+    split = plan["zone_1_3_split"]
+    dry_products = (
+        plan["production_t"]["FeedLime grits"]
+        + plan["production_t"]["FeedLime fines"]
+        + plan["production_t"]["UltraFin"]
+    )
+    dry_feed = 0.93 * plan["stockpiles_t"]["FeedLime consumed"]
+    assert dry_products == pytest.approx(dry_feed, rel=0.001)
+    # grits keep their priority; the fines miss is alerted honestly
+    assert plan["production_t"]["FeedLime grits"] == pytest.approx(40000, abs=1)
+    assert plan["production_t"]["FeedLime fines"] < 60000
+    assert any("fines objective NOT reachable" in a for a in plan["alerts"])
+    assert split["mode_G_hours_effective"] + split["mode_F_hours_effective"] > 0
+
+
+def test_2c_campaign_hours_fit_the_dry_season():
+    # Error-hunt fix M-4 (2026-08-15): 2C (1.7 mm loop) is physically
+    # impossible in rain — before the fix a dry-season-saturated plan still
+    # scheduled 2C hours and reported the AgLime market served
+    plan = run_required_hours(
+        load_parameters(
+            overrides={
+                "default_scenario": {"zones": {"1.2": {"available_hours": 3600}}},
+                "production_targets": {
+                    "FeedLime grits 2-4": {"target_t_per_year": 80000}
+                },
+            }
+        )
+    )
+    assert plan["zone_1_2_split"]["aglime_2c_campaign_hours_effective"] == 0
+    assert plan["production_t"]["AgLime"] < 135000
+    assert any("DRY-SEASON capacity" in a for a in plan["alerts"])
+
+
+def test_scheduled_mode_photo_alerts_reach_the_plan(plan):
+    # Error-hunt fix M-5 (2026-08-15): the 2C conveyor overload (standing
+    # finding) must be visible in the plan that schedules 679 h/y of 2C
+    assert any(
+        a.startswith("[zone 1.2 mode 2C]") and "conveyor rating" in a
+        for a in plan["alerts"]
+    )
+
+
+def test_mode_F_photo_consumes_feedlime_at_the_mode_F_rate():
+    # Error-hunt fix C-5 (2026-08-15): the single-photo stockpile table
+    # booked mode-F consumption at the mode-G rate (+28 % phantom draw)
+    r = run_scenario(
+        load_parameters(overrides={"default_scenario": {"zone_1_3_mode": "F"}})
+    )
+    consumed = r["period_balance"]["stockpiles_t"]["FeedLime consumed_t"]
+    params = load_parameters()
+    z13 = params["default_scenario"]["zones"]["1.3"]
+    hours_13 = z13["available_hours"] * z13["availability_pct"] / 100.0
+    # booked at the mode-F feed 25.05 (data zone_1_3_feedlime_mode_F),
+    # not the mode-G 32.1 (+28 % phantom draw before the fix)
+    assert consumed == pytest.approx(25.05 * hours_13, abs=1)
+
 
 def test_kfs_yield_indicator(plan):
     # Client indicator (definition arbitrated in 4 questions, 2026-08-14):

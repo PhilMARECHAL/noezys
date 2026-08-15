@@ -109,6 +109,11 @@ def run_required_hours(params: dict) -> dict:
     h13_f_eff = 0.0
     fines_f_tph = 0.0
     ultrafin_f_tph = 0.0
+    # Error-hunt fix M-5 (2026-08-15): the photos of the scheduled modes are
+    # kept so their PROCESS ALERTS reach the plan (the previous code carried
+    # only the dry-photo alerts — the 2C conveyor overload and any 1B
+    # bottleneck were invisible for exactly the hours the plan schedules)
+    mode_photos: dict = {}
     if fines_gap_t > 0.5:
         photo_f = run_scenario(
             deep_merge(
@@ -116,6 +121,7 @@ def run_required_hours(params: dict) -> dict:
                 {"default_scenario": {"weather": "dry", "zone_1_3_mode": "F"}},
             )
         )
+        mode_photos["zone 1.3 mode F"] = photo_f
         fines_f_tph = photo_f["products"]["FeedLime fines"]["tph"]
         ultrafin_f_tph = photo_f["products"]["UltraFin"]["tph"]
         if fines_f_tph <= 0:
@@ -187,7 +193,42 @@ def run_required_hours(params: dict) -> dict:
         # cap so the reported production/stockpiles reflect what is achievable
         h2_rain_eff = rain_capacity_eff
         achieved_feedlime = feedlime_from_dry_t + h2_rain_eff * feedlime_rain_season_tph
-        h13_eff = achieved_feedlime / flow["zone_1_3_feedlime"]
+        # Error-hunt fix M-3 (2026-08-15): re-plan the TWO-MODE zone-1.3
+        # split from the achievable FeedLime. The previous code divided by
+        # the mode-G rate only and never recomputed the split, the fines or
+        # the redirect — a capped plan reported MORE PRODUCT THAN FEED
+        # (mass-impossible) with a contradictory hours split. Grits keep
+        # their priority (mode G first), mode F gets the remainder.
+        g_full_feed_t = h13_g_eff * flow["zone_1_3_feedlime"]
+        if achieved_feedlime < g_full_feed_t:
+            h13_g_eff = achieved_feedlime / flow["zone_1_3_feedlime"]
+            h13_f_eff = 0.0
+        else:
+            h13_f_eff = min(
+                h13_f_eff,
+                (achieved_feedlime - g_full_feed_t) / feed_f_tph
+                if feed_f_tph > 0
+                else 0.0,
+            )
+        h13_eff = h13_g_eff + h13_f_eff
+        fines_from_g_t = h13_g_eff * fines_tph
+        fines_production_t = fines_from_g_t + h13_f_eff * fines_f_tph
+        redirect_before_cap_t = fines_redirect_t
+        fines_redirect_t = max(0.0, fines_production_t - fines_cap)
+        aglime_loop_target = max(0.0, aglime_cap - fines_redirect_t)
+        if fines_production_t < fines_target_t - 0.5:
+            alerts.append(
+                f"FeedLime fines objective NOT reachable under the zone-1.2 "
+                f"rain-season cap: {fines_production_t:.0f} t < "
+                f"{fines_target_t:.0f} t objective"
+            )
+        if redirect_before_cap_t > 0.5:
+            # second-order: the dry-season hours were sized with the pre-cap
+            # redirect; a redirect-active capped plan needs an iteration
+            alerts.append(
+                "Rain-season cap with an active fines redirect: zone-1.2 dry "
+                "hours were sized before the cap — second-order, re-run advised"
+            )
         feedlime_demand_t = achieved_feedlime
         zone13 = _zone_result("1.3", h13_eff)
     # ---- 2C AgLime campaigns (client rule, wired 2026-08-14): when the 2A
@@ -206,10 +247,24 @@ def run_required_hours(params: dict) -> dict:
                 {"default_scenario": {"weather": "dry", "zone_1_2_mode": "2C"}},
             )
         )
+        mode_photos["zone 1.2 mode 2C"] = photo_2c
         aglime_2c_tph = photo_2c["products"]["AgLime"]["tph"]
         if aglime_2c_tph <= 0:
             raise ValueError("Mode 2C produces no AgLime: check the scenario")
         h2c_eff = aglime_gap_t / aglime_2c_tph
+        # Error-hunt fix M-4 (2026-08-15): 2C runs the 1.7 mm loop, which is
+        # PHYSICALLY IMPOSSIBLE in rain (rain forces mode 2B — client physics
+        # ruling 2026-08-15), so campaign hours must fit the DRY season, not
+        # just the annual ceiling. The previous check let a plan schedule 2C
+        # hours into a season that cannot run them and still report the
+        # AgLime market as served.
+        if dry_capacity_eff is not None and h2_dry_eff + h2c_eff > dry_capacity_eff:
+            h2c_eff = max(0.0, dry_capacity_eff - h2_dry_eff)
+            alerts.append(
+                "Zone 1.2: 2C campaign hours capped by the DRY-SEASON capacity "
+                "(1.7 mm wet screening impossible in rain) — AgLime market not "
+                "fully served"
+            )
         ceiling_2_eff = ceilings["1.2"]["effective_h"]
         if ceiling_2_eff is not None and h2_dry_eff + h2_rain_eff + h2c_eff > ceiling_2_eff:
             h2c_eff = max(0.0, ceiling_2_eff - h2_dry_eff - h2_rain_eff)
@@ -249,6 +304,7 @@ def run_required_hours(params: dict) -> dict:
                 {"default_scenario": {"weather": "dry", "zone_1_1_mode": "1B"}},
             )
         )
+        mode_photos["zone 1.1 mode 1B"] = photo_1b
         q020_1b_tph_wet = photo_1b["intermediate_flows"]["stream_0_20_dry_tph"] / (
             1.0 - moisture / 100.0
         )
@@ -404,9 +460,30 @@ def run_required_hours(params: dict) -> dict:
         # the photo's own period/stockpile alerts are computed AT CEILING
         # hours — planning solves the hours, so only process alerts carry over
         "alerts": alerts
+        + _photo_process_alerts(photo_dry)
+        # Error-hunt fix M-5 (2026-08-15): scheduled-mode photos contribute
+        # their process alerts too, labeled, deduplicated, and only when the
+        # plan actually schedules hours in that mode
         + [
-            a
-            for a in photo_dry["alerts"]
-            if not a.startswith("Stockpile") and not a.startswith("Period balance")
+            f"[{label}] {a}"
+            for label, photo in mode_photos.items()
+            if {
+                "zone 1.3 mode F": h13_f_eff,
+                "zone 1.2 mode 2C": h2c_eff,
+                "zone 1.1 mode 1B": h11_1b_eff,
+            }.get(label, 0.0)
+            > 0
+            for a in _photo_process_alerts(photo)
+            if a not in _photo_process_alerts(photo_dry)
         ],
     }
+
+
+def _photo_process_alerts(photo: dict) -> list:
+    """Process alerts of a scenario photo (period/stockpile lines excluded —
+    those are computed at ceiling hours, which planning re-solves)."""
+    return [
+        a
+        for a in photo["alerts"]
+        if not a.startswith("Stockpile") and not a.startswith("Period balance")
+    ]

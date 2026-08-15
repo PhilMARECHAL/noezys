@@ -452,7 +452,14 @@ def _period_balance(params: dict, results: dict, alerts: list) -> dict | None:
     else:  # 2A: FeedLime = reclaim − AgLime (closed loop)
         feedlime_tph = flow["zone_1_2_reclaim"] - p["AgLime"]["tph"]
     produced_feedlime = feedlime_tph * effective_hours["1.2"]
-    consumed_feedlime = flow["zone_1_3_feedlime"] * effective_hours["1.3"]
+    # Error-hunt fix C-5 (2026-08-15): a mode-F photo consumes FeedLime at
+    # the mode-F feed, not the mode-G rate (the annual plan already handled
+    # the split; only this single-photo stockpile table was inconsistent)
+    if params["default_scenario"].get("zone_1_3_mode", "G") == "F":
+        feed_13_tph = flow.get("zone_1_3_feedlime_mode_F", flow["zone_1_3_feedlime"])
+    else:
+        feed_13_tph = flow["zone_1_3_feedlime"]
+    consumed_feedlime = feed_13_tph * effective_hours["1.3"]
     stockpiles = {
         "0/20 produced_t": round(produced_020, 0),
         "0/20 reclaimed_t": round(reclaimed_020, 0),

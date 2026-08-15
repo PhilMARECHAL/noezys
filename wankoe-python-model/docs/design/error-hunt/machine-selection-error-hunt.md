@@ -128,14 +128,29 @@ zone-1.3 duties — not a hidden worst case).
    9.07/9.53 rounded UP); rain photos (1A-rain/1B-rain) added to the
    purchase evidence; the +25 % [H] allowance survives as dry-weather
    headroom only. Sheet and INDEX updated.
-3. **PD-3 / SP.36 fan**: buy the fan for the soft-rock envelope (~420 m³/h
-   with damper turndown) — or hold for the drop-weight test.
+3. **PD-3 / SP.36 fan** — **DECIDED by the client 2026-08-15: option 1,
+   fan purchased for the full soft-rock envelope.** Applied data-first:
+   `machines.SP.36.max_airflow_m3h` = **420 m³/h** (was null — no alert
+   could ever fire); the engine now raises a fan bottleneck alert beyond
+   it; VFD turndown to ~130 m³/h required on the sheet. With the same
+   message the client ordered the FINES GUARANTEE check — see the
+   companion evidence `fines-floor-evidence.json`
+   (scripts/fines_floor_verification.py): after the M-3/M-4/M-5 planning
+   fixes, the 60 000 t/y fines objective lands EXACTLY in all 9 ruled
+   circumstances (measured/quarry curve × mid-hard/soft envelope ×
+   rain 25 %/20 %), all zones feasible, zone 1.3 at 58–60 % utilization.
 4. **PD-4 / RC.2**: add a capacity step (e.g. 2 × 25 t/h) — or lower the
    mode-F feed (~24.5 t/h wet, longer F campaigns) — re-bisect on ×4 grid
    either way.
 5. **M-1 / SC.B family**: re-quote fine-screen areas with the full VSMA
    factor string — or enlarge the margin explicitly.
-6. **M-3/M-4/M-5/C-5 code fixes**: no arbitration needed — scheduled next.
+6. **M-3/M-4/M-5/C-5 code fixes** — **DONE 2026-08-15** (same commit as
+   PD-3): the rain-capped branch re-plans the two-mode split with grits
+   priority and closes the mass balance (dry products = dry feed to 0.1 %);
+   2C campaign hours are now checked against the DRY-season capacity
+   (1.7 mm impossible in rain); scheduled-mode photo alerts (2C conveyor
+   overload, 1B bottlenecks) reach the plan, labeled; mode-F photos book
+   FeedLime at the mode-F feed. Four regression tests added (148 total).
 
 ---
 *Engine-run provenance: wankoe_model @ e6541dd + this commit,
