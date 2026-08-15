@@ -201,8 +201,11 @@ def main() -> dict:
         "zone_1_2_loop_rating_tph": _val(mach["SR.5111"]["loop_rating_tph"]),
         "CR.5009_max_feed_size_mm": _val(mach["CR.5009"]["max_feed_size_mm"]),
     }
+    # Error-hunt fix 2026-08-15: the loop ratio must be WET basis, like the
+    # engine's own alert (100 t/h wet vs 60) and the client total-flow rule
+    # — the dry basis understated the 2C overload as 155 % instead of 167 %
     ratings["SR.5111_loop_load_ratio_2C"] = round(
-        evidence["SR.5111"]["modes"]["2C"]["feed_tph_dry"]
+        evidence["SR.5111"]["modes"]["2C"]["feed_tph_wet"]
         / ratings["zone_1_2_loop_rating_tph"], 3)
     ratings["CR.5011_load_ratio_1A_wet"] = round(
         evidence["CR.5011"]["modes"]["1A"]["throughput_tph_wet"]

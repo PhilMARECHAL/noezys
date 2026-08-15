@@ -122,7 +122,8 @@ SC.B deck-2 oversize REGROUND through RC.2 (SC.B.sliver_routing,
 throttled single-unit base): fines 60 kt/y is a PRODUCTION OBJECTIVE;
 new GRITS DIVERTER (SC.B deck-1 oversize) gives mode G (grits) /
 mode F (fines campaign: 2/3.75 + sliver reground in RC.2 at the
-mode-F gap 1.5 mm — 2.8 mm circulates 147 t/h, engine-proven). TWO
+mode-F gap 1.5 mm — at 2.8 mm the loop RUNS AWAY: 172.8 t/h at the
+current 25.05 feed, engine-proven; 147 was the old-feed figure). TWO
 RC.2 UNITS installed (purchase spec: min gap 1.5, vendor to confirm).
 Operating points: mode G = full dryer 32.1 (grits 16.22 t/h, RC.2
 33.2/44); mode F = 25.05 t/h (fines 23.2 t/h, units at capacity).
@@ -197,7 +198,8 @@ fmeca-register.json (authoritative) + .md, preventive-maintenance-plan.md
 scripts/fmeca_engine_evidence.py. Top-3 RPN: SC.B deck-2.0 panel wear
 252, BE.40 bucket wear 245 (116 % of rating), CR.5113 2C motor overload
 224 (standing finding). 4 of 5 critical modes = design/purchase fixes
-(CR.5113 motor, BE.40/BC.22 uprate, zone-1.2 loop resize at 155 % in 2C).
+(CR.5113 motor, BE.40/BC.22 uprate, zone-1.2 loop resize at 167 % wet
+in 2C — error-hunt 2026-08-15 fixed the dry-mislabeled 155 %).
 
 ## Purchase datasheets (client order 2026-08-15)
 
@@ -208,7 +210,7 @@ purchase-engine-evidence.json, replay
 scripts/purchase_datasheet_evidence.py). Carries the client-decided
 ratings (RC.1 32; RC.2 2x22 gap 3.4->1.5; CR.5011 90 wet @ CSS 18),
 the CR.5113 2C motor branch (348 kW absorbed -> 450 kW rec. [H] or
-capped rate), the SR.5111 loop resize (155 %), SR.5115 19.1 m2, SC.B
+capped rate), the SR.5111 loop resize (167 % wet), SR.5115 19.1 m2, SC.B
 certified-aperture panels (RPN 252), and the RC.1/RC.2 vendor
 gradation test as a REQUIREMENT. Margins stated: screen areas worst
 mode +25 % [H]; motors worst absorbed x1.15 [H] to IEC.
@@ -317,6 +319,30 @@ bypass FeedLime = stock-PSD watch.
   mathematics; real grounding comes only from feed measurements.
 - Run everything: python -m pytest tests/ -q ; stress:
   python scripts/stress_test.py ; UI: python -m wankoe_model.webapp
+
+## Machine-selection error hunt (client challenge 2026-08-15)
+
+Client asserted errors MUST exist given the speed; objective = buy the
+right machines in all circumstances. 4 independent adversarial audit
+agents + counter-verification (report
+docs/design/error-hunt/machine-selection-error-hunt.md, register row
+same date). VERDICT: reference-point arithmetic reproduces by hand;
+the errors are in WHICH circumstance sized each machine (sizing ran on
+dry/measured-curve/1A photos only). 6 CHANGES-PURCHASE-DECISION:
+CR.5011 quarry-1B 97.1>90 wet; SR.5007 rain areas > minima; SP.36 fan
+soft-rock 332-416 vs 207 m3/h; RC.2 mode-F point at 100 % on a
+non-converged-for-that-output grid (x4 -> 44.4>44; gap 1.6 -> 44.95);
+CR.5113 soft-rock motor hold omitted; CR.5009 quarry F80 251>150.
+MATERIAL: M4 has NO VSMA composition factors (SC.B ~30 % under the
+factor method); SR.5115 19.65>19.1 own-rule; planning rain-capped
+branch MASS-IMPOSSIBLE + 2C not checked vs dry-season ceiling + photo
+alerts dropped (sensitivity branches only — fixes scheduled);
+DY.03 burner rain duty 5.2-6.7 MW vs ~3.7 MW class [PLAUSIBLE].
+FIXED 2026-08-15: RC.2/SC.B 147 t/h gap attribution INVERTED;
+SR.5111 155 % dry -> 167 % wet (script+sheets); UltraFin 0.99 stale;
+CR.5009 UCS 20-80 -> 15-30. Five sizing arbitrations QUEUED for the
+client one at a time (PD-1 first). No existing test covered any
+finding — test-plan input.
 
 ## Repository caution
 

@@ -1,6 +1,6 @@
 {
  "_provenance": {
-  "engine_commit": "5dc5b53",
+  "engine_commit": "e6541dd",
   "run_date": "2026-08-15",
   "functions": [
    "wankoe_model.scenario.run_scenario (per-mode photos 1A / forced 1B / 2A / 2C / G / F, weather dry)"
@@ -26,7 +26,7 @@
   "RC.2_mode_F_gap_mm": 1.5,
   "zone_1_2_loop_rating_tph": 60,
   "CR.5009_max_feed_size_mm": 150,
-  "SR.5111_loop_load_ratio_2C": 1.55,
+  "SR.5111_loop_load_ratio_2C": 1.667,
   "CR.5011_load_ratio_1A_wet": 0.828,
   "CR.5011_load_ratio_1B_wet": 1.0,
   "RC.1_load_ratio_G": 0.913,

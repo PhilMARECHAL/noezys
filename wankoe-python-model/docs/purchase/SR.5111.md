@@ -22,7 +22,7 @@ Total-flow rule: wet basis primary (wet = dry x 1.07527).
 |---|---|---|
 | Screen feed, wet | 38.4 t/h | **100.0 t/h** |
 | Screen feed, dry solids | 35.7 t/h | 93.0 t/h |
-| Loop rating check (60 t/h conveyors BC.5110/BC.5116, PFD REV18) | 64 % | **155 % — STANDING FINDING: loop overload in 2C** |
+| Loop rating check (60 t/h conveyors BC.5110/BC.5116, PFD REV18) | 64 % | **167 % — STANDING FINDING: loop overload in 2C** (100 t/h wet / 60; error-hunt fix 2026-08-15 — the previously stated 155 % was the dry-basis ratio mislabeled as wet) |
 | Required area (engine, cut-duty based) | 1.42 m2 | 1.42 m2 |
 | Imperfection used | 0.15 [H] | 0.15 [H] |
 
@@ -35,11 +35,11 @@ Total-flow rule: wet basis primary (wet = dry x 1.07527).
 
 ## 4. Capacity and sizing requirements — RESIZE REQUIRED
 
-**The 2C campaign duty is the sizing case and it EXCEEDS the present loop rating: 100 t/h wet across a 60 t/h-rated loop = 155 % (engine standing finding, FMECA rank 5).** The purchase must NOT reproduce the 60 t/h rating:
+**The 2C campaign duty is the sizing case and it EXCEEDS the present loop rating: 100 t/h wet across a 60 t/h-rated loop = 167 % (engine standing finding, FMECA rank 5; wet basis per the client total-flow rule — the dry-basis ratio is 155 %).** The purchase must NOT reproduce the 60 t/h rating:
 
 - **Screen rated for the 2C duty: 100 t/h wet (93 t/h dry) continuous feed** at the 1.7 mm cut — same file as the CR.5113 motor finding and the BC.5110/BC.5116 conveyor uprate.
 - Engine required area is 1.42 m2 in both modes (cut-duty based — the engine area formula follows the undersize duty, not the bed load); with the **+25 % margin [H]** the minimum is **1.8 m2**, BUT the vendor must verify the deck area for the FULL 100 t/h wet bed load at 1.7 mm by its own bed-depth method — a fine wet cut at this tonnage will realistically need substantially more area than the cut-duty minimum. The vendor sizing at 100 t/h wet GOVERNS over the engine minimum.
-- Deck structure rated for the 2C bed mass (FMECA FM4: structural fatigue at 155 % was scored on the CURRENT rating — the resize is the root-cause fix).
+- Deck structure rated for the 2C bed mass (FMECA FM4: structural fatigue at the 167 % loop overload was scored on the CURRENT rating — the resize is the root-cause fix).
 
 ## 5. FMECA-derived purchase requirements
 

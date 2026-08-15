@@ -39,7 +39,7 @@ The purchased machine must offer at least the following adjustment ranges withou
 
 ## 4. Capacity and sizing requirements
 
-- **Throughput**: continuous 250 t/h wet (232.5 t/h dry) at gap 60 mm on WANKOE limestone (UCS 20-80 MPa), plus restart under load.
+- **Throughput**: continuous 250 t/h wet (232.5 t/h dry) at gap 60 mm on WANKOE limestone (UCS 15-30 MPa, reference 20 — client-ruled envelope 2026-08-15; error-hunt fix: a previous revision stated 20-80 MPa, up to 2.7x harder than the ruled envelope), plus restart under load.
 - **Feed top size / nip — STANDING ALERT**: the measured feed F80 is **181 mm > the 150 mm max nip size** of the modeled machine (engine planning alert "CR.5009 saturation"). The purchase must resolve this interplay one of two ways, stated explicitly in the offer:
   1. machine accepts the AS-MEASURED feed (nip / feed opening sized for F80 181 mm and the quarry top size actually delivered), or
   2. machine is bought at nip 150 mm class and the **quarry-works specification** (docs/design/zone13-redesign/quarry-works-specification.md, control point 20 mm, 40.1 % < 20 mm target) is EXTENDED with a guaranteed top size — the quarry curve rescale coarsens the top end, so the vendor must state the max feed size at which its capacity and gradation guarantees hold.

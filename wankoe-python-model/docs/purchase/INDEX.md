@@ -18,7 +18,7 @@ Every datasheet consolidates: (1) PROCESS DUTY from fresh engine runs (per-mode 
 | Datasheet | Machine | Headline purchase requirements |
 |---|---|---|
 | [SR.5105.md](SR.5105.md) | Single-deck 6 mm FeedLime screen | 100 t/h wet single point of zone 1.2; area >= 3.8 m2 (+25 % [H]); anti-blinding wet 6 mm cut; exciter cartridge common with SR.5111/5115 |
-| [SR.5111.md](SR.5111.md) | Open 1.7 mm screen (AgLime loop) | **RESIZE: 2C duty = 155 % of the 60 t/h loop rating — rate the screen (and BC.5110/16 belts) for 100 t/h wet**; quick-change fine panels + 2 spare sets (RPN 210); deck structure per the resized duty |
+| [SR.5111.md](SR.5111.md) | Open 1.7 mm screen (AgLime loop) | **RESIZE: 2C duty = 167 % of the 60 t/h loop rating (wet basis) — rate the screen (and BC.5110/16 belts) for 100 t/h wet**; quick-change fine panels + 2 spare sets (RPN 210); deck structure per the resized duty |
 | [CR.5113.md](CR.5113.md) | Impact crusher (AgLime loop) | **Motor sized for the 2C campaign duty ~348 kW absorbed (450 kW rec. [H]) OR a capped campaign rate — vendor to state the branch**; winding temperature sensors + trend alarms (RPN 224); bearing monitoring; bar metallurgy for fine grinding |
 | [SR.5115.md](SR.5115.md) | Closed-loop 1.7 mm screen | **Largest screen area of the line: >= 19.1 m2 (2C 15.28 m2 + 25 % [H]** — a 2A-sized screen would be undersized 3:1); fine-panel quick-change + spares; shared exciter cartridge |
 

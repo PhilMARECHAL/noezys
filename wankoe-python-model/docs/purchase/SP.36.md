@@ -48,7 +48,7 @@ The cut must be adjustable in operation (air-flow and/or rotor-speed lever) acro
 ## 6. Open [H] items the vendor must close
 
 - **Cut certification**: Phi(<cut) is UNMEASURED (standing alert) — the vendor acceptance test must include **sieve/laser sizing of both classifier products**, which simultaneously certifies the cut and closes the alert (the FMECA quarterly lab-sizing task then maintains it).
-- **[H] eta_cl = 0.75** (flagged optimistic): the vendor must GUARANTEE the extraction efficiency at d50c 65 um on WANKOE fines — if the guarantee lands in the literature band (50-65 %), the UltraFin balance (0.99 t/h at defaults) must be re-run by the engine before contract.
+- **[H] eta_cl = 0.75** (flagged optimistic): the vendor must GUARANTEE the extraction efficiency at d50c 65 um on WANKOE fines — if the guarantee lands in the literature band (50-65 %), the UltraFin balance (0.067 t/h mode G / 0.104 t/h mode F at current defaults — error-hunt fix 2026-08-15: the previously quoted 0.99 t/h was the pre-C1 as-built figure) must be re-run by the engine before contract.
 - Fan curve / max airflow (data slot null).
 - Design-review adjacency (expert book 2026-08-11): a **polishing bag filter for the sub-4 um cyclone tail is MISSING from the flowsheet** — the SP.36/CL.38 vendor must state its air-circuit tail-dust loading so that design gap can be closed coherently.
 

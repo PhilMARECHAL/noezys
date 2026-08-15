@@ -24,7 +24,7 @@ Dry basis (zone 1.3). Engine power is the TOTAL over both units.
 | Operating gap | 3.4 mm | **1.5 mm** (mode-F gap) |
 | Feed F80 | 7.0 mm | 6.0 mm |
 | Product P80 | 2.8 mm | 2.6 mm |
-| Circulating context | — | **sliver + 2/3.75 regrind loop, 147 t/h circulating at gap 1.5 (engine-proven; at 2.8 mm the loop runs away)** |
+| Circulating context | — | **sliver + 2/3.75 regrind loop; at gap 1.5 the loop stabilizes at 44.0 t/h through RC.2 (2 x 22, engine-proven); at gap 2.8 the loop RUNS AWAY — 172.8 t/h at the current mode-F feed (error-hunt fix 2026-08-15: a previous revision attributed the runaway figure to gap 1.5 — inverted)** |
 | Absorbed power, total (P_net / eta_m 0.75) | 37.9 kW | 48.5 kW |
 | Absorbed power, per unit | 19.0 kW | 24.2 kW |
 
@@ -42,7 +42,7 @@ Gap changeover 3.4 <-> 1.5 mm is a ROUTINE mode-change operation (pattern `mode_
 ## 4. Capacity and sizing requirements (client-decided)
 
 - **Capacity 2 x 22 t/h dry — CLIENT PURCHASE SPEC (2026-08-14)**. Mode F runs both units exactly at capacity: 22 t/h per unit at gap 1.5 mm is a GUARANTEE point, not a nominal.
-- **Minimum gap capability 1.5 mm — VENDOR TO CONFIRM** (open purchase item, FMECA RC.2-FM2): the fines objective (60 kt/y) is infeasible above ~2.8 mm (147 t/h runaway circulating load). An offer whose smooth rolls cannot close and HOLD 1.5 mm under load does not meet this specification.
+- **Minimum gap capability 1.5 mm — VENDOR TO CONFIRM** (open purchase item, FMECA RC.2-FM2): the fines objective (60 kt/y) is infeasible above ~2.8 mm (runaway circulating load: 172.8 t/h at the current 25.05 t/h wet mode-F feed; the historic 147 t/h figure was computed at the old 21.3 t/h design feed). An offer whose smooth rolls cannot close and HOLD 1.5 mm under load does not meet this specification.
 - **Motor**: worst per-unit absorbed 24.2 kW; recommended minimum installed **30 kW per unit** (x1.15 allowance [H], next IEC size; vendor to confirm). `installed_power_kW` null — vendor value closes it.
 - Two identical units, fully interchangeable (rolls, bearings, drives, spares).
 
@@ -50,7 +50,7 @@ Gap changeover 3.4 <-> 1.5 mm is a ROUTINE mode-change operation (pattern `mode_
 
 | FM (RPN) | Failure mode | Purchase requirement |
 |---|---|---|
-| RC.2-FM1 (168) | Roll surface wear / corrugation at gap 1.5 | **Roll surface wear specification**: shell hardness/material for fine abrasive dry duty, guaranteed wear life or regrind interval AT GAP 1.5 mm under the 147 t/h circulating regrind; rolls regrindable on site or cartridge-exchangeable so campaigns can be staggered (FMECA: one unit always fresh) |
+| RC.2-FM1 (168) | Roll surface wear / corrugation at gap 1.5 | **Roll surface wear specification**: shell hardness/material for fine abrasive dry duty, guaranteed wear life or regrind interval AT GAP 1.5 mm under the 44 t/h (2 x 22) circulating regrind duty (error-hunt fix 2026-08-15: 147 t/h is the gap-2.8 runaway, not the gap-1.5 duty); rolls regrindable on site or cartridge-exchangeable so campaigns can be staggered (FMECA: one unit always fresh) |
 | RC.2-FM2 (144) | Gap drift at the min-gap operating point | **Gap-drift instrumentation on BOTH units**: position feedback, drift alarm, setting repeatable to 0.1 mm — operating AT the vendor minimum leaves no drift allowance; weekly verification without dismantling |
 | RC.2-FM3 (100) | Roll bearing failure (one unit) | **Bearing temperature + vibration monitoring per unit** (comparative trending between the twin units is the detection method); grease per vendor; single-unit overhaul possible while the twin runs |
 | RC.2-FM4 (60) | Drive / coupling failure | Yearly gearbox service per unit, staggered; spare coupling element shared |

@@ -20,7 +20,7 @@ Issued 2026-08-15 (client order of the same day: purchase datasheets for the 13 
 |---|---|---|
 | Cut point d50 (engine, Barth/Stokes model) | 4.23 um | 4.23 um |
 | Air circuit | SP.36 circuit: 133.1 m3/h (G) / 207.2 m3/h (F) | — |
-| UltraFin context | 0.99 t/h at defaults (planning) | — |
+| UltraFin context | 0.067 t/h (G) / 0.104 t/h (F) at current defaults, 284 t/y planned (error-hunt fix 2026-08-15: 0.99 t/h was the pre-C1 as-built figure) | — |
 
 ## 3. Settings and required adjustability
 

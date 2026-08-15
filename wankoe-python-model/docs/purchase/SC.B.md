@@ -40,7 +40,7 @@ Sized on the WORST mode (F) plus a **+25 % purchase margin [H]**:
 | Deck 1 (2.0 mm) | 5.19 m2 (F) | **>= 6.5 m2** |
 | Deck 2 (1.5 mm) | 4.51 m2 (F) | **>= 5.6 m2** |
 
-These are the finest process decks of the line at 3 610 h/y dry duty; the vendor sizing must state its near-mesh assumption (heavy 1.5-2 mm near-mesh fraction in mode F, 147 t/h circulating regrind upstream).
+These are the finest process decks of the line at 3 610 h/y dry duty; the vendor sizing must state its near-mesh assumption (heavy 1.5-2 mm near-mesh fraction in mode F, 44 t/h circulating regrind loop upstream at gap 1.5 — error-hunt fix 2026-08-15: 147 t/h was the gap-2.8 runaway, not the operating duty).
 
 ## 5. FMECA-derived purchase requirements
 
