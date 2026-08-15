@@ -1,0 +1,1424 @@
+{
+ "_provenance": {
+  "engine_commit": "8f415f9",
+  "run_date": "2026-08-15",
+  "functions": [
+   "wankoe_model.planning.run_required_hours",
+   "wankoe_model.scenario.run_scenario (per-mode photos)"
+  ],
+  "data": "data/default_parameters.json (electrical_loads section)",
+  "produced_by": "NOEZYS"
+ },
+ "scenarios": {
+  "defaults_todays_feed": {
+   "scenario": "defaults (today's feed)",
+   "hours_effective_by_mode": {
+    "1A": 1366.6,
+    "1B": 0.0,
+    "2A": 1749.7,
+    "2B": 0.0,
+    "2C": 678.6,
+    "G": 2466.1,
+    "F": 1144.4
+   },
+   "machines": {
+    "CR.5009": {
+     "zone": "1.1",
+     "basis": "engine",
+     "modes": [
+      "1A",
+      "1B"
+     ],
+     "absorbed_kW_by_mode": {
+      "1A": 96.64
+     },
+     "kWh_by_mode": {
+      "1A": 132074.0
+     },
+     "annual_kWh": 132074.0
+    },
+    "CR.5011": {
+     "zone": "1.1",
+     "basis": "engine",
+     "modes": [
+      "1A",
+      "1B"
+     ],
+     "absorbed_kW_by_mode": {
+      "1A": 21.53
+     },
+     "kWh_by_mode": {
+      "1A": 29423.0
+     },
+     "annual_kWh": 29423.0
+    },
+    "SR.5007": {
+     "zone": "1.1",
+     "basis": "typical_rating",
+     "modes": [
+      "1A",
+      "1B"
+     ],
+     "absorbed_kW_by_mode": {
+      "1A": 15.84
+     },
+     "kWh_by_mode": {
+      "1A": 21647.0
+     },
+     "annual_kWh": 21647.0,
+     "installed_kW": 22,
+     "status": "hypothesis [H] \u2014 dual-exciter double-deck 35/20 vibrating screen at 250+ t/h feed (largest screen of the line, ~15 m2 deck class): 2 x 11 kW"
+    },
+    "BC.5004": {
+     "zone": "1.1",
+     "basis": "typical_rating",
+     "modes": [
+      "1A",
+      "1B"
+     ],
+     "absorbed_kW_by_mode": {
+      "1A": 5.4
+     },
+     "kWh_by_mode": {
+      "1A": 7380.0
+     },
+     "annual_kWh": 7380.0,
+     "installed_kW": 7.5,
+     "status": "hypothesis [H] \u2014 PFD REV15 belt, 0/200 jaw product at 250 t/h: heavy-lump medium yard belt, 7.5 kW"
+    },
+    "BC.5007": {
+     "zone": "1.1",
+     "basis": "typical_rating",
+     "modes": [
+      "1A",
+      "1B"
+     ],
+     "absorbed_kW_by_mode": {
+      "1A": 5.4
+     },
+     "kWh_by_mode": {
+      "1A": 7380.0
+     },
+     "annual_kWh": 7380.0,
+     "installed_kW": 7.5,
+     "status": "hypothesis [H] \u2014 PFD REV15 loop-feed belt rated 350 t/h (fresh + recycle), highest tonnage belt of the line: 7.5 kW"
+    },
+    "BC.5010": {
+     "zone": "1.1",
+     "basis": "typical_rating",
+     "modes": [
+      "1A",
+      "1B"
+     ],
+     "absorbed_kW_by_mode": {
+      "1A": 3.96
+     },
+     "kWh_by_mode": {
+      "1A": 5412.0
+     },
+     "annual_kWh": 5412.0,
+     "installed_kW": 5.5,
+     "status": "hypothesis [H] \u2014 PFD REV15 20/40 recycle belt rated 125 t/h, short return run: 5.5 kW"
+    },
+    "BC.5012": {
+     "zone": "1.1",
+     "basis": "typical_rating",
+     "modes": [
+      "1A",
+      "1B"
+     ],
+     "absorbed_kW_by_mode": {
+      "1A": 5.4
+     },
+     "kWh_by_mode": {
+      "1A": 7380.0
+     },
+     "annual_kWh": 7380.0,
+     "installed_kW": 7.5,
+     "status": "hypothesis [H] \u2014 PFD REV15 0/20 product belt rated 170 t/h with stockpile lift: 7.5 kW"
+    },
+    "BC.5013": {
+     "zone": "1.1",
+     "basis": "typical_rating",
+     "modes": [
+      "1A"
+     ],
+     "absorbed_kW_by_mode": {
+      "1A": 3.96
+     },
+     "kWh_by_mode": {
+      "1A": 5412.0
+     },
+     "annual_kWh": 5412.0,
+     "installed_kW": 5.5,
+     "status": "hypothesis [H] \u2014 PFD REV15 20/35 KFS belt rated 80 t/h with stockpile lift: 5.5 kW; runs in mode 1A only (mode 1B makes no KFS)"
+    },
+    "BF.5101+5102": {
+     "zone": "1.2",
+     "basis": "typical_rating",
+     "modes": [
+      "2A",
+      "2B",
+      "2C"
+     ],
+     "absorbed_kW_by_mode": {
+      "2A": 5.76,
+      "2C": 5.76
+     },
+     "kWh_by_mode": {
+      "2A": 10078.0,
+      "2C": 3909.0
+     },
+     "annual_kWh": 13987.0,
+     "installed_kW": 8,
+     "status": "hypothesis [H] \u2014 two PFD REV18 extraction belt feeders under the 0/20 stockpile, 100 t/h combined: 2 x 4 kW"
+    },
+    "BC.5103": {
+     "zone": "1.2",
+     "basis": "typical_rating",
+     "modes": [
+      "2A",
+      "2B",
+      "2C"
+     ],
+     "absorbed_kW_by_mode": {
+      "2A": 3.96,
+      "2C": 3.96
+     },
+     "kWh_by_mode": {
+      "2A": 6929.0,
+      "2C": 2687.0
+     },
+     "annual_kWh": 9616.0,
+     "installed_kW": 5.5,
+     "status": "hypothesis [H] \u2014 PFD REV18 reclaim collector belt at 100 t/h: 5.5 kW"
+    },
+    "SR.5105": {
+     "zone": "1.2",
+     "basis": "typical_rating",
+     "modes": [
+      "2A",
+      "2C"
+     ],
+     "absorbed_kW_by_mode": {
+      "2A": 10.8,
+      "2C": 10.8
+     },
+     "kWh_by_mode": {
+      "2A": 18897.0,
+      "2C": 7329.0
+     },
+     "annual_kWh": 26226.0,
+     "installed_kW": 15,
+     "status": "hypothesis [H] \u2014 dual-exciter single-deck 6 mm screen at 100 t/h reclaim (~10 m2 class): 2 x 7.5 kW; client 2026-08-15: counted in both 2A and 2C hours"
+    },
+    "SR.5111": {
+     "zone": "1.2",
+     "basis": "typical_rating",
+     "modes": [
+      "2A",
+      "2C"
+     ],
+     "absorbed_kW_by_mode": {
+      "2A": 7.92,
+      "2C": 7.92
+     },
+     "kWh_by_mode": {
+      "2A": 13858.0,
+      "2C": 5375.0
+     },
+     "annual_kWh": 19232.0,
+     "installed_kW": 11,
+     "status": "hypothesis [H] \u2014 dual-exciter single-deck 1.7 mm open screen on the 60 t/h loop feed: 2 x 5.5 kW; runs in 2A and 2C hours (client 2026-08-15)"
+    },
+    "CR.5113": {
+     "zone": "1.2",
+     "basis": "engine",
+     "modes": [
+      "2A",
+      "2C"
+     ],
+     "absorbed_kW_by_mode": {
+      "2A": 87.38,
+      "2C": 348.14
+     },
+     "kWh_by_mode": {
+      "2A": 152891.0,
+      "2C": 236250.0
+     },
+     "annual_kWh": 389141.0
+    },
+    "SR.5115": {
+     "zone": "1.2",
+     "basis": "typical_rating",
+     "modes": [
+      "2A",
+      "2C"
+     ],
+     "absorbed_kW_by_mode": {
+      "2A": 7.92,
+      "2C": 7.92
+     },
+     "kWh_by_mode": {
+      "2A": 13858.0,
+      "2C": 5375.0
+     },
+     "annual_kWh": 19232.0,
+     "installed_kW": 11,
+     "status": "hypothesis [H] \u2014 dual-exciter single-deck 1.7 mm closed-loop screen: 2 x 5.5 kW; runs in 2A and 2C hours (client 2026-08-15)"
+    },
+    "BC.5107": {
+     "zone": "1.2",
+     "basis": "typical_rating",
+     "modes": [
+      "2A",
+      "2B"
+     ],
+     "absorbed_kW_by_mode": {
+      "2A": 2.88
+     },
+     "kWh_by_mode": {
+      "2A": 5039.0
+     },
+     "annual_kWh": 5039.0,
+     "installed_kW": 4,
+     "status": "hypothesis [H] \u2014 PFD REV18 FeedLime 6/20 belt at 42 t/h: 4 kW; runs when FeedLime is made (2A + rain bypass 2B)"
+    },
+    "BC.5108": {
+     "zone": "1.2",
+     "basis": "typical_rating",
+     "modes": [
+      "2A",
+      "2B"
+     ],
+     "absorbed_kW_by_mode": {
+      "2A": 2.88
+     },
+     "kWh_by_mode": {
+      "2A": 5039.0
+     },
+     "annual_kWh": 5039.0,
+     "installed_kW": 4,
+     "status": "hypothesis [H] \u2014 PFD REV18 FeedLime belt to stockpile SP.5109 with lift: 4 kW; runs when FeedLime is made (2A + 2B)"
+    },
+    "BC.5110": {
+     "zone": "1.2",
+     "basis": "typical_rating",
+     "modes": [
+      "2A",
+      "2C"
+     ],
+     "absorbed_kW_by_mode": {
+      "2A": 2.88,
+      "2C": 2.88
+     },
+     "kWh_by_mode": {
+      "2A": 5039.0,
+      "2C": 1954.0
+     },
+     "annual_kWh": 6994.0,
+     "installed_kW": 4,
+     "status": "hypothesis [H] \u2014 PFD REV18 loop-feed belt rated 60 t/h: 4 kW"
+    },
+    "BC.5112": {
+     "zone": "1.2",
+     "basis": "typical_rating",
+     "modes": [
+      "2A",
+      "2C"
+     ],
+     "absorbed_kW_by_mode": {
+      "2A": 3.96,
+      "2C": 3.96
+     },
+     "kWh_by_mode": {
+      "2A": 6929.0,
+      "2C": 2687.0
+     },
+     "annual_kWh": 9616.0,
+     "installed_kW": 5.5,
+     "status": "hypothesis [H] \u2014 PFD REV18 crusher-feed belt rated 100 t/h (feed + recycle): 5.5 kW"
+    },
+    "BC.5114": {
+     "zone": "1.2",
+     "basis": "typical_rating",
+     "modes": [
+      "2A",
+      "2C"
+     ],
+     "absorbed_kW_by_mode": {
+      "2A": 2.88,
+      "2C": 2.88
+     },
+     "kWh_by_mode": {
+      "2A": 5039.0,
+      "2C": 1954.0
+     },
+     "annual_kWh": 6994.0,
+     "installed_kW": 4,
+     "status": "hypothesis [H] \u2014 PFD REV18 crusher-product belt to SR.5115, short run: 4 kW"
+    },
+    "BC.5116": {
+     "zone": "1.2",
+     "basis": "typical_rating",
+     "modes": [
+      "2A",
+      "2C"
+     ],
+     "absorbed_kW_by_mode": {
+      "2A": 2.88,
+      "2C": 2.88
+     },
+     "kWh_by_mode": {
+      "2A": 5039.0,
+      "2C": 1954.0
+     },
+     "annual_kWh": 6994.0,
+     "installed_kW": 4,
+     "status": "hypothesis [H] \u2014 PFD REV18 AgLime 0/1.7 belt rated 60 t/h: 4 kW"
+    },
+    "BC.5117": {
+     "zone": "1.2",
+     "basis": "typical_rating",
+     "modes": [
+      "2A",
+      "2C"
+     ],
+     "absorbed_kW_by_mode": {
+      "2A": 2.88,
+      "2C": 2.88
+     },
+     "kWh_by_mode": {
+      "2A": 5039.0,
+      "2C": 1954.0
+     },
+     "annual_kWh": 6994.0,
+     "installed_kW": 4,
+     "status": "hypothesis [H] \u2014 PFD REV18 AgLime belt to stockpile SP.5118 with lift: 4 kW"
+    },
+    "BC.02": {
+     "zone": "1.3",
+     "basis": "typical_rating",
+     "modes": [
+      "G",
+      "F"
+     ],
+     "absorbed_kW_by_mode": {
+      "G": 2.88,
+      "F": 2.88
+     },
+     "kWh_by_mode": {
+      "G": 7102.0,
+      "F": 3296.0
+     },
+     "annual_kWh": 10398.0,
+     "installed_kW": 4,
+     "status": "hypothesis [H] \u2014 DBR PFD weighed dryer-feed belt at 30 t/h: 4 kW"
+    },
+    "DY.03-drum-drive": {
+     "zone": "1.3",
+     "basis": "typical_rating",
+     "modes": [
+      "G",
+      "F"
+     ],
+     "absorbed_kW_by_mode": {
+      "G": 26.64,
+      "F": 26.64
+     },
+     "kWh_by_mode": {
+      "G": 65697.0,
+      "F": 30487.0
+     },
+     "annual_kWh": 96184.0,
+     "installed_kW": 37,
+     "status": "hypothesis [H] \u2014 rotary-drum girth-gear drive for the ~47 m3 drum (engine photo drum_volume 46.6 m3): mid of the 30-45 kW band = 37 kW; ELECTRICAL auxiliary of the fuel-fired dryer"
+    },
+    "BU.04-combustion-air-fan": {
+     "zone": "1.3",
+     "basis": "typical_rating",
+     "modes": [
+      "G",
+      "F"
+     ],
+     "absorbed_kW_by_mode": {
+      "G": 13.32,
+      "F": 13.32
+     },
+     "kWh_by_mode": {
+      "G": 32848.0,
+      "F": 15243.0
+     },
+     "annual_kWh": 48092.0,
+     "installed_kW": 18.5,
+     "status": "hypothesis [H] \u2014 forced-draft combustion-air fan for the ~3.7 MW burner: 18.5 kW; the BURNER FUEL itself is excluded from electricity (client choice 1, 2026-08-15)"
+    },
+    "FI.05-FN.06-filter-fan": {
+     "zone": "1.3",
+     "basis": "typical_rating",
+     "modes": [
+      "G",
+      "F"
+     ],
+     "absorbed_kW_by_mode": {
+      "G": 21.6,
+      "F": 21.6
+     },
+     "kWh_by_mode": {
+      "G": 53268.0,
+      "F": 24719.0
+     },
+     "annual_kWh": 77987.0,
+     "installed_kW": 30,
+     "status": "hypothesis [H] \u2014 bag-filter induced-draft fan on the dryer exhaust (hot dusty gas, high pressure drop): 30 kW in the 22-37 kW band"
+    },
+    "EM.09": {
+     "zone": "1.3",
+     "basis": "typical_rating",
+     "modes": [
+      "G",
+      "F"
+     ],
+     "absorbed_kW_by_mode": {
+      "G": 0.72,
+      "F": 0.72
+     },
+     "kWh_by_mode": {
+      "G": 1776.0,
+      "F": 824.0
+     },
+     "annual_kWh": 2600.0,
+     "installed_kW": 1,
+     "status": "hypothesis [H] \u2014 metal detector + belt magnet, ~1 kW instrumentation-class load"
+    },
+    "SC.A": {
+     "zone": "1.3",
+     "basis": "typical_rating",
+     "modes": [
+      "G",
+      "F"
+     ],
+     "absorbed_kW_by_mode": {
+      "G": 7.92,
+      "F": 7.92
+     },
+     "kWh_by_mode": {
+      "G": 19532.0,
+      "F": 9064.0
+     },
+     "annual_kWh": 28595.0,
+     "installed_kW": 11,
+     "status": "hypothesis [H] \u2014 dual-exciter double-deck 8/3.75 recycle screen, ~4.5 m2 per deck (engine areas): 2 x 5.5 kW"
+    },
+    "SC.B": {
+     "zone": "1.3",
+     "basis": "typical_rating",
+     "modes": [
+      "G",
+      "F"
+     ],
+     "absorbed_kW_by_mode": {
+      "G": 7.92,
+      "F": 7.92
+     },
+     "kWh_by_mode": {
+      "G": 19532.0,
+      "F": 9064.0
+     },
+     "annual_kWh": 28595.0,
+     "installed_kW": 11,
+     "status": "hypothesis [H] \u2014 dual-exciter double-deck 2/1.5 product screen, ~4 m2 per deck: 2 x 5.5 kW"
+    },
+    "RC.1": {
+     "zone": "1.3",
+     "basis": "engine",
+     "modes": [
+      "G",
+      "F"
+     ],
+     "absorbed_kW_by_mode": {
+      "G": 17.45,
+      "F": 13.62
+     },
+     "kWh_by_mode": {
+      "G": 43033.0,
+      "F": 15582.0
+     },
+     "annual_kWh": 58615.0
+    },
+    "RC.2": {
+     "zone": "1.3",
+     "basis": "engine",
+     "modes": [
+      "G",
+      "F"
+     ],
+     "absorbed_kW_by_mode": {
+      "G": 37.89,
+      "F": 48.49
+     },
+     "kWh_by_mode": {
+      "G": 93446.0,
+      "F": 55497.0
+     },
+     "annual_kWh": 148943.0
+    },
+    "ML.26": {
+     "zone": "1.3",
+     "basis": "engine",
+     "modes": [
+      "G",
+      "F"
+     ],
+     "skipped": "variant 'as-built' inactive (current: 'c1')",
+     "annual_kWh": 0.0
+    },
+    "BC.22": {
+     "zone": "1.3",
+     "basis": "typical_rating",
+     "modes": [
+      "G"
+     ],
+     "absorbed_kW_by_mode": {
+      "G": 2.88
+     },
+     "kWh_by_mode": {
+      "G": 7102.0
+     },
+     "annual_kWh": 7102.0,
+     "installed_kW": 4,
+     "status": "hypothesis [H] \u2014 DBR PFD grits belt to silo BI.80 rated 15 t/h: 4 kW; mode G only (mode F diverts the grits to regrind, belt idle)"
+    },
+    "BE.40": {
+     "zone": "1.3",
+     "basis": "typical_rating",
+     "modes": [
+      "G",
+      "F"
+     ],
+     "absorbed_kW_by_mode": {
+      "G": 3.96,
+      "F": 3.96
+     },
+     "kWh_by_mode": {
+      "G": 9766.0,
+      "F": 4532.0
+     },
+     "annual_kWh": 14298.0,
+     "installed_kW": 5.5,
+     "status": "hypothesis [H] \u2014 DBR PFD fines elevator to silos BI.60/70 rated 20 t/h (vertical lift duty): 5.5 kW"
+    },
+    "SP.36-fan": {
+     "zone": "1.3",
+     "basis": "typical_rating",
+     "modes": [
+      "G",
+      "F"
+     ],
+     "absorbed_kW_by_mode": {
+      "G": 3.96,
+      "F": 3.96
+     },
+     "kWh_by_mode": {
+      "G": 9766.0,
+      "F": 4532.0
+     },
+     "annual_kWh": 14298.0,
+     "installed_kW": 5.5,
+     "status": "hypothesis [H] \u2014 air-classifier fan: photo Q_air 133-208 m3/h (small centrifugal fan); 5.5 kW covers circuit losses with margin (client sizing band 4-7.5 kW)"
+    },
+    "CL.38": {
+     "zone": "1.3",
+     "basis": "typical_rating",
+     "modes": [
+      "G",
+      "F"
+     ],
+     "absorbed_kW_by_mode": {
+      "G": 0.0,
+      "F": 0.0
+     },
+     "kWh_by_mode": {
+      "G": 0.0,
+      "F": 0.0
+     },
+     "annual_kWh": 0.0,
+     "installed_kW": 0,
+     "status": "hypothesis [H] \u2014 static cyclone, no drive of its own (pressure drop carried by the SP.36 fan): negligible per client arbitration 2026-08-15"
+    }
+   },
+   "annual_kWh_by_zone": {
+    "1.1": 216107.0,
+    "1.2": 525103.0,
+    "1.3": 535706.0
+   },
+   "annual_kWh_by_mode": {
+    "1A": 216107.0,
+    "2A": 253674.0,
+    "2C": 271429.0,
+    "G": 362867.0,
+    "F": 172839.0
+   },
+   "total_annual_kWh": 1276916.0,
+   "total_annual_MWh": 1276.9,
+   "kWh_per_t_sold_product": {
+    "KFS": 0.633,
+    "AgLime": 2.795,
+    "FeedLime grits": 8.347,
+    "FeedLime fines": 8.347,
+    "UltraFin": 8.347
+   },
+   "sold_t": {
+    "KFS": 85000.0,
+    "FeedLime grits": 40000.0,
+    "FeedLime fines": 60000.0,
+    "AgLime": 135000,
+    "UltraFin": 284.0
+   },
+   "line_level_kWh_per_t_total_sold": 3.987,
+   "allocation": {
+    "zone_1_1_rate_kWh_per_t_output": 0.633,
+    "zone_1_2_chained_rate_kWh_per_t_output": 2.795,
+    "zone_1_3_chained_rate_kWh_per_t_output": 8.347,
+    "kWh_embedded_in_landfilled_0_20_not_charged_to_products": 8739.0
+   },
+   "excluded_dryer_burner_fuel": {
+    "burner_fuel_MWh_per_year": 12488.6,
+    "thermal_duty_MWh_per_year": 7493.2,
+    "note": "Client choice 1 (2026-08-15): the DY.03/BU.04 burner is fuel-fired \u2014 its annual thermal MWh (engine M6 burner_power_kW x zone-1.3 mode hours) is reported SEPARATELY from the electricity total, never added to it."
+   },
+   "planning_context": {
+    "production_t": {
+     "KFS": 85000.0,
+     "AgLime": 135000.0,
+     "FeedLime grits": 40000.0,
+     "FeedLime fines": 60000.0,
+     "UltraFin": 284.0
+    },
+    "sales_t": {
+     "UltraFin sold (market to develop)": 284.0,
+     "FeedLime fines sold as fines": 60000.0,
+     "Fines surplus redirected to the AgLime sales channel": 0.0,
+     "AgLime from loop (2A co-production)": 67144.0,
+     "AgLime from dedicated 2C campaigns": 67856.0,
+     "AgLime total sold (loop + campaigns + redirect)": 135000,
+     "AgLime market cap": 135000
+    },
+    "stockpiles_t": {
+     "0/20 produced": 256645.0,
+     "0/20 reclaimed": 242829.0,
+     "0/20 to LANDFILL (net loss)": 13816.0,
+     "0/20 net to stock": 0.0,
+     "FeedLime produced": 107829.0,
+     "FeedLime consumed": 107829.0,
+     "FeedLime net to stock": 0.0
+    }
+   }
+  },
+  "quarry_target_20pct_margin": {
+   "scenario": "quarry target curve (AgLime baseline 108 kt)",
+   "hours_effective_by_mode": {
+    "1A": 1203.3,
+    "1B": 0.0,
+    "2A": 1576.4,
+    "2B": 0.0,
+    "2C": 581.9,
+    "G": 2459.9,
+    "F": 1152.4
+   },
+   "machines": {
+    "CR.5009": {
+     "zone": "1.1",
+     "basis": "engine",
+     "modes": [
+      "1A",
+      "1B"
+     ],
+     "absorbed_kW_by_mode": {
+      "1A": 111.34
+     },
+     "kWh_by_mode": {
+      "1A": 133972.0
+     },
+     "annual_kWh": 133972.0
+    },
+    "CR.5011": {
+     "zone": "1.1",
+     "basis": "engine",
+     "modes": [
+      "1A",
+      "1B"
+     ],
+     "absorbed_kW_by_mode": {
+      "1A": 22.57
+     },
+     "kWh_by_mode": {
+      "1A": 27156.0
+     },
+     "annual_kWh": 27156.0
+    },
+    "SR.5007": {
+     "zone": "1.1",
+     "basis": "typical_rating",
+     "modes": [
+      "1A",
+      "1B"
+     ],
+     "absorbed_kW_by_mode": {
+      "1A": 15.84
+     },
+     "kWh_by_mode": {
+      "1A": 19060.0
+     },
+     "annual_kWh": 19060.0,
+     "installed_kW": 22,
+     "status": "hypothesis [H] \u2014 dual-exciter double-deck 35/20 vibrating screen at 250+ t/h feed (largest screen of the line, ~15 m2 deck class): 2 x 11 kW"
+    },
+    "BC.5004": {
+     "zone": "1.1",
+     "basis": "typical_rating",
+     "modes": [
+      "1A",
+      "1B"
+     ],
+     "absorbed_kW_by_mode": {
+      "1A": 5.4
+     },
+     "kWh_by_mode": {
+      "1A": 6498.0
+     },
+     "annual_kWh": 6498.0,
+     "installed_kW": 7.5,
+     "status": "hypothesis [H] \u2014 PFD REV15 belt, 0/200 jaw product at 250 t/h: heavy-lump medium yard belt, 7.5 kW"
+    },
+    "BC.5007": {
+     "zone": "1.1",
+     "basis": "typical_rating",
+     "modes": [
+      "1A",
+      "1B"
+     ],
+     "absorbed_kW_by_mode": {
+      "1A": 5.4
+     },
+     "kWh_by_mode": {
+      "1A": 6498.0
+     },
+     "annual_kWh": 6498.0,
+     "installed_kW": 7.5,
+     "status": "hypothesis [H] \u2014 PFD REV15 loop-feed belt rated 350 t/h (fresh + recycle), highest tonnage belt of the line: 7.5 kW"
+    },
+    "BC.5010": {
+     "zone": "1.1",
+     "basis": "typical_rating",
+     "modes": [
+      "1A",
+      "1B"
+     ],
+     "absorbed_kW_by_mode": {
+      "1A": 3.96
+     },
+     "kWh_by_mode": {
+      "1A": 4765.0
+     },
+     "annual_kWh": 4765.0,
+     "installed_kW": 5.5,
+     "status": "hypothesis [H] \u2014 PFD REV15 20/40 recycle belt rated 125 t/h, short return run: 5.5 kW"
+    },
+    "BC.5012": {
+     "zone": "1.1",
+     "basis": "typical_rating",
+     "modes": [
+      "1A",
+      "1B"
+     ],
+     "absorbed_kW_by_mode": {
+      "1A": 5.4
+     },
+     "kWh_by_mode": {
+      "1A": 6498.0
+     },
+     "annual_kWh": 6498.0,
+     "installed_kW": 7.5,
+     "status": "hypothesis [H] \u2014 PFD REV15 0/20 product belt rated 170 t/h with stockpile lift: 7.5 kW"
+    },
+    "BC.5013": {
+     "zone": "1.1",
+     "basis": "typical_rating",
+     "modes": [
+      "1A"
+     ],
+     "absorbed_kW_by_mode": {
+      "1A": 3.96
+     },
+     "kWh_by_mode": {
+      "1A": 4765.0
+     },
+     "annual_kWh": 4765.0,
+     "installed_kW": 5.5,
+     "status": "hypothesis [H] \u2014 PFD REV15 20/35 KFS belt rated 80 t/h with stockpile lift: 5.5 kW; runs in mode 1A only (mode 1B makes no KFS)"
+    },
+    "BF.5101+5102": {
+     "zone": "1.2",
+     "basis": "typical_rating",
+     "modes": [
+      "2A",
+      "2B",
+      "2C"
+     ],
+     "absorbed_kW_by_mode": {
+      "2A": 5.76,
+      "2C": 5.76
+     },
+     "kWh_by_mode": {
+      "2A": 9080.0,
+      "2C": 3352.0
+     },
+     "annual_kWh": 12432.0,
+     "installed_kW": 8,
+     "status": "hypothesis [H] \u2014 two PFD REV18 extraction belt feeders under the 0/20 stockpile, 100 t/h combined: 2 x 4 kW"
+    },
+    "BC.5103": {
+     "zone": "1.2",
+     "basis": "typical_rating",
+     "modes": [
+      "2A",
+      "2B",
+      "2C"
+     ],
+     "absorbed_kW_by_mode": {
+      "2A": 3.96,
+      "2C": 3.96
+     },
+     "kWh_by_mode": {
+      "2A": 6243.0,
+      "2C": 2304.0
+     },
+     "annual_kWh": 8547.0,
+     "installed_kW": 5.5,
+     "status": "hypothesis [H] \u2014 PFD REV18 reclaim collector belt at 100 t/h: 5.5 kW"
+    },
+    "SR.5105": {
+     "zone": "1.2",
+     "basis": "typical_rating",
+     "modes": [
+      "2A",
+      "2C"
+     ],
+     "absorbed_kW_by_mode": {
+      "2A": 10.8,
+      "2C": 10.8
+     },
+     "kWh_by_mode": {
+      "2A": 17025.0,
+      "2C": 6285.0
+     },
+     "annual_kWh": 23310.0,
+     "installed_kW": 15,
+     "status": "hypothesis [H] \u2014 dual-exciter single-deck 6 mm screen at 100 t/h reclaim (~10 m2 class): 2 x 7.5 kW; client 2026-08-15: counted in both 2A and 2C hours"
+    },
+    "SR.5111": {
+     "zone": "1.2",
+     "basis": "typical_rating",
+     "modes": [
+      "2A",
+      "2C"
+     ],
+     "absorbed_kW_by_mode": {
+      "2A": 7.92,
+      "2C": 7.92
+     },
+     "kWh_by_mode": {
+      "2A": 12485.0,
+      "2C": 4609.0
+     },
+     "annual_kWh": 17094.0,
+     "installed_kW": 11,
+     "status": "hypothesis [H] \u2014 dual-exciter single-deck 1.7 mm open screen on the 60 t/h loop feed: 2 x 5.5 kW; runs in 2A and 2C hours (client 2026-08-15)"
+    },
+    "CR.5113": {
+     "zone": "1.2",
+     "basis": "engine",
+     "modes": [
+      "2A",
+      "2C"
+     ],
+     "absorbed_kW_by_mode": {
+      "2A": 74.2,
+      "2C": 359.39
+     },
+     "kWh_by_mode": {
+      "2A": 116962.0,
+      "2C": 209126.0
+     },
+     "annual_kWh": 326088.0
+    },
+    "SR.5115": {
+     "zone": "1.2",
+     "basis": "typical_rating",
+     "modes": [
+      "2A",
+      "2C"
+     ],
+     "absorbed_kW_by_mode": {
+      "2A": 7.92,
+      "2C": 7.92
+     },
+     "kWh_by_mode": {
+      "2A": 12485.0,
+      "2C": 4609.0
+     },
+     "annual_kWh": 17094.0,
+     "installed_kW": 11,
+     "status": "hypothesis [H] \u2014 dual-exciter single-deck 1.7 mm closed-loop screen: 2 x 5.5 kW; runs in 2A and 2C hours (client 2026-08-15)"
+    },
+    "BC.5107": {
+     "zone": "1.2",
+     "basis": "typical_rating",
+     "modes": [
+      "2A",
+      "2B"
+     ],
+     "absorbed_kW_by_mode": {
+      "2A": 2.88
+     },
+     "kWh_by_mode": {
+      "2A": 4540.0
+     },
+     "annual_kWh": 4540.0,
+     "installed_kW": 4,
+     "status": "hypothesis [H] \u2014 PFD REV18 FeedLime 6/20 belt at 42 t/h: 4 kW; runs when FeedLime is made (2A + rain bypass 2B)"
+    },
+    "BC.5108": {
+     "zone": "1.2",
+     "basis": "typical_rating",
+     "modes": [
+      "2A",
+      "2B"
+     ],
+     "absorbed_kW_by_mode": {
+      "2A": 2.88
+     },
+     "kWh_by_mode": {
+      "2A": 4540.0
+     },
+     "annual_kWh": 4540.0,
+     "installed_kW": 4,
+     "status": "hypothesis [H] \u2014 PFD REV18 FeedLime belt to stockpile SP.5109 with lift: 4 kW; runs when FeedLime is made (2A + 2B)"
+    },
+    "BC.5110": {
+     "zone": "1.2",
+     "basis": "typical_rating",
+     "modes": [
+      "2A",
+      "2C"
+     ],
+     "absorbed_kW_by_mode": {
+      "2A": 2.88,
+      "2C": 2.88
+     },
+     "kWh_by_mode": {
+      "2A": 4540.0,
+      "2C": 1676.0
+     },
+     "annual_kWh": 6216.0,
+     "installed_kW": 4,
+     "status": "hypothesis [H] \u2014 PFD REV18 loop-feed belt rated 60 t/h: 4 kW"
+    },
+    "BC.5112": {
+     "zone": "1.2",
+     "basis": "typical_rating",
+     "modes": [
+      "2A",
+      "2C"
+     ],
+     "absorbed_kW_by_mode": {
+      "2A": 3.96,
+      "2C": 3.96
+     },
+     "kWh_by_mode": {
+      "2A": 6243.0,
+      "2C": 2304.0
+     },
+     "annual_kWh": 8547.0,
+     "installed_kW": 5.5,
+     "status": "hypothesis [H] \u2014 PFD REV18 crusher-feed belt rated 100 t/h (feed + recycle): 5.5 kW"
+    },
+    "BC.5114": {
+     "zone": "1.2",
+     "basis": "typical_rating",
+     "modes": [
+      "2A",
+      "2C"
+     ],
+     "absorbed_kW_by_mode": {
+      "2A": 2.88,
+      "2C": 2.88
+     },
+     "kWh_by_mode": {
+      "2A": 4540.0,
+      "2C": 1676.0
+     },
+     "annual_kWh": 6216.0,
+     "installed_kW": 4,
+     "status": "hypothesis [H] \u2014 PFD REV18 crusher-product belt to SR.5115, short run: 4 kW"
+    },
+    "BC.5116": {
+     "zone": "1.2",
+     "basis": "typical_rating",
+     "modes": [
+      "2A",
+      "2C"
+     ],
+     "absorbed_kW_by_mode": {
+      "2A": 2.88,
+      "2C": 2.88
+     },
+     "kWh_by_mode": {
+      "2A": 4540.0,
+      "2C": 1676.0
+     },
+     "annual_kWh": 6216.0,
+     "installed_kW": 4,
+     "status": "hypothesis [H] \u2014 PFD REV18 AgLime 0/1.7 belt rated 60 t/h: 4 kW"
+    },
+    "BC.5117": {
+     "zone": "1.2",
+     "basis": "typical_rating",
+     "modes": [
+      "2A",
+      "2C"
+     ],
+     "absorbed_kW_by_mode": {
+      "2A": 2.88,
+      "2C": 2.88
+     },
+     "kWh_by_mode": {
+      "2A": 4540.0,
+      "2C": 1676.0
+     },
+     "annual_kWh": 6216.0,
+     "installed_kW": 4,
+     "status": "hypothesis [H] \u2014 PFD REV18 AgLime belt to stockpile SP.5118 with lift: 4 kW"
+    },
+    "BC.02": {
+     "zone": "1.3",
+     "basis": "typical_rating",
+     "modes": [
+      "G",
+      "F"
+     ],
+     "absorbed_kW_by_mode": {
+      "G": 2.88,
+      "F": 2.88
+     },
+     "kWh_by_mode": {
+      "G": 7085.0,
+      "F": 3319.0
+     },
+     "annual_kWh": 10403.0,
+     "installed_kW": 4,
+     "status": "hypothesis [H] \u2014 DBR PFD weighed dryer-feed belt at 30 t/h: 4 kW"
+    },
+    "DY.03-drum-drive": {
+     "zone": "1.3",
+     "basis": "typical_rating",
+     "modes": [
+      "G",
+      "F"
+     ],
+     "absorbed_kW_by_mode": {
+      "G": 26.64,
+      "F": 26.64
+     },
+     "kWh_by_mode": {
+      "G": 65532.0,
+      "F": 30700.0
+     },
+     "annual_kWh": 96232.0,
+     "installed_kW": 37,
+     "status": "hypothesis [H] \u2014 rotary-drum girth-gear drive for the ~47 m3 drum (engine photo drum_volume 46.6 m3): mid of the 30-45 kW band = 37 kW; ELECTRICAL auxiliary of the fuel-fired dryer"
+    },
+    "BU.04-combustion-air-fan": {
+     "zone": "1.3",
+     "basis": "typical_rating",
+     "modes": [
+      "G",
+      "F"
+     ],
+     "absorbed_kW_by_mode": {
+      "G": 13.32,
+      "F": 13.32
+     },
+     "kWh_by_mode": {
+      "G": 32766.0,
+      "F": 15350.0
+     },
+     "annual_kWh": 48116.0,
+     "installed_kW": 18.5,
+     "status": "hypothesis [H] \u2014 forced-draft combustion-air fan for the ~3.7 MW burner: 18.5 kW; the BURNER FUEL itself is excluded from electricity (client choice 1, 2026-08-15)"
+    },
+    "FI.05-FN.06-filter-fan": {
+     "zone": "1.3",
+     "basis": "typical_rating",
+     "modes": [
+      "G",
+      "F"
+     ],
+     "absorbed_kW_by_mode": {
+      "G": 21.6,
+      "F": 21.6
+     },
+     "kWh_by_mode": {
+      "G": 53134.0,
+      "F": 24892.0
+     },
+     "annual_kWh": 78026.0,
+     "installed_kW": 30,
+     "status": "hypothesis [H] \u2014 bag-filter induced-draft fan on the dryer exhaust (hot dusty gas, high pressure drop): 30 kW in the 22-37 kW band"
+    },
+    "EM.09": {
+     "zone": "1.3",
+     "basis": "typical_rating",
+     "modes": [
+      "G",
+      "F"
+     ],
+     "absorbed_kW_by_mode": {
+      "G": 0.72,
+      "F": 0.72
+     },
+     "kWh_by_mode": {
+      "G": 1771.0,
+      "F": 830.0
+     },
+     "annual_kWh": 2601.0,
+     "installed_kW": 1,
+     "status": "hypothesis [H] \u2014 metal detector + belt magnet, ~1 kW instrumentation-class load"
+    },
+    "SC.A": {
+     "zone": "1.3",
+     "basis": "typical_rating",
+     "modes": [
+      "G",
+      "F"
+     ],
+     "absorbed_kW_by_mode": {
+      "G": 7.92,
+      "F": 7.92
+     },
+     "kWh_by_mode": {
+      "G": 19482.0,
+      "F": 9127.0
+     },
+     "annual_kWh": 28609.0,
+     "installed_kW": 11,
+     "status": "hypothesis [H] \u2014 dual-exciter double-deck 8/3.75 recycle screen, ~4.5 m2 per deck (engine areas): 2 x 5.5 kW"
+    },
+    "SC.B": {
+     "zone": "1.3",
+     "basis": "typical_rating",
+     "modes": [
+      "G",
+      "F"
+     ],
+     "absorbed_kW_by_mode": {
+      "G": 7.92,
+      "F": 7.92
+     },
+     "kWh_by_mode": {
+      "G": 19482.0,
+      "F": 9127.0
+     },
+     "annual_kWh": 28609.0,
+     "installed_kW": 11,
+     "status": "hypothesis [H] \u2014 dual-exciter double-deck 2/1.5 product screen, ~4 m2 per deck: 2 x 5.5 kW"
+    },
+    "RC.1": {
+     "zone": "1.3",
+     "basis": "engine",
+     "modes": [
+      "G",
+      "F"
+     ],
+     "absorbed_kW_by_mode": {
+      "G": 18.25,
+      "F": 14.24
+     },
+     "kWh_by_mode": {
+      "G": 44888.0,
+      "F": 16408.0
+     },
+     "annual_kWh": 61296.0
+    },
+    "RC.2": {
+     "zone": "1.3",
+     "basis": "engine",
+     "modes": [
+      "G",
+      "F"
+     ],
+     "absorbed_kW_by_mode": {
+      "G": 37.27,
+      "F": 47.91
+     },
+     "kWh_by_mode": {
+      "G": 91687.0,
+      "F": 55211.0
+     },
+     "annual_kWh": 146897.0
+    },
+    "ML.26": {
+     "zone": "1.3",
+     "basis": "engine",
+     "modes": [
+      "G",
+      "F"
+     ],
+     "skipped": "variant 'as-built' inactive (current: 'c1')",
+     "annual_kWh": 0.0
+    },
+    "BC.22": {
+     "zone": "1.3",
+     "basis": "typical_rating",
+     "modes": [
+      "G"
+     ],
+     "absorbed_kW_by_mode": {
+      "G": 2.88
+     },
+     "kWh_by_mode": {
+      "G": 7085.0
+     },
+     "annual_kWh": 7085.0,
+     "installed_kW": 4,
+     "status": "hypothesis [H] \u2014 DBR PFD grits belt to silo BI.80 rated 15 t/h: 4 kW; mode G only (mode F diverts the grits to regrind, belt idle)"
+    },
+    "BE.40": {
+     "zone": "1.3",
+     "basis": "typical_rating",
+     "modes": [
+      "G",
+      "F"
+     ],
+     "absorbed_kW_by_mode": {
+      "G": 3.96,
+      "F": 3.96
+     },
+     "kWh_by_mode": {
+      "G": 9741.0,
+      "F": 4564.0
+     },
+     "annual_kWh": 14305.0,
+     "installed_kW": 5.5,
+     "status": "hypothesis [H] \u2014 DBR PFD fines elevator to silos BI.60/70 rated 20 t/h (vertical lift duty): 5.5 kW"
+    },
+    "SP.36-fan": {
+     "zone": "1.3",
+     "basis": "typical_rating",
+     "modes": [
+      "G",
+      "F"
+     ],
+     "absorbed_kW_by_mode": {
+      "G": 3.96,
+      "F": 3.96
+     },
+     "kWh_by_mode": {
+      "G": 9741.0,
+      "F": 4564.0
+     },
+     "annual_kWh": 14305.0,
+     "installed_kW": 5.5,
+     "status": "hypothesis [H] \u2014 air-classifier fan: photo Q_air 133-208 m3/h (small centrifugal fan); 5.5 kW covers circuit losses with margin (client sizing band 4-7.5 kW)"
+    },
+    "CL.38": {
+     "zone": "1.3",
+     "basis": "typical_rating",
+     "modes": [
+      "G",
+      "F"
+     ],
+     "absorbed_kW_by_mode": {
+      "G": 0.0,
+      "F": 0.0
+     },
+     "kWh_by_mode": {
+      "G": 0.0,
+      "F": 0.0
+     },
+     "annual_kWh": 0.0,
+     "installed_kW": 0,
+     "status": "hypothesis [H] \u2014 static cyclone, no drive of its own (pressure drop carried by the SP.36 fan): negligible per client arbitration 2026-08-15"
+    }
+   },
+   "annual_kWh_by_zone": {
+    "1.1": 209212.0,
+    "1.2": 447054.0,
+    "1.3": 536484.0
+   },
+   "annual_kWh_by_mode": {
+    "1A": 209212.0,
+    "2A": 207763.0,
+    "2C": 239292.0,
+    "G": 362394.0,
+    "F": 174090.0
+   },
+   "total_annual_kWh": 1192750.0,
+   "total_annual_MWh": 1192.8,
+   "kWh_per_t_sold_product": {
+    "KFS": 0.695,
+    "AgLime": 2.767,
+    "FeedLime grits": 8.325,
+    "FeedLime fines": 8.325,
+    "UltraFin": 8.325
+   },
+   "sold_t": {
+    "KFS": 85000.0,
+    "FeedLime grits": 40000.0,
+    "FeedLime fines": 60000.0,
+    "AgLime": 108000,
+    "UltraFin": 285.0
+   },
+   "line_level_kWh_per_t_total_sold": 4.067,
+   "allocation": {
+    "zone_1_1_rate_kWh_per_t_output": 0.695,
+    "zone_1_2_chained_rate_kWh_per_t_output": 2.767,
+    "zone_1_3_chained_rate_kWh_per_t_output": 8.325,
+    "kWh_embedded_in_landfilled_0_20_not_charged_to_products": 0.0
+   },
+   "excluded_dryer_burner_fuel": {
+    "burner_fuel_MWh_per_year": 12488.7,
+    "thermal_duty_MWh_per_year": 7493.2,
+    "note": "Client choice 1 (2026-08-15): the DY.03/BU.04 burner is fuel-fired \u2014 its annual thermal MWh (engine M6 burner_power_kW x zone-1.3 mode hours) is reported SEPARATELY from the electricity total, never added to it."
+   },
+   "planning_context": {
+    "production_t": {
+     "KFS": 85000.0,
+     "AgLime": 108000.0,
+     "FeedLime grits": 40000.0,
+     "FeedLime fines": 60000.0,
+     "UltraFin": 285.0
+    },
+    "sales_t": {
+     "UltraFin sold (market to develop)": 285.0,
+     "FeedLime fines sold as fines": 60000.0,
+     "Fines surplus redirected to the AgLime sales channel": 0.0,
+     "AgLime from loop (2A co-production)": 49814.0,
+     "AgLime from dedicated 2C campaigns": 58186.0,
+     "AgLime total sold (loop + campaigns + redirect)": 108000,
+     "AgLime market cap": 108000
+    },
+    "stockpiles_t": {
+     "0/20 produced": 215830.0,
+     "0/20 reclaimed": 215830.0,
+     "0/20 to LANDFILL (net loss)": 0.0,
+     "0/20 net to stock": 0.0,
+     "FeedLime produced": 107830.0,
+     "FeedLime consumed": 107830.0,
+     "FeedLime net to stock": 0.0
+    }
+   }
+  }
+ }
+}
