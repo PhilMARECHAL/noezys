@@ -1,0 +1,118 @@
+{
+  "_scenario": "RAIN-WEEK MOISTURE SET - client arbitration 2026-08-15 (rain-week moisture study). The stone is EXTREMELY POROUS (client): after 1 week of CONTINUOUS RAIN on the OUTDOOR stockpiles the moistures below apply, then drain slowly back to the 7 % reference over 5-7 days. Every moisture value is [H] (client porous-stone estimate) until the new external trigger fires: an ABSORPTION TEST ON SAMPLES. This file is DATA-FIRST: engine defaults in data/default_parameters.json are UNCHANGED (7 % measured 2026-08-08); the study composes photos from the override blocks below.",
+  "_operating_policy": "Client 2026-08-15: the line CONTINUES EVERYWHERE during the rain week. Rain forces zone 1.2 into mode 2B - requalified the same day as PHYSICS, not policy: WET SCREENING AT 1.7 mm IS IMPOSSIBLE (blinding), so zero AgLime during rain; the zone-1.3 SC.B 2/1.5 cuts sit BEHIND the dryer at 0.5 % moisture and are UNAFFECTED; the 6 mm and 20/35 mm cuts remain feasible wet with the wet_capacity_factor derating.",
+  "stock_moistures_pct": {
+    "_basis": "wet basis, same convention as feed_product.properties.moisture_pct; 7 % = the dry-reference measured value (belt cut 2026-08-08)",
+    "dry_reference": 7,
+    "quarry_feed_after_rain_week": {
+      "default": 12,
+      "status": "[H] client porous-stone estimate 2026-08-15 (7 -> 12 % after 1 week continuous rain, outdoor pile), pending the absorption test on samples"
+    },
+    "reclaimed_0_20_stock_after_rain_week": {
+      "default": 15,
+      "status": "[H] client porous-stone estimate 2026-08-15 (7 -> 15 %; the finest outdoor pile absorbs the most), pending the absorption test on samples"
+    },
+    "feedlime_6_20_stock_after_rain_week": {
+      "default": 11,
+      "status": "[H] client porous-stone estimate 2026-08-15 (7 -> 11 %; coarser 6/20 pile drains better), pending the absorption test on samples"
+    }
+  },
+  "drainage": {
+    "days_min": 5,
+    "days_max": 7,
+    "days_used": 6,
+    "shape": "linear",
+    "status": "[H] client 2026-08-15: slow drainage back to 7 % over 5-7 days after the rain stops; the study uses the 6-day midpoint with LINEAR interpolation of each stock moisture back to 7 % (day d of D: m_d = m_peak + (7 - m_peak) x d/D). Shape and duration to be replaced by the absorption/drainage test."
+  },
+  "annual_rain_weeks": {
+    "default": 6,
+    "status": "[H] FLAGGED STUDY CHOICE 2026-08-15: N rain weeks per year is PARAMETERIZED; 6 picked as the default pending site rainfall records (client to confirm). The annual view scales linearly in N."
+  },
+  "external_trigger": "ABSORPTION TEST ON SAMPLES = NEW EXTERNAL TRIGGER (client 2026-08-15): a laboratory absorption + drainage test on stockpile samples replaces the three [H] rain-week moistures and the [H] drainage profile above. Joins the existing external-trigger list (vendor curves, drop-weight, site Bond, sieve test, repeat belt-cuts, NACO reconciliation).",
+  "engine_limitation": "The engine carries ONE GLOBAL moisture per photo (feed_product.properties.moisture_pct): in scenario.py the zone-1.2 reclaim and the zone-1.3 FeedLime streams INHERIT THE FEED moisture. Distinct simultaneous stock moistures (12/15/11) are NOT expressible in a single photo, so the study reads a COMPOSITE of per-zone photos, each run at its own stock moisture (blocks below). MODEL-IMPROVEMENT ITEM: per-stream moisture overrides (e.g. default_scenario.stream_moistures_pct.{reclaim,feedlime}).",
+  "photos": {
+    "photo_zone_1_1_rain": {
+      "_read": "zone 1.1 results only (KFS, 0/20, SR.5007 areas) - quarry feed at 12 %, rain derating on the outdoor screen",
+      "overrides": {
+        "feed_product": {
+          "properties": {
+            "moisture_pct": {
+              "default": 12,
+              "status": "[H] rain-week quarry feed (client porous-stone set 2026-08-15), pending the absorption test"
+            }
+          }
+        },
+        "default_scenario": {
+          "weather": "rain"
+        }
+      }
+    },
+    "photo_zone_1_2_rain": {
+      "_read": "zone 1.2 results only - reclaimed 0/20 stock at 15 %, rain forces mode 2B (physics): FeedLime = whole reclaim, zero AgLime",
+      "overrides": {
+        "feed_product": {
+          "properties": {
+            "moisture_pct": {
+              "default": 15,
+              "status": "[H] rain-week reclaimed 0/20 stock (client porous-stone set 2026-08-15), pending the absorption test"
+            }
+          }
+        },
+        "default_scenario": {
+          "weather": "rain"
+        }
+      }
+    },
+    "photo_zone_1_3_wet_G": {
+      "_read": "zone 1.3 + DY.03 results only, mode G - FeedLime 6/20 stock at 11 %. weather stays 'dry' DELIBERATELY: zone 1.3 is weather-independent (indoor, every cut BEHIND the dryer at 0.5 %), and the dry flag keeps zone 1.2 in mode 2A so the FeedLime stream carries the 6/20 STOCK PSD the client scenario describes (a rain flag would swap it for the 2B bypass 0/20 PSD).",
+      "overrides": {
+        "feed_product": {
+          "properties": {
+            "moisture_pct": {
+              "default": 11,
+              "status": "[H] rain-week FeedLime 6/20 stock (client porous-stone set 2026-08-15), pending the absorption test"
+            }
+          }
+        },
+        "default_scenario": {
+          "weather": "dry",
+          "zone_1_3_mode": "G"
+        }
+      }
+    },
+    "photo_zone_1_3_wet_F": {
+      "_read": "zone 1.3 + DY.03 results only, mode F (fines campaign) - same 11 % FeedLime stock, same deliberate dry flag as photo_zone_1_3_wet_G",
+      "overrides": {
+        "feed_product": {
+          "properties": {
+            "moisture_pct": {
+              "default": 11,
+              "status": "[H] rain-week FeedLime 6/20 stock (client porous-stone set 2026-08-15), pending the absorption test"
+            }
+          }
+        },
+        "default_scenario": {
+          "weather": "dry",
+          "zone_1_3_mode": "F"
+        }
+      }
+    },
+    "photo_zone_1_3_bypass_PSD_annex": {
+      "_read": "ANNEX (outside the arbitrated composite): zone 1.3 fed with the mode-2B BYPASS FeedLime (unscreened 0/20 PSD) at 12 % - the quality of the FeedLime the rain-week 2B hours ADD to the stock. Directional watch on the future stock PSD.",
+      "overrides": {
+        "feed_product": {
+          "properties": {
+            "moisture_pct": {
+              "default": 12,
+              "status": "[H] annex run - bypass-PSD FeedLime at the rain-week quarry/0-20 moisture band"
+            }
+          }
+        },
+        "default_scenario": {
+          "weather": "rain",
+          "zone_1_3_mode": "G"
+        }
+      }
+    }
+  }
+}

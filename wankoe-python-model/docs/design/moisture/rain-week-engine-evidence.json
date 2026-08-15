@@ -1,0 +1,256 @@
+{
+ "_provenance": {
+  "date": "2026-08-15",
+  "commit": "f31945d",
+  "functions": [
+   "wankoe_model.scenario.run_scenario",
+   "wankoe_model.planning.run_required_hours"
+  ],
+  "scenario_file": "docs/design/moisture/rain-week-scenario.json",
+  "replay": "PYTHONPATH=src python scripts/rain_week_study.py",
+  "note": "composite per-zone photos (engine limitation: one global moisture per photo)"
+ },
+ "weekly_balance": {
+  "weekly_hours_effective": {
+   "zone_1_1_mode_1A": 26.28,
+   "zone_1_2_mode_2A": 33.65,
+   "zone_1_2_mode_2C": 13.05,
+   "zone_1_3_mode_G": 47.42,
+   "zone_1_3_mode_F": 22.01,
+   "_basis": "annual required-hours plan / 52 (effective hours; hours follow the targets)"
+  },
+  "dry_week": {
+   "KFS_t": 1634.6,
+   "AgLime_t": 2596.2,
+   "FeedLime grits_t": 769.2,
+   "FeedLime fines_t": 1153.8,
+   "UltraFin_t": 5.5,
+   "FeedLime 6/20 produced (z1.2)_t": 2073.6,
+   "0/20 reclaimed (z1.2)_t": 4669.8,
+   "dryer_outlet_mode_G_tph": 30.0,
+   "burner_MWh": 240.2,
+   "paraffin_L": 25080.0,
+   "KFS_dry_solids_share_pct": 93.0
+  },
+  "rain_week": {
+   "KFS_t": 1634.6,
+   "AgLime_t": 0.0,
+   "FeedLime grits_t": 736.1,
+   "FeedLime fines_t": 1104.2,
+   "UltraFin_t": 5.2,
+   "FeedLime produced (z1.2, 2B bypass 0/20)_t": 4669.8,
+   "0/20 reclaimed (z1.2)_t": 4669.8,
+   "dryer_outlet_mode_G_tph": 28.71,
+   "burner_MWh": 337.7,
+   "paraffin_L": 35265.0,
+   "KFS_dry_solids_share_pct": 88.0
+  },
+  "deltas_rain_minus_dry": {
+   "KFS_t": 0.0,
+   "AgLime_t": -2596.2,
+   "FeedLime grits_t": -33.1,
+   "FeedLime fines_t": -49.6,
+   "paraffin_L": 10185.0
+  },
+  "dryer_outlet_check": {
+   "outlet_limit_tph": 30,
+   "dry_week_outlet_mode_G_tph": 30.0,
+   "rain_week_outlet_mode_G_tph": 28.71,
+   "_note": "At 11 % inlet moisture the 32.1 t/h WET-FEED cap yields only 28.71 t/h at the outlet \u2014 the 30 t/h outlet limit CANNOT be reached during the rain week (structural, not an overload): outlet = 32.1 x (1 - 0.11)/(1 - 0.005)."
+  },
+  "kfs_envelope_and_screen_areas": {
+   "dry_week": {
+    "below_cut_pct": 8.69,
+    "in_cut_pct": 82.75,
+    "above_cut_pct": 8.56,
+    "out_of_cut_pct": 17.25,
+    "tolerance_pct": null,
+    "envelope": {
+     "below_ok": true,
+     "in_cut_ok": true,
+     "above_ok": true
+    },
+    "compliant": true
+   },
+   "rain_week": {
+    "below_cut_pct": 8.69,
+    "in_cut_pct": 82.75,
+    "above_cut_pct": 8.56,
+    "out_of_cut_pct": 17.25,
+    "tolerance_pct": null,
+    "envelope": {
+     "below_ok": true,
+     "in_cut_ok": true,
+     "above_ok": true
+    },
+    "compliant": true
+   },
+   "sr5007_required_area_m2_dry": {
+    "top_deck": 6.803084138832835,
+    "bottom_deck": 7.149664102682296
+   },
+   "sr5007_required_area_m2_rain": {
+    "top_deck": 8.583102569423506,
+    "bottom_deck": 9.020364746036446
+   },
+   "_note": "The engine wires I_rain to the 1.7 mm loop screens only (now moot: mode 2B is forced by physics); the 20/35 mm cut keeps its dry imperfection under rain and the screen AREA is derated by wet_capacity_factor 0.75 [H] \u2014 KFS envelope compliance is therefore model-identical dry vs rain. A wet-screening imperfection model for coarse cuts is a candidate improvement, pending site evidence."
+  }
+ },
+ "drainage_tail": {
+  "days": [
+   {
+    "day": 1,
+    "quarry_feed_pct": 11.17,
+    "reclaimed_0_20_pct": 13.67,
+    "feedlime_6_20_pct": 10.33,
+    "dryer_outlet_mode_G_tph": 28.93,
+    "burner_kW_G": 4976.0,
+    "paraffin_excess_L": 1213.0,
+    "grits_deficit_t": 3.9,
+    "fines_deficit_t": 5.9
+   },
+   {
+    "day": 2,
+    "quarry_feed_pct": 10.33,
+    "reclaimed_0_20_pct": 12.33,
+    "feedlime_6_20_pct": 9.67,
+    "dryer_outlet_mode_G_tph": 29.14,
+    "burner_kW_G": 4724.3,
+    "paraffin_excess_L": 970.0,
+    "grits_deficit_t": 3.2,
+    "fines_deficit_t": 4.7
+   },
+   {
+    "day": 3,
+    "quarry_feed_pct": 9.5,
+    "reclaimed_0_20_pct": 11.0,
+    "feedlime_6_20_pct": 9.0,
+    "dryer_outlet_mode_G_tph": 29.36,
+    "burner_kW_G": 4472.7,
+    "paraffin_excess_L": 728.0,
+    "grits_deficit_t": 2.4,
+    "fines_deficit_t": 3.5
+   },
+   {
+    "day": 4,
+    "quarry_feed_pct": 8.67,
+    "reclaimed_0_20_pct": 9.67,
+    "feedlime_6_20_pct": 8.33,
+    "dryer_outlet_mode_G_tph": 29.57,
+    "burner_kW_G": 4221.1,
+    "paraffin_excess_L": 485.0,
+    "grits_deficit_t": 1.6,
+    "fines_deficit_t": 2.4
+   },
+   {
+    "day": 5,
+    "quarry_feed_pct": 7.83,
+    "reclaimed_0_20_pct": 8.33,
+    "feedlime_6_20_pct": 7.67,
+    "dryer_outlet_mode_G_tph": 29.79,
+    "burner_kW_G": 3969.4,
+    "paraffin_excess_L": 243.0,
+    "grits_deficit_t": 0.8,
+    "fines_deficit_t": 1.2
+   },
+   {
+    "day": 6,
+    "quarry_feed_pct": 7.0,
+    "reclaimed_0_20_pct": 7.0,
+    "feedlime_6_20_pct": 7.0,
+    "dryer_outlet_mode_G_tph": 30.0,
+    "burner_kW_G": 3717.8,
+    "paraffin_excess_L": 0.0,
+    "grits_deficit_t": 0.0,
+    "fines_deficit_t": 0.0
+   }
+  ],
+  "paraffin_excess_total_L": 3638.0,
+  "grits_deficit_total_t": 11.8,
+  "fines_deficit_total_t": 17.7
+ },
+ "annual_view": {
+  "_label": "WEEKLY-SCALED ARITHMETIC on engine hourly rates (not a single engine photo): N rain weeks + N drainage tails applied to the reference annual plan; run_required_hours cross-check below",
+  "N_rain_weeks": 6,
+  "N_status": "[H] FLAGGED STUDY CHOICE 2026-08-15: N rain weeks per year is PARAMETERIZED; 6 picked as the default pending site rainfall records (client to confirm). The annual view scales linearly in N.",
+  "paraffin_over_consumption_L_per_year": 82938.0,
+  "paraffin_reference_L_per_year": 1304155.0,
+  "zone_1_2_mode_mix_replanned_h": {
+   "mode_2B_rain_weeks": 280.2,
+   "mode_2A": 1295.1,
+   "mode_2C_campaigns": 853.0,
+   "total": 2428.3,
+   "reference_plan_total": 2428.3,
+   "_identity": "total hours and total reclaim are invariant (every reclaimed tonne leaves as product in 2A, 2B and 2C alike) -> LANDFILL UNCHANGED at the reference plan value"
+  },
+  "landfill_t_per_year": 13816.0,
+  "markets": {
+   "_verdict": "all four markets remain served: AgLime lost during rain weeks is caught up in dry weeks (zone-1.2 headroom), grits/fines hour deficits are recovered within the zone-1.3 ceiling",
+   "aglime_shifted_from_rain_weeks_t": 15577.0,
+   "grits_hour_deficit_t": 270.0,
+   "fines_hour_deficit_t": 404.0
+  },
+  "zone_1_3_extra_hours_effective": 34.1,
+  "zone_1_3_hours_new_vs_ceiling": {
+   "required_effective_h": 3644.6,
+   "ceiling_effective_h": 6000.0,
+   "feasible": true
+  },
+  "run_required_hours_cross_check_N_over_52": {
+   "season_fractions": {
+    "dry": 0.8846153846153846,
+    "rain": 0.11538461538461539
+   },
+   "zone_1_2_rain_season_hours": 0.0,
+   "zones_utilization_pct": {
+    "1.1": 71.2,
+    "1.2": 40.5,
+    "1.3": 60.2
+   },
+   "production_t": {
+    "KFS": 85000.0,
+    "AgLime": 135000.0,
+    "FeedLime grits": 40000.0,
+    "FeedLime fines": 60000.0,
+    "UltraFin": 284.0
+   },
+   "_note": "the planner schedules 0 rain-season hours (dry-season capacity suffices) and the plan is N-invariant \u2014 the 2B rain-week running is the client's continue-everywhere POLICY, expressed above as a mode-mix shift at constant hours"
+  }
+ },
+ "annex_bypass_psd_feedlime": {
+  "_read": "ANNEX (outside the arbitrated composite): zone 1.3 fed with the mode-2B BYPASS FeedLime (unscreened 0/20 PSD) at 12 % - the quality of the FeedLime the rain-week 2B hours ADD to the stock. Directional watch on the future stock PSD.",
+  "grits_tph": 15.73,
+  "fines_tph": 12.448,
+  "grits_compliance": {
+   "below_cut_pct": 13.69,
+   "in_cut_pct": 82.7,
+   "above_cut_pct": 3.62,
+   "out_of_cut_pct": 17.3,
+   "tolerance_pct": null,
+   "envelope": {
+    "below_ok": true,
+    "above_ok": true
+   },
+   "compliant": true
+  }
+ },
+ "alerts": {
+  "rain_z11": [
+   "CR.5009: feed F80 181 mm > max nip size 150 mm \u2014 saturation",
+   "Zone 1.2: rain -> 1.7 mm cut impossible, mode 2A replaced by 2B",
+   "SP.36: Phi(<cut) not measured \u2014 UltraFin computed from the modelled curve, flagged NOT CERTIFIED (to be measured by sieve/laser)",
+   "Stockpile 0/20: 239422 t reclaimed beyond what is produced when every zone runs its FULL ceiling hours \u2014 downstream tonnages of this table are not simultaneously achievable at these rates; the hours planning (hours follow the targets) gives the consistent operating point"
+  ],
+  "rain_z12": [
+   "CR.5009: feed F80 181 mm > max nip size 150 mm \u2014 saturation",
+   "Zone 1.2: rain -> 1.7 mm cut impossible, mode 2A replaced by 2B",
+   "SP.36: Phi(<cut) not measured \u2014 UltraFin computed from the modelled curve, flagged NOT CERTIFIED (to be measured by sieve/laser)",
+   "Stockpile 0/20: 239422 t reclaimed beyond what is produced when every zone runs its FULL ceiling hours \u2014 downstream tonnages of this table are not simultaneously achievable at these rates; the hours planning (hours follow the targets) gives the consistent operating point"
+  ],
+  "wet_g": [
+   "CR.5009: feed F80 181 mm > max nip size 150 mm \u2014 saturation",
+   "SP.36: Phi(<cut) not measured \u2014 UltraFin computed from the modelled curve, flagged NOT CERTIFIED (to be measured by sieve/laser)",
+   "Stockpile 0/20: 239422 t reclaimed beyond what is produced when every zone runs its FULL ceiling hours \u2014 downstream tonnages of this table are not simultaneously achievable at these rates; the hours planning (hours follow the targets) gives the consistent operating point"
+  ]
+ }
+}

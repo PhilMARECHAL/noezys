@@ -740,7 +740,7 @@
       "name": "Fine screen imperfection under rain",
       "unit": "-",
       "default": 0.9,
-      "status": "[H] spec M3 (up to ~0.9)",
+      "status": "[H] spec M3 (up to ~0.9). REQUALIFIED 2026-08-15 (client, rain-week study): wet screening at 1.7 mm is PHYSICALLY IMPOSSIBLE - rain forces mode 2B as PHYSICS, not policy, so I_rain is reachable ONLY in the audit branch rain_forces_mode_2B=false, whose AgLime result is DIRECTIONAL and never an operating case",
       "used_by": "M3"
     },
     "mu_air": {
@@ -782,7 +782,7 @@
       "name": "Screen basic-capacity derating factor under rain (outdoor screens)",
       "unit": "-",
       "default": 0.75,
-      "status": "[H] spec M3/SR.5115 narrative ('capacity drops when wet') quantified as a hypothesis, to confirm",
+      "status": "[H] spec M3/SR.5115 narrative ('capacity drops when wet') quantified as a hypothesis, to confirm. SCOPE requalified 2026-08-15 (client, rain-week study): applies to the cuts that REMAIN FEASIBLE wet - 20/35 mm (SR.5007) and 6 mm (SR.5105) - as an area derating; the 1.7 mm cut is not derated but IMPOSSIBLE under rain (mode 2B is physics); the zone-1.3 SC.A/SC.B cuts sit BEHIND the dryer at 0.5 % moisture and are never derated",
       "used_by": "M4"
     }
   },
@@ -843,7 +843,8 @@
     "properties": {
       "moisture_pct": {
         "default": 7,
-        "status": "measured with the 2026-08-08 belt cut"
+        "status": "measured with the 2026-08-08 belt cut",
+        "_rain_week_note": "This is the GLOBAL photo moisture: scenario.py gives the zone-1.2 reclaim and zone-1.3 FeedLime streams this same value (no per-stream moisture yet - model-improvement item). The client's porous-stone RAIN-WEEK set (2026-08-15, [H] pending the ABSORPTION TEST on samples: quarry feed 12 %, reclaimed 0/20 stock 15 %, FeedLime 6/20 stock 11 %, drainage back to 7 % over 5-7 days) lives data-first in docs/design/moisture/rain-week-scenario.json and is read as a composite of per-zone photos by scripts/rain_week_study.py"
       },
       "dry_density_tm3": {
         "default": 1.5,
@@ -961,6 +962,7 @@
     "time_basis": "annual",
     "weather": "dry",
     "rain_forces_mode_2B": true,
+    "_rain_forces_mode_2B_note": "REQUALIFIED 2026-08-15 (client, rain-week study): this forcing is PHYSICS, not an operating policy - WET SCREENING AT 1.7 mm IS IMPOSSIBLE (blinding), so rain means ZERO AgLime, full stop. The zone-1.3 SC.B 2/1.5 product cuts are UNAFFECTED (behind the dryer at 0.5 %); the 6 mm and 20/35 mm cuts stay feasible wet with the wet_capacity_factor derating. false remains selectable ONLY as an audit branch (I_rain, DIRECTIONAL result), never an operating case. Rain-week stock moistures: docs/design/moisture/rain-week-scenario.json",
     "dry_season_fraction": 0.75,
     "rain_season_fraction": 0.25,
     "flow_rates_tph": {

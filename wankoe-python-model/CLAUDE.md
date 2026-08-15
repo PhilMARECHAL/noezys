@@ -233,6 +233,24 @@ TARGET 40.1 % <20 mm FLIPS — zero-landfill control value becomes
 electricity -300 MWh/y. Revisit on test confirmation: quarry spec,
 CR.5113 motor, settings re-optimization, FMECA re-score.
 
+## Rain-week moisture study (client arbitrations 2026-08-15)
+
+POROUS-STONE moisture set [H] pending the NEW EXTERNAL TRIGGER =
+ABSORPTION TEST on samples: after 1 week rain on outdoor piles, quarry
+feed 12 / reclaimed 0/20 15 / FeedLime 6/20 11 %, drainage to 7 % over
+5-7 days [H]; N rain weeks/y parameterized, default 6 [H]. 1.7 mm WET
+SCREENING REQUALIFIED AS PHYSICALLY IMPOSSIBLE (rain -> 2B is physics,
+not policy; SC.B cuts behind the dryer unaffected; 6/20-35 mm cuts
+feasible wet, derated) — data notes updated. Policy: line CONTINUES
+everywhere. ENGINE LIMITATION (documented, model-improvement item): ONE
+global moisture per photo (reclaim/FeedLime inherit feed moisture) —
+study = composite per-zone photos. docs/design/moisture/ (scenario JSON,
+study, evidence; replay scripts/rain_week_study.py). Headline: rain week
+= zero AgLime (caught up, no annual loss), dryer outlet 28.71 t/h (30
+unreachable at 11 % inlet), paraffin +10 185 L/wk (+40.6 %); annual N=6:
+paraffin +82 938 L/y, landfill + markets unchanged, z1.3 +34.1 h; 2B
+bypass FeedLime = stock-PSD watch.
+
 ## Engineering state (see docs/ for detail)
 
 - docs/spec-conformity-matrix.md: requirement-by-requirement traceability
