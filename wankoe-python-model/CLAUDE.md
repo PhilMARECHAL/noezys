@@ -384,6 +384,28 @@ RC.2 1.5 mm +/-0.1 under load = nobody's catalog guarantee (witnessed
 test for every bidder); SC.A/SC.B cartridge ask re-scoped to the
 zone-1.2 BIVITEC family (recommended).
 
+## Silica behavior REV B (4-expert team, client cookie ruling 2026-08-16)
+
+Grains embedded LIKE A COOKIE, never broken (client). Study
+docs/design/abrasivity/silica-behavior-study.md supersedes REV A grades
++ wear ranking; liberation script scripts/liberation_rev_b.py (cookie
+law k=3 [2-4]; real ladder 1.2/3/33.5/12.3 % vs superseded 25/40/90/90).
+THEOREMS (engine-verified): closed loops can't enrich; every cut
+>= 1.5 mm leaves both sides at bulk; the 65 um cut is the only quartz
+discriminator. GRADES FLAT at 5 %: AgLime enrichment gone, grits
+purification WITHDRAWN, UltraFin ~0 % (doubly locked) = only premium
+product. KILN VERDICT HARDENS: kiln specs' SiO2/acid-insoluble limit
+<= 1-2 % FAILS across [3-8]; embedded = geological; KFS sellable only
+to permissive kilns / lower-grade lime uses -> KILN BUYER SPEC
+CONFRONTATION = DECISION GATE #1. WEAR: sandpaper particles polish not
+cut; CR.5011 bars UP rank 3 (ceramic option), RC.2 gap-hold over shell
+life, SC.B wire + aperture-drift guarantee, SP.36 ceramic wheel
+MANDATORY, fan erosion clause withdrawn, hottest free-grain interface
+SR.5115 (1 800 t/y). RCS: monitoring item; exception = CL.38 filter
+(specify now, ePTFE, "may contain RCS"); XRF/XRD adds sub-10 um quartz
+tail + SWeRF; quartz >= 1 % in AgLime/fines SDS. Zone-1.3 LEV
+dedusting = new RFQ line item. XRF campaign (6 points) closes all.
+
 ## Eolianite abrasivity simulation (client order 2026-08-16)
 
 Rock = aeolian limestone: soft calcite matrix + well-rounded ~200 um

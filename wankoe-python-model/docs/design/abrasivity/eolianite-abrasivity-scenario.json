@@ -21,14 +21,23 @@
     "bond_abrasion_index_Ai": {"central": 0.04, "envelope": [0.02, 0.08], "basis": "limestone 0.01-0.03, quartz sandstone 0.3-0.6"}
   },
   "liberation_model": {
-    "_note": "[H] quartz grains liberate as the calcite matrix is comminuted toward the grain scale; liberated free grains (100-400 um) travel with each stream's 0.1-0.4 mm band; embedded grains travel with the lumps",
-    "free_quartz_fraction_after": {
+    "_rev": "REV B 2026-08-16 (4-expert silica team, client cookie clarification: grains embedded in the mass like chips in a cookie, never broken). The REV A ladder below is SUPERSEDED - it overstated liberation 3-35x.",
+    "cookie_law": {
+      "form": "L(x) = 1 for x <= d; ln(k*d/x)/ln(k) for d < x < k*d; 0 for x >= k*d",
+      "d_grain_mm": 0.2,
+      "k": {"central": 3, "band": [2, 4], "status": "[H] random breakage of dilute round inclusions gives k~1.5-2; interface-preferential detachment in the porous weakly-cemented eolianite raises it to ~3-4 (and raises S_att - grains plucked whole)"},
+      "structural_theorems": "a closed loop cannot enrich its only exit; every cut >= 1.5 mm leaves BOTH sides at bulk grade (free grains travel with their 0.1-0.4 mm band). Only the SP.36 65 um cut discriminates quartz.",
+      "engine_ladder_g0_5_k3": {"0_20_loop": 0.012, "loop_feed_0_6": 0.03, "CR.5113_product": 0.335, "AgLime": 0.30, "fines_train": 0.123, "KFS_grits": 0.0},
+      "script": "scripts/liberation_rev_b.py -> docs/design/abrasivity/liberation-rev-b-evidence.json"
+    },
+    "free_quartz_fraction_after_SUPERSEDED_rev_a": {
       "CR.5009_product_0_60": 0.25,
       "zone_1_1_0_20_loop": 0.40,
       "zone_1_2_1_7mm_loop": 0.90,
       "zone_1_3_fines_train": 0.90
     },
-    "embedded_wear_weight": 0.3
+    "embedded_wear_weight": 0.3,
+    "_embedded_note": "REV B tribology: the 0.3 embedded discount is WRONG for impactors (inertial backing makes an embedded-grain impact equal to a free-grain impact - CR.5011/CR.5113 severity raised); it remains valid for low-stress sliding (sandpaper particles POLISH, they do not cut: contact ~0.3-0.4 GPa vs steel plasticity onset ~1.8 GPa)"
   },
   "machine_severity_factors": {
     "_note": "[H] relative contact severity per machine class (velocity x pressure x steel/polymer sensitivity), used ONLY for ranking - not absolute life prediction",

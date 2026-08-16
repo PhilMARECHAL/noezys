@@ -1,0 +1,215 @@
+{
+ "_provenance": {
+  "engine_commit": "71db567",
+  "script": "scripts/liberation_rev_b.py",
+  "note": "REV B cookie liberation model (expert team 2026-08-16): L(x)=ln(k*d/x)/ln(k) on d<x<k*d, d=0.2 mm client grains, k=3 [2-4] [H]. Central run g0=5 % (client datum, band 3-8). Supersedes the REV A liberation ladder 25/40/90/90."
+ },
+ "central_g0_5pct_k3": {
+  "products": {
+   "KFS": {
+    "annual_t": 85000.0,
+    "quartz_pct": 5.0,
+    "quartz_t_y": 4250.0,
+    "free_share_of_quartz": 3.7438825623334866e-24,
+    "caco3_basis_pct": 95.0,
+    "note": "embedded in 20-35 mm lumps"
+   },
+   "AgLime": {
+    "annual_t": 135000.0,
+    "quartz_pct": 5.0,
+    "quartz_t_y": 6750.0,
+    "free_share_of_quartz": 0.30740383646578917,
+    "caco3_basis_pct": 95.0,
+    "note": "2A+2C annual blend"
+   },
+   "FeedLime grits": {
+    "annual_t": 40000.0,
+    "quartz_pct": 5.0,
+    "quartz_t_y": 2000.0,
+    "free_share_of_quartz": 3.702595427355783e-10,
+    "caco3_basis_pct": 95.0,
+    "note": "embedded in 2-4 mm particles"
+   },
+   "FeedLime fines": {
+    "annual_t": 60000.0,
+    "quartz_pct": 5.023558795269759,
+    "quartz_t_y": 3014.1352771618554,
+    "free_share_of_quartz": 0.12279175895109194,
+    "caco3_basis_pct": 94.97644120473025,
+    "note": "keeps ALL fines-train quartz after UltraFin extraction"
+   },
+   "UltraFin": {
+    "annual_t": 284.0,
+    "quartz_pct": 0.0,
+    "quartz_t_y": 0.0,
+    "free_share_of_quartz": 0.0,
+    "caco3_basis_pct": 100.0,
+    "note": "no grain route past the 65 um cut (grain >=100 um)"
+   }
+  },
+  "fluxes": {
+   "0/20 stream (SR.5007 -> stockpile, 1A)": {
+    "free_tph": 0.100444547897169,
+    "hours_y": 1366.6,
+    "free_t_y": 137.26751915627113,
+    "note": "free grains in the 0.1-0.4 band of the 0/20; embedded rest at bulk"
+   },
+   "SR.5111 feed (2A loop feed 0/6)": {
+    "free_tph": 0.05348468179329251,
+    "hours_y": 1749.7,
+    "free_t_y": 93.5821477337239,
+    "note": "free grains crossing the 1.7 mm mat -> AgLime with the undersize"
+   },
+   "SR.5111 feed (2C whole reclaim)": {
+    "free_tph": 0.053484681793292625,
+    "hours_y": 678.6,
+    "free_t_y": 36.29470506492838,
+    "note": "2C campaign"
+   },
+   "SR.5115 feed (CR.5113 product, 2A)": {
+    "free_tph": 0.47003738527661265,
+    "hours_y": 1749.7,
+    "free_t_y": 822.4244130184892,
+    "note": "liberation raised by the impactor pass"
+   },
+   "SR.5115 feed (CR.5113 product, 2C)": {
+    "free_tph": 1.4404238806161958,
+    "hours_y": 678.6,
+    "free_t_y": 977.4716453861505,
+    "note": ""
+   },
+   "SC.B deck-1 2.0 mm feed (mode G)": {
+    "free_tph": 0.08351198760614877,
+    "hours_y": 2466.1,
+    "free_t_y": 205.94891263552347,
+    "note": "free grains vs the PU mat (RPN-252 screen)"
+   },
+   "SC.B deck-2 1.5 mm feed (mode G)": {
+    "free_tph": 0.08351198730587289,
+    "hours_y": 2466.1,
+    "free_t_y": 205.94891189501314,
+    "note": ""
+   },
+   "SC.A feed (mode G)": {
+    "free_tph": 0.08351198760620995,
+    "hours_y": 2466.1,
+    "free_t_y": 205.94891263567436,
+    "note": "wire decks"
+   },
+   "RC1 gap 8.0 mm feed-side (mode G)": {
+    "free_tph": 2.1766338523194634e-18,
+    "hours_y": 2466.1,
+    "free_t_y": 5.367796743205028e-15,
+    "note": "grains already free entering the gap - transit untouched"
+   },
+   "RC1 gap 8.0 mm product-side (mode G)": {
+    "free_tph": 0.028562751016319846,
+    "hours_y": 2466.1,
+    "free_t_y": 70.43860028134637,
+    "note": "generation in-pass: +0.0286 t/h"
+   },
+   "RC2 gap 3.4 mm feed-side (mode G)": {
+    "free_tph": 1.4678044040407728e-08,
+    "hours_y": 2466.1,
+    "free_t_y": 3.6197524408049495e-05,
+    "note": "grains already free entering the gap - transit untouched"
+   },
+   "RC2 gap 3.4 mm product-side (mode G)": {
+    "free_tph": 0.05494927051533624,
+    "hours_y": 2466.1,
+    "free_t_y": 135.5103960178707,
+    "note": "generation in-pass: +0.0549 t/h"
+   },
+   "SP.36 circuit feed 0/1.5 (mode G)": {
+    "free_tph": 0.08351197262789013,
+    "hours_y": 2466.1,
+    "free_t_y": 205.94887569763983,
+    "note": "grains reaching the classifier circuit; ALL rejected by the 65 um cut -> wheel/housing wear, zero into UltraFin"
+   },
+   "SC.B deck-1 2.0 mm feed (mode F)": {
+    "free_tph": 0.1434408028337524,
+    "hours_y": 1144.4,
+    "free_t_y": 164.15365476294627,
+    "note": "free grains vs the PU mat (RPN-252 screen)"
+   },
+   "SC.B deck-2 1.5 mm feed (mode F)": {
+    "free_tph": 0.14344080227863956,
+    "hours_y": 1144.4,
+    "free_t_y": 164.15365412767514,
+    "note": ""
+   },
+   "SC.A feed (mode F)": {
+    "free_tph": 0.1434408028338653,
+    "hours_y": 1144.4,
+    "free_t_y": 164.15365476307545,
+    "note": "wire decks"
+   },
+   "RC1 gap 8.0 mm feed-side (mode F)": {
+    "free_tph": 4.023892101985582e-18,
+    "hours_y": 1144.4,
+    "free_t_y": 4.6049421215123e-15,
+    "note": "grains already free entering the gap - transit untouched"
+   },
+   "RC1 gap 8.0 mm product-side (mode F)": {
+    "free_tph": 0.02228791882727818,
+    "hours_y": 1144.4,
+    "free_t_y": 25.50629430593715,
+    "note": "generation in-pass: +0.0223 t/h"
+   },
+   "RC2 gap 1.5 mm feed-side (mode F)": {
+    "free_tph": 2.7690069443533613e-08,
+    "hours_y": 1144.4,
+    "free_t_y": 3.168851547117987e-05,
+    "note": "grains already free entering the gap - transit untouched"
+   },
+   "RC2 gap 1.5 mm product-side (mode F)": {
+    "free_tph": 0.1211529925244272,
+    "hours_y": 1144.4,
+    "free_t_y": 138.6474846449545,
+    "note": "generation in-pass: +0.1212 t/h"
+   },
+   "SP.36 circuit feed 0/1.5 (mode F)": {
+    "free_tph": 0.14344077514379597,
+    "hours_y": 1144.4,
+    "free_t_y": 164.15362307456013,
+    "note": "grains reaching the classifier circuit; ALL rejected by the 65 um cut -> wheel/housing wear, zero into UltraFin"
+   }
+  },
+  "phi": {
+   "0/20 (post CR.5009/5011 loop)": 0.011502082106084435,
+   "KFS 20/35": 3.7438825623334866e-24,
+   "AgLime 0/1.7 (2A)": 0.2933889754676756,
+   "loop feed 0/6 (2A)": 0.02997355272375659,
+   "CR.5113 product (2A)": 0.33503440757215885,
+   "fines 0/1.5 (mode G)": 0.12251260731877327,
+   "fines 0/1.5 (mode F)": 0.12314378990895254,
+   "grits 2/4 (G)": 3.702595427355783e-10
+  },
+  "band": {
+   "AgLime 2A": {
+    "band_tph": 1.0367521472221384,
+    "free_quartz_tph": 0.053484680075725446,
+    "band_quartz_pct": 5.158868512501438,
+    "band_frac_pct": 13.078899603866127
+   },
+   "fines G": {
+    "band_tph": 1.6934122746385847,
+    "free_quartz_tph": 0.08351197262789013,
+    "band_quartz_pct": 4.931579502440633,
+    "band_frac_pct": 12.421234135852613
+   },
+   "fines F": {
+    "band_tph": 2.931042179412606,
+    "free_quartz_tph": 0.14344077514379597,
+    "band_quartz_pct": 4.89384888935792,
+    "band_frac_pct": 12.58148674928837
+   },
+   "0/20": {
+    "band_tph": 1.9470266500060769,
+    "free_quartz_tph": 0.100444547897169,
+    "band_quartz_pct": 5.158868672745466,
+    "band_frac_pct": 1.114787256249655
+   }
+  }
+ }
+}

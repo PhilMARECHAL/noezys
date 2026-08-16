@@ -1,5 +1,13 @@
 # Eolianite Abrasivity Simulation
 
+> **SUPERSEDED IN PART by REV B** (`silica-behavior-study.md`, 4-expert
+> team 2026-08-16, client cookie clarification): the liberation ladder was
+> 3–35× too aggressive — product grades are FLAT at bulk (no AgLime
+> enrichment, no grits purification; UltraFin ~0 % strengthened), the wear
+> ranking is re-derived by regime (CR.5011 up, fan clause withdrawn), and
+> the RCS assessment is added. The index set (§2) and the machine tonnages
+> remain valid.
+
 **by NOEZYS** — 2026-08-16. Client order (CR.5009 panel Q4 follow-up): no
 measured abrasivity figures exist — simulate with aeolian-limestone figures:
 a soft porous calcite matrix cementing **well-rounded ~200 µm quartz
