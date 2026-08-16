@@ -1,6 +1,6 @@
 {
  "_provenance": {
-  "engine_commit": "ffe3247",
+  "engine_commit": "2920553",
   "script": "scripts/abrasivity_simulation.py",
   "scenario": "docs/design/abrasivity/eolianite-abrasivity-scenario.json",
   "note": "SIMULATION on [H] eolianite figures (quartz 20 % central, 200 um rounded grains) - every number pending the XRF / LCPC / Cerchar / Bond-Ai external tests. Product tonnages and machine throughputs are ENGINE results; quartz split and severity factors are the [H] model."
@@ -9,37 +9,37 @@
   {
    "product": "KFS",
    "annual_t": 85000.0,
-   "quartz_t_y": 10200.0,
-   "quartz_pct": 12.0,
-   "caco3_purity_pct_vs_pure": 88.0
+   "quartz_t_y": 2550.0,
+   "quartz_pct": 3.0,
+   "caco3_purity_pct_vs_pure": 97.0
   },
   {
    "product": "AgLime",
    "annual_t": 135000.0,
-   "quartz_t_y": 43785.0,
-   "quartz_pct": 32.4,
-   "caco3_purity_pct_vs_pure": 67.6
+   "quartz_t_y": 10946.0,
+   "quartz_pct": 8.1,
+   "caco3_purity_pct_vs_pure": 91.9
   },
   {
    "product": "FeedLime grits",
    "annual_t": 40000.0,
-   "quartz_t_y": 800.0,
-   "quartz_pct": 2.0,
-   "caco3_purity_pct_vs_pure": 98.0
+   "quartz_t_y": 200.0,
+   "quartz_pct": 0.5,
+   "caco3_purity_pct_vs_pure": 99.5
   },
   {
    "product": "FeedLime fines",
    "annual_t": 60000.0,
-   "quartz_t_y": 9266.0,
-   "quartz_pct": 15.4,
-   "caco3_purity_pct_vs_pure": 84.6
+   "quartz_t_y": 2316.0,
+   "quartz_pct": 3.9,
+   "caco3_purity_pct_vs_pure": 96.1
   },
   {
    "product": "UltraFin",
    "annual_t": 284.0,
-   "quartz_t_y": 6.0,
-   "quartz_pct": 2.0,
-   "caco3_purity_pct_vs_pure": 98.0
+   "quartz_t_y": 1.0,
+   "quartz_pct": 0.5,
+   "caco3_purity_pct_vs_pure": 99.5
   }
  ],
  "landfill_0_20_t": 13816.0,
@@ -48,110 +48,110 @@
    "machine": "CR.5009",
    "class": "sizer_crusher",
    "annual_t_processed": 317734.0,
-   "quartz_exposure_factor": 0.095,
+   "quartz_exposure_factor": 0.024,
    "severity": 1.0,
-   "wear_duty_index_kt_eq": 30.2
+   "wear_duty_index_kt_eq": 7.5
   },
   {
    "machine": "CR.5113",
    "class": "impactor",
    "annual_t_processed": 107449.0,
-   "quartz_exposure_factor": 0.186,
+   "quartz_exposure_factor": 0.047,
    "severity": 1.2,
-   "wear_duty_index_kt_eq": 24.0
+   "wear_duty_index_kt_eq": 6.0
   },
   {
    "machine": "RC.2",
    "class": "smooth_rolls",
    "annual_t_processed": 132143.0,
-   "quartz_exposure_factor": 0.186,
+   "quartz_exposure_factor": 0.047,
    "severity": 0.9,
-   "wear_duty_index_kt_eq": 22.1
+   "wear_duty_index_kt_eq": 5.5
   },
   {
    "machine": "SC.A",
    "class": "screen_wire",
    "annual_t_processed": 330536.0,
-   "quartz_exposure_factor": 0.186,
+   "quartz_exposure_factor": 0.047,
    "severity": 0.35,
-   "wear_duty_index_kt_eq": 21.5
+   "wear_duty_index_kt_eq": 5.4
   },
   {
    "machine": "SC.B",
    "class": "screen_pu_fine_mat",
    "annual_t_processed": 157862.0,
-   "quartz_exposure_factor": 0.186,
+   "quartz_exposure_factor": 0.047,
    "severity": 0.6,
-   "wear_duty_index_kt_eq": 17.6
+   "wear_duty_index_kt_eq": 4.4
   },
   {
    "machine": "RC.1",
    "class": "smooth_rolls",
    "annual_t_processed": 98127.0,
-   "quartz_exposure_factor": 0.186,
+   "quartz_exposure_factor": 0.047,
    "severity": 0.9,
-   "wear_duty_index_kt_eq": 16.4
+   "wear_duty_index_kt_eq": 4.1
   },
   {
    "machine": "SR.5111",
    "class": "screen_pu_fine_mat",
    "annual_t_processed": 125557.0,
-   "quartz_exposure_factor": 0.186,
+   "quartz_exposure_factor": 0.047,
    "severity": 0.6,
-   "wear_duty_index_kt_eq": 14.0
+   "wear_duty_index_kt_eq": 3.5
   },
   {
    "machine": "SR.5007",
    "class": "screen_wire",
    "annual_t_processed": 412399.0,
-   "quartz_exposure_factor": 0.095,
+   "quartz_exposure_factor": 0.024,
    "severity": 0.35,
-   "wear_duty_index_kt_eq": 13.7
+   "wear_duty_index_kt_eq": 3.4
   },
   {
    "machine": "CR.5011",
    "class": "impactor",
    "annual_t_processed": 94664.0,
-   "quartz_exposure_factor": 0.116,
+   "quartz_exposure_factor": 0.029,
    "severity": 1.2,
-   "wear_duty_index_kt_eq": 13.2
+   "wear_duty_index_kt_eq": 3.3
   },
   {
    "machine": "SR.5115",
    "class": "screen_pu_fine_mat",
    "annual_t_processed": 107449.0,
-   "quartz_exposure_factor": 0.186,
+   "quartz_exposure_factor": 0.047,
    "severity": 0.6,
-   "wear_duty_index_kt_eq": 12.0
+   "wear_duty_index_kt_eq": 3.0
   },
   {
    "machine": "SR.5105",
    "class": "screen_wire",
    "annual_t_processed": 162722.0,
-   "quartz_exposure_factor": 0.116,
+   "quartz_exposure_factor": 0.029,
    "severity": 0.35,
-   "wear_duty_index_kt_eq": 6.6
+   "wear_duty_index_kt_eq": 1.7
   },
   {
    "machine": "SP.36",
    "class": "classifier_wheel",
    "annual_t_processed": 1805.0,
-   "quartz_exposure_factor": 0.186,
+   "quartz_exposure_factor": 0.047,
    "severity": 1.5,
-   "wear_duty_index_kt_eq": 0.5
+   "wear_duty_index_kt_eq": 0.1
   },
   {
    "machine": "CL.38",
    "class": "cyclone",
    "annual_t_processed": 1805.0,
-   "quartz_exposure_factor": 0.186,
+   "quartz_exposure_factor": 0.047,
    "severity": 0.8,
-   "wear_duty_index_kt_eq": 0.3
+   "wear_duty_index_kt_eq": 0.1
   }
  ],
  "cr5009_steel_loss_t_per_y": {
-  "central": 1.27,
-  "low": 0.64,
-  "high": 2.54
+  "central": 0.64,
+  "low": 0.32,
+  "high": 1.27
  }
 }

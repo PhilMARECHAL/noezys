@@ -1,7 +1,7 @@
 {
   "_scenario": "EOLIANITE ABRASIVITY SIMULATION SET - client order 2026-08-16 (CR.5009 panel Q4 follow-up: no measured abrasivity figures exist; simulate with aeolian-limestone figures). Rock model: aeolian carbonate dune rock (eolianite/calcarenite) - soft porous calcite matrix (UCS 15-30, consistent with the 2026-08-15 soft-rock and porosity rulings) cementing WELL-ROUNDED ~200 um QUARTZ grains inherited from dune transport. The quartz, not the matrix, governs steel wear: it is the only phase harder than any tool steel. EVERY number below is [H] literature-anchored, pending the external tests (XRF/mineralogy, LCPC, Cerchar, Bond Ai on real samples).",
   "mineralogy": {
-    "quartz_pct": {"central": 20, "envelope": [5, 40], "_note": "[H] siliceous eolianites span near-pure carbonate to quartz-rich; 20 % central chosen as a defensible mid case - THE first number the XRF test must replace"},
+    "quartz_pct": {"central": 5, "envelope": [3, 8], "_note": "CLIENT DATUM 2026-08-16: 5 % silica at the zone-1 feed (supersedes the assistant [H] 20 % central of the same day; envelope [3-8] is a confirmation band around the client figure). XRF/mineralogy still CONFIRMS it and splits free quartz grains vs other silica forms"},
     "quartz_grain_um": {"d50": 200, "band": [100, 400], "roundness": "well-rounded (aeolian), sphericity high", "_note": "[H] client statement: ~200 um very round grains"},
     "calcite_matrix_pct_of_rest": 100,
     "porosity_pct": {"central": 20, "_note": "[H] consistent with the porous-stone moisture set 12/15/11 %"}
@@ -13,11 +13,12 @@
     "_note": "quartz > any steel -> hard-abrasive regime (Khrushchov): wear is quartz-governed; calcite < steel -> mild. Rounded grains shift two-body cutting toward three-body rolling wear - lower metal cutting rate (-20 % applied on LCPC) but polishing wear on teeth and severe wear on POLYMER media (screen mats) and high-velocity surfaces (fan, classifier wheel)"
   },
   "simulated_indices": {
-    "EQC_equivalent_quartz_pct": {"central": 22.4, "envelope": [6.4, 42.4], "basis": "Rosiwal: quartz 1.0, calcite 0.03"},
-    "cerchar_CAI": {"central": 1.1, "envelope": [0.8, 1.5], "class": "slightly-to-medium abrasive", "_reliability": "[H] CAI is UNRELIABLE on UCS < 25 MPa (pin ploughs the soft matrix instead of scratching) - quoted for completeness, LCPC governs"},
-    "LCPC_ABR_g_per_t": {"central": 550, "envelope": [300, 900], "class": "abrasive (LCPC 500-1250)", "basis": "mixture rule quartz sand ~1700 g/t x 0.2 + soft limestone ~300 g/t x 0.8, minus ~20 % roundness allowance", "_note": "LCPC is THE right test for soft rock with hard fine grains - priority order over Cerchar"},
+    "_rev": "REV A 2026-08-16: recomputed at the CLIENT-DECLARED quartz 5 % (was assistant [H] 20 %)",
+    "EQC_equivalent_quartz_pct": {"central": 7.9, "envelope": [5.9, 10.8], "basis": "Rosiwal: quartz 1.0, calcite 0.03"},
+    "cerchar_CAI": {"central": 0.6, "envelope": [0.4, 0.9], "class": "slightly abrasive", "_reliability": "[H] CAI is UNRELIABLE on UCS < 25 MPa (pin ploughs the soft matrix instead of scratching) - quoted for completeness, LCPC governs"},
+    "LCPC_ABR_g_per_t": {"central": 310, "envelope": [250, 420], "class": "low-abrasive, upper half of LCPC 0-500 'not very abrasive' - the quartz keeps it well above clean-limestone values (~100-200)", "basis": "mixture rule quartz sand ~1700 g/t x 0.05 + soft limestone ~300 g/t x 0.95, minus ~20 % roundness allowance", "_note": "LCPC is THE right test for soft rock with hard fine grains - priority order over Cerchar"},
     "LCPC_BR_breakability": {"class": "very breakable (consistent with rippable UCS 15-30)"},
-    "bond_abrasion_index_Ai": {"central": 0.10, "envelope": [0.03, 0.25], "basis": "limestone 0.01-0.03, quartz sandstone 0.3-0.6"}
+    "bond_abrasion_index_Ai": {"central": 0.04, "envelope": [0.02, 0.08], "basis": "limestone 0.01-0.03, quartz sandstone 0.3-0.6"}
   },
   "liberation_model": {
     "_note": "[H] quartz grains liberate as the calcite matrix is comminuted toward the grain scale; liberated free grains (100-400 um) travel with each stream's 0.1-0.4 mm band; embedded grains travel with the lumps",
@@ -36,7 +37,7 @@
     "classifier_wheel": 1.5, "fan": 1.5, "cyclone": 0.8, "belts_chutes": 0.25
   },
   "steel_consumption_orders": {
-    "sizer_teeth_g_per_t": {"central": 4, "envelope": [2, 8], "_note": "[H] order of magnitude for segment/tooth steel loss on ABR ~550 rock - RFQ wear-guarantee anchor, replaced by vendor guarantees priced on the real LCPC result"}
+    "sizer_teeth_g_per_t": {"central": 2, "envelope": [1, 4], "_note": "[H] REV A: order of magnitude for segment/tooth steel loss on ABR ~310 rock (was 2-8 g/t at the superseded 20 % quartz) - RFQ wear-guarantee anchor, replaced by vendor guarantees priced on the real LCPC result"}
   },
   "product_quality_frame": {
     "_note": "quartz does not calcine and does not neutralize: CaCO3-based product values dilute by the quartz content of each product - the KFS (kiln feed) chemistry question is raised to the client explicitly",

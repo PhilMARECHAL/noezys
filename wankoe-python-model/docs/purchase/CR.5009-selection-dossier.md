@@ -100,7 +100,7 @@ status.
 
 | Item | Holder |
 |---|---|
-| Abrasivity data — **client has no figures (2026-08-16): the RFQ annex is now the SIMULATED eolianite set** (docs/design/abrasivity/eolianite-abrasivity-simulation.md — quartz 20 % [5–40], LCPC ABR 550 g/t [300–900], tooth-steel loss 0.6–2.5 t/y), explicitly [H] until XRF + LCPC land | NOEZYS (simulation issued) + external tests |
+| Abrasivity basis — **REV A 2026-08-16: client datum 5 % silica at the zone-1 feed** — RFQ annex = the eolianite simulation at 5 % (docs/design/abrasivity/eolianite-abrasivity-simulation.md — LCPC ABR ~310 g/t [250–420], tooth-steel loss 0.3–1.3 t/y central 0.6), XRF + LCPC confirm | Client datum + NOEZYS simulation; external tests confirm |
 | Quarry ≤ 250 mm lump guarantee written into the quarry-works specification | NOEZYS (spec revision) + client sign-off |
 | Quarry-target curve top-end re-shape to the 250 mm cap (engine alert deliberately live: F80 251) | NOEZYS, next curve revision |
 | Witnessed gradation tests (all bidders, client material) | RFQ process |
