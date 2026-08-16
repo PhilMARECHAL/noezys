@@ -673,6 +673,39 @@ def zone_1_3_c1(feedlime: dict, params: dict, phi_100_pct, alerts: list) -> dict
         fines, mp, calib, phi_100_pct, alerts
     )
 
+    # ---- CLIENT STRATEGY 2026-08-16: all zone-1.3 dedusting filters are
+    # connected for collection and ALL captured dust is SELLABLE ULTRAFIN.
+    # Dust model [H]: dryer-exhaust entrainment fraction of the dry dryer
+    # throughput + LEV capture fraction of the screened tonnage; the dust
+    # is taken from the fines stream (its dominant source) and added to
+    # the UltraFin product. Composition is [H] pending filter-catch XRD
+    # (dryer dust can entrain 100-400 um quartz grains).
+    dd = params.get("dedusting_zone_1_3", {})
+    if dd.get("enabled", False) and remaining_fines and remaining_fines["q"] > 0:
+        f_dry = dd["dryer_exhaust_dust_fraction"]["default"]
+        f_lev = dd["lev_dust_fraction"]["default"]
+        screened_q = outputs["sca_feed"]["q"] + (
+            outputs["scb_feed"]["q"] if outputs["scb_feed"] else 0.0
+        )
+        dust_q = f_dry * dried["q"] + f_lev * screened_q
+        dust_q = min(dust_q, remaining_fines["q"])
+        remaining_fines = _stream(
+            remaining_fines["q"] - dust_q,
+            remaining_fines["psd"],
+            remaining_fines["moisture"],
+        )
+        if ultrafin:
+            ultrafin = _stream(
+                ultrafin["q"] + dust_q, ultrafin["psd"], ultrafin["moisture"]
+            )
+        else:
+            ultrafin = _stream(dust_q, remaining_fines["psd"], remaining_fines["moisture"])
+        alerts.append(
+            f"Zone 1.3 dedusting collected {dust_q:.2f} t/h to UltraFin "
+            "(client rule 2026-08-16; capture fractions and dust composition "
+            "[H] pending site dust survey + filter-catch XRD)"
+        )
+
     sca_areas = {
         "deck_1": models.m4_screen_area(outputs["ua1"], a1, calib),
         "deck_2": models.m4_screen_area(outputs["ua2"], a2, calib),

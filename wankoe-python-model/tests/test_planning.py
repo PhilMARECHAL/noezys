@@ -20,15 +20,17 @@ def test_production_lands_exactly_on_targets(plan):
     # campaigns (~86 kt) — client lever wired 2026-08-14, and the 0/20
     # landfill drops 144 -> 58.4 kt/y (further reduction = grits sales
     # and/or the quarry target curve, client arbitration pending).
-    # Re-baselined 2026-08-16 (client rule: the 0/20 excess is MANDATORILY
-    # sold as AgLime/FeedLime): the former 13 816 t landfill is converted
-    # to AgLime via 138.2 additional 2C hours — production 135 000 + 13 816
-    assert plan["production_t"]["AgLime"] == pytest.approx(148816, abs=2)
-    # re-baselined 2026-08-14 (fines OBJECTIVE 60 kt + two-mode zone 1.3):
-    # more FeedLime demand -> more 2A co-production -> smaller 2C complement
-    assert plan["sales_t"]["AgLime from dedicated 2C campaigns"] == pytest.approx(67856, rel=0.02)
-    assert plan["sales_t"]["AgLime from 0/20 conversion (client rule 2026-08-16)"] == pytest.approx(13816, rel=0.02)
-    assert plan["sales_t"]["AgLime total sold (loop + campaigns + redirect)"] == pytest.approx(148816, abs=2)
+    # Re-baselined 2026-08-16 twice (0/20-conversion rule, then the
+    # DEDUSTING strategy: all zone-1.3 filter dust = sellable UltraFin):
+    # the dust collection raises mode-F hours (fines objective still lands
+    # exactly), which raises 2A hours and shrinks the 0/20 excess — AgLime
+    # = 135 000 + 6 929 conversion
+    assert plan["production_t"]["AgLime"] == pytest.approx(141929, rel=0.01)
+    assert plan["sales_t"]["AgLime from 0/20 conversion (client rule 2026-08-16)"] == pytest.approx(6929, rel=0.05)
+    assert plan["sales_t"]["AgLime total sold (loop + campaigns + redirect)"] == pytest.approx(141929, rel=0.01)
+    # UltraFin = classifier fines + collected dedusting dust (client
+    # strategy 2026-08-16; capture fractions [H])
+    assert plan["production_t"]["UltraFin"] == pytest.approx(6687, rel=0.05)
     assert plan["sales_t"]["Fines surplus redirected to the AgLime sales channel"] == pytest.approx(0, abs=1)
     # the fines OBJECTIVE is served exactly (client 2026-08-14): mode-G
     # co-production 33.5 kt + mode-F campaign hours close it to 60 kt
@@ -44,10 +46,11 @@ def test_2c_campaigns_are_toggleable(plan):
     off = run_required_hours(
         load_parameters(overrides={"commercial_rules": {"aglime_2c_campaigns": False}})
     )
-    # re-baselined 2026-08-16: with 2C campaigns off, the 2A-only AgLime is
-    # 67 144 t PLUS the 0/20 conversion (the 2026-08-16 client rule still
-    # converts the bigger excess through dedicated conversion hours)
-    assert off["sales_t"]["AgLime from loop (2A co-production)"] == pytest.approx(67144, rel=0.02)
+    # re-baselined 2026-08-16 (x2: conversion rule + dedusting strategy):
+    # the dust collection raises mode-F hours and hence the FeedLime
+    # demand, so 2A-only co-production rises to 71 433 t; the 0/20
+    # conversion still absorbs the whole excess
+    assert off["sales_t"]["AgLime from loop (2A co-production)"] == pytest.approx(71433, rel=0.02)
     assert off["sales_t"]["AgLime from dedicated 2C campaigns"] == 0
     assert off["sales_t"]["AgLime from 0/20 conversion (client rule 2026-08-16)"] > 0
     # the conversion volume is LARGER than in the base plan (the unserved

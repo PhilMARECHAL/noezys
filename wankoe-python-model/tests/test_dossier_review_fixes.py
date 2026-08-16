@@ -17,10 +17,26 @@ def test_wet_screening_derates_capacity():
 
 
 def test_sp36_block_toggle():
+    # Re-baselined 2026-08-16 (client dedusting strategy): with the
+    # classifier disabled, UltraFin now still EXISTS — it is the collected
+    # dedusting dust (client rule: all zone-1.3 filter dust is sellable
+    # UltraFin). Disabling BOTH the classifier and the dedusting returns
+    # the historical no-UltraFin state.
     off = run_scenario(load_parameters(overrides={"machines": {"SP.36": {"enabled": False}}}))
-    assert off["products"]["UltraFin"]["present"] is False
+    assert off["products"]["UltraFin"]["present"] is True  # dust only
     assert any("disabled by parameter" in a for a in off["alerts"])
+    assert any("dedusting collected" in a for a in off["alerts"])
     assert off["balances"]["zone_1_3"]["closed"]
+    off2 = run_scenario(
+        load_parameters(
+            overrides={
+                "machines": {"SP.36": {"enabled": False}},
+                "dedusting_zone_1_3": {"enabled": False},
+            }
+        )
+    )
+    assert off2["products"]["UltraFin"]["present"] is False
+    assert off2["balances"]["zone_1_3"]["closed"]
 
 
 def test_ml26_vendor_curve_table_replaces_hypothesis():
