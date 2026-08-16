@@ -426,7 +426,19 @@ anchor: tooth steel 0.3-1.3 t/y central 0.6. Balances/capacities
 composition-blind (densities ~=). FMECA wear occurrences re-score
 after XRF.
 
-## World benchmark 158 operations (client order 2026-08-16)
+## World benchmark 250 references (client orders 2026-08-16)
+
+Wave 3 (client: limestone only, similar capacity, >= 200 refs): 92
+similar-capacity refs added (segments/10), registry 250, peer group
+~110. Closest twins: Unicalce Palagiano (EMAS-audited 255-305 kt/y
+stone, 2/3 kiln + 1/3 aggregates), Kalkwerk Istein, Calcidrata (cork-
+dust co-firing), Graymont Faulkner, Carmeuse Winchester + US Lime
+St. Clair (SEC cost benchmarks), Ndola (climate twin), Sigma Minerals,
+Chichibu, Graymont Te Kuiti. Peer-class norm = quarry + kilns + stone-
+products side-stream (landfill again the anomaly). Wave-4 deep-DD
+shortlist pending client arbitration.
+
+## World benchmark waves 1-2 (158 operations)
 
 docs/design/benchmark/: master study world-benchmark-study.md + 9
 segment dossiers (real verifiable installations only, depth flags,

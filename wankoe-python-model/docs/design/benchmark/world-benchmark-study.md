@@ -1,4 +1,4 @@
-# WANKOE vs the World — Benchmark of 158 Real Limestone Operations
+# WANKOE vs the World — Benchmark of 250 Real Limestone Operations
 
 **by NOEZYS** — 2026-08-16. Client order: *"Compare our production process
 to about a hundred really-built, fully operational limestone processing
@@ -6,8 +6,15 @@ installations worldwide. Full due diligence on each case, highlight the
 differences with our project every time, be clever about identifying
 improvements. Take your time."*
 
-**Method.** Two waves, nine parallel due-diligence reviews, **158 real
-cases** across 9 dossiers (`segments/01…09`): lime plants
+**Method.** Three waves, fourteen parallel due-diligence reviews, **250
+real references** across 10 dossiers (`segments/01…10`). Wave 3
+(client order 2026-08-16: LIMESTONE ONLY at WANKOE-similar capacity,
+registry ≥ 200): five regional identification sweeps added **92
+similar-capacity limestone references** (52 capacity-verified) — see
+`segments/10-similar-capacity-registry.md`, whose peer-class findings
+(the class norm is quarry + kilns + a stone-products side-stream; audited
+EMAS/SEC benchmarks; in-class fuel alternatives; wet-season peers) extend
+this study. Waves 1-2 covered: lime plants
 (Europe / Americas / Asia-Oceania-MEA / CIS), cement crushing lines, GCC &
 fine-carbonate plants, aglime & feed-carbonate producers, soft-limestone /
 chalk / eolianite operations, industrial fines sinks with acceptance
@@ -105,12 +112,18 @@ asset.
 
 ## 4. Register
 
-158 cases: seg 1 (20) + seg 2 (16+refs) + seg 3 (19+2) + seg 4 (18+reg
-frame) + seg 5 (20+4 kiln-window refs) + seg 6 (20) + seg 7 (15) + seg 8
-(5 deep dives) + seg 9 (15). Verified-negatives and unverifiable items
-listed inside each dossier. Depth census: ~30 FULL, ~85 PARTIAL, ~40
-THIN/negative — every case traceable to its public source URL in the
-segment files.
+**250 references**: seg 1 (20) + seg 2 (16+refs) + seg 3 (19+2) + seg 4
+(18+reg frame) + seg 5 (20+4 kiln-window refs) + seg 6 (20) + seg 7 (15)
++ seg 8 (5 deep dives) + seg 9 (15) + **seg 10 (92 similar-capacity
+limestone identifications, 5 regional sweeps)**. The similar-capacity
+limestone PEER GROUP counts ~110 references. Top capacity/structural
+twins: Unicalce Palagiano (EMAS-audited 255–305 kt/y stone actuals, 2/3
+kiln + 1/3 aggregates), Kalkwerk Istein, Calcidrata, Graymont Faulkner,
+Carmeuse Winchester + US Lime St. Clair (SEC-grade cost benchmarks),
+Limestone Resources Ndola (climate twin + revival case), Sigma Minerals
+(growth case), Chichibu (Asia verified), Graymont Te Kuiti (structure +
+wet climate). Verified-negatives and unverifiable items listed inside
+each dossier; every reference traceable to its public source URL.
 
 ---
 *All flowsheet/spec claims trace to the cited public sources in
