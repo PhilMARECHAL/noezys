@@ -384,6 +384,23 @@ RC.2 1.5 mm +/-0.1 under load = nobody's catalog guarantee (witnessed
 test for every bidder); SC.A/SC.B cartridge ask re-scoped to the
 zone-1.2 BIVITEC family (recommended).
 
+## Eolianite abrasivity simulation (client order 2026-08-16)
+
+Client holds NO abrasivity data — ordered a simulation on aeolian
+limestone: soft calcite matrix + well-rounded ~200 um QUARTZ grains
+(the abrasive phase). docs/design/abrasivity/: scenario JSON (all [H]:
+quartz 20 % [5-40], LCPC ABR 550 g/t governing, CAI unreliable at this
+UCS), simulation script joining engine streams, study + evidence.
+HEADLINES: (1) PRODUCT-QUALITY ALARM — at 20 % quartz, KFS kiln feed
+~15-20 % SiO2 (normally disqualifying vs > 95-97 % CaCO3 kiln specs);
+AgLime enriched to ~32 % quartz (NV ~68 %); grits + UltraFin come out
+quartz-purified ~98 %. XRF/mineralogy = NEW external test #1 (LCPC #2,
+drop-weight demoted). (2) Wear ranking: CR.5009 > CR.5113 > RC.2 >
+SC.A > SC.B (PU mats vs free quartz — Rhewum guarantee must be on
+quartz-bearing feed). (3) CR.5009 RFQ wear anchor: tooth steel
+0.6-2.5 t/y [H]. Balances/capacities composition-blind (densities ~=).
+FMECA wear occurrences re-score after XRF.
+
 ## Repository caution
 
 The model lives on branch wankoe-python-model of the PhilMARECHAL/noezys
