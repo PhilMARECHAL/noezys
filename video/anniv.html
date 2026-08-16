@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>NOEZYS — Happy Birthday Romain (25,5 s)</title>
+<style>
+  @font-face { font-family:'Outfit'; font-weight:300; src:url('fonts/outfit-300.woff2') format('woff2'); }
+  @font-face { font-family:'Outfit'; font-weight:400; src:url('fonts/outfit-400.woff2') format('woff2'); }
+  @font-face { font-family:'Outfit'; font-weight:500; src:url('fonts/outfit-500.woff2') format('woff2'); }
+  @font-face { font-family:'Outfit'; font-weight:600; src:url('fonts/outfit-600.woff2') format('woff2'); }
+  @font-face { font-family:'Outfit'; font-weight:700; src:url('fonts/outfit-700.woff2') format('woff2'); }
+  :root {
+    --bg-deep:#0A0E1A; --bg-mid:#0D1225;
+    --cyan:#00D4FF; --purple:#8B5CF6; --green:#55B97E;
+    --text:#F0F3FA; --text2:#8A96B4;
+    --light:#E9EDF4; --ink:#0B0F1E;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1920px; height:1080px; overflow:hidden; background:#000; }
+  body { font-family:'Outfit',sans-serif; }
+  #stage { position:relative; width:1920px; height:1080px; overflow:hidden; background:#000; }
+  .scene { position:absolute; inset:0; display:none; overflow:hidden; }
+  .scene.active { display:block; }
+  .grad-text { background:linear-gradient(90deg,var(--cyan),var(--purple));
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent; }
+  .center-wrap { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .w { display:inline-block; opacity:0; white-space:pre; }
+
+  #s1 { background:var(--bg-deep); }
+  #s1 .line { text-align:center; color:var(--text); font-weight:700; font-size:132px; line-height:1.18; letter-spacing:-2px; }
+
+  #s2 { background:linear-gradient(160deg,#F2F4F8,#DDE2EC); }
+  #s2 .line { text-align:center; color:var(--ink); font-weight:700; font-size:104px; line-height:1.24; letter-spacing:-1px; }
+
+  #s3 { background:radial-gradient(ellipse 1400px 900px at 50% 45%,var(--bg-mid) 0%,var(--bg-deep) 70%); }
+  .toast { position:absolute; inset:0; display:none; align-items:center; justify-content:center; }
+  .toast.on { display:flex; }
+  .toast .t { font-size:136px; font-weight:700; color:var(--text); letter-spacing:-2px; opacity:0; text-align:center; }
+  .toast .t .grad-text { font-weight:700; }
+
+  #s4 { background:linear-gradient(160deg,#F2F4F8,#DDE2EC); }
+  #s4 .label { font-size:30px; font-weight:500; color:#5A6580; letter-spacing:12px; opacity:0; }
+  #s4 .values { margin-top:44px; font-size:110px; font-weight:700; color:var(--ink); letter-spacing:-1px; }
+  #s4 .values .w { margin-right:0.3em; }
+  #s4 .sig { margin-top:48px; font-size:68px; font-weight:600; opacity:0; }
+
+  #s5 { background:
+        radial-gradient(ellipse 900px 600px at 12% 88%,rgba(139,92,246,.16),transparent 60%),
+        radial-gradient(ellipse 900px 600px at 88% 12%,rgba(0,212,255,.14),transparent 60%),
+        var(--bg-deep); }
+  .confetti { position:absolute; border-radius:2px; opacity:0; }
+  #s5 .mark { width:150px; height:150px; opacity:0;
+              filter:drop-shadow(0 0 40px rgba(0,212,255,.3)) drop-shadow(0 0 90px rgba(139,92,246,.25)); }
+  #s5 .big { margin-top:38px; font-size:128px; font-weight:700; color:var(--text); letter-spacing:-2px; opacity:0; }
+  #s5 .sub { margin-top:30px; font-size:42px; font-weight:400; color:var(--text2); opacity:0; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="scene" id="s1"><div class="center-wrap" id="s1group"></div></div>
+  <div class="scene" id="s2"><div class="center-wrap" id="s2group"></div></div>
+  <div class="scene" id="s3">
+    <div class="toast" id="toast0"><div class="t">To the crazy ideas!</div></div>
+    <div class="toast" id="toast1"><div class="t">To everything we've built!</div></div>
+    <div class="toast" id="toast2"><div class="t">To <span class="grad-text">you, Romain!</span></div></div>
+  </div>
+  <div class="scene" id="s4">
+    <div class="center-wrap">
+      <div class="label">FROM YOUR CO-FOUNDER</div>
+      <div class="values" id="s4values"></div>
+      <div class="sig grad-text">It wouldn't be NOEZYS without you!</div>
+    </div>
+  </div>
+  <div class="scene" id="s5">
+    <div id="confettiWrap"></div>
+    <div class="center-wrap">
+      <img class="mark" id="s5mark" src="../assets/noezys-n-mark.png" alt="">
+      <div class="big" id="s5big">Happy Birthday, <span class="grad-text">Romain!</span></div>
+      <div class="sub" id="s5sub">With love, Philippe</div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* textes validés (ajustements duo : co-founder, built, Philippe) */
+const S1=[[["Stop "],["everything!"]],[["Today "],["we "],["celebrate "],["Romain!",true]]];
+const S2=[[["Two "],["founders, "],["one "],["wild "],["adventure."]],[["So "],["proud, "],["partner!",true]]];
+const VALUES=["Real.","Bold.","Together."];
+
+function buildLines(container, lines){
+  lines.forEach(line=>{
+    const d=document.createElement('div'); d.className='line';
+    line.forEach(w=>{
+      const s=document.createElement('span'); s.className='w'+(w[1]?' grad-text':'');
+      s.textContent=w[0]; d.appendChild(s);
+    });
+    container.appendChild(d);
+  });
+}
+buildLines(document.getElementById('s1group'), S1);
+buildLines(document.getElementById('s2group'), S2);
+const s1words=[...document.querySelectorAll('#s1 .w')];
+const s2words=[...document.querySelectorAll('#s2 .w')];
+const valWrap=document.getElementById('s4values');
+VALUES.forEach(v=>{ const s=document.createElement('span'); s.className='w'; s.textContent=v+' '; valWrap.appendChild(s); });
+const valWords=[...valWrap.children];
+
+/* confettis NOEZYS — chute déterministe, festive et douce */
+const COLORS=['#00D4FF','#8B5CF6','#55B97E','#F0F3FA'];
+const cw=document.getElementById('confettiWrap');
+const CONF=[];
+for(let i=0;i<70;i++){
+  const r1=Math.abs(Math.sin(i*127.1))%1, r2=Math.abs(Math.sin(i*311.7))%1,
+        r3=Math.abs(Math.sin(i*74.3))%1,  r4=Math.abs(Math.sin(i*199.9))%1;
+  const d=document.createElement('div'); d.className='confetti';
+  const w=8+r3*10, h=5+r4*7;
+  d.style.width=w+'px'; d.style.height=h+'px';
+  d.style.background=COLORS[i%COLORS.length];
+  cw.appendChild(d);
+  CONF.push({el:d, x:r1*1920, speed:130+r2*160, sway:26+r3*40, ph:i*0.83, rot:120+r4*240, delay:r2*1.4});
+}
+
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const nrm=(t,a,b)=>clamp((t-a)/(b-a),0,1);
+const outCubic=p=>1-Math.pow(1-p,3);
+const outBack=p=>{const c=1.2,c3=c+1;return 1+c3*Math.pow(p-1,3)+c*Math.pow(p-1,2);};
+function pop(el,t,t0,dur=0.3){
+  const p=nrm(t,t0,t0+dur);
+  if(p<=0){ el.style.opacity=0; return; }
+  if(p>=1){ el.style.opacity=1; el.style.transform=''; el.style.filter=''; return; }
+  const e=outCubic(p);
+  el.style.opacity=e; el.style.transform=`scale(${1.6-0.6*e})`; el.style.filter=`blur(${(1-e)*6}px)`;
+}
+function fadeUp(el,t,t0,dur=0.5,dy=26){
+  const p=nrm(t,t0,t0+dur);
+  if(p<=0){ el.style.opacity=0; return; }
+  if(p>=1){ el.style.opacity=1; el.style.transform=''; return; }
+  const e=outCubic(p);
+  el.style.opacity=e; el.style.transform=`translateY(${(1-e)*dy}px)`;
+}
+function popBack(el,t,t0,dur=0.45,extra=''){
+  const p=nrm(t,t0,t0+dur);
+  if(p<=0){ el.style.opacity=0; return; }
+  if(p>=1){ el.style.opacity=1; el.style.transform=extra; return; }
+  const e=outBack(outCubic(p));
+  el.style.opacity=Math.min(1,p*3);
+  el.style.transform=`${extra} scale(${0.4+0.6*e})`;
+}
+const S=id=>document.getElementById(id);
+
+const scenes=[
+ /* S1 0–3 : ouverture qui explose */
+ {id:'s1',a:0,b:3.0,update(t){ s1words.forEach((w,i)=>pop(w,t,0.12+i*0.28,0.3)); }},
+ /* S2 3–6 : les deux fondateurs */
+ {id:'s2',a:3.0,b:6.0,update(t){
+   const lt=t-3.0;
+   s2words.forEach((w,i)=>pop(w,lt,0.1+i*0.2,0.28));
+   S('s2group').style.opacity=1-nrm(lt,2.75,2.98);
+ }},
+ /* S3 6–13 : trois toasts en cuts (2,33 s chacun) */
+ {id:'s3',a:6.0,b:13.0,update(t){
+   const lt=t-6.0;
+   const idx=clamp(Math.floor(lt/2.333),0,2);
+   [0,1,2].forEach(i=>S('toast'+i).classList.toggle('on',i===idx));
+   const ct=lt-idx*2.333;
+   popBack(S('toast'+idx).querySelector('.t'),ct,0.1,0.4);
+ }},
+ /* S4 13–19 : l'hommage */
+ {id:'s4',a:13.0,b:19.0,update(t){
+   const lt=t-13.0;
+   fadeUp(document.querySelector('#s4 .label'),lt,0.15,0.5,18);
+   valWords.forEach((w,i)=>pop(w,lt,0.8+i*0.65,0.38));
+   const p=nrm(lt,2.9,3.6);
+   const sg=document.querySelector('#s4 .sig');
+   if(p<=0){ sg.style.opacity=0; }
+   else if(p>=1){ sg.style.opacity=1; sg.style.transform=''; }
+   else { const e=outCubic(p); sg.style.opacity=e; sg.style.transform=`translateY(${(1-e)*28}px)`; }
+ }},
+ /* S5 19–25,5 : finale sous les confettis */
+ {id:'s5',a:19.0,b:25.51,update(t){
+   const lt=t-19.0;
+   CONF.forEach(c=>{
+     const ct=lt-c.delay;
+     if(ct<=0){ c.el.style.opacity=0; return; }
+     const y=-40+c.speed*ct;
+     if(y>1120){ c.el.style.opacity=0; return; }
+     c.el.style.opacity=Math.min(1,ct*3)*0.9;
+     const x=c.x+Math.sin(ct*1.7+c.ph)*c.sway;
+     c.el.style.transform=`translate(${x.toFixed(1)}px,${y.toFixed(1)}px) rotate(${(c.rot*ct).toFixed(0)}deg)`;
+   });
+   popBack(S('s5mark'),lt,0.1,0.5);
+   const p2=nrm(lt,0.5,1.05);
+   const big=S('s5big');
+   if(p2<=0){ big.style.opacity=0; }
+   else if(p2>=1){ big.style.opacity=1; big.style.transform=''; big.style.filter=''; }
+   else { const e=outBack(outCubic(p2)); big.style.opacity=Math.min(1,p2*3); big.style.transform=`scale(${0.5+0.5*e})`; }
+   fadeUp(S('s5sub'),lt,1.3,0.5,16);
+ }},
+];
+
+window.seek=function(t){
+  scenes.forEach(sc=>{
+    const on=t>=sc.a&&t<sc.b;
+    S(sc.id).classList.toggle('active',on);
+    if(on)sc.update(t);
+  });
+};
+window.seek(0);
+</script>
+</body>
+</html>
