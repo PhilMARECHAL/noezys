@@ -505,6 +505,28 @@ the project without an explicit client order. Remaining portfolio items
 never asked: pre-scalping, KFS load-out guard screen, cross-belt
 analyzer, fuel optionality, 30-y social-licence plan.
 
+## Budget estimate (client order 2026-08-16, after the RFQ package)
+
+Client: budget estimate with ~10 offers per machine + consolidated
+global budget, "pas creatif", don't stop for lack of +/-10 % (upgraded
+mid-run: 10 price points per machine). 5 parallel cost-research teams,
+PUBLIC evidence only, NO vendor contacted (~105 real price points; 8/12
+machines reached >= 9-10; quote-only classes declared short: SR.5105 7,
+SR.5111 6, SC.B 8, SR.5115 3 hard). docs/purchase/budget/
+budget-estimate.md + evidence/ (5 sourced annexes, URL per row).
+Bands k EUR new ex-works: CR.5009 120/380/650, SR.5007 120/195/280,
+CR.5011 45/250/380, SR.5105 60/90/130, SR.5111 80/120/170, CR.5113
+180/400/550, SR.5115 180/260/350, RC.1 12/40/110, RC.2 x2 44/120/320,
+SC.A 26/95/150, SC.B 55/180/300, SP.36 50/132/225. Equipment total
+0.97/2.26/3.62 M; global machine-supply ~2.8 M CENTRAL (+spares 10 %,
+freight 10 %, commissioning 4 % [H]); plan provision ~3.5 M with class
+contingency. Accuracy AACE 4/5 declared (-30/+50 % per machine);
++/-10 % requires the suspended RFQs; cheapest hardening = 4 budgetary
+quotes (TerraSource, Binder+Co/Hein Lehmann, Rhewum, MMD/Komatsu).
+Excluded: erection, civils, conveyors/silos, electrical, DY.03, LEV
+dedusting package. Assistant-compiled market research, NOT engine
+output; asking != transaction; all multipliers [H].
+
 ## Repository caution
 
 The model lives on branch wankoe-python-model of the PhilMARECHAL/noezys
