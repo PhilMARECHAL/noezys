@@ -367,6 +367,23 @@ STILL OPEN (not arbitration — external inputs): CR.5113 motor branch
 burner vendor rating vs 5.2-6.7 MW rain duty, external tests register
 (drop-weight #1, vendor gradation, sieve, absorption, belt-cuts, NACO).
 
+## Vendor candidates (client order 2026-08-16)
+
+docs/purchase/vendor-candidates.md: 65 real catalog candidates (5 per
+machine, source URLs, capacity bases) + best pick each. Picks: MMD 500
+sizer (CR.5009 — dissolves the nip), HAZEMAG APS 1010 (CR.5011),
+Stedman cage mill (CR.5113), Sturtevant 30x16 (RC.1), 2x Gundlach
+NANOSIZ-R (RC.2), Haver Niagara F-Class 8x20 (SR.5007), Binder+Co
+BIVITEC family (SR.5105/5111/5115 — closes the shared-cartridge FMECA
+ask), Metso CVB1845 (SC.A), Rhewum WA (SC.B — certified wire), Netzsch
+CFS 30 (SP.36, CONDITIONAL), FKI XQ mini (CL.38). PENDING CLIENT
+ARBITRATION: SP.36 architecture — air-swept extraction (~0.4 t/h inlet,
+keeps fan 420 + CL.38) vs full-stream Ventoplex C25V (24 t/h, internal
+fan, fan+cyclone leave the flowsheet). Other catalog-forced findings:
+RC.2 1.5 mm +/-0.1 under load = nobody's catalog guarantee (witnessed
+test for every bidder); SC.A/SC.B cartridge ask re-scoped to the
+zone-1.2 BIVITEC family (recommended).
+
 ## Repository caution
 
 The model lives on branch wankoe-python-model of the PhilMARECHAL/noezys
