@@ -474,6 +474,37 @@ dominant (Sac-Tun seizure + <1 % arbitration award; Cockburn ledger).
 Machine purchases SURVIVE the benchmark; the flowsheet AROUND them is
 what it challenges.
 
+## Improvement arbitrations + RFQ package (client final orders 2026-08-16)
+
+Benchmark-portfolio questionnaire (one question at a time) rulings:
+Q1 KFS window 20/35 SANCTUARIZED (yield played only via pre-scalping +
+fines valorization). Q2 DIRECT RULING: 0/20 excess MANDATORILY sold as
+AgLime or FeedLime — landfill 0, demoted to alerted fallback
+(commercial_rules.excess_020_to_aglime_feedlime; conversion via
+dedicated 2C hours, dry-season guard; KFS yield required = realized by
+construction). Q3 AgLime dry-season campaigns statu quo. Q4 (two
+rounds, engine honesty confrontation: natural sub-65 um = 0.60-0.66 %,
+ceiling ~430 t/y) SP.36 = FULL-STREAM classifier (Ventoplex C25V class,
+internal fan; PD-3 fan CANCELLED, CL.38 WITHDRAWN; 12 machines remain).
+DEDUSTING STRATEGY RULING: ALL zone-1.3 filters connected, ALL captured
+dust = sellable UltraFin (dedusting_zone_1_3 block: dryer exhaust 4 %
+[H 2-8], LEV 0.4 % [H 0.2-0.8]; UltraFin 6 687 t/y; fines still exactly
+60 kt; AgLime 141 929 incl. conversion 6 929; landfill 0; dust
+composition [H] — filter-catch XRD = the product-spec test; suite 149).
+Q5 NO moisture works (rain penalty assumed). Q6 NO external tests
+launched ([H]s stay declared; vendor witnessed tests = only planned real
+data). Q7 CR.5009 RFQ entirely SUSPENDED. Q8 FINAL ORDER "draft
+everything, my final word": docs/purchase/rfq/ = 00-common-conditions
+(Ndola frame: milestone payments vs witnessed tests, >= 20 % to site
+performance test, retention 12 mo, obligations to FULL PERFORMANCE,
+solvency check, commissioning + FMECA spares mandatory priced lines;
+grid gates + 30/30/20/10/10 same West/China) + 12 machine RFQs 01-12
+(datasheets = binding annexes; bidders from vendor-candidates +
+CR.5009 dossier). ALL STATUS: DRAFT — SENDING SUSPENDED; nothing leaves
+the project without an explicit client order. Remaining portfolio items
+never asked: pre-scalping, KFS load-out guard screen, cross-belt
+analyzer, fuel optionality, 30-y social-licence plan.
+
 ## Repository caution
 
 The model lives on branch wankoe-python-model of the PhilMARECHAL/noezys
