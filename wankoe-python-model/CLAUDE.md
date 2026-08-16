@@ -426,6 +426,28 @@ anchor: tooth steel 0.3-1.3 t/y central 0.6. Balances/capacities
 composition-blind (densities ~=). FMECA wear occurrences re-score
 after XRF.
 
+## World benchmark 158 operations (client order 2026-08-16)
+
+docs/design/benchmark/: master study world-benchmark-study.md + 9
+segment dossiers (real verifiable installations only, depth flags,
+verified-negatives reported, URL per case; 2 waves, 9 parallel DD
+reviews). 12 systematic differences D1-D12; consolidated 12-item
+improvement portfolio (ALL pending client arbitration). Headlines:
+single 20/35 window = world outlier (multi-window is the norm; Abinsk
+20-40 validates the class; Netstal 85 % deposit utilisation published);
+nobody landfills fines (ranked sinks ladder seg 9: cement raw > sinter
+flux (5 % quartz PASSES) > FGD stone > granulated aglime (Granukal
+datasheet shows 5 % SiO2) > EN 13043 filler > roadbase; FAILS: rock
+dust 4 % silica cap, BOF flux, FGD flour); wet screening solved (Fels
+Saal roller screens, Mogensen 40 y); moisture before fuel (filter
+presses, roofs, kiln-waste-gas drying Huaheng); nobody dries aglime /
+everybody dries+fraction-blends feed lime (no precision gaps observed
+anywhere); 65 um cut = unique purification asset; 4-window mission
+UNIQUE (imports = practices, not flowsheets); permit/social risk
+dominant (Sac-Tun seizure + <1 % arbitration award; Cockburn ledger).
+Machine purchases SURVIVE the benchmark; the flowsheet AROUND them is
+what it challenges.
+
 ## Repository caution
 
 The model lives on branch wankoe-python-model of the PhilMARECHAL/noezys
