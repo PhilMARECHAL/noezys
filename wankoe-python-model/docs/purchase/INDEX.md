@@ -5,6 +5,8 @@ Scope: the process machines of the confirmed line design (C1 reference configura
 
 **VENDOR CANDIDATES (client order 2026-08-16):** [vendor-candidates.md](vendor-candidates.md) — five real catalog candidates per machine + best-adapted pick, from the public catalogs of the major manufacturers (catalog-level matches, not offers; acceptance tests in these datasheets remain the gates).
 
+**CR.5009 SELECTION DOSSIER (10-expert panel, 10 client arbitrations 2026-08-16):** [CR.5009-selection-dossier.md](CR.5009-selection-dossier.md) — RFQ frame from the ten decisions, 10 candidates (5 Western + 5 Chinese premium), 6-bidder shortlist, comparability core (contractual curve + witnessed tests), documentation-asymmetry honesty section.
+
 Every datasheet consolidates: (1) PROCESS DUTY from fresh engine runs (per-mode photos 1A / forced 1B / 2A / 2C / G / F, commit 5dc5b53, 2026-08-15 — replay `PYTHONPATH=src python scripts/purchase_datasheet_evidence.py`, evidence `purchase-engine-evidence.json`); (2) FMECA-derived purchase requirements (docs/design/maintenance/fmeca-register.json); (3) open [H] items the vendor must close, acceptance tests and QC criteria tied to the product specs (KFS envelope 30/55/15, D6 grits envelope, fines 0/1.5 + redirect eligibility >= 95 % < 1.7 mm, AgLime >= 95 % < 1.7 mm).
 
 ## Zone 1.1 — crushing/screening block (KFS + 0/20)
