@@ -37,13 +37,18 @@ The purchased machine must offer at least the following adjustment ranges withou
 | Gap g | mm | 20 - 60 | **60** (client 2026-08-13, 0/20-balance optimization) |
 | Product shape (RR uniformity n, informative) | - | — | 1.35 (model M1; vendor gradation table to confirm) |
 
-## 4. Capacity and sizing requirements
+## 4. Capacity and sizing requirements — CLIENT DECISIONS 2026-08-16 (10-expert panel, 10 questions arbitrated)
 
-- **Throughput**: continuous 250 t/h wet (232.5 t/h dry) at gap 60 mm on WANKOE limestone (UCS 15-30 MPa, reference 20 — client-ruled envelope 2026-08-15; error-hunt fix: a previous revision stated 20-80 MPa, up to 2.7x harder than the ruled envelope), plus restart under load.
-- **Feed top size / nip — STANDING ALERT**: the measured feed F80 is **181 mm > the 150 mm max nip size** of the modeled machine (engine planning alert "CR.5009 saturation"). The purchase must resolve this interplay one of two ways, stated explicitly in the offer:
-  1. machine accepts the AS-MEASURED feed (nip / feed opening sized for F80 181 mm and the quarry top size actually delivered), or
-  2. machine is bought at nip 150 mm class and the **quarry-works specification** (docs/design/zone13-redesign/quarry-works-specification.md, control point 20 mm, 40.1 % < 20 mm target) is EXTENDED with a guaranteed top size — the quarry curve rescale coarsens the top end, so the vendor must state the max feed size at which its capacity and gradation guarantees hold.
-- **Motor**: worst-mode absorbed 96.6 kW; recommended minimum installed rating **132 kW** (x1.15 service allowance [H], next IEC size; vendor to confirm from its drive selection). `installed_power_kW` is currently null in the data — the vendor value closes it.
+- **MACHINE CLASS: twin-shaft toothed SIZER (Q3)** — supersedes the as-built toothed-roll designation. Positive tooth engagement of the design lump; low-fines crushing is a SELECTION CRITERION (Q1).
+- **CONTRACTUAL PRODUCT CURVE (Q1)**: at the 0/60 setting the vendor GUARANTEES maximum preservation of the 20/35 mm band and a cap on fines < 20 mm, verified by the witnessed gradation test on WANKOE limestone. The offer is evaluated on its curve, not its capacity alone (KFS Yield: each point ≈ 12 kt/y of landfill).
+- **Feed top size — STANDING ALERT CLOSED (Q2+Q3)**: the quarry GUARANTEES max lump ≤ 250 mm (ripping + face scalping — to be added to the quarry-works specification), and the sizer class engages that lump positively. `max_feed_size_mm` 150 → 250 in the data; the measured F80 181 mm is now inside the limit and the design check returns **machines_hold: TRUE** for the first time since 2026-08-11. Residual note: the encoded quarry-target curve tail gives F80 251 mm, marginally above the guarantee — the curve top end [H] is to be re-shaped to the 250 mm cap at its next revision (engine alert deliberately kept live on that curve until then).
+- **Throughput**: continuous 250 t/h wet (232.5 t/h dry) at the 60 mm setting on WANKOE limestone (UCS 15-30 MPa, reference 20), plus restart under load (by design of the twin-drive package).
+- **Drive (Q6)**: vendor standard twin-drive package accepted — 2 × ~110 kW with soft starters (`installed_power_kW` = 220 in the data); worst-mode absorbed stays 96.6 kW. The vendor quotes its standard package; no minimum-drive engineering requested.
+- **Installation (Q5, Q9)**: truck → hopper → apron feeder → CR.5009, machine OUTDOOR (weather execution: IP-rated drives, covered lubrication, walkway protection), greenfield civil works (no as-built envelope constraint — the vendor optimizes feed height and discharge).
+- **Spares (Q7)**: initial CRITICAL SPARES KIT is a priced, mandatory line of the offer — one full set of tooth segments + one shaft.
+- **Tender scope (Q8)**: RFQ to PREMIUM BRANDS, Western AND Chinese (client emphasis on China) — same specification, same witnessed tests for all bidders; see the CR.5009 selection dossier for the candidate list.
+- **Wear-guarantee basis (Q4)**: client-held abrasivity data (silica content, Cerchar/LCPC class) to be supplied and attached to the RFQ — vendor wear-life guarantees are priced against it (EXTERNAL INPUT pending).
+- **Tramp protection (Q10)**: metal detector + overband magnet on the feed belt, detection threshold agreed with the vendor — in ADDITION to the machine's internal hydraulic overload relief (ripping operations shed digger teeth; the downstream line is protected too).
 
 ## 5. FMECA-derived purchase requirements (docs/design/maintenance/fmeca-register.json, 2026-08-15)
 

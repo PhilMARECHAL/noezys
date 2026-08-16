@@ -50,10 +50,21 @@ def report():
 
 
 def test_known_limit_violation_is_caught(report):
-    # the measured feed F80 (181 mm) exceeds CR.5009's 150 mm nip limit
+    # Re-baselined 2026-08-16 (CR.5009 panel Q2+Q3): the quarry guarantees
+    # max lump <= 250 mm and the SIZER class positively engages it, so
+    # max_feed_size_mm 150 -> 250 — the measured F80 181 mm is now OK and
+    # the 2026-08-11 standing exceedance is CLOSED BY CLIENT DECISION.
+    # The catch-a-violation mechanism itself is regression-proofed below
+    # by re-tightening the limit via override.
     nip = [r for r in report["checks"] if r["machine"] == "CR.5009" and "nip" in r["check"]]
-    assert nip and nip[0]["verdict"] == "EXCEEDED"
-    assert report["design_holds"] is False
+    assert nip and nip[0]["verdict"] == "OK"
+    assert nip[0]["installed_limit"] == 250
+    tight = run_design_check(
+        load_parameters(overrides={"machines": {"CR.5009": {"max_feed_size_mm": 150}}})
+    )
+    nip_t = [r for r in tight["checks"] if r["machine"] == "CR.5009" and "nip" in r["check"]]
+    assert nip_t and nip_t[0]["verdict"] == "EXCEEDED"
+    assert tight["design_holds"] is False
 
 
 def test_missing_limits_are_listed_not_ignored(report):
@@ -86,7 +97,10 @@ def test_all_measurements_check_aggregates_worst_case():
     key = "CR.5009 / feed F80 vs nip"
     assert key in result["worst_case"]
     assert result["worst_case"][key]["governing_measurement"] == "2026-08-08-belt-cut"
-    assert result["design_holds"] is False
+    # Re-baselined 2026-08-16 (CR.5009 panel: sizer class + quarry 250 mm
+    # lump guarantee): the belt-cut F80 181 mm no longer exceeds the limit,
+    # so the aggregate verdict is design_holds True at current measurements
+    assert result["design_holds"] is True
 
 
 def test_design_check_runs_in_every_mode_combination():

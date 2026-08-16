@@ -64,7 +64,10 @@ def test_design_check_has_three_verdicts_and_not_checkable():
     report = run_design_check(load_parameters())
     v = report["verdicts"]
     assert set(v) == {"machines_hold", "quality_holds", "targets_reachable"}
-    assert v["machines_hold"] is False  # CR.5009 nip exceedance
+    # Re-baselined 2026-08-16 (CR.5009 panel Q2+Q3: sizer class + quarry
+    # <= 250 mm lump guarantee closed the 2026-08-11 nip exceedance) —
+    # machines_hold now True at the measured curve
+    assert v["machines_hold"] is True
     # KFS envelope HOLDS (Q1) and targets FIT since the Saturday regime
     # extension (Q7 closed 2026-08-13: zone 1.1 ceiling 2400 h).
     # 2026-08-14 (same day, two re-baselines): the D6 grits envelope made
