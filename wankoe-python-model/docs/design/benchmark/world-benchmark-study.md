@@ -6,8 +6,18 @@ installations worldwide. Full due diligence on each case, highlight the
 differences with our project every time, be clever about identifying
 improvements. Take your time."*
 
-**Method.** Three waves, fourteen parallel due-diligence reviews, **250
-real references** across 10 dossiers (`segments/01…10`). Wave 3
+**Method.** Four waves, seventeen parallel due-diligence reviews, **250
+real references** across 11 dossiers (`segments/01…11`). Wave 4 (client
+decision: full deep-DD on all nine capacity twins) delivered
+`segments/11-deep-dd-nine-twins.md` — the structural trio (Palagiano /
+Istein / Calcidrata), the cost trio (USLM SEC-grade benchmarks /
+Winchester kiln capex / Faulkner dual-product format), the climate trio
+(the converged rain playbook + the Ndola failure anatomy, whose
+procurement lessons feed the WANKOE RFQ frame), and **the five hardest
+questions the twins pose to the WANKOE design** (0/20 destination; kiln
+stone as anchor vs exposure; our "cork dust"; soft-stone kiln-feed yield
+= the genuinely unprecedented variable, only kiln trials answer it; the
+30-year social-licence plan). Wave 3
 (client order 2026-08-16: LIMESTONE ONLY at WANKOE-similar capacity,
 registry ≥ 200): five regional identification sweeps added **92
 similar-capacity limestone references** (52 capacity-verified) — see

@@ -428,6 +428,20 @@ after XRF.
 
 ## World benchmark 250 references (client orders 2026-08-16)
 
+Wave 4 (client: deep-DD all nine twins, segments/11): structural trio
+(Palagiano EMAS actuals + premix shock absorber + zero landfill;
+Istein closure-plan sink + permit masterclass referendum won; Calcidrata
+cork-dust fuel + margin stacking), cost trio (USLM 10-K = THE public
+cost frame: price-not-volume, gross 30-49 %, energy ~47 % of COGS,
+capex 9-11 % of revenue; Winchester ~56 k$/t/d kiln; Faulkner =
+our dual-product format proven), climate trio (7-rule rain playbook —
+aglime is the product the rain creates, shrink the drying LOAD;
+Ndola failure anatomy -> procurement clauses INTO the RFQ frame:
+milestone payments vs witnessed tests, guarantees to FULL performance).
+FIVE hardest questions to the design: 0/20 day-one destination; kiln
+stone anchor vs exposure; our "cork dust"; soft-stone kiln-feed yield
+(kiln trial = new external test); 30-year social-licence plan.
+
 Wave 3 (client: limestone only, similar capacity, >= 200 refs): 92
 similar-capacity refs added (segments/10), registry 250, peer group
 ~110. Closest twins: Unicalce Palagiano (EMAS-audited 255-305 kt/y
