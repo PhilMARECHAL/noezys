@@ -20,11 +20,15 @@ def test_production_lands_exactly_on_targets(plan):
     # campaigns (~86 kt) — client lever wired 2026-08-14, and the 0/20
     # landfill drops 144 -> 58.4 kt/y (further reduction = grits sales
     # and/or the quarry target curve, client arbitration pending).
-    assert plan["production_t"]["AgLime"] == pytest.approx(135000, abs=1)
+    # Re-baselined 2026-08-16 (client rule: the 0/20 excess is MANDATORILY
+    # sold as AgLime/FeedLime): the former 13 816 t landfill is converted
+    # to AgLime via 138.2 additional 2C hours — production 135 000 + 13 816
+    assert plan["production_t"]["AgLime"] == pytest.approx(148816, abs=2)
     # re-baselined 2026-08-14 (fines OBJECTIVE 60 kt + two-mode zone 1.3):
     # more FeedLime demand -> more 2A co-production -> smaller 2C complement
     assert plan["sales_t"]["AgLime from dedicated 2C campaigns"] == pytest.approx(67856, rel=0.02)
-    assert plan["sales_t"]["AgLime total sold (loop + campaigns + redirect)"] == pytest.approx(135000, abs=1)
+    assert plan["sales_t"]["AgLime from 0/20 conversion (client rule 2026-08-16)"] == pytest.approx(13816, rel=0.02)
+    assert plan["sales_t"]["AgLime total sold (loop + campaigns + redirect)"] == pytest.approx(148816, abs=2)
     assert plan["sales_t"]["Fines surplus redirected to the AgLime sales channel"] == pytest.approx(0, abs=1)
     # the fines OBJECTIVE is served exactly (client 2026-08-14): mode-G
     # co-production 33.5 kt + mode-F campaign hours close it to 60 kt
@@ -40,15 +44,19 @@ def test_2c_campaigns_are_toggleable(plan):
     off = run_required_hours(
         load_parameters(overrides={"commercial_rules": {"aglime_2c_campaigns": False}})
     )
-    # re-baselined 2026-08-14 (fines objective raises the FeedLime demand,
-    # so 2A co-production rises): 2A-only AgLime 67 144
-    assert off["production_t"]["AgLime"] == pytest.approx(67144, rel=0.02)
+    # re-baselined 2026-08-16: with 2C campaigns off, the 2A-only AgLime is
+    # 67 144 t PLUS the 0/20 conversion (the 2026-08-16 client rule still
+    # converts the bigger excess through dedicated conversion hours)
+    assert off["sales_t"]["AgLime from loop (2A co-production)"] == pytest.approx(67144, rel=0.02)
     assert off["sales_t"]["AgLime from dedicated 2C campaigns"] == 0
-    # and the landfill worsens accordingly
+    assert off["sales_t"]["AgLime from 0/20 conversion (client rule 2026-08-16)"] > 0
+    # the conversion volume is LARGER than in the base plan (the unserved
+    # AgLime market leaves more 0/20 unreclaimed, all converted)
     assert (
-        off["stockpiles_t"]["0/20 to LANDFILL (net loss)"]
-        > plan["stockpiles_t"]["0/20 to LANDFILL (net loss)"]
+        off["sales_t"]["AgLime from 0/20 conversion (client rule 2026-08-16)"]
+        > plan["sales_t"]["AgLime from 0/20 conversion (client rule 2026-08-16)"]
     )
+    assert off["stockpiles_t"]["0/20 to LANDFILL (net loss)"] == 0
 
 
 def test_zone_feasibility_at_defaults(plan):
@@ -73,13 +81,26 @@ def test_feedlime_stock_balanced(plan):
     assert plan["stockpiles_t"]["FeedLime net to stock"] == pytest.approx(0, abs=1)
 
 
-def test_020_surplus_accumulates(plan):
-    # Client ruling 2026-08-13 (final): NO crude-0/20 market exists — the
-    # excess goes to LANDFILL as a net financial loss, alerted so it is
-    # minimized, and it never appears as a sale
+def test_020_surplus_converted_to_aglime(plan):
+    # CLIENT RULE 2026-08-16 (supersedes the 2026-08-13 landfill default):
+    # the 0/20 excess is MANDATORILY sold as AgLime/FeedLime — converted
+    # via additional 2C hours, landfill = 0, honest alert on the market
+    # extension beyond the 135 kt cap
     assert plan["stockpiles_t"]["0/20 net to stock"] == pytest.approx(0, abs=1)
-    assert plan["stockpiles_t"]["0/20 to LANDFILL (net loss)"] > 0
+    assert plan["stockpiles_t"]["0/20 to LANDFILL (net loss)"] == 0
+    assert plan["zone_1_2_split"]["of_which_020_conversion_hours"] > 0
     assert "Crude 0/20 sold (balancing)" not in plan["sales_t"]
+    assert any("CONVERTED to AgLime" in a for a in plan["alerts"])
+
+
+def test_020_landfill_fallback_when_conversion_off():
+    # audit path: rule off -> the 2026-08-13 landfill accounting returns
+    plan = run_required_hours(
+        load_parameters(
+            overrides={"commercial_rules": {"excess_020_to_aglime_feedlime": False}}
+        )
+    )
+    assert plan["stockpiles_t"]["0/20 to LANDFILL (net loss)"] > 0
     assert any("LANDFILL" in a for a in plan["alerts"])
 
 
@@ -212,8 +233,9 @@ def test_kfs_yield_indicator(plan):
     # 24.88 % on the x2 converged grid (was 24.59 on the spec grid; the
     # action-5 study quantified the +0.3 pt discretization bias)
     assert ky["realized_pct"] == pytest.approx(24.88, abs=0.2)
-    # required drops to 25.9 % — the fines objective consumes most of the
-    # 0/20 excess (landfill 42.5 -> 13.8 kt/y); gap to realized: 1.05 pt
-    assert ky["required_for_zero_landfill_pct"] == pytest.approx(25.9, abs=0.3)
+    # Re-baselined 2026-08-16 (0/20 conversion rule): the whole excess is
+    # reclaimed-and-converted, so required-for-zero-landfill == realized
+    # BY CONSTRUCTION and the yield alert no longer fires
+    assert ky["required_for_zero_landfill_pct"] == pytest.approx(ky["realized_pct"], abs=0.05)
     assert ky["kfs_real_psd_pct"]["in_cut_20_35"] > 80
-    assert any(a.startswith("KFS Yield") for a in plan["alerts"])
+    assert not any(a.startswith("KFS Yield") for a in plan["alerts"])

@@ -1023,8 +1023,10 @@
   "commercial_rules": {
     "_note": "Client rules governing how the planning closes the commercial balance",
     "crude_020_balancing_sales": false,
+    "excess_020_to_aglime_feedlime": true,
+    "_020_conversion_note": "CLIENT RULE 2026-08-16 (supersedes the landfill disposal of 2026-08-13 as the DEFAULT): the 0/20 excess is MANDATORILY sold as AgLime or FeedLime - never landfilled, never sold crude. Planning route: additional dedicated 2C conversion hours turn the excess into AgLime through the zone-1.2 loop (the FeedLime route stays available if the AgLime channel cannot absorb - dry-season capacity guard applies, any unconvertible remainder falls back to the landfill accounting WITH an alert). The AgLime sold through this rule comes ON TOP of the 135 kt market cap - a client-ruled market extension, reported as its own labeled sales line.",
     "excess_020_to_landfill": true,
-    "_020_note": "Client 2026-08-13 (final): there is NO market for crude 0/20 \u2014 the excess beyond the downstream reclaim goes to LANDFILL and is a NET FINANCIAL LOSS. It must be reported as a loss (with an alert), never as a sale, and minimized by design/operating choices.",
+    "_020_note": "Client 2026-08-13: there is NO market for crude 0/20. Landfill is now the FALLBACK ONLY (rule above off, or conversion capacity exhausted): the remainder goes to LANDFILL as a NET FINANCIAL LOSS, alerted, never a sale.",
     "zone_1_1_auto_mode_1B": true,
     "_auto_mode_1B_note": "Client rule 2026-08-14: KFS is NEVER over-produced — when the 0/20 demand would drive zone 1.1 beyond the KFS-target hours, mode-1A hours land the KFS target EXACTLY and the 0/20 deficit is produced by dedicated mode-1B hours (no KFS: 20-35 recirculated into CR.5011 at zone_1_1_feed_mode_1B / mode_1B_x80_mm). Toggleable; off = legacy max() behavior with an overproduction alert.",
     "aglime_2c_campaigns": true,

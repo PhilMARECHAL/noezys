@@ -377,6 +377,58 @@ def run_required_hours(params: dict) -> dict:
     # 0/20 comes from both modes (mode 1B at its own, richer wet rate)
     produced_020_t = h11_1a_eff * q020_tph_wet + h11_1b_eff * q020_1b_tph_wet
     excess_020_t = max(0.0, produced_020_t - reclaimed_020_t)
+    # ---- CLIENT RULE 2026-08-16: the 0/20 excess is MANDATORILY sold as
+    # AgLime or FeedLime. Route: additional dedicated 2C conversion hours
+    # (the loop turns reclaim into AgLime 1:1 at the 2C rate). Dry-season
+    # capacity guard applies (2C is physically dry-season-only); any
+    # unconvertible remainder falls through to the landfill fallback
+    # below WITH its alert — never silently.
+    h2conv_eff = 0.0
+    aglime_conv_t = 0.0
+    if rules.get("excess_020_to_aglime_feedlime", False) and excess_020_t > 0.5:
+        photo_conv = mode_photos.get("zone 1.2 mode 2C")
+        if photo_conv is None:
+            photo_conv = run_scenario(
+                deep_merge(
+                    params,
+                    {"default_scenario": {"weather": "dry", "zone_1_2_mode": "2C"}},
+                )
+            )
+            mode_photos["zone 1.2 mode 2C"] = photo_conv
+        conv_aglime_tph = photo_conv["products"]["AgLime"]["tph"]
+        h2conv_needed = excess_020_t / flow["zone_1_2_reclaim"]
+        conv_capacity = (
+            max(0.0, dry_capacity_eff - h2_dry_eff - h2c_eff)
+            if dry_capacity_eff is not None
+            else h2conv_needed
+        )
+        h2conv_eff = min(h2conv_needed, conv_capacity)
+        converted_020_t = h2conv_eff * flow["zone_1_2_reclaim"]
+        aglime_conv_t = h2conv_eff * conv_aglime_tph
+        reclaimed_020_t += converted_020_t
+        excess_020_t = max(0.0, excess_020_t - converted_020_t)
+        aglime_t += aglime_conv_t
+        production_t["AgLime"] = round(production_t["AgLime"] + aglime_conv_t, 0)
+        sales_t["AgLime from 0/20 conversion (client rule 2026-08-16)"] = round(
+            aglime_conv_t, 0
+        )
+        sales_t["AgLime total sold (loop + campaigns + redirect)"] = round(
+            aglime_sold_t + aglime_conv_t, 0
+        )
+        h2c_eff += h2conv_eff
+        zone12 = _zone_result("1.2", h2_dry_eff + h2_rain_eff + h2c_eff)
+        alerts.append(
+            f"0/20 excess CONVERTED to AgLime per the client rule 2026-08-16: "
+            f"{converted_020_t:.0f} t via {h2conv_eff:.0f} additional 2C hours — "
+            f"{aglime_conv_t:.0f} t of AgLime sold BEYOND the "
+            f"{aglime_cap:.0f} t market cap (client-ruled market extension)"
+        )
+        if excess_020_t > 0.5:
+            alerts.append(
+                f"0/20 conversion capped by the dry-season 2C capacity: "
+                f"{excess_020_t:.0f} t remain unconverted — falling back to the "
+                "landfill accounting (client rule NOT fully honored)"
+            )
     if rules.get("crude_020_balancing_sales", False):
         # superseded historical rule kept toggleable for audit only
         sales_t["Crude 0/20 sold (balancing)"] = round(excess_020_t, 0)
@@ -452,6 +504,7 @@ def run_required_hours(params: dict) -> dict:
             "dry_season_hours_effective": round(h2_dry_eff, 1),
             "rain_season_hours_effective": round(h2_rain_eff, 1),
             "aglime_2c_campaign_hours_effective": round(h2c_eff, 1),
+            "of_which_020_conversion_hours": round(h2conv_eff, 1),
         },
         "production_t": production_t,
         "sales_t": sales_t,
