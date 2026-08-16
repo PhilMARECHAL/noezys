@@ -1,4 +1,12 @@
-# PURCHASE TECHNICAL DATASHEET — CL.38
+# PURCHASE TECHNICAL DATASHEET — CL.38 — ⚠ WITHDRAWN (2026-08-16)
+
+> **Client decision (benchmark improvement Q4, option 2): SP.36 is
+> re-specified as a FULL-STREAM dynamic classifier with internal
+> recirculation (Ventoplex class) — the standalone product cyclone no
+> longer has an object and is WITHDRAWN from the purchase list.** The
+> polishing bag filter survives as the classifier-circuit vent filter
+> (see SP.36.md). This sheet is kept as the engineering record of the
+> superseded architecture.
 
 **Static cyclone (UltraFin recovery) — zone 1.3**
 Issued 2026-08-15 (client order of the same day: purchase datasheets for the 13 major process machines) — produced by NOEZYS.

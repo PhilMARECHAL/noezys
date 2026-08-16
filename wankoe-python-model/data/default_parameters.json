@@ -376,8 +376,8 @@
           "default": 0.75
         }
       },
-      "max_airflow_m3h": 420,
-      "_max_airflow_note": "CLIENT DECISION 2026-08-15 (error-hunt PD-3, option 1 of 3): fan purchased for the FULL soft-rock envelope - >= 420 m3/h with damper/VFD turndown (engine: 207 m3/h default calibration mode F, 332 at the ruled UCS 20 reference, ~416 at the UCS 15 edge where soft rock doubles the sub-65-um ultrafines). Before this value existed the engine could never alert on air demand (finding PD-3). Rejected: sizing at the UCS-20 center (~380) and holding the order for the drop-weight test.",
+      "max_airflow_m3h": null,
+      "_max_airflow_note": "SUPERSEDED 2026-08-16 (benchmark improvement Q4, client option 2): SP.36 is re-specified as a FULL-STREAM dynamic classifier (feed = the whole 0/1.5 fines stream, 13.6-23.3 t/h; Ventoplex-class with INTERNAL fan) - the external 420 m3/h fan decided under PD-3 (2026-08-15) no longer has an object and its purchase is CANCELLED; the CL.38 product cyclone is WITHDRAWN from the purchase list (internal recirculation; the polishing bag filter remains as the circuit vent). The engine's Q_air remains the process-model cut lever; the air circuit is vendor-internal. HONESTY CEILING kept on record: the natural sub-65-um content of the fines is 0.60-0.66 % - the full-stream machine harvests AT MOST ~430 t/y of UltraFin (vs 284 today); kt-scale quartz-free output would require a grinding circuit (rejected by the client this round).",
       "enabled": true
     },
     "CL.38": {
