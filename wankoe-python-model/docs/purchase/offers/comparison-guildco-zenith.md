@@ -155,7 +155,15 @@ ADMITTED.
 | Duty | Guildco (FOB Shanghai) | Zenith (FOB Shanghai) | Standing on the ruled basis |
 |---|---|---|---|
 | Primary crusher (CR.5006), DOUBLE-ROLL only | **USD 185 151** (LPS625-3, live to 09-13) | **USD 142 043** (2PG-1216CT machine-only, cabinet excluded; PRICE DATED 2025-12-31, quote formally expired) | **Zenith −23 %** |
+| — machine weight | **NOT STATED in any archived Guildco document** (quote + GA silent) | **33 000 kg** (brochure spec table) | Guildco substantiation gap — weight to be demanded in the re-quote |
 | Zone-1.1 screen (SR.5008) | USD 81 032 (SI8202) | **USD 46 323** (S5X2760-3, June 2026) | **Zenith −43 %** |
+| — machine weight | **NOT STATED** (quote line only, no GA) | **13 020 kg** (GA drawing, incl. per-support load breakdown) | Same gap |
+
+Weight note on the ruled FOB basis: freight from Shanghai is at the
+BUYER's charge, so undeclared weights are an undeclared cost — the
+Zenith freight datum (USD 10 400 for the 33 t crusher) scales the
+exposure; Guildco's missing weights go on the re-quote demand list
+alongside its missing setting range.
 
 Honesty caveats carried with the admitted 2025 price: (1) the quote is
 FORMALLY EXPIRED — usable for comparison by client ruling, but any
