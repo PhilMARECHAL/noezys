@@ -553,6 +553,15 @@ $163,922 - EXPIRED 2025-12-31+45d, price reference; discharge range
 printed 40-800 mm vs ruled 20-60 window = decisive clarification;
 freight datum $10,400 Shanghai->Cape Town 33 t. Budget LOW anchor for
 CR.5009 now confirmed by TWO independent offers (~142-168k EUR).
+PARTIAL RFQ RELEASE (client 2026-08-17, option 1): RFQ 01 (CR.5009)
+ONLY, to Guildco + Zenith ONLY; everything else stays suspended.
+Dispatch package docs/purchase/rfq/dispatch/ (Noezys_RFQ_CR5009_V1.docx
+vendor-neutral self-contained + content.json replay + two cover
+letters; SHA-256 in README). Dispatch BY THE CLIENT via his channel;
+NOEZYS sent nothing. Replies register as new OF-nnn. Key gates put to
+both vendors: 20-60 mm setting window (neither evidences it),
+contractual curve tables (G3), Ndola milestones non-negotiable in
+structure.
 
 ## Repository caution
 

@@ -1,0 +1,87 @@
+{
+  "doc_type": "Request for quotation",
+  "doc_subject": "CR.5009 primary sizer, WANKOE line",
+  "issue_month_year": "August 2026",
+  "issue_date": "August 2026",
+  "cover_overtitle": "WANKOE limestone processing line",
+  "cover_title": "Request for Quotation RFQ 01",
+  "cover_subtitle": "CR.5009 primary twin-shaft toothed sizer, re-quotation on a common specification",
+  "recipient_name": "Prospective bidders",
+  "recipient_org_location": "CR.5009 re-quotation, limited release",
+  "author_name": "NOEZYS, AI Innovation Lab",
+  "greeting": "Dear Bidder,",
+  "intro_paragraphs": [
+    "You receive this Request for Quotation because you have already submitted, through the project owner's channel, a quotation for a primary crushing machine for the WANKOE limestone processing line in the Western Cape, South Africa. The project's technical definition has since been consolidated. This document is the common specification on which every bidder is now asked to re-quote, so that all offers can be compared on identical scope, identical guarantee points and identical commercial terms.",
+    "The evaluation is the same for every bidder, Western and Chinese alike: pass or fail gates first, then a weighted grid (technical quality 30 percent, ten-year total cost of ownership 30 percent, guarantee strength 20 percent, schedule 10 percent, after-sales presence 10 percent). Witnessed tests on WANKOE material are the equalizer for documentation differences. An offer that does not address the gates of section 4 will be set aside regardless of price.",
+    "Please quote CIF Cape Town, in USD, with FOB and freight shown separately, and keep your offer valid for at least 90 days."
+  ],
+  "sections": [
+    {
+      "title": "1. Scope of supply",
+      "lead": "One complete primary sizer for continuous outdoor duty, with everything needed to run and maintain it.",
+      "subsections": [
+        {"title": "1.1 The machine", "body": "One twin-shaft toothed sizer for the primary crushing of a soft aeolian limestone, complete with its standard twin-drive package with soft starters, internal hydraulic overload relief, outdoor weather execution (IP-rated drives, covered lubrication, walkway protection), bearing temperature probes wired to trend alarms, and a gap or setting indication repeatable to a 5 mm step. The installation is greenfield: you are free to optimize feed height and discharge geometry."},
+        {"title": "1.2 Mandatory priced lines", "body": "Your quotation must show, as separately priced lines: (a) an initial critical spares kit containing at least one full set of tooth segments and one shaft, with lead times; (b) vendor commissioning supervision up to and including the site performance test; (c) the witnessed tests of section 5. An offer without a priced commissioning line is non-conforming."},
+        {"title": "1.3 Exclusions", "body": "Civil works, structural steel, upstream feeder and metal detection, and downstream conveyors are excluded from this RFQ and will be handled separately."}
+      ]
+    },
+    {
+      "title": "2. Material and duty",
+      "lead": "All guarantees are given against the following declared material context. Values marked [H] are declared hypotheses of the project, stated so that you can price what you can and cannot guarantee on them.",
+      "subsections": [
+        {"title": "2.1 Rock", "body": "Soft porous aeolian limestone, UCS 15 to 30 MPa (reference 20 MPa). Moisture 7 to 12 percent as fed (outdoor stockpiles, about 25 percent rain time). The rock contains 5 percent silica as well-rounded quartz grains of about 200 micrometres, embedded in the calcite mass. Simulated abrasivity LCPC ABR about 310 g/t, band 250 to 420 [H]. Soft rock does not mean low wear: state your tooth-segment metallurgy and its guaranteed life against this context, or state which of your guarantees require your own material tests on samples."},
+        {"title": "2.2 Duty point", "body": "Continuous throughput 250 t/h wet basis (232.5 t/h dry solids) at the 60 mm setting. Feed F80 about 181 mm on the measured belt-cut curve. The quarry guarantees a maximum lump of 250 mm by ripping and face scalping: your machine must engage that lump positively. Reference computed absorbed power at duty is 96.6 kW; quote your standard drive package (a 2 x 110 kW class package is acceptable), no minimum-drive engineering is requested."}
+      ]
+    },
+    {
+      "title": "3. Settings and adjustability",
+      "lead": "Nothing hardcoded: every stated range must be reachable without mechanical rework.",
+      "subsections": [
+        {"title": "3.1 Setting window", "body": "The product setting (gap or equivalent) must be adjustable over 20 to 60 mm, with 60 mm as the reference operating point. This window is a pass or fail gate: an offer whose machine cannot operate across 20 to 60 mm is non-conforming. If your published range differs (for example a printed minimum of 40 mm), state explicitly what your machine can and cannot reach and how."}
+      ]
+    },
+    {
+      "title": "4. Guarantee points (pass or fail gates)",
+      "lead": "Each point below must be answered explicitly in your offer, with the guaranteed value and the test that proves it.",
+      "subsections": [
+        {"title": "G1. Throughput", "body": "250 t/h wet sustained at the 60 mm setting on WANKOE limestone, proven by a 2 hour witnessed capacity test without overload-relief actuation on in-spec feed."},
+        {"title": "G2. Feed lump", "body": "Positive engagement of a 250 mm lump (the quarry guarantee), with 300 mm capability welcome and stated."},
+        {"title": "G3. Contractual product curve", "body": "This is the core of the evaluation. At the 60 mm setting you guarantee a product gradation curve delivered as a value table with the interpolation mode declared, showing maximum preservation of the 20 to 35 mm band and a cap on fines below 20 mm. A single point such as 90 percent below 100 mm is not acceptable. Provide gradation tables for settings across the 20 to 60 mm window. Each percentage point of the 20/35 band is worth about 12 kt per year of avoided losses to the project: your curve, not your capacity, is what wins this contract."},
+        {"title": "G4. Adjustability", "body": "Setting window 20 to 60 mm per section 3, changeable as a routine operation."},
+        {"title": "G5. Restart under load", "body": "By design of the twin-drive package; state the mechanism."},
+        {"title": "G6. Wear life", "body": "Guaranteed tooth-segment life at the declared abrasivity context of section 2.1, with bolt-on replaceable segments (not welded), profile gauging templates supplied, and the wear metallurgy stated."}
+      ]
+    },
+    {
+      "title": "5. Witnessed tests and acceptance",
+      "lead": "The client or its engineer attends every test. Test results in value tables with declared interpolation are contract deliverables.",
+      "subsections": [
+        {"title": "5.1 Gradation acceptance", "body": "Product curve at the 60 mm setting on WANKOE feed (or witnessed equivalent material agreed in advance), within your declared table tolerance. Sample shipments can be arranged at RFQ stage on request."},
+        {"title": "5.2 Capacity test", "body": "250 t/h wet sustained for 2 hours at the 60 mm setting."},
+        {"title": "5.3 Power and baselines", "body": "Absorbed power at duty within your guarantee; bearing temperature and vibration baselines recorded at commissioning."},
+        {"title": "5.4 Site performance test", "body": "The final milestone payment is released only after the machine passes its performance test at site on WANKOE material. The belt-cut PSD at the machine outlet is the plant's measurement basis and you must accept it as the acceptance and wear-trend reference."}
+      ]
+    },
+    {
+      "title": "6. Commercial frame",
+      "lead": "The following terms apply to every bidder equally and are not negotiable in structure. They protect both parties: you are paid promptly at every proven milestone.",
+      "subsections": [
+        {"title": "6.1 Payment milestones", "body": "Contract effectiveness at most 10 percent; factory acceptance test passed at most 30 percent; delivery at most 20 percent; commissioning complete at most 20 percent; site performance test passed, at least 20 percent retained until then. Advance payment terms such as full balance before dispatch are non-conforming."},
+        {"title": "6.2 Retention and guarantees", "body": "10 percent retention (bank guarantee acceptable) released 12 months after the passed performance test; advance-payment bond for any prepayment; obligations survive to full performance, not delivery."},
+        {"title": "6.3 Solvency and inspection", "body": "Financial statements and contactable references will be requested before award. Third-party inspection (SGS or equivalent) is welcome and its acceptance is noted favourably."},
+        {"title": "6.4 Pricing basis", "body": "CIF Cape Town in USD, FOB and freight shown separately, validity at least 90 days, and any material-cost adjustment mechanism stated explicitly."}
+      ]
+    },
+    {
+      "title": "7. Content of your quotation",
+      "lead": "To be evaluable, your offer must contain the following, in any clear format.",
+      "subsections": [
+        {"title": "7.1 Technical", "body": "Machine designation and general arrangement drawing; gradation value tables across the 20 to 60 mm window with interpolation mode; capacity basis and its moisture assumption; drive package and restart mechanism; tooth-segment metallurgy and guaranteed life; bearing monitoring provision; jam-clearing procedure and access."},
+        {"title": "7.2 Commercial", "body": "Price breakdown per section 1.2 (machine, spares kit, commissioning, tests); payment schedule mapped to section 6.1; warranty terms; lead time and shipping weight; validity."},
+        {"title": "7.3 Deviations", "body": "A single explicit list of every deviation from this specification. An undeclared deviation discovered later weighs against the offer far more than a declared one."}
+      ]
+    }
+  ],
+  "closing_heading": "Submission and next steps",
+  "closing": "Please submit your re-quotation through the same channel through which you received this document. Questions are welcome through that channel and answers of general interest will be shared with all bidders. After evaluation, shortlisted bidders will be invited to agree the witnessed test protocol and, where needed, sample shipments of WANKOE material. We thank you for your work on this quotation and look forward to comparing offers on an equal footing."
+}
