@@ -24,7 +24,7 @@ grid). **Read the honesty preamble first.**
 
 | Duty (current tag) | Guildco OF-001 | Zenith OF-002 | Zenith OF-003 |
 |---|---|---|---|
-| Primary sizer-class crusher (CR.5006) | LPS625-3 toothed roller | C6X100 JAW — wrong class, superseded | **2PG-1216CT teeth roller** (expired) |
+| Primary sizer-class crusher (CR.5006) | LPS625-3 toothed roller | C6X100 JAW — **DISCARDED (client ruling 2026-08-17: double-roll only)** | **2PG-1216CT teeth roller** (expired) |
 | Zone-1.1 screen 35/20 (SR.5008) | SI8202, 2 decks 40/20 | **S5X2760-3, 3 decks 20/40/80** | — |
 | AgLime loop impactor (CR.5113) | — | **CI5X1315** | — |
 | Unmapped screen ("SC.5105", meshes 2/15) | — | S5X3075-2T | — |

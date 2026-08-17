@@ -29,7 +29,7 @@ specification brochure). Provenance: received from the client
 
 | # | Zenith model | Their tag label | Price (USD) | Our mapping today | Fit notes |
 |---|---|---|---|---|---|
-| 1 | C6X100 JAW crusher, 110 kW, feed ≤ 630 mm, CSS 70–175 mm, 130–420 t/h | "CR.5009" | 105,209 | **CR.5009 — WRONG CLASS** | Client ruling Q3 (2026-08-16) = twin-shaft toothed SIZER; a jaw at CSS ≥ 70 mm also cannot make the 0/60 product. Non-conforming as quoted — superseded by the OF-003 toothed roller machine (which IS the right class) |
+| 1 | C6X100 JAW crusher, 110 kW, feed ≤ 630 mm, CSS 70–175 mm, 130–420 t/h | "CR.5009" | 105,209 | **DISCARDED — CLIENT RULING 2026-08-17: the jaw crusher is completely set aside; the primary evaluation considers DOUBLE-ROLL machines only** | Was already wrong-class vs the Q3 sizer ruling; now formally out of every comparison and evaluation |
 | 2 | CI5X1315 impact crusher, frame "suitable for 250 kW continuous", 3 apron layers | "CR.5107" | 106,769 | **CR.5113** (renamed 2026-08-12) | 250 kW frame < the 2C branch-1 need (348 kW absorbed, 450 kW rec.) — would force the CAPPED-RATE branch 2 (planning replay needed); motor-branch question of the datasheet applies verbatim |
 | 3 | S5X2760-3 screen (2.7×6.0 m, 3 decks), meshes 20/40/80 mm | SR.5007 | 46,323 | **SR.5007 candidate** | Area 16.2 m²/deck ≫ rain minima 9.1/9.6 — PASS; meshes again **40 vs our 35 mm** top cut (same deviation as OF-001; 80 mm = added scalping deck) |
 | 4 | S5X3075-2T screen (3.0×7.5 m, 2 decks), meshes 2 mm / 15 mm | "SC.5105" | 65,366 | **Uncertain** — matches no current tag (SR.5105 is a 6 mm single-deck; the 2 mm deck evokes SC.B deck-1) | Mapping to be clarified with the client's original enquiry list |
