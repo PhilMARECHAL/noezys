@@ -90,7 +90,7 @@ blocks = [
     ("p", "This note documents, end to end, how the WANKOE deterministic model computes zone 1.1: the machine sizing and the production capacity, with every particle-size distribution presented as CUMULATIVE PERCENT PASSING in table form. It is written for the model exchange with our colleague running Metso's Bruno simulator: section 3 is a full replay kit (all inputs, settings and calibration constants) so Bruno can be configured identically, sections 4 to 6 derive and apply the models, and section 9 confronts our figures with the NACO flowsheet design values, honestly. Nothing here needs to be trusted: every figure replays from the archived script (see the provenance footer), and any divergence between Bruno and this note is meaningful precisely because both sides are fully specified."),
     ("p", "Language note: tags follow the NACO PFD 11-01-PFD REV15 everywhere. The model historically used spec-era tags; the zone-1.1 retag of 2026-08-17 renamed CR.5009 to CR.5006 and SR.5007 to SR.5008 (CR.5011 and CR.5003 were already aligned). Documents issued before that date carry the old tags, the machines are the same."),
     ("h1", "2. The flowsheet (PFD 11-01-PFD REV15)"),
-    ("p", "The sheet below is the contractual reference of this note and is also attached as a separate PDF (20260806_Wankoe_1.1_PFD_REV15.pdf) for full-screen reading. Chain: ROM stockpile 0/700 (10 000 t), truck to hopper HO.5001 (20 m3), vibrating feeder VF.5002 (250 t/h), primary crusher CR.5003 (0/700 to 0/200), conveyors BC.5004/BC.5005, toothed-roll sizer CR.5006 (0/200 to 0/40), conveyor BC.5007 to the double-deck screen SR.5008 (decks 35 and 20 mm), diverter DV.5009, loop crusher CR.5011 returning via BC.5010, products BC.5012 to SP.5014 (0/20 crude, 10 000 t, to AG and Feed plant) and BC.5013 to SP.5015 (KFS 20/35, 5 000 t, to kiln)."),
+    ("p", "The PFD plate is the contractual reference of this note; it is deliberately NOT reproduced inside this document (an A1 sheet does not survive page-size reduction) and travels as a separate PDF (20260806_Wankoe_1.1_PFD_REV15.pdf) to be opened full screen alongside. Chain: ROM stockpile 0/700 (10 000 t), truck to hopper HO.5001 (20 m3), vibrating feeder VF.5002 (250 t/h), primary crusher CR.5003 (0/700 to 0/200), conveyors BC.5004/BC.5005, toothed-roll sizer CR.5006 (0/200 to 0/40), conveyor BC.5007 to the double-deck screen SR.5008 (decks 35 and 20 mm), diverter DV.5009, loop crusher CR.5011 returning via BC.5010, products BC.5012 to SP.5014 (0/20 crude, 10 000 t, to AG and Feed plant) and BC.5013 to SP.5015 (KFS 20/35, 5 000 t, to kiln)."),
     ("landscape_on", None),
     ("image", str(HERE / "pfd_rev15-1.png")),
     ("landscape_off", None),
@@ -273,6 +273,22 @@ def to_docx():
         r.font.name = HEAD_FONT if bold else BODY_FONT
     doc.add_page_break()
 
+    # Client instruction 2026-08-17: NO flowsheet image inside the Word
+    # document (the A1 plate renders uselessly small) — the separate PDF is
+    # the full-screen reference. The markdown edition keeps the raster.
+    doc_blocks, i = [], 0
+    while i < len(blocks):
+        if (
+            i + 2 < len(blocks)
+            and blocks[i][0] == "landscape_on"
+            and blocks[i + 1][0] == "image"
+            and blocks[i + 2][0] == "landscape_off"
+        ):
+            i += 3
+            continue
+        doc_blocks.append(blocks[i])
+        i += 1
+
     landscape = False
 
     def new_section(land):
@@ -289,7 +305,7 @@ def to_docx():
         landscape = land
         return s
 
-    for kind, payload in blocks:
+    for kind, payload in doc_blocks:
         if kind in ("h1", "h2", "h3"):
             doc.add_heading(payload, level=int(kind[1]))
         elif kind == "p":
