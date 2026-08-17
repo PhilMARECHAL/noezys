@@ -155,15 +155,26 @@ ADMITTED.
 | Duty | Guildco (FOB Shanghai) | Zenith (FOB Shanghai) | Standing on the ruled basis |
 |---|---|---|---|
 | Primary crusher (CR.5006), DOUBLE-ROLL only | **USD 185 151** (LPS625-3, live to 09-13) | **USD 142 043** (2PG-1216CT machine-only, cabinet excluded; PRICE DATED 2025-12-31, quote formally expired) | **Zenith −23 %** |
-| — machine weight | **NOT STATED in any archived Guildco document** (quote + GA silent) | **33 000 kg** (brochure spec table) | Guildco substantiation gap — weight to be demanded in the re-quote |
+| — machine weight | **NOT STATED by Guildco**; WEB SEARCH 2026-08-17: the designation LPS625-3 has **ZERO public footprint** (EN + CN searches; the GA title-block maker unlocatable) — no weight or dimensions exist anywhere public | **33 000 kg** (vendor brochure; Zenith's public site shows only generic ranges — the archived drawings remain the source) | Guildco substantiation gap CONFIRMED by the web sweep — weight/dims to be DEMANDED in the re-quote |
+| — overall dimensions | unknown (same absence) | **2 900 × 3 200 × 1 300 mm** (vendor brochure) | Same |
 | Zone-1.1 screen (SR.5008) | USD 81 032 (SI8202) | **USD 46 323** (S5X2760-3, June 2026) | **Zenith −43 %** |
-| — machine weight | **NOT STATED** (quote line only, no GA) | **13 020 kg** (GA drawing, incl. per-support load breakdown) | Same gap |
+| — machine weight | **7 500 kg (no media)** — sourced from the OFFICIAL Terex Simplicity SI-series spec sheet (SI 8202 row): the designation IS the Terex Simplicity 8'×20' 2-deck | **13 020 kg** (GA drawing, incl. per-support load breakdown) | Both now documented — Zenith 74 % heavier (3 decks vs 2, one more motor of duty) |
+| — overall dimensions | Screen box 6 × 2.4 m; W 3.23 × L 7.14 × H 1.40 m (Terex sheet) | **6 373 × 4 570 × 4 080 mm** (GA) | — |
+| — motor cross-check | **DISCREPANCY: Guildco quotes 37 kW; the Terex standard SI 8202 is 22 kW (30 hp)** — bigger-motor option or a non-Terex build: to be clarified in the re-quote | 37 kW YE3-225S-4 (GA) | New re-quote question for Guildco |
+
+Sources of the 2026-08-17 web sweep: Terex Simplicity SI Screen
+product specification (terex.com spec-sheet PDF, SI 8202 row: 7 500 kg,
+6 × 2.4 m box, 22 kW, 850–900 rpm, 20 deg, max feed 200 mm);
+zenithcrusher.com product pages (generic ranges only — vendor drawings
+prevail); LPS625-3: no public source exists (searched EN + CN,
+manufacturer directories, B2B platforms).
 
 Weight note on the ruled FOB basis: freight from Shanghai is at the
-BUYER's charge, so undeclared weights are an undeclared cost — the
+BUYER's charge, so an undeclared weight is an undeclared cost — the
 Zenith freight datum (USD 10 400 for the 33 t crusher) scales the
-exposure; Guildco's missing weights go on the re-quote demand list
-alongside its missing setting range.
+exposure. The primary's weight gap is now the LAST missing mass figure
+and goes on the Guildco re-quote demand list alongside its missing
+setting range and the 37-vs-22 kW motor question.
 
 Honesty caveats carried with the admitted 2025 price: (1) the quote is
 FORMALLY EXPIRED — usable for comparison by client ruling, but any
