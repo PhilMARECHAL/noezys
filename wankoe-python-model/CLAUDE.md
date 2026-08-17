@@ -277,8 +277,9 @@ bypass FeedLime = stock-PSD watch.
   Q3 CLOSED 2026-08-17 (ratified: implemented convention IS the
   default, realized classic ~0.081 disclosed; classic downside archived;
   KFS plan B = CSS 25; D6 not aperture-recoverable - SC.B sharpness
-  guarantee is the structural protection). Still open: KFS tolerance vs
-  envelope (Q4), spec 9.3 fines figure (Q5), repo location (Q10), b_j
+  guarantee is the structural protection). Q4 CLOSED 2026-08-17 (envelope 30/55/15 = sole KFS quality
+  definition; spec 15 % total out-of-cut tolerance confirmed removed).
+  Still open: spec 9.3 fines figure (Q5), repo location (Q10), b_j
   soft limestone (Q12 - frozen [H], no tests launched).
 - NEW WORKING MODE (client, 2026-08-11): the client found the web app too
   complicated — simulations now run IN CHAT (same engine, identical

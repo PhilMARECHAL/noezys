@@ -908,7 +908,7 @@
         "max_below_cut_pct": 30,
         "min_in_cut_pct": 55,
         "max_above_cut_pct": 15,
-        "_note": "KFS 30/55/15 envelope - three %-passing control thresholds (interpretation validated 2026-08-08). The spec's '15%' is the above-cut limit: a strict 15% total out-of-cut tolerance would always fail (Karra screening leaves ~43% out of 20/35), so max_out_of_cut_tol_pct is null (superseded by the envelope)."
+        "_note": "KFS 30/55/15 envelope - three %-passing control thresholds. RATIFIED BY THE CLIENT 2026-08-17 (Q4 closed, option 1 of 3): the envelope is the SOLE KFS quality definition; the spec's 15 % total out-of-cut tolerance is CONFIRMED REMOVED (max_out_of_cut_tol_pct stays null) - at the reference point total out-of-cut is 17.25 % (8.69 below + 8.56 above), comfortably inside the envelope but above a strict 15 % total gate, which would misread the spec's '15 %' (it is the above-cut limit). Supersedes the pending 2026-08-08 assistant interpretation with a dated client ratification."
       }
     },
     "AgLime": {
