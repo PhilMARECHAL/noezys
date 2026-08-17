@@ -7,17 +7,17 @@ from wankoe_model.fit import fit_parameters
 
 
 def test_recovers_a_known_parameter():
-    # synthetic truth: CR.5009 power computed with Wi = 15.5
+    # synthetic truth: CR.5006 power computed with Wi = 15.5
     truth = run_scenario(
         load_parameters(overrides={"calibration": {"Wi": {"default": 15.5}}})
     )
-    measured_power = truth["machines"]["CR.5009"]["P_installed_kW"]
+    measured_power = truth["machines"]["CR.5006"]["P_installed_kW"]
 
     report = fit_parameters(
         load_parameters(),  # starts from the default Wi = 12.54
         observations=[
             {
-                "result_path": ["machines", "CR.5009", "P_installed_kW"],
+                "result_path": ["machines", "CR.5006", "P_installed_kW"],
                 "measured": measured_power,
             }
         ],
@@ -33,7 +33,7 @@ def test_bounds_are_respected():
         load_parameters(),
         observations=[
             {
-                "result_path": ["machines", "CR.5009", "P_installed_kW"],
+                "result_path": ["machines", "CR.5006", "P_installed_kW"],
                 "measured": 1e6,  # unreachable: pushes Wi to its upper bound
             }
         ],

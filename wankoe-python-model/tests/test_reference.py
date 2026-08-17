@@ -3,7 +3,7 @@
 Acceptance criteria: mass + water closure on every scenario and
 reproduction of the documented values. Tolerances reflect the DOCUMENTED
 residual deviations of the calibration (see data/reference_feed_curve.json
-and the README): CR.5009 / CR.5011 powers carry a known gap, reported to
+and the README): CR.5006 / CR.5011 powers carry a known gap, reported to
 the specification author.
 """
 
@@ -52,9 +52,9 @@ def results():
                 "machines": {
                     # 2026-08-13 optimization changed the shipped defaults
                     # (g 60, CSS 30, v 35) — pin ch.9's spec-era settings
-                    "CR.5009": {"parameters": {"g": {"default": 40}}},
+                    "CR.5006": {"parameters": {"g": {"default": 40}}},
                     "CR.5011": {"parameters": {"x80": {"default": 20}, "v": {"default": 45}}},
-                    "SR.5007": {"parameters": {"I": {"default": 0.4}}},
+                    "SR.5008": {"parameters": {"I": {"default": 0.4}}},
                     "SR.5115": {"parameters": {"I": {"default": 0.4}}},
                     # ch.9 fines were authored with the spec-era 100 um cut;
                     # Q6 (2026-08-11, expert book ch.11) moved the shipped
@@ -77,8 +77,8 @@ def test_9_1_zone_1_1(results):
     # 0/20: 190.7 t/h wet
     q020 = results["intermediate_flows"]["stream_0_20_dry_tph"] / (1 - 0.08)
     assert q020 == pytest.approx(190.7, abs=1.5)
-    # CR.5009 expected ~116 kW; achieved ~106 kW (-9 % documented deviation)
-    assert results["machines"]["CR.5009"]["P_installed_kW"] == pytest.approx(116.0, rel=0.15)
+    # CR.5006 expected ~116 kW; achieved ~106 kW (-9 % documented deviation)
+    assert results["machines"]["CR.5006"]["P_installed_kW"] == pytest.approx(116.0, rel=0.15)
 
 
 def test_9_2_zone_1_2(results):

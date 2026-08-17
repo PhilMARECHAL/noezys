@@ -30,6 +30,14 @@ sent nothing directly. Note: the Guildco quote shows no e-mail address
 sales contact e-mail — both recipients are reachable by the client's
 existing correspondence thread.
 
+## Tag note (post-dispatch)
+
+The zone-1.1 retag of 2026-08-17 (CR.5009→CR.5006, SR.5007→SR.5008,
+PFD REV15) postdates this dispatch: the document sent to vendors uses
+CR.5009 and stays valid as sent — vendor replies quoting CR.5009 map
+to today's CR.5006. Any future revision of the dispatch document will
+carry both tags.
+
 ## Status upon replies
 
 Replies are to be registered as new OF-nnn entries in

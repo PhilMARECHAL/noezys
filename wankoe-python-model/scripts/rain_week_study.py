@@ -192,11 +192,11 @@ def main() -> dict:
         "rain_week": rain_z11["products"]["KFS"]["compliance"],
         "sr5007_required_area_m2_dry": {
             k: v["required_area_m2"]
-            for k, v in dry_g["machines"]["SR.5007"]["areas_m2"].items()
+            for k, v in dry_g["machines"]["SR.5008"]["areas_m2"].items()
         },
         "sr5007_required_area_m2_rain": {
             k: v["required_area_m2"]
-            for k, v in rain_z11["machines"]["SR.5007"]["areas_m2"].items()
+            for k, v in rain_z11["machines"]["SR.5008"]["areas_m2"].items()
         },
         "_note": (
             "The engine wires I_rain to the 1.7 mm loop screens only (now moot: "

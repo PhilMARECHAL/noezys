@@ -1,5 +1,7 @@
 # VENDOR OFFERS REGISTER — WANKOE project
 
+**⚠ Zone-1.1 tag equivalence (2026-08-17):** CR.5009 = **CR.5006** and SR.5007 = **SR.5008** (PFD REV15 retag). Offer mappings below predate the retag and use the spec-era tags — same machines; the dispatched RFQ 01 likewise.
+
 **by NOEZYS.** Full-traceability register of every vendor offer received.
 Rules: (1) every offer gets a sequential ID OF-nnn and its own folder
 with the ORIGINAL files archived UNMODIFIED under `original/` (SHA-256

@@ -5,7 +5,7 @@ Client arbitration 2026-08-15 (4 choices, decision-log row of the same date):
 1. PERIMETER — process machines + materials handling + dryer ELECTRICAL
    auxiliaries. The dryer BURNER (BU.04) is fuel-fired: excluded from the
    electricity total, its thermal MWh reported separately.
-2. POWER BASIS — ABSORBED power. Engine-modeled machines (CR.5009, CR.5011,
+2. POWER BASIS — ABSORBED power. Engine-modeled machines (CR.5006, CR.5011,
    CR.5113, RC.1, RC.2 — ML.26 in the as-built variant only, skipped at the
    c1 default) use the per-mode photo's P_net_kW / eta_m. Non-modeled drives
    use TYPICAL installed ratings [H] x the absorption factor [H]. Every

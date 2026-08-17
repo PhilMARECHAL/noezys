@@ -563,6 +563,29 @@ both vendors: 20-60 mm setting window (neither evidences it),
 contractual curve tables (G3), Ndola milestones non-negotiable in
 structure.
 
+## Zone-1.1 retag + Bruno-exchange note DT-002 (2026-08-17)
+
+RETAG EXECUTED (client, closes the 2026-08-12 open item): zone-1.1
+tags now follow NACO PFD 11-01-PFD REV15 — **CR.5006** (ex-CR.5009),
+**SR.5008** (ex-SR.5007); CR.5011/CR.5003 unchanged. 167 replacements
+in data/src/tests/scripts/web UI; former_tag fields in the data; suite
+149/149 green. Issued docs (datasheets, RFQ 01 dispatch, offers) NOT
+rewritten — equivalence banners instead. ALL new documents use REV15
+tags.
+
+DT-002 IN PREPARATION (panel Q1-Q7 decided): complete zone-1.1 sizing
+note for the client's in-house colleague who runs Metso's Bruno model.
+Both modes 1A+1B, measured curve, reference settings; FULL CHAIN
+stream-by-stream PSD tables, ALWAYS % passing; FULL REPLAY KIT (inputs,
+settings, I/Wi, [H] table, total-flow rule); no confidentiality
+restriction (in-house, client ruling); capacity = t/h AND annual
+translation (2400 h, auto-1B, KFS yield); DT-002 full dossier protocol
+(script + raw JSON + md + NOEZYS docx), English; TOTAL ADEQUACY with
+PFD REV15 (sheet inserted full-page + PDF archived in dossier,
+SHA-verified identical to docs/pfd/ copy); honest design-vs-measured
+confrontations IN the note (PFD 80/350 t/h vs engine ~62/324.5; PFD
+scenario B 150 t/h vs mode-1B 172.0 wet).
+
 ## Repository caution
 
 The model lives on branch wankoe-python-model of the PhilMARECHAL/noezys

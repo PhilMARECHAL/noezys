@@ -8,7 +8,7 @@ to the pure ``run_scenario`` / ``run_seasonal_balance`` functions.
 A sweep is described by a JSON config (see data/sweep_example.json):
 
 - ``variables``: parameters to explore. Each has a ``path`` (list of keys
-  into the parameter dict — lists, because keys like "SR.5007" or "1.1"
+  into the parameter dict — lists, because keys like "SR.5008" or "1.1"
   contain dots) and either explicit ``values`` or a ``min``/``max``/``step``
   range.
 - ``method``: "grid" (full cartesian product) or "random" (uniform sampling,

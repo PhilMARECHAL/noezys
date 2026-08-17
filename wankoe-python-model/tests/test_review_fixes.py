@@ -11,7 +11,7 @@ from wankoe_model import models
 def test_typo_in_override_raises_actionable_error():
     with pytest.raises(ValueError, match="a1_typo"):
         load_parameters(
-            overrides={"machines": {"SR.5007": {"parameters": {"a1_typo": {"default": 30}}}}}
+            overrides={"machines": {"SR.5008": {"parameters": {"a1_typo": {"default": 30}}}}}
         )
 
 

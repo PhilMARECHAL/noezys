@@ -66,10 +66,10 @@ def run_design_check(params: dict) -> dict:
         if row:
             rows.append(row)
 
-    # CR.5009 — toothed roll crusher
-    if m.get("CR.5009", {}).get("active"):
-        add("CR.5009", "feed F80 vs nip", m["CR.5009"]["F80_mm"], "mm", "max_feed_size_mm")
-        add("CR.5009", "installed power", m["CR.5009"]["P_installed_kW"], "kW", "installed_power_kW")
+    # CR.5006 — toothed roll crusher
+    if m.get("CR.5006", {}).get("active"):
+        add("CR.5006", "feed F80 vs nip", m["CR.5006"]["F80_mm"], "mm", "max_feed_size_mm")
+        add("CR.5006", "installed power", m["CR.5006"]["P_installed_kW"], "kW", "installed_power_kW")
     # CR.5011 — impact crusher (loop)
     if m.get("CR.5011", {}).get("active"):
         add("CR.5011", "circulating load", m["CR.5011"].get("throughput_tph"), "t/h", "max_capacity_tph")
@@ -78,7 +78,7 @@ def run_design_check(params: dict) -> dict:
     if m.get("CR.5113", {}).get("active"):
         add("CR.5113", "installed power", m["CR.5113"].get("P_installed_kW"), "kW", "installed_power_kW")
     # screens — required vs installed area
-    for code in ("SR.5007", "SR.5105", "SR.5111", "SR.5115", "SN.21"):
+    for code in ("SR.5008", "SR.5105", "SR.5111", "SR.5115", "SN.21"):
         if m.get(code, {}).get("active"):
             add(code, "screen area", _max_area(m[code]), "m2", "installed_area_m2")
     # DY.03 — dryer

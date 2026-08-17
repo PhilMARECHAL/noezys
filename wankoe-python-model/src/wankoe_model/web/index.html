@@ -391,9 +391,9 @@ function drawFlowsheet() {
   g.push(`<text class="zone-label" x="928" y="24">ZONE 1.3 — DRYING / GRITS / ULTRAFIN</text>`);
   // ---- zone 1.1
   g.push(arrow("M14,182 H80", `${S(feedT)} t/h`, 16, 172));
-  g.push(machineBox(82, 160, "CR.5009", `${fmt(mm("CR.5009").P_installed_kW, 0)} kW`, ex.has("CR.5009")));
+  g.push(machineBox(82, 160, "CR.5006", `${fmt(mm("CR.5006").P_installed_kW, 0)} kW`, ex.has("CR.5006")));
   g.push(arrow("M186,182 H232", "", 0, 0));
-  g.push(machineBox(234, 160, "SR.5007", areaKpi(mm("SR.5007")), ex.has("SR.5007")));
+  g.push(machineBox(234, 160, "SR.5008", areaKpi(mm("SR.5008")), ex.has("SR.5008")));
   g.push(machineBox(234, 52, "CR.5011", `${fmt(f.zone_1_1_recirculation_tph, 0)} t/h · ${fmt(mm("CR.5011").P_installed_kW, 0)} kW`, ex.has("CR.5011")));
   // mode 1A: 20-35 -> KFS · mode 1B: 20-35 joins +35 on the impactor
   g.push(arrow("M310,160 V98", m11 === "1B" ? "+35 & 20-35" : "+35", 314, 132, true, m11 === "1B" ? c11 : null));

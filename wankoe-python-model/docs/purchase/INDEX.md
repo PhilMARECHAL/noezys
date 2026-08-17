@@ -1,5 +1,7 @@
 # PURCHASE TECHNICAL DATASHEETS — INDEX
 
+**⚠ ZONE-1.1 TAG EQUIVALENCE (client retag decision 2026-08-17, NACO PFD REV15):** model and new documents now use **CR.5006** (ex-CR.5009) and **SR.5008** (ex-SR.5007); CR.5011 unchanged. Documents below issued before that date keep the spec-era tags — same machines. `former_tag` fields in `data/default_parameters.json` carry the equivalence.
+
 **13 major process machines — client order 2026-08-15** — produced by NOEZYS.
 Scope: the process machines of the confirmed line design (C1 reference configuration). **DY.03 rotary dryer EXCLUDED — already acquired.** Belts, feeders, elevators and silos are handled in the FMECA/uprate files (BC.22 108 % and BE.40 116 % rating findings remain OPEN purchase-adjacent items on the handling side).
 

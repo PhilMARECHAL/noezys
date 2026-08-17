@@ -48,15 +48,15 @@ MODE_PHOTO_OVERRIDES = {
     "G": {"zone_1_3_mode": "G"},
     "F": {"zone_1_3_mode": "F"},
     # Error-hunt PD-2 (client 2026-08-15): rain is a NORMAL circumstance for
-    # zone 1.1 (the line continues through rain weeks) — the SR.5007 sizing
+    # zone 1.1 (the line continues through rain weeks) — the SR.5008 sizing
     # must see the rain photos (wet_capacity_factor derating)
     "1A-rain": {"zone_1_1_mode": "1A", "weather": "rain"},
     "1B-rain": {"zone_1_1_mode": "1B", "weather": "rain"},
 }
 
 MACHINE_MODES = {
-    "CR.5009": ["1A", "1B"],
-    "SR.5007": ["1A", "1B", "1A-rain", "1B-rain"],
+    "CR.5006": ["1A", "1B"],
+    "SR.5008": ["1A", "1B", "1A-rain", "1B-rain"],
     "CR.5011": ["1A", "1B"],
     "SR.5105": ["2A"],  # inactive in 2C (full reclaim to the loop)
     "SR.5111": ["2A", "2C"],
@@ -111,7 +111,7 @@ def main() -> dict:
     }
 
     # total-flow rule wet/dry ratios (moisture at each zone boundary)
-    feed_1a_dry = photos["1A"]["machines"]["CR.5009"]["throughput_tph"]
+    feed_1a_dry = photos["1A"]["machines"]["CR.5006"]["throughput_tph"]
     wet_over_dry_11 = 250.0 / feed_1a_dry  # 250 t/h wet pivot feed
     reclaim_dry = photos["2A"]["machines"]["SR.5105"]["feed_tph"]
     wet_over_dry_12 = 100.0 / reclaim_dry  # 100 t/h wet reclaim
@@ -176,7 +176,7 @@ def main() -> dict:
             }
             block["area_margin"] = f"+{round((AREA_MARGIN - 1) * 100)} % [H]"
             # client-decided purchase minima override (data-first), e.g.
-            # SR.5007 PD-2 2026-08-15: minima = the rain duty, no stacked margin
+            # SR.5008 PD-2 2026-08-15: minima = the rain duty, no stacked margin
             decided = params["machines"].get(code, {}).get("purchase_min_area_m2")
             if decided:
                 block["client_decided_min_area_m2"] = decided
@@ -217,7 +217,7 @@ def main() -> dict:
         "RC.2_n_units": _val(mach["RC.2"]["n_units"]),
         "RC.2_mode_F_gap_mm": _val(mach["RC.2"]["mode_F_gap_mm"]),
         "zone_1_2_loop_rating_tph": _val(mach["SR.5111"]["loop_rating_tph"]),
-        "CR.5009_max_feed_size_mm": _val(mach["CR.5009"]["max_feed_size_mm"]),
+        "CR.5006_max_feed_size_mm": _val(mach["CR.5006"]["max_feed_size_mm"]),
     }
     # Error-hunt fix 2026-08-15: the loop ratio must be WET basis, like the
     # engine's own alert (100 t/h wet vs 60) and the client total-flow rule

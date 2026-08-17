@@ -5,7 +5,7 @@ PLAUSIBLE pivot curve and FITS it to reproduce the chapter 9 reference case
 (validated by the client on 2026-08-08):
 
   - zone 1.1, mode 1A, 250 t/h: KFS = 23.7 % of the feed
-  - CR.5009 power ≈ 116 kW
+  - CR.5006 power ≈ 116 kW
   - zone 1.2, mode 2A: FeedLime (5-15) = 45 % of the reclaim
   - CR.5011 power ≈ 37 kW (secondary target — known structural deviation)
 
@@ -67,7 +67,7 @@ def evaluate(base_params: dict, w: float, x80_g: float, n_g: float) -> tuple[flo
         return 1e9, {"error": str(exc)}
     q_feed = res["scenario"]["flow_rates_tph"]["zone_1_1_feed"]
     kfs_pct = 100.0 * res["products"]["KFS"]["tph"] / q_feed
-    p9 = res["machines"]["CR.5009"]["P_installed_kW"]
+    p9 = res["machines"]["CR.5006"]["P_installed_kW"]
     p11 = res["machines"]["CR.5011"].get("P_installed_kW", 0.0)
     # FeedLime share = reclaim − AgLime (closed circuit), consistent wet basis
     q_reclaim = res["scenario"]["flow_rates_tph"]["zone_1_2_reclaim"]

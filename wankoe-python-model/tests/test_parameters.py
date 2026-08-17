@@ -16,7 +16,7 @@ def test_screen_aperture_is_adjustable():
     changed = run_scenario(
         load_parameters(
             overrides={
-                "machines": {"SR.5007": {"parameters": {"a1": {"default": 30}, "a2": {"default": 25}}}}
+                "machines": {"SR.5008": {"parameters": {"a1": {"default": 30}, "a2": {"default": 25}}}}
             }
         )
     )
@@ -29,8 +29,8 @@ def test_bond_index_is_adjustable():
         load_parameters(overrides={"calibration": {"Wi": {"default": 25.08}}})
     )
     # doubled Wi -> doubled specific energy (Bond law is linear in Wi)
-    assert changed["machines"]["CR.5009"]["P_installed_kW"] == pytest.approx(
-        2 * base["machines"]["CR.5009"]["P_installed_kW"], rel=1e-6
+    assert changed["machines"]["CR.5006"]["P_installed_kW"] == pytest.approx(
+        2 * base["machines"]["CR.5006"]["P_installed_kW"], rel=1e-6
     )
 
 
@@ -42,8 +42,8 @@ def test_feed_bond_index_overrides_calibration():
             overrides={"feed_product": {"properties": {"Wi_kWht": {"default": 25.08}}}}
         )
     )
-    assert changed["machines"]["CR.5009"]["P_installed_kW"] == pytest.approx(
-        2 * base["machines"]["CR.5009"]["P_installed_kW"], rel=1e-6
+    assert changed["machines"]["CR.5006"]["P_installed_kW"] == pytest.approx(
+        2 * base["machines"]["CR.5006"]["P_installed_kW"], rel=1e-6
     )
 
 
@@ -52,21 +52,21 @@ def test_cr5009_gap_is_live():
     base = run_scenario(load_parameters())
     changed = run_scenario(
         load_parameters(
-            overrides={"machines": {"CR.5009": {"parameters": {"g": {"default": 40}}}}}
+            overrides={"machines": {"CR.5006": {"parameters": {"g": {"default": 40}}}}}
         )
     )
     assert (
-        changed["machines"]["CR.5009"]["x80_mm"] != base["machines"]["CR.5009"]["x80_mm"]
+        changed["machines"]["CR.5006"]["x80_mm"] != base["machines"]["CR.5006"]["x80_mm"]
     )
 
 
 def test_cr5009_explicit_x80_overrides_gap():
     changed = run_scenario(
         load_parameters(
-            overrides={"machines": {"CR.5009": {"parameters": {"x80": {"default": 55}}}}}
+            overrides={"machines": {"CR.5006": {"parameters": {"x80": {"default": 55}}}}}
         )
     )
-    assert changed["machines"]["CR.5009"]["x80_mm"] == 55
+    assert changed["machines"]["CR.5006"]["x80_mm"] == 55
 
 
 def test_ml26_machine_sheet_coefficients_are_live():
@@ -155,17 +155,17 @@ def test_rain_forcing_can_be_disabled_and_uses_i_rain():
 def test_out_of_range_setting_raises_alert():
     changed = run_scenario(
         load_parameters(
-            overrides={"machines": {"SR.5007": {"parameters": {"a1": {"default": 55}}}}}
+            overrides={"machines": {"SR.5008": {"parameters": {"a1": {"default": 55}}}}}
         )
     )
-    assert any("SR.5007.a1" in a for a in changed["alerts"])
+    assert any("SR.5008.a1" in a for a in changed["alerts"])
 
 
 def test_installed_area_alert_when_provided():
     changed = run_scenario(
-        load_parameters(overrides={"machines": {"SR.5007": {"installed_area_m2": 0.5}}})
+        load_parameters(overrides={"machines": {"SR.5008": {"installed_area_m2": 0.5}}})
     )
-    assert any("SR.5007" in a and "installed" in a for a in changed["alerts"])
+    assert any("SR.5008" in a and "installed" in a for a in changed["alerts"])
 
 
 def test_feed_moisture_is_adjustable():

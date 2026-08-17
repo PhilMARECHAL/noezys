@@ -50,38 +50,38 @@ def report():
 
 
 def test_known_limit_violation_is_caught(report):
-    # Re-baselined 2026-08-16 (CR.5009 panel Q2+Q3): the quarry guarantees
+    # Re-baselined 2026-08-16 (CR.5006 panel Q2+Q3): the quarry guarantees
     # max lump <= 250 mm and the SIZER class positively engages it, so
     # max_feed_size_mm 150 -> 250 — the measured F80 181 mm is now OK and
     # the 2026-08-11 standing exceedance is CLOSED BY CLIENT DECISION.
     # The catch-a-violation mechanism itself is regression-proofed below
     # by re-tightening the limit via override.
-    nip = [r for r in report["checks"] if r["machine"] == "CR.5009" and "nip" in r["check"]]
+    nip = [r for r in report["checks"] if r["machine"] == "CR.5006" and "nip" in r["check"]]
     assert nip and nip[0]["verdict"] == "OK"
     assert nip[0]["installed_limit"] == 250
     tight = run_design_check(
-        load_parameters(overrides={"machines": {"CR.5009": {"max_feed_size_mm": 150}}})
+        load_parameters(overrides={"machines": {"CR.5006": {"max_feed_size_mm": 150}}})
     )
-    nip_t = [r for r in tight["checks"] if r["machine"] == "CR.5009" and "nip" in r["check"]]
+    nip_t = [r for r in tight["checks"] if r["machine"] == "CR.5006" and "nip" in r["check"]]
     assert nip_t and nip_t[0]["verdict"] == "EXCEEDED"
     assert tight["design_holds"] is False
 
 
 def test_missing_limits_are_listed_not_ignored(report):
-    assert any("SR.5007" in item for item in report["limits_to_provide"])
+    assert any("SR.5008" in item for item in report["limits_to_provide"])
     assert any(r["verdict"] == "NO LIMIT" for r in report["checks"])
 
 
 def test_provided_limit_flips_the_verdict():
     ok = run_design_check(
-        load_parameters(overrides={"machines": {"SR.5007": {"installed_area_m2": 50}}})
+        load_parameters(overrides={"machines": {"SR.5008": {"installed_area_m2": 50}}})
     )
-    row = [r for r in ok["checks"] if r["machine"] == "SR.5007"][0]
+    row = [r for r in ok["checks"] if r["machine"] == "SR.5008"][0]
     assert row["verdict"] == "OK" and row["margin_pct"] > 0
     bad = run_design_check(
-        load_parameters(overrides={"machines": {"SR.5007": {"installed_area_m2": 0.5}}})
+        load_parameters(overrides={"machines": {"SR.5008": {"installed_area_m2": 0.5}}})
     )
-    row = [r for r in bad["checks"] if r["machine"] == "SR.5007"][0]
+    row = [r for r in bad["checks"] if r["machine"] == "SR.5008"][0]
     assert row["verdict"] == "EXCEEDED"
 
 
@@ -94,10 +94,10 @@ def test_planning_summary_included(report):
 def test_all_measurements_check_aggregates_worst_case():
     result = run_design_check_all_measurements(load_parameters())
     assert result["measurements"] == list(list_measurements())
-    key = "CR.5009 / feed F80 vs nip"
+    key = "CR.5006 / feed F80 vs nip"
     assert key in result["worst_case"]
     assert result["worst_case"][key]["governing_measurement"] == "2026-08-08-belt-cut"
-    # Re-baselined 2026-08-16 (CR.5009 panel: sizer class + quarry 250 mm
+    # Re-baselined 2026-08-16 (CR.5006 panel: sizer class + quarry 250 mm
     # lump guarantee): the belt-cut F80 181 mm no longer exceeds the limit,
     # so the aggregate verdict is design_holds True at current measurements
     assert result["design_holds"] is True

@@ -5,7 +5,7 @@ minima of the three fine screens — SC.B (2 / 1.5 mm), SR.5111 (1.7 mm) and
 SR.5115 (1.7 mm) — are re-quoted with the standard VSMA factor-method sizing
 (basic capacity x oversize factor x half-size factor x deck-position factor),
 because the engine's M4 model carries NO feed-composition factors: its fitted
-f0 = 0.347 matches the standard method at SR.5007-like feeds (~46-53 %
+f0 = 0.347 matches the standard method at SR.5008-like feeds (~46-53 %
 half-size, where the half-size factor is ~1) but UNDER-sizes low-half-size
 feeds — SC.B carries only 17-20 % half-size and needs ~30 % more area than
 the model says. The engine model itself is UNCHANGED (a model-improvement

@@ -122,7 +122,7 @@ def zone_1_1(feed: dict, params: dict, mode: str, alerts: list, weather: str | N
 
     Pivot (§5): the feed curve is MEASURED at the primary station outlet
     (grizzly + CR.5003 already blended into the curve). Modelled chain:
-    pivot -> CR.5009 -> SR.5007 (35/20) with the CR.5011 loop on the +35
+    pivot -> CR.5006 -> SR.5008 (35/20) with the CR.5011 loop on the +35
     oversize. Mode 1A: 20-35 cut -> KFS; mode 1B: 20-35 cut -> CR.5011
     (no KFS).
     """
@@ -132,22 +132,22 @@ def zone_1_1(feed: dict, params: dict, mode: str, alerts: list, weather: str | N
     calib = params["calibration"]
     engine = params["engine"]
 
-    # CR.5009 — toothed roll crusher: x80 = explicit parameter, or gap when null
+    # CR.5006 — toothed roll crusher: x80 = explicit parameter, or gap when null
     # (x80 = g validated by the client on 2026-08-08; audit finding 1.1)
-    p9 = mp["CR.5009"]["parameters"]
+    p9 = mp["CR.5006"]["parameters"]
     gap9 = p9["g"]["default"]
     x80_9 = p9["x80"]["default"] if p9["x80"]["default"] is not None else gap9
-    max_feed = mp["CR.5009"].get("max_feed_size_mm")
+    max_feed = mp["CR.5006"].get("max_feed_size_mm")
     feed_f80 = feed["psd"].p80()
     if max_feed is not None and feed_f80 > max_feed:
         alerts.append(
-            f"CR.5009: feed F80 {feed_f80:.0f} mm > max nip size {max_feed} mm — saturation"
+            f"CR.5006: feed F80 {feed_f80:.0f} mm > max nip size {max_feed} mm — saturation"
         )
     psd9 = models.m1_crusher_product(feed["psd"], x80_9, p9["n"]["default"], calib)
     bond9 = models.m2_bond_power(feed["q"], feed_f80, psd9.p80(), calib)
     cr5009_out = _stream(feed["q"], psd9, feed["moisture"])
 
-    p7 = mp["SR.5007"]["parameters"]
+    p7 = mp["SR.5008"]["parameters"]
     p11 = mp["CR.5011"]["parameters"]
     a1, a2, imp = p7["a1"]["default"], p7["a2"]["default"], p7["I"]["default"]
     x80_11 = p11["x80"]["default"]
@@ -216,13 +216,13 @@ def zone_1_1(feed: dict, params: dict, mode: str, alerts: list, weather: str | N
         "top_deck": models.m4_screen_area(outputs["u_top_deck"], a1, calib, wet_factor),
         "bottom_deck": models.m4_screen_area(outputs["u_bottom_deck"], a2, calib, wet_factor),
     }
-    _check_installed_area("SR.5007", areas, mp["SR.5007"].get("installed_area_m2"), alerts)
+    _check_installed_area("SR.5008", areas, mp["SR.5008"].get("installed_area_m2"), alerts)
     return {
         "products": {"KFS": outputs["kfs"], "0/20": outputs["undersize_0_20"]},
         "machines": {
-            "CR.5009": {**bond9, "throughput_tph": feed["q"], "x80_mm": x80_9},
+            "CR.5006": {**bond9, "throughput_tph": feed["q"], "x80_mm": x80_9},
             "CR.5011": cr5011_info,
-            "SR.5007": {
+            "SR.5008": {
                 "feed_tph": outputs["screen_feed"]["q"],
                 "areas_m2": areas,
             },

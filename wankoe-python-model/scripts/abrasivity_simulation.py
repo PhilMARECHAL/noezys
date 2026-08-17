@@ -1,6 +1,6 @@
 """Eolianite abrasivity simulation (client order 2026-08-16).
 
-No measured abrasivity data exist (CR.5009 panel Q4): the client ordered a
+No measured abrasivity data exist (CR.5006 panel Q4): the client ordered a
 SIMULATION with aeolian-limestone figures — soft porous calcite matrix
 cementing well-rounded ~200 um quartz grains. This script joins the [H]
 hypothesis set (docs/design/abrasivity/eolianite-abrasivity-scenario.json)
@@ -129,7 +129,7 @@ def main() -> None:
     # ---- 2. machine wear-duty ranking ------------------------------------
     ev = json.loads((ROOT / "docs/purchase/purchase-engine-evidence.json").read_text())
     machine_class = {
-        "CR.5009": ("sizer_crusher", 0.25), "SR.5007": ("screen_wire", 0.25),
+        "CR.5006": ("sizer_crusher", 0.25), "SR.5008": ("screen_wire", 0.25),
         "CR.5011": ("impactor", 0.40), "SR.5105": ("screen_wire", 0.40),
         "SR.5111": ("screen_pu_fine_mat", 0.90), "CR.5113": ("impactor", 0.90),
         "SR.5115": ("screen_pu_fine_mat", 0.90), "RC.1": ("smooth_rolls", 0.90),
@@ -162,13 +162,13 @@ def main() -> None:
         print(f"  {r['machine']:8s} {r['wear_duty_index_kt_eq']:8.1f}  "
               f"({r['class']}, {r['annual_t_processed']:.0f} t/y)")
 
-    # CR.5009 steel-loss order of magnitude (RFQ anchor)
+    # CR.5006 steel-loss order of magnitude (RFQ anchor)
     steel = scen["steel_consumption_orders"]["sizer_teeth_g_per_t"]
-    cr9_t = next(r["annual_t_processed"] for r in ranking if r["machine"] == "CR.5009")
+    cr9_t = next(r["annual_t_processed"] for r in ranking if r["machine"] == "CR.5006")
     steel_t = {k: round(cr9_t * v / 1e6, 2) for k, v in
                (("central", steel["central"]),
                 ("low", steel["envelope"][0]), ("high", steel["envelope"][1]))}
-    print(f"\nCR.5009 tooth-steel loss order: {steel_t} t/y at {cr9_t:.0f} t/y processed")
+    print(f"\nCR.5006 tooth-steel loss order: {steel_t} t/y at {cr9_t:.0f} t/y processed")
 
     commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT,
                             capture_output=True, text=True).stdout.strip()

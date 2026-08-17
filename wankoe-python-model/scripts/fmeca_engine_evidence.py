@@ -98,7 +98,7 @@ def main() -> dict:
     }
 
     # wet/dry conversion of zone-1.1 internal streams (feed moisture ratio)
-    feed_wet_tph = photos["1A"]["machines"]["CR.5009"]["throughput_tph"]
+    feed_wet_tph = photos["1A"]["machines"]["CR.5006"]["throughput_tph"]
     wet_over_dry_11 = 250.0 / feed_wet_tph  # 250 t/h wet pivot feed (total-flow rule)
 
     def m(mode: str, code: str) -> dict:
@@ -163,10 +163,10 @@ def main() -> dict:
         },
         "planning_quarry_target": {"zones": plan_q["zones"]},
         "load_factors": {
-            "CR.5009": {
-                "absorbed_kW_1A": absorbed("1A", "CR.5009"),
-                "throughput_tph_dry_1A": round(m("1A", "CR.5009")["throughput_tph"], 1),
-                "F80_mm": round(m("1A", "CR.5009")["F80_mm"], 1),
+            "CR.5006": {
+                "absorbed_kW_1A": absorbed("1A", "CR.5006"),
+                "throughput_tph_dry_1A": round(m("1A", "CR.5006")["throughput_tph"], 1),
+                "F80_mm": round(m("1A", "CR.5006")["F80_mm"], 1),
                 "note": "feed F80 > 150 mm max nip size — SATURATION alert (planning alerts): the primary runs saturated at the measured feed",
             },
             "CR.5011": {
@@ -220,7 +220,7 @@ def main() -> dict:
                 "note": "mode G runs the dryer AT its 30 t/h outlet limit — the ONLY drying line (single point)",
             },
             "screens_feed_tph": {
-                "SR.5007_1A": round(m("1A", "SR.5007")["feed_tph"], 1),
+                "SR.5008_1A": round(m("1A", "SR.5008")["feed_tph"], 1),
                 "SR.5105_2A": round(m("2A", "SR.5105")["feed_tph"], 1),
                 "SR.5111_2A": round(m("2A", "SR.5111")["feed_tph"], 1),
                 "SR.5111_2C": round(m("2C", "SR.5111")["feed_tph"], 1),

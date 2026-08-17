@@ -1,5 +1,10 @@
 # PURCHASE TECHNICAL DATASHEET — SR.5007
 
+**⚠ TAG EQUIVALENCE (2026-08-17):** this machine is now tagged
+**SR.5008** in the model and all new documents, per the NACO PFD
+11-01-PFD REV15 (client retag decision). Pre-existing documents keep
+the spec-era tag SR.5007; the two tags designate the SAME machine.
+
 **Double-deck 35/20 mm vibrating screen — zone 1.1**
 Issued 2026-08-15 (client order of the same day: purchase datasheets for the 13 major process machines) — produced by NOEZYS.
 

@@ -5,7 +5,7 @@ the parameter dict) so that the model reproduces measured quantities. Both
 sides are described by paths, no code change needed:
 
 - an OBSERVATION targets a value in the ``run_scenario`` result dict:
-  {"result_path": ["machines", "CR.5009", "P_installed_kW"],
+  {"result_path": ["machines", "CR.5006", "P_installed_kW"],
    "measured": 141.0, "weight": 1.0}
 - a FREE PARAMETER points into the parameter dict, with its allowed range:
   {"path": ["calibration", "Wi", "default"], "min": 8, "max": 20}

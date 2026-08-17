@@ -3,7 +3,7 @@
 Single implementation used by scenario, planning, optimize and fit
 (expert review 2026-08-08: previously duplicated, with bare KeyError on
 mistakes). Paths are LISTS of keys (not dotted strings) because keys like
-"SR.5007" or "1.1" contain dots.
+"SR.5008" or "1.1" contain dots.
 
 Errors are actionable: a missing key raises ValueError naming the full
 path, the valid sibling keys, and the closest match when one exists.

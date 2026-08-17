@@ -10,8 +10,8 @@ from wankoe_model.optimize import _kpis, _score
 def test_wet_screening_derates_capacity():
     dry = run_scenario(load_parameters())
     rain = run_scenario(load_parameters(overrides={"default_scenario": {"weather": "rain"}}))
-    a_dry = dry["machines"]["SR.5007"]["areas_m2"]["top_deck"]["required_area_m2"]
-    a_rain = rain["machines"]["SR.5007"]["areas_m2"]["top_deck"]["required_area_m2"]
+    a_dry = dry["machines"]["SR.5008"]["areas_m2"]["top_deck"]["required_area_m2"]
+    a_rain = rain["machines"]["SR.5008"]["areas_m2"]["top_deck"]["required_area_m2"]
     # spec: capacity drops when wet -> required area grows by 1/wet_capacity_factor
     assert a_rain > a_dry * 1.2
 
@@ -80,7 +80,7 @@ def test_design_check_has_three_verdicts_and_not_checkable():
     report = run_design_check(load_parameters())
     v = report["verdicts"]
     assert set(v) == {"machines_hold", "quality_holds", "targets_reachable"}
-    # Re-baselined 2026-08-16 (CR.5009 panel Q2+Q3: sizer class + quarry
+    # Re-baselined 2026-08-16 (CR.5006 panel Q2+Q3: sizer class + quarry
     # <= 250 mm lump guarantee closed the 2026-08-11 nip exceedance) —
     # machines_hold now True at the measured curve
     assert v["machines_hold"] is True

@@ -22,7 +22,7 @@ def test_grid_sweep_counts_and_ranks():
         "seasonal": False,
         "variables": [
             {"path": ["default_scenario", "flow_rates_tph", "zone_1_1_feed"], "values": [200, 250]},
-            {"path": ["machines", "SR.5007", "parameters", "a1", "default"], "values": [33, 35, 37]},
+            {"path": ["machines", "SR.5008", "parameters", "a1", "default"], "values": [33, 35, 37]},
         ],
         "objective": {"firm_shortfall_weight": 100.0, "surplus_weight": 1.0},
     }
@@ -60,7 +60,7 @@ def test_random_sweep_reproducible():
         "random_samples": 5,
         "random_seed": 42,
         "variables": [
-            {"path": ["machines", "SR.5007", "parameters", "a1", "default"], "min": 30, "max": 40, "step": 1},
+            {"path": ["machines", "SR.5008", "parameters", "a1", "default"], "min": 30, "max": 40, "step": 1},
         ],
     }
     a = run_sweep(params_with_hours(), config)
@@ -74,7 +74,7 @@ def test_grid_overflow_rejected():
         "method": "grid",
         "max_scenarios": 3,
         "variables": [
-            {"path": ["machines", "SR.5007", "parameters", "a1", "default"], "values": [33, 34, 35, 36]},
+            {"path": ["machines", "SR.5008", "parameters", "a1", "default"], "values": [33, 34, 35, 36]},
         ],
     }
     with pytest.raises(ValueError):

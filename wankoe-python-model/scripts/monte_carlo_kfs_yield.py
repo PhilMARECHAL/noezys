@@ -6,14 +6,14 @@ tests) and publishes the KFS Yield distribution that replaces the naked
 point figure.
 
 Ranges (each traceable to a register row / open question):
-- CR.5009 product slope n     : [1.05 ; 1.65]  (RC1 — no vendor curve)
+- CR.5006 product slope n     : [1.05 ; 1.65]  (RC1 — no vendor curve)
 - A_j                          : [50 ; 69]      (Q12 — calcite literature)
 - b_j                          : [0.6 ; 1.3]    (Q12 — hypothesis 0.8;
   the full literature tail b -> 3.0 is reported as a separate labeled
   scenario, NOT mixed into the band: the t10->n mapping is calibrated
   around the hypothesis family and extreme extrapolation is exactly what
   the drop-weight test must settle)
-- SR.5007 imperfection I       : [0.10 ; 0.20]  (Q3 — unratified 0.15)
+- SR.5008 imperfection I       : [0.10 ; 0.20]  (Q3 — unratified 0.15)
 - Feed curve size-rescale k    : [0.93 ; 1.07]  (single belt-cut, RC4 —
   repeatability envelope pending the repeat campaign)
 
@@ -61,8 +61,8 @@ DEMAND_020 = 212079.0  # 2A FeedLime-demand reclaim + 2C campaigns (register 202
 def one(nv, aj, bj, iv, k):
     ov = {
         "machines": {
-            "CR.5009": {"parameters": {"n": {"default": nv}}},
-            "SR.5007": {"parameters": {"I": {"default": iv}}},
+            "CR.5006": {"parameters": {"n": {"default": nv}}},
+            "SR.5008": {"parameters": {"I": {"default": iv}}},
         },
         "calibration": {"A_j": {"default": aj}, "b_j": {"default": bj}},
         "feed_product": {"cumulative_passing_curve": curve(k)},

@@ -59,11 +59,11 @@ def test_coarser_feed_raises_kfs_yield():
 
 
 def test_wider_roll_gap_raises_kfs_yield():
-    """CR.5009 g wider -> coarser roll product -> less material broken
+    """CR.5006 g wider -> coarser roll product -> less material broken
     below 20 mm (the 2026-08-13 optimization chose g at its max)."""
     assert _yield_pct(
-        {"machines": {"CR.5009": {"parameters": {"g": {"default": 20}}}}}
-    ) < _yield_pct({"machines": {"CR.5009": {"parameters": {"g": {"default": 60}}}}})
+        {"machines": {"CR.5006": {"parameters": {"g": {"default": 20}}}}}
+    ) < _yield_pct({"machines": {"CR.5006": {"parameters": {"g": {"default": 60}}}}})
 
 
 def test_wider_css_raises_kfs_yield():
@@ -86,7 +86,7 @@ def test_sharper_screen_raises_kfs_in_cut():
     """Screen imperfection degrades the cut monotonically, and a
     near-perfect screen approaches a clean 20/35 window."""
     ic = [
-        _kfs_in_cut({"machines": {"SR.5007": {"parameters": {"I": {"default": i}}}}})
+        _kfs_in_cut({"machines": {"SR.5008": {"parameters": {"I": {"default": i}}}}})
         for i in (0.02, 0.10, 0.25, 0.40)
     ]
     assert ic[0] > ic[1] > ic[2] > ic[3]

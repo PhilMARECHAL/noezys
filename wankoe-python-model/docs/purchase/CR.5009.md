@@ -1,5 +1,12 @@
 # PURCHASE TECHNICAL DATASHEET — CR.5009
 
+**⚠ TAG EQUIVALENCE (2026-08-17):** this machine is now tagged
+**CR.5006** in the model and all new documents, per the NACO PFD
+11-01-PFD REV15 (client retag decision closing the 2026-08-12 open
+item). Documents issued before that date — this datasheet, RFQ 01 as
+dispatched, the offers register — keep the spec-era tag CR.5009; the
+two tags designate the SAME machine.
+
 **Toothed double-roll primary crusher — zone 1.1**
 Issued 2026-08-15 (client order of the same day: purchase datasheets for the 13 major process machines) — produced by NOEZYS.
 

@@ -114,7 +114,7 @@ def analyse(g0=0.05, k=3.0, verbose=True):
     psd_kfs = ap20["over"]["psd"]
     f_kfs, e_kfs, t_kfs = stream_state(q_kfs, psd_kfs, g0, k)
     f020, e020, t020 = stream_state(q020, psd020, g0, k)
-    out["phi"]["0/20 (post CR.5009/5011 loop)"] = phi_lib(psd020, k)
+    out["phi"]["0/20 (post CR.5006/5011 loop)"] = phi_lib(psd020, k)
     out["phi"]["KFS 20/35"] = phi_lib(psd_kfs, k)
 
     # ---- zone 1.2 mode 2A (photo G): SR.5105 6mm, SR.5111/5115 1.7mm
@@ -226,7 +226,7 @@ def analyse(g0=0.05, k=3.0, verbose=True):
         FX[name] = {"free_tph": tph_free, "hours_y": hours,
                     "free_t_y": tph_free * hours, "note": note}
 
-    flux("0/20 stream (SR.5007 -> stockpile, 1A)", f020, H["1A"],
+    flux("0/20 stream (SR.5008 -> stockpile, 1A)", f020, H["1A"],
          "free grains in the 0.1-0.4 band of the 0/20; embedded rest at bulk")
     flux("SR.5111 feed (2A loop feed 0/6)", f_u06, H["2A"],
          "free grains crossing the 1.7 mm mat -> AgLime with the undersize")
@@ -287,7 +287,7 @@ for g0 in (0.03, 0.05, 0.08):
         scb = r["fluxes"]["SC.B deck-2 1.5 mm feed (mode F)"]["free_t_y"]
         s11 = (r["fluxes"]["SR.5111 feed (2A loop feed 0/6)"]["free_t_y"]
                + r["fluxes"]["SR.5111 feed (2C whole reclaim)"]["free_t_y"])
-        loop = r["fluxes"]["0/20 stream (SR.5007 -> stockpile, 1A)"]["free_t_y"]
+        loop = r["fluxes"]["0/20 stream (SR.5008 -> stockpile, 1A)"]["free_t_y"]
         ag = r["products"]["AgLime"]["quartz_pct"]
         fi = r["products"]["FeedLime fines"]["quartz_pct"]
         print(f"  g0={100*g0:3.0f}% k={kf:.0f}: AgLime {ag:5.2f}% fines {fi:5.2f}% | "

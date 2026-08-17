@@ -7,7 +7,7 @@
       "sizes": "mm",
       "powers": "kW",
       "proportions": "% by mass unless noted vol.",
-      "densities": "kg/m3 (rho_p, rho_a \u2014 Lapple SI; historical label said t/m3, corrected by the units audit 2026-08-14)",
+      "densities": "kg/m3 (rho_p, rho_a — Lapple SI; historical label said t/m3, corrected by the units audit 2026-08-14)",
       "specific_energy": "kWh/t",
       "temperatures": "degC",
       "time": "h",
@@ -72,7 +72,7 @@
         }
       }
     },
-    "SR.5007": {
+    "SR.5008": {
       "zone": "1.1",
       "type": "Double-deck screen 35/20 mm",
       "installed_area_m2": null,
@@ -106,13 +106,15 @@
           "default": 0.15,
           "status": "[H] Client arbitration 2026-08-10 (question 1/12): I = 0.15 adopted from literature (industrial dry vibrating screens I~0.10-0.15; Karra 1979 fixed exponent ~ classic imperfection 0.13). Supersedes the 0.4 inherited from the spec remap; to be re-fitted when a KFS product sieve test exists."
         }
-      }
+      },
+      "former_tag": "SR.5007",
+      "former_tag_note": "Renamed to the NACO PFD 11-01-PFD REV15 tag on 2026-08-17 (client decision, zone-1.1 retag closing the 2026-08-12 open item); all documents issued before that date use the spec-era tag SR.5007."
     },
-    "CR.5009": {
+    "CR.5006": {
       "zone": "1.1",
-      "type": "Primary crusher - SIZER CLASS selected (client 2026-08-16, CR.5009 10-expert panel Q3: twin-shaft toothed sizer supersedes the as-built toothed-roll designation; the M1 product model is unchanged, its parameters re-fit at the vendor gradation test)",
+      "type": "Primary crusher - SIZER CLASS selected (client 2026-08-16, CR.5006 10-expert panel Q3: twin-shaft toothed sizer supersedes the as-built toothed-roll designation; the M1 product model is unchanged, its parameters re-fit at the vendor gradation test)",
       "max_feed_size_mm": 250,
-      "_max_feed_note": "CLIENT DECISIONS 2026-08-16 (CR.5009 panel Q2+Q3): the quarry GUARANTEES max lump <= 250 mm (ripping + face scalping - to be added to the quarry works specification) and the selected sizer class positively engages that lump - supersedes the 150 mm roll-nip limit (basis of the standing alert since 2026-08-11). The alert now fires only if a feed curve implies F80 > 250 mm; NOTE the encoded quarry-target curve tail gives F80 251 mm, marginally above the guarantee - the curve top end [H] must be re-shaped to the 250 mm cap at its next revision (registered).",
+      "_max_feed_note": "CLIENT DECISIONS 2026-08-16 (CR.5006 panel Q2+Q3): the quarry GUARANTEES max lump <= 250 mm (ripping + face scalping - to be added to the quarry works specification) and the selected sizer class positively engages that lump - supersedes the 150 mm roll-nip limit (basis of the standing alert since 2026-08-11). The alert now fires only if a feed curve implies F80 > 250 mm; NOTE the encoded quarry-target curve tail gives F80 251 mm, marginally above the guarantee - the curve top end [H] must be re-shaped to the 250 mm cap at its next revision (registered).",
       "parameters": {
         "g": {
           "name": "Gap",
@@ -134,8 +136,10 @@
         }
       },
       "installed_power_kW": 220,
-      "_power_note": "CLIENT DECISION 2026-08-16 (CR.5009 panel Q6): vendor standard twin-drive package accepted (2 x ~110 kW with soft starters) - restart-under-load torque by design. Absorbed duty unchanged (96.6 kW worst mode 1A; 66.5 kW mode 1B).",
-      "_settings_note": "g = 60 mm adopted 2026-08-13 (0/20-balance optimization campaign: coarser roll product preserves the 20-35 KFS band; was 40)"
+      "_power_note": "CLIENT DECISION 2026-08-16 (CR.5006 panel Q6): vendor standard twin-drive package accepted (2 x ~110 kW with soft starters) - restart-under-load torque by design. Absorbed duty unchanged (96.6 kW worst mode 1A; 66.5 kW mode 1B).",
+      "_settings_note": "g = 60 mm adopted 2026-08-13 (0/20-balance optimization campaign: coarser roll product preserves the 20-35 KFS band; was 40)",
+      "former_tag": "CR.5009",
+      "former_tag_note": "Renamed to the NACO PFD 11-01-PFD REV15 tag on 2026-08-17 (client decision, zone-1.1 retag closing the 2026-08-12 open item); all documents issued before that date use the spec-era tag CR.5009."
     },
     "CR.5011": {
       "zone": "1.1",
@@ -151,7 +155,7 @@
           "max": 60,
           "default": 30,
           "step": 1,
-          "status": "Client arbitration 2026-08-14: v = 30 m/s adopted (was 35, reference configuration 2026-08-13). The impactor's minimum speed \u2014 last remaining zone-1 settings headroom against the 0/20 landfill: -9 800 t/y (58.4 -> 48.6 kt), KFS envelope verified compliant (in-cut 85.4 %)."
+          "status": "Client arbitration 2026-08-14: v = 30 m/s adopted (was 35, reference configuration 2026-08-13). The impactor's minimum speed — last remaining zone-1 settings headroom against the 0/20 landfill: -9 800 t/y (58.4 -> 48.6 kt), KFS envelope verified compliant (in-cut 85.4 %)."
         },
         "x80": {
           "name": "CSS (x80)",
@@ -163,10 +167,10 @@
         }
       },
       "installed_power_kW": 132,
-      "_capacity_note": "Q8 CLOSED 2026-08-11 (expert book ch.4, machine documents Ochse 2026-07-17): HAZEMAG AP-S 1010 \u2014 100 t/h nominal, 75-90 t/h real on limestone (max_capacity_tph = 90, conservative bound 75), rotor 1000x1000, max feed 400 mm, motor 132 kW; capacity bound by the rotor, not the motor. Supersedes the spec's '~125 t/h (mode A)'. Operational constraint: in mode 1B the LINE feed must drop to ~130 t/h to keep the impactor in range (the engine does not enforce line feed; check mode-1B scenarios against this)",
-      "_settings_note": "CSS 30 mm / v 35 m/s adopted 2026-08-13 (same campaign: recycle re-crushed coarse reports to KFS; low speed limits fines). Mode 1B at 250 t/h is NOT possible at these settings (impactor would exceed capacity) \u2014 irrelevant since the 0/20 balance no longer needs stock campaigns",
+      "_capacity_note": "Q8 CLOSED 2026-08-11 (expert book ch.4, machine documents Ochse 2026-07-17): HAZEMAG AP-S 1010 — 100 t/h nominal, 75-90 t/h real on limestone (max_capacity_tph = 90, conservative bound 75), rotor 1000x1000, max feed 400 mm, motor 132 kW; capacity bound by the rotor, not the motor. Supersedes the spec's '~125 t/h (mode A)'. Operational constraint: in mode 1B the LINE feed must drop to ~130 t/h to keep the impactor in range (the engine does not enforce line feed; check mode-1B scenarios against this)",
+      "_settings_note": "CSS 30 mm / v 35 m/s adopted 2026-08-13 (same campaign: recycle re-crushed coarse reports to KFS; low speed limits fines). Mode 1B at 250 t/h is NOT possible at these settings (impactor would exceed capacity) — irrelevant since the 0/20 balance no longer needs stock campaigns",
       "capacity_basis": "wet",
-      "_capacity_basis_note": "Adversarial audit 2026-08-14: the 90 t/h real capacity is a VENDOR rating (Q8, AP-S 1010 docs) \u2014 vendor tonnages are as-fed (wet). The loop check converts the dry stream to wet before comparing (previously a ~7.5 % blind spot at 7 % moisture).",
+      "_capacity_basis_note": "Adversarial audit 2026-08-14: the 90 t/h real capacity is a VENDOR rating (Q8, AP-S 1010 docs) — vendor tonnages are as-fed (wet). The loop check converts the dry stream to wet before comparing (previously a ~7.5 % blind spot at 7 % moisture).",
       "mode_1B_x80_mm": 18,
       "_mode_1B_note": "Mode-1B setting (2026-08-14): at the reference CSS 30 the 1B loop cannot pass material below 20 mm and diverges; 18 mm restores convergence. Operations switch the CSS with the mode (pattern: RC.2 mode_F_gap_mm)."
     },
@@ -177,12 +181,12 @@
     },
     "BF.5101": {
       "zone": "1.2",
-      "type": "Reclaim feeders (pair BF.5101 + BF.5102, 100 T/h each \u2014 PFD REV18)",
+      "type": "Reclaim feeders (pair BF.5101 + BF.5102, 100 T/h each — PFD REV18)",
       "parameters": {}
     },
     "SR.5105": {
       "zone": "1.2",
-      "type": "Reclaim screen 6 mm, single deck (PFD REV18; the spec's 15/5 double deck is SUPERSEDED \u2014 decision 2026-08-12)",
+      "type": "Reclaim screen 6 mm, single deck (PFD REV18; the spec's 15/5 double deck is SUPERSEDED — decision 2026-08-12)",
       "installed_area_m2": null,
       "parameters": {
         "a": {
@@ -204,7 +208,7 @@
       },
       "_purchase_min_note": "CLIENT DECISION 2026-08-15 (error-hunt M-1, option 1 of 3): re-quoted by the FULL VSMA factor method (scripts/vsma_factor_sizing.py) - worst factor duty 1.65 m2 (2C, measured/1A; the model said 1.42) -> x1.25 -> 2.1 m2 (was 1.8). The vendor bed-depth sizing at 100 t/h WET still GOVERNS over this cut-duty minimum (sheet caveat unchanged).",
       "loop_rating_tph": 60,
-      "_loop_rating_note": "BC.5110/BC.5116 conveyors rated 60 T/h (PFD REV18) \u2014 alert when the loop feed exceeds it",
+      "_loop_rating_note": "BC.5110/BC.5116 conveyors rated 60 T/h (PFD REV18) — alert when the loop feed exceeds it",
       "parameters": {
         "a": {
           "name": "Aperture",
@@ -225,7 +229,7 @@
     },
     "CR.5113": {
       "zone": "1.2",
-      "type": "Impact crusher, AgLime loop (PFD REV18 tag; was CR.5107 in the spec \u2014 renamed 2026-08-12)",
+      "type": "Impact crusher, AgLime loop (PFD REV18 tag; was CR.5107 in the spec — renamed 2026-08-12)",
       "parameters": {
         "v": {
           "name": "Rotor speed",
@@ -396,7 +400,7 @@
     },
     "RC.1": {
       "zone": "1.3",
-      "type": "Smooth double-roll crusher, stage 1 (C1 study variant \u2014 replaces ML.26; NOT adopted, as-built remains the default)",
+      "type": "Smooth double-roll crusher, stage 1 (C1 study variant — replaces ML.26; NOT adopted, as-built remains the default)",
       "max_capacity_tph": 32,
       "n_units": 1,
       "parameters": {
@@ -434,7 +438,7 @@
       "product_curve_table": null,
       "_product_curve_note": "Vendor abaque slot (golden rule 2): a smooth-roll gradation test on WANKOE 6/20 fixes n_comp and S_att before any purchase.",
       "_model_note": "Model M7 with per-machine overrides (comp_lam, S_att, m7_n_comp). C1 design basis: docs/design/zone13-redesign/design-basis.md + panel-candidates.md (panel round 1, client-validated 2026-08-14).",
-      "_capacity_note": "Client arbitration 2026-08-14: purchase spec 32 t/h (panel sizing was 29). Covers the full-dryer extension on BOTH feed curves \u2014 measured 28.9 t/h and quarry-target 29.7 t/h (the 29 t/h spec was exceeded on the quarry variant, D4 verification finding).",
+      "_capacity_note": "Client arbitration 2026-08-14: purchase spec 32 t/h (panel sizing was 29). Covers the full-dryer extension on BOTH feed curves — measured 28.9 t/h and quarry-target 29.7 t/h (the 29 t/h spec was exceeded on the quarry variant, D4 verification finding).",
       "capacity_basis": "dry",
       "_capacity_basis_note": "DRY-solids loop capacity by definition: these purchase specs were derived from the engine's dry loop loads (zone 1.3 runs at 0.5 % outlet moisture, so wet/dry differ by < 0.5 %). Audit 2026-08-14."
     },
@@ -479,7 +483,7 @@
       "product_curve_table": null,
       "_product_curve_note": "Vendor abaque slot (golden rule 2): roll capacity at 3.4 mm gap to be confirmed by vendor trial.",
       "_model_note": "max_capacity_tph is PER UNIT. No physical feed split is modelled: m7's product PSD is flow-independent and Bond power uses the total flow, so splitting across units in service is mathematically equivalent (audit 2026-08-14 clarification of the earlier 'splits the feed' wording).",
-      "_extension_note": "Client arbitration 2026-08-14 (fines-objective config, option 1): BOTH units installed. Mode G runs 1 unit at the throttled feed or 2 at full dryer; mode F needs both (load ~44 t/h at its feed). Purchase spec: rolls capable of closing to 1.5 mm (mode-F gap) \u2014 vendor gradation test to confirm.",
+      "_extension_note": "Client arbitration 2026-08-14 (fines-objective config, option 1): BOTH units installed. Mode G runs 1 unit at the throttled feed or 2 at full dryer; mode F needs both (load ~44 t/h at its feed). Purchase spec: rolls capable of closing to 1.5 mm (mode-F gap) — vendor gradation test to confirm.",
       "capacity_basis": "dry",
       "_capacity_basis_note": "DRY-solids loop capacity by definition: these purchase specs were derived from the engine's dry loop loads (zone 1.3 runs at 0.5 % outlet moisture, so wet/dry differ by < 0.5 %). Audit 2026-08-14.",
       "mode_F_gap_mm": 1.5,
@@ -487,7 +491,7 @@
     },
     "SC.A": {
       "zone": "1.3",
-      "type": "Double-deck RECYCLE screen 8 / 3.75 mm (C1 study variant, client arbitration 2026-08-14: 2+2 arrangement \u2014 recycle cuts on SC.A, product cuts on SC.B)",
+      "type": "Double-deck RECYCLE screen 8 / 3.75 mm (C1 study variant, client arbitration 2026-08-14: 2+2 arrangement — recycle cuts on SC.A, product cuts on SC.B)",
       "installed_area_m2": null,
       "parameters": {
         "a1": {
@@ -510,7 +514,7 @@
     },
     "SC.B": {
       "zone": "1.3",
-      "type": "Double-deck PRODUCT screen 2 / 1.5 mm (C1 study variant: deck 1 = grits bottom cut, D6-critical; deck 2 = fines top cut; both critical decks in favorable position \u2014 the 2+2 rationale)",
+      "type": "Double-deck PRODUCT screen 2 / 1.5 mm (C1 study variant: deck 1 = grits bottom cut, D6-critical; deck 2 = fines top cut; both critical decks in favorable position — the 2+2 rationale)",
       "installed_area_m2": null,
       "purchase_min_area_m2": {
         "deck_1": 7.4,
@@ -536,8 +540,8 @@
         }
       },
       "sliver_routing": "regrind",
-      "_routing_note": "Client arbitration 2026-08-14: the 1.5/2 sliver (SC.B deck-2 oversize) is REGROUND through RC.2 ('regrind'); 'extract' keeps it as a separate Sliver 1.5/2 product. Two-position diverter in the plant design \u2014 reversible in operation; to be confirmed by the vendor gradation test (D6 margin 1.4 pts under regrind).",
-      "_grits_diverter_note": "Client design addition 2026-08-14: a second two-position diverter on the SC.B deck-1 oversize (the 2/3.75 grits stream) routes it either to the grits product chain (mode G) or into the RC.2 regrind circuit alongside the sliver (mode F \u2014 fines campaign when grits demand is filled). The position is driven by default_scenario.zone_1_3_mode."
+      "_routing_note": "Client arbitration 2026-08-14: the 1.5/2 sliver (SC.B deck-2 oversize) is REGROUND through RC.2 ('regrind'); 'extract' keeps it as a separate Sliver 1.5/2 product. Two-position diverter in the plant design — reversible in operation; to be confirmed by the vendor gradation test (D6 margin 1.4 pts under regrind).",
+      "_grits_diverter_note": "Client design addition 2026-08-14: a second two-position diverter on the SC.B deck-1 oversize (the 2/3.75 grits stream) routes it either to the grits product chain (mode G) or into the RC.2 regrind circuit alongside the sliver (mode F — fines campaign when grits demand is filled). The position is driven by default_scenario.zone_1_3_mode."
     }
   },
   "calibration": {
@@ -545,7 +549,7 @@
       "name": "Bond work index",
       "unit": "kWh/t",
       "default": 12.54,
-      "status": "Q2 CLOSED 2026-08-11 [ref.]: 12.54 kWh/t confirmed by expert book ch.13 \u2014 Fontaine value (Belgian limestone), consistent with measured limestone range 12.6-13.9 kWh/t (Todorovic 2017). The kWh/short-ton hypothesis (13.8) is REJECTED; the spec ch.9 ~116 kW remains a spec-side artefact. Site Bond test still listed as a calibration trigger (book ch.13)",
+      "status": "Q2 CLOSED 2026-08-11 [ref.]: 12.54 kWh/t confirmed by expert book ch.13 — Fontaine value (Belgian limestone), consistent with measured limestone range 12.6-13.9 kWh/t (Todorovic 2017). The kWh/short-ton hypothesis (13.8) is REJECTED; the spec ch.9 ~116 kW remains a spec-side artefact. Site Bond test still listed as a calibration trigger (book ch.13)",
       "used_by": "M2"
     },
     "eta_m": {
@@ -587,7 +591,7 @@
       "name": "Screen area global correction",
       "unit": "-",
       "default": 0.347,
-      "status": "[H] fitted on SR.5007",
+      "status": "[H] fitted on SR.5008",
       "used_by": "M4"
     },
     "f_p": {
@@ -661,7 +665,7 @@
       "used_by": "M8"
     },
     "Phi_100": {
-      "name": "Natural content of the 0-1.5 fines BELOW THE SP.36 CUT (the cut is a setting \u2014 currently 65 um, Q6; measure Phi at THAT cut, not at 100 um; key name is historical)",
+      "name": "Natural content of the 0-1.5 fines BELOW THE SP.36 CUT (the cut is a setting — currently 65 um, Q6; measure Phi at THAT cut, not at 100 um; key name is historical)",
       "unit": "%",
       "default": null,
       "status": "TO BE MEASURED (sieve/laser)",
@@ -804,7 +808,7 @@
       "name": "Screen basic-capacity derating factor under rain (outdoor screens)",
       "unit": "-",
       "default": 0.75,
-      "status": "[H] spec M3/SR.5115 narrative ('capacity drops when wet') quantified as a hypothesis, to confirm. SCOPE requalified 2026-08-15 (client, rain-week study): applies to the cuts that REMAIN FEASIBLE wet - 20/35 mm (SR.5007) and 6 mm (SR.5105) - as an area derating; the 1.7 mm cut is not derated but IMPOSSIBLE under rain (mode 2B is physics); the zone-1.3 SC.A/SC.B cuts sit BEHIND the dryer at 0.5 % moisture and are never derated",
+      "status": "[H] spec M3/SR.5115 narrative ('capacity drops when wet') quantified as a hypothesis, to confirm. SCOPE requalified 2026-08-15 (client, rain-week study): applies to the cuts that REMAIN FEASIBLE wet - 20/35 mm (SR.5008) and 6 mm (SR.5105) - as an area derating; the 1.7 mm cut is not derated but IMPOSSIBLE under rain (mode 2B is physics); the zone-1.3 SC.A/SC.B cuts sit BEHIND the dryer at 0.5 % moisture and are never derated",
       "used_by": "M4"
     }
   },
@@ -825,7 +829,7 @@
       "daily": 0.00273973
     },
     "computation_grid_refinement": 2,
-    "_grid_refinement_note": "Client arbitration 2026-08-14 (numerical-robustness study, action 5): the computation grid inserts 1 geometric midpoint per spec-sieve interval (57 meshes) \u2014 converged to < 0.05 pt of KFS Yield vs x4; the spec sieve series stays the PRESENTATION format. Set to 1 to reproduce spec-era (ch.9) numerics."
+    "_grid_refinement_note": "Client arbitration 2026-08-14 (numerical-robustness study, action 5): the computation grid inserts 1 geometric midpoint per spec-sieve interval (57 meshes) — converged to < 0.05 pt of KFS Yield vs x4; the spec sieve series stays the PRESENTATION format. Set to 1 to reproduce spec-era (ch.9) numerics."
   },
   "feed_product": {
     "comment": "Pivot feed: belt-cut PSD MEASURED at the primary crusher outlet on 2026-08-08 (raw data: data/feed_measurements/2026-08-08-belt-cut.json). Measured range 19-200 mm; fine tail < 19 mm and top size completed by hypotheses H-FEED-1/H-FEED-2 (see data/measured_feed_curve.json, rebuild with scripts/build_feed_curve_from_measurement.py). Model checks: d50 32.3 mm (measured 32), d80 180.6 mm (measured 180).",
@@ -882,7 +886,10 @@
       },
       "UCS_MPa": {
         "default": 20,
-        "envelope_MPa": [15, 30],
+        "envelope_MPa": [
+          15,
+          30
+        ],
         "status": "Client arbitration 2026-08-15 (soft-rock study, choice 1): rock class = very soft limestone, rippable, no blasting - UCS reference 20 MPa, envelope 15-30 MPa (supersedes the reserved geology DP9442 slot). CASE DISCRIMINATOR ONLY, never a formula input (rule 2026-08-11): hardness enters the engine via Wi (M2) and A_j.b_j (M5), whose DEFAULTS ARE UNCHANGED pending the drop-weight/gradation tests - the soft-rock coefficient set lives in docs/design/soft-rock/soft-rock-scenario.json as an overrides scenario"
       },
       "friability": {
@@ -943,7 +950,7 @@
     }
   },
   "stockpile_capacities_t": {
-    "_note": "Yard capacities from the NACO/Carmeuse PFDs (2026-08-12) \u2014 data only, engine does not enforce them yet; flagged for the seasonal-swing check (zone-1.2 planning found ~16.4 kt FeedLime swing vs 6 kt capacity)",
+    "_note": "Yard capacities from the NACO/Carmeuse PFDs (2026-08-12) — data only, engine does not enforce them yet; flagged for the seasonal-swing check (zone-1.2 planning found ~16.4 kt FeedLime swing vs 6 kt capacity)",
     "KFS Fines 0/20 (SP.5014)": 10000,
     "KFS 20/35 (SP.5015)": 5000,
     "Feed 0-6/20 (SP.5109)": 6000,
@@ -959,7 +966,7 @@
       "product": "FeedLime grits",
       "target_t_per_year": 40000,
       "nature": "FIRM",
-      "_note": "Client 2026-08-13 (evening): back to the FIRM 40 000 t/y \u2014 the 44 400 optimization variant remains available as a scenario, not the default"
+      "_note": "Client 2026-08-13 (evening): back to the FIRM 40 000 t/y — the 44 400 optimization variant remains available as a scenario, not the default"
     },
     "AgLime 0/1.7": {
       "product": "AgLime",
@@ -1001,7 +1008,7 @@
       "1.1": {
         "available_hours": 2400,
         "availability_pct": 80,
-        "_note": "1 shift, 6d/7 \u2014 Saturday extension decided by the client 2026-08-13 (Q7 securing lever; was 2000 h at 5d/7)"
+        "_note": "1 shift, 6d/7 — Saturday extension decided by the client 2026-08-13 (Q7 securing lever; was 2000 h at 5d/7)"
       },
       "1.2": {
         "available_hours": 7500,
@@ -1017,8 +1024,8 @@
     "zone_1_1_mode": "1A",
     "zone_1_2_mode": "2A",
     "zone_1_3_variant": "c1",
-    "_variant_note": "C1 reference configuration (client 2026-08-14, fines-objective update): RC.1 + TWO RC.2 units, SC.A 8/3.75 + SC.B 2/1.5, sliver regrind, grits diverter (modes G/F). Mode G runs the dryer at its full 32.1 t/h wet limit (RC.2 33.2/44); mode F (fines campaign, RC.2 gap 1.5) at 25.05 t/h wet \u2014 both RC.2 units exactly at capacity. 'as-built' remains selectable. [H] coefficients pending the vendor gradation test.",
-    "_flow_rates_note": "CLIENT RULE (ratified 2026-08-14): every flow_rates_tph entry is the TOTAL flow \u2014 WET basis, dry solids PLUS water \u2014 as belt-weighed. zone_1_1_feed 250 and zone_1_2_reclaim 100 are wet by this rule; zone_1_3_feedlime is wet too (the dryer sheet converts). The engine converts to dry solids at each zone boundary (q_dry = q_wet x (1 - moisture/100)); internal stream 'q' values are dry solids for conservation, and PRESENTED rates are quoted in total (wet) flow unless explicitly labeled dry.",
+    "_variant_note": "C1 reference configuration (client 2026-08-14, fines-objective update): RC.1 + TWO RC.2 units, SC.A 8/3.75 + SC.B 2/1.5, sliver regrind, grits diverter (modes G/F). Mode G runs the dryer at its full 32.1 t/h wet limit (RC.2 33.2/44); mode F (fines campaign, RC.2 gap 1.5) at 25.05 t/h wet — both RC.2 units exactly at capacity. 'as-built' remains selectable. [H] coefficients pending the vendor gradation test.",
+    "_flow_rates_note": "CLIENT RULE (ratified 2026-08-14): every flow_rates_tph entry is the TOTAL flow — WET basis, dry solids PLUS water — as belt-weighed. zone_1_1_feed 250 and zone_1_2_reclaim 100 are wet by this rule; zone_1_3_feedlime is wet too (the dryer sheet converts). The engine converts to dry solids at each zone boundary (q_dry = q_wet x (1 - moisture/100)); internal stream 'q' values are dry solids for conservation, and PRESENTED rates are quoted in total (wet) flow unless explicitly labeled dry.",
     "zone_1_3_mode": "G",
     "_zone_1_3_mode_note": "Two zone-1.3 operating modes (client 2026-08-14): 'G' = grits production (2/3.75 to product); 'F' = fines campaign (2/3.75 diverted to RC.2 regrind, RC.2 at mode_F_gap_mm). The annual plan splits the hours between modes so BOTH the firm grits target and the fines market land exactly."
   },
@@ -1027,12 +1034,18 @@
     "enabled": true,
     "dryer_exhaust_dust_fraction": {
       "default": 0.04,
-      "envelope": [0.02, 0.08],
+      "envelope": [
+        0.02,
+        0.08
+      ],
       "_note": "[H] share of the DRY dryer throughput entrained to the DY.03 exhaust bag filter (rotary dryers typically entrain 2-10 %)"
     },
     "lev_dust_fraction": {
       "default": 0.004,
-      "envelope": [0.002, 0.008],
+      "envelope": [
+        0.002,
+        0.008
+      ],
       "_note": "[H] share of the screened tonnage (SC.A + SC.B feeds) captured by the zone-1.3 LEV dedusting package (screens, crushers, transfers)"
     }
   },
@@ -1046,12 +1059,12 @@
     "zone_1_1_auto_mode_1B": true,
     "_auto_mode_1B_note": "Client rule 2026-08-14: KFS is NEVER over-produced — when the 0/20 demand would drive zone 1.1 beyond the KFS-target hours, mode-1A hours land the KFS target EXACTLY and the 0/20 deficit is produced by dedicated mode-1B hours (no KFS: 20-35 recirculated into CR.5011 at zone_1_1_feed_mode_1B / mode_1B_x80_mm). Toggleable; off = legacy max() behavior with an overproduction alert.",
     "aglime_2c_campaigns": true,
-    "_aglime_2c_note": "Client rule (2026-08-13: 'producing lime is never a problem, separate campaign' \u2014 wired 2026-08-14 after the C1 adoption dried up the fines redirect): when the 2A co-production plus the fines redirect leave the AgLime market cap unserved, zone 1.2 runs DEDICATED mode-2C campaigns (everything reclaimed leaves as AgLime) to produce the complement. Toggleable; campaign hours count toward the zone-1.2 ceiling."
+    "_aglime_2c_note": "Client rule (2026-08-13: 'producing lime is never a problem, separate campaign' — wired 2026-08-14 after the C1 adoption dried up the fines redirect): when the 2A co-production plus the fines redirect leave the AgLime market cap unserved, zone 1.2 runs DEDICATED mode-2C campaigns (everything reclaimed leaves as AgLime) to produce the complement. Toggleable; campaign hours count toward the zone-1.2 ceiling."
   },
   "indicators": {
     "kfs_yield": {
       "definition": "KFS Yield = whole KFS product stream (BC.5013 to stock, wet) / zone-1.1 PIVOT feed (wet, measured downstream of CR.5003). Always reported WITH the real KFS 20/35 PSD (in-cut / below / above).",
-      "basis": "wet / wet (commercial basis \u2014 belt-weighed tonnages)",
+      "basis": "wet / wet (commercial basis — belt-weighed tonnages)",
       "target": "dynamic: required-for-zero-landfill = KFS / (KFS + downstream 0/20 demand); alert when realized < required",
       "status": "Client definition, 4 questions arbitrated 2026-08-14 (numerator = whole product stream; wet/wet; pivot denominator; dynamic target)"
     }
@@ -1059,10 +1072,10 @@
   "electrical_loads": {
     "_meta": {
       "created": "2026-08-15",
-      "purpose": "ELECTRICITY-ONLY OPEX model \u2014 client arbitration 2026-08-15, 4 choices: (1) PERIMETER = process machines + materials handling + dryer ELECTRICAL auxiliaries; the dryer BURNER BU.04 is FUEL-fired and excluded from electricity (its thermal MWh reported separately); (2) POWER BASIS = ABSORBED power: engine-modeled machines use the per-mode photo P_net_kW / eta_m; non-modeled drives use TYPICAL installed ratings [H] x absorption_factor; (3) HOURS from run_required_hours (hours follow the targets), split per zone and operating mode; a consumer runs only during the mode-hour buckets listed in its 'modes' key; (4) OUTPUT = kWh only (annual kWh by machine / zone / mode / total + kWh/t per sold product), no euros.",
+      "purpose": "ELECTRICITY-ONLY OPEX model — client arbitration 2026-08-15, 4 choices: (1) PERIMETER = process machines + materials handling + dryer ELECTRICAL auxiliaries; the dryer BURNER BU.04 is FUEL-fired and excluded from electricity (its thermal MWh reported separately); (2) POWER BASIS = ABSORBED power: engine-modeled machines use the per-mode photo P_net_kW / eta_m; non-modeled drives use TYPICAL installed ratings [H] x absorption_factor; (3) HOURS from run_required_hours (hours follow the targets), split per zone and operating mode; a consumer runs only during the mode-hour buckets listed in its 'modes' key; (4) OUTPUT = kWh only (annual kWh by machine / zone / mode / total + kWh/t per sold product), no euros.",
       "consumer_schema": {
         "zone": "planning zone whose hours drive the consumer (1.1 / 1.2 / 1.3)",
-        "modes": "operating-mode hour buckets the consumer runs in \u2014 zone 1.1: 1A, 1B; zone 1.2: 2A = dry-season loop hours, 2B = rain-season bypass hours, 2C = dedicated AgLime campaigns; zone 1.3: G, F. Client arbitration 2026-08-15: the zone-1.2 loop machines (SR.5111, CR.5113, SR.5115) and SR.5105 run in BOTH the 2A and 2C hours.",
+        "modes": "operating-mode hour buckets the consumer runs in — zone 1.1: 1A, 1B; zone 1.2: 2A = dry-season loop hours, 2B = rain-season bypass hours, 2C = dedicated AgLime campaigns; zone 1.3: G, F. Client arbitration 2026-08-15: the zone-1.2 loop machines (SR.5111, CR.5113, SR.5115) and SR.5105 run in BOTH the 2A and 2C hours.",
         "basis": "'engine' = absorbed power read from the per-mode scenario photo (P_net_kW / eta_m, models M2/M5); 'typical_rating' = installed_kW (typical nameplate, [H]) x absorption_factor",
         "installed_kW": "typical motor nameplate rating [H] (typical_rating basis only)"
       },
@@ -1075,23 +1088,23 @@
       "name": "Electricity price for the cascaded zone-exit cost model",
       "unit": "EUR/MWh",
       "default": 115,
-      "status": "hypothesis [H] \u2014 client arbitration 2026-08-15 (cascaded zone-exit cost model): Western-Europe industrial average 2025, ex-recoverable taxes; to be replaced by the client's actual electricity supply contract price"
+      "status": "hypothesis [H] — client arbitration 2026-08-15 (cascaded zone-exit cost model): Western-Europe industrial average 2025, ex-recoverable taxes; to be replaced by the client's actual electricity supply contract price"
     },
     "absorption_factor": {
       "name": "Average absorption factor on typical installed ratings",
       "unit": "-",
       "default": 0.72,
-      "status": "hypothesis [H] \u2014 client arbitration 2026-08-15: average absorbed/installed ratio for conveying, screening and fan duty (motors sized with service factor and never run at nameplate); to be refined with measured motor currents at commissioning"
+      "status": "hypothesis [H] — client arbitration 2026-08-15: average absorbed/installed ratio for conveying, screening and fan duty (motors sized with service factor and never run at nameplate); to be refined with measured motor currents at commissioning"
     },
     "consumers": {
-      "CR.5009": {
+      "CR.5006": {
         "zone": "1.1",
         "modes": [
           "1A",
           "1B"
         ],
         "basis": "engine",
-        "note": "Toothed double-roll crusher \u2014 absorbed power = per-mode photo P_net_kW / eta_m (Bond M2)"
+        "note": "Toothed double-roll crusher — absorbed power = per-mode photo P_net_kW / eta_m (Bond M2)"
       },
       "CR.5011": {
         "zone": "1.1",
@@ -1100,9 +1113,9 @@
           "1B"
         ],
         "basis": "engine",
-        "note": "Impact crusher (loop) \u2014 absorbed power = per-mode photo P_net_kW / eta_m at the loop equilibrium"
+        "note": "Impact crusher (loop) — absorbed power = per-mode photo P_net_kW / eta_m at the loop equilibrium"
       },
-      "SR.5007": {
+      "SR.5008": {
         "zone": "1.1",
         "modes": [
           "1A",
@@ -1111,7 +1124,7 @@
         "basis": "typical_rating",
         "installed_kW": 22,
         "unit": "kW",
-        "status": "hypothesis [H] \u2014 dual-exciter double-deck 35/20 vibrating screen at 250+ t/h feed (largest screen of the line, ~15 m2 deck class): 2 x 11 kW"
+        "status": "hypothesis [H] — dual-exciter double-deck 35/20 vibrating screen at 250+ t/h feed (largest screen of the line, ~15 m2 deck class): 2 x 11 kW"
       },
       "BC.5004": {
         "zone": "1.1",
@@ -1122,7 +1135,7 @@
         "basis": "typical_rating",
         "installed_kW": 7.5,
         "unit": "kW",
-        "status": "hypothesis [H] \u2014 PFD REV15 belt, 0/200 jaw product at 250 t/h: heavy-lump medium yard belt, 7.5 kW"
+        "status": "hypothesis [H] — PFD REV15 belt, 0/200 jaw product at 250 t/h: heavy-lump medium yard belt, 7.5 kW"
       },
       "BC.5007": {
         "zone": "1.1",
@@ -1133,7 +1146,7 @@
         "basis": "typical_rating",
         "installed_kW": 7.5,
         "unit": "kW",
-        "status": "hypothesis [H] \u2014 PFD REV15 loop-feed belt rated 350 t/h (fresh + recycle), highest tonnage belt of the line: 7.5 kW"
+        "status": "hypothesis [H] — PFD REV15 loop-feed belt rated 350 t/h (fresh + recycle), highest tonnage belt of the line: 7.5 kW"
       },
       "BC.5010": {
         "zone": "1.1",
@@ -1144,7 +1157,7 @@
         "basis": "typical_rating",
         "installed_kW": 5.5,
         "unit": "kW",
-        "status": "hypothesis [H] \u2014 PFD REV15 20/40 recycle belt rated 125 t/h, short return run: 5.5 kW"
+        "status": "hypothesis [H] — PFD REV15 20/40 recycle belt rated 125 t/h, short return run: 5.5 kW"
       },
       "BC.5012": {
         "zone": "1.1",
@@ -1155,7 +1168,7 @@
         "basis": "typical_rating",
         "installed_kW": 7.5,
         "unit": "kW",
-        "status": "hypothesis [H] \u2014 PFD REV15 0/20 product belt rated 170 t/h with stockpile lift: 7.5 kW"
+        "status": "hypothesis [H] — PFD REV15 0/20 product belt rated 170 t/h with stockpile lift: 7.5 kW"
       },
       "BC.5013": {
         "zone": "1.1",
@@ -1165,7 +1178,7 @@
         "basis": "typical_rating",
         "installed_kW": 5.5,
         "unit": "kW",
-        "status": "hypothesis [H] \u2014 PFD REV15 20/35 KFS belt rated 80 t/h with stockpile lift: 5.5 kW; runs in mode 1A only (mode 1B makes no KFS)"
+        "status": "hypothesis [H] — PFD REV15 20/35 KFS belt rated 80 t/h with stockpile lift: 5.5 kW; runs in mode 1A only (mode 1B makes no KFS)"
       },
       "BF.5101+5102": {
         "zone": "1.2",
@@ -1177,7 +1190,7 @@
         "basis": "typical_rating",
         "installed_kW": 8,
         "unit": "kW",
-        "status": "hypothesis [H] \u2014 two PFD REV18 extraction belt feeders under the 0/20 stockpile, 100 t/h combined: 2 x 4 kW"
+        "status": "hypothesis [H] — two PFD REV18 extraction belt feeders under the 0/20 stockpile, 100 t/h combined: 2 x 4 kW"
       },
       "BC.5103": {
         "zone": "1.2",
@@ -1189,7 +1202,7 @@
         "basis": "typical_rating",
         "installed_kW": 5.5,
         "unit": "kW",
-        "status": "hypothesis [H] \u2014 PFD REV18 reclaim collector belt at 100 t/h: 5.5 kW"
+        "status": "hypothesis [H] — PFD REV18 reclaim collector belt at 100 t/h: 5.5 kW"
       },
       "SR.5105": {
         "zone": "1.2",
@@ -1200,7 +1213,7 @@
         "basis": "typical_rating",
         "installed_kW": 15,
         "unit": "kW",
-        "status": "hypothesis [H] \u2014 dual-exciter single-deck 6 mm screen at 100 t/h reclaim (~10 m2 class): 2 x 7.5 kW; client 2026-08-15: counted in both 2A and 2C hours"
+        "status": "hypothesis [H] — dual-exciter single-deck 6 mm screen at 100 t/h reclaim (~10 m2 class): 2 x 7.5 kW; client 2026-08-15: counted in both 2A and 2C hours"
       },
       "SR.5111": {
         "zone": "1.2",
@@ -1211,7 +1224,7 @@
         "basis": "typical_rating",
         "installed_kW": 11,
         "unit": "kW",
-        "status": "hypothesis [H] \u2014 dual-exciter single-deck 1.7 mm open screen on the 60 t/h loop feed: 2 x 5.5 kW; runs in 2A and 2C hours (client 2026-08-15)"
+        "status": "hypothesis [H] — dual-exciter single-deck 1.7 mm open screen on the 60 t/h loop feed: 2 x 5.5 kW; runs in 2A and 2C hours (client 2026-08-15)"
       },
       "CR.5113": {
         "zone": "1.2",
@@ -1220,7 +1233,7 @@
           "2C"
         ],
         "basis": "engine",
-        "note": "AgLime loop impact crusher \u2014 absorbed power = per-mode photo P_net_kW / eta_m (loop equilibrium differs strongly between 2A and 2C); runs in 2A and 2C hours (client 2026-08-15)"
+        "note": "AgLime loop impact crusher — absorbed power = per-mode photo P_net_kW / eta_m (loop equilibrium differs strongly between 2A and 2C); runs in 2A and 2C hours (client 2026-08-15)"
       },
       "SR.5115": {
         "zone": "1.2",
@@ -1231,7 +1244,7 @@
         "basis": "typical_rating",
         "installed_kW": 11,
         "unit": "kW",
-        "status": "hypothesis [H] \u2014 dual-exciter single-deck 1.7 mm closed-loop screen: 2 x 5.5 kW; runs in 2A and 2C hours (client 2026-08-15)"
+        "status": "hypothesis [H] — dual-exciter single-deck 1.7 mm closed-loop screen: 2 x 5.5 kW; runs in 2A and 2C hours (client 2026-08-15)"
       },
       "BC.5107": {
         "zone": "1.2",
@@ -1242,7 +1255,7 @@
         "basis": "typical_rating",
         "installed_kW": 4,
         "unit": "kW",
-        "status": "hypothesis [H] \u2014 PFD REV18 FeedLime 6/20 belt at 42 t/h: 4 kW; runs when FeedLime is made (2A + rain bypass 2B)"
+        "status": "hypothesis [H] — PFD REV18 FeedLime 6/20 belt at 42 t/h: 4 kW; runs when FeedLime is made (2A + rain bypass 2B)"
       },
       "BC.5108": {
         "zone": "1.2",
@@ -1253,7 +1266,7 @@
         "basis": "typical_rating",
         "installed_kW": 4,
         "unit": "kW",
-        "status": "hypothesis [H] \u2014 PFD REV18 FeedLime belt to stockpile SP.5109 with lift: 4 kW; runs when FeedLime is made (2A + 2B)"
+        "status": "hypothesis [H] — PFD REV18 FeedLime belt to stockpile SP.5109 with lift: 4 kW; runs when FeedLime is made (2A + 2B)"
       },
       "BC.5110": {
         "zone": "1.2",
@@ -1264,7 +1277,7 @@
         "basis": "typical_rating",
         "installed_kW": 4,
         "unit": "kW",
-        "status": "hypothesis [H] \u2014 PFD REV18 loop-feed belt rated 60 t/h: 4 kW"
+        "status": "hypothesis [H] — PFD REV18 loop-feed belt rated 60 t/h: 4 kW"
       },
       "BC.5112": {
         "zone": "1.2",
@@ -1275,7 +1288,7 @@
         "basis": "typical_rating",
         "installed_kW": 5.5,
         "unit": "kW",
-        "status": "hypothesis [H] \u2014 PFD REV18 crusher-feed belt rated 100 t/h (feed + recycle): 5.5 kW"
+        "status": "hypothesis [H] — PFD REV18 crusher-feed belt rated 100 t/h (feed + recycle): 5.5 kW"
       },
       "BC.5114": {
         "zone": "1.2",
@@ -1286,7 +1299,7 @@
         "basis": "typical_rating",
         "installed_kW": 4,
         "unit": "kW",
-        "status": "hypothesis [H] \u2014 PFD REV18 crusher-product belt to SR.5115, short run: 4 kW"
+        "status": "hypothesis [H] — PFD REV18 crusher-product belt to SR.5115, short run: 4 kW"
       },
       "BC.5116": {
         "zone": "1.2",
@@ -1297,7 +1310,7 @@
         "basis": "typical_rating",
         "installed_kW": 4,
         "unit": "kW",
-        "status": "hypothesis [H] \u2014 PFD REV18 AgLime 0/1.7 belt rated 60 t/h: 4 kW"
+        "status": "hypothesis [H] — PFD REV18 AgLime 0/1.7 belt rated 60 t/h: 4 kW"
       },
       "BC.5117": {
         "zone": "1.2",
@@ -1308,7 +1321,7 @@
         "basis": "typical_rating",
         "installed_kW": 4,
         "unit": "kW",
-        "status": "hypothesis [H] \u2014 PFD REV18 AgLime belt to stockpile SP.5118 with lift: 4 kW"
+        "status": "hypothesis [H] — PFD REV18 AgLime belt to stockpile SP.5118 with lift: 4 kW"
       },
       "BC.02": {
         "zone": "1.3",
@@ -1319,7 +1332,7 @@
         "basis": "typical_rating",
         "installed_kW": 4,
         "unit": "kW",
-        "status": "hypothesis [H] \u2014 DBR PFD weighed dryer-feed belt at 30 t/h: 4 kW"
+        "status": "hypothesis [H] — DBR PFD weighed dryer-feed belt at 30 t/h: 4 kW"
       },
       "DY.03-drum-drive": {
         "zone": "1.3",
@@ -1330,7 +1343,7 @@
         "basis": "typical_rating",
         "installed_kW": 37,
         "unit": "kW",
-        "status": "hypothesis [H] \u2014 rotary-drum girth-gear drive for the ~47 m3 drum (engine photo drum_volume 46.6 m3): mid of the 30-45 kW band = 37 kW; ELECTRICAL auxiliary of the fuel-fired dryer"
+        "status": "hypothesis [H] — rotary-drum girth-gear drive for the ~47 m3 drum (engine photo drum_volume 46.6 m3): mid of the 30-45 kW band = 37 kW; ELECTRICAL auxiliary of the fuel-fired dryer"
       },
       "BU.04-combustion-air-fan": {
         "zone": "1.3",
@@ -1341,7 +1354,7 @@
         "basis": "typical_rating",
         "installed_kW": 18.5,
         "unit": "kW",
-        "status": "hypothesis [H] \u2014 forced-draft combustion-air fan for the ~3.7 MW burner: 18.5 kW; the BURNER FUEL itself is excluded from electricity (client choice 1, 2026-08-15)"
+        "status": "hypothesis [H] — forced-draft combustion-air fan for the ~3.7 MW burner: 18.5 kW; the BURNER FUEL itself is excluded from electricity (client choice 1, 2026-08-15)"
       },
       "FI.05-FN.06-filter-fan": {
         "zone": "1.3",
@@ -1352,7 +1365,7 @@
         "basis": "typical_rating",
         "installed_kW": 30,
         "unit": "kW",
-        "status": "hypothesis [H] \u2014 bag-filter induced-draft fan on the dryer exhaust (hot dusty gas, high pressure drop): 30 kW in the 22-37 kW band"
+        "status": "hypothesis [H] — bag-filter induced-draft fan on the dryer exhaust (hot dusty gas, high pressure drop): 30 kW in the 22-37 kW band"
       },
       "EM.09": {
         "zone": "1.3",
@@ -1363,7 +1376,7 @@
         "basis": "typical_rating",
         "installed_kW": 1,
         "unit": "kW",
-        "status": "hypothesis [H] \u2014 metal detector + belt magnet, ~1 kW instrumentation-class load"
+        "status": "hypothesis [H] — metal detector + belt magnet, ~1 kW instrumentation-class load"
       },
       "SC.A": {
         "zone": "1.3",
@@ -1374,7 +1387,7 @@
         "basis": "typical_rating",
         "installed_kW": 11,
         "unit": "kW",
-        "status": "hypothesis [H] \u2014 dual-exciter double-deck 8/3.75 recycle screen, ~4.5 m2 per deck (engine areas): 2 x 5.5 kW"
+        "status": "hypothesis [H] — dual-exciter double-deck 8/3.75 recycle screen, ~4.5 m2 per deck (engine areas): 2 x 5.5 kW"
       },
       "SC.B": {
         "zone": "1.3",
@@ -1385,7 +1398,7 @@
         "basis": "typical_rating",
         "installed_kW": 11,
         "unit": "kW",
-        "status": "hypothesis [H] \u2014 dual-exciter double-deck 2/1.5 product screen, ~4 m2 per deck: 2 x 5.5 kW"
+        "status": "hypothesis [H] — dual-exciter double-deck 2/1.5 product screen, ~4 m2 per deck: 2 x 5.5 kW"
       },
       "RC.1": {
         "zone": "1.3",
@@ -1394,7 +1407,7 @@
           "F"
         ],
         "basis": "engine",
-        "note": "Smooth-roll crusher stage 1 \u2014 absorbed power = per-mode photo P_net_kW / eta_m"
+        "note": "Smooth-roll crusher stage 1 — absorbed power = per-mode photo P_net_kW / eta_m"
       },
       "RC.2": {
         "zone": "1.3",
@@ -1403,7 +1416,7 @@
           "F"
         ],
         "basis": "engine",
-        "note": "Smooth-roll crusher stage 2 (2 units) \u2014 absorbed power = per-mode photo P_net_kW / eta_m (photo P_net is the total over the units in service)"
+        "note": "Smooth-roll crusher stage 2 (2 units) — absorbed power = per-mode photo P_net_kW / eta_m (photo P_net is the total over the units in service)"
       },
       "ML.26": {
         "zone": "1.3",
@@ -1413,7 +1426,7 @@
         ],
         "basis": "engine",
         "variant": "as-built",
-        "note": "Toothed-roll mill of the AS-BUILT variant only \u2014 client 2026-08-15: skipped at the c1 reference default; counted only when zone_1_3_variant = 'as-built'"
+        "note": "Toothed-roll mill of the AS-BUILT variant only — client 2026-08-15: skipped at the c1 reference default; counted only when zone_1_3_variant = 'as-built'"
       },
       "BC.22": {
         "zone": "1.3",
@@ -1423,7 +1436,7 @@
         "basis": "typical_rating",
         "installed_kW": 4,
         "unit": "kW",
-        "status": "hypothesis [H] \u2014 DBR PFD grits belt to silo BI.80 rated 15 t/h: 4 kW; mode G only (mode F diverts the grits to regrind, belt idle)"
+        "status": "hypothesis [H] — DBR PFD grits belt to silo BI.80 rated 15 t/h: 4 kW; mode G only (mode F diverts the grits to regrind, belt idle)"
       },
       "BE.40": {
         "zone": "1.3",
@@ -1434,7 +1447,7 @@
         "basis": "typical_rating",
         "installed_kW": 5.5,
         "unit": "kW",
-        "status": "hypothesis [H] \u2014 DBR PFD fines elevator to silos BI.60/70 rated 20 t/h (vertical lift duty): 5.5 kW"
+        "status": "hypothesis [H] — DBR PFD fines elevator to silos BI.60/70 rated 20 t/h (vertical lift duty): 5.5 kW"
       },
       "SP.36-fan": {
         "zone": "1.3",
@@ -1445,7 +1458,7 @@
         "basis": "typical_rating",
         "installed_kW": 5.5,
         "unit": "kW",
-        "status": "hypothesis [H] \u2014 air-classifier fan: photo Q_air 133-208 m3/h (small centrifugal fan); 5.5 kW covers circuit losses with margin (client sizing band 4-7.5 kW)"
+        "status": "hypothesis [H] — air-classifier fan: photo Q_air 133-208 m3/h (small centrifugal fan); 5.5 kW covers circuit losses with margin (client sizing band 4-7.5 kW)"
       },
       "CL.38": {
         "zone": "1.3",
@@ -1456,26 +1469,26 @@
         "basis": "typical_rating",
         "installed_kW": 0,
         "unit": "kW",
-        "status": "hypothesis [H] \u2014 static cyclone, no drive of its own (pressure drop carried by the SP.36 fan): negligible per client arbitration 2026-08-15"
+        "status": "hypothesis [H] — static cyclone, no drive of its own (pressure drop carried by the SP.36 fan): negligible per client arbitration 2026-08-15"
       }
     },
     "dryer_burner": {
       "excluded_from_electricity": true,
       "energy_carrier": "fuel",
-      "note": "Client choice 1 (2026-08-15): the DY.03/BU.04 burner is fuel-fired \u2014 its annual thermal MWh (engine M6 burner_power_kW x zone-1.3 mode hours) is reported SEPARATELY from the electricity total, never added to it.",
+      "note": "Client choice 1 (2026-08-15): the DY.03/BU.04 burner is fuel-fired — its annual thermal MWh (engine M6 burner_power_kW x zone-1.3 mode hours) is reported SEPARATELY from the electricity total, never added to it.",
       "fuel": "illuminating paraffin (kerosene)",
       "_fuel_note": "Client specification 2026-08-15: the DY.03 burner fuel is ILLUMINATING PARAFFIN (kerosene). The burner fuel MWh converts to tonnes and litres per year with the two properties below.",
       "lhv_kwh_per_kg": {
         "name": "Lower heating value of illuminating paraffin",
         "unit": "kWh/kg",
         "default": 11.97,
-        "status": "hypothesis [H] \u2014 typical kerosene LHV ~43.1 MJ/kg = 11.97 kWh/kg; supplier datasheet to confirm"
+        "status": "hypothesis [H] — typical kerosene LHV ~43.1 MJ/kg = 11.97 kWh/kg; supplier datasheet to confirm"
       },
       "density_kg_per_l": {
         "name": "Density of illuminating paraffin at ambient",
         "unit": "kg/L",
         "default": 0.8,
-        "status": "hypothesis [H] \u2014 typical kerosene density ~0.78-0.81 kg/L at 15 degC, 0.80 adopted; supplier datasheet to confirm"
+        "status": "hypothesis [H] — typical kerosene density ~0.78-0.81 kg/L at 15 degC, 0.80 adopted; supplier datasheet to confirm"
       }
     }
   }

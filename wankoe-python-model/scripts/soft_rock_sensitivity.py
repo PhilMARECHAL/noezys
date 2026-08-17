@@ -7,7 +7,7 @@ Runs the SAME engine as everywhere else (run_scenario per-mode photos +
 run_required_hours) for four coefficient cases:
 
   defaults  — current mid-hard reference set (Wi 12.54, A 60 x b 0.80,
-              CR.5009 n 1.35, RC n_comp 1.8 / S_att 0.06, ML.26 0.171)
+              CR.5006 n 1.35, RC n_comp 1.8 / S_att 0.06, ML.26 0.171)
   soft20    — docs/design/soft-rock/soft-rock-scenario.json (central,
               UCS 20 MPa: Wi 7.5, A 65 x b 1.5, n 1.15, n_comp 1.6,
               S_att 0.09 / ML.26 0.22) — every value [H]
@@ -93,9 +93,9 @@ def compute_case(label: str, overrides: dict | None) -> dict:
     pg, pf = photos["G"], photos["F"]
 
     # wet/dry conversion at the zone-1.1 boundary (total-flow rule)
-    wet_ratio_11 = 250.0 / pg["machines"]["CR.5009"]["throughput_tph"]
+    wet_ratio_11 = 250.0 / pg["machines"]["CR.5006"]["throughput_tph"]
     feed_1b = params["default_scenario"]["flow_rates_tph"]["zone_1_1_feed_mode_1B"]
-    wet_ratio_1b = feed_1b / photos["1B"]["machines"]["CR.5009"]["throughput_tph"]
+    wet_ratio_1b = feed_1b / photos["1B"]["machines"]["CR.5006"]["throughput_tph"]
 
     kfs = pg["products"]["KFS"]
     grits = pg["products"]["FeedLime grits"]
@@ -116,8 +116,8 @@ def compute_case(label: str, overrides: dict | None) -> dict:
         "F": plan["zone_1_3_split"]["mode_F_hours_effective"],
     }
     modeled_mwh = {
-        "CR.5009": (_abs(pg, "CR.5009") * h["1A"]
-                    + _abs(photos["1B"], "CR.5009") * h["1B"]) / 1000.0,
+        "CR.5006": (_abs(pg, "CR.5006") * h["1A"]
+                    + _abs(photos["1B"], "CR.5006") * h["1B"]) / 1000.0,
         "CR.5011": (_abs(pg, "CR.5011") * h["1A"]
                     + _abs(photos["1B"], "CR.5011") * h["1B"]) / 1000.0,
         "CR.5113": (_abs(pg, "CR.5113") * h["2A"]
@@ -177,7 +177,7 @@ def compute_case(label: str, overrides: dict | None) -> dict:
             "zone_1_2_loop_rating_tph": 60,
         },
         "absorbed_kW": {
-            "CR.5009_1A": round(_abs(pg, "CR.5009"), 1),
+            "CR.5006_1A": round(_abs(pg, "CR.5006"), 1),
             "CR.5011_1A": round(_abs(pg, "CR.5011"), 1),
             "CR.5011_1B": round(_abs(photos["1B"], "CR.5011"), 1),
             "CR.5113_2A": round(_abs(pg, "CR.5113"), 1),
@@ -205,7 +205,7 @@ def compute_case(label: str, overrides: dict | None) -> dict:
             "total_MWh_per_y": round(modeled_total_mwh, 1),
             "cost_kEUR_per_y_at_115": round(
                 modeled_total_mwh * ELECTRICITY_EUR_PER_MWH / 1000.0, 1),
-            "_note": "engine-modeled drives only (CR.5009/CR.5011/CR.5113/"
+            "_note": "engine-modeled drives only (CR.5006/CR.5011/CR.5113/"
             "RC.1/RC.2), same absorbed-power x mode-hours method as the "
             "2026-08-15 OPEX study; non-modeled drives keep their typical "
             "ratings and move only through the hour changes",

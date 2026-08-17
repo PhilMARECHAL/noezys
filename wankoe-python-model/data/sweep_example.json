@@ -8,7 +8,7 @@
     {
       "path": [
         "machines",
-        "SR.5007",
+        "SR.5008",
         "parameters",
         "a1",
         "default"
@@ -16,12 +16,12 @@
       "min": 32,
       "max": 38,
       "step": 2,
-      "label": "SR.5007 top aperture (mm)"
+      "label": "SR.5008 top aperture (mm)"
     },
     {
       "path": [
         "machines",
-        "SR.5007",
+        "SR.5008",
         "parameters",
         "a2",
         "default"
@@ -29,7 +29,7 @@
       "min": 18,
       "max": 22,
       "step": 2,
-      "label": "SR.5007 bottom aperture (mm)"
+      "label": "SR.5008 bottom aperture (mm)"
     },
     {
       "path": [

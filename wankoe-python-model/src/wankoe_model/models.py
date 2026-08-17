@@ -146,7 +146,7 @@ def m4_feed_composition(feed_psd, aperture_mm: float) -> dict:
     """Feed-composition context of a screen deck (error-hunt M-1, 2026-08-15).
 
     The engine's M4 area model carries no VSMA composition factors (the
-    fitted f0 absorbs them at the SR.5007-like reference feed). These two
+    fitted f0 absorbs them at the SR.5008-like reference feed). These two
     figures — % passing half the aperture and % retained on the aperture —
     are exposed on every sized deck so the STANDARD factor-method sizing
     (scripts/vsma_factor_sizing.py, client decision M-1 option 1) can be

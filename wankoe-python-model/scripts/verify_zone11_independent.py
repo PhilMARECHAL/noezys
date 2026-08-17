@@ -11,10 +11,10 @@ is taken from the allowed documentation only --
     v=45 -- formulas only were taken from it, values come from the JSON).
 
 Topology (zone 1.1, mode 1A):
-  pivot feed 250 t/h wet (7 % moisture) -> CR.5009 (toothed roll crusher, M1)
-  -> blend with CR.5011 recycle -> SR.5007 double-deck screen 35/20 (M3):
+  pivot feed 250 t/h wet (7 % moisture) -> CR.5006 (toothed roll crusher, M1)
+  -> blend with CR.5011 recycle -> SR.5008 double-deck screen 35/20 (M3):
        +35 oversize  -> CR.5011 impact crusher (M5 slope + M1 product)
-                        -> recycled to the SR.5007 feed (closed loop,
+                        -> recycled to the SR.5008 feed (closed loop,
                            fixed-point iteration on the recycle stream)
        20-35 mid cut -> KFS product (sold WET)
        0/20 undersize -> stockpile
@@ -36,15 +36,15 @@ PARAMS_PATH = os.path.join(HERE, "..", "data", "default_parameters.json")
 # never checked against the source code).
 # --------------------------------------------------------------------------
 ASSUMPTIONS = [
-    "M1 bypass convention taken in cumulative form: P_prod(x) = min(F(x), F(x80)) + (1-F(x80)) * P_trunc(x), where F is the feed cumulative-passing fraction; F(x80) obtained by linear interpolation in ln(size). Validated against the calc document's CR.5009 numeric table (old settings g=40: reproduces 68.8 % @ 20 mm, 91.9 % @ 40 mm exactly).",
+    "M1 bypass convention taken in cumulative form: P_prod(x) = min(F(x), F(x80)) + (1-F(x80)) * P_trunc(x), where F is the feed cumulative-passing fraction; F(x80) obtained by linear interpolation in ln(size). Validated against the calc document's CR.5006 numeric table (old settings g=40: reproduces 68.8 % @ 20 mm, 91.9 % @ 40 mm exactly).",
     "M1 truncation implemented as renormalization: P_trunc(x) = P_RR(x)/P_RR(trunc_factor*x80) for x below the truncation size, 1 above (mass rescaled over kept classes, per the calc document).",
     "x80 values (60 and 30 mm) fall between mesh points; all cumulative-curve evaluations at off-mesh sizes use linear interpolation in ln(size), consistent with the log-size grid interpolation the engine documents for the feed curve.",
-    "F80/P80 of any stream extracted from its cumulative curve on the mesh grid by linear interpolation in ln(size) (validated: reproduces the document's feed F80 = 180.6 mm and old-settings CR.5009 P80 = 27.96 mm).",
+    "F80/P80 of any stream extracted from its cumulative curve on the mesh grid by linear interpolation in ln(size) (validated: reproduces the document's feed F80 = 180.6 mm and old-settings CR.5006 P80 = 27.96 mm).",
     "Screen partition applied class-by-class on the mesh intervals at a representative size = geometric mean sqrt(lo*hi) of the interval bounds; the bottom interval [0, 0.063] uses rep = 0.063/sqrt(bottom_interval_ratio) per calibration.bottom_interval_ratio = 2.",
     "Double-deck screen modelled sequentially: top-deck (35 mm) partition on the full screen feed; its undersize is the bottom-deck (20 mm) feed; mid cut = bottom-deck oversize.",
     "Closed loop initialized with zero recycle; fixed point iterated until BOTH the relative change of the recycle dry flow AND the max absolute change of its cumulative-passing fractions are < engine.loop_relative_tolerance (1e-6), capped at engine.loop_max_iterations (200). Exact convergence metric wording was my choice; at 1e-6 the fixed point is metric-insensitive.",
-    "CR.5009 x80 = g (gap) because its x80 parameter is null in the JSON ('x80 = g validated 2026-08-08').",
-    "Bond W uses the F80 of each machine's own feed (fresh feed for CR.5009; converged +35 oversize for CR.5011) and the P80 of its computed product curve, in micrometres (mm*1000).",
+    "CR.5006 x80 = g (gap) because its x80 parameter is null in the JSON ('x80 = g validated 2026-08-08').",
+    "Bond W uses the F80 of each machine's own feed (fresh feed for CR.5006; converged +35 oversize for CR.5011) and the P80 of its computed product curve, in micrometres (mm*1000).",
     "Installed power = P_net / eta_m with eta_m = 0.75 (the document's only net->installed factor); no extra design margin applied.",
     "VSMA deck loads: U(top deck) = screen feed minus +35 oversize (flow THROUGH the top deck), U(bottom deck) = 0/20 undersize; dry weather, so no wet_capacity_factor derating.",
     "KFS envelope figures read directly at the exact 20 and 35 mm mesh points of the KFS cumulative curve (in-cut = P(35)-P(20)).",
@@ -188,12 +188,12 @@ def main():
                 for x in meshes]
     feed_f80 = percentile_size(meshes, feed_cum, 0.80)
 
-    # ---- CR.5009 toothed roll crusher (M1) --------------------------------
-    g = P["machines"]["CR.5009"]["parameters"]["g"]["default"]
-    x80_5009 = P["machines"]["CR.5009"]["parameters"]["x80"]["default"]
+    # ---- CR.5006 toothed roll crusher (M1) --------------------------------
+    g = P["machines"]["CR.5006"]["parameters"]["g"]["default"]
+    x80_5009 = P["machines"]["CR.5006"]["parameters"]["x80"]["default"]
     if x80_5009 is None:
         x80_5009 = g                                     # x80 follows the gap
-    n_5009 = P["machines"]["CR.5009"]["parameters"]["n"]["default"]
+    n_5009 = P["machines"]["CR.5006"]["parameters"]["n"]["default"]
 
     cr09_cum = m1_product_cum(meshes, feed_cum, x80_5009, n_5009,
                               cal["trunc_factor"], cal["m1_ln_arg"])
@@ -207,10 +207,10 @@ def main():
     pnet_5009 = w_5009 * q_dry_feed
     pinst_5009 = pnet_5009 / cal["eta_m"]
 
-    # ---- SR.5007 screen settings (M3) -------------------------------------
-    a1 = P["machines"]["SR.5007"]["parameters"]["a1"]["default"]   # 35 mm
-    a2 = P["machines"]["SR.5007"]["parameters"]["a2"]["default"]   # 20 mm
-    imperfection = P["machines"]["SR.5007"]["parameters"]["I"]["default"]
+    # ---- SR.5008 screen settings (M3) -------------------------------------
+    a1 = P["machines"]["SR.5008"]["parameters"]["a1"]["default"]   # 35 mm
+    a2 = P["machines"]["SR.5008"]["parameters"]["a2"]["default"]   # 20 mm
+    imperfection = P["machines"]["SR.5008"]["parameters"]["I"]["default"]
     s_sharp = math.log(cal["m3_ln_arg"]) / math.log(1.0 / (1.0 - imperfection))
     k_d = cal["k_d"]
 
@@ -274,7 +274,7 @@ def main():
     w_5011 = bond_w(wi, cal["bond_coef"], cr11_p80, over_f80)
     pnet_5011 = w_5011 * q_over35
 
-    # ---- SR.5007 VSMA areas (M4), dry weather ------------------------------
+    # ---- SR.5008 VSMA areas (M4), dry weather ------------------------------
     qb_top = cal["qb_coef"] * a1 ** cal["qb_exp"]
     qb_bot = cal["qb_coef"] * a2 ** cal["qb_exp"]
     u_top = q_sf - q_over35            # flow through the top deck

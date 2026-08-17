@@ -13,7 +13,7 @@ from wankoe_model.webapp import WEB_DIR, _Handler, handle_api
 # ------------------------------------------------------------- dispatch
 def test_parameters_endpoint_returns_the_data_file():
     params = handle_api("parameters", None)
-    assert "machines" in params and "CR.5009" in params["machines"]
+    assert "machines" in params and "CR.5006" in params["machines"]
 
 
 def test_scenario_endpoint_runs_with_overrides():
