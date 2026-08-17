@@ -24,6 +24,13 @@ rule) — the archived originals speak for themselves.
 | [OF-002](OF-002-zenith-plant/OF-002-summary.md) | 2026-08-17 (client upload) | **Shanghai Zenith Mineral Co., Ltd**, Shanghai, China (CE/CQC/ISO9001) | Quotation dated 2026-06-12 ("Jaw Crusher & Impact crusher", old tag list) | C6X100 jaw → "CR.5009" (**wrong class vs Q3 sizer ruling**) · CI5X1315 → **CR.5113** (ex-CR.5107; 250 kW frame vs 348 kW 2C) · S5X2760-3 → **SR.5007 candidate** (meshes 20/40/80) · S5X3075-2T → "SC.5105" (**unmapped**, meshes 2/15) · + 2-y spares USD 89,146 | **USD 412,812 FOB Shanghai** (machines 323,666 + spares; ≈ EUR 357–375k [H FX]) | 90 days (expires ~2026-09-10 — still valid) | CIF Cape Town stated but freight "very unstable" — **CIF not fixed** | Client channel; answers a PRE-REDESIGN enquiry (old tags) | RECEIVED — NOT conforming as quoted (old machine list); primary superseded by the RFQ 01 re-quotation request (2026-08-17); other lines held |
 | [OF-003](OF-003-zenith-roller/OF-003-summary.md) | 2026-08-17 (client upload) | **Shanghai Zenith Mineral Co., Ltd** (same entity) | CIF quote dated 2025-12-31, 45-day validity | Teeth-roller crusher 2PG-1216CT + control cabinet → **CR.5009 candidate (right class family)** | **USD 163,922 CIF Cape Town** (FOB 153,522 + freight 10,400; ≈ EUR 142–149k [H FX]) | 45 days → **EXPIRED ~2026-02-14** | **CIF Cape Town** (freight fixed USD 10,400) | Client channel; predates the whole model/redesign era | RECEIVED — EXPIRED; re-issue against RFQ 01 REQUESTED (partial release 2026-08-17) |
 
+## Comparison
+
+[comparison-guildco-zenith.md](comparison-guildco-zenith.md) (2026-08-17):
+the two head-to-head duels (primary crusher, zone-1.1 screen) on the
+common gate frame, normalized prices [H], commercial terms side by side,
+Zenith-only items. Pre-re-quote market intelligence, not an award basis.
+
 ## File integrity (SHA-256)
 
 | Offer | File | SHA-256 |
