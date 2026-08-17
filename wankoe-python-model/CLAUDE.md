@@ -573,7 +573,18 @@ in data/src/tests/scripts/web UI; former_tag fields in the data; suite
 rewritten — equivalence banners instead. ALL new documents use REV15
 tags.
 
-DT-002 IN PREPARATION (panel Q1-Q7 decided): complete zone-1.1 sizing
+DT-002 ISSUED 2026-08-17 (Q8 opt 3: full derivations, expert-book
+level): dossiers/DT-002/ = extract_dt002.py -> dt002_data.json ->
+render_dt002.py -> DT-002.md + DT-002-Zone11-Sizing-Note.docx (charte,
+landscape PFD plate + 9-stream x 17-sieve tables, zero hand-typed
+figures). Key disclosed conventions for Bruno: M3 realized classic
+imperfection ~0.081 at I 0.15 (match REALIZED sharpness in Bruno);
+M1 realized x80 ~6 % finer than setting; adequacy: PFD design
+80/170/350/125 vs engine 62/168/324/74 wet = feed-curve question;
+proposed Bruno experiment = run both curves. DT-001 replay: retag
+aliases added; residual epoch breakage (zone-1.2 REV18 params)
+predates retag, DT-001 is epoch-pinned. Original framing
+(panel Q1-Q7 decided): complete zone-1.1 sizing
 note for the client's in-house colleague who runs Metso's Bruno model.
 Both modes 1A+1B, measured curve, reference settings; FULL CHAIN
 stream-by-stream PSD tables, ALWAYS % passing; FULL REPLAY KIT (inputs,

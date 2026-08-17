@@ -45,6 +45,14 @@ def main():
     calib = params["calibration"]
     engine = params["engine"]
     mp = params["machines"]
+    # 2026-08-17 zone-1.1 retag (PFD REV15): CR.5009 -> CR.5006, SR.5007 ->
+    # SR.5008. DT-001 is a HISTORICAL dossier written in the spec-era tags;
+    # these aliases keep its replay working against the retagged engine
+    # without rewriting the issued document (same machines, see former_tag
+    # fields in data/default_parameters.json).
+    mp = dict(mp)
+    mp["CR.5009"] = mp["CR.5006"]
+    mp["SR.5007"] = mp["SR.5008"]
     alerts: list = []
     feed_psd, moisture = _build_feed(params, alerts)
 
@@ -92,7 +100,7 @@ def main():
             "oversize_35": stream_row(o11["over35"], m_coarse),
             "kfs_20_35": stream_row(o11["mid"], m_coarse),
             "undersize_0_20": stream_row(o11["under20"], m_coarse),
-            "areas_m2": reference["machines"]["SR.5007"]["areas_m2"],
+            "areas_m2": reference["machines"]["SR.5008"]["areas_m2"],  # engine key retagged 2026-08-17 (ex-SR.5007)
         },
         "CR_5011": {
             "settings": {"v_ms": p11["v"]["default"], "x80_mm": p11["x80"]["default"],
