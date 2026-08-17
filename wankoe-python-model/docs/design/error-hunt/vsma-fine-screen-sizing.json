@@ -1,6 +1,6 @@
 {
  "_provenance": {
-  "engine_commit": "960705b",
+  "engine_commit": "36c5ff4",
   "script": "scripts/vsma_factor_sizing.py",
   "margin": "x1.25 [H] on the factor-method worst case",
   "note": "Client decision 2026-08-15 (error-hunt M-1, option 1): fine-screen purchase minima by the FULL VSMA factor method (the engine M4 model has no composition factors and under-sizes low-half-size feeds by ~25-30 %). Factor data [H]; vendor bed-depth sizing verifies. FONTAINE %GL CROSS-CHECK added 2026-08-17 (client order; source: Le criblage + calculation booklet, Carmeuse 2001, Tableaux 6-7 \u2014 the identified source of M4): Q = 1.4 a^0.6 / %GL m3/h/m2, near-mesh band a/2..1.5a [H], densities from feed_product.properties (dry 1.5 / wet 1.62 t/m3, first use). INFORMATIONAL: purchase floors never weakened; exceedances surfaced for client arbitration."
@@ -8,64 +8,68 @@
  "purchase_minima": {
   "SC.B": {
    "deck_1": {
-    "worst_circumstance": "measured / 1B / 2A+F",
-    "worst_vsma_area_m2": 5.85,
-    "model_area_at_worst_m2": 5.19,
-    "purchase_min_m2": 7.4,
-    "fontaine_cross_check": {
-     "worst_circumstance": "measured / 1A / 2A+F",
-     "worst_area_m2": 6.28,
-     "worst_area_x_margin_m2": 7.85,
-     "pct_GL_at_worst": 62.8,
-     "within_tabulated_GL_range": true,
-     "verdict": "EXCEEDS the published purchase floor \u2014 client arbitration candidate (floors are never weakened, but a HIGHER independent requirement must be surfaced)"
-    }
+    "worst_vsma": {
+     "circumstance": "measured / 1B / 2A+F",
+     "area_m2": 5.85,
+     "model_area_m2": 5.19
+    },
+    "worst_fontaine": {
+     "circumstance": "measured / 1A / 2A+F",
+     "area_m2": 6.28,
+     "pct_GL": 62.8,
+     "within_tabulated_GL_range": true
+    },
+    "governing_method": "fontaine",
+    "purchase_min_m2": 7.9
    },
    "deck_2": {
-    "worst_circumstance": "measured / 1A / 2A+F",
-    "worst_vsma_area_m2": 5.95,
-    "model_area_at_worst_m2": 4.51,
-    "purchase_min_m2": 7.5,
-    "fontaine_cross_check": {
-     "worst_circumstance": "measured / 1B / 2A+F",
-     "worst_area_m2": 6.2,
-     "worst_area_x_margin_m2": 7.75,
-     "pct_GL_at_worst": 71.2,
-     "within_tabulated_GL_range": true,
-     "verdict": "EXCEEDS the published purchase floor \u2014 client arbitration candidate (floors are never weakened, but a HIGHER independent requirement must be surfaced)"
-    }
+    "worst_vsma": {
+     "circumstance": "measured / 1A / 2A+F",
+     "area_m2": 5.95,
+     "model_area_m2": 4.51
+    },
+    "worst_fontaine": {
+     "circumstance": "measured / 1B / 2A+F",
+     "area_m2": 6.2,
+     "pct_GL": 71.2,
+     "within_tabulated_GL_range": true
+    },
+    "governing_method": "fontaine",
+    "purchase_min_m2": 7.8
    }
   },
   "SR.5111": {
    "deck": {
-    "worst_circumstance": "measured / 1A / 2C",
-    "worst_vsma_area_m2": 1.65,
-    "model_area_at_worst_m2": 1.42,
-    "purchase_min_m2": 2.1,
-    "fontaine_cross_check": {
-     "worst_circumstance": "measured / 1A / 2A+G",
-     "worst_area_m2": 0.71,
-     "worst_area_x_margin_m2": 0.89,
-     "pct_GL_at_worst": 28.0,
-     "within_tabulated_GL_range": true,
-     "verdict": "inside the published purchase floor \u2014 floor stands"
-    }
+    "worst_vsma": {
+     "circumstance": "measured / 1A / 2C",
+     "area_m2": 1.65,
+     "model_area_m2": 1.42
+    },
+    "worst_fontaine": {
+     "circumstance": "measured / 1A / 2A+G",
+     "area_m2": 0.71,
+     "pct_GL": 28.0,
+     "within_tabulated_GL_range": true
+    },
+    "governing_method": "vsma",
+    "purchase_min_m2": 2.1
    }
   },
   "SR.5115": {
    "deck": {
-    "worst_circumstance": "quarry / 1B / 2C",
-    "worst_vsma_area_m2": 10.61,
-    "model_area_at_worst_m2": 15.72,
-    "purchase_min_m2": 13.3,
-    "fontaine_cross_check": {
-     "worst_circumstance": "quarry / 1B / 2C",
-     "worst_area_m2": 7.16,
-     "worst_area_x_margin_m2": 8.95,
-     "pct_GL_at_worst": 25.5,
-     "within_tabulated_GL_range": true,
-     "verdict": "inside the published purchase floor \u2014 floor stands"
-    }
+    "worst_vsma": {
+     "circumstance": "quarry / 1B / 2C",
+     "area_m2": 10.61,
+     "model_area_m2": 15.72
+    },
+    "worst_fontaine": {
+     "circumstance": "quarry / 1B / 2C",
+     "area_m2": 7.16,
+     "pct_GL": 25.5,
+     "within_tabulated_GL_range": true
+    },
+    "governing_method": "vsma",
+    "purchase_min_m2": 13.3
    }
   }
  },

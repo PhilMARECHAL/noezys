@@ -517,10 +517,10 @@
       "type": "Double-deck PRODUCT screen 2 / 1.5 mm (C1 study variant: deck 1 = grits bottom cut, D6-critical; deck 2 = fines top cut; both critical decks in favorable position — the 2+2 rationale)",
       "installed_area_m2": null,
       "purchase_min_area_m2": {
-        "deck_1": 7.4,
-        "deck_2": 7.5
+        "deck_1": 7.9,
+        "deck_2": 7.8
       },
-      "_purchase_min_note": "CLIENT DECISION 2026-08-15 (error-hunt M-1, option 1 of 3): fine-screen purchase minima re-quoted by the FULL VSMA factor method (scripts/vsma_factor_sizing.py) - the engine M4 model carries no composition factors and under-sizes SC.B's low-half-size feeds (17-20 % passing a/2) by ~25-30 %. Worst factor-method duty across measured/quarry x 1A/1B x G/F: 5.85 m2 (d1, 1B x F) / 5.95 m2 (d2, mode F mass-pinned) -> x1.25 -> 7.4 / 7.5 m2 (was 6.5 / 5.6 model-based). Vendor bed-depth sizing verifies; the RPN-252 panel requirements are unchanged.",
+      "_purchase_min_note": "CLIENT DECISION 2026-08-17 (Fontaine %GL arbitration, option 1 of 3): minima RAISED 7.4/7.5 -> 7.9/7.8 m2 = the FONTAINE %GL law worst case x1.25 rounded up (deck 1: 6.28 m2 at %GL 62.8, mode F; deck 2: 6.20 m2 at %GL 71.2, mode F; Q = 1.4 a^0.6 / %GL, Carmeuse 2001 Tableaux 6-7 - the identified source of M4; near-mesh band a/2..1.5a [H]; densities dry 1.5 t/m3). Supersedes the 2026-08-15 M-1 floors (VSMA factor worst 5.85/5.95 -> 7.4/7.5), which the Fontaine check exceeded on BOTH decks - the higher independent requirement governs (floors are never weakened). Vendor bed-depth sizing still verifies; RPN-252 panel requirements unchanged.",
       "parameters": {
         "a1": {
           "name": "Aperture 1 (grits bottom cut; 2.0 protects the D6 <2 mm <= 15 %)",

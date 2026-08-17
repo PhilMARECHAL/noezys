@@ -1,7 +1,7 @@
 {
  "_provenance": {
-  "engine_commit": "a72fa04",
-  "run_date": "2026-08-15",
+  "engine_commit": "36c5ff4",
+  "run_date": "2026-08-17",
   "functions": [
    "wankoe_model.scenario.run_scenario (per-mode photos 1A / forced 1B / 2A / 2C / G / F, weather dry)"
   ],
@@ -25,7 +25,7 @@
   "RC.2_n_units": 2,
   "RC.2_mode_F_gap_mm": 1.5,
   "zone_1_2_loop_rating_tph": 60,
-  "CR.5009_max_feed_size_mm": 150,
+  "CR.5006_max_feed_size_mm": 250,
   "SR.5111_loop_load_ratio_2C": 1.667,
   "CR.5011_load_ratio_1A_wet": 0.828,
   "CR.5011_load_ratio_1B_wet": 0.924,
@@ -33,7 +33,7 @@
   "RC.2_load_ratio_F": 0.88
  },
  "machines": {
-  "CR.5009": {
+  "CR.5006": {
    "modes": {
     "1A": {
      "active": true,
@@ -62,7 +62,7 @@
     "recommended_min_installed_kW": 132
    }
   },
-  "SR.5007": {
+  "SR.5008": {
    "modes": {
     "1A": {
      "active": true,
@@ -403,8 +403,8 @@
    },
    "area_margin": "+25 % [H]",
    "client_decided_min_area_m2": {
-    "deck_1": 7.4,
-    "deck_2": 7.5
+    "deck_1": 7.9,
+    "deck_2": 7.8
    }
   },
   "SP.36": {
@@ -437,8 +437,8 @@
   }
  },
  "alerts_1A": [
-  "CR.5009: feed F80 181 mm > max nip size 150 mm — saturation",
   "SP.36: Phi(<cut) not measured — UltraFin computed from the modelled curve, flagged NOT CERTIFIED (to be measured by sieve/laser)",
+  "Zone 1.3 dedusting collected 1.73 t/h to UltraFin (client rule 2026-08-16; capture fractions and dust composition [H] pending site dust survey + filter-catch XRD)",
   "Stockpile 0/20: 239422 t reclaimed beyond what is produced when every zone runs its FULL ceiling hours — downstream tonnages of this table are not simultaneously achievable at these rates; the hours planning (hours follow the targets) gives the consistent operating point"
  ]
 }

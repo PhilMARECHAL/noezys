@@ -35,10 +35,20 @@ Dry basis (zone 1.3).
 
 **CLIENT DECISION 2026-08-15 (error-hunt M-1, option 1): sized by the FULL VSMA factor method** (basic capacity × oversize × half-size × deck-position factors, `scripts/vsma_factor_sizing.py`), because the engine's area model carries no composition factors and under-sizes this screen's low-half-size feeds (17–20 % passing a/2) by ~25–30 % — the former model-based minima (6.5/5.6 m2) had their +25 % margin entirely consumed by that bias. Worst factor-method duty swept over measured/quarry curve × 1A/1B upstream × modes G/F, plus the +25 % margin [H]:
 
-| Deck | Worst factor-method duty | Model figure at that point | **Purchase minimum (×1.25)** |
+| Deck | Worst factor-method duty | Model figure at that point | **Purchase minimum** |
 |---|---|---|---|
-| Deck 1 (2.0 mm) | 5.85 m2 (1B upstream, mode F) | 5.19 m2 | **>= 7.4 m2** |
-| Deck 2 (1.5 mm) | 5.95 m2 (mode F, mass-pinned) | 4.51 m2 | **>= 7.5 m2** |
+| Deck 1 (2.0 mm) | 5.85 m2 (1B upstream, mode F) | 5.19 m2 | **>= 7.9 m2** (raised 2026-08-17) |
+| Deck 2 (1.5 mm) | 5.95 m2 (mode F, mass-pinned) | 4.51 m2 | **>= 7.8 m2** (raised 2026-08-17) |
+
+**MINIMA RAISED — CLIENT DECISION 2026-08-17 (Fontaine %GL arbitration,
+option 1):** the identified source of the M4 model (Fontaine, Carmeuse
+2001, Tableaux 6-7: Q = 1.4 a^0.6 / %GL) exceeds the former VSMA-factor
+floors on BOTH of this screen's near-mesh-heavy product decks (worst
+Fontaine ×1.25: deck 1 7.85 m2 at %GL 62.8; deck 2 7.75 m2 at %GL 71.2,
+both mode F, within the tabulated 10–80 % range) — the higher
+independent requirement governs and the floors move to 7.9 / 7.8 m2
+(rounded up; former 7.4/7.5 superseded, never weakened). Replay:
+`scripts/vsma_factor_sizing.py` (both methods side by side).
 
 These are the finest process decks of the line at 3 610 h/y dry duty; the vendor sizing must state its near-mesh assumption (heavy 1.5-2 mm near-mesh fraction in mode F, 44 t/h circulating regrind loop upstream at gap 1.5 — error-hunt fix 2026-08-15: 147 t/h was the gap-2.8 runaway, not the operating duty).
 

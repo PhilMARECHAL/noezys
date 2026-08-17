@@ -198,38 +198,36 @@ def main() -> None:
 
     minima = {}
     for (code, deck_key), w in sorted(worst.items()):
-        floor = math.ceil(w["area_vsma_m2"] * AREA_MARGIN * 10) / 10  # round UP
         wf = worst_fontaine[(code, deck_key)]
         fon = wf.get("fontaine", {})
         f_area = fon.get("area_fontaine_m2", 0.0)
-        f_margined = round(f_area * AREA_MARGIN, 2)
+        # CLIENT DECISION 2026-08-17 (Fontaine arbitration, option 1): the
+        # purchase floor is the WORST of the two methods x margin, rounded
+        # up — the higher independent requirement governs, floors are
+        # never weakened (SC.B moved 7.4/7.5 -> 7.9/7.8 by this rule).
+        governing = max(w["area_vsma_m2"], f_area)
+        method = "fontaine" if f_area > w["area_vsma_m2"] else "vsma"
+        floor = math.ceil(governing * AREA_MARGIN * 10) / 10  # round UP
         minima.setdefault(code, {})[deck_key] = {
-            "worst_circumstance": w["circumstance"],
-            "worst_vsma_area_m2": w["area_vsma_m2"],
-            "model_area_at_worst_m2": w["area_model_m2"],
-            "purchase_min_m2": floor,
-            "fontaine_cross_check": {
-                "worst_circumstance": wf["circumstance"],
-                "worst_area_m2": f_area,
-                "worst_area_x_margin_m2": f_margined,
-                "pct_GL_at_worst": fon.get("pct_GL_near_mesh"),
-                "within_tabulated_GL_range": fon.get("within_tabulated_GL_range"),
-                "verdict": (
-                    "EXCEEDS the published purchase floor — client arbitration "
-                    "candidate (floors are never weakened, but a HIGHER "
-                    "independent requirement must be surfaced)"
-                    if f_margined > floor
-                    else "inside the published purchase floor — floor stands"
-                ),
+            "worst_vsma": {
+                "circumstance": w["circumstance"],
+                "area_m2": w["area_vsma_m2"],
+                "model_area_m2": w["area_model_m2"],
             },
+            "worst_fontaine": {
+                "circumstance": wf["circumstance"],
+                "area_m2": f_area,
+                "pct_GL": fon.get("pct_GL_near_mesh"),
+                "within_tabulated_GL_range": fon.get("within_tabulated_GL_range"),
+            },
+            "governing_method": method,
+            "purchase_min_m2": floor,
         }
         print(
-            f"{code} {deck_key}: worst VSMA {w['area_vsma_m2']:.2f} m2 "
-            f"({w['circumstance']}; model said {w['area_model_m2']:.2f}) "
-            f"-> purchase >= {floor} m2 | Fontaine %GL check: "
-            f"{f_area:.2f} m2 (x{AREA_MARGIN} = {f_margined:.2f}) at "
+            f"{code} {deck_key}: VSMA worst {w['area_vsma_m2']:.2f} m2 "
+            f"({w['circumstance']}) | Fontaine worst {f_area:.2f} m2 at "
             f"%GL {fon.get('pct_GL_near_mesh')} ({wf['circumstance']}) -> "
-            f"{minima[code][deck_key]['fontaine_cross_check']['verdict'].split(' — ')[0]}"
+            f"governing = {method.upper()} -> purchase >= {floor} m2"
         )
 
     commit = subprocess.run(

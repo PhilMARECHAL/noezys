@@ -605,9 +605,10 @@ exposes feed_pct_near_mesh ([H] band a/2..1.5a); vsma_factor_sizing.py
 computes the Fontaine area on every deck/circumstance (densities dry
 1.5 / wet 1.62 t/m3, first use). FINDING: SC.B decks EXCEED their
 published floors (7.85 vs 7.4; 7.75 vs 7.5 m2 margined) at %GL 63-71
-in mode F; SR.5111/5115 inside. SC.B FLOOR ARBITRATION PENDING with
-the client (raise ~7.9/7.8 vs hold, vendor bed-depth governs). Floors
-are never weakened (M-1 rule). Fontaine reference archive:
+in mode F; SR.5111/5115 inside. SC.B FLOORS RAISED 7.4/7.5 -> 7.9/7.8
+(client option 1, 2026-08-17); RULE: floor = worst of VSMA / Fontaine
+x1.25 rounded up, governing method stored per deck in the script;
+RFQ 11 G1 + datasheet + INDEX updated; SR.5115 retained 19.1 stays. Fontaine reference archive:
 docs/references/le-criblage-fontaine-2004/ (analysis REV B).
 
 ## Repository caution
