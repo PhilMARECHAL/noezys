@@ -541,7 +541,18 @@ spec - correct at order); LPS625-3 twin-shaft toothed roller crusher
 ~EUR 160-168k FOB = inside the budget's premium-Chinese LOW band.
 Gate gaps flagged: 30/70-before-dispatch payment = Ndola anti-pattern;
 no contractual curve/witnessed tests; FOB excludes our mandatory lines.
-A SECOND offer is announced by the client.
+OF-002 = Shanghai Zenith quotation 2026-06-12 (valid to ~09-10,
+$412,812 FOB incl. 2-y spares $89,146): ANSWERS A PRE-REDESIGN ENQUIRY
+(old tags) - C6X100 jaw labeled "CR.5009" = wrong class vs Q3 sizer
+ruling; CI5X1315 = CR.5113 but 250 kW frame vs 348 kW 2C (branch 2);
+S5X2760-3 -> SR.5007 ok area, 40 vs 35 mesh; "SC.5105" 2/15 unmapped;
+payment 30/60/10 (10 % post-install <= 6 mo B/L); disposition
+recommended = re-quote against drafted RFQs. OF-003 = Zenith
+2PG-1216CT teeth-roller (RIGHT class for CR.5009), CIF Cape Town
+$163,922 - EXPIRED 2025-12-31+45d, price reference; discharge range
+printed 40-800 mm vs ruled 20-60 window = decisive clarification;
+freight datum $10,400 Shanghai->Cape Town 33 t. Budget LOW anchor for
+CR.5009 now confirmed by TWO independent offers (~142-168k EUR).
 
 ## Repository caution
 

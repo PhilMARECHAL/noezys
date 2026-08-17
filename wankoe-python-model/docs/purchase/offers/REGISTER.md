@@ -18,6 +18,8 @@ rule) — the archived originals speak for themselves.
 | ID | Received | Vendor | Quote ref / rev | Items → tags | Amount (ex-VAT) | Validity | Incoterm | Provenance | Status |
 |----|----------|--------|-----------------|--------------|------------------|----------|----------|------------|--------|
 | [OF-001](OF-001-guildco/OF-001-summary.md) | 2026-08-17 (client upload) | **Guildco Pty Ltd**, Johannesburg, South Africa (reg. 2012/029229/07, VAT 4960314369) | QU-Wankoe 01_v1, dated 2026-08-15 | Inclined screen SI8202 → **SR.5007 candidate** · Toothed roller crusher LPS625-3 → **CR.5009 candidate** | **ZAR 4,312,165.53** (≈ USD 266,183 at the quote's R16.20/USD; ≈ EUR 230–242k [H FX]) | 30 days (expiry 2026-09-13) | **FOB Shanghai** (shipping to South Africa excluded, quoted at order) | Received by the client directly; NOT a response to the suspended NOEZYS RFQ package | RECEIVED — under technical evaluation |
+| [OF-002](OF-002-zenith-plant/OF-002-summary.md) | 2026-08-17 (client upload) | **Shanghai Zenith Mineral Co., Ltd**, Shanghai, China (CE/CQC/ISO9001) | Quotation dated 2026-06-12 ("Jaw Crusher & Impact crusher", old tag list) | C6X100 jaw → "CR.5009" (**wrong class vs Q3 sizer ruling**) · CI5X1315 → **CR.5113** (ex-CR.5107; 250 kW frame vs 348 kW 2C) · S5X2760-3 → **SR.5007 candidate** (meshes 20/40/80) · S5X3075-2T → "SC.5105" (**unmapped**, meshes 2/15) · + 2-y spares USD 89,146 | **USD 412,812 FOB Shanghai** (machines 323,666 + spares; ≈ EUR 357–375k [H FX]) | 90 days (expires ~2026-09-10 — still valid) | CIF Cape Town stated but freight "very unstable" — **CIF not fixed** | Client channel; answers a PRE-REDESIGN enquiry (old tags) | RECEIVED — NOT conforming as quoted (old machine list); re-quote against the drafted RFQs recommended |
+| [OF-003](OF-003-zenith-roller/OF-003-summary.md) | 2026-08-17 (client upload) | **Shanghai Zenith Mineral Co., Ltd** (same entity) | CIF quote dated 2025-12-31, 45-day validity | Teeth-roller crusher 2PG-1216CT + control cabinet → **CR.5009 candidate (right class family)** | **USD 163,922 CIF Cape Town** (FOB 153,522 + freight 10,400; ≈ EUR 142–149k [H FX]) | 45 days → **EXPIRED ~2026-02-14** | **CIF Cape Town** (freight fixed USD 10,400) | Client channel; predates the whole model/redesign era | RECEIVED — EXPIRED, price-reference only; re-issue against RFQ 01 needed |
 
 ## File integrity (SHA-256)
 
@@ -25,6 +27,8 @@ rule) — the archived originals speak for themselves.
 |---|---|---|
 | OF-001 | original/Quote_QU_Wankoe_01_Rev1.pdf | 1535d8139abbf9c09858a5130aadf40b2ed704765b57a6e6e743e8187643645d |
 | OF-001 | original/Roller_Crusher_GA.pdf | 3d0f3bb2fe4eecdb08ae14516a6ead75f26fb9da894931edabb470dbdc82eae9 |
+| OF-002 | original/ZENITH_quotation_2026-06-12.pdf | dcd0630da73f45f0bd5625287f524bed025cfaac3b2515d3772605b5a46593ea |
+| OF-003 | original/ZENITH_CIF_Cape_Town_roller_crusher_2025-12-31.pdf | 0e9d3cdb51dd6f0fda258ca27807eb09b3292fd0277a8e87bb6fd8de52aa7471 |
 
 ## Evaluation rule
 
