@@ -146,16 +146,24 @@ client's release decision if he wants the second duel formalized too.
 The client fixed the comparison basis: **FOB Shanghai, control cabinet
 EXCLUDED, NO 2025 price considered.** Applied:
 
-| Duty | Guildco (FOB Shanghai, 2026) | Zenith (FOB Shanghai, 2026) | Standing on the ruled basis |
+AMENDED 2026-08-17 (client change of mind, same day): the 2025
+exclusion is LIFTED for the Zenith double-roll — "elle date de decembre
+2025 et on va s'en contenter". The ruled basis becomes: FOB Shanghai,
+cabinet excluded, jaw crusher discarded, the Dec-2025 2PG-1216CT price
+ADMITTED.
+
+| Duty | Guildco (FOB Shanghai) | Zenith (FOB Shanghai) | Standing on the ruled basis |
 |---|---|---|---|
-| Primary crusher (CR.5006) | **USD 185 151** (LPS625-3, live to 09-13) | **NO ADMISSIBLE PRICE** — the only right-class Zenith price (2PG-1216CT, USD 142 043 machine-only) is dated 2025-12-31 and is EXCLUDED by the ruled basis; the June-2026 C6X100 jaw is the wrong class | One-sided until the Zenith RFQ 01 re-quotation lands |
+| Primary crusher (CR.5006), DOUBLE-ROLL only | **USD 185 151** (LPS625-3, live to 09-13) | **USD 142 043** (2PG-1216CT machine-only, cabinet excluded; PRICE DATED 2025-12-31, quote formally expired) | **Zenith −23 %** |
 | Zone-1.1 screen (SR.5008) | USD 81 032 (SI8202) | **USD 46 323** (S5X2760-3, June 2026) | **Zenith −43 %** |
 
-Consequence stated honestly: on the ruled basis the PRIMARY duel has one
-price. The excluded 2025 figure remains in the archive as market
-intelligence only. The Zenith re-quotation (requested via RFQ 01, which
-demands FOB and freight separated — natively compatible with this
-basis) is what re-opens the duel.
+Honesty caveats carried with the admitted 2025 price: (1) the quote is
+FORMALLY EXPIRED — usable for comparison by client ruling, but any
+CONTRACT requires a re-issue and the re-issued price may move
+(escalation/FX since Dec 2025); (2) the printed 40–800 mm discharge
+setting still fails the 20–60 mm gate as printed — the decisive
+technical clarification is unchanged; (3) the RFQ 01 re-quotation
+remains requested from Zenith and supersedes this figure on arrival.
 
 ---
 *Assistant-compiled; originals prevail. Produced by NOEZYS.*
