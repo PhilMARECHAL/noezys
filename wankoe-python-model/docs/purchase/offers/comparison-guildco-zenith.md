@@ -86,6 +86,19 @@ RFQ 02.
   partially aligned with our mandatory FMECA line; a real evaluation
   point in Zenith's favor on the after-sales axis.
 
+## 4bis. Update 2026-08-17 (late-day) — Zenith technical annexes
+
+Zenith supplied engineering-grade annexes for OF-002 (GA drawings,
+FOUNDATION LOAD DIAGRAMS, civil-works guidance, HSI cross-section —
+archived under OF-002 with SHA-256). Comparison impact: Zenith's
+substantiation now clearly leads on the SCHEDULE/INSTALLATION axes
+(embedded-plate schedules, C30 foundations, bolt plans ready for the
+civil engineer); the S5X2760-3 acceleration cross-checks against the
+Fontaine reference band (2.8-4.4 g computed vs 2.8-5.5 band); the
+missing gates (efficiency guarantees, witnessed tests, setting
+evidence, payment frame) are UNCHANGED on both sides. Guildco has
+supplied one GA drawing (LPS625-3); nothing comparable on foundations.
+
 ## 5. Commercial frame, side by side
 
 | Term | Guildco | Zenith (OF-002 / OF-003) |

@@ -67,6 +67,25 @@ the premium-Chinese LOW anchors of the budget file, consistent with
 OF-001. Positive evaluation signals to keep: third-party inspection
 accepted, Siemens/Timken components, priced 2-year spares.
 
+## 4bis. TECHNICAL ANNEXES received 2026-08-17 (supplement — original/technical-annexes/, SHA-256 in the register)
+
+Zenith supplied engineering-grade documentation (all drawings dated
+2025-12-01, construction stage, edition A) — general arrangements,
+FOUNDATION LOAD DIAGRAMS and CIVIL-WORKS guidance drawings. Extracted
+facts:
+
+| Machine | Key data from the drawings | NOEZYS reading |
+|---|---|---|
+| **S5X2760-3** (→ SR.5008 candidate) | 3 decks, 16.2 m²/deck (2.7×6.0), graded 2–70 mm, 120–900 t/h, media woven wire/rubber/PU (tension), 850 rpm (800/900), double amplitude 7–11 mm, tilt 18°, max feed 200 mm, motor 37 kW YE3-225S-4, 13 020 kg; support loads: static 31.9 kN, working ±5.0 kN, max ±24.8 kN per point; C30 foundation drawing, feed drop ≤ 400 mm | Area amply clears the 9.1/9.8 m² rain minima. CROSS-CHECK vs the Fontaine reference (circular screens work 2.8–5.5 g): amplitude 3.5–5.5 mm at 850 rpm gives 2.8–4.4 g — inside the band, coherent engineering. Circular 18° machine: the vendor must still state stroke behavior under the RAIN bed (RFQ 02 gate G5) — a circular free-oscillation machine is debit-sensitive per the same reference |
+| **S5X3075-2T** (the "SC.5105" mystery line) | 2 decks, 21.6 m², graded 2–150 mm, 180–1 800 t/h, 2×22 kW dual motors, 850 rpm, amplitude 8–12 mm, tilt 20°, max feed 300 mm, 17 538 kg; loads ±5.6/±28.1 kN; C30 civil drawing | With quote meshes 2/15 and 21.6 m² ≥ the 19.1 m² SR.5115 floor, this frame COULD be aimed at the AgLime-loop closed screen — but it is a CONVENTIONAL circular screen: the project's own rain physics (1.7 mm moist cut = flip-flow territory) makes the technology class the question, not the size. Mapping still to be clarified with the client's original enquiry |
+| **CI5X1315-III** (→ CR.5113 candidate) | Cross-section confirms a THREE-curtain HSI (4-bar rotor, three adjustable aprons — the quote's "three layers impact plates"); anchor plan: M36×800 ×6 host bolts, static 30 kN / dynamic 103 kN per hole; single motor 1 670 kg, transmission package 2 075 kg | The 3rd curtain is the fine-product argument for the AgLime duty; the motor-branch question (250 kW frame vs 355.5 kW 2C absorbed post-Q12) remains THE open item — drawings add no power data |
+
+Reading overall: Zenith substantiates its offer at a level (foundation
+loads, civils, embedded plates, bolt schedules) that de-risks the
+SCHEDULE and INSTALLATION axes of the evaluation grid — none of which
+replaces the missing gates (efficiency guarantees, witnessed tests,
+setting evidence).
+
 ## 5. Status
 
 RECEIVED — under technical evaluation; NOT conforming as quoted (old
