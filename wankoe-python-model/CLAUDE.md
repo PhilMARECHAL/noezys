@@ -280,8 +280,10 @@ bypass FeedLime = stock-PSD watch.
   guarantee is the structural protection). Q4 CLOSED 2026-08-17 (envelope 30/55/15 = sole KFS quality
   definition; spec 15 % total out-of-cut tolerance confirmed removed).
   Q5 CLOSED 2026-08-17 (mass closure = authority; spec 9.3's 19.9 t/h
-  acted as spec-side error, historical). Still open: repo location
-  (Q10), b_j soft limestone (Q12 - frozen [H], no tests launched).
+  acted as spec-side error, historical). Q10 CLOSED 2026-08-17 (statu quo LOCKED: client enables GitHub
+  branch protection on main - require PR + block force push + restrict
+  deletion; never-merge rule remains on top). Still open: b_j soft
+  limestone (Q12 - frozen [H], no tests launched).
 - NEW WORKING MODE (client, 2026-08-11): the client found the web app too
   complicated — simulations now run IN CHAT (same engine, identical
   numbers), app optional. Protocol: step-by-step zone 1 review — inputs
@@ -619,4 +621,6 @@ docs/references/le-criblage-fontaine-2004/ (analysis REV B).
 The model lives on branch wankoe-python-model of the PhilMARECHAL/noezys
 repository, whose root render.yaml publishes the tree statically: NEVER
 merge this branch into the deployed branch — the client spec and data
-would become world-readable. Repo relocation is an open question for the client.
+would become world-readable. Q10 closed 2026-08-17: statu quo LOCKED - the client enables branch
+protection on main (require PR, block force push, restrict deletion);
+the never-merge rule remains in force on top.
