@@ -597,6 +597,19 @@ SHA-verified identical to docs/pfd/ copy); honest design-vs-measured
 confrontations IN the note (PFD 80/350 t/h vs engine ~62/324.5; PFD
 scenario B 150 t/h vs mode-1B 172.0 wet).
 
+## Fontaine %GL check (client order 2026-08-17)
+
+M4 source identified (Carmeuse 2001 Tableaux 6-7: Q = 1.4 a^0.6 / %GL;
+qb_coef 14 = the law at %GL 10, volumetric). Wired: m4_feed_composition
+exposes feed_pct_near_mesh ([H] band a/2..1.5a); vsma_factor_sizing.py
+computes the Fontaine area on every deck/circumstance (densities dry
+1.5 / wet 1.62 t/m3, first use). FINDING: SC.B decks EXCEED their
+published floors (7.85 vs 7.4; 7.75 vs 7.5 m2 margined) at %GL 63-71
+in mode F; SR.5111/5115 inside. SC.B FLOOR ARBITRATION PENDING with
+the client (raise ~7.9/7.8 vs hold, vendor bed-depth governs). Floors
+are never weakened (M-1 rule). Fontaine reference archive:
+docs/references/le-criblage-fontaine-2004/ (analysis REV B).
+
 ## Repository caution
 
 The model lives on branch wankoe-python-model of the PhilMARECHAL/noezys
