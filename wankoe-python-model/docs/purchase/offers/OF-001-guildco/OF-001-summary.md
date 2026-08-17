@@ -25,8 +25,25 @@ NOEZYS RFQ package is still DRAFT/SENDING SUSPENDED and sent nothing).
 
 Currency view [H FX]: line 2 ≈ USD 185,151; line 1 ≈ USD 81,032;
 subtotal ≈ USD 266,183 ≈ **EUR 230–242k** (at 1.10–1.156 USD/EUR).
-Machines are Chinese-built (FOB Shanghai; GA title block: Puyang
-heavy-machinery manufacturer) sold through a South African intermediary.
+Machines are Chinese-built (FOB Shanghai) sold through a South African
+intermediary. **OEM IDENTIFICATION (due diligence 2026-08-17,
+corrects the earlier "Puyang" misread of the title block):** the GA
+title block reads 溧阳中材重型机器有限公司 = **Sinoma-Liyang Heavy
+Machinery Co., Ltd** (Liyang, Jiangsu, China) — a JV of Sinoma
+International's Nanjing Cement Design & Research Institute with Liyang
+Heavy Machinery (Sinoma/CNBM group), an established cement-machinery
+OEM exporting worldwide. The LPS625-3 model itself is not published on
+their public pages (their toothed-roll crusher line is presented
+generically, up to 1 500 t/h), so the OEM is now identified but the
+model's weight/dimensions remain undeclared. The screen's OEM is NOT
+identified by any document in this offer: the quote names no brand,
+Guildco is not a Terex dealer (Terex MPS South Africa = ELB
+Equipment), and the SI8202 designation is used by several suppliers —
+the Terex Simplicity SI 8202 standard is 22 kW single-drive, while
+AMPCO Minerals publishes an SI8202 at 2×18.5 kW = **37 kW, exactly the
+power Guildco quotes**. Most probable reading: a Chinese-built screen
+carrying the Simplicity-style designation. OEM identity + country of
+manufacture for BOTH machines are formal re-quote demands.
 
 ## 2. Technical facts (GA drawing LPS625-3, title-block table)
 

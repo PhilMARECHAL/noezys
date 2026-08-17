@@ -572,7 +572,14 @@ letters; SHA-256 in README). Dispatch BY THE CLIENT via his channel;
 NOEZYS sent nothing. Replies register as new OF-nnn. Key gates put to
 both vendors: 20-60 mm setting window (neither evidences it),
 contractual curve tables (G3), Ndola milestones non-negotiable in
-structure.
+structure. DUE DILIGENCE 2026-08-17 (client challenge): the
+SI8202=Terex identification is WITHDRAWN (designation is
+multi-supplier; AMPCO SI8202 = 2x18.5 kW = the quoted 37 kW; Guildco
+is no Terex dealer - ELB is); OF-001 crusher OEM IDENTIFIED from the
+GA title block = Sinoma-Liyang Heavy Machinery (Liyang, Jiangsu,
+Sinoma/CNBM JV; model LPS625-3 unpublished). Re-quote demands: OEM
+identity + country + drive arrangement + declared weight/dims for
+both Guildco machines.
 
 ## Zone-1.1 retag + Bruno-exchange note DT-002 (2026-08-17)
 

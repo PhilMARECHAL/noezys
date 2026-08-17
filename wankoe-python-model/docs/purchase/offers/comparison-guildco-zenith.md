@@ -155,26 +155,34 @@ ADMITTED.
 | Duty | Guildco (FOB Shanghai) | Zenith (FOB Shanghai) | Standing on the ruled basis |
 |---|---|---|---|
 | Primary crusher (CR.5006), DOUBLE-ROLL only | **USD 185 151** (LPS625-3, live to 09-13) | **USD 142 043** (2PG-1216CT machine-only, cabinet excluded; PRICE DATED 2025-12-31, quote formally expired) | **Zenith −23 %** |
-| — machine weight | **NOT STATED by Guildco**; WEB SEARCH 2026-08-17: the designation LPS625-3 has **ZERO public footprint** (EN + CN searches; the GA title-block maker unlocatable) — no weight or dimensions exist anywhere public | **33 000 kg** (vendor brochure; Zenith's public site shows only generic ranges — the archived drawings remain the source) | Guildco substantiation gap CONFIRMED by the web sweep — weight/dims to be DEMANDED in the re-quote |
+| — machine weight | **NOT STATED by Guildco**; DUE DILIGENCE 2026-08-17 (supersedes the earlier "maker unlocatable" line): the GA title block identifies the OEM as **Sinoma-Liyang Heavy Machinery Co., Ltd** (溧阳中材重型机器有限公司, Liyang, Jiangsu — Sinoma/CNBM group JV), a real, substantial cement-machinery OEM; the LPS625-3 MODEL is still unpublished (generic toothed-roll line only), so no public weight/dims exist | **33 000 kg** (vendor brochure; Zenith's public site shows only generic ranges — the archived drawings remain the source) | OEM now identified; model weight/dims still to be DEMANDED in the re-quote (with OEM confirmation) |
 | — overall dimensions | unknown (same absence) | **2 900 × 3 200 × 1 300 mm** (vendor brochure) | Same |
 | Zone-1.1 screen (SR.5008) | USD 81 032 (SI8202) | **USD 46 323** (S5X2760-3, June 2026) | **Zenith −43 %** |
-| — machine weight | **7 500 kg (no media)** — sourced from the OFFICIAL Terex Simplicity SI-series spec sheet (SI 8202 row): the designation IS the Terex Simplicity 8'×20' 2-deck | **13 020 kg** (GA drawing, incl. per-support load breakdown) | Both now documented — Zenith 74 % heavier (3 decks vs 2, one more motor of duty) |
-| — overall dimensions | Screen box 6 × 2.4 m; W 3.23 × L 7.14 × H 1.40 m (Terex sheet) | **6 373 × 4 570 × 4 080 mm** (GA) | — |
-| — motor cross-check | **DISCREPANCY: Guildco quotes 37 kW; the Terex standard SI 8202 is 22 kW (30 hp)** — bigger-motor option or a non-Terex build: to be clarified in the re-quote | 37 kW YE3-225S-4 (GA) | New re-quote question for Guildco |
+| — machine weight | **CORRECTED 2026-08-17 (due diligence): NOT DOCUMENTED.** The earlier "7 500 kg, official Terex Simplicity SI 8202" attribution is WITHDRAWN as an identification — it was an inference from the designation alone, and the diligence refutes it: the quote never names Terex; Guildco is not a Terex dealer (Terex MPS SA dealer = ELB Equipment); the SI8202 designation is multi-supplier (AMPCO Minerals publishes an SI8202 at 2×18.5 kW = 37 kW — the EXACT power Guildco quotes, vs Terex standard 22 kW); FOB Shanghai + a proven Chinese OEM on the sister machine point to a Chinese build. Terex's 7 500 kg survives only as a same-designation-family ORDER OF MAGNITUDE [H], not as this machine's weight | **13 020 kg** (GA drawing, incl. per-support load breakdown) | Zenith documented; Guildco screen weight + OEM identity to be DEMANDED in the re-quote |
+| — overall dimensions | Not documented for the quoted machine (Terex SI 8202 family reference [H]: box 6 × 2.4 m; W 3.23 × L 7.14 × H 1.40 m) | **6 373 × 4 570 × 4 080 mm** (GA) | Same demand |
+| — motor cross-check | RESOLVED AS AN IDENTITY CLUE, not a Guildco error: 37 kW matches a dual-drive 2×18.5 kW SI8202 build (AMPCO-type), NOT the Terex 22 kW single-drive — evidence AGAINST the Terex identity. Re-quote question reworded: state the screen's OEM, country of manufacture, drive arrangement (single/dual), declared weight and dimensions | 37 kW YE3-225S-4 (GA) | Re-quote question for Guildco (reworded) |
 
-Sources of the 2026-08-17 web sweep: Terex Simplicity SI Screen
-product specification (terex.com spec-sheet PDF, SI 8202 row: 7 500 kg,
-6 × 2.4 m box, 22 kW, 850–900 rpm, 20 deg, max feed 200 mm);
+Sources of the 2026-08-17 web sweep + due diligence: Terex Simplicity
+SI Screen product specification (terex.com spec-sheet PDF, SI 8202
+row: 7 500 kg, 6 × 2.4 m box, 22 kW, 850–900 rpm, 20 deg, max feed
+200 mm — retained as family reference [H] only); ampcominerals.com
+incline-screens page (SI8202 = 2 decks, 2 500 × 6 115 mm, 2×18.5 kW);
+terex.com dealer pages (Terex MPS South Africa = ELB Equipment,
+Johannesburg — Guildco absent); sinoma-liyang.com /
+equipment-heavy.com (Sinoma-Liyang Heavy Machinery, Liyang, Jiangsu:
+toothed-roll crusher line generic, no LPS625-3 model page);
 zenithcrusher.com product pages (generic ranges only — vendor drawings
-prevail); LPS625-3: no public source exists (searched EN + CN,
-manufacturer directories, B2B platforms).
+prevail). OEM identification of the LPS625-3 comes from the archived
+GA title block itself (溧阳中材重型机器有限公司), not from the web.
 
 Weight note on the ruled FOB basis: freight from Shanghai is at the
 BUYER's charge, so an undeclared weight is an undeclared cost — the
 Zenith freight datum (USD 10 400 for the 33 t crusher) scales the
-exposure. The primary's weight gap is now the LAST missing mass figure
-and goes on the Guildco re-quote demand list alongside its missing
-setting range and the 37-vs-22 kW motor question.
+exposure. BOTH Guildco masses are now undeclared (the screen's earlier
+Terex-sourced 7 500 kg is withdrawn as identification) and go on the
+Guildco re-quote demand list alongside the missing setting range and
+the OEM-identity questions (screen: OEM + drive arrangement; crusher:
+confirm Sinoma-Liyang as OEM).
 
 Honesty caveats carried with the admitted 2025 price: (1) the quote is
 FORMALLY EXPIRED — usable for comparison by client ruling, but any
