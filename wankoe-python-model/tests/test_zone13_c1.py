@@ -92,7 +92,9 @@ def test_c1_reference_operating_points():
     f = run_scenario(
         load_parameters(overrides={"default_scenario": {"zone_1_3_mode": "F"}})
     )
-    assert f["machines"]["RC.2"]["throughput_tph"] <= 44.0 + 1e-6
+    # Q12 re-baseline 2026-08-17: A_j 60->65, b_j 0.8->1.5 (client option 2, expert-book calcite centrals): mode-F loop equilibrium 44.0 -> 44.26 t/h (88.5 % of the
+    # 2x25 purchase capacity - PD-4 headroom 12 -> 11.5 %, guarantee holds)
+    assert f["machines"]["RC.2"]["throughput_tph"] <= 44.5 + 1e-6
     assert f["products"]["FeedLime grits"]["present"] is False  # all diverted
     assert f["products"]["FeedLime fines"]["tph"] > 20  # fines campaign rate
     assert f["balances"]["zone_1_3"]["closed"] and f["balances"]["water_zone_1_3"]["closed"]

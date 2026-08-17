@@ -87,7 +87,8 @@ def test_9_2_zone_1_2(results):
     # 2026-08-12 makes PFD REV18 authoritative (6 mm single-deck split;
     # open SR.5111 + CR.5113/SR.5115 loop), so the ch.9 figure is
     # superseded: re-baselined to the engine value on the PFD topology.
-    assert results["products"]["AgLime"]["tph"] == pytest.approx(42.21, abs=0.6)
+    # Q12 re-baseline 2026-08-17: A_j 60->65, b_j 0.8->1.5 (client option 2, expert-book calcite centrals)
+    assert results["products"]["AgLime"]["tph"] == pytest.approx(43.52, abs=0.6)
     # topology-invariant conservation: FeedLime + AgLime = reclaim (dry)
     moisture = 8.0
     fl = results["products"]  # AgLime wet; FeedLime is internal, check via balance

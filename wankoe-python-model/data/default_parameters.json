@@ -78,9 +78,9 @@
       "installed_area_m2": null,
       "purchase_min_area_m2": {
         "top_deck": 9.1,
-        "bottom_deck": 9.6
+        "bottom_deck": 9.8
       },
-      "_purchase_min_note": "CLIENT DECISION 2026-08-15 (error-hunt PD-2, option 1 of 3): purchase minima = the RAIN duty, the true worst circumstance (weather rain, 7 % moisture, wet_capacity_factor 0.75 -> engine 9.07/9.53 m2, rounded UP to 9.1/9.6) - full production during rain weeks per the rain-week ruling. The +25 % [H] allowance is NOT stacked on the rain case; it survives as natural dry-weather headroom (~33 % over the dry duty 6.80/7.15 m2). Rejected options: rain duty +25 % (11.3/11.9 m2) and rain feed derate (~233 t/h).",
+      "_purchase_min_note": "CLIENT RULE PD-2 (2026-08-15): purchase minima = the RAIN duty, no stacked margin. MECHANICAL UPDATE 2026-08-17 under the Q12 A/b adoption (A 65 / b 1.5): the finer impactor product raises the rain-duty bottom deck 9.53 -> 9.73 m2 -> minimum 9.6 -> 9.8 (top deck 9.07 unchanged -> 9.1). Guard scripts/purchase_datasheet_evidence.py fired as designed and this update answers it; registered as a Q12 consequence.",
       "parameters": {
         "a1": {
           "name": "Top deck aperture",
@@ -204,9 +204,9 @@
       "type": "First 1.7 mm closing screen, OPEN circuit (PFD REV18: undersize = AgLime, oversize -> CR.5113)",
       "installed_area_m2": null,
       "purchase_min_area_m2": {
-        "deck": 2.1
+        "deck": 2.3
       },
-      "_purchase_min_note": "CLIENT DECISION 2026-08-15 (error-hunt M-1, option 1 of 3): re-quoted by the FULL VSMA factor method (scripts/vsma_factor_sizing.py) - worst factor duty 1.65 m2 (2C, measured/1A; the model said 1.42) -> x1.25 -> 2.1 m2 (was 1.8). The vendor bed-depth sizing at 100 t/h WET still GOVERNS over this cut-duty minimum (sheet caveat unchanged).",
+      "_purchase_min_note": "GOVERNING RULE (client 2026-08-17, Fontaine arbitration): floor = worst of the VSMA factor method and the Fontaine %GL law, x1.25 rounded up. MECHANICAL UPDATE 2026-08-17 under the Q12 A/b adoption: VSMA worst 1.65 -> 1.77 m2 (2C duty, finer loop feed) -> floor 2.1 -> 2.3 (VSMA governs; Fontaine 0.77). Vendor bed-depth sizing at 100 t/h wet still GOVERNS upward (unchanged caveat).",
       "loop_rating_tph": 60,
       "_loop_rating_note": "BC.5110/BC.5116 conveyors rated 60 T/h (PFD REV18) — alert when the loop feed exceeds it",
       "parameters": {
@@ -562,15 +562,15 @@
     "A_j": {
       "name": "JKMRC parameter A",
       "unit": "%",
-      "default": 60,
-      "status": "[H]",
+      "default": 65,
+      "status": "[H] CLIENT DECISION 2026-08-17 (Q12 closed, option 2 of 3): expert-book calcite CENTRAL value adopted as default (book band 62-69; supersedes the spec-era 60 kept since 2026-08-08). Still a literature hypothesis - no drop-weight test launched (client 2026-08-16); the CONTRACTUAL vendor gradation/capacity tests of the crusher RFQs are the closing instrument (re-fitted values land data-first and the engine replays).",
       "used_by": "M5"
     },
     "b_j": {
       "name": "JKMRC parameter b",
       "unit": "-",
-      "default": 0.8,
-      "status": "[H] literature default. FLAG (2026-08-08): A*b=48 is mid-hard; JKTech database trends put SOFT limestone at A*b~60-80 (b~1.0-1.4 at A=60) - current 0.8 is a conservative hard-side choice",
+      "default": 1.5,
+      "status": "[H] CLIENT DECISION 2026-08-17 (Q12 closed, option 2 of 3): expert-book calcite CENTRAL value adopted as default (book band 1.3-3.0; supersedes the spec-era 0.8 kept since 2026-08-08). Still a literature hypothesis - no drop-weight test launched (client 2026-08-16); the CONTRACTUAL vendor gradation/capacity tests of the crusher RFQs are the closing instrument (re-fitted values land data-first and the engine replays).",
       "used_by": "M5"
     },
     "k_d": {

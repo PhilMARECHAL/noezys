@@ -282,8 +282,14 @@ bypass FeedLime = stock-PSD watch.
   Q5 CLOSED 2026-08-17 (mass closure = authority; spec 9.3's 19.9 t/h
   acted as spec-side error, historical). Q10 CLOSED 2026-08-17 (statu quo LOCKED: client enables GitHub
   branch protection on main - require PR + block force push + restrict
-  deletion; never-merge rule remains on top). Still open: b_j soft
-  limestone (Q12 - frozen [H], no tests launched).
+  deletion; never-merge rule remains on top). Q12 CLOSED 2026-08-17 (option 2: A_j 65 / b_j 1.5 book centrals =
+  defaults; consequences: gates all hold, KFS yield 23.36, AgLime total
+  164 093 t incl. conversion 29 093 [alerted market extension], CR.5113
+  2C 355.5 kW [450 rec. stands], RC.2 F-loop 44.26 [88.5 % of 2x25];
+  floors updated by standing rules: SR.5008 bottom 9.8, SR.5111 2.3;
+  vendor gradation tests = closing instrument; issued datasheets +
+  DT-002 epoch-pinned pre-Q12). ALL FOUR OLD REGISTER POINTS NOW
+  CLOSED (Q3/Q4/Q5/Q10/Q12, 2026-08-17).
 - NEW WORKING MODE (client, 2026-08-11): the client found the web app too
   complicated — simulations now run IN CHAT (same engine, identical
   numbers), app optional. Protocol: step-by-step zone 1 review — inputs

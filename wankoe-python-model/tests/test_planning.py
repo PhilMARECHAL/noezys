@@ -25,9 +25,12 @@ def test_production_lands_exactly_on_targets(plan):
     # the dust collection raises mode-F hours (fines objective still lands
     # exactly), which raises 2A hours and shrinks the 0/20 excess — AgLime
     # = 135 000 + 6 929 conversion
-    assert plan["production_t"]["AgLime"] == pytest.approx(141929, rel=0.01)
-    assert plan["sales_t"]["AgLime from 0/20 conversion (client rule 2026-08-16)"] == pytest.approx(6929, rel=0.05)
-    assert plan["sales_t"]["AgLime total sold (loop + campaigns + redirect)"] == pytest.approx(141929, rel=0.01)
+    # Q12 re-baseline 2026-08-17: A_j 60->65, b_j 0.8->1.5 (client option 2, expert-book calcite centrals): finer impactor product -> yield 23.36, conversion grows
+    assert plan["production_t"]["AgLime"] == pytest.approx(164093, rel=0.01)
+    # Q12 re-baseline 2026-08-17: A/b centrals halve the KFS yield gap side -
+    # the 0/20 excess converted to AgLime grows 6 929 -> 29 093 t
+    assert plan["sales_t"]["AgLime from 0/20 conversion (client rule 2026-08-16)"] == pytest.approx(29093, rel=0.05)
+    assert plan["sales_t"]["AgLime total sold (loop + campaigns + redirect)"] == pytest.approx(164093, rel=0.01)
     # UltraFin = classifier fines + collected dedusting dust (client
     # strategy 2026-08-16; capture fractions [H])
     assert plan["production_t"]["UltraFin"] == pytest.approx(6687, rel=0.05)
@@ -50,7 +53,8 @@ def test_2c_campaigns_are_toggleable(plan):
     # the dust collection raises mode-F hours and hence the FeedLime
     # demand, so 2A-only co-production rises to 71 433 t; the 0/20
     # conversion still absorbs the whole excess
-    assert off["sales_t"]["AgLime from loop (2A co-production)"] == pytest.approx(71433, rel=0.02)
+    # Q12 re-baseline 2026-08-17: A_j 60->65, b_j 0.8->1.5 (client option 2, expert-book calcite centrals)
+    assert off["sales_t"]["AgLime from loop (2A co-production)"] == pytest.approx(76655, rel=0.02)
     assert off["sales_t"]["AgLime from dedicated 2C campaigns"] == 0
     assert off["sales_t"]["AgLime from 0/20 conversion (client rule 2026-08-16)"] > 0
     # the conversion volume is LARGER than in the base plan (the unserved
@@ -235,7 +239,8 @@ def test_kfs_yield_indicator(plan):
     ky = plan["kfs_yield"]
     # 24.88 % on the x2 converged grid (was 24.59 on the spec grid; the
     # action-5 study quantified the +0.3 pt discretization bias)
-    assert ky["realized_pct"] == pytest.approx(24.88, abs=0.2)
+    # Q12 re-baseline 2026-08-17: A_j 60->65, b_j 0.8->1.5 (client option 2, expert-book calcite centrals): 24.88 -> 23.36
+    assert ky["realized_pct"] == pytest.approx(23.36, abs=0.2)
     # Re-baselined 2026-08-16 (0/20 conversion rule): the whole excess is
     # reclaimed-and-converted, so required-for-zero-landfill == realized
     # BY CONSTRUCTION and the yield alert no longer fires

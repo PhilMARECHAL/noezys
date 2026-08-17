@@ -1,6 +1,6 @@
 {
  "_provenance": {
-  "engine_commit": "36c5ff4",
+  "engine_commit": "4402069",
   "run_date": "2026-08-17",
   "functions": [
    "wankoe_model.scenario.run_scenario (per-mode photos 1A / forced 1B / 2A / 2C / G / F, weather dry)"
@@ -27,10 +27,10 @@
   "zone_1_2_loop_rating_tph": 60,
   "CR.5006_max_feed_size_mm": 250,
   "SR.5111_loop_load_ratio_2C": 1.667,
-  "CR.5011_load_ratio_1A_wet": 0.828,
-  "CR.5011_load_ratio_1B_wet": 0.924,
-  "RC.1_load_ratio_G": 0.913,
-  "RC.2_load_ratio_F": 0.88
+  "CR.5011_load_ratio_1A_wet": 0.824,
+  "CR.5011_load_ratio_1B_wet": 0.917,
+  "RC.1_load_ratio_G": 0.903,
+  "RC.2_load_ratio_F": 0.885
  },
  "machines": {
   "CR.5006": {
@@ -66,37 +66,37 @@
    "modes": {
     "1A": {
      "active": true,
-     "feed_tph_dry": 301.77,
-     "feed_tph_wet": 324.48,
+     "feed_tph_dry": 301.43,
+     "feed_tph_wet": 324.12,
      "required_areas_m2": {
       "top_deck": 6.8,
-      "bottom_deck": 7.15
+      "bottom_deck": 7.29
      }
     },
     "1B": {
      "active": true,
-     "feed_tph_dry": 237.34,
-     "feed_tph_wet": 255.2,
+     "feed_tph_dry": 236.7,
+     "feed_tph_wet": 254.51,
      "required_areas_m2": {
-      "top_deck": 5.7,
+      "top_deck": 5.68,
       "bottom_deck": 6.55
      }
     },
     "1A-rain": {
      "active": true,
-     "feed_tph_dry": 301.77,
-     "feed_tph_wet": 324.48,
+     "feed_tph_dry": 301.43,
+     "feed_tph_wet": 324.12,
      "required_areas_m2": {
       "top_deck": 9.07,
-      "bottom_deck": 9.53
+      "bottom_deck": 9.73
      }
     },
     "1B-rain": {
      "active": true,
-     "feed_tph_dry": 237.34,
-     "feed_tph_wet": 255.2,
+     "feed_tph_dry": 236.7,
+     "feed_tph_wet": 254.51,
      "required_areas_m2": {
-      "top_deck": 7.6,
+      "top_deck": 7.58,
       "bottom_deck": 8.73
      }
     }
@@ -109,45 +109,45 @@
     },
     "bottom_deck": {
      "worst_mode": "1A-rain",
-     "required_m2": 9.53,
-     "with_margin_m2": 11.91
+     "required_m2": 9.73,
+     "with_margin_m2": 12.16
     }
    },
    "area_margin": "+25 % [H]",
    "client_decided_min_area_m2": {
     "top_deck": 9.1,
-    "bottom_deck": 9.6
+    "bottom_deck": 9.8
    }
   },
   "CR.5011": {
    "modes": {
     "1A": {
      "active": true,
-     "throughput_tph_dry": 69.27,
-     "throughput_tph_wet": 74.48,
-     "F80_mm": 63.02,
-     "P80_mm": 29.29,
-     "P_net_kW": 16.1,
-     "absorbed_kW": 21.5,
-     "W_kWh_t": 0.2331,
+     "throughput_tph_dry": 68.93,
+     "throughput_tph_wet": 74.12,
+     "F80_mm": 63.13,
+     "P80_mm": 28.42,
+     "P_net_kW": 16.9,
+     "absorbed_kW": 22.5,
+     "W_kWh_t": 0.2447,
      "Ecs_kWh_t": 0.125,
-     "t10_pct": 5.7098
+     "t10_pct": 11.1131
     },
     "1B": {
      "active": true,
-     "throughput_tph_dry": 77.38,
-     "throughput_tph_wet": 83.2,
-     "F80_mm": 55.63,
-     "P80_mm": 17.66,
-     "P_net_kW": 31.9,
-     "absorbed_kW": 42.5,
-     "W_kWh_t": 0.4119,
+     "throughput_tph_dry": 76.74,
+     "throughput_tph_wet": 82.51,
+     "F80_mm": 55.75,
+     "P80_mm": 17.13,
+     "P_net_kW": 32.8,
+     "absorbed_kW": 43.7,
+     "W_kWh_t": 0.4269,
      "Ecs_kWh_t": 0.125,
-     "t10_pct": 5.7098
+     "t10_pct": 11.1131
     }
    },
    "motor_sizing": {
-    "worst_mode_absorbed_kW": 42.5,
+    "worst_mode_absorbed_kW": 43.7,
     "service_allowance": "x1.15 [H]",
     "recommended_min_installed_kW": 55
    }
@@ -159,15 +159,15 @@
      "feed_tph_dry": 93.0,
      "feed_tph_wet": 100.0,
      "required_areas_m2": {
-      "deck": 3.01
+      "deck": 3.14
      }
     }
    },
    "purchase_area_m2": {
     "deck": {
      "worst_mode": "2A",
-     "required_m2": 3.01,
-     "with_margin_m2": 3.76
+     "required_m2": 3.14,
+     "with_margin_m2": 3.93
     }
    },
    "area_margin": "+25 % [H]"
@@ -176,10 +176,10 @@
    "modes": {
     "2A": {
      "active": true,
-     "feed_tph_dry": 35.69,
-     "feed_tph_wet": 38.37,
+     "feed_tph_dry": 37.25,
+     "feed_tph_wet": 40.06,
      "required_areas_m2": {
-      "deck": 1.42
+      "deck": 1.52
      },
      "imperfection_used": 0.15
     },
@@ -188,7 +188,7 @@
      "feed_tph_dry": 93.0,
      "feed_tph_wet": 100.0,
      "required_areas_m2": {
-      "deck": 1.42
+      "deck": 1.52
      },
      "imperfection_used": 0.15
     }
@@ -196,44 +196,44 @@
    "purchase_area_m2": {
     "deck": {
      "worst_mode": "2C",
-     "required_m2": 1.42,
-     "with_margin_m2": 1.77
+     "required_m2": 1.52,
+     "with_margin_m2": 1.9
     }
    },
    "area_margin": "+25 % [H]",
    "client_decided_min_area_m2": {
-    "deck": 2.1
+    "deck": 2.3
    }
   },
   "CR.5113": {
    "modes": {
     "2A": {
      "active": true,
-     "throughput_tph_dry": 28.06,
-     "throughput_tph_wet": 30.17,
-     "F80_mm": 5.19,
-     "P80_mm": 0.95,
-     "P_net_kW": 65.5,
-     "absorbed_kW": 87.4,
-     "W_kWh_t": 2.3356,
+     "throughput_tph_dry": 29.09,
+     "throughput_tph_wet": 31.28,
+     "F80_mm": 5.18,
+     "P80_mm": 0.9,
+     "P_net_kW": 70.6,
+     "absorbed_kW": 94.2,
+     "W_kWh_t": 2.4279,
      "Ecs_kWh_t": 0.2222,
-     "t10_pct": 9.7723
+     "t10_pct": 18.4255
     },
     "2C": {
      "active": true,
-     "throughput_tph_dry": 85.99,
-     "throughput_tph_wet": 92.46,
-     "F80_mm": 14.56,
-     "P80_mm": 0.95,
-     "P_net_kW": 261.1,
-     "absorbed_kW": 348.1,
-     "W_kWh_t": 3.0366,
+     "throughput_tph_dry": 85.44,
+     "throughput_tph_wet": 91.88,
+     "F80_mm": 14.25,
+     "P80_mm": 0.9,
+     "P_net_kW": 266.6,
+     "absorbed_kW": 355.5,
+     "W_kWh_t": 3.12,
      "Ecs_kWh_t": 0.2222,
-     "t10_pct": 9.7723
+     "t10_pct": 18.4255
     }
    },
    "motor_sizing": {
-    "worst_mode_absorbed_kW": 348.1,
+    "worst_mode_absorbed_kW": 355.5,
     "service_allowance": "x1.15 [H]",
     "recommended_min_installed_kW": 450
    }
@@ -242,19 +242,19 @@
    "modes": {
     "2A": {
      "active": true,
-     "feed_tph_dry": 28.06,
-     "feed_tph_wet": 30.17,
+     "feed_tph_dry": 29.09,
+     "feed_tph_wet": 31.28,
      "required_areas_m2": {
-      "deck": 4.99
+      "deck": 5.17
      },
      "imperfection_used": 0.15
     },
     "2C": {
      "active": true,
-     "feed_tph_dry": 85.99,
-     "feed_tph_wet": 92.46,
+     "feed_tph_dry": 85.44,
+     "feed_tph_wet": 91.88,
      "required_areas_m2": {
-      "deck": 15.28
+      "deck": 15.18
      },
      "imperfection_used": 0.15
     }
@@ -262,8 +262,8 @@
    "purchase_area_m2": {
     "deck": {
      "worst_mode": "2C",
-     "required_m2": 15.28,
-     "with_margin_m2": 19.1
+     "required_m2": 15.18,
+     "with_margin_m2": 18.98
     }
    },
    "area_margin": "+25 % [H]",
@@ -275,27 +275,27 @@
    "modes": {
     "G": {
      "active": true,
-     "throughput_tph_dry": 29.21,
-     "throughput_tph_wet": 29.21,
-     "F80_mm": 16.39,
+     "throughput_tph_dry": 28.91,
+     "throughput_tph_wet": 28.91,
+     "F80_mm": 16.25,
      "P80_mm": 7.72,
-     "P_net_kW": 13.1,
-     "absorbed_kW": 17.4,
-     "W_kWh_t": 0.448
+     "P_net_kW": 12.8,
+     "absorbed_kW": 17.1,
+     "W_kWh_t": 0.4435
     },
     "F": {
      "active": true,
-     "throughput_tph_dry": 22.8,
-     "throughput_tph_wet": 22.8,
-     "F80_mm": 16.39,
+     "throughput_tph_dry": 22.56,
+     "throughput_tph_wet": 22.56,
+     "F80_mm": 16.25,
      "P80_mm": 7.72,
-     "P_net_kW": 10.2,
-     "absorbed_kW": 13.6,
-     "W_kWh_t": 0.448
+     "P_net_kW": 10.0,
+     "absorbed_kW": 13.3,
+     "W_kWh_t": 0.4435
     }
    },
    "motor_sizing": {
-    "worst_mode_absorbed_kW": 17.4,
+    "worst_mode_absorbed_kW": 17.1,
     "service_allowance": "x1.15 [H]",
     "recommended_min_installed_kW": 22
    }
@@ -304,32 +304,32 @@
    "modes": {
     "G": {
      "active": true,
-     "throughput_tph_dry": 33.17,
-     "throughput_tph_wet": 33.17,
-     "F80_mm": 6.97,
+     "throughput_tph_dry": 33.33,
+     "throughput_tph_wet": 33.33,
+     "F80_mm": 6.99,
      "P80_mm": 2.83,
-     "P_net_kW": 28.4,
-     "absorbed_kW": 37.9,
+     "P_net_kW": 28.6,
+     "absorbed_kW": 38.1,
      "units_in_service": 2,
-     "W_kWh_t": 0.8569
+     "W_kWh_t": 0.8576
     },
     "F": {
      "active": true,
-     "throughput_tph_dry": 43.99,
-     "throughput_tph_wet": 43.99,
-     "F80_mm": 6.0,
-     "P80_mm": 2.63,
-     "P_net_kW": 36.4,
-     "absorbed_kW": 48.5,
+     "throughput_tph_dry": 44.26,
+     "throughput_tph_wet": 44.26,
+     "F80_mm": 6.02,
+     "P80_mm": 2.64,
+     "P_net_kW": 36.5,
+     "absorbed_kW": 48.7,
      "units_in_service": 2,
-     "W_kWh_t": 0.8268
+     "W_kWh_t": 0.8253
     }
    },
    "motor_sizing": {
-    "worst_mode_absorbed_kW": 48.5,
+    "worst_mode_absorbed_kW": 48.7,
     "service_allowance": "x1.15 [H]",
     "recommended_min_installed_kW": 75,
-    "per_unit_absorbed_kW": 24.2,
+    "per_unit_absorbed_kW": 24.4,
     "recommended_min_installed_kW_per_unit": 30
    }
   },
@@ -337,33 +337,33 @@
    "modes": {
     "G": {
      "active": true,
-     "feed_tph_dry": 92.23,
-     "feed_tph_wet": 92.23,
+     "feed_tph_dry": 92.09,
+     "feed_tph_wet": 92.09,
      "required_areas_m2": {
-      "deck_1": 4.47,
+      "deck_1": 4.48,
       "deck_2": 4.56
      }
     },
     "F": {
      "active": true,
-     "feed_tph_dry": 90.08,
-     "feed_tph_wet": 90.08,
+     "feed_tph_dry": 90.11,
+     "feed_tph_wet": 90.11,
      "required_areas_m2": {
-      "deck_1": 4.77,
-      "deck_2": 5.59
+      "deck_1": 4.79,
+      "deck_2": 5.6
      }
     }
    },
    "purchase_area_m2": {
     "deck_1": {
      "worst_mode": "F",
-     "required_m2": 4.77,
-     "with_margin_m2": 5.96
+     "required_m2": 4.79,
+     "with_margin_m2": 5.99
     },
     "deck_2": {
      "worst_mode": "F",
-     "required_m2": 5.59,
-     "with_margin_m2": 6.99
+     "required_m2": 5.6,
+     "with_margin_m2": 7.0
     }
    },
    "area_margin": "+25 % [H]"
@@ -372,8 +372,8 @@
    "modes": {
     "G": {
      "active": true,
-     "feed_tph_dry": 40.81,
-     "feed_tph_wet": 40.81,
+     "feed_tph_dry": 40.82,
+     "feed_tph_wet": 40.82,
      "required_areas_m2": {
       "deck_1": 4.01,
       "deck_2": 2.64
@@ -381,8 +381,8 @@
     },
     "F": {
      "active": true,
-     "feed_tph_dry": 50.0,
-     "feed_tph_wet": 50.0,
+     "feed_tph_dry": 50.09,
+     "feed_tph_wet": 50.09,
      "required_areas_m2": {
       "deck_1": 5.19,
       "deck_2": 4.51
@@ -411,13 +411,13 @@
    "modes": {
     "G": {
      "active": true,
-     "Q_air_m3h": 133.1065,
+     "Q_air_m3h": 133.0468,
      "Phi_cut": 0.0065,
      "certified": false
     },
     "F": {
      "active": true,
-     "Q_air_m3h": 207.2215,
+     "Q_air_m3h": 207.0758,
      "Phi_cut": 0.0059,
      "certified": false
     }
@@ -439,6 +439,6 @@
  "alerts_1A": [
   "SP.36: Phi(<cut) not measured — UltraFin computed from the modelled curve, flagged NOT CERTIFIED (to be measured by sieve/laser)",
   "Zone 1.3 dedusting collected 1.73 t/h to UltraFin (client rule 2026-08-16; capture fractions and dust composition [H] pending site dust survey + filter-catch XRD)",
-  "Stockpile 0/20: 239422 t reclaimed beyond what is produced when every zone runs its FULL ceiling hours — downstream tonnages of this table are not simultaneously achievable at these rates; the hours planning (hours follow the targets) gives the consistent operating point"
+  "Stockpile 0/20: 232147 t reclaimed beyond what is produced when every zone runs its FULL ceiling hours — downstream tonnages of this table are not simultaneously achievable at these rates; the hours planning (hours follow the targets) gives the consistent operating point"
  ]
 }

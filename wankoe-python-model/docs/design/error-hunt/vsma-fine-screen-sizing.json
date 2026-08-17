@@ -1,6 +1,6 @@
 {
  "_provenance": {
-  "engine_commit": "36c5ff4",
+  "engine_commit": "4402069",
   "script": "scripts/vsma_factor_sizing.py",
   "margin": "x1.25 [H] on the factor-method worst case",
   "note": "Client decision 2026-08-15 (error-hunt M-1, option 1): fine-screen purchase minima by the FULL VSMA factor method (the engine M4 model has no composition factors and under-sizes low-half-size feeds by ~25-30 %). Factor data [H]; vendor bed-depth sizing verifies. FONTAINE %GL CROSS-CHECK added 2026-08-17 (client order; source: Le criblage + calculation booklet, Carmeuse 2001, Tableaux 6-7 \u2014 the identified source of M4): Q = 1.4 a^0.6 / %GL m3/h/m2, near-mesh band a/2..1.5a [H], densities from feed_product.properties (dry 1.5 / wet 1.62 t/m3, first use). INFORMATIONAL: purchase floors never weakened; exceedances surfaced for client arbitration."
@@ -10,12 +10,12 @@
    "deck_1": {
     "worst_vsma": {
      "circumstance": "measured / 1B / 2A+F",
-     "area_m2": 5.85,
+     "area_m2": 5.86,
      "model_area_m2": 5.19
     },
     "worst_fontaine": {
-     "circumstance": "measured / 1A / 2A+F",
-     "area_m2": 6.28,
+     "circumstance": "measured / 1B / 2A+F",
+     "area_m2": 6.29,
      "pct_GL": 62.8,
      "within_tabulated_GL_range": true
     },
@@ -24,14 +24,14 @@
    },
    "deck_2": {
     "worst_vsma": {
-     "circumstance": "measured / 1A / 2A+F",
+     "circumstance": "measured / 1B / 2A+F",
      "area_m2": 5.95,
      "model_area_m2": 4.51
     },
     "worst_fontaine": {
-     "circumstance": "measured / 1B / 2A+F",
+     "circumstance": "measured / 1A / 2A+F",
      "area_m2": 6.2,
-     "pct_GL": 71.2,
+     "pct_GL": 71.3,
      "within_tabulated_GL_range": true
     },
     "governing_method": "fontaine",
@@ -41,35 +41,35 @@
   "SR.5111": {
    "deck": {
     "worst_vsma": {
-     "circumstance": "measured / 1A / 2C",
-     "area_m2": 1.65,
-     "model_area_m2": 1.42
+     "circumstance": "measured / 1B / 2C",
+     "area_m2": 1.77,
+     "model_area_m2": 1.53
     },
     "worst_fontaine": {
      "circumstance": "measured / 1A / 2A+G",
-     "area_m2": 0.71,
-     "pct_GL": 28.0,
+     "area_m2": 0.77,
+     "pct_GL": 28.3,
      "within_tabulated_GL_range": true
     },
     "governing_method": "vsma",
-    "purchase_min_m2": 2.1
+    "purchase_min_m2": 2.3
    }
   },
   "SR.5115": {
    "deck": {
     "worst_vsma": {
-     "circumstance": "quarry / 1B / 2C",
-     "area_m2": 10.61,
-     "model_area_m2": 15.72
+     "circumstance": "quarry / 1A / 2C",
+     "area_m2": 10.13,
+     "model_area_m2": 15.53
     },
     "worst_fontaine": {
-     "circumstance": "quarry / 1B / 2C",
-     "area_m2": 7.16,
-     "pct_GL": 25.5,
+     "circumstance": "quarry / 1A / 2C",
+     "area_m2": 6.27,
+     "pct_GL": 22.6,
      "within_tabulated_GL_range": true
     },
     "governing_method": "vsma",
-    "purchase_min_m2": 13.3
+    "purchase_min_m2": 12.7
    }
   }
  },
@@ -79,257 +79,7 @@
    "machine": "SC.B",
    "deck": "deck_1",
    "aperture_mm": 2.0,
-   "undersize_tph": 24.59,
-   "pct_half_size": 17.2,
-   "pct_oversize": 36.9,
-   "factors": {
-    "C_basic": 6.3,
-    "M_oversize": 1.11,
-    "K_half_size": 0.66,
-    "D_deck": 1.0
-   },
-   "area_vsma_m2": 5.36,
-   "area_model_m2": 4.01,
-   "fontaine": {
-    "pct_GL_near_mesh": 69.2,
-    "Q_m3_h_m2": 3.07,
-    "rho_tm3": 1.5,
-    "Q_t_h_m2": 4.6,
-    "area_fontaine_m2": 5.34,
-    "within_tabulated_GL_range": true
-   }
-  },
-  {
-   "circumstance": "measured / 1A / 2A+G",
-   "machine": "SC.B",
-   "deck": "deck_2",
-   "aperture_mm": 1.5,
-   "undersize_tph": 13.63,
-   "pct_half_size": 19.5,
-   "pct_oversize": 49.4,
-   "factors": {
-    "C_basic": 5.2,
-    "M_oversize": 1.21,
-    "K_half_size": 0.69,
-    "D_deck": 0.9
-   },
-   "area_vsma_m2": 3.49,
-   "area_model_m2": 2.64,
-   "fontaine": {
-    "pct_GL_near_mesh": 78.8,
-    "Q_m3_h_m2": 2.27,
-    "rho_tm3": 1.5,
-    "Q_t_h_m2": 3.4,
-    "area_fontaine_m2": 4.01,
-    "within_tabulated_GL_range": true
-   }
-  },
-  {
-   "circumstance": "measured / 1A / 2A+G",
-   "machine": "SR.5111",
-   "deck": "deck",
-   "aperture_mm": 1.7,
-   "undersize_tph": 7.93,
-   "pct_half_size": 9.2,
-   "pct_oversize": 78.2,
-   "factors": {
-    "C_basic": 5.68,
-    "M_oversize": 1.58,
-    "K_half_size": 0.54,
-    "D_deck": 1.0
-   },
-   "area_vsma_m2": 1.64,
-   "area_model_m2": 1.42,
-   "fontaine": {
-    "pct_GL_near_mesh": 28.0,
-    "Q_m3_h_m2": 6.89,
-    "rho_tm3": 1.62,
-    "Q_t_h_m2": 11.15,
-    "area_fontaine_m2": 0.71,
-    "within_tabulated_GL_range": true
-   }
-  },
-  {
-   "circumstance": "measured / 1A / 2A+G",
-   "machine": "SR.5115",
-   "deck": "deck",
-   "aperture_mm": 1.7,
-   "undersize_tph": 27.76,
-   "pct_half_size": 74.5,
-   "pct_oversize": 0.0,
-   "factors": {
-    "C_basic": 5.68,
-    "M_oversize": 0.86,
-    "K_half_size": 1.69,
-    "D_deck": 1.0
-   },
-   "area_vsma_m2": 3.36,
-   "area_model_m2": 4.99,
-   "fontaine": {
-    "pct_GL_near_mesh": 25.5,
-    "Q_m3_h_m2": 7.55,
-    "rho_tm3": 1.62,
-    "Q_t_h_m2": 12.23,
-    "area_fontaine_m2": 2.27,
-    "within_tabulated_GL_range": true
-   }
-  },
-  {
-   "circumstance": "measured / 1A / 2A+F",
-   "machine": "SC.B",
-   "deck": "deck_1",
-   "aperture_mm": 2.0,
-   "undersize_tph": 31.84,
-   "pct_half_size": 25.8,
-   "pct_oversize": 36.2,
-   "factors": {
-    "C_basic": 6.3,
-    "M_oversize": 1.1,
-    "K_half_size": 0.79,
-    "D_deck": 1.0
-   },
-   "area_vsma_m2": 5.84,
-   "area_model_m2": 5.19,
-   "fontaine": {
-    "pct_GL_near_mesh": 62.8,
-    "Q_m3_h_m2": 3.38,
-    "rho_tm3": 1.5,
-    "Q_t_h_m2": 5.07,
-    "area_fontaine_m2": 6.28,
-    "within_tabulated_GL_range": true
-   }
-  },
-  {
-   "circumstance": "measured / 1A / 2A+F",
-   "machine": "SC.B",
-   "deck": "deck_2",
-   "aperture_mm": 1.5,
-   "undersize_tph": 23.3,
-   "pct_half_size": 27.0,
-   "pct_oversize": 26.7,
-   "factors": {
-    "C_basic": 5.2,
-    "M_oversize": 1.04,
-    "K_half_size": 0.8,
-    "D_deck": 0.9
-   },
-   "area_vsma_m2": 5.95,
-   "area_model_m2": 4.51,
-   "fontaine": {
-    "pct_GL_near_mesh": 71.2,
-    "Q_m3_h_m2": 2.51,
-    "rho_tm3": 1.5,
-    "Q_t_h_m2": 3.76,
-    "area_fontaine_m2": 6.19,
-    "within_tabulated_GL_range": true
-   }
-  },
-  {
-   "circumstance": "measured / 1A / 2A+F",
-   "machine": "SR.5111",
-   "deck": "deck",
-   "aperture_mm": 1.7,
-   "undersize_tph": 7.93,
-   "pct_half_size": 9.2,
-   "pct_oversize": 78.2,
-   "factors": {
-    "C_basic": 5.68,
-    "M_oversize": 1.58,
-    "K_half_size": 0.54,
-    "D_deck": 1.0
-   },
-   "area_vsma_m2": 1.64,
-   "area_model_m2": 1.42,
-   "fontaine": {
-    "pct_GL_near_mesh": 28.0,
-    "Q_m3_h_m2": 6.89,
-    "rho_tm3": 1.62,
-    "Q_t_h_m2": 11.15,
-    "area_fontaine_m2": 0.71,
-    "within_tabulated_GL_range": true
-   }
-  },
-  {
-   "circumstance": "measured / 1A / 2A+F",
-   "machine": "SR.5115",
-   "deck": "deck",
-   "aperture_mm": 1.7,
-   "undersize_tph": 27.76,
-   "pct_half_size": 74.5,
-   "pct_oversize": 0.0,
-   "factors": {
-    "C_basic": 5.68,
-    "M_oversize": 0.86,
-    "K_half_size": 1.69,
-    "D_deck": 1.0
-   },
-   "area_vsma_m2": 3.36,
-   "area_model_m2": 4.99,
-   "fontaine": {
-    "pct_GL_near_mesh": 25.5,
-    "Q_m3_h_m2": 7.55,
-    "rho_tm3": 1.62,
-    "Q_t_h_m2": 12.23,
-    "area_fontaine_m2": 2.27,
-    "within_tabulated_GL_range": true
-   }
-  },
-  {
-   "circumstance": "measured / 1A / 2C",
-   "machine": "SR.5111",
-   "deck": "deck",
-   "aperture_mm": 1.7,
-   "undersize_tph": 7.93,
-   "pct_half_size": 3.5,
-   "pct_oversize": 91.6,
-   "factors": {
-    "C_basic": 5.68,
-    "M_oversize": 1.87,
-    "K_half_size": 0.45,
-    "D_deck": 1.0
-   },
-   "area_vsma_m2": 1.65,
-   "area_model_m2": 1.42,
-   "fontaine": {
-    "pct_GL_near_mesh": 10.7,
-    "Q_m3_h_m2": 17.94,
-    "rho_tm3": 1.62,
-    "Q_t_h_m2": 29.07,
-    "area_fontaine_m2": 0.27,
-    "within_tabulated_GL_range": true
-   }
-  },
-  {
-   "circumstance": "measured / 1A / 2C",
-   "machine": "SR.5115",
-   "deck": "deck",
-   "aperture_mm": 1.7,
-   "undersize_tph": 85.07,
-   "pct_half_size": 74.5,
-   "pct_oversize": 0.0,
-   "factors": {
-    "C_basic": 5.68,
-    "M_oversize": 0.86,
-    "K_half_size": 1.69,
-    "D_deck": 1.0
-   },
-   "area_vsma_m2": 10.31,
-   "area_model_m2": 15.28,
-   "fontaine": {
-    "pct_GL_near_mesh": 25.5,
-    "Q_m3_h_m2": 7.55,
-    "rho_tm3": 1.62,
-    "Q_t_h_m2": 12.23,
-    "area_fontaine_m2": 6.96,
-    "within_tabulated_GL_range": true
-   }
-  },
-  {
-   "circumstance": "measured / 1B / 2A+G",
-   "machine": "SC.B",
-   "deck": "deck_1",
-   "aperture_mm": 2.0,
-   "undersize_tph": 24.6,
+   "undersize_tph": 24.61,
    "pct_half_size": 17.2,
    "pct_oversize": 36.9,
    "factors": {
@@ -350,11 +100,11 @@
    }
   },
   {
-   "circumstance": "measured / 1B / 2A+G",
+   "circumstance": "measured / 1A / 2A+G",
    "machine": "SC.B",
    "deck": "deck_2",
    "aperture_mm": 1.5,
-   "undersize_tph": 13.64,
+   "undersize_tph": 13.65,
    "pct_half_size": 19.5,
    "pct_oversize": 49.4,
    "factors": {
@@ -375,57 +125,57 @@
    }
   },
   {
-   "circumstance": "measured / 1B / 2A+G",
+   "circumstance": "measured / 1A / 2A+G",
    "machine": "SR.5111",
    "deck": "deck",
    "aperture_mm": 1.7,
-   "undersize_tph": 7.05,
-   "pct_half_size": 8.2,
-   "pct_oversize": 79.9,
+   "undersize_tph": 8.48,
+   "pct_half_size": 9.5,
+   "pct_oversize": 77.6,
    "factors": {
     "C_basic": 5.68,
-    "M_oversize": 1.61,
-    "K_half_size": 0.52,
+    "M_oversize": 1.57,
+    "K_half_size": 0.54,
     "D_deck": 1.0
    },
-   "area_vsma_m2": 1.48,
-   "area_model_m2": 1.27,
+   "area_vsma_m2": 1.76,
+   "area_model_m2": 1.52,
    "fontaine": {
-    "pct_GL_near_mesh": 26.8,
-    "Q_m3_h_m2": 7.19,
+    "pct_GL_near_mesh": 28.3,
+    "Q_m3_h_m2": 6.8,
     "rho_tm3": 1.62,
-    "Q_t_h_m2": 11.64,
-    "area_fontaine_m2": 0.61,
+    "Q_t_h_m2": 11.02,
+    "area_fontaine_m2": 0.77,
     "within_tabulated_GL_range": true
    }
   },
   {
-   "circumstance": "measured / 1B / 2A+G",
+   "circumstance": "measured / 1A / 2A+G",
    "machine": "SR.5115",
    "deck": "deck",
    "aperture_mm": 1.7,
-   "undersize_tph": 27.29,
-   "pct_half_size": 74.5,
+   "undersize_tph": 28.77,
+   "pct_half_size": 77.4,
    "pct_oversize": 0.0,
    "factors": {
     "C_basic": 5.68,
     "M_oversize": 0.86,
-    "K_half_size": 1.69,
+    "K_half_size": 1.75,
     "D_deck": 1.0
    },
-   "area_vsma_m2": 3.31,
-   "area_model_m2": 4.9,
+   "area_vsma_m2": 3.37,
+   "area_model_m2": 5.17,
    "fontaine": {
-    "pct_GL_near_mesh": 25.5,
-    "Q_m3_h_m2": 7.55,
+    "pct_GL_near_mesh": 22.6,
+    "Q_m3_h_m2": 8.5,
     "rho_tm3": 1.62,
-    "Q_t_h_m2": 12.23,
-    "area_fontaine_m2": 2.23,
+    "Q_t_h_m2": 13.78,
+    "area_fontaine_m2": 2.09,
     "within_tabulated_GL_range": true
    }
   },
   {
-   "circumstance": "measured / 1B / 2A+F",
+   "circumstance": "measured / 1A / 2A+F",
    "machine": "SC.B",
    "deck": "deck_1",
    "aperture_mm": 2.0,
@@ -450,13 +200,13 @@
    }
   },
   {
-   "circumstance": "measured / 1B / 2A+F",
+   "circumstance": "measured / 1A / 2A+F",
    "machine": "SC.B",
    "deck": "deck_2",
    "aperture_mm": 1.5,
    "undersize_tph": 23.3,
    "pct_half_size": 27.0,
-   "pct_oversize": 26.7,
+   "pct_oversize": 26.8,
    "factors": {
     "C_basic": 5.2,
     "M_oversize": 1.04,
@@ -466,7 +216,257 @@
    "area_vsma_m2": 5.95,
    "area_model_m2": 4.51,
    "fontaine": {
-    "pct_GL_near_mesh": 71.2,
+    "pct_GL_near_mesh": 71.3,
+    "Q_m3_h_m2": 2.51,
+    "rho_tm3": 1.5,
+    "Q_t_h_m2": 3.76,
+    "area_fontaine_m2": 6.2,
+    "within_tabulated_GL_range": true
+   }
+  },
+  {
+   "circumstance": "measured / 1A / 2A+F",
+   "machine": "SR.5111",
+   "deck": "deck",
+   "aperture_mm": 1.7,
+   "undersize_tph": 8.48,
+   "pct_half_size": 9.5,
+   "pct_oversize": 77.6,
+   "factors": {
+    "C_basic": 5.68,
+    "M_oversize": 1.57,
+    "K_half_size": 0.54,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 1.76,
+   "area_model_m2": 1.52,
+   "fontaine": {
+    "pct_GL_near_mesh": 28.3,
+    "Q_m3_h_m2": 6.8,
+    "rho_tm3": 1.62,
+    "Q_t_h_m2": 11.02,
+    "area_fontaine_m2": 0.77,
+    "within_tabulated_GL_range": true
+   }
+  },
+  {
+   "circumstance": "measured / 1A / 2A+F",
+   "machine": "SR.5115",
+   "deck": "deck",
+   "aperture_mm": 1.7,
+   "undersize_tph": 28.77,
+   "pct_half_size": 77.4,
+   "pct_oversize": 0.0,
+   "factors": {
+    "C_basic": 5.68,
+    "M_oversize": 0.86,
+    "K_half_size": 1.75,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 3.37,
+   "area_model_m2": 5.17,
+   "fontaine": {
+    "pct_GL_near_mesh": 22.6,
+    "Q_m3_h_m2": 8.5,
+    "rho_tm3": 1.62,
+    "Q_t_h_m2": 13.78,
+    "area_fontaine_m2": 2.09,
+    "within_tabulated_GL_range": true
+   }
+  },
+  {
+   "circumstance": "measured / 1A / 2C",
+   "machine": "SR.5111",
+   "deck": "deck",
+   "aperture_mm": 1.7,
+   "undersize_tph": 8.48,
+   "pct_half_size": 3.8,
+   "pct_oversize": 91.0,
+   "factors": {
+    "C_basic": 5.68,
+    "M_oversize": 1.86,
+    "K_half_size": 0.46,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 1.76,
+   "area_model_m2": 1.52,
+   "fontaine": {
+    "pct_GL_near_mesh": 11.3,
+    "Q_m3_h_m2": 16.99,
+    "rho_tm3": 1.62,
+    "Q_t_h_m2": 27.52,
+    "area_fontaine_m2": 0.31,
+    "within_tabulated_GL_range": true
+   }
+  },
+  {
+   "circumstance": "measured / 1A / 2C",
+   "machine": "SR.5115",
+   "deck": "deck",
+   "aperture_mm": 1.7,
+   "undersize_tph": 84.52,
+   "pct_half_size": 77.4,
+   "pct_oversize": 0.0,
+   "factors": {
+    "C_basic": 5.68,
+    "M_oversize": 0.86,
+    "K_half_size": 1.75,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 9.9,
+   "area_model_m2": 15.18,
+   "fontaine": {
+    "pct_GL_near_mesh": 22.6,
+    "Q_m3_h_m2": 8.5,
+    "rho_tm3": 1.62,
+    "Q_t_h_m2": 13.78,
+    "area_fontaine_m2": 6.13,
+    "within_tabulated_GL_range": true
+   }
+  },
+  {
+   "circumstance": "measured / 1B / 2A+G",
+   "machine": "SC.B",
+   "deck": "deck_1",
+   "aperture_mm": 2.0,
+   "undersize_tph": 24.64,
+   "pct_half_size": 17.2,
+   "pct_oversize": 36.8,
+   "factors": {
+    "C_basic": 6.3,
+    "M_oversize": 1.1,
+    "K_half_size": 0.66,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 5.37,
+   "area_model_m2": 4.02,
+   "fontaine": {
+    "pct_GL_near_mesh": 69.2,
+    "Q_m3_h_m2": 3.07,
+    "rho_tm3": 1.5,
+    "Q_t_h_m2": 4.6,
+    "area_fontaine_m2": 5.36,
+    "within_tabulated_GL_range": true
+   }
+  },
+  {
+   "circumstance": "measured / 1B / 2A+G",
+   "machine": "SC.B",
+   "deck": "deck_2",
+   "aperture_mm": 1.5,
+   "undersize_tph": 13.66,
+   "pct_half_size": 19.4,
+   "pct_oversize": 49.4,
+   "factors": {
+    "C_basic": 5.2,
+    "M_oversize": 1.21,
+    "K_half_size": 0.69,
+    "D_deck": 0.9
+   },
+   "area_vsma_m2": 3.5,
+   "area_model_m2": 2.65,
+   "fontaine": {
+    "pct_GL_near_mesh": 78.8,
+    "Q_m3_h_m2": 2.27,
+    "rho_tm3": 1.5,
+    "Q_t_h_m2": 3.4,
+    "area_fontaine_m2": 4.02,
+    "within_tabulated_GL_range": true
+   }
+  },
+  {
+   "circumstance": "measured / 1B / 2A+G",
+   "machine": "SR.5111",
+   "deck": "deck",
+   "aperture_mm": 1.7,
+   "undersize_tph": 8.54,
+   "pct_half_size": 9.4,
+   "pct_oversize": 77.8,
+   "factors": {
+    "C_basic": 5.68,
+    "M_oversize": 1.57,
+    "K_half_size": 0.54,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 1.77,
+   "area_model_m2": 1.53,
+   "fontaine": {
+    "pct_GL_near_mesh": 28.1,
+    "Q_m3_h_m2": 6.84,
+    "rho_tm3": 1.62,
+    "Q_t_h_m2": 11.09,
+    "area_fontaine_m2": 0.77,
+    "within_tabulated_GL_range": true
+   }
+  },
+  {
+   "circumstance": "measured / 1B / 2A+G",
+   "machine": "SR.5115",
+   "deck": "deck",
+   "aperture_mm": 1.7,
+   "undersize_tph": 29.25,
+   "pct_half_size": 77.4,
+   "pct_oversize": 0.0,
+   "factors": {
+    "C_basic": 5.68,
+    "M_oversize": 0.86,
+    "K_half_size": 1.75,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 3.43,
+   "area_model_m2": 5.25,
+   "fontaine": {
+    "pct_GL_near_mesh": 22.6,
+    "Q_m3_h_m2": 8.5,
+    "rho_tm3": 1.62,
+    "Q_t_h_m2": 13.78,
+    "area_fontaine_m2": 2.12,
+    "within_tabulated_GL_range": true
+   }
+  },
+  {
+   "circumstance": "measured / 1B / 2A+F",
+   "machine": "SC.B",
+   "deck": "deck_1",
+   "aperture_mm": 2.0,
+   "undersize_tph": 31.87,
+   "pct_half_size": 25.6,
+   "pct_oversize": 36.4,
+   "factors": {
+    "C_basic": 6.3,
+    "M_oversize": 1.1,
+    "K_half_size": 0.78,
+    "D_deck": 1.0
+   },
+   "area_vsma_m2": 5.86,
+   "area_model_m2": 5.19,
+   "fontaine": {
+    "pct_GL_near_mesh": 62.8,
+    "Q_m3_h_m2": 3.38,
+    "rho_tm3": 1.5,
+    "Q_t_h_m2": 5.07,
+    "area_fontaine_m2": 6.29,
+    "within_tabulated_GL_range": true
+   }
+  },
+  {
+   "circumstance": "measured / 1B / 2A+F",
+   "machine": "SC.B",
+   "deck": "deck_2",
+   "aperture_mm": 1.5,
+   "undersize_tph": 23.3,
+   "pct_half_size": 26.9,
+   "pct_oversize": 26.8,
+   "factors": {
+    "C_basic": 5.2,
+    "M_oversize": 1.04,
+    "K_half_size": 0.8,
+    "D_deck": 0.9
+   },
+   "area_vsma_m2": 5.95,
+   "area_model_m2": 4.51,
+   "fontaine": {
+    "pct_GL_near_mesh": 71.3,
     "Q_m3_h_m2": 2.51,
     "rho_tm3": 1.5,
     "Q_t_h_m2": 3.76,
@@ -479,23 +479,23 @@
    "machine": "SR.5111",
    "deck": "deck",
    "aperture_mm": 1.7,
-   "undersize_tph": 7.05,
-   "pct_half_size": 8.2,
-   "pct_oversize": 79.9,
+   "undersize_tph": 8.54,
+   "pct_half_size": 9.4,
+   "pct_oversize": 77.8,
    "factors": {
     "C_basic": 5.68,
-    "M_oversize": 1.61,
-    "K_half_size": 0.52,
+    "M_oversize": 1.57,
+    "K_half_size": 0.54,
     "D_deck": 1.0
    },
-   "area_vsma_m2": 1.48,
-   "area_model_m2": 1.27,
+   "area_vsma_m2": 1.77,
+   "area_model_m2": 1.53,
    "fontaine": {
-    "pct_GL_near_mesh": 26.8,
-    "Q_m3_h_m2": 7.19,
+    "pct_GL_near_mesh": 28.1,
+    "Q_m3_h_m2": 6.84,
     "rho_tm3": 1.62,
-    "Q_t_h_m2": 11.64,
-    "area_fontaine_m2": 0.61,
+    "Q_t_h_m2": 11.09,
+    "area_fontaine_m2": 0.77,
     "within_tabulated_GL_range": true
    }
   },
@@ -504,23 +504,23 @@
    "machine": "SR.5115",
    "deck": "deck",
    "aperture_mm": 1.7,
-   "undersize_tph": 27.29,
-   "pct_half_size": 74.5,
+   "undersize_tph": 29.25,
+   "pct_half_size": 77.4,
    "pct_oversize": 0.0,
    "factors": {
     "C_basic": 5.68,
     "M_oversize": 0.86,
-    "K_half_size": 1.69,
+    "K_half_size": 1.75,
     "D_deck": 1.0
    },
-   "area_vsma_m2": 3.31,
-   "area_model_m2": 4.9,
+   "area_vsma_m2": 3.43,
+   "area_model_m2": 5.25,
    "fontaine": {
-    "pct_GL_near_mesh": 25.5,
-    "Q_m3_h_m2": 7.55,
+    "pct_GL_near_mesh": 22.6,
+    "Q_m3_h_m2": 8.5,
     "rho_tm3": 1.62,
-    "Q_t_h_m2": 12.23,
-    "area_fontaine_m2": 2.23,
+    "Q_t_h_m2": 13.78,
+    "area_fontaine_m2": 2.12,
     "within_tabulated_GL_range": true
    }
   },
@@ -529,24 +529,24 @@
    "machine": "SR.5111",
    "deck": "deck",
    "aperture_mm": 1.7,
-   "undersize_tph": 7.05,
-   "pct_half_size": 3.0,
-   "pct_oversize": 92.6,
+   "undersize_tph": 8.54,
+   "pct_half_size": 3.8,
+   "pct_oversize": 91.0,
    "factors": {
     "C_basic": 5.68,
-    "M_oversize": 1.9,
-    "K_half_size": 0.45,
+    "M_oversize": 1.86,
+    "K_half_size": 0.46,
     "D_deck": 1.0
    },
-   "area_vsma_m2": 1.47,
-   "area_model_m2": 1.27,
+   "area_vsma_m2": 1.77,
+   "area_model_m2": 1.53,
    "fontaine": {
-    "pct_GL_near_mesh": 9.9,
-    "Q_m3_h_m2": 19.47,
+    "pct_GL_near_mesh": 11.4,
+    "Q_m3_h_m2": 16.85,
     "rho_tm3": 1.62,
-    "Q_t_h_m2": 31.53,
-    "area_fontaine_m2": 0.22,
-    "within_tabulated_GL_range": false
+    "Q_t_h_m2": 27.29,
+    "area_fontaine_m2": 0.31,
+    "within_tabulated_GL_range": true
    }
   },
   {
@@ -554,23 +554,23 @@
    "machine": "SR.5115",
    "deck": "deck",
    "aperture_mm": 1.7,
-   "undersize_tph": 85.95,
-   "pct_half_size": 74.5,
+   "undersize_tph": 84.46,
+   "pct_half_size": 77.4,
    "pct_oversize": 0.0,
    "factors": {
     "C_basic": 5.68,
     "M_oversize": 0.86,
-    "K_half_size": 1.69,
+    "K_half_size": 1.75,
     "D_deck": 1.0
    },
-   "area_vsma_m2": 10.41,
-   "area_model_m2": 15.44,
+   "area_vsma_m2": 9.9,
+   "area_model_m2": 15.17,
    "fontaine": {
-    "pct_GL_near_mesh": 25.5,
-    "Q_m3_h_m2": 7.55,
+    "pct_GL_near_mesh": 22.6,
+    "Q_m3_h_m2": 8.5,
     "rho_tm3": 1.62,
-    "Q_t_h_m2": 12.23,
-    "area_fontaine_m2": 7.03,
+    "Q_t_h_m2": 13.78,
+    "area_fontaine_m2": 6.13,
     "within_tabulated_GL_range": true
    }
   },
@@ -579,17 +579,17 @@
    "machine": "SC.B",
    "deck": "deck_1",
    "aperture_mm": 2.0,
-   "undersize_tph": 24.51,
+   "undersize_tph": 24.53,
    "pct_half_size": 17.2,
-   "pct_oversize": 37.1,
+   "pct_oversize": 37.0,
    "factors": {
     "C_basic": 6.3,
     "M_oversize": 1.11,
     "K_half_size": 0.66,
     "D_deck": 1.0
    },
-   "area_vsma_m2": 5.34,
-   "area_model_m2": 3.99,
+   "area_vsma_m2": 5.35,
+   "area_model_m2": 4.0,
    "fontaine": {
     "pct_GL_near_mesh": 69.1,
     "Q_m3_h_m2": 3.07,
@@ -604,7 +604,7 @@
    "machine": "SC.B",
    "deck": "deck_2",
    "aperture_mm": 1.5,
-   "undersize_tph": 13.59,
+   "undersize_tph": 13.6,
    "pct_half_size": 19.5,
    "pct_oversize": 49.4,
    "factors": {
@@ -620,7 +620,7 @@
     "Q_m3_h_m2": 2.27,
     "rho_tm3": 1.5,
     "Q_t_h_m2": 3.4,
-    "area_fontaine_m2": 3.99,
+    "area_fontaine_m2": 4.0,
     "within_tabulated_GL_range": true
    }
   },
@@ -629,23 +629,23 @@
    "machine": "SR.5111",
    "deck": "deck",
    "aperture_mm": 1.7,
-   "undersize_tph": 5.94,
-   "pct_half_size": 8.7,
-   "pct_oversize": 80.0,
+   "undersize_tph": 6.56,
+   "pct_half_size": 9.2,
+   "pct_oversize": 79.2,
    "factors": {
     "C_basic": 5.68,
-    "M_oversize": 1.61,
-    "K_half_size": 0.53,
+    "M_oversize": 1.6,
+    "K_half_size": 0.54,
     "D_deck": 1.0
    },
-   "area_vsma_m2": 1.22,
-   "area_model_m2": 1.07,
+   "area_vsma_m2": 1.35,
+   "area_model_m2": 1.18,
    "fontaine": {
-    "pct_GL_near_mesh": 25.2,
-    "Q_m3_h_m2": 7.62,
+    "pct_GL_near_mesh": 25.9,
+    "Q_m3_h_m2": 7.44,
     "rho_tm3": 1.62,
-    "Q_t_h_m2": 12.35,
-    "area_fontaine_m2": 0.48,
+    "Q_t_h_m2": 12.06,
+    "area_fontaine_m2": 0.54,
     "within_tabulated_GL_range": true
    }
   },
@@ -654,23 +654,23 @@
    "machine": "SR.5115",
    "deck": "deck",
    "aperture_mm": 1.7,
-   "undersize_tph": 23.44,
-   "pct_half_size": 74.5,
+   "undersize_tph": 24.58,
+   "pct_half_size": 77.4,
    "pct_oversize": 0.0,
    "factors": {
     "C_basic": 5.68,
     "M_oversize": 0.86,
-    "K_half_size": 1.69,
+    "K_half_size": 1.75,
     "D_deck": 1.0
    },
-   "area_vsma_m2": 2.84,
-   "area_model_m2": 4.21,
+   "area_vsma_m2": 2.88,
+   "area_model_m2": 4.42,
    "fontaine": {
-    "pct_GL_near_mesh": 25.5,
-    "Q_m3_h_m2": 7.55,
+    "pct_GL_near_mesh": 22.6,
+    "Q_m3_h_m2": 8.5,
     "rho_tm3": 1.62,
-    "Q_t_h_m2": 12.23,
-    "area_fontaine_m2": 1.92,
+    "Q_t_h_m2": 13.78,
+    "area_fontaine_m2": 1.78,
     "within_tabulated_GL_range": true
    }
   },
@@ -679,7 +679,7 @@
    "machine": "SC.B",
    "deck": "deck_1",
    "aperture_mm": 2.0,
-   "undersize_tph": 31.79,
+   "undersize_tph": 31.8,
    "pct_half_size": 25.9,
    "pct_oversize": 36.0,
    "factors": {
@@ -688,11 +688,11 @@
     "K_half_size": 0.79,
     "D_deck": 1.0
    },
-   "area_vsma_m2": 5.82,
+   "area_vsma_m2": 5.83,
    "area_model_m2": 5.18,
    "fontaine": {
     "pct_GL_near_mesh": 62.7,
-    "Q_m3_h_m2": 3.39,
+    "Q_m3_h_m2": 3.38,
     "rho_tm3": 1.5,
     "Q_t_h_m2": 5.08,
     "area_fontaine_m2": 6.26,
@@ -716,7 +716,7 @@
    "area_vsma_m2": 5.94,
    "area_model_m2": 4.51,
    "fontaine": {
-    "pct_GL_near_mesh": 71.1,
+    "pct_GL_near_mesh": 71.2,
     "Q_m3_h_m2": 2.51,
     "rho_tm3": 1.5,
     "Q_t_h_m2": 3.76,
@@ -729,23 +729,23 @@
    "machine": "SR.5111",
    "deck": "deck",
    "aperture_mm": 1.7,
-   "undersize_tph": 5.94,
-   "pct_half_size": 8.7,
-   "pct_oversize": 80.0,
+   "undersize_tph": 6.56,
+   "pct_half_size": 9.2,
+   "pct_oversize": 79.2,
    "factors": {
     "C_basic": 5.68,
-    "M_oversize": 1.61,
-    "K_half_size": 0.53,
+    "M_oversize": 1.6,
+    "K_half_size": 0.54,
     "D_deck": 1.0
    },
-   "area_vsma_m2": 1.22,
-   "area_model_m2": 1.07,
+   "area_vsma_m2": 1.35,
+   "area_model_m2": 1.18,
    "fontaine": {
-    "pct_GL_near_mesh": 25.2,
-    "Q_m3_h_m2": 7.62,
+    "pct_GL_near_mesh": 25.9,
+    "Q_m3_h_m2": 7.44,
     "rho_tm3": 1.62,
-    "Q_t_h_m2": 12.35,
-    "area_fontaine_m2": 0.48,
+    "Q_t_h_m2": 12.06,
+    "area_fontaine_m2": 0.54,
     "within_tabulated_GL_range": true
    }
   },
@@ -754,23 +754,23 @@
    "machine": "SR.5115",
    "deck": "deck",
    "aperture_mm": 1.7,
-   "undersize_tph": 23.44,
-   "pct_half_size": 74.5,
+   "undersize_tph": 24.58,
+   "pct_half_size": 77.4,
    "pct_oversize": 0.0,
    "factors": {
     "C_basic": 5.68,
     "M_oversize": 0.86,
-    "K_half_size": 1.69,
+    "K_half_size": 1.75,
     "D_deck": 1.0
    },
-   "area_vsma_m2": 2.84,
-   "area_model_m2": 4.21,
+   "area_vsma_m2": 2.88,
+   "area_model_m2": 4.42,
    "fontaine": {
-    "pct_GL_near_mesh": 25.5,
-    "Q_m3_h_m2": 7.55,
+    "pct_GL_near_mesh": 22.6,
+    "Q_m3_h_m2": 8.5,
     "rho_tm3": 1.62,
-    "Q_t_h_m2": 12.23,
-    "area_fontaine_m2": 1.92,
+    "Q_t_h_m2": 13.78,
+    "area_fontaine_m2": 1.78,
     "within_tabulated_GL_range": true
    }
   },
@@ -779,23 +779,23 @@
    "machine": "SR.5111",
    "deck": "deck",
    "aperture_mm": 1.7,
-   "undersize_tph": 5.94,
-   "pct_half_size": 2.8,
-   "pct_oversize": 93.7,
+   "undersize_tph": 6.56,
+   "pct_half_size": 3.1,
+   "pct_oversize": 93.0,
    "factors": {
     "C_basic": 5.68,
-    "M_oversize": 1.93,
-    "K_half_size": 0.44,
+    "M_oversize": 1.91,
+    "K_half_size": 0.45,
     "D_deck": 1.0
    },
-   "area_vsma_m2": 1.23,
-   "area_model_m2": 1.07,
+   "area_vsma_m2": 1.36,
+   "area_model_m2": 1.18,
    "fontaine": {
-    "pct_GL_near_mesh": 8.0,
-    "Q_m3_h_m2": 24.13,
+    "pct_GL_near_mesh": 8.7,
+    "Q_m3_h_m2": 22.22,
     "rho_tm3": 1.62,
-    "Q_t_h_m2": 39.09,
-    "area_fontaine_m2": 0.15,
+    "Q_t_h_m2": 36.0,
+    "area_fontaine_m2": 0.18,
     "within_tabulated_GL_range": false
    }
   },
@@ -804,23 +804,23 @@
    "machine": "SR.5115",
    "deck": "deck",
    "aperture_mm": 1.7,
-   "undersize_tph": 87.06,
-   "pct_half_size": 74.5,
+   "undersize_tph": 86.44,
+   "pct_half_size": 77.4,
    "pct_oversize": 0.0,
    "factors": {
     "C_basic": 5.68,
     "M_oversize": 0.86,
-    "K_half_size": 1.69,
+    "K_half_size": 1.75,
     "D_deck": 1.0
    },
-   "area_vsma_m2": 10.55,
-   "area_model_m2": 15.64,
+   "area_vsma_m2": 10.13,
+   "area_model_m2": 15.53,
    "fontaine": {
-    "pct_GL_near_mesh": 25.5,
-    "Q_m3_h_m2": 7.55,
+    "pct_GL_near_mesh": 22.6,
+    "Q_m3_h_m2": 8.5,
     "rho_tm3": 1.62,
-    "Q_t_h_m2": 12.23,
-    "area_fontaine_m2": 7.12,
+    "Q_t_h_m2": 13.78,
+    "area_fontaine_m2": 6.27,
     "within_tabulated_GL_range": true
    }
   },
@@ -829,7 +829,7 @@
    "machine": "SC.B",
    "deck": "deck_1",
    "aperture_mm": 2.0,
-   "undersize_tph": 24.54,
+   "undersize_tph": 24.57,
    "pct_half_size": 17.2,
    "pct_oversize": 37.0,
    "factors": {
@@ -838,14 +838,14 @@
     "K_half_size": 0.66,
     "D_deck": 1.0
    },
-   "area_vsma_m2": 5.35,
+   "area_vsma_m2": 5.36,
    "area_model_m2": 4.0,
    "fontaine": {
     "pct_GL_near_mesh": 69.1,
     "Q_m3_h_m2": 3.07,
     "rho_tm3": 1.5,
-    "Q_t_h_m2": 4.61,
-    "area_fontaine_m2": 5.33,
+    "Q_t_h_m2": 4.6,
+    "area_fontaine_m2": 5.34,
     "within_tabulated_GL_range": true
    }
   },
@@ -854,7 +854,7 @@
    "machine": "SC.B",
    "deck": "deck_2",
    "aperture_mm": 1.5,
-   "undersize_tph": 13.61,
+   "undersize_tph": 13.63,
    "pct_half_size": 19.5,
    "pct_oversize": 49.4,
    "factors": {
@@ -870,7 +870,7 @@
     "Q_m3_h_m2": 2.27,
     "rho_tm3": 1.5,
     "Q_t_h_m2": 3.4,
-    "area_fontaine_m2": 4.0,
+    "area_fontaine_m2": 4.01,
     "within_tabulated_GL_range": true
    }
   },
@@ -879,23 +879,23 @@
    "machine": "SR.5111",
    "deck": "deck",
    "aperture_mm": 1.7,
-   "undersize_tph": 5.48,
-   "pct_half_size": 7.6,
-   "pct_oversize": 81.7,
+   "undersize_tph": 7.08,
+   "pct_half_size": 9.1,
+   "pct_oversize": 78.9,
    "factors": {
     "C_basic": 5.68,
-    "M_oversize": 1.64,
-    "K_half_size": 0.51,
+    "M_oversize": 1.59,
+    "K_half_size": 0.54,
     "D_deck": 1.0
    },
-   "area_vsma_m2": 1.14,
-   "area_model_m2": 0.98,
+   "area_vsma_m2": 1.46,
+   "area_model_m2": 1.27,
    "fontaine": {
-    "pct_GL_near_mesh": 24.5,
-    "Q_m3_h_m2": 7.86,
+    "pct_GL_near_mesh": 26.4,
+    "Q_m3_h_m2": 7.29,
     "rho_tm3": 1.62,
-    "Q_t_h_m2": 12.74,
-    "area_fontaine_m2": 0.43,
+    "Q_t_h_m2": 11.82,
+    "area_fontaine_m2": 0.6,
     "within_tabulated_GL_range": true
    }
   },
@@ -904,23 +904,23 @@
    "machine": "SR.5115",
    "deck": "deck",
    "aperture_mm": 1.7,
-   "undersize_tph": 23.96,
-   "pct_half_size": 74.5,
+   "undersize_tph": 26.07,
+   "pct_half_size": 77.4,
    "pct_oversize": 0.0,
    "factors": {
     "C_basic": 5.68,
     "M_oversize": 0.86,
-    "K_half_size": 1.69,
+    "K_half_size": 1.75,
     "D_deck": 1.0
    },
-   "area_vsma_m2": 2.9,
-   "area_model_m2": 4.31,
+   "area_vsma_m2": 3.06,
+   "area_model_m2": 4.68,
    "fontaine": {
-    "pct_GL_near_mesh": 25.5,
-    "Q_m3_h_m2": 7.55,
+    "pct_GL_near_mesh": 22.6,
+    "Q_m3_h_m2": 8.5,
     "rho_tm3": 1.62,
-    "Q_t_h_m2": 12.23,
-    "area_fontaine_m2": 1.96,
+    "Q_t_h_m2": 13.78,
+    "area_fontaine_m2": 1.89,
     "within_tabulated_GL_range": true
    }
   },
@@ -929,22 +929,22 @@
    "machine": "SC.B",
    "deck": "deck_1",
    "aperture_mm": 2.0,
-   "undersize_tph": 31.81,
+   "undersize_tph": 31.83,
    "pct_half_size": 25.8,
-   "pct_oversize": 36.1,
+   "pct_oversize": 36.2,
    "factors": {
     "C_basic": 6.3,
     "M_oversize": 1.1,
     "K_half_size": 0.79,
     "D_deck": 1.0
    },
-   "area_vsma_m2": 5.83,
-   "area_model_m2": 5.18,
+   "area_vsma_m2": 5.84,
+   "area_model_m2": 5.19,
    "fontaine": {
     "pct_GL_near_mesh": 62.7,
     "Q_m3_h_m2": 3.38,
     "rho_tm3": 1.5,
-    "Q_t_h_m2": 5.08,
+    "Q_t_h_m2": 5.07,
     "area_fontaine_m2": 6.27,
     "within_tabulated_GL_range": true
    }
@@ -956,14 +956,14 @@
    "aperture_mm": 1.5,
    "undersize_tph": 23.3,
    "pct_half_size": 27.0,
-   "pct_oversize": 26.6,
+   "pct_oversize": 26.7,
    "factors": {
     "C_basic": 5.2,
     "M_oversize": 1.04,
-    "K_half_size": 0.81,
+    "K_half_size": 0.8,
     "D_deck": 0.9
    },
-   "area_vsma_m2": 5.94,
+   "area_vsma_m2": 5.95,
    "area_model_m2": 4.51,
    "fontaine": {
     "pct_GL_near_mesh": 71.2,
@@ -979,23 +979,23 @@
    "machine": "SR.5111",
    "deck": "deck",
    "aperture_mm": 1.7,
-   "undersize_tph": 5.48,
-   "pct_half_size": 7.6,
-   "pct_oversize": 81.7,
+   "undersize_tph": 7.08,
+   "pct_half_size": 9.1,
+   "pct_oversize": 78.9,
    "factors": {
     "C_basic": 5.68,
-    "M_oversize": 1.64,
-    "K_half_size": 0.51,
+    "M_oversize": 1.59,
+    "K_half_size": 0.54,
     "D_deck": 1.0
    },
-   "area_vsma_m2": 1.14,
-   "area_model_m2": 0.98,
+   "area_vsma_m2": 1.46,
+   "area_model_m2": 1.27,
    "fontaine": {
-    "pct_GL_near_mesh": 24.5,
-    "Q_m3_h_m2": 7.86,
+    "pct_GL_near_mesh": 26.4,
+    "Q_m3_h_m2": 7.29,
     "rho_tm3": 1.62,
-    "Q_t_h_m2": 12.74,
-    "area_fontaine_m2": 0.43,
+    "Q_t_h_m2": 11.82,
+    "area_fontaine_m2": 0.6,
     "within_tabulated_GL_range": true
    }
   },
@@ -1004,23 +1004,23 @@
    "machine": "SR.5115",
    "deck": "deck",
    "aperture_mm": 1.7,
-   "undersize_tph": 23.96,
-   "pct_half_size": 74.5,
+   "undersize_tph": 26.07,
+   "pct_half_size": 77.4,
    "pct_oversize": 0.0,
    "factors": {
     "C_basic": 5.68,
     "M_oversize": 0.86,
-    "K_half_size": 1.69,
+    "K_half_size": 1.75,
     "D_deck": 1.0
    },
-   "area_vsma_m2": 2.9,
-   "area_model_m2": 4.31,
+   "area_vsma_m2": 3.06,
+   "area_model_m2": 4.68,
    "fontaine": {
-    "pct_GL_near_mesh": 25.5,
-    "Q_m3_h_m2": 7.55,
+    "pct_GL_near_mesh": 22.6,
+    "Q_m3_h_m2": 8.5,
     "rho_tm3": 1.62,
-    "Q_t_h_m2": 12.23,
-    "area_fontaine_m2": 1.96,
+    "Q_t_h_m2": 13.78,
+    "area_fontaine_m2": 1.89,
     "within_tabulated_GL_range": true
    }
   },
@@ -1029,23 +1029,23 @@
    "machine": "SR.5111",
    "deck": "deck",
    "aperture_mm": 1.7,
-   "undersize_tph": 5.48,
-   "pct_half_size": 2.4,
-   "pct_oversize": 94.2,
+   "undersize_tph": 7.08,
+   "pct_half_size": 3.2,
+   "pct_oversize": 92.5,
    "factors": {
     "C_basic": 5.68,
-    "M_oversize": 1.94,
-    "K_half_size": 0.44,
+    "M_oversize": 1.89,
+    "K_half_size": 0.45,
     "D_deck": 1.0
    },
-   "area_vsma_m2": 1.14,
-   "area_model_m2": 0.98,
+   "area_vsma_m2": 1.47,
+   "area_model_m2": 1.27,
    "fontaine": {
-    "pct_GL_near_mesh": 7.8,
-    "Q_m3_h_m2": 24.84,
+    "pct_GL_near_mesh": 9.4,
+    "Q_m3_h_m2": 20.47,
     "rho_tm3": 1.62,
-    "Q_t_h_m2": 40.23,
-    "area_fontaine_m2": 0.14,
+    "Q_t_h_m2": 33.15,
+    "area_fontaine_m2": 0.21,
     "within_tabulated_GL_range": false
    }
   },
@@ -1054,23 +1054,23 @@
    "machine": "SR.5115",
    "deck": "deck",
    "aperture_mm": 1.7,
-   "undersize_tph": 87.52,
-   "pct_half_size": 74.5,
+   "undersize_tph": 85.92,
+   "pct_half_size": 77.4,
    "pct_oversize": 0.0,
    "factors": {
     "C_basic": 5.68,
     "M_oversize": 0.86,
-    "K_half_size": 1.69,
+    "K_half_size": 1.75,
     "D_deck": 1.0
    },
-   "area_vsma_m2": 10.61,
-   "area_model_m2": 15.72,
+   "area_vsma_m2": 10.07,
+   "area_model_m2": 15.44,
    "fontaine": {
-    "pct_GL_near_mesh": 25.5,
-    "Q_m3_h_m2": 7.55,
+    "pct_GL_near_mesh": 22.6,
+    "Q_m3_h_m2": 8.5,
     "rho_tm3": 1.62,
-    "Q_t_h_m2": 12.23,
-    "area_fontaine_m2": 7.16,
+    "Q_t_h_m2": 13.78,
+    "area_fontaine_m2": 6.24,
     "within_tabulated_GL_range": true
    }
   }

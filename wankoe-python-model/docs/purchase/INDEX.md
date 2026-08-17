@@ -22,7 +22,7 @@ Every datasheet consolidates: (1) PROCESS DUTY from fresh engine runs (per-mode 
 | Datasheet | Machine | Headline purchase requirements |
 |---|---|---|
 | [CR.5009.md](CR.5009.md) | Toothed double-roll primary crusher | Max nip vs the MEASURED F80 181 mm > 150 mm (standing alert — resolve vs the quarry top size); zone-1.1 tramp-metal protection (EM.09-adjacent, FMECA design rec); motor >= 132 kW rec. [H]; bearing temperature/vibration provision |
-| [SR.5007.md](SR.5007.md) | Double-deck 35/20 screen | **Areas >= 9.1 / 9.6 m2 — RAIN duty is the sizing case (client decision 2026-08-15, error-hunt PD-2**; the former dry-basis 8.5/8.9 was undersized in rain); quick-change panels + spare sets + gauging access (KFS envelope, RPN 210); exciter bearing monitoring; imperfection guarantee replaces I = 0.15 [H] |
+| [SR.5007.md](SR.5007.md) | Double-deck 35/20 screen | **Areas >= 9.1 / 9.8 m2 — RAIN duty is the sizing case (client rule PD-2 2026-08-15; bottom raised 2026-08-17 under Q12**; the former dry-basis 8.5/8.9 was undersized in rain); quick-change panels + spare sets + gauging access (KFS envelope, RPN 210); exciter bearing monitoring; imperfection guarantee replaces I = 0.15 [H] |
 | [CR.5011.md](CR.5011.md) | Impact crusher (AP-S 1010 class) | 90 t/h WET vendor-basis capacity GUARANTEED at the mode-1B CSS 18 mm; blow-bar wear metallurgy + 2 spare sets; rotor balance spec + bar-change balancing acceptance |
 
 ## Zone 1.2 — reclaim / FeedLime / AgLime loop
@@ -30,7 +30,7 @@ Every datasheet consolidates: (1) PROCESS DUTY from fresh engine runs (per-mode 
 | Datasheet | Machine | Headline purchase requirements |
 |---|---|---|
 | [SR.5105.md](SR.5105.md) | Single-deck 6 mm FeedLime screen | 100 t/h wet single point of zone 1.2; area >= 3.8 m2 (+25 % [H]); anti-blinding wet 6 mm cut; exciter cartridge common with SR.5111/5115 |
-| [SR.5111.md](SR.5111.md) | Open 1.7 mm screen (AgLime loop) | **RESIZE: 2C duty = 167 % of the 60 t/h loop rating (wet basis) — rate the screen (and BC.5110/16 belts) for 100 t/h wet**; quick-change fine panels + 2 spare sets (RPN 210); deck structure per the resized duty; area >= 2.1 m2 (VSMA factor method, M-1 2026-08-15; vendor bed-depth sizing at 100 t/h wet governs) |
+| [SR.5111.md](SR.5111.md) | Open 1.7 mm screen (AgLime loop) | **RESIZE: 2C duty = 167 % of the 60 t/h loop rating (wet basis) — rate the screen (and BC.5110/16 belts) for 100 t/h wet**; quick-change fine panels + 2 spare sets (RPN 210); deck structure per the resized duty; area >= 2.3 m2 (worst-of-methods rule; raised 2026-08-17 under Q12; vendor bed-depth sizing at 100 t/h wet governs) |
 | [CR.5113.md](CR.5113.md) | Impact crusher (AgLime loop) | **Motor sized for the 2C campaign duty ~348 kW absorbed (450 kW rec. [H]) OR a capped campaign rate — vendor to state the branch**; winding temperature sensors + trend alarms (RPN 224); bearing monitoring; bar metallurgy for fine grinding |
 | [SR.5115.md](SR.5115.md) | Closed-loop 1.7 mm screen | **Largest screen area of the line: >= 19.1 m2 RETAINED as the client-decided floor (M-1 disposition 2026-08-15: the VSMA factor method gives 13.3 — a published floor is never weakened without arbitration**; a 2A-sized screen would be undersized 3:1); fine-panel quick-change + spares; shared exciter cartridge |
 

@@ -47,7 +47,7 @@ Aperture changes are made by PANEL EXCHANGE — see the FMECA requirements below
 | Deck | Dry duty (1A) | **RAIN duty (1A-rain) — sizing case** | **Purchase minimum (client-decided)** |
 |---|---|---|---|
 | Top deck (35 mm) | 6.80 m2 | 9.07 m2 | **>= 9.1 m2** |
-| Bottom deck (20 mm) | 7.15 m2 | 9.53 m2 | **>= 9.6 m2** |
+| Bottom deck (20 mm) | 7.15 m2 | 9.53 m2 → **9.73 m2 (Q12 A/b adoption 2026-08-17)** | **>= 9.8 m2** (raised from 9.6 by the PD-2 rule: minima = rain duty) |
 
 No further margin is stacked on the rain case; the +25 % [H] allowance survives as natural DRY-weather headroom (~33 % over the dry duty). Vendor to verify by its own bed-depth / V-factor method at BOTH duty points.
 
