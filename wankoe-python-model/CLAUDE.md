@@ -527,6 +527,22 @@ Excluded: erection, civils, conveyors/silos, electrical, DY.03, LEV
 dedusting package. Assistant-compiled market research, NOT engine
 output; asking != transaction; all multipliers [H].
 
+## Vendor offers register (opened 2026-08-17)
+
+Offers now ARRIVE through the client's own channel (RFQ package stays
+suspended/unsent). docs/purchase/offers/REGISTER.md + OF-nnn folders:
+originals archived UNMODIFIED with SHA-256 in the register; summary
+sheet per offer (tag mapping + honest gap list vs the RFQ gates);
+individuals never named in NOEZYS summaries. OF-001 = Guildco Pty Ltd
+(Johannesburg, quote QU-Wankoe 01_v1, FOB Shanghai, ZAR 4.31 M ex-VAT):
+SI8202 8x20 2-deck screen -> SR.5007 candidate (40/20 quoted vs 35/20
+spec - correct at order); LPS625-3 twin-shaft toothed roller crusher
+(GA: 300 mm feed, >=400 t/h, 2x132 kW, limestone) -> CR.5009 candidate
+~EUR 160-168k FOB = inside the budget's premium-Chinese LOW band.
+Gate gaps flagged: 30/70-before-dispatch payment = Ndola anti-pattern;
+no contractual curve/witnessed tests; FOB excludes our mandatory lines.
+A SECOND offer is announced by the client.
+
 ## Repository caution
 
 The model lives on branch wankoe-python-model of the PhilMARECHAL/noezys
