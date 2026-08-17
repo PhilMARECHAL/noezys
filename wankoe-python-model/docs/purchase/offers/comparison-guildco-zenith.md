@@ -141,7 +141,21 @@ responsiveness Guildco leads. Both must now answer the same
 specification — RFQ 01 is with them; the screen (RFQ 02) awaits the
 client's release decision if he wants the second duel formalized too.
 
+## 8. CLIENT-RULED COMPARISON BASIS (2026-08-17, supersedes the normalized views above for decision use)
+
+The client fixed the comparison basis: **FOB Shanghai, control cabinet
+EXCLUDED, NO 2025 price considered.** Applied:
+
+| Duty | Guildco (FOB Shanghai, 2026) | Zenith (FOB Shanghai, 2026) | Standing on the ruled basis |
+|---|---|---|---|
+| Primary crusher (CR.5006) | **USD 185 151** (LPS625-3, live to 09-13) | **NO ADMISSIBLE PRICE** — the only right-class Zenith price (2PG-1216CT, USD 142 043 machine-only) is dated 2025-12-31 and is EXCLUDED by the ruled basis; the June-2026 C6X100 jaw is the wrong class | One-sided until the Zenith RFQ 01 re-quotation lands |
+| Zone-1.1 screen (SR.5008) | USD 81 032 (SI8202) | **USD 46 323** (S5X2760-3, June 2026) | **Zenith −43 %** |
+
+Consequence stated honestly: on the ruled basis the PRIMARY duel has one
+price. The excluded 2025 figure remains in the archive as market
+intelligence only. The Zenith re-quotation (requested via RFQ 01, which
+demands FOB and freight separated — natively compatible with this
+basis) is what re-opens the duel.
+
 ---
-*Assistant-compiled comparison of the archived originals (which
-prevail); normalizations [H]-flagged; engine references at current
-defaults (post-Q12). No vendor contact by NOEZYS. Produced by NOEZYS.*
+*Assistant-compiled; originals prevail. Produced by NOEZYS.*
