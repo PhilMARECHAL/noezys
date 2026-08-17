@@ -584,7 +584,7 @@
       "name": "Screen imperfection (dry)",
       "unit": "-",
       "default": 0.15,
-      "status": "[H] Client arbitration 2026-08-10 (question 1/12): I = 0.15 adopted from literature (industrial dry vibrating screens I~0.10-0.15; Karra 1979 fixed exponent ~ classic imperfection 0.13). Supersedes the 0.4 inherited from the spec remap; to be re-fitted when a KFS product sieve test exists.",
+      "status": "[H] I = 0.15 (client Q1 2026-08-10, literature) IN THE IMPLEMENTED CONVENTION s = ln9/ln(1/(1-I)) — RATIFIED by the client 2026-08-17 (Q3 closed, option 1): the implemented convention IS the default; realized classic imperfection ~0.081 (sharper than classic-0.15 and Karra ~0.13) is a DISCLOSED modeling position. Classic-convention downside scenario archived (I_eq 0.2584; scripts/imperfection_convention_sensitivity.py + classic_convention_recovery.py: KFS recoverable by CSS 30->25; grits D6 NOT recoverable by apertures alone — the SC.B vendor sharpness guarantee, RFQ 11 G2, is the structural protection). Re-fit at the commissioning KFS sieve test remains the closing measurement.",
       "used_by": "M3"
     },
     "f0": {

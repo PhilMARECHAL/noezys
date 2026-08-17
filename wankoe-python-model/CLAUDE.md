@@ -274,11 +274,12 @@ bypass FeedLime = stock-PSD watch.
   13.8 rejected), Q6 (SP.36 cut = 65 um; UltraFin 0.99 t/h at defaults),
   Q8 (AP-S 1010 machine docs: 75-90 t/h real, 132 kW, mode-1B line feed
   ~130 t/h). Q9 hosting: DONE (Render). Q11 French UI: rejected.
-  Still open: I-remap ratification (Q3 — now tied to the expert
-  clarification note), KFS tolerance vs envelope (Q4), spec 9.3 fines
-  figure (Q5), repo location (Q10), b_j soft
-  limestone (Q12 — book documents calcite A 62-69 / b 1.3-3.0 but keeps
-  A=60/b=0.80 [H] pending drop-weight tests).
+  Q3 CLOSED 2026-08-17 (ratified: implemented convention IS the
+  default, realized classic ~0.081 disclosed; classic downside archived;
+  KFS plan B = CSS 25; D6 not aperture-recoverable - SC.B sharpness
+  guarantee is the structural protection). Still open: KFS tolerance vs
+  envelope (Q4), spec 9.3 fines figure (Q5), repo location (Q10), b_j
+  soft limestone (Q12 - frozen [H], no tests launched).
 - NEW WORKING MODE (client, 2026-08-11): the client found the web app too
   complicated — simulations now run IN CHAT (same engine, identical
   numbers), app optional. Protocol: step-by-step zone 1 review — inputs
