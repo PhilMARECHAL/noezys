@@ -1,0 +1,255 @@
+{
+ "_provenance": {
+  "engine_commit": "be4f6ca",
+  "script": "scripts/imperfection_convention_sensitivity.py",
+  "client_order": "Q3 option 1 (2026-08-17): sensitivity before ratification",
+  "derivation": {
+   "s_implemented": 13.52,
+   "classic_realized_at_I_0_15_today": 0.0813,
+   "s_classic": 7.351,
+   "equivalent_I_eq": 0.2584
+  },
+  "note": "Engine untouched: classic sharpness reproduced through the existing M3 formula by the equivalent parameter I_eq on every DRY screen imperfection (I_dry + SR.5008/SR.5111/SR.5115 per-screen I). Defaults unchanged pending the client's Q3 ratification."
+ },
+ "baseline": {
+  "label": "baseline (implemented convention, I=0.15, s=13.52)",
+  "kfs_envelope": {
+   "below_20_pct": 8.69,
+   "in_cut_pct": 82.75,
+   "above_35_pct": 8.56,
+   "spec": "max 30 / min 55 / max 15",
+   "compliant": true
+  },
+  "grits_d6": {
+   "below_cut_pct": 14.18,
+   "in_cut_pct": 82.45,
+   "above_cut_pct": 3.37,
+   "compliant": true,
+   "spec": "<2 mm <= 15 % ; >4 mm <= 5 %"
+  },
+  "fines_0_1_5": {
+   "below_cut_pct": 0.0,
+   "in_cut_pct": 86.13,
+   "above_cut_pct": 13.87,
+   "compliant": null
+  },
+  "aglime": {
+   "below_cut_pct": 0.0,
+   "in_cut_pct": 98.38,
+   "above_cut_pct": 1.62,
+   "compliant": true
+  },
+  "design_quality_noncompliant": [],
+  "kfs_yield": {
+   "realized_pct": 24.88,
+   "required_pct": 24.88
+  },
+  "landfill_t": 0.0,
+  "production_t": {
+   "KFS": 85000,
+   "AgLime": 141929,
+   "FeedLime grits": 40000,
+   "FeedLime fines": 60000,
+   "UltraFin": 6687
+  },
+  "zone_hours": {
+   "z11_1A": 1366.6,
+   "z13_G": 2466.1,
+   "z13_F": 1419.4
+  },
+  "design_verdicts": {
+   "machines_hold": true,
+   "quality_holds": true,
+   "targets_reachable": true
+  },
+  "sr5008_required_areas_m2": {
+   "top_deck": 6.8,
+   "bottom_deck": 7.15
+  },
+  "alerts_count": 3,
+  "alerts_new_or_notable": [
+   "SP.36: Phi(<cut) not measured \u2014 UltraFin computed from the modelled curve, flagged NOT CERTIFIED (to be measured by sieve/laser)",
+   "Zone 1.3 dedusting collected 1.73 t/h to UltraFin (client rule 2026-08-16; capture fractions and dust composition [H] pending site dust survey + filter-catch XRD)",
+   "Stockpile 0/20: 239422 t reclaimed beyond what is produced when every zone runs its FULL ceiling hours \u2014 downstream tonnages of this table are not simultaneously achievable at these rates; the hours planning (hours follow the targets) gives the consistent operating point"
+  ]
+ },
+ "classic": {
+  "label": "classic convention (realized classic I=0.15, s=7.35, via I_eq=0.2584)",
+  "kfs_envelope": {
+   "below_20_pct": 15.59,
+   "in_cut_pct": 69.28,
+   "above_35_pct": 15.12,
+   "spec": "max 30 / min 55 / max 15",
+   "compliant": false
+  },
+  "grits_d6": {
+   "below_cut_pct": 15.95,
+   "in_cut_pct": 75.02,
+   "above_cut_pct": 9.04,
+   "compliant": false,
+   "spec": "<2 mm <= 15 % ; >4 mm <= 5 %"
+  },
+  "fines_0_1_5": {
+   "below_cut_pct": 0.0,
+   "in_cut_pct": 85.27,
+   "above_cut_pct": 14.73,
+   "compliant": null
+  },
+  "aglime": {
+   "below_cut_pct": 0.0,
+   "in_cut_pct": 96.71,
+   "above_cut_pct": 3.29,
+   "compliant": true
+  },
+  "design_quality_noncompliant": [
+   "FeedLime grits",
+   "KFS"
+  ],
+  "kfs_yield": {
+   "realized_pct": 25.76,
+   "required_pct": 25.4
+  },
+  "landfill_t": 0.0,
+  "production_t": {
+   "KFS": 85000,
+   "AgLime": 135000,
+   "FeedLime grits": 40000,
+   "FeedLime fines": 60000,
+   "UltraFin": 6675
+  },
+  "zone_hours": {
+   "z11_1A": 1320.0,
+   "z13_G": 2361.0,
+   "z13_F": 1553.5
+  },
+  "design_verdicts": {
+   "machines_hold": true,
+   "quality_holds": false,
+   "targets_reachable": true
+  },
+  "sr5008_required_areas_m2": {
+   "top_deck": 6.8,
+   "bottom_deck": 7.07
+  },
+  "alerts_count": 3,
+  "alerts_new_or_notable": [
+   "SP.36: Phi(<cut) not measured \u2014 UltraFin computed from the modelled curve, flagged NOT CERTIFIED (to be measured by sieve/laser)",
+   "Zone 1.3 dedusting collected 1.71 t/h to UltraFin (client rule 2026-08-16; capture fractions and dust composition [H] pending site dust survey + filter-catch XRD)",
+   "Stockpile 0/20: 243636 t reclaimed beyond what is produced when every zone runs its FULL ceiling hours \u2014 downstream tonnages of this table are not simultaneously achievable at these rates; the hours planning (hours follow the targets) gives the consistent operating point"
+  ]
+ },
+ "comparison": [
+  {
+   "gate": "kfs_envelope",
+   "baseline": {
+    "below_20_pct": 8.69,
+    "in_cut_pct": 82.75,
+    "above_35_pct": 8.56,
+    "spec": "max 30 / min 55 / max 15",
+    "compliant": true
+   },
+   "classic": {
+    "below_20_pct": 15.59,
+    "in_cut_pct": 69.28,
+    "above_35_pct": 15.12,
+    "spec": "max 30 / min 55 / max 15",
+    "compliant": false
+   }
+  },
+  {
+   "gate": "grits_d6",
+   "baseline": {
+    "below_cut_pct": 14.18,
+    "in_cut_pct": 82.45,
+    "above_cut_pct": 3.37,
+    "compliant": true,
+    "spec": "<2 mm <= 15 % ; >4 mm <= 5 %"
+   },
+   "classic": {
+    "below_cut_pct": 15.95,
+    "in_cut_pct": 75.02,
+    "above_cut_pct": 9.04,
+    "compliant": false,
+    "spec": "<2 mm <= 15 % ; >4 mm <= 5 %"
+   }
+  },
+  {
+   "gate": "fines_0_1_5",
+   "baseline": {
+    "below_cut_pct": 0.0,
+    "in_cut_pct": 86.13,
+    "above_cut_pct": 13.87,
+    "compliant": null
+   },
+   "classic": {
+    "below_cut_pct": 0.0,
+    "in_cut_pct": 85.27,
+    "above_cut_pct": 14.73,
+    "compliant": null
+   }
+  },
+  {
+   "gate": "aglime",
+   "baseline": {
+    "below_cut_pct": 0.0,
+    "in_cut_pct": 98.38,
+    "above_cut_pct": 1.62,
+    "compliant": true
+   },
+   "classic": {
+    "below_cut_pct": 0.0,
+    "in_cut_pct": 96.71,
+    "above_cut_pct": 3.29,
+    "compliant": true
+   }
+  },
+  {
+   "gate": "design_quality_noncompliant",
+   "baseline": [],
+   "classic": [
+    "FeedLime grits",
+    "KFS"
+   ]
+  },
+  {
+   "gate": "kfs_yield",
+   "baseline": {
+    "realized_pct": 24.88,
+    "required_pct": 24.88
+   },
+   "classic": {
+    "realized_pct": 25.76,
+    "required_pct": 25.4
+   }
+  },
+  {
+   "gate": "landfill_t",
+   "baseline": 0.0,
+   "classic": 0.0
+  },
+  {
+   "gate": "design_verdicts",
+   "baseline": {
+    "machines_hold": true,
+    "quality_holds": true,
+    "targets_reachable": true
+   },
+   "classic": {
+    "machines_hold": true,
+    "quality_holds": false,
+    "targets_reachable": true
+   }
+  },
+  {
+   "gate": "sr5008_required_areas_m2",
+   "baseline": {
+    "top_deck": 6.8,
+    "bottom_deck": 7.15
+   },
+   "classic": {
+    "top_deck": 6.8,
+    "bottom_deck": 7.07
+   }
+  }
+ ]
+}
