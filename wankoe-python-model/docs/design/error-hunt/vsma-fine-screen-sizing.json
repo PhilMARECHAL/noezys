@@ -1,9 +1,9 @@
 {
  "_provenance": {
-  "engine_commit": "a72fa04",
+  "engine_commit": "960705b",
   "script": "scripts/vsma_factor_sizing.py",
   "margin": "x1.25 [H] on the factor-method worst case",
-  "note": "Client decision 2026-08-15 (error-hunt M-1, option 1): fine-screen purchase minima by the FULL VSMA factor method (the engine M4 model has no composition factors and under-sizes low-half-size feeds by ~25-30 %). Factor data [H]; vendor bed-depth sizing verifies."
+  "note": "Client decision 2026-08-15 (error-hunt M-1, option 1): fine-screen purchase minima by the FULL VSMA factor method (the engine M4 model has no composition factors and under-sizes low-half-size feeds by ~25-30 %). Factor data [H]; vendor bed-depth sizing verifies. FONTAINE %GL CROSS-CHECK added 2026-08-17 (client order; source: Le criblage + calculation booklet, Carmeuse 2001, Tableaux 6-7 \u2014 the identified source of M4): Q = 1.4 a^0.6 / %GL m3/h/m2, near-mesh band a/2..1.5a [H], densities from feed_product.properties (dry 1.5 / wet 1.62 t/m3, first use). INFORMATIONAL: purchase floors never weakened; exceedances surfaced for client arbitration."
  },
  "purchase_minima": {
   "SC.B": {
@@ -11,13 +11,29 @@
     "worst_circumstance": "measured / 1B / 2A+F",
     "worst_vsma_area_m2": 5.85,
     "model_area_at_worst_m2": 5.19,
-    "purchase_min_m2": 7.4
+    "purchase_min_m2": 7.4,
+    "fontaine_cross_check": {
+     "worst_circumstance": "measured / 1A / 2A+F",
+     "worst_area_m2": 6.28,
+     "worst_area_x_margin_m2": 7.85,
+     "pct_GL_at_worst": 62.8,
+     "within_tabulated_GL_range": true,
+     "verdict": "EXCEEDS the published purchase floor \u2014 client arbitration candidate (floors are never weakened, but a HIGHER independent requirement must be surfaced)"
+    }
    },
    "deck_2": {
     "worst_circumstance": "measured / 1A / 2A+F",
     "worst_vsma_area_m2": 5.95,
     "model_area_at_worst_m2": 4.51,
-    "purchase_min_m2": 7.5
+    "purchase_min_m2": 7.5,
+    "fontaine_cross_check": {
+     "worst_circumstance": "measured / 1B / 2A+F",
+     "worst_area_m2": 6.2,
+     "worst_area_x_margin_m2": 7.75,
+     "pct_GL_at_worst": 71.2,
+     "within_tabulated_GL_range": true,
+     "verdict": "EXCEEDS the published purchase floor \u2014 client arbitration candidate (floors are never weakened, but a HIGHER independent requirement must be surfaced)"
+    }
    }
   },
   "SR.5111": {
@@ -25,7 +41,15 @@
     "worst_circumstance": "measured / 1A / 2C",
     "worst_vsma_area_m2": 1.65,
     "model_area_at_worst_m2": 1.42,
-    "purchase_min_m2": 2.1
+    "purchase_min_m2": 2.1,
+    "fontaine_cross_check": {
+     "worst_circumstance": "measured / 1A / 2A+G",
+     "worst_area_m2": 0.71,
+     "worst_area_x_margin_m2": 0.89,
+     "pct_GL_at_worst": 28.0,
+     "within_tabulated_GL_range": true,
+     "verdict": "inside the published purchase floor \u2014 floor stands"
+    }
    }
   },
   "SR.5115": {
@@ -33,7 +57,15 @@
     "worst_circumstance": "quarry / 1B / 2C",
     "worst_vsma_area_m2": 10.61,
     "model_area_at_worst_m2": 15.72,
-    "purchase_min_m2": 13.3
+    "purchase_min_m2": 13.3,
+    "fontaine_cross_check": {
+     "worst_circumstance": "quarry / 1B / 2C",
+     "worst_area_m2": 7.16,
+     "worst_area_x_margin_m2": 8.95,
+     "pct_GL_at_worst": 25.5,
+     "within_tabulated_GL_range": true,
+     "verdict": "inside the published purchase floor \u2014 floor stands"
+    }
    }
   }
  },
@@ -53,7 +85,15 @@
     "D_deck": 1.0
    },
    "area_vsma_m2": 5.36,
-   "area_model_m2": 4.01
+   "area_model_m2": 4.01,
+   "fontaine": {
+    "pct_GL_near_mesh": 69.2,
+    "Q_m3_h_m2": 3.07,
+    "rho_tm3": 1.5,
+    "Q_t_h_m2": 4.6,
+    "area_fontaine_m2": 5.34,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "measured / 1A / 2A+G",
@@ -70,7 +110,15 @@
     "D_deck": 0.9
    },
    "area_vsma_m2": 3.49,
-   "area_model_m2": 2.64
+   "area_model_m2": 2.64,
+   "fontaine": {
+    "pct_GL_near_mesh": 78.8,
+    "Q_m3_h_m2": 2.27,
+    "rho_tm3": 1.5,
+    "Q_t_h_m2": 3.4,
+    "area_fontaine_m2": 4.01,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "measured / 1A / 2A+G",
@@ -87,7 +135,15 @@
     "D_deck": 1.0
    },
    "area_vsma_m2": 1.64,
-   "area_model_m2": 1.42
+   "area_model_m2": 1.42,
+   "fontaine": {
+    "pct_GL_near_mesh": 28.0,
+    "Q_m3_h_m2": 6.89,
+    "rho_tm3": 1.62,
+    "Q_t_h_m2": 11.15,
+    "area_fontaine_m2": 0.71,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "measured / 1A / 2A+G",
@@ -104,7 +160,15 @@
     "D_deck": 1.0
    },
    "area_vsma_m2": 3.36,
-   "area_model_m2": 4.99
+   "area_model_m2": 4.99,
+   "fontaine": {
+    "pct_GL_near_mesh": 25.5,
+    "Q_m3_h_m2": 7.55,
+    "rho_tm3": 1.62,
+    "Q_t_h_m2": 12.23,
+    "area_fontaine_m2": 2.27,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "measured / 1A / 2A+F",
@@ -121,7 +185,15 @@
     "D_deck": 1.0
    },
    "area_vsma_m2": 5.84,
-   "area_model_m2": 5.19
+   "area_model_m2": 5.19,
+   "fontaine": {
+    "pct_GL_near_mesh": 62.8,
+    "Q_m3_h_m2": 3.38,
+    "rho_tm3": 1.5,
+    "Q_t_h_m2": 5.07,
+    "area_fontaine_m2": 6.28,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "measured / 1A / 2A+F",
@@ -138,7 +210,15 @@
     "D_deck": 0.9
    },
    "area_vsma_m2": 5.95,
-   "area_model_m2": 4.51
+   "area_model_m2": 4.51,
+   "fontaine": {
+    "pct_GL_near_mesh": 71.2,
+    "Q_m3_h_m2": 2.51,
+    "rho_tm3": 1.5,
+    "Q_t_h_m2": 3.76,
+    "area_fontaine_m2": 6.19,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "measured / 1A / 2A+F",
@@ -155,7 +235,15 @@
     "D_deck": 1.0
    },
    "area_vsma_m2": 1.64,
-   "area_model_m2": 1.42
+   "area_model_m2": 1.42,
+   "fontaine": {
+    "pct_GL_near_mesh": 28.0,
+    "Q_m3_h_m2": 6.89,
+    "rho_tm3": 1.62,
+    "Q_t_h_m2": 11.15,
+    "area_fontaine_m2": 0.71,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "measured / 1A / 2A+F",
@@ -172,7 +260,15 @@
     "D_deck": 1.0
    },
    "area_vsma_m2": 3.36,
-   "area_model_m2": 4.99
+   "area_model_m2": 4.99,
+   "fontaine": {
+    "pct_GL_near_mesh": 25.5,
+    "Q_m3_h_m2": 7.55,
+    "rho_tm3": 1.62,
+    "Q_t_h_m2": 12.23,
+    "area_fontaine_m2": 2.27,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "measured / 1A / 2C",
@@ -189,7 +285,15 @@
     "D_deck": 1.0
    },
    "area_vsma_m2": 1.65,
-   "area_model_m2": 1.42
+   "area_model_m2": 1.42,
+   "fontaine": {
+    "pct_GL_near_mesh": 10.7,
+    "Q_m3_h_m2": 17.94,
+    "rho_tm3": 1.62,
+    "Q_t_h_m2": 29.07,
+    "area_fontaine_m2": 0.27,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "measured / 1A / 2C",
@@ -206,7 +310,15 @@
     "D_deck": 1.0
    },
    "area_vsma_m2": 10.31,
-   "area_model_m2": 15.28
+   "area_model_m2": 15.28,
+   "fontaine": {
+    "pct_GL_near_mesh": 25.5,
+    "Q_m3_h_m2": 7.55,
+    "rho_tm3": 1.62,
+    "Q_t_h_m2": 12.23,
+    "area_fontaine_m2": 6.96,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "measured / 1B / 2A+G",
@@ -223,7 +335,15 @@
     "D_deck": 1.0
    },
    "area_vsma_m2": 5.37,
-   "area_model_m2": 4.01
+   "area_model_m2": 4.01,
+   "fontaine": {
+    "pct_GL_near_mesh": 69.2,
+    "Q_m3_h_m2": 3.07,
+    "rho_tm3": 1.5,
+    "Q_t_h_m2": 4.6,
+    "area_fontaine_m2": 5.35,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "measured / 1B / 2A+G",
@@ -240,7 +360,15 @@
     "D_deck": 0.9
    },
    "area_vsma_m2": 3.5,
-   "area_model_m2": 2.64
+   "area_model_m2": 2.64,
+   "fontaine": {
+    "pct_GL_near_mesh": 78.8,
+    "Q_m3_h_m2": 2.27,
+    "rho_tm3": 1.5,
+    "Q_t_h_m2": 3.4,
+    "area_fontaine_m2": 4.01,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "measured / 1B / 2A+G",
@@ -257,7 +385,15 @@
     "D_deck": 1.0
    },
    "area_vsma_m2": 1.48,
-   "area_model_m2": 1.27
+   "area_model_m2": 1.27,
+   "fontaine": {
+    "pct_GL_near_mesh": 26.8,
+    "Q_m3_h_m2": 7.19,
+    "rho_tm3": 1.62,
+    "Q_t_h_m2": 11.64,
+    "area_fontaine_m2": 0.61,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "measured / 1B / 2A+G",
@@ -274,7 +410,15 @@
     "D_deck": 1.0
    },
    "area_vsma_m2": 3.31,
-   "area_model_m2": 4.9
+   "area_model_m2": 4.9,
+   "fontaine": {
+    "pct_GL_near_mesh": 25.5,
+    "Q_m3_h_m2": 7.55,
+    "rho_tm3": 1.62,
+    "Q_t_h_m2": 12.23,
+    "area_fontaine_m2": 2.23,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "measured / 1B / 2A+F",
@@ -291,7 +435,15 @@
     "D_deck": 1.0
    },
    "area_vsma_m2": 5.85,
-   "area_model_m2": 5.19
+   "area_model_m2": 5.19,
+   "fontaine": {
+    "pct_GL_near_mesh": 62.8,
+    "Q_m3_h_m2": 3.38,
+    "rho_tm3": 1.5,
+    "Q_t_h_m2": 5.07,
+    "area_fontaine_m2": 6.28,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "measured / 1B / 2A+F",
@@ -308,7 +460,15 @@
     "D_deck": 0.9
    },
    "area_vsma_m2": 5.95,
-   "area_model_m2": 4.51
+   "area_model_m2": 4.51,
+   "fontaine": {
+    "pct_GL_near_mesh": 71.2,
+    "Q_m3_h_m2": 2.51,
+    "rho_tm3": 1.5,
+    "Q_t_h_m2": 3.76,
+    "area_fontaine_m2": 6.2,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "measured / 1B / 2A+F",
@@ -325,7 +485,15 @@
     "D_deck": 1.0
    },
    "area_vsma_m2": 1.48,
-   "area_model_m2": 1.27
+   "area_model_m2": 1.27,
+   "fontaine": {
+    "pct_GL_near_mesh": 26.8,
+    "Q_m3_h_m2": 7.19,
+    "rho_tm3": 1.62,
+    "Q_t_h_m2": 11.64,
+    "area_fontaine_m2": 0.61,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "measured / 1B / 2A+F",
@@ -342,7 +510,15 @@
     "D_deck": 1.0
    },
    "area_vsma_m2": 3.31,
-   "area_model_m2": 4.9
+   "area_model_m2": 4.9,
+   "fontaine": {
+    "pct_GL_near_mesh": 25.5,
+    "Q_m3_h_m2": 7.55,
+    "rho_tm3": 1.62,
+    "Q_t_h_m2": 12.23,
+    "area_fontaine_m2": 2.23,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "measured / 1B / 2C",
@@ -359,7 +535,15 @@
     "D_deck": 1.0
    },
    "area_vsma_m2": 1.47,
-   "area_model_m2": 1.27
+   "area_model_m2": 1.27,
+   "fontaine": {
+    "pct_GL_near_mesh": 9.9,
+    "Q_m3_h_m2": 19.47,
+    "rho_tm3": 1.62,
+    "Q_t_h_m2": 31.53,
+    "area_fontaine_m2": 0.22,
+    "within_tabulated_GL_range": false
+   }
   },
   {
    "circumstance": "measured / 1B / 2C",
@@ -376,7 +560,15 @@
     "D_deck": 1.0
    },
    "area_vsma_m2": 10.41,
-   "area_model_m2": 15.44
+   "area_model_m2": 15.44,
+   "fontaine": {
+    "pct_GL_near_mesh": 25.5,
+    "Q_m3_h_m2": 7.55,
+    "rho_tm3": 1.62,
+    "Q_t_h_m2": 12.23,
+    "area_fontaine_m2": 7.03,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "quarry / 1A / 2A+G",
@@ -393,7 +585,15 @@
     "D_deck": 1.0
    },
    "area_vsma_m2": 5.34,
-   "area_model_m2": 3.99
+   "area_model_m2": 3.99,
+   "fontaine": {
+    "pct_GL_near_mesh": 69.1,
+    "Q_m3_h_m2": 3.07,
+    "rho_tm3": 1.5,
+    "Q_t_h_m2": 4.61,
+    "area_fontaine_m2": 5.32,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "quarry / 1A / 2A+G",
@@ -410,7 +610,15 @@
     "D_deck": 0.9
    },
    "area_vsma_m2": 3.48,
-   "area_model_m2": 2.63
+   "area_model_m2": 2.63,
+   "fontaine": {
+    "pct_GL_near_mesh": 78.7,
+    "Q_m3_h_m2": 2.27,
+    "rho_tm3": 1.5,
+    "Q_t_h_m2": 3.4,
+    "area_fontaine_m2": 3.99,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "quarry / 1A / 2A+G",
@@ -427,7 +635,15 @@
     "D_deck": 1.0
    },
    "area_vsma_m2": 1.22,
-   "area_model_m2": 1.07
+   "area_model_m2": 1.07,
+   "fontaine": {
+    "pct_GL_near_mesh": 25.2,
+    "Q_m3_h_m2": 7.62,
+    "rho_tm3": 1.62,
+    "Q_t_h_m2": 12.35,
+    "area_fontaine_m2": 0.48,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "quarry / 1A / 2A+G",
@@ -444,7 +660,15 @@
     "D_deck": 1.0
    },
    "area_vsma_m2": 2.84,
-   "area_model_m2": 4.21
+   "area_model_m2": 4.21,
+   "fontaine": {
+    "pct_GL_near_mesh": 25.5,
+    "Q_m3_h_m2": 7.55,
+    "rho_tm3": 1.62,
+    "Q_t_h_m2": 12.23,
+    "area_fontaine_m2": 1.92,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "quarry / 1A / 2A+F",
@@ -461,7 +685,15 @@
     "D_deck": 1.0
    },
    "area_vsma_m2": 5.82,
-   "area_model_m2": 5.18
+   "area_model_m2": 5.18,
+   "fontaine": {
+    "pct_GL_near_mesh": 62.7,
+    "Q_m3_h_m2": 3.39,
+    "rho_tm3": 1.5,
+    "Q_t_h_m2": 5.08,
+    "area_fontaine_m2": 6.26,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "quarry / 1A / 2A+F",
@@ -478,7 +710,15 @@
     "D_deck": 0.9
    },
    "area_vsma_m2": 5.94,
-   "area_model_m2": 4.51
+   "area_model_m2": 4.51,
+   "fontaine": {
+    "pct_GL_near_mesh": 71.1,
+    "Q_m3_h_m2": 2.51,
+    "rho_tm3": 1.5,
+    "Q_t_h_m2": 3.76,
+    "area_fontaine_m2": 6.19,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "quarry / 1A / 2A+F",
@@ -495,7 +735,15 @@
     "D_deck": 1.0
    },
    "area_vsma_m2": 1.22,
-   "area_model_m2": 1.07
+   "area_model_m2": 1.07,
+   "fontaine": {
+    "pct_GL_near_mesh": 25.2,
+    "Q_m3_h_m2": 7.62,
+    "rho_tm3": 1.62,
+    "Q_t_h_m2": 12.35,
+    "area_fontaine_m2": 0.48,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "quarry / 1A / 2A+F",
@@ -512,7 +760,15 @@
     "D_deck": 1.0
    },
    "area_vsma_m2": 2.84,
-   "area_model_m2": 4.21
+   "area_model_m2": 4.21,
+   "fontaine": {
+    "pct_GL_near_mesh": 25.5,
+    "Q_m3_h_m2": 7.55,
+    "rho_tm3": 1.62,
+    "Q_t_h_m2": 12.23,
+    "area_fontaine_m2": 1.92,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "quarry / 1A / 2C",
@@ -529,7 +785,15 @@
     "D_deck": 1.0
    },
    "area_vsma_m2": 1.23,
-   "area_model_m2": 1.07
+   "area_model_m2": 1.07,
+   "fontaine": {
+    "pct_GL_near_mesh": 8.0,
+    "Q_m3_h_m2": 24.13,
+    "rho_tm3": 1.62,
+    "Q_t_h_m2": 39.09,
+    "area_fontaine_m2": 0.15,
+    "within_tabulated_GL_range": false
+   }
   },
   {
    "circumstance": "quarry / 1A / 2C",
@@ -546,7 +810,15 @@
     "D_deck": 1.0
    },
    "area_vsma_m2": 10.55,
-   "area_model_m2": 15.64
+   "area_model_m2": 15.64,
+   "fontaine": {
+    "pct_GL_near_mesh": 25.5,
+    "Q_m3_h_m2": 7.55,
+    "rho_tm3": 1.62,
+    "Q_t_h_m2": 12.23,
+    "area_fontaine_m2": 7.12,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "quarry / 1B / 2A+G",
@@ -563,7 +835,15 @@
     "D_deck": 1.0
    },
    "area_vsma_m2": 5.35,
-   "area_model_m2": 4.0
+   "area_model_m2": 4.0,
+   "fontaine": {
+    "pct_GL_near_mesh": 69.1,
+    "Q_m3_h_m2": 3.07,
+    "rho_tm3": 1.5,
+    "Q_t_h_m2": 4.61,
+    "area_fontaine_m2": 5.33,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "quarry / 1B / 2A+G",
@@ -580,7 +860,15 @@
     "D_deck": 0.9
    },
    "area_vsma_m2": 3.49,
-   "area_model_m2": 2.64
+   "area_model_m2": 2.64,
+   "fontaine": {
+    "pct_GL_near_mesh": 78.7,
+    "Q_m3_h_m2": 2.27,
+    "rho_tm3": 1.5,
+    "Q_t_h_m2": 3.4,
+    "area_fontaine_m2": 4.0,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "quarry / 1B / 2A+G",
@@ -597,7 +885,15 @@
     "D_deck": 1.0
    },
    "area_vsma_m2": 1.14,
-   "area_model_m2": 0.98
+   "area_model_m2": 0.98,
+   "fontaine": {
+    "pct_GL_near_mesh": 24.5,
+    "Q_m3_h_m2": 7.86,
+    "rho_tm3": 1.62,
+    "Q_t_h_m2": 12.74,
+    "area_fontaine_m2": 0.43,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "quarry / 1B / 2A+G",
@@ -614,7 +910,15 @@
     "D_deck": 1.0
    },
    "area_vsma_m2": 2.9,
-   "area_model_m2": 4.31
+   "area_model_m2": 4.31,
+   "fontaine": {
+    "pct_GL_near_mesh": 25.5,
+    "Q_m3_h_m2": 7.55,
+    "rho_tm3": 1.62,
+    "Q_t_h_m2": 12.23,
+    "area_fontaine_m2": 1.96,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "quarry / 1B / 2A+F",
@@ -631,7 +935,15 @@
     "D_deck": 1.0
    },
    "area_vsma_m2": 5.83,
-   "area_model_m2": 5.18
+   "area_model_m2": 5.18,
+   "fontaine": {
+    "pct_GL_near_mesh": 62.7,
+    "Q_m3_h_m2": 3.38,
+    "rho_tm3": 1.5,
+    "Q_t_h_m2": 5.08,
+    "area_fontaine_m2": 6.27,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "quarry / 1B / 2A+F",
@@ -648,7 +960,15 @@
     "D_deck": 0.9
    },
    "area_vsma_m2": 5.94,
-   "area_model_m2": 4.51
+   "area_model_m2": 4.51,
+   "fontaine": {
+    "pct_GL_near_mesh": 71.2,
+    "Q_m3_h_m2": 2.51,
+    "rho_tm3": 1.5,
+    "Q_t_h_m2": 3.76,
+    "area_fontaine_m2": 6.19,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "quarry / 1B / 2A+F",
@@ -665,7 +985,15 @@
     "D_deck": 1.0
    },
    "area_vsma_m2": 1.14,
-   "area_model_m2": 0.98
+   "area_model_m2": 0.98,
+   "fontaine": {
+    "pct_GL_near_mesh": 24.5,
+    "Q_m3_h_m2": 7.86,
+    "rho_tm3": 1.62,
+    "Q_t_h_m2": 12.74,
+    "area_fontaine_m2": 0.43,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "quarry / 1B / 2A+F",
@@ -682,7 +1010,15 @@
     "D_deck": 1.0
    },
    "area_vsma_m2": 2.9,
-   "area_model_m2": 4.31
+   "area_model_m2": 4.31,
+   "fontaine": {
+    "pct_GL_near_mesh": 25.5,
+    "Q_m3_h_m2": 7.55,
+    "rho_tm3": 1.62,
+    "Q_t_h_m2": 12.23,
+    "area_fontaine_m2": 1.96,
+    "within_tabulated_GL_range": true
+   }
   },
   {
    "circumstance": "quarry / 1B / 2C",
@@ -699,7 +1035,15 @@
     "D_deck": 1.0
    },
    "area_vsma_m2": 1.14,
-   "area_model_m2": 0.98
+   "area_model_m2": 0.98,
+   "fontaine": {
+    "pct_GL_near_mesh": 7.8,
+    "Q_m3_h_m2": 24.84,
+    "rho_tm3": 1.62,
+    "Q_t_h_m2": 40.23,
+    "area_fontaine_m2": 0.14,
+    "within_tabulated_GL_range": false
+   }
   },
   {
    "circumstance": "quarry / 1B / 2C",
@@ -716,7 +1060,15 @@
     "D_deck": 1.0
    },
    "area_vsma_m2": 10.61,
-   "area_model_m2": 15.72
+   "area_model_m2": 15.72,
+   "fontaine": {
+    "pct_GL_near_mesh": 25.5,
+    "Q_m3_h_m2": 7.55,
+    "rho_tm3": 1.62,
+    "Q_t_h_m2": 12.23,
+    "area_fontaine_m2": 7.16,
+    "within_tabulated_GL_range": true
+   }
   }
  ]
 }

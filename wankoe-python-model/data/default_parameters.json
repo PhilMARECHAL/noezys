@@ -874,11 +874,11 @@
       },
       "dry_density_tm3": {
         "default": 1.5,
-        "status": "to be confirmed - reserved, not used by the engine yet"
+        "status": "to be confirmed - FIRST USE 2026-08-17: Fontaine %GL cross-check in scripts/vsma_factor_sizing.py (volumetric-to-mass conversion of Q = 1.4 a^0.6 / %GL); not an engine formula input"
       },
       "wet_density_tm3": {
         "default": 1.62,
-        "status": "to be confirmed - reserved, not used by the engine yet"
+        "status": "to be confirmed - FIRST USE 2026-08-17: Fontaine %GL cross-check in scripts/vsma_factor_sizing.py (volumetric-to-mass conversion of Q = 1.4 a^0.6 / %GL); not an engine formula input"
       },
       "Wi_kWht": {
         "default": null,

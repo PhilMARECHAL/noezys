@@ -147,13 +147,25 @@ def m4_feed_composition(feed_psd, aperture_mm: float) -> dict:
 
     The engine's M4 area model carries no VSMA composition factors (the
     fitted f0 absorbs them at the SR.5008-like reference feed). These two
-    figures — % passing half the aperture and % retained on the aperture —
-    are exposed on every sized deck so the STANDARD factor-method sizing
-    (scripts/vsma_factor_sizing.py, client decision M-1 option 1) can be
-    computed from any engine photo without reconstructing the flowsheet."""
+    figures — % passing half the aperture, % retained on the aperture and
+    the near-mesh "grains limites" % — are exposed on every sized deck so
+    the STANDARD factor-method sizing AND the Fontaine %GL check
+    (scripts/vsma_factor_sizing.py, client decisions M-1 2026-08-15 and
+    2026-08-17) can be computed from any engine photo without
+    reconstructing the flowsheet.
+
+    feed_pct_near_mesh — Fontaine's "grains limites" (Le criblage +
+    calculation booklet, Carmeuse 2001, Tableaux 6-7: Q = 1.4 a^0.6 / %GL,
+    the identified source of M4's qb_coef 14 = the law at %GL 10). The
+    booklet does not define the band explicitly; the [H] convention
+    adopted 2026-08-17 is the feed fraction between a/2 and 1.5 a."""
     return {
         "feed_pct_half_size": 100.0 * feed_psd.passing_at(aperture_mm / 2.0),
         "feed_pct_oversize": 100.0 * (1.0 - feed_psd.passing_at(aperture_mm)),
+        "feed_pct_near_mesh": 100.0 * (
+            feed_psd.passing_at(1.5 * aperture_mm)
+            - feed_psd.passing_at(aperture_mm / 2.0)
+        ),
     }
 
 

@@ -21,6 +21,17 @@ The engine exposes per-deck U (undersize t/h), % half-size and % oversize
 on every photo (models.m4_feed_composition — error-hunt M-1 wiring), so
 every circumstance the client has ruled is swept below.
 
+FONTAINE %GL CROSS-CHECK (client order 2026-08-17): the identified
+source of M4 (Fontaine, "Le criblage" + calculation booklet, Carmeuse
+2001, Tableaux 6-7) states Q (m3/h/m2) = 1.4 * a^0.6 / %GL, %GL =
+"grains limites" (near-mesh fraction; [H] band convention a/2..1.5a,
+exposed by models.m4_feed_composition). This script now evaluates the
+Fontaine area beside the VSMA-factor area on every deck and circumstance
+(volumetric law converted with the data densities feed_product.properties
+dry_density_tm3 / wet_density_tm3 — their first engine-adjacent use).
+INFORMATIONAL ONLY: purchase floors are never weakened without a client
+arbitration (M-1 rule); a Fontaine area ABOVE a floor is flagged.
+
 Replay:
     PYTHONPATH=src python scripts/vsma_factor_sizing.py
 writes docs/design/error-hunt/vsma-fine-screen-sizing.json
@@ -54,6 +65,28 @@ OVERSIZE_TABLE = [
     (90, 1.83), (95, 1.96),
 ]
 DECK_FACTOR = {1: 1.0, 2: 0.9}
+
+# Fontaine (Carmeuse 2001, Tableaux 6-7): Q m3/h/m2 = F_COEF * a^F_EXP / GL
+# (GL as a fraction). Tabulated range %GL 10-80; outside it the check is
+# flagged extrapolated. Densities: material basis per machine [H] — SC.B
+# screens DRY zone-1.3 product; SR.5111/5115 screen moist zone-1.2 material.
+F_COEF, F_EXP = 1.4, 0.6
+F_GL_TABULATED = (10.0, 80.0)
+F_DENSITY_KEY = {"SC.B": "dry_density_tm3", "SR.5111": "wet_density_tm3", "SR.5115": "wet_density_tm3"}
+
+
+def fontaine_area(u_tph: float, a_mm: float, gl_pct: float, rho_tm3: float) -> dict:
+    gl = max(gl_pct, 1e-6) / 100.0
+    q_m3 = F_COEF * (a_mm ** F_EXP) / gl
+    q_t = q_m3 * rho_tm3
+    return {
+        "pct_GL_near_mesh": round(gl_pct, 1),
+        "Q_m3_h_m2": round(q_m3, 2),
+        "rho_tm3": rho_tm3,
+        "Q_t_h_m2": round(q_t, 2),
+        "area_fontaine_m2": round(u_tph / q_t, 2) if u_tph > 0 else 0.0,
+        "within_tabulated_GL_range": F_GL_TABULATED[0] <= gl_pct <= F_GL_TABULATED[1],
+    }
 
 
 def basic_capacity(a_mm: float) -> float:
@@ -112,8 +145,13 @@ def circumstances() -> dict:
 
 
 def main() -> None:
+    props = load_parameters()["feed_product"]["properties"]
+    densities = {
+        code: props[key]["default"] for code, key in F_DENSITY_KEY.items()
+    }
     rows = []
     worst: dict = {}
+    worst_fontaine: dict = {}
     for label, ov in circumstances().items():
         r = run_scenario(load_parameters(overrides=ov))
         for code, decks in DECKS.items():
@@ -146,24 +184,52 @@ def main() -> None:
                     "area_vsma_m2": round(a_vsma, 2),
                     "area_model_m2": round(entry["required_area_m2"], 2),
                 }
+                if "feed_pct_near_mesh" in entry:
+                    row["fontaine"] = fontaine_area(
+                        u, aperture, entry["feed_pct_near_mesh"], densities[code]
+                    )
                 rows.append(row)
                 key = (code, deck_key)
                 if key not in worst or a_vsma > worst[key]["area_vsma_m2"]:
                     worst[key] = {**row}
+                fa = row.get("fontaine", {}).get("area_fontaine_m2", 0.0)
+                if key not in worst_fontaine or fa > worst_fontaine[key]["fontaine"]["area_fontaine_m2"]:
+                    worst_fontaine[key] = {**row}
 
     minima = {}
     for (code, deck_key), w in sorted(worst.items()):
         floor = math.ceil(w["area_vsma_m2"] * AREA_MARGIN * 10) / 10  # round UP
+        wf = worst_fontaine[(code, deck_key)]
+        fon = wf.get("fontaine", {})
+        f_area = fon.get("area_fontaine_m2", 0.0)
+        f_margined = round(f_area * AREA_MARGIN, 2)
         minima.setdefault(code, {})[deck_key] = {
             "worst_circumstance": w["circumstance"],
             "worst_vsma_area_m2": w["area_vsma_m2"],
             "model_area_at_worst_m2": w["area_model_m2"],
             "purchase_min_m2": floor,
+            "fontaine_cross_check": {
+                "worst_circumstance": wf["circumstance"],
+                "worst_area_m2": f_area,
+                "worst_area_x_margin_m2": f_margined,
+                "pct_GL_at_worst": fon.get("pct_GL_near_mesh"),
+                "within_tabulated_GL_range": fon.get("within_tabulated_GL_range"),
+                "verdict": (
+                    "EXCEEDS the published purchase floor — client arbitration "
+                    "candidate (floors are never weakened, but a HIGHER "
+                    "independent requirement must be surfaced)"
+                    if f_margined > floor
+                    else "inside the published purchase floor — floor stands"
+                ),
+            },
         }
         print(
             f"{code} {deck_key}: worst VSMA {w['area_vsma_m2']:.2f} m2 "
             f"({w['circumstance']}; model said {w['area_model_m2']:.2f}) "
-            f"-> purchase >= {floor} m2"
+            f"-> purchase >= {floor} m2 | Fontaine %GL check: "
+            f"{f_area:.2f} m2 (x{AREA_MARGIN} = {f_margined:.2f}) at "
+            f"%GL {fon.get('pct_GL_near_mesh')} ({wf['circumstance']}) -> "
+            f"{minima[code][deck_key]['fontaine_cross_check']['verdict'].split(' — ')[0]}"
         )
 
     commit = subprocess.run(
@@ -181,7 +247,15 @@ def main() -> None:
                         "fine-screen purchase minima by the FULL VSMA factor "
                         "method (the engine M4 model has no composition factors "
                         "and under-sizes low-half-size feeds by ~25-30 %). "
-                        "Factor data [H]; vendor bed-depth sizing verifies."
+                        "Factor data [H]; vendor bed-depth sizing verifies. "
+                        "FONTAINE %GL CROSS-CHECK added 2026-08-17 (client "
+                        "order; source: Le criblage + calculation booklet, "
+                        "Carmeuse 2001, Tableaux 6-7 — the identified source "
+                        "of M4): Q = 1.4 a^0.6 / %GL m3/h/m2, near-mesh band "
+                        "a/2..1.5a [H], densities from feed_product.properties "
+                        "(dry 1.5 / wet 1.62 t/m3, first use). INFORMATIONAL: "
+                        "purchase floors never weakened; exceedances surfaced "
+                        "for client arbitration."
                     ),
                 },
                 "purchase_minima": minima,
