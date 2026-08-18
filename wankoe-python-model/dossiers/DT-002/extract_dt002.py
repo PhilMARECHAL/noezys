@@ -224,8 +224,8 @@ def main():
                 "computation_grid_refinement": engine["computation_grid_refinement"],
             },
             "declared_hypotheses_H": {
-                "I_imperfection_0.15": "literature value, client arbitration 2026-08-10 — convention question open (Q3, expert note pending)",
-                "A_j_60_b_j_0.80": "impact breakage parameters pending drop-weight tests (none launched, client decision 2026-08-16)",
+                "I_imperfection_0.15": "literature value, client arbitration 2026-08-10; convention RATIFIED (Q3 closed 2026-08-17) — realized classic imperfection ~0.081, disclosed for Bruno matching",
+                "A_j_65_b_j_1.5": "impact breakage parameters — RATIFIED defaults (Q12 closed 2026-08-17, expert-book calcite centrals); vendor gradation tests are the closing instrument",
                 "n_1.35_CR.5006": "RR uniformity pending vendor gradation table",
                 "feed_curve_H-FEED-1/2": "measured belt-cut completed by tail hypotheses",
             },

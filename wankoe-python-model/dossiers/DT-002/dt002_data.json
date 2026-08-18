@@ -1,6 +1,6 @@
 {
   "_provenance": {
-    "commit": "e485561",
+    "commit": "d3f1142",
     "engine": "wankoe_model (run_scenario / run_required_hours / flowsheet.zone_1_1 replay)",
     "scenario": "modes 1A (250 t/h wet) + 1B (172.0 t/h wet, CSS 18), measured 2026-08-08 belt-cut feed, dry weather, reference settings g60/CSS30/v30",
     "tags": "NACO 11-01-PFD REV15 (zone-1.1 retag 2026-08-17; CR.5006 ex-CR.5009, SR.5008 ex-SR.5007)"
@@ -53,8 +53,8 @@
       "computation_grid_refinement": 2
     },
     "declared_hypotheses_H": {
-      "I_imperfection_0.15": "literature value, client arbitration 2026-08-10 — convention question open (Q3, expert note pending)",
-      "A_j_60_b_j_0.80": "impact breakage parameters pending drop-weight tests (none launched, client decision 2026-08-16)",
+      "I_imperfection_0.15": "literature value, client arbitration 2026-08-10; convention RATIFIED (Q3 closed 2026-08-17) — realized classic imperfection ~0.081, disclosed for Bruno matching",
+      "A_j_65_b_j_1.5": "impact breakage parameters — RATIFIED defaults (Q12 closed 2026-08-17, expert-book calcite centrals); vendor gradation tests are the closing instrument",
       "n_1.35_CR.5006": "RR uniformity pending vendor gradation table",
       "feed_curve_H-FEED-1/2": "measured belt-cut completed by tail hypotheses"
     },
