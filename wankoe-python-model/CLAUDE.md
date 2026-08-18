@@ -591,8 +591,14 @@ in data/src/tests/scripts/web UI; former_tag fields in the data; suite
 rewritten — equivalence banners instead. ALL new documents use REV15
 tags.
 
-DT-002 ISSUED 2026-08-17 (Q8 opt 3: full derivations, expert-book
-level): dossiers/DT-002/ = extract_dt002.py -> dt002_data.json ->
+DT-002 REV B ISSUED 2026-08-18 (client "finalize" order) — FINAL for
+the Bruno exchange: regenerated at the Q12-ratified calibration
+(A 65 / b 1.5; yield 23.36, z1.1 1A hours 1455.2, SR.5008 bottom
+floor 9.8); REV A's section-9 recycle misprint (324 vs real ~74 t/h
+wet) fixed (extract script selector pinned to 'BC.5010 recycle');
+revision-history section 0 added for a Bruno setup started from
+REV A. Original issue 2026-08-17 (Q8 opt 3: full derivations,
+expert-book level): dossiers/DT-002/ = extract_dt002.py -> dt002_data.json ->
 render_dt002.py -> DT-002.md + DT-002-Zone11-Sizing-Note.docx (charte,
 landscape PFD plate + 9-stream x 17-sieve tables, zero hand-typed
 figures). Key disclosed conventions for Bruno: M3 realized classic
