@@ -86,6 +86,11 @@ def duty_table(mode):
 
 env = M1A["kfs_envelope_check"]
 blocks = [
+    ("h1", "0. Revision history"),
+    ("table", {"header": ["Rev", "Date", "Changes"], "rows": [
+        ["A", "2026-08-17", "First issue (calibration epoch A_j 60 / b_j 0.8, pre-Q12)."],
+        ["B", "2026-08-18", "FINAL for the Bruno exchange. (1) Calibration ratified by the client (Q12, 2026-08-17): A_j 60 -> 65, b_j 0.8 -> 1.5 (expert-book calcite centrals) — every figure regenerated at the ratified defaults. Headline moves vs REV A: CR.5011 t10 5.71 -> 11.11 %, RR n 1.645 -> 1.347 (finer loop product), recirculation 1A 69.3 -> 68.9 t/h, KFS envelope 8.8/82.3/8.9 (still compliant), KFS yield 24.88 -> 23.36 %, zone-1.1 mode-1A hours 1 366.6 -> 1 455.2 h/y, SR.5008 purchase minimum bottom deck 9.6 -> 9.8 m2. If Bruno was configured from REV A, update A_j/b_j and re-read the PSD tables. (2) Correction: REV A section 9 printed the recycle confrontation as 'PFD 125 vs 324 t/h' due to a stream-selection error in the extraction script; the correct engine recycle is ~74 t/h wet (the 324 was the screen feed). Fixed in the script and herein."],
+    ], "note": "This revision table is authored; every figure in it replays from dt002_data.json at the commits stated in the provenance footers."}),
     ("h1", "1. Purpose and how to read this note"),
     ("p", "This note documents, end to end, how the WANKOE deterministic model computes zone 1.1: the machine sizing and the production capacity, with every particle-size distribution presented as CUMULATIVE PERCENT PASSING in table form. It is written for the model exchange with our colleague running Metso's Bruno simulator: section 3 is a full replay kit (all inputs, settings and calibration constants) so Bruno can be configured identically, sections 4 to 6 derive and apply the models, and section 9 confronts our figures with the NACO flowsheet design values, honestly. Nothing here needs to be trusted: every figure replays from the archived script (see the provenance footer), and any divergence between Bruno and this note is meaningful precisely because both sides are fully specified."),
     ("p", "Language note: tags follow the NACO PFD 11-01-PFD REV15 everywhere. The model historically used spec-era tags; the zone-1.1 retag of 2026-08-17 renamed CR.5009 to CR.5006 and SR.5007 to SR.5008 (CR.5011 and CR.5003 were already aligned). Documents issued before that date carry the old tags, the machines are the same."),
@@ -109,7 +114,7 @@ blocks = [
         ["CR.5011 CSS (x80)", "30 mm (1A) / 18 mm (1B)", "Mode changeover is a routine operation"],
         ["CR.5011 rotor speed v", "30 m/s", "Client 2026-08-14, minimum speed"],
         ["Bond work index Wi", f"{CAL['Wi_kWh_t']} kWh/t", "[ref.] Fontaine, Belgian limestone (client Q2, 2026-08-11)"],
-        ["Impact breakage A_j / b_j", f"{CAL['m5_A_j']} / {CAL['m5_b_j']}", "[H] pending drop-weight tests (none launched, client 2026-08-16)"],
+        ["Impact breakage A_j / b_j", f"{CAL['m5_A_j']} / {CAL['m5_b_j']}", "RATIFIED defaults (client Q12, 2026-08-17): expert-book calcite centrals, supersede the 60 / 0.8 of REV A; vendor gradation tests are the closing instrument"],
         ["Motor efficiency eta_m", str(CAL["eta_m"]), "absorbed = net / eta_m"],
         ["Computation grid", f"x{CAL['computation_grid_refinement']} refinement (57 meshes)", "Spec sieves remain the presentation format (this note's tables)"],
     ]}),
@@ -124,7 +129,7 @@ blocks = [
     ("h2", "4.4 M4, screen area (VSMA / Fontaine form)"),
     ("p", f"Required area A = U f_p / (Qb f0), where U is the deck undersize in t/h, f_p = {CAL['m4_f_p']} a peak factor, and Qb = {f(CAL['m4_qb_coef'],0)} a^{CAL['m4_qb_exp']} t/h/m2 the basic capacity at aperture a (mm). Attribution disclosure: Qb alone is not the published VSMA basic capacity; the EFFECTIVE capacity Qb f0 = 4.86 a^0.6 reproduces the VSMA Factor-A table within 5 % at the project cuts (29.3 vs 30.8 t/h/m2 at 20 mm, 41.0 vs 39.5 at 35 mm), the fitted f0 = {CAL['m4_f0']} absorbing the VSMA factor string. Under rain the basic capacity is derated by the wet factor (0.75); the SR.5008 PURCHASE minima are client-decided on that rain duty (9.1 / 9.6 m2), while this note's dry-photo areas are the operating requirement."),
     ("h2", "4.5 M5, impact crusher (t10 / Ecs) and the loop"),
-    ("p", f"The impactor's breakage intensity comes from the rotor speed: specific energy Ecs = v^2 / {f(CAL['m5_ecs_div'],0)} kWh/t (kinetic energy of the tip speed), then the JK-style characteristic t10 = A_j (1 - exp(-b_j Ecs)) with A_j = {CAL['m5_A_j']} and b_j = {CAL['m5_b_j']} [H]. The t10 sets the product curve SHAPE through the RR uniformity n = max({CAL['m5_n_min']}, ({f(CAL['m5_t10_ref'],0)}/t10)^{CAL['m5_n_exp']}): a harder hit (higher t10) gives a flatter (better graded) product. The product curve is then M1's truncated RR with x80 = CSS and that n; power is M2 on the impactor's own F80 to P80. THE LOOP: SR.5008 deck-1 oversize (plus, in mode 1B, the 20/35 cut) feeds CR.5011, whose product returns to the screen feed. The engine solves this recycle as a fixed point, iterating until BOTH the recycled flow rate and its entire curve change by less than the tolerance; all figures in this note are the converged state."),
+    ("p", f"The impactor's breakage intensity comes from the rotor speed: specific energy Ecs = v^2 / {f(CAL['m5_ecs_div'],0)} kWh/t (kinetic energy of the tip speed), then the JK-style characteristic t10 = A_j (1 - exp(-b_j Ecs)) with A_j = {CAL['m5_A_j']} and b_j = {CAL['m5_b_j']} (ratified defaults, client Q12 2026-08-17). The t10 sets the product curve SHAPE through the RR uniformity n = max({CAL['m5_n_min']}, ({f(CAL['m5_t10_ref'],0)}/t10)^{CAL['m5_n_exp']}): a harder hit (higher t10) gives a flatter (better graded) product. The product curve is then M1's truncated RR with x80 = CSS and that n; power is M2 on the impactor's own F80 to P80. THE LOOP: SR.5008 deck-1 oversize (plus, in mode 1B, the 20/35 cut) feeds CR.5011, whose product returns to the screen feed. The engine solves this recycle as a fixed point, iterating until BOTH the recycled flow rate and its entire curve change by less than the tolerance; all figures in this note are the converged state."),
     ("h1", "5. Mode 1A, KFS production, full chain"),
     ("p", "Settings: gap 60 mm, CSS 30 mm, v 30 m/s, feed 250 t/h wet. The 20/35 cut leaves as KFS; the 0/20 undersize is the crude co-product; the deck-1 oversize loops through CR.5011."),
     ("table", duty_table(M1A)),
@@ -177,7 +182,7 @@ def to_markdown():
     lines = [
         "# DT-002 — Zone 1.1 Complete Sizing Note (model-exchange edition)",
         "",
-        "**by NOEZYS** — technical dossier DT-002, issued 2026-08-17. Internal note",
+        "**by NOEZYS** — technical dossier DT-002 REV B, 2026-08-18 (REV A issued 2026-08-17). Internal note",
         "for the model exchange with the client's colleague running Metso Bruno.",
         "Tags: NACO 11-01-PFD REV15. All PSD tables are cumulative % passing.",
         "",
@@ -261,7 +266,7 @@ def to_docx():
         ("Zone 1.1 Complete Sizing Note", 18, VIOLET, True),
         ("Model-exchange edition: our deterministic engine and Metso Bruno, side by side", 12, CYAN, False),
         ("", 10, GREY, False),
-        ("Internal technical dossier - August 2026 - produced by NOEZYS", 10, GREY, False),
+        ("Internal technical dossier - REV B, August 2026 - produced by NOEZYS", 10, GREY, False),
         ("Tags per NACO PFD 11-01-PFD REV15 - all PSD tables are cumulative % passing", 9, GREY, False),
     ]:
         p = doc.add_paragraph()

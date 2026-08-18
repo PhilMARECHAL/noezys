@@ -264,7 +264,10 @@ def main():
     kfs_tph_wet = next(s for s in m1a["streams"] if s["label"].startswith("SR.5008 20/35"))["wet_tph"]
     crude_tph_wet = next(s for s in m1a["streams"] if "0/20" in s["label"] and "crude" in s["label"])["wet_tph"]
     sfeed_wet = next(s for s in m1a["streams"] if "screen feed" in s["label"])["wet_tph"]
-    rec_wet = next(s for s in m1a["streams"] if "recycle" in s["label"])["wet_tph"]
+    # REV B fix 2026-08-18: match the BC.5010 recycle stream specifically —
+    # the bare "recycle" substring also matches the screen-feed label
+    # (".. fresh + recycle .."), which REV A wrongly reported as 324 t/h.
+    rec_wet = next(s for s in m1a["streams"] if "BC.5010 recycle" in s["label"])["wet_tph"]
     out["pfd_rev15_adequacy"] = {
         "pfd_design_figures": PFD_DESIGN,
         "engine_measured_curve_mode_1A_wet_tph": {
