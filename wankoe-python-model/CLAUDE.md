@@ -591,7 +591,7 @@ in data/src/tests/scripts/web UI; former_tag fields in the data; suite
 rewritten — equivalence banners instead. ALL new documents use REV15
 tags.
 
-DT-002 REV B ISSUED 2026-08-18 (client "finalize" order) — FINAL for
+DT-002 REV C ISSUED 2026-08-18 (didactic edition, 5-answer client framing: machine sheets after a plain-words page, Bruno angle removed, reduced+annex tables, both modes side by side, short design confrontation; print-verified 11 pages A4; render_dt002_html.py is the exchange renderer). REV B same day (client "finalize" order) — FINAL for
 the Bruno exchange: regenerated at the Q12-ratified calibration
 (A 65 / b 1.5; yield 23.36, z1.1 1A hours 1455.2, SR.5008 bottom
 floor 9.8); REV A's section-9 recycle misprint (324 vs real ~74 t/h
