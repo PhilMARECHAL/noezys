@@ -126,6 +126,8 @@ table.psd td{padding:1.2pt 3pt}
 .alert{border-left:2.2pt solid #8a6d1a;background:#faf6e8;padding:5pt 9pt;margin:8pt 0;font-size:9.9pt;page-break-inside:avoid}
 .note{font-size:9.3pt;color:#333;font-style:italic;margin:2pt 0 8pt}
 .prov{font-size:8.8pt;color:#444;border-top:0.6pt solid #999;margin-top:16pt;padding-top:5pt}
+*{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+@media print{p.pb{page-break-before:always}}
 @media print{body{max-width:none;margin:0;padding:0}.wide{overflow:visible}}
 """
 
@@ -175,7 +177,7 @@ four)&nbsp;; sous 20&nbsp;mm (le brut).</td></tr>
 +35&nbsp;mm (des percuteurs sur un rotor rapide) et la renvoie au crible&nbsp;: une
 boucle fermée. Rien ne sort de la zone au-dessus de 35&nbsp;mm.</td></tr>
 </table>
-<p><b>Deux modes de marche.</b> Le mode&nbsp;<b>1A</b> est la production
+<p class="pb"><b>Deux modes de marche.</b> Le mode&nbsp;<b>1A</b> est la production
 normale&nbsp;: les deux produits sont faits, à 250&nbsp;t/h d'alimentation fraîche.
 Le mode&nbsp;<b>1B</b> est une campagne de constitution de stock&nbsp;: on n'extrait
 pas de pierre à four — la coupe 20–35&nbsp;mm repart elle aussi au concasseur à
