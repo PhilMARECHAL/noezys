@@ -1,14 +1,15 @@
-"""DT-002 HTML renderer — REV C, the DIDACTIC edition (client order 2026-08-18).
+"""DT-002 HTML renderer — REV D, édition FRANÇAISE de l'édition didactique.
 
     PYTHONPATH=src python dossiers/DT-002/render_dt002_html.py
 
-Client framing (5 answers, 2026-08-18): machine-by-machine sheets after a
-plain-language project page; no Bruno replay-kit angle (validation by
-reading); reduced PSD tables in the sheets, full tables in annex; BOTH
-modes side by side in every sheet; short design confrontation kept, annual
-translation dropped. Reader: a process expert with 30 years' experience
-who knows NOTHING about the project. No unexplained symbol, no useless
-text. Self-contained file, prints cleanly on A4 portrait.
+REV C framing (5 client answers, 2026-08-18): machine-by-machine sheets
+after a plain-language project page; no Bruno replay-kit angle; reduced
+PSD tables in the sheets, full tables in annex; BOTH modes side by side;
+short design confrontation kept. REV D (client ruling 2026-08-18):
+FRENCH REPLACES ENGLISH for this note — first registered exception to
+the 2026-08-09 English-deliverables rule; the English REV C remains in
+git history only. Reader: a process expert, 30 years' experience, no
+knowledge of the project. Self-contained file, prints cleanly on A4.
 Numbers NEVER live in this file: every figure is read from dt002_data.json.
 """
 
@@ -51,25 +52,25 @@ def stream(mode_key, label_start):
 
 def reduced_psd(specs_by_mode):
     """specs_by_mode = {"1A": [(label_start, col_name), ...], "1B": [...]} ->
-    one compact table per mode, stacked (client choice: both modes side by side)."""
+    une table compacte par mode, empilées (choix client : les deux modes)."""
     out = []
     for mk, specs in specs_by_mode.items():
         streams = [(stream(mk, ls), name) for ls, name in specs]
-        header = [f"<b>Mode {mk}</b> — sieve (mm)"] + [n for _, n in streams]
-        rows = [["<b>t/h (dry)</b>"] + [f(s["dry_tph"]) for s, _ in streams]]
+        header = [f"<b>Mode {mk}</b> — tamis (mm)"] + [n for _, n in streams]
+        rows = [["<b>t/h (sec)</b>"] + [f(s["dry_tph"]) for s, _ in streams]]
         for mesh in REDUCED:
             rows.append([mesh] + [f(s["passing_pct"][mesh], 1) for s, _ in streams])
         out.append(tbl(header, rows, cls="mini"))
-    out.append('<p class="note">Values are cumulative % passing '
-               "(share of the mass finer than each sieve).</p>")
+    out.append('<p class="note">Les valeurs sont des % passants cumulés '
+               "(part de la masse plus fine que chaque tamis).</p>")
     return "\n".join(out)
 
 
-SHORT = [("Pivot feed", "Pivot feed"), ("CR.5006 product", "CR.5006 product"),
-         ("SR.5008 screen feed", "Screen feed"), ("SR.5008 deck-1 oversize", "+35 to loop"),
-         ("SR.5008 deck-1 undersize", "0/35 internal"), ("SR.5008 20/35 cut", "20/35 cut"),
-         ("SR.5008 undersize 0/20", "0/20 crude"), ("CR.5011 feed", "CR.5011 feed"),
-         ("CR.5011 product", "Loop return")]
+SHORT = [("Pivot feed", "Alimentation pivot"), ("CR.5006 product", "Produit CR.5006"),
+         ("SR.5008 screen feed", "Alim. crible"), ("SR.5008 deck-1 oversize", "+35 vers boucle"),
+         ("SR.5008 deck-1 undersize", "0/35 interne"), ("SR.5008 20/35 cut", "Coupe 20/35"),
+         ("SR.5008 undersize 0/20", "Brut 0/20"), ("CR.5011 feed", "Alim. CR.5011"),
+         ("CR.5011 product", "Retour boucle")]
 
 
 def short_label(label):
@@ -81,9 +82,9 @@ def short_label(label):
 
 def full_psd(mode_key):
     streams = [s for s in M[mode_key]["streams"] if s.get("present")]
-    header = ["Sieve (mm)"] + [short_label(s["label"]) for s in streams]
+    header = ["Tamis (mm)"] + [short_label(s["label"]) for s in streams]
     rows = []
-    for lab, key in [("Dry t/h", "dry_tph"), ("Wet t/h", "wet_tph"), ("P80 (mm)", "P80_mm")]:
+    for lab, key in [("t/h sec", "dry_tph"), ("t/h humide", "wet_tph"), ("P80 (mm)", "P80_mm")]:
         rows.append([f"<b>{lab}</b>"] + [f(s[key]) for s in streams])
     for mesh in MESHES:
         rows.append([mesh] + [f(s["passing_pct"][mesh]) for s in streams])
@@ -129,284 +130,314 @@ table.psd td{padding:1.2pt 3pt}
 """
 
 doc = []
-doc.append(f"""<!DOCTYPE html><html><head><meta charset="utf-8">
-<title>DT-002 REV C — Zone 1.1 Machine Sizing Note</title><style>{CSS}</style></head><body>
-<h1>Sizing the Machines of Zone 1.1</h1>
-<p class="docsub">WANKOE limestone processing line — technical note DT-002</p>
-<p class="docmeta">by NOEZYS · REV C, 2026-08-18 · for expert review — no prior knowledge of the project is assumed</p>
+doc.append(f"""<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8">
+<title>DT-002 REV D — Note de dimensionnement zone 1.1</title><style>{CSS}</style></head><body>
+<h1>Dimensionnement des machines de la zone 1.1</h1>
+<p class="docsub">Ligne de traitement de calcaire WANKOE — note technique DT-002</p>
+<p class="docmeta">par NOEZYS · REV D, 2026-08-18 · pour revue d'expert — aucune connaissance préalable du projet n'est requise</p>
 <hr class="rule">
 
-<div class="box"><b>The purpose of this note.</b> We are sizing a new limestone
-production line with a calculation model. This note lays out, machine by machine,
-<b>the formulas that model the three machines of the line's first block</b>
-("zone&nbsp;1.1"), explains where each formula comes from, and applies it numerically.
-We ask the reader one thing: <b>confront these formulas and their results with your
-experience</b> — are these the right laws, with the right coefficients, used the right
-way? Everything needed to judge is in these pages.</div>""")
+<div class="box"><b>L'objet de cette note.</b> Nous dimensionnons une nouvelle ligne de
+production de calcaire à l'aide d'un modèle de calcul. Cette note présente, machine
+par machine, <b>les formules qui modélisent les trois machines du premier bloc de la
+ligne</b> (la «&nbsp;zone&nbsp;1.1&nbsp;»), explique d'où vient chaque formule et
+l'applique numériquement. Nous demandons une seule chose au lecteur&nbsp;:
+<b>confronter ces formules et leurs résultats à son expérience</b> — sont-ce les
+bonnes lois, avec les bons coefficients, utilisées correctement&nbsp;? Tout ce qu'il
+faut pour en juger est dans ces pages.</div>""")
 
 # ------------------------------------------------------------------ Section 1
-doc.append(f"""<h2>1 · The line, in plain words</h2>
-<p>WANKOE is a limestone quarry and processing plant under construction. The quarry's
-primary crushing station delivers broken limestone, all finer than about 200&nbsp;mm,
-at up to 250 tonnes per hour. Zone&nbsp;1.1 — the subject of this note — turns that
-stream into two products:</p>
-<p><b>· Kiln stone, 20–35&nbsp;mm</b> ("KFS"): stone sized for a lime kiln, sold on a
-firm contract. The quality requirement is a size envelope: at most 30&nbsp;% of the
-product below 20&nbsp;mm, at least 55&nbsp;% inside 20–35&nbsp;mm, at most 15&nbsp;%
-above 35&nbsp;mm.<br>
-<b>· Crushed stone 0–20&nbsp;mm</b> ("crude"): feedstock for the downstream plants
-(agricultural and feed-grade lime), stockpiled.</p>
-<p>Three machines do the work. Each carries the design office's tag number (CR =
-crusher, SR = screen); we keep those tags so this note matches the drawings:</p>
+doc.append(f"""<h2>1 · La ligne, en termes simples</h2>
+<p>WANKOE est une carrière de calcaire et son usine de traitement, en cours de
+construction. La station de concassage primaire de la carrière livre du calcaire
+brisé, entièrement inférieur à 200&nbsp;mm environ, jusqu'à 250 tonnes par heure. La
+zone&nbsp;1.1 — l'objet de cette note — transforme ce flux en deux produits&nbsp;:</p>
+<p><b>· La pierre à four, 20–35&nbsp;mm</b> (dite «&nbsp;KFS&nbsp;»)&nbsp;: pierre
+calibrée pour un four à chaux, vendue sous contrat ferme. L'exigence de qualité est
+une enveloppe granulométrique&nbsp;: au plus 30&nbsp;% du produit sous 20&nbsp;mm, au
+moins 55&nbsp;% entre 20 et 35&nbsp;mm, au plus 15&nbsp;% au-dessus de 35&nbsp;mm.<br>
+<b>· La pierre concassée 0–20&nbsp;mm</b> (le «&nbsp;brut&nbsp;»)&nbsp;: matière
+première des ateliers aval (chaux agricole et chaux alimentaire), mise en stock.</p>
+<p>Trois machines font le travail. Chacune porte le repère du bureau d'études (CR =
+concasseur, SR = crible)&nbsp;; nous les conservons pour que cette note colle aux
+plans&nbsp;:</p>
 <table>
-<tr><th>Machine</th><th>What it does</th></tr>
-<tr><td><b>CR.5006</b> — toothed-roll crusher</td><td>Two toothed rolls turning towards
-each other crush the quarry stone down to roughly the gap set between the rolls
-(60&nbsp;mm here). This type is chosen because it produces few fines — it protects
-the 20–35&nbsp;mm window.</td></tr>
-<tr><td><b>SR.5008</b> — double-deck vibrating screen</td><td>Two stacked screening
-decks with 35&nbsp;mm and 20&nbsp;mm openings split the crushed stone three ways:
-larger than 35&nbsp;mm; between 20 and 35&nbsp;mm (the kiln stone); below 20&nbsp;mm
-(the crude).</td></tr>
-<tr><td><b>CR.5011</b> — impact crusher</td><td>Re-crushes the +35&nbsp;mm fraction
-(hammers on a fast rotor) and sends it back to the screen: a closed loop. Nothing
-leaves the zone above 35&nbsp;mm.</td></tr>
+<tr><th>Machine</th><th>Ce qu'elle fait</th></tr>
+<tr><td><b>CR.5006</b> — concasseur à rouleaux dentés</td><td>Deux rouleaux dentés
+tournant l'un vers l'autre brisent la pierre de carrière jusqu'à, grosso modo,
+l'écartement réglé entre les rouleaux (ici 60&nbsp;mm). Ce type de machine est choisi
+parce qu'il produit peu de fines — il protège la fenêtre 20–35&nbsp;mm.</td></tr>
+<tr><td><b>SR.5008</b> — crible vibrant à deux étages</td><td>Deux étages de criblage
+superposés, à ouvertures de 35&nbsp;mm et 20&nbsp;mm, séparent la pierre concassée en
+trois&nbsp;: plus gros que 35&nbsp;mm&nbsp;; entre 20 et 35&nbsp;mm (la pierre à
+four)&nbsp;; sous 20&nbsp;mm (le brut).</td></tr>
+<tr><td><b>CR.5011</b> — concasseur à percussion</td><td>Rebroie la fraction
++35&nbsp;mm (des percuteurs sur un rotor rapide) et la renvoie au crible&nbsp;: une
+boucle fermée. Rien ne sort de la zone au-dessus de 35&nbsp;mm.</td></tr>
 </table>
-<p><b>Two operating modes.</b> Mode&nbsp;<b>1A</b> is normal production: both products
-are made, at 250&nbsp;t/h of fresh feed. Mode&nbsp;<b>1B</b> is a stock-building
-campaign: no kiln stone is extracted — the 20–35&nbsp;mm cut is sent back to the
-impact crusher too, so everything ends up below 20&nbsp;mm. That deepens the crushing
-duty, so in this mode the crusher setting tightens (30&nbsp;→&nbsp;18&nbsp;mm) and
-the feed is reduced to 172&nbsp;t/h to keep the loop crusher inside its rating.
-Every sheet below shows both modes side by side.</p>
-<p><b>How quantities are counted.</b> Feed rates are quoted as the <b>total wet
-flow</b> — what a belt scale weighs, water included. The stone carries
-{f(RK['feed_moisture_pct_wet_basis'],1)}&nbsp;% moisture, so 250&nbsp;t/h wet is
-232.5&nbsp;t/h of dry solids; all mass balances and formulas run on the dry part.</p>
-<p><b>How sizes are described.</b> Every stream is described by its size curve: for
-each sieve opening, the percentage of the mass that would fall through
-("cumulative&nbsp;% passing"). One number summarizes a curve:
-<b>F<sub>80</sub></b> (feed) or <b>P<sub>80</sub></b> (product) is the sieve size that
-80&nbsp;% of the mass passes. The feed entering zone&nbsp;1.1 was <b>measured</b> by
-belt-cut sampling at the quarry station outlet (2026-08-08); its curve, the starting
-point of every calculation here, is:</p>""")
+<p><b>Deux modes de marche.</b> Le mode&nbsp;<b>1A</b> est la production
+normale&nbsp;: les deux produits sont faits, à 250&nbsp;t/h d'alimentation fraîche.
+Le mode&nbsp;<b>1B</b> est une campagne de constitution de stock&nbsp;: on n'extrait
+pas de pierre à four — la coupe 20–35&nbsp;mm repart elle aussi au concasseur à
+percussion, si bien que tout finit sous 20&nbsp;mm. Le travail de broyage s'en trouve
+accru&nbsp;: dans ce mode, le réglage du concasseur se resserre
+(30&nbsp;→&nbsp;18&nbsp;mm) et l'alimentation est réduite à 172&nbsp;t/h pour garder
+le concasseur de boucle dans sa capacité. Chaque fiche ci-dessous montre les deux
+modes côte à côte.</p>
+<p><b>Comment les quantités sont comptées.</b> Les débits d'alimentation sont exprimés
+en <b>flux total humide</b> — ce que pèse une bascule de bande, eau comprise. La
+pierre porte {f(RK['feed_moisture_pct_wet_basis'],1)}&nbsp;% d'humidité&nbsp;:
+250&nbsp;t/h humide représentent donc 232.5&nbsp;t/h de matière sèche, et tous les
+bilans et formules travaillent sur la part sèche.</p>
+<p><b>Comment les tailles sont décrites.</b> Chaque flux est décrit par sa courbe
+granulométrique&nbsp;: pour chaque ouverture de tamis, le pourcentage de la masse qui
+passerait au travers (le «&nbsp;%&nbsp;passant cumulé&nbsp;»). Un nombre résume une
+courbe&nbsp;: le <b>F<sub>80</sub></b> (alimentation) ou <b>P<sub>80</sub></b>
+(produit) est la taille de tamis que 80&nbsp;% de la masse passe. L'alimentation de la
+zone&nbsp;1.1 a été <b>mesurée</b> par prélèvement sur bande à la sortie de la station
+de carrière (2026-08-08)&nbsp;; sa courbe, point de départ de tous les calculs,
+est&nbsp;:</p>""")
 doc.append('<div class="wide">' + tbl(
-    ["Sieve (mm)"] + MESHES,
-    [["<b>% passing</b>"] + [f(v) for v in RK["feed_curve_passing_pct"].values()]],
+    ["Tamis (mm)"] + MESHES,
+    [["<b>% passant</b>"] + [f(v) for v in RK["feed_curve_passing_pct"].values()]],
     cls="psd",
-    note=f"Measured feed curve. F<sub>80</sub> = {f(RK['feed_F80_mm'])} mm. The tail ends "
-         "beyond the sieve series were completed by declared hypotheses.") + "</div>")
+    note=f"Courbe d'alimentation mesurée. F<sub>80</sub> = {f(RK['feed_F80_mm'])} mm. "
+         "Les extrémités de la courbe, au-delà de la série de tamis, ont été complétées "
+         "par des hypothèses déclarées.") + "</div>")
 
-# ------------------------------------------------------------------ Sheet 1
-doc.append(f"""<h2 class="sheet">2 · Sheet 1 — CR.5006, the toothed-roll crusher</h2>
-<p class="chapsub">Receives the full quarry stream · gap set at {S1A['CR.5006_gap_mm']} mm · feeds the screen</p>
+# ------------------------------------------------------------------ Fiche 1
+doc.append(f"""<h2 class="sheet">2 · Fiche 1 — CR.5006, le concasseur à rouleaux dentés</h2>
+<p class="chapsub">Reçoit tout le flux de carrière · écartement réglé à {S1A['CR.5006_gap_mm']} mm · alimente le crible</p>
 
-<h3>2.1 · The product-size formula</h3>
-<p>What size distribution does a crusher deliver? We use the Rosin–Rammler law, the
-standard description of crushed materials (Rosin &amp; Rammler, 1933): the share of
-mass finer than a size <i>x</i> is</p>
+<h3>2.1 · La formule du produit (granulométrie)</h3>
+<p>Quelle distribution de tailles un concasseur livre-t-il&nbsp;? Nous utilisons la
+loi de Rosin–Rammler, la description standard des matériaux concassés (Rosin &amp;
+Rammler, 1933)&nbsp;: la part de la masse plus fine qu'une taille <i>x</i> vaut</p>
 <p class="eq"><i>P</i>(<i>x</i>) = 1 − exp[ −(<i>x</i>/<i>x</i><sub>c</sub>)<sup><i>n</i></sup> ]</p>
-<p>It has two knobs, and both have a physical meaning:</p>
-<p>· <b><i>x</i><sub>c</sub></b> sets <b>how coarse</b> the product is. We anchor it to
-the machine setting: for a toothed-roll crusher the product's P<sub>80</sub> equals
-the gap between the rolls, so <i>x</i><sub>c</sub> = gap / (ln&nbsp;5)<sup>1/n</sup>
-(this is just the algebra that forces <i>P</i>(gap) = 80&nbsp;%).<br>
-· <b><i>n</i></b> sets <b>how spread</b> the sizes are: high <i>n</i> = uniform product,
-low <i>n</i> = wide spread with many fines. For toothed rolls we use
-<i>n</i>&nbsp;=&nbsp;{S1A['CR.5006_n']} (manufacturer-handbook class value; to be
-confirmed by the vendor's gradation table).</p>
-<p>Two corrections make it physical: the curve is <b>cut off</b> at
-{CAL['m1_trunc_factor']}&nbsp;×&nbsp;gap — no lump survives much beyond the setting —
-and feed <b>already finer than the gap falls through unbroken</b>, so only the coarse
-share is redistributed by the formula.</p>
+<p>Elle a deux réglages, chacun avec un sens physique&nbsp;:</p>
+<p>· <b><i>x</i><sub>c</sub></b> fixe <b>la grosseur</b> du produit. Nous l'ancrons sur
+le réglage de la machine&nbsp;: pour un concasseur à rouleaux dentés, le
+P<sub>80</sub> du produit égale l'écartement des rouleaux, donc
+<i>x</i><sub>c</sub> = écartement / (ln&nbsp;5)<sup>1/n</sup> (simple algèbre qui
+impose <i>P</i>(écartement) = 80&nbsp;%).<br>
+· <b><i>n</i></b> fixe <b>l'étalement</b> des tailles&nbsp;: <i>n</i> élevé = produit
+uniforme, <i>n</i> faible = large étalement avec beaucoup de fines. Pour des rouleaux
+dentés nous prenons <i>n</i>&nbsp;=&nbsp;{S1A['CR.5006_n']} (valeur de classe des
+catalogues constructeurs&nbsp;; à confirmer par la table granulométrique du
+fournisseur).</p>
+<p>Deux corrections la rendent physique&nbsp;: la courbe est <b>tronquée</b> à
+{CAL['m1_trunc_factor']}&nbsp;×&nbsp;écartement — aucun bloc ne survit bien au-delà du
+réglage — et la part de l'alimentation <b>déjà plus fine que l'écartement traverse
+sans être brisée</b>&nbsp;: seule la part grossière est redistribuée par la
+formule.</p>
 
-<h3>2.2 · The power formula</h3>
-<p>Crushing power comes from Bond's law (Bond, 1952), the industry's standard energy
-rule: the energy per tonne depends on how much the 80&nbsp;%-passing size is reduced,</p>
-<p class="eq"><i>W</i> = 10 <i>W</i><sub>i</sub> ( 1/√<i>P</i><sub>80</sub> − 1/√<i>F</i><sub>80</sub> )&emsp;(kWh/t, sizes in µm)</p>
-<p><i>W</i><sub>i</sub> is the <b>work index</b>, the material's resistance to breakage;
-we use {CAL['Wi_kWh_t']}&nbsp;kWh/t, a published value for Belgian limestone. Motor
-power = <i>W</i> × dry t/h, divided by {CAL['eta_m']} for drive losses.</p>
+<h3>2.2 · La formule de puissance</h3>
+<p>La puissance de concassage vient de la loi de Bond (Bond, 1952), la règle
+énergétique standard du métier&nbsp;: l'énergie par tonne dépend de la réduction de la
+taille à 80&nbsp;% passant,</p>
+<p class="eq"><i>W</i> = 10 <i>W</i><sub>i</sub> ( 1/√<i>P</i><sub>80</sub> − 1/√<i>F</i><sub>80</sub> )&emsp;(kWh/t, tailles en µm)</p>
+<p><i>W</i><sub>i</sub> est le <b>work index</b> (indice énergétique), la résistance du
+matériau à la fragmentation&nbsp;; nous prenons {CAL['Wi_kWh_t']}&nbsp;kWh/t, valeur
+publiée pour un calcaire belge. Puissance moteur = <i>W</i> × t/h sec, divisée par
+{CAL['eta_m']} pour les pertes de transmission.</p>
 
-<h3>2.3 · Applied</h3>""")
-doc.append(tbl(["Quantity", "Mode 1A", "Mode 1B"], [
-    ["Throughput (dry / wet t/h)",
+<h3>2.3 · Application</h3>""")
+doc.append(tbl(["Grandeur", "Mode 1A", "Mode 1B"], [
+    ["Débit (t/h sec / humide)",
      f"{f(C6A['throughput_dry_tph'])} / {f(C6A['throughput_wet_tph'])}",
      f"{f(C6B['throughput_dry_tph'])} / {f(C6B['throughput_wet_tph'])}"],
-    ["Feed F<sub>80</sub> → product P<sub>80</sub> (mm)",
+    ["F<sub>80</sub> alimentation → P<sub>80</sub> produit (mm)",
      f"{f(C6A['F80_mm'])} → {f(C6A['P80_mm'])}",
      f"{f(C6B['F80_mm'])} → {f(C6B['P80_mm'])}"],
-    ["Specific energy W (kWh/t)", f(C6A['W_kWh_t'], 3), f(C6B['W_kWh_t'], 3)],
-    ["Motor power absorbed (kW)", f(C6A['P_installed_kW'], 1), f(C6B['P_installed_kW'], 1)],
+    ["Énergie spécifique W (kWh/t)", f(C6A['W_kWh_t'], 3), f(C6B['W_kWh_t'], 3)],
+    ["Puissance moteur absorbée (kW)", f(C6A['P_installed_kW'], 1), f(C6B['P_installed_kW'], 1)],
 ]))
 doc.append(reduced_psd({
-    "1A": [("Pivot feed", "Feed (measured)"), ("CR.5006 product", "Product")],
-    "1B": [("Pivot feed", "Feed (measured)"), ("CR.5006 product", "Product")]}))
-doc.append(f"""<div class="check"><b>What to check on this sheet.</b> (1) P<sub>80</sub> = gap
-as the sizing anchor for a toothed-roll crusher; (2) the spread value
-<i>n</i>&nbsp;=&nbsp;{S1A['CR.5006_n']}; (3) the {CAL['m1_trunc_factor']}×-gap cut-off;
-(4) Bond with W<sub>i</sub>&nbsp;=&nbsp;{CAL['Wi_kWh_t']} on a duty this coarse —
-first-order by nature, used for motor sizing only.</div>""")
+    "1A": [("Pivot feed", "Alimentation (mesurée)"), ("CR.5006 product", "Produit")],
+    "1B": [("Pivot feed", "Alimentation (mesurée)"), ("CR.5006 product", "Produit")]}))
+doc.append(f"""<div class="check"><b>Ce qu'il faut vérifier sur cette fiche.</b>
+(1)&nbsp;P<sub>80</sub> = écartement comme ancrage du dimensionnement pour un
+concasseur à rouleaux dentés&nbsp;; (2)&nbsp;la valeur d'étalement
+<i>n</i>&nbsp;=&nbsp;{S1A['CR.5006_n']}&nbsp;; (3)&nbsp;la troncature à
+{CAL['m1_trunc_factor']}&nbsp;×&nbsp;écartement&nbsp;; (4)&nbsp;Bond avec
+W<sub>i</sub>&nbsp;=&nbsp;{CAL['Wi_kWh_t']} sur un travail aussi grossier — précision
+de premier ordre par nature, utilisé pour le dimensionnement moteur seulement.</div>""")
 
-# ------------------------------------------------------------------ Sheet 2
+# ------------------------------------------------------------------ Fiche 2
 qbt, qbb = S8A["required_areas_m2"]["top_deck_35mm"], S8A["required_areas_m2"]["bottom_deck_20mm"]
 qbt_b, qbb_b = S8B["required_areas_m2"]["top_deck_35mm"], S8B["required_areas_m2"]["bottom_deck_20mm"]
-doc.append(f"""<h2 class="sheet">3 · Sheet 2 — SR.5008, the double-deck screen</h2>
-<p class="chapsub">Decks 35 and 20 mm · fed by CR.5006 plus the loop return · defines both products</p>
+doc.append(f"""<h2 class="sheet">3 · Fiche 2 — SR.5008, le crible à deux étages</h2>
+<p class="chapsub">Étages 35 et 20 mm · alimenté par CR.5006 plus le retour de boucle · définit les deux produits</p>
 
-<h3>3.1 · The separation formula</h3>
-<p>A real screen is not a perfect cut: near the opening size, some particles that
-"should" pass ride over, and vice versa. We describe each deck by a <b>probability
-curve</b>: the chance that a particle of size <i>x</i> stays on top of a deck with
-opening <i>a</i> is</p>
+<h3>3.1 · La formule de séparation</h3>
+<p>Un crible réel n'est pas une coupure parfaite&nbsp;: près de la taille d'ouverture,
+des grains qui «&nbsp;devraient&nbsp;» passer restent sur la toile, et inversement.
+Nous décrivons chaque étage par une <b>courbe de probabilité</b>&nbsp;: la chance
+qu'un grain de taille <i>x</i> reste au refus d'un étage d'ouverture <i>a</i>
+vaut</p>
 <p class="eq">ρ(<i>x</i>) = 1 / [ 1 + (<i>a</i>/<i>x</i>)<sup><i>s</i></sup> ]</p>
-<p>At <i>x</i> = <i>a</i> the chance is 50&nbsp;% — the textbook definition of the cut
-point. The exponent <b><i>s</i> sets how sharp the cut is</b>. Rather than pick
-<i>s</i> directly, we derive it from the screening trade's usual quality number, the
-<b>imperfection I</b> (0 = perfect knife cut; common industrial screens
-0.10–0.20): <i>s</i> = ln&nbsp;9&nbsp;/&nbsp;ln(1/(1−<i>I</i>)). With our project value
+<p>À <i>x</i> = <i>a</i>, la chance est de 50&nbsp;% — la définition classique du
+point de coupure. L'exposant <b><i>s</i> fixe la netteté de la coupe</b>. Plutôt que
+de choisir <i>s</i> directement, nous le déduisons du chiffre de qualité usuel du
+métier du criblage, l'<b>imperfection I</b> (0 = coupure au couteau&nbsp;; cribles
+industriels courants 0.10–0.20)&nbsp;:
+<i>s</i> = ln&nbsp;9&nbsp;/&nbsp;ln(1/(1−<i>I</i>)). Avec la valeur projet
 I&nbsp;=&nbsp;{S1A['SR.5008_I']}, <i>s</i>&nbsp;=&nbsp;13.5.</p>
-<div class="alert"><b>One convention to be aware of.</b> Imperfection is defined from
-the spread of the probability curve, but two size-ratio conventions coexist in the
-literature (quartiles d<sub>75</sub>/d<sub>25</sub>, or the wider
-d<sub>90</sub>/d<sub>10</sub>). Our I&nbsp;=&nbsp;0.15 uses the wider one. Re-expressed
-in the classic quartile convention of most handbooks, <b>our decks behave like
-imperfection&nbsp;≈&nbsp;0.081</b> — a sharp screen. Judge the cut quality with that
-number in mind.</div>
+<div class="alert"><b>Une convention à connaître.</b> L'imperfection se définit par
+l'étalement de la courbe de probabilité, mais deux conventions de rapport de tailles
+coexistent dans la littérature (les quartiles d<sub>75</sub>/d<sub>25</sub>, ou le
+rapport plus large d<sub>90</sub>/d<sub>10</sub>). Notre I&nbsp;=&nbsp;0.15 utilise la
+convention large. Ré-exprimée dans la convention classique par quartiles de la plupart
+des ouvrages, <b>nos toiles se comportent comme une imperfection&nbsp;≈&nbsp;0.081</b>
+— un crible net. C'est avec ce chiffre en tête qu'il faut juger la qualité de
+coupe.</div>
 
-<h3>3.2 · The area rule</h3>
-<p>Is the deck big enough? Each deck must pass its through-flow. The project's
-screen-capacity method gives each deck a <b>basic capacity</b> Q<sub>b</sub> — the
-tonnage one square metre can pass for a given opening, corrected for the feed's
-fines content and deck position. Required area = through-flow / Q<sub>b</sub>; the
-purchase requirement then takes the worst operating case (screening wet stone in
-rain season derates capacity) and adds a 25&nbsp;% margin.</p>
+<h3>3.2 · La règle de surface</h3>
+<p>L'étage est-il assez grand&nbsp;? Chaque étage doit laisser passer son débit
+traversant. La méthode de capacité de criblage du projet attribue à chaque étage une
+<b>capacité de base</b> Q<sub>b</sub> — le tonnage qu'un mètre carré peut passer pour
+une ouverture donnée, corrigé de la teneur en fines de l'alimentation et de la
+position de l'étage. Surface requise = débit traversant / Q<sub>b</sub>&nbsp;;
+l'exigence d'achat prend ensuite le pire cas de marche (cribler de la pierre humide
+en saison des pluies dégrade la capacité) et ajoute 25&nbsp;% de marge.</p>
 
-<h3>3.3 · Applied</h3>""")
-doc.append(tbl(["Quantity", "Mode 1A", "Mode 1B"], [
-    ["Screen feed, converged loop (dry / wet t/h)",
+<h3>3.3 · Application</h3>""")
+doc.append(tbl(["Grandeur", "Mode 1A", "Mode 1B"], [
+    ["Alimentation du crible, boucle convergée (t/h sec / humide)",
      f"{f(S8A['feed_dry_tph'])} / {f(S8A['feed_wet_tph'])}",
      f"{f(S8B['feed_dry_tph'])} / {f(S8B['feed_wet_tph'])}"],
-    ["Basic capacity Q<sub>b</sub>, deck 35 / deck 20 (t/h per m²)",
+    ["Capacité de base Q<sub>b</sub>, étage 35 / étage 20 (t/h par m²)",
      f"{f(qbt['Qb_tph_m2'],0)} / {f(qbb['Qb_tph_m2'],0)}",
      f"{f(qbt_b['Qb_tph_m2'],0)} / {f(qbb_b['Qb_tph_m2'],0)}"],
-    ["Required area this duty, deck 35 / deck 20 (m²)",
+    ["Surface requise pour ce travail, étage 35 / étage 20 (m²)",
      f"{f(qbt['required_area_m2'],1)} / {f(qbb['required_area_m2'],1)}",
      f"{f(qbt_b['required_area_m2'],1)} / {f(qbb_b['required_area_m2'],1)}"],
-    ["Purchase minimum (worst case + 25 %), deck 35 / deck 20 (m²)",
+    ["Minimum d'achat (pire cas + 25 %), étage 35 / étage 20 (m²)",
      f"{S8A['purchase_min_area_m2']['top_deck']} / {S8A['purchase_min_area_m2']['bottom_deck']}",
-     "same (set by the worst case over all duties)"],
+     "identique (fixé par le pire cas sur tous les travaux)"],
 ]))
 doc.append(reduced_psd({
-    "1A": [("SR.5008 screen feed", "Screen feed"),
-           ("SR.5008 deck-1 oversize", "+35 → loop"),
-           ("SR.5008 20/35 cut", "20/35 kiln stone"),
-           ("SR.5008 undersize 0/20", "0/20 crude")],
-    "1B": [("SR.5008 screen feed", "Screen feed"),
-           ("SR.5008 deck-1 oversize", "+35 → loop"),
-           ("SR.5008 20/35 cut", "20/35 → re-crushed (no kiln stone in this mode)"),
-           ("SR.5008 undersize 0/20", "0/20 crude")]}))
-doc.append(f"""<p>Resulting kiln-stone quality, mode 1A (the contractual envelope says
-≤&nbsp;30&nbsp;% under / ≥&nbsp;55&nbsp;% in / ≤&nbsp;15&nbsp;% over):
-<b>{f(ENV['below_20mm_pct'],1)}&nbsp;% below 20&nbsp;mm ·
-{f(ENV['in_cut_20_35_pct'],1)}&nbsp;% in 20–35 ·
-{f(ENV['above_35mm_pct'],1)}&nbsp;% above 35&nbsp;mm — compliant with margin.</b></p>
-<div class="check"><b>What to check on this sheet.</b> (1) the probability-curve form
-and the imperfection value (0.15 wide-convention ≈ 0.081 classic) for dry screening
-at 35 and 20&nbsp;mm; (2) the basic capacities Q<sub>b</sub> against your screen-sizing
-practice; (3) the resulting kiln-stone envelope numbers — do they look like what a
-35/20 double deck delivers?</div>""")
+    "1A": [("SR.5008 screen feed", "Alim. crible"),
+           ("SR.5008 deck-1 oversize", "+35 → boucle"),
+           ("SR.5008 20/35 cut", "Pierre à four 20/35"),
+           ("SR.5008 undersize 0/20", "Brut 0/20")],
+    "1B": [("SR.5008 screen feed", "Alim. crible"),
+           ("SR.5008 deck-1 oversize", "+35 → boucle"),
+           ("SR.5008 20/35 cut", "20/35 → rebroyé (pas de pierre à four dans ce mode)"),
+           ("SR.5008 undersize 0/20", "Brut 0/20")]}))
+doc.append(f"""<p>Qualité de pierre à four obtenue, mode 1A (l'enveloppe contractuelle
+demande ≤&nbsp;30&nbsp;% dessous / ≥&nbsp;55&nbsp;% dedans / ≤&nbsp;15&nbsp;%
+dessus)&nbsp;: <b>{f(ENV['below_20mm_pct'],1)}&nbsp;% sous 20&nbsp;mm ·
+{f(ENV['in_cut_20_35_pct'],1)}&nbsp;% entre 20 et 35 ·
+{f(ENV['above_35mm_pct'],1)}&nbsp;% au-dessus de 35&nbsp;mm — conforme avec
+marge.</b></p>
+<div class="check"><b>Ce qu'il faut vérifier sur cette fiche.</b> (1)&nbsp;la forme de
+la courbe de probabilité et la valeur d'imperfection (0.15 en convention large
+≈ 0.081 en convention classique) pour du criblage à sec à 35 et 20&nbsp;mm&nbsp;;
+(2)&nbsp;les capacités de base Q<sub>b</sub> face à votre pratique du dimensionnement
+de cribles&nbsp;; (3)&nbsp;les chiffres d'enveloppe de la pierre à four — sont-ils
+plausibles pour un double étage 35/20&nbsp;?</div>""")
 
-# ------------------------------------------------------------------ Sheet 3
-doc.append(f"""<h2 class="sheet">4 · Sheet 3 — CR.5011, the impact crusher in the loop</h2>
-<p class="chapsub">Re-crushes the screen's +35 mm (and, in mode 1B, the 20/35 cut) · product returns to the screen</p>
+# ------------------------------------------------------------------ Fiche 3
+doc.append(f"""<h2 class="sheet">4 · Fiche 3 — CR.5011, le concasseur à percussion de la boucle</h2>
+<p class="chapsub">Rebroie le +35 mm du crible (et, en mode 1B, la coupe 20/35) · son produit retourne au crible</p>
 
-<h3>4.1 · The breakage-intensity formula</h3>
-<p>An impact crusher breaks by hammer blows, so the product depends on how hard each
-blow is. The blow energy per tonne comes from the rotor tip speed <i>v</i> (kinetic
-energy: <i>E</i> = <i>v</i>²/7200 in kWh/t, with <i>v</i> in m/s). Breakage-testing
-practice (the JK drop-weight tradition) summarizes an impact's result by
-<b><i>t</i><sub>10</sub></b>: the share of the product finer than one tenth of the
-original lump size — a fineness score for the blow. Energy converts to
-<i>t</i><sub>10</sub> by a saturation law:</p>
+<h3>4.1 · La formule d'intensité de fragmentation</h3>
+<p>Un concasseur à percussion brise par coups de percuteurs&nbsp;: le produit dépend
+donc de la violence de chaque coup. L'énergie de coup par tonne vient de la vitesse
+périphérique du rotor <i>v</i> (énergie cinétique&nbsp;: <i>E</i> = <i>v</i>²/7200 en
+kWh/t, avec <i>v</i> en m/s). La pratique des essais de fragmentation (la tradition
+des essais de chute de poids «&nbsp;JK&nbsp;») résume le résultat d'un impact par le
+<b><i>t</i><sub>10</sub></b>&nbsp;: la part du produit plus fine que le dixième de la
+taille du bloc d'origine — une note de finesse du coup. L'énergie se convertit en
+<i>t</i><sub>10</sub> par une loi de saturation&nbsp;:</p>
 <p class="eq"><i>t</i><sub>10</sub> = <i>A</i> ( 1 − exp(−<i>b</i>·<i>E</i>) )</p>
-<p><i>A</i> is the ceiling (the most a single blow can fragment) and <i>b</i> how fast
-energy approaches it. We use <i>A</i>&nbsp;=&nbsp;{CAL['m5_A_j']},
-<i>b</i>&nbsp;=&nbsp;{CAL['m5_b_j']} — central published values for calcite/limestone,
-adopted as project defaults; the vendor's gradation test will close them. The blow
-fineness then sets the spread <i>n</i> of the product curve
-(<i>n</i> = max(0.65,&nbsp;(30/<i>t</i><sub>10</sub>)<sup>0.3</sup>)), and the product
-follows the same Rosin–Rammler form as Sheet&nbsp;1 with P<sub>80</sub> equal to the
-machine's discharge setting ("CSS"). Power: Bond, as in Sheet&nbsp;1.</p>
+<p><i>A</i> est le plafond (le maximum qu'un seul coup peut fragmenter) et <i>b</i> la
+vitesse à laquelle l'énergie s'en approche. Nous prenons
+<i>A</i>&nbsp;=&nbsp;{CAL['m5_A_j']}, <i>b</i>&nbsp;=&nbsp;{CAL['m5_b_j']} — valeurs
+publiées centrales pour la calcite/le calcaire, adoptées comme défauts du
+projet&nbsp;; l'essai granulométrique du fournisseur les refermera. La finesse du coup
+fixe ensuite l'étalement <i>n</i> de la courbe du produit
+(<i>n</i> = max(0.65,&nbsp;(30/<i>t</i><sub>10</sub>)<sup>0.3</sup>)), et le produit
+suit la même forme de Rosin–Rammler que la fiche&nbsp;1, avec P<sub>80</sub> égal au
+réglage de sortie de la machine (le «&nbsp;CSS&nbsp;»). Puissance&nbsp;: Bond, comme
+en fiche&nbsp;1.</p>
 
-<h3>4.2 · The loop</h3>
-<p>This machine sits in a closed circuit: its product returns to the screen, so its
-own feed depends on what the screen rejects — which depends on the crusher's product.
-The model resolves this circularity by iteration: recompute the loop until the
-recycled tonnage <b>and its whole size curve</b> stop changing. All figures in this
-note are that converged state.</p>
+<h3>4.2 · La boucle</h3>
+<p>Cette machine est en circuit fermé&nbsp;: son produit retourne au crible, donc sa
+propre alimentation dépend de ce que le crible rejette — qui dépend du produit du
+concasseur. Le modèle résout cette circularité par itération&nbsp;: on recalcule la
+boucle jusqu'à ce que le tonnage recyclé <b>et toute sa courbe granulométrique</b>
+cessent de changer. Tous les chiffres de cette note sont cet état convergé.</p>
 
-<h3>4.3 · Applied</h3>""")
-doc.append(tbl(["Quantity", "Mode 1A", "Mode 1B"], [
-    ["Discharge setting CSS (mm)", S1A['CR.5011_x80_css_mm'], S1B['CR.5011_x80_css_mm']],
-    ["Rotor speed v (m/s) → blow energy E (kWh/t)",
+<h3>4.3 · Application</h3>""")
+doc.append(tbl(["Grandeur", "Mode 1A", "Mode 1B"], [
+    ["Réglage de sortie CSS (mm)", S1A['CR.5011_x80_css_mm'], S1B['CR.5011_x80_css_mm']],
+    ["Vitesse rotor v (m/s) → énergie de coup E (kWh/t)",
      f"{S1A['CR.5011_v_ms']} → {f(C11A['Ecs_kWh_t'],3)}",
      f"{S1B['CR.5011_v_ms']} → {f(C11B['Ecs_kWh_t'],3)}"],
-    ["Blow fineness t<sub>10</sub> (%) → product spread n",
+    ["Finesse de coup t<sub>10</sub> (%) → étalement du produit n",
      f"{f(C11A['t10_pct'],1)} → {f(C11A['n'],2)}",
      f"{f(C11B['t10_pct'],1)} → {f(C11B['n'],2)}"],
-    ["Converged loop load (wet t/h, of a 90 t/h machine rating)",
+    ["Charge de boucle convergée (t/h humide, sur une machine de 90 t/h)",
      f"{f(C11A['loop_load_wet_tph'])} ({f(C11A['utilization_pct'],1)} %)",
      f"{f(C11B['loop_load_wet_tph'])} ({f(C11B['utilization_pct'],1)} %)"],
-    ["Feed F<sub>80</sub> → product P<sub>80</sub> (mm)",
+    ["F<sub>80</sub> alimentation → P<sub>80</sub> produit (mm)",
      f"{f(C11A['F80_mm'])} → {f(C11A['P80_mm'])}",
      f"{f(C11B['F80_mm'])} → {f(C11B['P80_mm'])}"],
-    ["Motor power absorbed (kW)", f(C11A['P_installed_kW'], 1), f(C11B['P_installed_kW'], 1)],
+    ["Puissance moteur absorbée (kW)", f(C11A['P_installed_kW'], 1), f(C11B['P_installed_kW'], 1)],
 ]))
 doc.append(reduced_psd({
-    "1A": [("CR.5011 feed", "Loop feed"), ("CR.5011 product", "Loop product")],
-    "1B": [("CR.5011 feed", "Loop feed"), ("CR.5011 product", "Loop product")]}))
-doc.append(f"""<div class="check"><b>What to check on this sheet.</b> (1) tip-speed
-kinetic energy as the blow-energy measure; (2) the saturation law and the
-calcite values A&nbsp;=&nbsp;{CAL['m5_A_j']}, b&nbsp;=&nbsp;{CAL['m5_b_j']};
-(3) P<sub>80</sub>&nbsp;=&nbsp;CSS for an impactor; (4) the converged loop loads
-against the machine's 90&nbsp;t/h rating — mode&nbsp;1B runs at
-{f(C11B['utilization_pct'],1)}&nbsp;%, the tightest point of the zone.</div>""")
+    "1A": [("CR.5011 feed", "Alim. boucle"), ("CR.5011 product", "Produit boucle")],
+    "1B": [("CR.5011 feed", "Alim. boucle"), ("CR.5011 product", "Produit boucle")]}))
+doc.append(f"""<div class="check"><b>Ce qu'il faut vérifier sur cette fiche.</b>
+(1)&nbsp;l'énergie cinétique de bout de percuteur comme mesure de l'énergie de
+coup&nbsp;; (2)&nbsp;la loi de saturation et les valeurs calcite
+A&nbsp;=&nbsp;{CAL['m5_A_j']}, b&nbsp;=&nbsp;{CAL['m5_b_j']}&nbsp;;
+(3)&nbsp;P<sub>80</sub>&nbsp;=&nbsp;CSS pour un percuteur&nbsp;; (4)&nbsp;les charges
+de boucle convergées face à la capacité machine de 90&nbsp;t/h — le mode&nbsp;1B
+tourne à {f(C11B['utilization_pct'],1)}&nbsp;%, le point le plus tendu de la
+zone.</div>""")
 
 # ------------------------------------------------------------------ Section 5
 a = ADQ["engine_measured_curve_mode_1A_wet_tph"]
 d = ADQ["pfd_design_figures"]
-doc.append(f"""<h2 class="sheet">5 · Reality check against the design office's flowsheet</h2>
-<p>The design office sized the same line from its own <b>assumed</b> feed curve. Our
-figures run the <b>measured</b> one — which is much finer (45.5&nbsp;% of the quarry
-stream is already below 20&nbsp;mm). Same machines, same formulas, different feed:</p>""")
-doc.append(tbl(["Stream (mode 1A, wet t/h)", "Design office", "This note (measured feed)"], [
-    ["Kiln stone 20–35", f(d['scenario_A']['kfs_tph'], 0), f(a['kfs_20_35'], 0)],
-    ["Crude 0–20", f(d['scenario_A']['crude_0_20_tph'], 0), f(a['crude_0_20'], 0)],
-    ["Screen feed (loop included)", f(d['screen_feed_BC5007_tph'], 0), f(a['screen_feed'], 0)],
-    ["Loop return", f(d['recycle_BC5010_tph'], 0), f(a['recycle'], 0)],
+doc.append(f"""<h2 class="sheet">5 · Confrontation au schéma du bureau d'études</h2>
+<p>Le bureau d'études a dimensionné la même ligne à partir de sa propre courbe
+d'alimentation <b>supposée</b>. Nos chiffres tournent sur la courbe <b>mesurée</b> —
+nettement plus fine (45.5&nbsp;% du flux de carrière est déjà sous 20&nbsp;mm). Mêmes
+machines, mêmes formules, alimentation différente&nbsp;:</p>""")
+doc.append(tbl(["Flux (mode 1A, t/h humide)", "Bureau d'études", "Cette note (courbe mesurée)"], [
+    ["Pierre à four 20–35", f(d['scenario_A']['kfs_tph'], 0), f(a['kfs_20_35'], 0)],
+    ["Brut 0–20", f(d['scenario_A']['crude_0_20_tph'], 0), f(a['crude_0_20'], 0)],
+    ["Alimentation du crible (boucle comprise)", f(d['screen_feed_BC5007_tph'], 0), f(a['screen_feed'], 0)],
+    ["Retour de boucle", f(d['recycle_BC5010_tph'], 0), f(a['recycle'], 0)],
 ]))
-doc.append("""<p>The pattern is coherent: a finer feed means less kiln stone, more
-crude, and less material rejected round the loop. The gap is therefore a
-<b>feed-curve question, not a formula disagreement</b> — and it is exactly why an
-independent check of the formulas matters: once the formulas are trusted, the
-remaining uncertainty is the quarry's real curve.</p>""")
+doc.append("""<p>Le motif est cohérent&nbsp;: une alimentation plus fine donne moins de
+pierre à four, plus de brut, et moins de matière rejetée dans la boucle. L'écart est
+donc une <b>question de courbe d'alimentation, pas un désaccord de formules</b> — et
+c'est précisément ce qui rend leur vérification indépendante précieuse&nbsp;: une fois
+les formules validées, l'incertitude restante est la vraie courbe de la carrière.</p>""")
 
 # ------------------------------------------------------------------ Annexes
-for mk, t in [("1A", "Annex A — full stream tables, mode 1A (normal production, 250 t/h wet)"),
-              ("1B", "Annex B — full stream tables, mode 1B (stock campaign, 172 t/h wet, CSS 18)")]:
+for mk, t in [("1A", "Annexe A — tables complètes des flux, mode 1A (production normale, 250 t/h humide)"),
+              ("1B", "Annexe B — tables complètes des flux, mode 1B (campagne de stock, 172 t/h humide, CSS 18)")]:
     doc.append(f'<h2 class="sheet">{t}</h2>')
-    doc.append("<p>Every stream of the converged flowsheet, all sieves, cumulative % "
-               "passing. Conveyor tags (BC.xxxx) are the design office's belt numbers.</p>")
+    doc.append("<p>Tous les flux du schéma convergé, tous les tamis, % passants "
+               "cumulés. Les repères BC.xxxx sont les numéros de convoyeurs du bureau "
+               "d'études.</p>")
     doc.append(full_psd(mk))
 
-doc.append(f"""<p class="prov">Document history: REV A 2026-08-17 (first issue) ·
-REV B 2026-08-18 (ratified calibration; recycle misprint fixed) · REV C 2026-08-18
-(didactic edition, this document). Every figure is generated from the project's
-deterministic model — engine commit {P['commit']} — and replays without any
-assistant: <code>PYTHONPATH=src python dossiers/DT-002/extract_dt002.py</code> then
-<code>python dossiers/DT-002/render_dt002_html.py</code>. Working values awaiting
-test confirmation are said so in the text. Produced by NOEZYS.</p>
+doc.append(f"""<p class="prov">Historique du document&nbsp;: REV A 2026-08-17 (première
+émission, anglais) · REV B 2026-08-18 (calibration ratifiée&nbsp;; coquille du chiffre
+de recyclage corrigée) · REV C 2026-08-18 (édition didactique, anglais) ·
+REV D 2026-08-18 (édition française — décision du client&nbsp;: le français remplace
+l'anglais pour cette note). Chaque chiffre est généré par le modèle déterministe du
+projet — commit moteur {P['commit']} — et se rejoue sans assistant&nbsp;:
+<code>PYTHONPATH=src python dossiers/DT-002/extract_dt002.py</code> puis
+<code>python dossiers/DT-002/render_dt002_html.py</code>. Les valeurs de travail en
+attente de confirmation par essais sont signalées comme telles dans le texte.
+Produit par NOEZYS.</p>
 </body></html>""")
 
 dest = HERE / "DT-002-Zone11-Sizing-Note.html"

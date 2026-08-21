@@ -1,5 +1,5 @@
-<!DOCTYPE html><html><head><meta charset="utf-8">
-<title>DT-002 REV C — Zone 1.1 Machine Sizing Note</title><style>
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8">
+<title>DT-002 REV D — Note de dimensionnement zone 1.1</title><style>
 @page{size:A4;margin:2.2cm 2cm}
 body{font-family:"Bitstream Charter",Georgia,serif;font-size:10.5pt;line-height:1.5;
  color:#111;max-width:62em;margin:2em auto;padding:0 1.5em;background:#fff}
@@ -30,109 +30,120 @@ table.psd td{padding:1.2pt 3pt}
 .prov{font-size:8.8pt;color:#444;border-top:0.6pt solid #999;margin-top:16pt;padding-top:5pt}
 @media print{body{max-width:none;margin:0;padding:0}.wide{overflow:visible}}
 </style></head><body>
-<h1>Sizing the Machines of Zone 1.1</h1>
-<p class="docsub">WANKOE limestone processing line — technical note DT-002</p>
-<p class="docmeta">by NOEZYS · REV C, 2026-08-18 · for expert review — no prior knowledge of the project is assumed</p>
+<h1>Dimensionnement des machines de la zone 1.1</h1>
+<p class="docsub">Ligne de traitement de calcaire WANKOE — note technique DT-002</p>
+<p class="docmeta">par NOEZYS · REV D, 2026-08-18 · pour revue d'expert — aucune connaissance préalable du projet n'est requise</p>
 <hr class="rule">
 
-<div class="box"><b>The purpose of this note.</b> We are sizing a new limestone
-production line with a calculation model. This note lays out, machine by machine,
-<b>the formulas that model the three machines of the line's first block</b>
-("zone&nbsp;1.1"), explains where each formula comes from, and applies it numerically.
-We ask the reader one thing: <b>confront these formulas and their results with your
-experience</b> — are these the right laws, with the right coefficients, used the right
-way? Everything needed to judge is in these pages.</div>
-<h2>1 · The line, in plain words</h2>
-<p>WANKOE is a limestone quarry and processing plant under construction. The quarry's
-primary crushing station delivers broken limestone, all finer than about 200&nbsp;mm,
-at up to 250 tonnes per hour. Zone&nbsp;1.1 — the subject of this note — turns that
-stream into two products:</p>
-<p><b>· Kiln stone, 20–35&nbsp;mm</b> ("KFS"): stone sized for a lime kiln, sold on a
-firm contract. The quality requirement is a size envelope: at most 30&nbsp;% of the
-product below 20&nbsp;mm, at least 55&nbsp;% inside 20–35&nbsp;mm, at most 15&nbsp;%
-above 35&nbsp;mm.<br>
-<b>· Crushed stone 0–20&nbsp;mm</b> ("crude"): feedstock for the downstream plants
-(agricultural and feed-grade lime), stockpiled.</p>
-<p>Three machines do the work. Each carries the design office's tag number (CR =
-crusher, SR = screen); we keep those tags so this note matches the drawings:</p>
+<div class="box"><b>L'objet de cette note.</b> Nous dimensionnons une nouvelle ligne de
+production de calcaire à l'aide d'un modèle de calcul. Cette note présente, machine
+par machine, <b>les formules qui modélisent les trois machines du premier bloc de la
+ligne</b> (la «&nbsp;zone&nbsp;1.1&nbsp;»), explique d'où vient chaque formule et
+l'applique numériquement. Nous demandons une seule chose au lecteur&nbsp;:
+<b>confronter ces formules et leurs résultats à son expérience</b> — sont-ce les
+bonnes lois, avec les bons coefficients, utilisées correctement&nbsp;? Tout ce qu'il
+faut pour en juger est dans ces pages.</div>
+<h2>1 · La ligne, en termes simples</h2>
+<p>WANKOE est une carrière de calcaire et son usine de traitement, en cours de
+construction. La station de concassage primaire de la carrière livre du calcaire
+brisé, entièrement inférieur à 200&nbsp;mm environ, jusqu'à 250 tonnes par heure. La
+zone&nbsp;1.1 — l'objet de cette note — transforme ce flux en deux produits&nbsp;:</p>
+<p><b>· La pierre à four, 20–35&nbsp;mm</b> (dite «&nbsp;KFS&nbsp;»)&nbsp;: pierre
+calibrée pour un four à chaux, vendue sous contrat ferme. L'exigence de qualité est
+une enveloppe granulométrique&nbsp;: au plus 30&nbsp;% du produit sous 20&nbsp;mm, au
+moins 55&nbsp;% entre 20 et 35&nbsp;mm, au plus 15&nbsp;% au-dessus de 35&nbsp;mm.<br>
+<b>· La pierre concassée 0–20&nbsp;mm</b> (le «&nbsp;brut&nbsp;»)&nbsp;: matière
+première des ateliers aval (chaux agricole et chaux alimentaire), mise en stock.</p>
+<p>Trois machines font le travail. Chacune porte le repère du bureau d'études (CR =
+concasseur, SR = crible)&nbsp;; nous les conservons pour que cette note colle aux
+plans&nbsp;:</p>
 <table>
-<tr><th>Machine</th><th>What it does</th></tr>
-<tr><td><b>CR.5006</b> — toothed-roll crusher</td><td>Two toothed rolls turning towards
-each other crush the quarry stone down to roughly the gap set between the rolls
-(60&nbsp;mm here). This type is chosen because it produces few fines — it protects
-the 20–35&nbsp;mm window.</td></tr>
-<tr><td><b>SR.5008</b> — double-deck vibrating screen</td><td>Two stacked screening
-decks with 35&nbsp;mm and 20&nbsp;mm openings split the crushed stone three ways:
-larger than 35&nbsp;mm; between 20 and 35&nbsp;mm (the kiln stone); below 20&nbsp;mm
-(the crude).</td></tr>
-<tr><td><b>CR.5011</b> — impact crusher</td><td>Re-crushes the +35&nbsp;mm fraction
-(hammers on a fast rotor) and sends it back to the screen: a closed loop. Nothing
-leaves the zone above 35&nbsp;mm.</td></tr>
+<tr><th>Machine</th><th>Ce qu'elle fait</th></tr>
+<tr><td><b>CR.5006</b> — concasseur à rouleaux dentés</td><td>Deux rouleaux dentés
+tournant l'un vers l'autre brisent la pierre de carrière jusqu'à, grosso modo,
+l'écartement réglé entre les rouleaux (ici 60&nbsp;mm). Ce type de machine est choisi
+parce qu'il produit peu de fines — il protège la fenêtre 20–35&nbsp;mm.</td></tr>
+<tr><td><b>SR.5008</b> — crible vibrant à deux étages</td><td>Deux étages de criblage
+superposés, à ouvertures de 35&nbsp;mm et 20&nbsp;mm, séparent la pierre concassée en
+trois&nbsp;: plus gros que 35&nbsp;mm&nbsp;; entre 20 et 35&nbsp;mm (la pierre à
+four)&nbsp;; sous 20&nbsp;mm (le brut).</td></tr>
+<tr><td><b>CR.5011</b> — concasseur à percussion</td><td>Rebroie la fraction
++35&nbsp;mm (des percuteurs sur un rotor rapide) et la renvoie au crible&nbsp;: une
+boucle fermée. Rien ne sort de la zone au-dessus de 35&nbsp;mm.</td></tr>
 </table>
-<p><b>Two operating modes.</b> Mode&nbsp;<b>1A</b> is normal production: both products
-are made, at 250&nbsp;t/h of fresh feed. Mode&nbsp;<b>1B</b> is a stock-building
-campaign: no kiln stone is extracted — the 20–35&nbsp;mm cut is sent back to the
-impact crusher too, so everything ends up below 20&nbsp;mm. That deepens the crushing
-duty, so in this mode the crusher setting tightens (30&nbsp;→&nbsp;18&nbsp;mm) and
-the feed is reduced to 172&nbsp;t/h to keep the loop crusher inside its rating.
-Every sheet below shows both modes side by side.</p>
-<p><b>How quantities are counted.</b> Feed rates are quoted as the <b>total wet
-flow</b> — what a belt scale weighs, water included. The stone carries
-7.0&nbsp;% moisture, so 250&nbsp;t/h wet is
-232.5&nbsp;t/h of dry solids; all mass balances and formulas run on the dry part.</p>
-<p><b>How sizes are described.</b> Every stream is described by its size curve: for
-each sieve opening, the percentage of the mass that would fall through
-("cumulative&nbsp;% passing"). One number summarizes a curve:
-<b>F<sub>80</sub></b> (feed) or <b>P<sub>80</sub></b> (product) is the sieve size that
-80&nbsp;% of the mass passes. The feed entering zone&nbsp;1.1 was <b>measured</b> by
-belt-cut sampling at the quarry station outlet (2026-08-08); its curve, the starting
-point of every calculation here, is:</p>
+<p><b>Deux modes de marche.</b> Le mode&nbsp;<b>1A</b> est la production
+normale&nbsp;: les deux produits sont faits, à 250&nbsp;t/h d'alimentation fraîche.
+Le mode&nbsp;<b>1B</b> est une campagne de constitution de stock&nbsp;: on n'extrait
+pas de pierre à four — la coupe 20–35&nbsp;mm repart elle aussi au concasseur à
+percussion, si bien que tout finit sous 20&nbsp;mm. Le travail de broyage s'en trouve
+accru&nbsp;: dans ce mode, le réglage du concasseur se resserre
+(30&nbsp;→&nbsp;18&nbsp;mm) et l'alimentation est réduite à 172&nbsp;t/h pour garder
+le concasseur de boucle dans sa capacité. Chaque fiche ci-dessous montre les deux
+modes côte à côte.</p>
+<p><b>Comment les quantités sont comptées.</b> Les débits d'alimentation sont exprimés
+en <b>flux total humide</b> — ce que pèse une bascule de bande, eau comprise. La
+pierre porte 7.0&nbsp;% d'humidité&nbsp;:
+250&nbsp;t/h humide représentent donc 232.5&nbsp;t/h de matière sèche, et tous les
+bilans et formules travaillent sur la part sèche.</p>
+<p><b>Comment les tailles sont décrites.</b> Chaque flux est décrit par sa courbe
+granulométrique&nbsp;: pour chaque ouverture de tamis, le pourcentage de la masse qui
+passerait au travers (le «&nbsp;%&nbsp;passant cumulé&nbsp;»). Un nombre résume une
+courbe&nbsp;: le <b>F<sub>80</sub></b> (alimentation) ou <b>P<sub>80</sub></b>
+(produit) est la taille de tamis que 80&nbsp;% de la masse passe. L'alimentation de la
+zone&nbsp;1.1 a été <b>mesurée</b> par prélèvement sur bande à la sortie de la station
+de carrière (2026-08-08)&nbsp;; sa courbe, point de départ de tous les calculs,
+est&nbsp;:</p>
 <div class="wide"><table class="psd">
-<tr><th>Sieve (mm)</th><th>0.5</th><th>1</th><th>2</th><th>5</th><th>10</th><th>15</th><th>20</th><th>25</th><th>31.5</th><th>35</th><th>40</th><th>50</th><th>63</th><th>80</th><th>120</th><th>200</th><th>320</th></tr>
-<tr><td><b>% passing</b></td><td>1.06</td><td>2.67</td><td>6.53</td><td>18.82</td><td>33.57</td><td>41.30</td><td>45.48</td><td>47.58</td><td>49.75</td><td>50.74</td><td>52.00</td><td>56.19</td><td>60.52</td><td>65.00</td><td>75.42</td><td>81.00</td><td>100.00</td></tr>
+<tr><th>Tamis (mm)</th><th>0.5</th><th>1</th><th>2</th><th>5</th><th>10</th><th>15</th><th>20</th><th>25</th><th>31.5</th><th>35</th><th>40</th><th>50</th><th>63</th><th>80</th><th>120</th><th>200</th><th>320</th></tr>
+<tr><td><b>% passant</b></td><td>1.06</td><td>2.67</td><td>6.53</td><td>18.82</td><td>33.57</td><td>41.30</td><td>45.48</td><td>47.58</td><td>49.75</td><td>50.74</td><td>52.00</td><td>56.19</td><td>60.52</td><td>65.00</td><td>75.42</td><td>81.00</td><td>100.00</td></tr>
 </table>
-<p class="note">Measured feed curve. F<sub>80</sub> = 180.57 mm. The tail ends beyond the sieve series were completed by declared hypotheses.</p></div>
-<h2 class="sheet">2 · Sheet 1 — CR.5006, the toothed-roll crusher</h2>
-<p class="chapsub">Receives the full quarry stream · gap set at 60 mm · feeds the screen</p>
+<p class="note">Courbe d'alimentation mesurée. F<sub>80</sub> = 180.57 mm. Les extrémités de la courbe, au-delà de la série de tamis, ont été complétées par des hypothèses déclarées.</p></div>
+<h2 class="sheet">2 · Fiche 1 — CR.5006, le concasseur à rouleaux dentés</h2>
+<p class="chapsub">Reçoit tout le flux de carrière · écartement réglé à 60 mm · alimente le crible</p>
 
-<h3>2.1 · The product-size formula</h3>
-<p>What size distribution does a crusher deliver? We use the Rosin–Rammler law, the
-standard description of crushed materials (Rosin &amp; Rammler, 1933): the share of
-mass finer than a size <i>x</i> is</p>
+<h3>2.1 · La formule du produit (granulométrie)</h3>
+<p>Quelle distribution de tailles un concasseur livre-t-il&nbsp;? Nous utilisons la
+loi de Rosin–Rammler, la description standard des matériaux concassés (Rosin &amp;
+Rammler, 1933)&nbsp;: la part de la masse plus fine qu'une taille <i>x</i> vaut</p>
 <p class="eq"><i>P</i>(<i>x</i>) = 1 − exp[ −(<i>x</i>/<i>x</i><sub>c</sub>)<sup><i>n</i></sup> ]</p>
-<p>It has two knobs, and both have a physical meaning:</p>
-<p>· <b><i>x</i><sub>c</sub></b> sets <b>how coarse</b> the product is. We anchor it to
-the machine setting: for a toothed-roll crusher the product's P<sub>80</sub> equals
-the gap between the rolls, so <i>x</i><sub>c</sub> = gap / (ln&nbsp;5)<sup>1/n</sup>
-(this is just the algebra that forces <i>P</i>(gap) = 80&nbsp;%).<br>
-· <b><i>n</i></b> sets <b>how spread</b> the sizes are: high <i>n</i> = uniform product,
-low <i>n</i> = wide spread with many fines. For toothed rolls we use
-<i>n</i>&nbsp;=&nbsp;1.35 (manufacturer-handbook class value; to be
-confirmed by the vendor's gradation table).</p>
-<p>Two corrections make it physical: the curve is <b>cut off</b> at
-1.7&nbsp;×&nbsp;gap — no lump survives much beyond the setting —
-and feed <b>already finer than the gap falls through unbroken</b>, so only the coarse
-share is redistributed by the formula.</p>
+<p>Elle a deux réglages, chacun avec un sens physique&nbsp;:</p>
+<p>· <b><i>x</i><sub>c</sub></b> fixe <b>la grosseur</b> du produit. Nous l'ancrons sur
+le réglage de la machine&nbsp;: pour un concasseur à rouleaux dentés, le
+P<sub>80</sub> du produit égale l'écartement des rouleaux, donc
+<i>x</i><sub>c</sub> = écartement / (ln&nbsp;5)<sup>1/n</sup> (simple algèbre qui
+impose <i>P</i>(écartement) = 80&nbsp;%).<br>
+· <b><i>n</i></b> fixe <b>l'étalement</b> des tailles&nbsp;: <i>n</i> élevé = produit
+uniforme, <i>n</i> faible = large étalement avec beaucoup de fines. Pour des rouleaux
+dentés nous prenons <i>n</i>&nbsp;=&nbsp;1.35 (valeur de classe des
+catalogues constructeurs&nbsp;; à confirmer par la table granulométrique du
+fournisseur).</p>
+<p>Deux corrections la rendent physique&nbsp;: la courbe est <b>tronquée</b> à
+1.7&nbsp;×&nbsp;écartement — aucun bloc ne survit bien au-delà du
+réglage — et la part de l'alimentation <b>déjà plus fine que l'écartement traverse
+sans être brisée</b>&nbsp;: seule la part grossière est redistribuée par la
+formule.</p>
 
-<h3>2.2 · The power formula</h3>
-<p>Crushing power comes from Bond's law (Bond, 1952), the industry's standard energy
-rule: the energy per tonne depends on how much the 80&nbsp;%-passing size is reduced,</p>
-<p class="eq"><i>W</i> = 10 <i>W</i><sub>i</sub> ( 1/√<i>P</i><sub>80</sub> − 1/√<i>F</i><sub>80</sub> )&emsp;(kWh/t, sizes in µm)</p>
-<p><i>W</i><sub>i</sub> is the <b>work index</b>, the material's resistance to breakage;
-we use 12.54&nbsp;kWh/t, a published value for Belgian limestone. Motor
-power = <i>W</i> × dry t/h, divided by 0.75 for drive losses.</p>
+<h3>2.2 · La formule de puissance</h3>
+<p>La puissance de concassage vient de la loi de Bond (Bond, 1952), la règle
+énergétique standard du métier&nbsp;: l'énergie par tonne dépend de la réduction de la
+taille à 80&nbsp;% passant,</p>
+<p class="eq"><i>W</i> = 10 <i>W</i><sub>i</sub> ( 1/√<i>P</i><sub>80</sub> − 1/√<i>F</i><sub>80</sub> )&emsp;(kWh/t, tailles en µm)</p>
+<p><i>W</i><sub>i</sub> est le <b>work index</b> (indice énergétique), la résistance du
+matériau à la fragmentation&nbsp;; nous prenons 12.54&nbsp;kWh/t, valeur
+publiée pour un calcaire belge. Puissance moteur = <i>W</i> × t/h sec, divisée par
+0.75 pour les pertes de transmission.</p>
 
-<h3>2.3 · Applied</h3>
+<h3>2.3 · Application</h3>
 <table>
-<tr><th>Quantity</th><th>Mode 1A</th><th>Mode 1B</th></tr>
-<tr><td>Throughput (dry / wet t/h)</td><td>232.50 / 250.00</td><td>159.96 / 172.00</td></tr>
-<tr><td>Feed F<sub>80</sub> → product P<sub>80</sub> (mm)</td><td>180.57 → 42.70</td><td>180.57 → 42.70</td></tr>
-<tr><td>Specific energy W (kWh/t)</td><td>0.312</td><td>0.312</td></tr>
-<tr><td>Motor power absorbed (kW)</td><td>96.6</td><td>66.5</td></tr>
+<tr><th>Grandeur</th><th>Mode 1A</th><th>Mode 1B</th></tr>
+<tr><td>Débit (t/h sec / humide)</td><td>232.50 / 250.00</td><td>159.96 / 172.00</td></tr>
+<tr><td>F<sub>80</sub> alimentation → P<sub>80</sub> produit (mm)</td><td>180.57 → 42.70</td><td>180.57 → 42.70</td></tr>
+<tr><td>Énergie spécifique W (kWh/t)</td><td>0.312</td><td>0.312</td></tr>
+<tr><td>Puissance moteur absorbée (kW)</td><td>96.6</td><td>66.5</td></tr>
 </table>
 <table class="mini">
-<tr><th><b>Mode 1A</b> — sieve (mm)</th><th>Feed (measured)</th><th>Product</th></tr>
-<tr><td><b>t/h (dry)</b></td><td>232.50</td><td>232.50</td></tr>
+<tr><th><b>Mode 1A</b> — tamis (mm)</th><th>Alimentation (mesurée)</th><th>Produit</th></tr>
+<tr><td><b>t/h (sec)</b></td><td>232.50</td><td>232.50</td></tr>
 <tr><td>2</td><td>6.5</td><td>7.2</td></tr>
 <tr><td>10</td><td>33.6</td><td>39.2</td></tr>
 <tr><td>20</td><td>45.5</td><td>58.3</td></tr>
@@ -144,8 +155,8 @@ power = <i>W</i> × dry t/h, divided by 0.75 for drive losses.</p>
 <tr><td>63</td><td>60.5</td><td>94.0</td></tr>
 </table>
 <table class="mini">
-<tr><th><b>Mode 1B</b> — sieve (mm)</th><th>Feed (measured)</th><th>Product</th></tr>
-<tr><td><b>t/h (dry)</b></td><td>159.96</td><td>159.96</td></tr>
+<tr><th><b>Mode 1B</b> — tamis (mm)</th><th>Alimentation (mesurée)</th><th>Produit</th></tr>
+<tr><td><b>t/h (sec)</b></td><td>159.96</td><td>159.96</td></tr>
 <tr><td>2</td><td>6.5</td><td>7.2</td></tr>
 <tr><td>10</td><td>33.6</td><td>39.2</td></tr>
 <tr><td>20</td><td>45.5</td><td>58.3</td></tr>
@@ -156,54 +167,60 @@ power = <i>W</i> × dry t/h, divided by 0.75 for drive losses.</p>
 <tr><td>50</td><td>56.2</td><td>86.2</td></tr>
 <tr><td>63</td><td>60.5</td><td>94.0</td></tr>
 </table>
-<p class="note">Values are cumulative % passing (share of the mass finer than each sieve).</p>
-<div class="check"><b>What to check on this sheet.</b> (1) P<sub>80</sub> = gap
-as the sizing anchor for a toothed-roll crusher; (2) the spread value
-<i>n</i>&nbsp;=&nbsp;1.35; (3) the 1.7×-gap cut-off;
-(4) Bond with W<sub>i</sub>&nbsp;=&nbsp;12.54 on a duty this coarse —
-first-order by nature, used for motor sizing only.</div>
-<h2 class="sheet">3 · Sheet 2 — SR.5008, the double-deck screen</h2>
-<p class="chapsub">Decks 35 and 20 mm · fed by CR.5006 plus the loop return · defines both products</p>
+<p class="note">Les valeurs sont des % passants cumulés (part de la masse plus fine que chaque tamis).</p>
+<div class="check"><b>Ce qu'il faut vérifier sur cette fiche.</b>
+(1)&nbsp;P<sub>80</sub> = écartement comme ancrage du dimensionnement pour un
+concasseur à rouleaux dentés&nbsp;; (2)&nbsp;la valeur d'étalement
+<i>n</i>&nbsp;=&nbsp;1.35&nbsp;; (3)&nbsp;la troncature à
+1.7&nbsp;×&nbsp;écartement&nbsp;; (4)&nbsp;Bond avec
+W<sub>i</sub>&nbsp;=&nbsp;12.54 sur un travail aussi grossier — précision
+de premier ordre par nature, utilisé pour le dimensionnement moteur seulement.</div>
+<h2 class="sheet">3 · Fiche 2 — SR.5008, le crible à deux étages</h2>
+<p class="chapsub">Étages 35 et 20 mm · alimenté par CR.5006 plus le retour de boucle · définit les deux produits</p>
 
-<h3>3.1 · The separation formula</h3>
-<p>A real screen is not a perfect cut: near the opening size, some particles that
-"should" pass ride over, and vice versa. We describe each deck by a <b>probability
-curve</b>: the chance that a particle of size <i>x</i> stays on top of a deck with
-opening <i>a</i> is</p>
+<h3>3.1 · La formule de séparation</h3>
+<p>Un crible réel n'est pas une coupure parfaite&nbsp;: près de la taille d'ouverture,
+des grains qui «&nbsp;devraient&nbsp;» passer restent sur la toile, et inversement.
+Nous décrivons chaque étage par une <b>courbe de probabilité</b>&nbsp;: la chance
+qu'un grain de taille <i>x</i> reste au refus d'un étage d'ouverture <i>a</i>
+vaut</p>
 <p class="eq">ρ(<i>x</i>) = 1 / [ 1 + (<i>a</i>/<i>x</i>)<sup><i>s</i></sup> ]</p>
-<p>At <i>x</i> = <i>a</i> the chance is 50&nbsp;% — the textbook definition of the cut
-point. The exponent <b><i>s</i> sets how sharp the cut is</b>. Rather than pick
-<i>s</i> directly, we derive it from the screening trade's usual quality number, the
-<b>imperfection I</b> (0 = perfect knife cut; common industrial screens
-0.10–0.20): <i>s</i> = ln&nbsp;9&nbsp;/&nbsp;ln(1/(1−<i>I</i>)). With our project value
+<p>À <i>x</i> = <i>a</i>, la chance est de 50&nbsp;% — la définition classique du
+point de coupure. L'exposant <b><i>s</i> fixe la netteté de la coupe</b>. Plutôt que
+de choisir <i>s</i> directement, nous le déduisons du chiffre de qualité usuel du
+métier du criblage, l'<b>imperfection I</b> (0 = coupure au couteau&nbsp;; cribles
+industriels courants 0.10–0.20)&nbsp;:
+<i>s</i> = ln&nbsp;9&nbsp;/&nbsp;ln(1/(1−<i>I</i>)). Avec la valeur projet
 I&nbsp;=&nbsp;0.15, <i>s</i>&nbsp;=&nbsp;13.5.</p>
-<div class="alert"><b>One convention to be aware of.</b> Imperfection is defined from
-the spread of the probability curve, but two size-ratio conventions coexist in the
-literature (quartiles d<sub>75</sub>/d<sub>25</sub>, or the wider
-d<sub>90</sub>/d<sub>10</sub>). Our I&nbsp;=&nbsp;0.15 uses the wider one. Re-expressed
-in the classic quartile convention of most handbooks, <b>our decks behave like
-imperfection&nbsp;≈&nbsp;0.081</b> — a sharp screen. Judge the cut quality with that
-number in mind.</div>
+<div class="alert"><b>Une convention à connaître.</b> L'imperfection se définit par
+l'étalement de la courbe de probabilité, mais deux conventions de rapport de tailles
+coexistent dans la littérature (les quartiles d<sub>75</sub>/d<sub>25</sub>, ou le
+rapport plus large d<sub>90</sub>/d<sub>10</sub>). Notre I&nbsp;=&nbsp;0.15 utilise la
+convention large. Ré-exprimée dans la convention classique par quartiles de la plupart
+des ouvrages, <b>nos toiles se comportent comme une imperfection&nbsp;≈&nbsp;0.081</b>
+— un crible net. C'est avec ce chiffre en tête qu'il faut juger la qualité de
+coupe.</div>
 
-<h3>3.2 · The area rule</h3>
-<p>Is the deck big enough? Each deck must pass its through-flow. The project's
-screen-capacity method gives each deck a <b>basic capacity</b> Q<sub>b</sub> — the
-tonnage one square metre can pass for a given opening, corrected for the feed's
-fines content and deck position. Required area = through-flow / Q<sub>b</sub>; the
-purchase requirement then takes the worst operating case (screening wet stone in
-rain season derates capacity) and adds a 25&nbsp;% margin.</p>
+<h3>3.2 · La règle de surface</h3>
+<p>L'étage est-il assez grand&nbsp;? Chaque étage doit laisser passer son débit
+traversant. La méthode de capacité de criblage du projet attribue à chaque étage une
+<b>capacité de base</b> Q<sub>b</sub> — le tonnage qu'un mètre carré peut passer pour
+une ouverture donnée, corrigé de la teneur en fines de l'alimentation et de la
+position de l'étage. Surface requise = débit traversant / Q<sub>b</sub>&nbsp;;
+l'exigence d'achat prend ensuite le pire cas de marche (cribler de la pierre humide
+en saison des pluies dégrade la capacité) et ajoute 25&nbsp;% de marge.</p>
 
-<h3>3.3 · Applied</h3>
+<h3>3.3 · Application</h3>
 <table>
-<tr><th>Quantity</th><th>Mode 1A</th><th>Mode 1B</th></tr>
-<tr><td>Screen feed, converged loop (dry / wet t/h)</td><td>301.43 / 324.12</td><td>236.70 / 254.51</td></tr>
-<tr><td>Basic capacity Q<sub>b</sub>, deck 35 / deck 20 (t/h per m²)</td><td>118 / 84</td><td>118 / 84</td></tr>
-<tr><td>Required area this duty, deck 35 / deck 20 (m²)</td><td>6.8 / 7.3</td><td>5.7 / 6.5</td></tr>
-<tr><td>Purchase minimum (worst case + 25 %), deck 35 / deck 20 (m²)</td><td>9.1 / 9.8</td><td>same (set by the worst case over all duties)</td></tr>
+<tr><th>Grandeur</th><th>Mode 1A</th><th>Mode 1B</th></tr>
+<tr><td>Alimentation du crible, boucle convergée (t/h sec / humide)</td><td>301.43 / 324.12</td><td>236.70 / 254.51</td></tr>
+<tr><td>Capacité de base Q<sub>b</sub>, étage 35 / étage 20 (t/h par m²)</td><td>118 / 84</td><td>118 / 84</td></tr>
+<tr><td>Surface requise pour ce travail, étage 35 / étage 20 (m²)</td><td>6.8 / 7.3</td><td>5.7 / 6.5</td></tr>
+<tr><td>Minimum d'achat (pire cas + 25 %), étage 35 / étage 20 (m²)</td><td>9.1 / 9.8</td><td>identique (fixé par le pire cas sur tous les travaux)</td></tr>
 </table>
 <table class="mini">
-<tr><th><b>Mode 1A</b> — sieve (mm)</th><th>Screen feed</th><th>+35 → loop</th><th>20/35 kiln stone</th><th>0/20 crude</th></tr>
-<tr><td><b>t/h (dry)</b></td><td>301.43</td><td>68.93</td><td>54.32</td><td>178.18</td></tr>
+<tr><th><b>Mode 1A</b> — tamis (mm)</th><th>Alim. crible</th><th>+35 → boucle</th><th>Pierre à four 20/35</th><th>Brut 0/20</th></tr>
+<tr><td><b>t/h (sec)</b></td><td>301.43</td><td>68.93</td><td>54.32</td><td>178.18</td></tr>
 <tr><td>2</td><td>6.5</td><td>0.0</td><td>0.0</td><td>11.0</td></tr>
 <tr><td>10</td><td>37.4</td><td>0.0</td><td>0.0</td><td>63.3</td></tr>
 <tr><td>20</td><td>59.2</td><td>0.0</td><td>8.8</td><td>97.4</td></tr>
@@ -215,8 +232,8 @@ rain season derates capacity) and adds a 25&nbsp;% margin.</p>
 <tr><td>63</td><td>95.4</td><td>79.9</td><td>100.0</td><td>100.0</td></tr>
 </table>
 <table class="mini">
-<tr><th><b>Mode 1B</b> — sieve (mm)</th><th>Screen feed</th><th>+35 → loop</th><th>20/35 → re-crushed (no kiln stone in this mode)</th><th>0/20 crude</th></tr>
-<tr><td><b>t/h (dry)</b></td><td>236.70</td><td>42.47</td><td>34.26</td><td>159.96</td></tr>
+<tr><th><b>Mode 1B</b> — tamis (mm)</th><th>Alim. crible</th><th>+35 → boucle</th><th>20/35 → rebroyé (pas de pierre à four dans ce mode)</th><th>Brut 0/20</th></tr>
+<tr><td><b>t/h (sec)</b></td><td>236.70</td><td>42.47</td><td>34.26</td><td>159.96</td></tr>
 <tr><td>2</td><td>7.5</td><td>0.0</td><td>0.0</td><td>11.1</td></tr>
 <tr><td>10</td><td>43.5</td><td>0.0</td><td>0.0</td><td>64.4</td></tr>
 <tr><td>20</td><td>67.9</td><td>0.0</td><td>11.8</td><td>98.0</td></tr>
@@ -227,58 +244,63 @@ rain season derates capacity) and adds a 25&nbsp;% margin.</p>
 <tr><td>50</td><td>90.7</td><td>48.2</td><td>99.9</td><td>100.0</td></tr>
 <tr><td>63</td><td>96.0</td><td>77.5</td><td>100.0</td><td>100.0</td></tr>
 </table>
-<p class="note">Values are cumulative % passing (share of the mass finer than each sieve).</p>
-<p>Resulting kiln-stone quality, mode 1A (the contractual envelope says
-≤&nbsp;30&nbsp;% under / ≥&nbsp;55&nbsp;% in / ≤&nbsp;15&nbsp;% over):
-<b>8.8&nbsp;% below 20&nbsp;mm ·
-82.3&nbsp;% in 20–35 ·
-8.9&nbsp;% above 35&nbsp;mm — compliant with margin.</b></p>
-<div class="check"><b>What to check on this sheet.</b> (1) the probability-curve form
-and the imperfection value (0.15 wide-convention ≈ 0.081 classic) for dry screening
-at 35 and 20&nbsp;mm; (2) the basic capacities Q<sub>b</sub> against your screen-sizing
-practice; (3) the resulting kiln-stone envelope numbers — do they look like what a
-35/20 double deck delivers?</div>
-<h2 class="sheet">4 · Sheet 3 — CR.5011, the impact crusher in the loop</h2>
-<p class="chapsub">Re-crushes the screen's +35 mm (and, in mode 1B, the 20/35 cut) · product returns to the screen</p>
+<p class="note">Les valeurs sont des % passants cumulés (part de la masse plus fine que chaque tamis).</p>
+<p>Qualité de pierre à four obtenue, mode 1A (l'enveloppe contractuelle
+demande ≤&nbsp;30&nbsp;% dessous / ≥&nbsp;55&nbsp;% dedans / ≤&nbsp;15&nbsp;%
+dessus)&nbsp;: <b>8.8&nbsp;% sous 20&nbsp;mm ·
+82.3&nbsp;% entre 20 et 35 ·
+8.9&nbsp;% au-dessus de 35&nbsp;mm — conforme avec
+marge.</b></p>
+<div class="check"><b>Ce qu'il faut vérifier sur cette fiche.</b> (1)&nbsp;la forme de
+la courbe de probabilité et la valeur d'imperfection (0.15 en convention large
+≈ 0.081 en convention classique) pour du criblage à sec à 35 et 20&nbsp;mm&nbsp;;
+(2)&nbsp;les capacités de base Q<sub>b</sub> face à votre pratique du dimensionnement
+de cribles&nbsp;; (3)&nbsp;les chiffres d'enveloppe de la pierre à four — sont-ils
+plausibles pour un double étage 35/20&nbsp;?</div>
+<h2 class="sheet">4 · Fiche 3 — CR.5011, le concasseur à percussion de la boucle</h2>
+<p class="chapsub">Rebroie le +35 mm du crible (et, en mode 1B, la coupe 20/35) · son produit retourne au crible</p>
 
-<h3>4.1 · The breakage-intensity formula</h3>
-<p>An impact crusher breaks by hammer blows, so the product depends on how hard each
-blow is. The blow energy per tonne comes from the rotor tip speed <i>v</i> (kinetic
-energy: <i>E</i> = <i>v</i>²/7200 in kWh/t, with <i>v</i> in m/s). Breakage-testing
-practice (the JK drop-weight tradition) summarizes an impact's result by
-<b><i>t</i><sub>10</sub></b>: the share of the product finer than one tenth of the
-original lump size — a fineness score for the blow. Energy converts to
-<i>t</i><sub>10</sub> by a saturation law:</p>
+<h3>4.1 · La formule d'intensité de fragmentation</h3>
+<p>Un concasseur à percussion brise par coups de percuteurs&nbsp;: le produit dépend
+donc de la violence de chaque coup. L'énergie de coup par tonne vient de la vitesse
+périphérique du rotor <i>v</i> (énergie cinétique&nbsp;: <i>E</i> = <i>v</i>²/7200 en
+kWh/t, avec <i>v</i> en m/s). La pratique des essais de fragmentation (la tradition
+des essais de chute de poids «&nbsp;JK&nbsp;») résume le résultat d'un impact par le
+<b><i>t</i><sub>10</sub></b>&nbsp;: la part du produit plus fine que le dixième de la
+taille du bloc d'origine — une note de finesse du coup. L'énergie se convertit en
+<i>t</i><sub>10</sub> par une loi de saturation&nbsp;:</p>
 <p class="eq"><i>t</i><sub>10</sub> = <i>A</i> ( 1 − exp(−<i>b</i>·<i>E</i>) )</p>
-<p><i>A</i> is the ceiling (the most a single blow can fragment) and <i>b</i> how fast
-energy approaches it. We use <i>A</i>&nbsp;=&nbsp;65,
-<i>b</i>&nbsp;=&nbsp;1.5 — central published values for calcite/limestone,
-adopted as project defaults; the vendor's gradation test will close them. The blow
-fineness then sets the spread <i>n</i> of the product curve
-(<i>n</i> = max(0.65,&nbsp;(30/<i>t</i><sub>10</sub>)<sup>0.3</sup>)), and the product
-follows the same Rosin–Rammler form as Sheet&nbsp;1 with P<sub>80</sub> equal to the
-machine's discharge setting ("CSS"). Power: Bond, as in Sheet&nbsp;1.</p>
+<p><i>A</i> est le plafond (le maximum qu'un seul coup peut fragmenter) et <i>b</i> la
+vitesse à laquelle l'énergie s'en approche. Nous prenons
+<i>A</i>&nbsp;=&nbsp;65, <i>b</i>&nbsp;=&nbsp;1.5 — valeurs
+publiées centrales pour la calcite/le calcaire, adoptées comme défauts du
+projet&nbsp;; l'essai granulométrique du fournisseur les refermera. La finesse du coup
+fixe ensuite l'étalement <i>n</i> de la courbe du produit
+(<i>n</i> = max(0.65,&nbsp;(30/<i>t</i><sub>10</sub>)<sup>0.3</sup>)), et le produit
+suit la même forme de Rosin–Rammler que la fiche&nbsp;1, avec P<sub>80</sub> égal au
+réglage de sortie de la machine (le «&nbsp;CSS&nbsp;»). Puissance&nbsp;: Bond, comme
+en fiche&nbsp;1.</p>
 
-<h3>4.2 · The loop</h3>
-<p>This machine sits in a closed circuit: its product returns to the screen, so its
-own feed depends on what the screen rejects — which depends on the crusher's product.
-The model resolves this circularity by iteration: recompute the loop until the
-recycled tonnage <b>and its whole size curve</b> stop changing. All figures in this
-note are that converged state.</p>
+<h3>4.2 · La boucle</h3>
+<p>Cette machine est en circuit fermé&nbsp;: son produit retourne au crible, donc sa
+propre alimentation dépend de ce que le crible rejette — qui dépend du produit du
+concasseur. Le modèle résout cette circularité par itération&nbsp;: on recalcule la
+boucle jusqu'à ce que le tonnage recyclé <b>et toute sa courbe granulométrique</b>
+cessent de changer. Tous les chiffres de cette note sont cet état convergé.</p>
 
-<h3>4.3 · Applied</h3>
+<h3>4.3 · Application</h3>
 <table>
-<tr><th>Quantity</th><th>Mode 1A</th><th>Mode 1B</th></tr>
-<tr><td>Discharge setting CSS (mm)</td><td>30</td><td>18</td></tr>
-<tr><td>Rotor speed v (m/s) → blow energy E (kWh/t)</td><td>30 → 0.125</td><td>30 → 0.125</td></tr>
-<tr><td>Blow fineness t<sub>10</sub> (%) → product spread n</td><td>11.1 → 1.35</td><td>11.1 → 1.35</td></tr>
-<tr><td>Converged loop load (wet t/h, of a 90 t/h machine rating)</td><td>74.12 (82.4 %)</td><td>82.51 (91.7 %)</td></tr>
-<tr><td>Feed F<sub>80</sub> → product P<sub>80</sub> (mm)</td><td>63.13 → 28.42</td><td>55.75 → 17.13</td></tr>
-<tr><td>Motor power absorbed (kW)</td><td>22.5</td><td>43.7</td></tr>
+<tr><th>Grandeur</th><th>Mode 1A</th><th>Mode 1B</th></tr>
+<tr><td>Réglage de sortie CSS (mm)</td><td>30</td><td>18</td></tr>
+<tr><td>Vitesse rotor v (m/s) → énergie de coup E (kWh/t)</td><td>30 → 0.125</td><td>30 → 0.125</td></tr>
+<tr><td>Finesse de coup t<sub>10</sub> (%) → étalement du produit n</td><td>11.1 → 1.35</td><td>11.1 → 1.35</td></tr>
+<tr><td>Charge de boucle convergée (t/h humide, sur une machine de 90 t/h)</td><td>74.12 (82.4 %)</td><td>82.51 (91.7 %)</td></tr>
+<tr><td>F<sub>80</sub> alimentation → P<sub>80</sub> produit (mm)</td><td>63.13 → 28.42</td><td>55.75 → 17.13</td></tr>
+<tr><td>Puissance moteur absorbée (kW)</td><td>22.5</td><td>43.7</td></tr>
 </table>
 <table class="mini">
-<tr><th><b>Mode 1A</b> — sieve (mm)</th><th>Loop feed</th><th>Loop product</th></tr>
-<tr><td><b>t/h (dry)</b></td><td>68.93</td><td>68.93</td></tr>
+<tr><th><b>Mode 1A</b> — tamis (mm)</th><th>Alim. boucle</th><th>Produit boucle</th></tr>
+<tr><td><b>t/h (sec)</b></td><td>68.93</td><td>68.93</td></tr>
 <tr><td>2</td><td>0.0</td><td>4.2</td></tr>
 <tr><td>10</td><td>0.0</td><td>31.4</td></tr>
 <tr><td>20</td><td>0.0</td><td>62.1</td></tr>
@@ -290,8 +312,8 @@ note are that converged state.</p>
 <tr><td>63</td><td>79.9</td><td>100.0</td></tr>
 </table>
 <table class="mini">
-<tr><th><b>Mode 1B</b> — sieve (mm)</th><th>Loop feed</th><th>Loop product</th></tr>
-<tr><td><b>t/h (dry)</b></td><td>76.74</td><td>76.74</td></tr>
+<tr><th><b>Mode 1B</b> — tamis (mm)</th><th>Alim. boucle</th><th>Produit boucle</th></tr>
+<tr><td><b>t/h (sec)</b></td><td>76.74</td><td>76.74</td></tr>
 <tr><td>2</td><td>0.0</td><td>8.1</td></tr>
 <tr><td>10</td><td>0.0</td><td>52.6</td></tr>
 <tr><td>20</td><td>5.3</td><td>87.9</td></tr>
@@ -302,35 +324,38 @@ note are that converged state.</p>
 <tr><td>50</td><td>71.3</td><td>100.0</td></tr>
 <tr><td>63</td><td>87.6</td><td>100.0</td></tr>
 </table>
-<p class="note">Values are cumulative % passing (share of the mass finer than each sieve).</p>
-<div class="check"><b>What to check on this sheet.</b> (1) tip-speed
-kinetic energy as the blow-energy measure; (2) the saturation law and the
-calcite values A&nbsp;=&nbsp;65, b&nbsp;=&nbsp;1.5;
-(3) P<sub>80</sub>&nbsp;=&nbsp;CSS for an impactor; (4) the converged loop loads
-against the machine's 90&nbsp;t/h rating — mode&nbsp;1B runs at
-91.7&nbsp;%, the tightest point of the zone.</div>
-<h2 class="sheet">5 · Reality check against the design office's flowsheet</h2>
-<p>The design office sized the same line from its own <b>assumed</b> feed curve. Our
-figures run the <b>measured</b> one — which is much finer (45.5&nbsp;% of the quarry
-stream is already below 20&nbsp;mm). Same machines, same formulas, different feed:</p>
+<p class="note">Les valeurs sont des % passants cumulés (part de la masse plus fine que chaque tamis).</p>
+<div class="check"><b>Ce qu'il faut vérifier sur cette fiche.</b>
+(1)&nbsp;l'énergie cinétique de bout de percuteur comme mesure de l'énergie de
+coup&nbsp;; (2)&nbsp;la loi de saturation et les valeurs calcite
+A&nbsp;=&nbsp;65, b&nbsp;=&nbsp;1.5&nbsp;;
+(3)&nbsp;P<sub>80</sub>&nbsp;=&nbsp;CSS pour un percuteur&nbsp;; (4)&nbsp;les charges
+de boucle convergées face à la capacité machine de 90&nbsp;t/h — le mode&nbsp;1B
+tourne à 91.7&nbsp;%, le point le plus tendu de la
+zone.</div>
+<h2 class="sheet">5 · Confrontation au schéma du bureau d'études</h2>
+<p>Le bureau d'études a dimensionné la même ligne à partir de sa propre courbe
+d'alimentation <b>supposée</b>. Nos chiffres tournent sur la courbe <b>mesurée</b> —
+nettement plus fine (45.5&nbsp;% du flux de carrière est déjà sous 20&nbsp;mm). Mêmes
+machines, mêmes formules, alimentation différente&nbsp;:</p>
 <table>
-<tr><th>Stream (mode 1A, wet t/h)</th><th>Design office</th><th>This note (measured feed)</th></tr>
-<tr><td>Kiln stone 20–35</td><td>80</td><td>58</td></tr>
-<tr><td>Crude 0–20</td><td>170</td><td>192</td></tr>
-<tr><td>Screen feed (loop included)</td><td>350</td><td>324</td></tr>
-<tr><td>Loop return</td><td>125</td><td>74</td></tr>
+<tr><th>Flux (mode 1A, t/h humide)</th><th>Bureau d'études</th><th>Cette note (courbe mesurée)</th></tr>
+<tr><td>Pierre à four 20–35</td><td>80</td><td>58</td></tr>
+<tr><td>Brut 0–20</td><td>170</td><td>192</td></tr>
+<tr><td>Alimentation du crible (boucle comprise)</td><td>350</td><td>324</td></tr>
+<tr><td>Retour de boucle</td><td>125</td><td>74</td></tr>
 </table>
-<p>The pattern is coherent: a finer feed means less kiln stone, more
-crude, and less material rejected round the loop. The gap is therefore a
-<b>feed-curve question, not a formula disagreement</b> — and it is exactly why an
-independent check of the formulas matters: once the formulas are trusted, the
-remaining uncertainty is the quarry's real curve.</p>
-<h2 class="sheet">Annex A — full stream tables, mode 1A (normal production, 250 t/h wet)</h2>
-<p>Every stream of the converged flowsheet, all sieves, cumulative % passing. Conveyor tags (BC.xxxx) are the design office's belt numbers.</p>
+<p>Le motif est cohérent&nbsp;: une alimentation plus fine donne moins de
+pierre à four, plus de brut, et moins de matière rejetée dans la boucle. L'écart est
+donc une <b>question de courbe d'alimentation, pas un désaccord de formules</b> — et
+c'est précisément ce qui rend leur vérification indépendante précieuse&nbsp;: une fois
+les formules validées, l'incertitude restante est la vraie courbe de la carrière.</p>
+<h2 class="sheet">Annexe A — tables complètes des flux, mode 1A (production normale, 250 t/h humide)</h2>
+<p>Tous les flux du schéma convergé, tous les tamis, % passants cumulés. Les repères BC.xxxx sont les numéros de convoyeurs du bureau d'études.</p>
 <div class="wide"><table class="psd">
-<tr><th>Sieve (mm)</th><th>Pivot feed</th><th>CR.5006 product</th><th>Screen feed</th><th>+35 to loop</th><th>0/35 internal</th><th>20/35 cut</th><th>0/20 crude</th><th>CR.5011 feed</th><th>Loop return</th></tr>
-<tr><td><b>Dry t/h</b></td><td>232.50</td><td>232.50</td><td>301.43</td><td>68.93</td><td>232.50</td><td>54.32</td><td>178.18</td><td>68.93</td><td>68.93</td></tr>
-<tr><td><b>Wet t/h</b></td><td>250.00</td><td>250.00</td><td>324.12</td><td>74.12</td><td>250.00</td><td>58.41</td><td>191.59</td><td>74.12</td><td>74.12</td></tr>
+<tr><th>Tamis (mm)</th><th>Alimentation pivot</th><th>Produit CR.5006</th><th>Alim. crible</th><th>+35 vers boucle</th><th>0/35 interne</th><th>Coupe 20/35</th><th>Brut 0/20</th><th>Alim. CR.5011</th><th>Retour boucle</th></tr>
+<tr><td><b>t/h sec</b></td><td>232.50</td><td>232.50</td><td>301.43</td><td>68.93</td><td>232.50</td><td>54.32</td><td>178.18</td><td>68.93</td><td>68.93</td></tr>
+<tr><td><b>t/h humide</b></td><td>250.00</td><td>250.00</td><td>324.12</td><td>74.12</td><td>250.00</td><td>58.41</td><td>191.59</td><td>74.12</td><td>74.12</td></tr>
 <tr><td><b>P80 (mm)</b></td><td>180.57</td><td>42.70</td><td>38.38</td><td>63.13</td><td>21.73</td><td>31.81</td><td>13.82</td><td>63.13</td><td>28.42</td></tr>
 <tr><td>0.5</td><td>1.06</td><td>1.17</td><td>1.05</td><td>0.00</td><td>1.36</td><td>0.00</td><td>1.78</td><td>0.00</td><td>0.66</td></tr>
 <tr><td>1</td><td>2.67</td><td>2.93</td><td>2.65</td><td>0.00</td><td>3.43</td><td>0.00</td><td>4.48</td><td>0.00</td><td>1.67</td></tr>
@@ -350,12 +375,12 @@ remaining uncertainty is the quarry's real curve.</p>
 <tr><td>200</td><td>81.00</td><td>100.00</td><td>100.00</td><td>100.00</td><td>100.00</td><td>100.00</td><td>100.00</td><td>100.00</td><td>100.00</td></tr>
 <tr><td>320</td><td>100.00</td><td>100.00</td><td>100.00</td><td>100.00</td><td>100.00</td><td>100.00</td><td>100.00</td><td>100.00</td><td>100.00</td></tr>
 </table></div>
-<h2 class="sheet">Annex B — full stream tables, mode 1B (stock campaign, 172 t/h wet, CSS 18)</h2>
-<p>Every stream of the converged flowsheet, all sieves, cumulative % passing. Conveyor tags (BC.xxxx) are the design office's belt numbers.</p>
+<h2 class="sheet">Annexe B — tables complètes des flux, mode 1B (campagne de stock, 172 t/h humide, CSS 18)</h2>
+<p>Tous les flux du schéma convergé, tous les tamis, % passants cumulés. Les repères BC.xxxx sont les numéros de convoyeurs du bureau d'études.</p>
 <div class="wide"><table class="psd">
-<tr><th>Sieve (mm)</th><th>Pivot feed</th><th>CR.5006 product</th><th>Screen feed</th><th>+35 to loop</th><th>0/35 internal</th><th>20/35 cut</th><th>0/20 crude</th><th>CR.5011 feed</th><th>Loop return</th></tr>
-<tr><td><b>Dry t/h</b></td><td>159.96</td><td>159.96</td><td>236.70</td><td>42.47</td><td>194.22</td><td>34.26</td><td>159.96</td><td>76.74</td><td>76.74</td></tr>
-<tr><td><b>Wet t/h</b></td><td>172.00</td><td>172.00</td><td>254.51</td><td>45.67</td><td>208.84</td><td>36.84</td><td>172.00</td><td>82.51</td><td>82.51</td></tr>
+<tr><th>Tamis (mm)</th><th>Alimentation pivot</th><th>Produit CR.5006</th><th>Alim. crible</th><th>+35 vers boucle</th><th>0/35 interne</th><th>Coupe 20/35</th><th>Brut 0/20</th><th>Alim. CR.5011</th><th>Retour boucle</th></tr>
+<tr><td><b>t/h sec</b></td><td>159.96</td><td>159.96</td><td>236.70</td><td>42.47</td><td>194.22</td><td>34.26</td><td>159.96</td><td>76.74</td><td>76.74</td></tr>
+<tr><td><b>t/h humide</b></td><td>172.00</td><td>172.00</td><td>254.51</td><td>45.67</td><td>208.84</td><td>36.84</td><td>172.00</td><td>82.51</td><td>82.51</td></tr>
 <tr><td><b>P80 (mm)</b></td><td>180.57</td><td>42.70</td><td>31.58</td><td>65.56</td><td>18.76</td><td>30.87</td><td>13.51</td><td>55.75</td><td>17.13</td></tr>
 <tr><td>0.5</td><td>1.06</td><td>1.17</td><td>1.21</td><td>0.00</td><td>1.48</td><td>0.00</td><td>1.79</td><td>0.00</td><td>1.30</td></tr>
 <tr><td>1</td><td>2.67</td><td>2.93</td><td>3.05</td><td>0.00</td><td>3.71</td><td>0.00</td><td>4.51</td><td>0.00</td><td>3.28</td></tr>
@@ -375,11 +400,14 @@ remaining uncertainty is the quarry's real curve.</p>
 <tr><td>200</td><td>81.00</td><td>100.00</td><td>100.00</td><td>100.00</td><td>100.00</td><td>100.00</td><td>100.00</td><td>100.00</td><td>100.00</td></tr>
 <tr><td>320</td><td>100.00</td><td>100.00</td><td>100.00</td><td>100.00</td><td>100.00</td><td>100.00</td><td>100.00</td><td>100.00</td><td>100.00</td></tr>
 </table></div>
-<p class="prov">Document history: REV A 2026-08-17 (first issue) ·
-REV B 2026-08-18 (ratified calibration; recycle misprint fixed) · REV C 2026-08-18
-(didactic edition, this document). Every figure is generated from the project's
-deterministic model — engine commit d3f1142 — and replays without any
-assistant: <code>PYTHONPATH=src python dossiers/DT-002/extract_dt002.py</code> then
-<code>python dossiers/DT-002/render_dt002_html.py</code>. Working values awaiting
-test confirmation are said so in the text. Produced by NOEZYS.</p>
+<p class="prov">Historique du document&nbsp;: REV A 2026-08-17 (première
+émission, anglais) · REV B 2026-08-18 (calibration ratifiée&nbsp;; coquille du chiffre
+de recyclage corrigée) · REV C 2026-08-18 (édition didactique, anglais) ·
+REV D 2026-08-18 (édition française — décision du client&nbsp;: le français remplace
+l'anglais pour cette note). Chaque chiffre est généré par le modèle déterministe du
+projet — commit moteur d3f1142 — et se rejoue sans assistant&nbsp;:
+<code>PYTHONPATH=src python dossiers/DT-002/extract_dt002.py</code> puis
+<code>python dossiers/DT-002/render_dt002_html.py</code>. Les valeurs de travail en
+attente de confirmation par essais sont signalées comme telles dans le texte.
+Produit par NOEZYS.</p>
 </body></html>

@@ -283,3 +283,4 @@ delegated or expert-proposed; expert proposals await his ratification.
   sheets follow one schema; the result shape is stable for the web UI.
 - **Any doubt**: the expert-panel review (process, numerics, API, data,
   tests, performance + adversarial verification) is repeatable on demand.
+| 2026-08-18 | DT-002 REV D — FRENCH-LANGUAGE EDITION, FRENCH REPLACES ENGLISH FOR THIS NOTE (client ruling, option 2: 'le francais uniquement'). FIRST REGISTERED EXCEPTION to the 2026-08-09 English-deliverables rule — scope strictly this note; the general rule stays in force for everything else. The English REV C remains in git history only; the exchange file DT-002-Zone11-Sizing-Note.html is now French (30 kB, same structure, same JSON-driven figures, print CSS unchanged). Document history block updated (REV A/B/C/D) | the client (language ruling); NOEZYS (translation, zero figure changed) |
