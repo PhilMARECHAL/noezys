@@ -184,7 +184,17 @@ Guildco re-quote demand list alongside the missing setting range and
 the OEM-identity questions (screen: OEM + drive arrangement; crusher:
 confirm Sinoma-Liyang as OEM).
 
-Honesty caveats carried with the admitted 2025 price: (1) the quote is
+SUPERSEDED 2026-08-21 — OF-004 ("BEST price" re-quotation, live 45
+days) replaces the Zenith side of both duels: primary 2PG-1216CT
+USD 142,043 LIVE (the expired-price caveat dies); screen S5X2760-2
+(2 decks — like-for-like with the duty) USD 41,304 → screen duel
+Zenith −49 %. CIF Cape Town now FIXED (freight 16,300 for the
+bundle). Gates still open per OF-004 summary §3 (setting window
+printed 40–800; no curves/witnessed tests; 100 %-before-shipment
+payment). Guildco's re-quote (→ OF-005) still awaited.
+
+Honesty caveats carried with the admitted 2025 price (historical,
+now moot for price): (1) the quote is
 FORMALLY EXPIRED — usable for comparison by client ruling, but any
 CONTRACT requires a re-issue and the re-issued price may move
 (escalation/FX since Dec 2025); (2) the printed 40–800 mm discharge
