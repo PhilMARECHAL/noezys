@@ -45,6 +45,7 @@ Zenith-only items. Pre-re-quote market intelligence, not an award basis.
 | OF-002 suppl. | original/technical-annexes/CI5X1315-III_anchor_loads.pdf | 2714095ca60a4afab0c3b9e2994189ef2339139bdc882898a28108bce6338061 |
 | OF-002 suppl. | original/technical-annexes/CI5X1315_cross_section.pdf | c7701417bbe428f5ad8b9c9e283257d8b4d79a3526c3d37d91e99a96265352a5 |
 | OF-004 | original/ZENITH_BEST_price_2026-08-21.pdf | 6b71044c0d47e3ce75843116c9fd4c22741b14aa3560522a7463e91b682b7094 |
+| OF-005 | original/ZENITH_BEST_price_with_spare_parts_2026-09-04.pdf | 351545baf23519b279f986078347660c1dd554e643ef838240b542361c937a8b |
 
 ## Evaluation rule
 
