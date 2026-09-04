@@ -24,7 +24,7 @@
     }
   },
   "machines": {
-    "CR.5009": {
+    "CR.5006": {
       "parameters": {
         "n": {
           "default": 1.15,

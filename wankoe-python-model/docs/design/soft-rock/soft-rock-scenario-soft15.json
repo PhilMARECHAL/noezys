@@ -11,7 +11,7 @@
     "b_j": { "default": 2.0, "_soft_rock_rationale": "[H] upper-central of the soft-calcite b range 1.3-3.0 (A*b = 134)" }
   },
   "machines": {
-    "CR.5009": { "parameters": { "n": { "default": 1.1, "_soft_rock_rationale": "[H] soft edge of the friable-limestone RR slope band ~1.0-1.2" } } },
+    "CR.5006": { "parameters": { "n": { "default": 1.1, "_soft_rock_rationale": "[H] soft edge of the friable-limestone RR slope band ~1.0-1.2" } } },
     "RC.1": { "parameters": {
       "n_comp": { "default": 1.5, "_soft_rock_rationale": "[H] soft edge = declared range minimum 1.5" },
       "S_att": { "default": 0.1, "_soft_rock_rationale": "[H] soft edge = declared range maximum 0.10" } } },

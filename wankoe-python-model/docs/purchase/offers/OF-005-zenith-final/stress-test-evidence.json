@@ -1,0 +1,1419 @@
+{
+ "_provenance": {
+  "commit": "eea6cc3",
+  "script": "scripts/of005_stress_test.py",
+  "mission": "OF-005 pre-order process verification (client 2026-09-04, matrix option 1)",
+  "machine_limits_under_test": {
+   "crusher_cap_wet_tph": 400.0,
+   "crusher_installed_kW": 360.0,
+   "crusher_max_feed_mm": 300.0,
+   "screen_area_m2_per_deck": 16.2,
+   "loop_vendor_cap_wet_tph": null
+  }
+ },
+ "families": {
+  "S1": [
+   {
+    "label": "S1 reference 1A measured g60",
+    "mode": "1A",
+    "gap_mm": 60,
+    "n_CR5006": 1.35,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 45.5,
+     "F80_mm": 180.6
+    },
+    "crusher": {
+     "wet_tph": 250.0,
+     "P80_mm": 42.7,
+     "P_absorbed_kW": 96.6
+    },
+    "loop_wet_tph": 74.12,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 6.8,
+     "bottom_20mm": 7.29
+    },
+    "kfs_envelope": {
+     "below": 8.77,
+     "in_cut": 82.32,
+     "above": 8.91,
+     "compliant": true
+    },
+    "checks": {
+     "kfs_envelope": true,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   }
+  ],
+  "S2": [
+   {
+    "label": "S2 mode-1B measured",
+    "mode": "1B",
+    "gap_mm": 60,
+    "n_CR5006": 1.35,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 45.5,
+     "F80_mm": 180.6
+    },
+    "crusher": {
+     "wet_tph": 172.0,
+     "P80_mm": 42.7,
+     "P_absorbed_kW": 66.5
+    },
+    "loop_wet_tph": 82.51,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 5.68,
+     "bottom_20mm": 6.55
+    },
+    "kfs_envelope": null,
+    "checks": {
+     "kfs_envelope": null,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   },
+   {
+    "label": "S2 mode-1B quarry-target(k1.426)",
+    "mode": "1B",
+    "gap_mm": 60,
+    "n_CR5006": 1.35,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 40.0,
+     "F80_mm": 251.1
+    },
+    "crusher": {
+     "wet_tph": 172.0,
+     "P80_mm": 42.31,
+     "P_absorbed_kW": 76.6
+    },
+    "loop_wet_tph": 89.07,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 5.87,
+     "bottom_20mm": 6.55
+    },
+    "kfs_envelope": null,
+    "checks": {
+     "kfs_envelope": null,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   }
+  ],
+  "S3": [
+   {
+    "label": "S3 quarry-target 1A",
+    "mode": "1A",
+    "gap_mm": 60,
+    "n_CR5006": 1.35,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 40.0,
+     "F80_mm": 251.1
+    },
+    "crusher": {
+     "wet_tph": 250.0,
+     "P80_mm": 42.31,
+     "P_absorbed_kW": 111.4
+    },
+    "loop_wet_tph": 73.77,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 6.8,
+     "bottom_20mm": 6.97
+    },
+    "kfs_envelope": {
+     "below": 8.84,
+     "in_cut": 83.19,
+     "above": 7.98,
+     "compliant": true
+    },
+    "checks": {
+     "kfs_envelope": true,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   }
+  ],
+  "S4": [
+   {
+    "label": "S4 fine-extreme(k0.70) 1A",
+    "mode": "1A",
+    "gap_mm": 60,
+    "n_CR5006": 1.35,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 48.8,
+     "F80_mm": 125.8
+    },
+    "crusher": {
+     "wet_tph": 250.0,
+     "P80_mm": 40.69,
+     "P_absorbed_kW": 83.1
+    },
+    "loop_wet_tph": 70.65,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 6.8,
+     "bottom_20mm": 7.33
+    },
+    "kfs_envelope": {
+     "below": 7.17,
+     "in_cut": 83.23,
+     "above": 9.6,
+     "compliant": true
+    },
+    "checks": {
+     "kfs_envelope": true,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   },
+   {
+    "label": "S4 coarse-extreme(k1.60) 1A",
+    "mode": "1A",
+    "gap_mm": 60,
+    "n_CR5006": 1.35,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 38.1,
+     "F80_mm": 254.2
+    },
+    "crusher": {
+     "wet_tph": 250.0,
+     "P80_mm": 42.19,
+     "P_absorbed_kW": 112.2
+    },
+    "loop_wet_tph": 74.2,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 6.8,
+     "bottom_20mm": 6.84
+    },
+    "kfs_envelope": {
+     "below": 8.8,
+     "in_cut": 83.34,
+     "above": 7.85,
+     "compliant": true
+    },
+    "checks": {
+     "kfs_envelope": true,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   },
+   {
+    "label": "S4 coarse-extreme(k1.60) 1B",
+    "mode": "1B",
+    "gap_mm": 60,
+    "n_CR5006": 1.35,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 38.1,
+     "F80_mm": 254.2
+    },
+    "crusher": {
+     "wet_tph": 172.0,
+     "P80_mm": 42.19,
+     "P_absorbed_kW": 77.2
+    },
+    "loop_wet_tph": 91.87,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 5.94,
+     "bottom_20mm": 6.55
+    },
+    "kfs_envelope": null,
+    "checks": {
+     "kfs_envelope": null,
+     "loop_le_90_wet": false,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": false
+    },
+    "alerts": []
+   }
+  ],
+  "S5": [
+   {
+    "label": "S5 g=20 measured",
+    "mode": "1A",
+    "gap_mm": 20,
+    "n_CR5006": 1.35,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 45.5,
+     "F80_mm": 180.6
+    },
+    "crusher": {
+     "wet_tph": 250.0,
+     "P80_mm": 15.39,
+     "P_absorbed_kW": 221.8
+    },
+    "loop_wet_tph": 1.26,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 6.8,
+     "bottom_20mm": 8.58
+    },
+    "kfs_envelope": {
+     "below": 20.04,
+     "in_cut": 79.91,
+     "above": 0.06,
+     "compliant": true
+    },
+    "checks": {
+     "kfs_envelope": true,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   },
+   {
+    "label": "S5 g=30 measured",
+    "mode": "1A",
+    "gap_mm": 30,
+    "n_CR5006": 1.35,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 45.5,
+     "F80_mm": 180.6
+    },
+    "crusher": {
+     "wet_tph": 250.0,
+     "P80_mm": 21.53,
+     "P_absorbed_kW": 173.5
+    },
+    "loop_wet_tph": 15.74,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 6.8,
+     "bottom_20mm": 7.7
+    },
+    "kfs_envelope": {
+     "below": 10.93,
+     "in_cut": 84.13,
+     "above": 4.94,
+     "compliant": true
+    },
+    "checks": {
+     "kfs_envelope": true,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   },
+   {
+    "label": "S5 g=40 measured",
+    "mode": "1A",
+    "gap_mm": 40,
+    "n_CR5006": 1.35,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 45.5,
+     "F80_mm": 180.6
+    },
+    "crusher": {
+     "wet_tph": 250.0,
+     "P80_mm": 27.96,
+     "P_absorbed_kW": 141.0
+    },
+    "loop_wet_tph": 35.31,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 6.8,
+     "bottom_20mm": 7.36
+    },
+    "kfs_envelope": {
+     "below": 9.13,
+     "in_cut": 83.31,
+     "above": 7.56,
+     "compliant": true
+    },
+    "checks": {
+     "kfs_envelope": true,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   },
+   {
+    "label": "S5 g=50 measured",
+    "mode": "1A",
+    "gap_mm": 50,
+    "n_CR5006": 1.35,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 45.5,
+     "F80_mm": 180.6
+    },
+    "crusher": {
+     "wet_tph": 250.0,
+     "P80_mm": 35.65,
+     "P_absorbed_kW": 114.4
+    },
+    "loop_wet_tph": 57.47,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 6.8,
+     "bottom_20mm": 7.29
+    },
+    "kfs_envelope": {
+     "below": 8.78,
+     "in_cut": 82.46,
+     "above": 8.75,
+     "compliant": true
+    },
+    "checks": {
+     "kfs_envelope": true,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   },
+   {
+    "label": "S5 g=60 measured",
+    "mode": "1A",
+    "gap_mm": 60,
+    "n_CR5006": 1.35,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 45.5,
+     "F80_mm": 180.6
+    },
+    "crusher": {
+     "wet_tph": 250.0,
+     "P80_mm": 42.7,
+     "P_absorbed_kW": 96.6
+    },
+    "loop_wet_tph": 74.12,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 6.8,
+     "bottom_20mm": 7.29
+    },
+    "kfs_envelope": {
+     "below": 8.77,
+     "in_cut": 82.32,
+     "above": 8.91,
+     "compliant": true
+    },
+    "checks": {
+     "kfs_envelope": true,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   },
+   {
+    "label": "S5 g=20 quarry-target(k1.426)",
+    "mode": "1A",
+    "gap_mm": 20,
+    "n_CR5006": 1.35,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 40.0,
+     "F80_mm": 251.1
+    },
+    "crusher": {
+     "wet_tph": 250.0,
+     "P80_mm": 16.3,
+     "P_absorbed_kW": 226.9
+    },
+    "loop_wet_tph": 1.38,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 6.8,
+     "bottom_20mm": 8.47
+    },
+    "kfs_envelope": {
+     "below": 21.16,
+     "in_cut": 78.79,
+     "above": 0.06,
+     "compliant": true
+    },
+    "checks": {
+     "kfs_envelope": true,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   },
+   {
+    "label": "S5 g=30 quarry-target(k1.426)",
+    "mode": "1A",
+    "gap_mm": 30,
+    "n_CR5006": 1.35,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 40.0,
+     "F80_mm": 251.1
+    },
+    "crusher": {
+     "wet_tph": 250.0,
+     "P80_mm": 22.9,
+     "P_absorbed_kW": 179.3
+    },
+    "loop_wet_tph": 16.92,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 6.8,
+     "bottom_20mm": 7.43
+    },
+    "kfs_envelope": {
+     "below": 10.95,
+     "in_cut": 84.45,
+     "above": 4.6,
+     "compliant": true
+    },
+    "checks": {
+     "kfs_envelope": true,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   },
+   {
+    "label": "S5 g=40 quarry-target(k1.426)",
+    "mode": "1A",
+    "gap_mm": 40,
+    "n_CR5006": 1.35,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 40.0,
+     "F80_mm": 251.1
+    },
+    "crusher": {
+     "wet_tph": 250.0,
+     "P80_mm": 29.1,
+     "P_absorbed_kW": 150.3
+    },
+    "loop_wet_tph": 37.63,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 6.8,
+     "bottom_20mm": 7.06
+    },
+    "kfs_envelope": {
+     "below": 9.24,
+     "in_cut": 83.82,
+     "above": 6.94,
+     "compliant": true
+    },
+    "checks": {
+     "kfs_envelope": true,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   },
+   {
+    "label": "S5 g=50 quarry-target(k1.426)",
+    "mode": "1A",
+    "gap_mm": 50,
+    "n_CR5006": 1.35,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 40.0,
+     "F80_mm": 251.1
+    },
+    "crusher": {
+     "wet_tph": 250.0,
+     "P80_mm": 35.4,
+     "P_absorbed_kW": 129.0
+    },
+    "loop_wet_tph": 57.38,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 6.8,
+     "bottom_20mm": 6.97
+    },
+    "kfs_envelope": {
+     "below": 8.89,
+     "in_cut": 83.32,
+     "above": 7.79,
+     "compliant": true
+    },
+    "checks": {
+     "kfs_envelope": true,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   },
+   {
+    "label": "S5 g=60 quarry-target(k1.426)",
+    "mode": "1A",
+    "gap_mm": 60,
+    "n_CR5006": 1.35,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 40.0,
+     "F80_mm": 251.1
+    },
+    "crusher": {
+     "wet_tph": 250.0,
+     "P80_mm": 42.31,
+     "P_absorbed_kW": 111.4
+    },
+    "loop_wet_tph": 73.77,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 6.8,
+     "bottom_20mm": 6.97
+    },
+    "kfs_envelope": {
+     "below": 8.84,
+     "in_cut": 83.19,
+     "above": 7.98,
+     "compliant": true
+    },
+    "checks": {
+     "kfs_envelope": true,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   }
+  ],
+  "S6": [
+   {
+    "label": "S6 n=1.0 measured",
+    "mode": "1A",
+    "gap_mm": 60,
+    "n_CR5006": 1.0,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 45.5,
+     "F80_mm": 180.6
+    },
+    "crusher": {
+     "wet_tph": 250.0,
+     "P80_mm": 39.34,
+     "P_absorbed_kW": 104.5
+    },
+    "loop_wet_tph": 64.06,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 6.8,
+     "bottom_20mm": 7.54
+    },
+    "kfs_envelope": {
+     "below": 9.32,
+     "in_cut": 82.14,
+     "above": 8.54,
+     "compliant": true
+    },
+    "checks": {
+     "kfs_envelope": true,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   },
+   {
+    "label": "S6 n=1.15 measured",
+    "mode": "1A",
+    "gap_mm": 60,
+    "n_CR5006": 1.15,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 45.5,
+     "F80_mm": 180.6
+    },
+    "crusher": {
+     "wet_tph": 250.0,
+     "P80_mm": 41.02,
+     "P_absorbed_kW": 100.5
+    },
+    "loop_wet_tph": 68.58,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 6.8,
+     "bottom_20mm": 7.42
+    },
+    "kfs_envelope": {
+     "below": 9.07,
+     "in_cut": 82.24,
+     "above": 8.68,
+     "compliant": true
+    },
+    "checks": {
+     "kfs_envelope": true,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   },
+   {
+    "label": "S6 n=1.35 measured",
+    "mode": "1A",
+    "gap_mm": 60,
+    "n_CR5006": 1.35,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 45.5,
+     "F80_mm": 180.6
+    },
+    "crusher": {
+     "wet_tph": 250.0,
+     "P80_mm": 42.7,
+     "P_absorbed_kW": 96.6
+    },
+    "loop_wet_tph": 74.12,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 6.8,
+     "bottom_20mm": 7.29
+    },
+    "kfs_envelope": {
+     "below": 8.77,
+     "in_cut": 82.32,
+     "above": 8.91,
+     "compliant": true
+    },
+    "checks": {
+     "kfs_envelope": true,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   },
+   {
+    "label": "S6 n=1.6 measured",
+    "mode": "1A",
+    "gap_mm": 60,
+    "n_CR5006": 1.6,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 45.5,
+     "F80_mm": 180.6
+    },
+    "crusher": {
+     "wet_tph": 250.0,
+     "P80_mm": 44.39,
+     "P_absorbed_kW": 93.0
+    },
+    "loop_wet_tph": 80.38,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 6.8,
+     "bottom_20mm": 7.18
+    },
+    "kfs_envelope": {
+     "below": 8.43,
+     "in_cut": 82.33,
+     "above": 9.25,
+     "compliant": true
+    },
+    "checks": {
+     "kfs_envelope": true,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   },
+   {
+    "label": "S6 n=1.8 measured",
+    "mode": "1A",
+    "gap_mm": 60,
+    "n_CR5006": 1.8,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 45.5,
+     "F80_mm": 180.6
+    },
+    "crusher": {
+     "wet_tph": 250.0,
+     "P80_mm": 45.49,
+     "P_absorbed_kW": 90.8
+    },
+    "loop_wet_tph": 84.91,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 6.8,
+     "bottom_20mm": 7.11
+    },
+    "kfs_envelope": {
+     "below": 8.2,
+     "in_cut": 82.27,
+     "above": 9.54,
+     "compliant": true
+    },
+    "checks": {
+     "kfs_envelope": true,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   },
+   {
+    "label": "S6 n=1.0 quarry-target(k1.426)",
+    "mode": "1A",
+    "gap_mm": 60,
+    "n_CR5006": 1.0,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 40.0,
+     "F80_mm": 251.1
+    },
+    "crusher": {
+     "wet_tph": 250.0,
+     "P80_mm": 37.76,
+     "P_absorbed_kW": 122.5
+    },
+    "loop_wet_tph": 62.09,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 6.8,
+     "bottom_20mm": 7.25
+    },
+    "kfs_envelope": {
+     "below": 9.4,
+     "in_cut": 83.11,
+     "above": 7.49,
+     "compliant": true
+    },
+    "checks": {
+     "kfs_envelope": true,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   },
+   {
+    "label": "S6 n=1.15 quarry-target(k1.426)",
+    "mode": "1A",
+    "gap_mm": 60,
+    "n_CR5006": 1.15,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 40.0,
+     "F80_mm": 251.1
+    },
+    "crusher": {
+     "wet_tph": 250.0,
+     "P80_mm": 39.97,
+     "P_absorbed_kW": 116.9
+    },
+    "loop_wet_tph": 67.33,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 6.8,
+     "bottom_20mm": 7.11
+    },
+    "kfs_envelope": {
+     "below": 9.15,
+     "in_cut": 83.16,
+     "above": 7.69,
+     "compliant": true
+    },
+    "checks": {
+     "kfs_envelope": true,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   },
+   {
+    "label": "S6 n=1.35 quarry-target(k1.426)",
+    "mode": "1A",
+    "gap_mm": 60,
+    "n_CR5006": 1.35,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 40.0,
+     "F80_mm": 251.1
+    },
+    "crusher": {
+     "wet_tph": 250.0,
+     "P80_mm": 42.31,
+     "P_absorbed_kW": 111.4
+    },
+    "loop_wet_tph": 73.77,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 6.8,
+     "bottom_20mm": 6.97
+    },
+    "kfs_envelope": {
+     "below": 8.84,
+     "in_cut": 83.19,
+     "above": 7.98,
+     "compliant": true
+    },
+    "checks": {
+     "kfs_envelope": true,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   },
+   {
+    "label": "S6 n=1.6 quarry-target(k1.426)",
+    "mode": "1A",
+    "gap_mm": 60,
+    "n_CR5006": 1.6,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 40.0,
+     "F80_mm": 251.1
+    },
+    "crusher": {
+     "wet_tph": 250.0,
+     "P80_mm": 44.58,
+     "P_absorbed_kW": 106.5
+    },
+    "loop_wet_tph": 81.03,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 6.8,
+     "bottom_20mm": 6.83
+    },
+    "kfs_envelope": {
+     "below": 8.49,
+     "in_cut": 83.15,
+     "above": 8.36,
+     "compliant": true
+    },
+    "checks": {
+     "kfs_envelope": true,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   },
+   {
+    "label": "S6 n=1.8 quarry-target(k1.426)",
+    "mode": "1A",
+    "gap_mm": 60,
+    "n_CR5006": 1.8,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 40.0,
+     "F80_mm": 251.1
+    },
+    "crusher": {
+     "wet_tph": 250.0,
+     "P80_mm": 46.0,
+     "P_absorbed_kW": 103.7
+    },
+    "loop_wet_tph": 86.28,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 6.8,
+     "bottom_20mm": 6.76
+    },
+    "kfs_envelope": {
+     "below": 8.26,
+     "in_cut": 83.07,
+     "above": 8.68,
+     "compliant": true
+    },
+    "checks": {
+     "kfs_envelope": true,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   }
+  ],
+  "S7": [
+   {
+    "label": "S7 soft-rock 1A measured",
+    "mode": "1A",
+    "gap_mm": 60,
+    "n_CR5006": 1.15,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 45.5,
+     "F80_mm": 180.6
+    },
+    "crusher": {
+     "wet_tph": 250.0,
+     "P80_mm": 41.02,
+     "P_absorbed_kW": 60.1
+    },
+    "loop_wet_tph": 68.58,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 6.8,
+     "bottom_20mm": 7.42
+    },
+    "kfs_envelope": {
+     "below": 9.07,
+     "in_cut": 82.24,
+     "above": 8.68,
+     "compliant": true
+    },
+    "checks": {
+     "kfs_envelope": true,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   },
+   {
+    "label": "S7 soft-rock 1A quarry-target(k1.426)",
+    "mode": "1A",
+    "gap_mm": 60,
+    "n_CR5006": 1.15,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 40.0,
+     "F80_mm": 251.1
+    },
+    "crusher": {
+     "wet_tph": 250.0,
+     "P80_mm": 39.97,
+     "P_absorbed_kW": 69.9
+    },
+    "loop_wet_tph": 67.33,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 6.8,
+     "bottom_20mm": 7.11
+    },
+    "kfs_envelope": {
+     "below": 9.15,
+     "in_cut": 83.16,
+     "above": 7.69,
+     "compliant": true
+    },
+    "checks": {
+     "kfs_envelope": true,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   },
+   {
+    "label": "S7 soft-rock 1B measured",
+    "mode": "1B",
+    "gap_mm": 60,
+    "n_CR5006": 1.15,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 45.5,
+     "F80_mm": 180.6
+    },
+    "crusher": {
+     "wet_tph": 172.0,
+     "P80_mm": 41.02,
+     "P_absorbed_kW": 41.3
+    },
+    "loop_wet_tph": 77.18,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 5.63,
+     "bottom_20mm": 6.55
+    },
+    "kfs_envelope": null,
+    "checks": {
+     "kfs_envelope": null,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   }
+  ],
+  "S8": [
+   {
+    "label": "S8 rain week 1A measured (12 % feed, wet screening)",
+    "mode": "1A",
+    "gap_mm": 60,
+    "n_CR5006": 1.35,
+    "weather": "rain",
+    "moisture_pct": 12.0,
+    "feed": {
+     "pct_lt_20mm": 45.5,
+     "F80_mm": 180.6
+    },
+    "crusher": {
+     "wet_tph": 250.0,
+     "P80_mm": 42.7,
+     "P_absorbed_kW": 91.4
+    },
+    "loop_wet_tph": 74.12,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 8.58,
+     "bottom_20mm": 9.2
+    },
+    "kfs_envelope": {
+     "below": 8.77,
+     "in_cut": 82.32,
+     "above": 8.91,
+     "compliant": true
+    },
+    "checks": {
+     "kfs_envelope": true,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   }
+  ],
+  "S10": [
+   {
+    "label": "S10 1B n=1.6 measured",
+    "mode": "1B",
+    "gap_mm": 60,
+    "n_CR5006": 1.6,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 45.5,
+     "F80_mm": 180.6
+    },
+    "crusher": {
+     "wet_tph": 172.0,
+     "P80_mm": 44.39,
+     "P_absorbed_kW": 64.0
+    },
+    "loop_wet_tph": 87.99,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 5.73,
+     "bottom_20mm": 6.55
+    },
+    "kfs_envelope": null,
+    "checks": {
+     "kfs_envelope": null,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   },
+   {
+    "label": "S10 1B n=1.8 measured",
+    "mode": "1B",
+    "gap_mm": 60,
+    "n_CR5006": 1.8,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 45.5,
+     "F80_mm": 180.6
+    },
+    "crusher": {
+     "wet_tph": 172.0,
+     "P80_mm": 45.49,
+     "P_absorbed_kW": 62.5
+    },
+    "loop_wet_tph": 91.56,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 5.75,
+     "bottom_20mm": 6.55
+    },
+    "kfs_envelope": null,
+    "checks": {
+     "kfs_envelope": null,
+     "loop_le_90_wet": false,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": false
+    },
+    "alerts": []
+   },
+   {
+    "label": "S10 1B n=1.6 quarry-target(k1.426)",
+    "mode": "1B",
+    "gap_mm": 60,
+    "n_CR5006": 1.6,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 40.0,
+     "F80_mm": 251.1
+    },
+    "crusher": {
+     "wet_tph": 172.0,
+     "P80_mm": 44.58,
+     "P_absorbed_kW": 73.3
+    },
+    "loop_wet_tph": 95.43,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 5.92,
+     "bottom_20mm": 6.55
+    },
+    "kfs_envelope": null,
+    "checks": {
+     "kfs_envelope": null,
+     "loop_le_90_wet": false,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": false
+    },
+    "alerts": []
+   },
+   {
+    "label": "S10 1B n=1.8 quarry-target(k1.426)",
+    "mode": "1B",
+    "gap_mm": 60,
+    "n_CR5006": 1.8,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 40.0,
+     "F80_mm": 251.1
+    },
+    "crusher": {
+     "wet_tph": 172.0,
+     "P80_mm": 46.0,
+     "P_absorbed_kW": 71.3
+    },
+    "loop_wet_tph": 99.57,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 5.94,
+     "bottom_20mm": 6.55
+    },
+    "kfs_envelope": null,
+    "checks": {
+     "kfs_envelope": null,
+     "loop_le_90_wet": false,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": false
+    },
+    "alerts": []
+   },
+   {
+    "label": "S10 rain 1A n=1.8 measured (wet areas, adverse shape)",
+    "mode": "1A",
+    "gap_mm": 60,
+    "n_CR5006": 1.8,
+    "weather": "rain",
+    "moisture_pct": 12.0,
+    "feed": {
+     "pct_lt_20mm": 45.5,
+     "F80_mm": 180.6
+    },
+    "crusher": {
+     "wet_tph": 250.0,
+     "P80_mm": 45.49,
+     "P_absorbed_kW": 85.9
+    },
+    "loop_wet_tph": 84.91,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 8.58,
+     "bottom_20mm": 8.98
+    },
+    "kfs_envelope": {
+     "below": 8.2,
+     "in_cut": 82.27,
+     "above": 9.54,
+     "compliant": true
+    },
+    "checks": {
+     "kfs_envelope": true,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   },
+   {
+    "label": "S10 soft-rock 1B quarry-target",
+    "mode": "1B",
+    "gap_mm": 60,
+    "n_CR5006": 1.15,
+    "weather": "dry",
+    "moisture_pct": 7,
+    "feed": {
+     "pct_lt_20mm": 40.0,
+     "F80_mm": 251.1
+    },
+    "crusher": {
+     "wet_tph": 172.0,
+     "P80_mm": 39.97,
+     "P_absorbed_kW": 48.1
+    },
+    "loop_wet_tph": 82.88,
+    "loop_cap_wet_tph": 90,
+    "screen_req_area_m2": {
+     "top_35mm": 5.81,
+     "bottom_20mm": 6.55
+    },
+    "kfs_envelope": null,
+    "checks": {
+     "kfs_envelope": null,
+     "loop_le_90_wet": true,
+     "crusher_cap_le_400": true,
+     "crusher_power_le_360kW": true,
+     "screen_area_le_16p2": true,
+     "ALL_PASS": true
+    },
+    "alerts": []
+   }
+  ]
+ },
+ "S9_analytical_gates": {
+  "feed_top_size": {
+   "machine_limit_mm": 300,
+   "hypothesis_top_size_mm": 320,
+   "measured_pct_gt_200mm": 19.0,
+   "measured_pct_gt_300mm_H_FEED2": 2.85,
+   "verdict": "CONTRACTUAL/OPERATIONAL — the H-FEED-2 completed tail puts ~2.9 % of the feed above the machine's printed 300 mm limit (top size 320). Either the vendor confirms 320 mm acceptance or the quarry primary guarantees 0-300 (a grizzly/setting matter). To be settled IN WRITING before order."
+  },
+  "power": {
+   "bond_absorbed_kW_at_reference": 96.6,
+   "installed_kW": 360,
+   "verdict": "PASS — enormous margin (installed ~3.7x the Bond estimate; vendor drive sized for hard rock)."
+  },
+  "setting_window": {
+   "printed_range_mm": "40-800",
+   "required_window_mm": "20-60",
+   "verdict": "FAIL AS PRINTED — the decisive gate. The S5 sweep shows the duty needs g operable across 20-60; written confirmation (or a corrected spec sheet) is a CONDITION PRECEDENT to any order."
+  },
+  "screen_mesh_range": {
+   "printed_mm": "2-70",
+   "required_decks_mm": "35 / 20",
+   "verdict": "COVERED by the printed range, but the supplied apertures are nowhere stated — the order must specify 35/20 with certified aperture tolerance."
+  }
+ }
+}
