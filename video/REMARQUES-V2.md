@@ -35,6 +35,28 @@ Retours de Philippe, session du 8 septembre 2026 (fin de journée).
   - Tester aussi le champ **« Voice details »** via l'interface web Higgsfield
     (indication d'accent/diction non exposée par le CLI).
 
+## 3. Ton trop sérieux / formel — amener plus de fun
+
+- La V1 est **trop sérieuse, trop formelle**. Il faut **plus de fun** dans
+  l'interaction porte-parole ↔ fenêtre interactive. Sujet à retravailler
+  ensemble (« on va revenir sur le sujet »).
+- Pistes à explorer pour la V2 (à valider avec Philippe) :
+  - **Complicité porte-parole ↔ interface** : elle interagit vraiment avec la
+    fenêtre — un clin d'œil, elle « pousse » une bulle du doigt, la coche
+    apparaît quand elle claque des doigts, elle réagit avec un petit sourire
+    quand le site se génère. L'IA joue avec sa propre démo.
+  - **Micro-humour dans le script** : garder le concept « La confession » mais
+    y glisser une pointe d'autodérision assumée d'IA (p. ex. « Yes, I'm an AI —
+    and even I think you deserve your evenings back. »). Léger, pas comique.
+  - **Rythme plus vif** : coupes plus dynamiques, un zoom rapide ou un « punch »
+    visuel sur un mot clé, une réaction expressive (sourcil levé, sourire).
+  - **Sound design ludique** : petits « pop / whoosh / ding » quand les services
+    se cochent ou que le site apparaît (au lieu de la seule nappe grave).
+  - **Expressions plus variées** de la porte-parole entre les plans (prompts
+    Seedance : « playful », « amused smile », « raises an eyebrow »).
+  - Garder l'émotion de la pause finale — le fun est pour le **corps** de la
+    vidéo, la **chute reste sincère** (« human connection comes first »).
+
 ## Rappels de contexte (à conserver)
 
 - Concept validé : **« La confession »** (porte-parole générée assumée).
