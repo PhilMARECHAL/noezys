@@ -1,0 +1,44 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<style>
+  @font-face { font-family:'Outfit'; font-weight:400; src:url('fonts/outfit-400.woff2') format('woff2'); }
+  @font-face { font-family:'Outfit'; font-weight:500; src:url('fonts/outfit-500.woff2') format('woff2'); }
+  @font-face { font-family:'Outfit'; font-weight:600; src:url('fonts/outfit-600.woff2') format('woff2'); }
+  @font-face { font-family:'Outfit'; font-weight:700; src:url('fonts/outfit-700.woff2') format('woff2'); }
+  :root{ --cyan:#00D4FF; --purple:#8B5CF6; --green:#55B97E; --text:#F0F3FA; --text2:#8A96B4; }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html,body{ width:1280px; height:720px; overflow:hidden; font-family:'Outfit',sans-serif;
+    background:radial-gradient(120% 90% at 50% 30%, #141a33 0%, #0D1225 55%, #080b17 100%); }
+  #wrap{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .mark{ width:120px; height:120px; opacity:0; transform:translateY(16px) scale(.9); }
+  .name{ margin-top:22px; font-size:70px; font-weight:600; color:var(--text); letter-spacing:10px; padding-left:10px; opacity:0; }
+  .sub{ margin-top:12px; font-size:23px; font-weight:400; color:var(--text2); letter-spacing:9px; opacity:0; }
+  .pitch{ margin-top:34px; font-size:30px; font-weight:700; color:var(--text); opacity:0; text-align:center; }
+  .ctabtn{ margin-top:30px; padding:18px 46px; border-radius:50px; font-size:27px; font-weight:600; color:#08111f; opacity:0;
+           background:linear-gradient(90deg,var(--cyan),var(--purple)); box-shadow:0 12px 40px rgba(0,212,255,.28); }
+  .url{ margin-top:20px; font-size:26px; font-weight:500; color:var(--text2); letter-spacing:2px; opacity:0; }
+  .eco{ position:absolute; bottom:44px; font-size:20px; font-weight:500; color:var(--green); letter-spacing:5px; opacity:0; }
+  .dot{ position:absolute; border-radius:50%; background:#9FB6FF; opacity:.0; }
+</style></head>
+<body>
+<div id="wrap">
+  <img class="mark" id="mark" src="../assets/noezys-n-mark.png" alt="">
+  <div class="name" id="name">NOEZYS</div>
+  <div class="sub" id="sub">AI INNOVATION LAB</div>
+  <div class="pitch" id="pitch">30 minutes, a concrete action plan, no commitment.</div>
+  <div class="ctabtn" id="cta">Explore the Lab</div>
+  <div class="url" id="url">noezys.com</div>
+  <div class="eco" id="eco">SUSTAINABLE DIGITAL SOLUTIONS · RESPONSIBLE AI</div>
+</div>
+<script>
+const E=id=>document.getElementById(id);
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)), ease=t=>1-Math.pow(1-t,3);
+function up(el,t,s,d){ const p=ease(clamp((t-s)/d,0,1)); el.style.opacity=p; el.style.transform=`translateY(${(1-p)*16}px)`; }
+window.seek=function(t){
+  const m=ease(clamp((t-0.2)/0.7,0,1)); E('mark').style.opacity=m; E('mark').style.transform=`translateY(${(1-m)*16}px) scale(${0.9+m*0.1})`;
+  up(E('name'),t,0.6,0.6); up(E('sub'),t,0.9,0.6);
+  up(E('pitch'),t,1.5,0.6); up(E('cta'),t,2.1,0.6); up(E('url'),t,2.5,0.6);
+  E('eco').style.opacity=ease(clamp((t-3.0)/0.7,0,1));
+};
+window.seek(0);
+</script>
+</body></html>
