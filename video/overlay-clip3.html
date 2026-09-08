@@ -1,0 +1,61 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<style>
+  @font-face { font-family:'Outfit'; font-weight:400; src:url('fonts/outfit-400.woff2') format('woff2'); }
+  @font-face { font-family:'Outfit'; font-weight:500; src:url('fonts/outfit-500.woff2') format('woff2'); }
+  @font-face { font-family:'Outfit'; font-weight:600; src:url('fonts/outfit-600.woff2') format('woff2'); }
+  @font-face { font-family:'Outfit'; font-weight:700; src:url('fonts/outfit-700.woff2') format('woff2'); }
+  :root{ --nav:#0D1225; --cyan:#00D4FF; --purple:#8B5CF6; --green:#55B97E; --text:#F0F3FA; --text2:#8A96B4; }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html,body{ width:1280px; height:720px; background:transparent; overflow:hidden; font-family:'Outfit',sans-serif; }
+  #win{
+    position:absolute; left:70px; top:180px; width:510px; height:370px;
+    border-radius:22px; opacity:0; transform:translateY(24px) scale(.97);
+    background:linear-gradient(180deg, rgba(18,24,48,.93), rgba(9,13,28,.95)) padding-box,
+              linear-gradient(130deg, var(--cyan), var(--purple)) border-box;
+    border:1.5px solid transparent;
+    box-shadow:0 30px 80px rgba(0,0,0,.55), 0 0 40px rgba(0,212,255,.18);
+    backdrop-filter:blur(3px); overflow:hidden;
+  }
+  #bar{ height:52px; display:flex; align-items:center; gap:9px; padding:0 20px; border-bottom:1px solid rgba(255,255,255,.07); }
+  .dot{ width:12px; height:12px; border-radius:50%; }
+  #bar .title{ margin-left:14px; font-size:20px; font-weight:600; color:var(--text); }
+  #bar .title b{ background:linear-gradient(90deg,var(--cyan),var(--purple)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  #body{ padding:26px 26px 0; }
+  .head{ font-size:15px; font-weight:600; letter-spacing:2px; color:var(--text2); text-transform:uppercase; margin-bottom:22px; }
+  .val{ font-size:34px; font-weight:700; margin-bottom:16px; opacity:0; transform:translateX(-14px);
+        background:linear-gradient(90deg,var(--cyan),var(--purple)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  #sig{ margin-top:6px; font-size:24px; font-weight:600; color:var(--text); opacity:0; }
+</style></head>
+<body>
+<div id="win">
+  <div id="bar">
+    <span class="dot" style="background:#ff5f57"></span>
+    <span class="dot" style="background:#febc2e"></span>
+    <span class="dot" style="background:#28c840"></span>
+    <span class="title"><b>NOEZYS</b> · The team</span>
+  </div>
+  <div id="body">
+    <div class="head">What we stand for</div>
+    <div class="val" id="v0">Authenticity.</div>
+    <div class="val" id="v1">Impact.</div>
+    <div class="val" id="v2">Creativity.</div>
+    <div id="sig">People first. Always.</div>
+  </div>
+</div>
+<script>
+const win=document.getElementById('win');
+const vals=[document.getElementById('v0'),document.getElementById('v1'),document.getElementById('v2')];
+const sig=document.getElementById('sig');
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)), ease=t=>1-Math.pow(1-t,3);
+window.seek=function(t){
+  const w=ease(clamp((t-0.15)/0.8,0,1));
+  // fondu de sortie sur la fin pour laisser place à l'humain
+  const out=ease(clamp((t-5.9)/0.9,0,1));
+  win.style.opacity=w*(1-out);
+  win.style.transform=`translateY(${(1-w)*24 + out*18}px) scale(${0.97+w*0.03-out*0.02})`;
+  vals.forEach((el,i)=>{ const s=1.0+i*0.7; const p=ease(clamp((t-s)/0.5,0,1)); el.style.opacity=p; el.style.transform=`translateX(${(1-p)*-14}px)`; });
+  sig.style.opacity=ease(clamp((t-3.4)/0.6,0,1));
+};
+window.seek(0);
+</script>
+</body></html>
