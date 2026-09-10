@@ -17,11 +17,16 @@ d'acheter ET de connaître les fondateurs. Sortir de la boîte, jamais vu.
      fait pousser un site en origami, rallume l'enseigne.
   4. Aube : tout est fait. Regard complice. Elle sourit (émotion).
   5. Tag : « NOEZYS — l'IA qui veille sur les petites boîtes. » + « Voici Noe. »
-- **Deux designs testés (13 crédits)** :
-  - **A** — le logo N entier qui prend vie (recommandé branding). Fichier `hf-noe/noe-A.png`.
-  - **B** — petit robot-mascotte avec le N en tête. Fichier `hf-noe/noe-B.png`.
-- **Prochaine étape** : Philippe choisit A ou B → fiche personnage multi-poses
-  (référence pour garder Noe identique) → storyboard → animation.
+- **Design VERROUILLÉ par Philippe (10 sept.)** : la **variante B — le petit
+  robot-mascotte** avec le N néon en tête, corps robotique blanc, emblème
+  lumineux sur le ventre. « Je veux ce personnage, rien d'autre. »
+  - Référence officielle : `hf-noe/NOE-OFFICIEL.jpg` (= `hf-noe/noe-B.png`).
+  - Media id Higgsfield (à réutiliser en `--image-references`) :
+    `a65e8fe4-fa08-4231-ba3f-878b3607fc74`.
+  - Fiche de poses : `hf-noe/noe-robot-sheet.png` (cohérence validée).
+  - La variante A (`noe-A.png`) est **écartée**.
+- **Prochaine étape** : test animé de CE Noe (Seedance 2.5, image en réf) →
+  storyboard → animation du court-métrage.
 - **Réalité de prod** : Higgsfield fait de l'animation **stylisée façon Pixar**
   (pas du CGI image par image). Défi = cohérence du personnage entre plans →
   verrouiller une fiche de référence et la réutiliser sur chaque plan.
